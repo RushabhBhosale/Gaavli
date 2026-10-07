@@ -73,9 +73,7 @@ Example:
 GET /api/v1/listings
 ```
 
-Mobile and Admin applications MUST communicate through the API.
-
-They MUST NOT access MongoDB directly.
+Mobile communicates through REST endpoints. The Admin browser must not access MongoDB; its Next.js server-side flows use the same application services, authorization, validation, and business rules as API Route Handlers.
 
 ---
 

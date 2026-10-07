@@ -1204,14 +1204,14 @@ In-progress listing forms must be persisted locally while the user types so a po
 
 Use:
 
-- **Node.js**
+- **Next.js** using the **Node.js runtime** for Mongoose-backed routes
 - **TypeScript**
 - **Next.js Route Handlers**
 - **Mongoose**
 - **Zod**
 - REST/JSON APIs initially
 
-Next.js Route Handlers is preferred over Express for the new project because the application is intended to remain lightweight while still supporting structured plugins, validation and high-performance HTTP handling.
+Route Handlers are thin transport adapters. Keep authentication, authorization, validation, and reusable business rules in the server-side application layer; repositories own database access. Do not access MongoDB from Mobile or Client Components. Do not replace Mobile REST endpoints with Server Actions.
 
 Do not introduce GraphQL for the pilot. The application's API patterns are predominantly straightforward resource and action endpoints, and REST is simpler for the mobile offline queue.
 
@@ -1577,22 +1577,22 @@ The objective is to ship a reliable village pilot first, not to build infrastruc
 | Secure storage | Expo SecureStore |
 | Connectivity | NetInfo |
 | Voice | Device speech recognition |
-| Backend | Next.js + TypeScript |
+| Backend | Next.js Route Handlers + server-side application services |
 | Validation | Zod |
 | Database | MongoDB Atlas |
 | ODM | Mongoose |
 | Search | MongoDB Atlas Search |
 | Admin | Next.js + TypeScript |
 | Admin UI | shadcn/ui + TanStack Table |
-| Shared code | npm workspaces |
+| Shared code | `packages/types`, `packages/validation`, `packages/constants`, `packages/utils` |
 | Photo storage | Cloudflare R2 / AWS S3 |
 | Push | Expo Notifications / FCM |
 | SMS | MSG91 / Gupshup or equivalent India-focused provider |
 | WhatsApp | MSG91 / Gupshup or equivalent WhatsApp Business provider |
-| Hosting | Vercel or another compatible Node.js host; Vercel may host admin |
+| Hosting | Vercel or another compatible Node.js host for the combined web/API application |
 | Monitoring | Sentry |
 | Architecture | Modular monolith |
-| AI development | Codex / Codex / Cursor |
+| AI development | Codex |
 | Runtime AI/LLM | Not required for v1.2 |
 
 ### 22.22 Architecture decision summary

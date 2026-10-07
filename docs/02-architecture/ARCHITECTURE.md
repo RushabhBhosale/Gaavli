@@ -8,7 +8,9 @@ Mobile → Next.js Route Handler → authentication → authorization → Zod va
 Admin Next.js server layer → same application services → repositories → MongoDB Atlas
 ```
 
-Mongoose and database access are server-only. Use Node.js runtime for Mongoose-backed handlers unless an alternative is explicitly validated. Keep Route Handlers thin and use DTOs rather than raw Mongoose documents. Preserve modular monolith, offline-first mobile, shared-package direction (`apps → packages`), provider abstractions, Cloudflare R2/AWS S3, and Sentry. npm workspaces are sufficient; no separate Fastify service or Turborepo is part of the target. See `docs/IMPLEMENTATION_STATUS.md` for actual code status.
+Mongoose and database access are server-only. Use Node.js runtime for Mongoose-backed handlers unless an alternative is explicitly validated. Keep Route Handlers thin and use DTOs rather than raw Mongoose documents. Preserve modular monolith, offline-first mobile, shared-package direction (`apps → packages`), provider abstractions, Cloudflare R2/AWS S3, and Sentry. npm workspaces are sufficient; no separate API service or monorepo orchestrator is part of the target.
+
+Next.js server caching must be deliberate and separate from Mobile SQLite caching. Never publicly cache authenticated or user-specific responses; public reference data may be cached appropriately, and listing/search freshness must be respected. Scheduled digests should use a hosting scheduler or cron to call a protected server job entry, then provider-independent, idempotent, consent-aware, language-aware application services that skip empty digests. Do not add Redis, BullMQ, Kafka, or RabbitMQ for this flow without an approved need. See `docs/IMPLEMENTATION_STATUS.md` for actual code status.
 
 
 Below is a repo-ready version.
@@ -277,8 +279,9 @@ Sentry
                                     │ HTTPS
                                     ▼
                          ┌──────────────────────┐
-                         │    Next.js REST API       │
-                         │  Modular Monolith    │
+                         │      apps/web            │
+                         │ Next.js Route Handlers  │
+                         │ Admin + services        │
                          └──────────┬───────────┘
                                     │
                 ┌───────────────────┼────────────────────┐
@@ -298,12 +301,7 @@ Sentry
         └──────────────────────┘
 
 
-                         ┌──────────────────────┐
-                         │    Next.js Admin     │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                              Next.js REST API
+Admin UI is part of `apps/web` and calls the same server-side application services; the Admin browser does not connect to MongoDB.
 ```
 
 ---
@@ -394,61 +392,19 @@ The mobile application is the primary user-facing application.
 
 ---
 
-## 7.2 API
+## 7.2 Web Application, REST API, and Backend
 
-The API is the central business and data layer.
+`apps/web` is one Next.js + TypeScript application containing the Admin UI, REST API, and backend services. Mobile uses stable REST/HTTPS/JSON Route Handlers under `/api/v1`. Route Handlers remain thin transport adapters and call shared server-side application services.
 
-Technology:
+Responsibilities include authentication, authorization, input validation, user and village operations, listings, services, search, interests, notifications, consent, Admin operations, audit logging, conflict resolution, idempotency, and server-side business rules.
 
-```text
-Node.js + Next.js Route Handlers + TypeScript
-```
+The server-side application layer owns repository access and MongoDB connections. Client Components and the Admin browser must not access MongoDB directly.
 
-Responsibilities:
+## 7.3 Admin UI
 
-* Authentication
-* Authorization
-* User management
-* Village relationships
-* Listings
-* Services
-* Search
-* Interests
-* Notifications
-* Consent
-* Admin operations
-* Audit logging
-* Data validation
-* Conflict resolution
-* Idempotency
-* Server-side business rules
+The Admin UI is part of `apps/web` and uses Next.js + TypeScript, shadcn/ui, and TanStack Table. Admin server-side flows reuse the same application services, authorization, validation, audit rules, and business rules as the REST API. Server Actions may be used selectively for Admin-only operations but do not replace Mobile REST endpoints.
 
-The mobile and admin applications MUST NOT access MongoDB directly.
-
----
-
-## 7.3 Admin Application
-
-Technology:
-
-```text
-Next.js + TypeScript
-```
-
-Responsibilities:
-
-* User administration
-* Village management
-* Coordinator management
-* Listing moderation where required
-* Service directory management
-* Reports
-* Notification configuration
-* Platform configuration
-* Audit visibility
-* Operational dashboards
-
-Admin MUST communicate through the API.
+Responsibilities include user and village management, coordinator management, listing moderation, service directory management, reports, notification configuration, platform configuration, audit visibility, and operational dashboards.
 
 ---
 

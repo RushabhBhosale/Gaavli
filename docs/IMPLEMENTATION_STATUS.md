@@ -1,6 +1,6 @@
 # Current Repository Snapshot — 2026-10-07
 
-This checkout contains project documentation only. At inspection time it had no `package.json`, `package-lock.json`, application source, or application workspace directories. The `apps/mobile/AGENTS.md` and `apps/web/AGENTS.md` files added in this documentation update are instruction documents, not app implementations. No application migration has been performed.
+This checkout contains project documentation only. At inspection time it had no `package.json`, `package-lock.json`, or application source. The `apps/mobile` and `apps/web` directories contain only their `AGENTS.md` instruction documents, not app implementations. No application migration has been performed.
 
 | Area | Approved target | Current status |
 | --- | --- | --- |
@@ -12,6 +12,18 @@ This checkout contains project documentation only. At inspection time it had no 
 | Shared packages | `packages/types`, `validation`, `constants`, `utils` | NOT STARTED; no packages present |
 
 This snapshot describes the checkout inspected for the documentation migration. Update it when implementation files are added and verified.
+
+## Documentation Architecture Decision Log — 2026-10-07
+
+| Area | Previous documentation direction | Current approved direction | Status |
+| --- | --- | --- | --- |
+| AI development | Mixed Claude Code/Codex guidance with root `CLAUDE.md` authority (historical; superseded) | Codex primary; root `/AGENTS.md` and app-local instructions | Documentation updated; no code migration |
+| Backend | Node.js + Fastify API (historical; superseded) | Next.js Route Handlers in `apps/web`, with shared server-side services | Documentation updated; backend NOT STARTED |
+| Applications | Separate `apps/api` and `apps/admin` targets (historical; superseded) | `apps/mobile` and `apps/web` | Documentation updated; app code NOT STARTED |
+| Package management | pnpm + Turborepo (historical; superseded) | npm workspaces and `package-lock.json` | Documentation updated; package manifests NOT STARTED |
+| UI/UX design | Mixed design and implementation agent responsibilities | Lovable design-only; Codex production implementation | Documentation updated |
+
+These are documentation decisions only. They do not indicate that applications, workspaces, APIs, or database integrations have been migrated or implemented.
 
 ---
 
@@ -247,8 +259,8 @@ Possible phases:
 
 | Feature / Task                  | Status      | Verification | Notes |
 | ------------------------------- | ----------- | ------------ | ----- |
-| npm workspaces                  | NOT STARTED | V0           |       |
-| npm workspaces                       | NOT STARTED | V0           |       |
+| npm workspace root configuration | NOT STARTED | V0           | No package manifest present |
+| npm workspaces                   | NOT STARTED | V0           | No package manifest or lockfile present |
 | Root configuration              | NOT STARTED | V0           |       |
 | Shared TypeScript configuration | NOT STARTED | V0           |       |
 | Shared types package            | NOT STARTED | V0           |       |
@@ -1063,4 +1075,3 @@ The implementation status must reflect reality.
 **A feature is complete only when it works and has been verified.**
 
 ```
-

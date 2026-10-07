@@ -65,7 +65,7 @@ Lovable is NOT responsible for implementing:
 - analytics implementation
 - application architecture
 
-The actual application implementation will be handled separately using AI coding agents such as Codex and Codex.
+Codex implements the production application after the design handoff.
 
 Therefore:
 
@@ -120,11 +120,11 @@ Lovable must use the following documents as product/design context.
 
 Priority:
 
-1. PROJECT_REQUIREMENTS.md
-2. UI_UX_PRD.md
-3. ARCHITECTURE.md
-4. SECURITY_PRIVACY.md
-5. OFFLINE_SYNC.md
+1. `docs/01-product/PROJECT_REQUIREMENTS.md`
+2. `docs/06-ui/UI_UX_PRD.md`
+3. `docs/02-architecture/ARCHITECTURE.md`
+4. `docs/SECURITY_PRIVACY.md`
+5. `docs/OFFLINE_SYNC.md`
 
 However, Lovable should use technical documents only to understand how the UI should represent a feature.
 
@@ -1839,4 +1839,3 @@ Codex will implement the application later using the approved architecture and t
 
 > "If a farmer who is not comfortable with smartphones can open Gaavli and understand what to do within a few seconds, the UI is doing its job."
 ```
-
