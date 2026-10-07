@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Farmer-Buyer Connect — Full Wireframe Set v1.1</title>
+<style>
+  :root{
+    --ink:#1f2328; --ink-soft:#5b6168; --line:#b9bec4; --line-soft:#dde1e4;
+    --bg:#f3f4f5; --panel:#ffffff; --accent:#2f6f4f; --accent-soft:#e4ede8;
+    --faded:#c7cbce; --warn:#b5651d; --warn-bg:#fdf3ea; --bad:#a13c34; --bad-bg:#f8eceb;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);}
+  .app{display:flex;min-height:100vh;}
+  .sidebar{width:230px;background:var(--panel);border-right:1px solid var(--line-soft);padding:20px 0;flex-shrink:0;}
+  .brand{font-size:14px;font-weight:700;letter-spacing:.02em;padding:0 20px 18px;border-bottom:1px solid var(--line-soft);margin-bottom:10px;}
+  .brand small{display:block;font-weight:400;color:var(--ink-soft);margin-top:2px;font-size:11px;}
+  .role-tab{display:flex;align-items:center;gap:10px;padding:12px 20px;cursor:pointer;font-size:13.5px;color:var(--ink-soft);border-left:3px solid transparent;}
+  .role-tab .dot{width:8px;height:8px;border-radius:50%;background:var(--line);}
+  .role-tab.active{color:var(--ink);font-weight:600;border-left-color:var(--accent);background:var(--accent-soft);}
+  .role-tab.active .dot{background:var(--accent);}
+  .role-tab:hover{background:#f7f8f8;}
+  .role-note{padding:14px 20px;font-size:11.5px;color:var(--ink-soft);line-height:1.5;border-top:1px solid var(--line-soft);margin-top:10px;}
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;}
+  .screen-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:16px 24px;border-bottom:1px solid var(--line-soft);background:var(--panel);}
+  .screen-tab{font-size:12px;padding:6px 12px;border:1px solid var(--line-soft);border-radius:14px;cursor:pointer;color:var(--ink-soft);background:#fafbfb;white-space:nowrap;}
+  .screen-tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .stage{flex:1;display:flex;gap:28px;padding:28px;overflow:auto;align-items:flex-start;justify-content:center;}
+  .canvas-col{display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0;}
+  .canvas-title{font-size:12px;color:var(--ink-soft);}
+  .notes-col{width:310px;flex-shrink:0;background:var(--panel);border:1px solid var(--line-soft);border-radius:8px;padding:18px 20px;}
+  .notes-col h4{margin:0 0 10px;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);}
+  .notes-col ul{margin:0 0 16px;padding-left:16px;font-size:13px;line-height:1.55;}
+  .notes-col ul:last-child{margin-bottom:0;}
+  .nav-list b{color:var(--accent);}
+  .phone{width:320px;background:#fff;border:2px solid var(--ink);border-radius:26px;padding:10px 8px;box-shadow:0 6px 18px rgba(0,0,0,.08);}
+  .phone-screen{border:1px solid var(--line-soft);border-radius:16px;min-height:620px;overflow:hidden;display:flex;flex-direction:column;background:#fff;}
+  .statusbar{height:18px;background:#eee;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:9px;color:#888;}
+  .browser{width:800px;border:1px solid var(--ink);border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.08);}
+  .browser-bar{background:#e9eaeb;padding:8px 12px;display:flex;gap:6px;align-items:center;}
+  .browser-bar .dot{width:8px;height:8px;border-radius:50%;background:#c6c9cb;}
+  .browser-url{flex:1;background:#fff;border:1px solid var(--line-soft);border-radius:4px;font-size:10px;color:var(--ink-soft);padding:3px 8px;margin-left:6px;}
+  .browser-body{min-height:600px;background:#fff;}
+  .wf-topbar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line-soft);}
+  .wf-back{width:20px;height:20px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink-soft);}
+  .wf-topbar-title{font-weight:700;font-size:14.5px;flex:1;}
+  .wf-icon{width:22px;height:22px;border:1px solid var(--line);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink-soft);}
+  .wf-addbtn{font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;background:var(--ink);color:#fff;}
+  .wf-body{padding:14px;flex:1;overflow:auto;position:relative;}
+  .wf-search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--ink-soft);margin-bottom:10px;}
+  .wf-search .mic{margin-left:auto;width:20px;height:20px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
+  .wf-listheader{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+  .wf-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+  .wf-chip{font-size:10.5px;padding:5px 10px;border:1px solid var(--line);border-radius:12px;color:var(--ink-soft);}
+  .wf-chip.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .wf-section-title{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:16px 0 8px;}
+  .wf-section-title:first-child{margin-top:0;}
+  .wf-statrow{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+  .wf-stat{flex:1;min-width:90px;border:1px dashed var(--line);border-radius:8px;padding:10px 8px;text-align:center;}
+  .wf-stat.clickable{cursor:pointer;}
+  .wf-stat.clickable:hover{border-color:var(--ink);background:#fafbfb;}
+  .wf-stat .v{font-size:17px;font-weight:700;}
+  .wf-stat .l{font-size:9.5px;color:var(--ink-soft);margin-top:2px;}
+  .wf-stat .ct{font-size:8.5px;color:var(--accent);margin-top:3px;}
+  .wf-card{border:1px solid var(--line-soft);border-radius:8px;padding:10px;display:flex;gap:10px;margin-bottom:8px;position:relative;}
+  .wf-card.faded{opacity:.42;}
+  .wf-card.selectable{border-width:1.5px;}
+  .wf-card.selected{border-color:var(--accent);background:var(--accent-soft);}
+  .wf-thumb{width:44px;height:44px;border-radius:6px;flex-shrink:0;background:repeating-linear-gradient(45deg,#eceeef,#eceeef 4px,#f6f7f7 4px,#f6f7f7 8px);border:1px solid var(--line-soft);}
+  .wf-card-main{flex:1;min-width:0;}
+  .wf-card-title{font-size:12.5px;font-weight:600;}
+  .wf-card-sub{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+  .wf-card-meta{font-size:10px;color:var(--ink-soft);margin-top:4px;}
+  .wf-badge{position:absolute;top:8px;right:8px;font-size:8.5px;padding:2px 6px;border-radius:8px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);}
+  .wf-badge.grey{background:#eee;color:var(--ink-soft);border-color:var(--line);}
+  .wf-badge.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn);}
+  .wf-field{margin-bottom:12px;}
+  .wf-field label{display:block;font-size:10.5px;color:var(--ink-soft);margin-bottom:4px;}
+  .wf-field label .req{color:var(--bad);}
+  .wf-field .hint{font-size:10px;color:var(--ink-soft);margin-top:4px;}
+  .wf-input{border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--ink);}
+  .wf-input.ph{color:var(--ink-soft);}
+  .wf-input.errbox{border-color:var(--bad);background:var(--bad-bg);}
+  .wf-fielderror{display:flex;align-items:center;gap:4px;color:var(--bad);font-size:10.5px;margin-top:4px;}
+  .wf-formerror{border:1px solid var(--bad);background:var(--bad-bg);color:var(--bad);border-radius:6px;padding:9px 11px;font-size:11px;margin-bottom:12px;}
+  .wf-select{display:flex;justify-content:space-between;align-items:center;}
+  .wf-select .car{color:var(--ink-soft);font-size:10px;}
+  .wf-photo-upload{border:1px dashed var(--line);border-radius:8px;height:56px;display:flex;align-items:center;justify-content:center;font-size:10.5px;color:var(--ink-soft);}
+  .wf-toggle2{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:11px;margin-bottom:14px;}
+  .wf-toggle2 div{flex:1;text-align:center;padding:8px;color:var(--ink-soft);}
+  .wf-toggle2 div.active{background:var(--ink);color:#fff;font-weight:600;}
+  .wf-button{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:8px;font-size:12.5px;font-weight:600;width:100%;margin-bottom:8px;}
+  .wf-button.primary{background:var(--ink);color:#fff;}
+  .wf-button.secondary{background:#fff;color:var(--ink);border:1px solid var(--ink);}
+  .wf-button.ghost{background:transparent;color:var(--ink-soft);border:1px dashed var(--line);}
+  .wf-button.danger{background:#fff;color:var(--bad);border:1px solid var(--bad);}
+  .wf-button.small{width:auto;padding:6px 12px;font-size:11px;margin:0;}
+  .wf-buttonrow{display:flex;gap:8px;flex-wrap:wrap;}
+  .wf-buttonrow .wf-button{margin-bottom:0;}
+  .wf-fab{position:absolute;bottom:70px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:300;box-shadow:0 3px 8px rgba(0,0,0,.25);}
+  .wf-notif{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-soft);}
+  .wf-notif .nd{width:7px;height:7px;border-radius:50%;background:var(--accent);margin-top:5px;flex-shrink:0;}
+  .wf-notif.read .nd{background:transparent;}
+  .wf-notif-title{font-size:12px;font-weight:600;}
+  .wf-notif-sub{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+  .wf-notif-time{font-size:9.5px;color:var(--faded);margin-top:3px;}
+  .wf-banner{border:1px solid var(--line-soft);background:#fafbfa;border-radius:8px;padding:11px;font-size:11.5px;color:var(--ink-soft);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+  .wf-banner.accentb{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);}
+  .wf-coordcard{display:flex;align-items:center;gap:10px;border:1px solid var(--line-soft);border-radius:8px;padding:9px 11px;margin-bottom:12px;font-size:11px;color:var(--ink-soft);}
+  .wf-coordcard b{color:var(--ink);}
+  .wf-bottomnav{display:flex;border-top:1px solid var(--line-soft);}
+  .wf-bottomnav div{flex:1;text-align:center;padding:8px 4px;font-size:9px;color:var(--ink-soft);}
+  .wf-bottomnav div.active{color:var(--ink);font-weight:700;}
+  .wf-bottomnav .ic{width:16px;height:16px;border:1px solid var(--line);border-radius:4px;margin:0 auto 3px;}
+  .wf-bottomnav div.active .ic{border-color:var(--ink);background:var(--accent-soft);}
+  .wf-table{width:100%;border-collapse:collapse;font-size:11px;}
+  .wf-table th{text-align:left;font-size:9.5px;text-transform:uppercase;color:var(--ink-soft);border-bottom:1px solid var(--line);padding:7px 8px;white-space:nowrap;}
+  .wf-table td{padding:8px;border-bottom:1px solid var(--line-soft);}
+  .wf-table tr:hover td{background:#fafbfb;}
+  .wf-pill{font-size:9.5px;padding:2px 8px;border-radius:8px;}
+  .wf-pill.ok{background:#e4ede8;color:var(--accent);}
+  .wf-pill.pending{background:#f4ecdf;color:var(--warn);}
+  .wf-pill.bad{background:#f3e3e2;color:var(--bad);}
+  .wf-pagination{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:11px;color:var(--ink-soft);}
+  .wf-pagenums{display:flex;gap:4px;}
+  .wf-pagenums span{width:22px;height:22px;border:1px solid var(--line-soft);border-radius:5px;display:flex;align-items:center;justify-content:center;}
+  .wf-pagenums span.cur{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .wf-dependency{border:1px solid var(--warn);background:var(--warn-bg);border-radius:8px;padding:12px 14px;margin-bottom:12px;}
+  .wf-dependency-title{font-weight:700;font-size:12px;margin-bottom:7px;color:var(--warn);}
+  .wf-dependency ul{margin:0 0 9px;padding-left:16px;font-size:11px;line-height:1.6;color:var(--ink);}
+  .wf-otp{display:flex;gap:8px;margin-bottom:10px;}
+  .wf-otp div{width:34px;height:40px;border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .wf-text{font-size:12px;color:var(--ink-soft);line-height:1.5;margin-bottom:12px;}
+  .wf-divider{border-top:1px solid var(--line-soft);margin:14px 0;}
+  .wf-avatar{width:52px;height:52px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--accent);font-weight:700;margin:0 auto 10px;}
+  .wf-center{text-align:center;}
+  .wf-switchrow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line-soft);}
+  .wf-switchrow .sw-t{font-size:12px;font-weight:600;}
+  .wf-switchrow .sw-s{font-size:10px;color:var(--ink-soft);margin-top:2px;}
+  .wf-switch{width:34px;height:18px;border-radius:10px;position:relative;flex-shrink:0;}
+  .wf-switch.on{background:var(--accent);}
+  .wf-switch.off{background:#ddd;}
+  .wf-switch i{width:14px;height:14px;border-radius:50%;background:#fff;position:absolute;top:2px;}
+  .wf-switch.on i{left:18px;}
+  .wf-switch.off i{left:2px;}
+  .wf-formcard{border:1px solid var(--line-soft);border-radius:8px;padding:16px;}
+  .wf-suggest{border:1px solid var(--line-soft);border-radius:6px;margin-top:-6px;margin-bottom:10px;overflow:hidden;}
+  .wf-suggest div{padding:7px 10px;font-size:11px;border-bottom:1px solid var(--line-soft);color:var(--ink-soft);}
+  .wf-suggest div:last-child{border-bottom:none;}
+  .wf-suggest div.hi{color:var(--ink);font-weight:600;background:#fafbfb;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar" id="sidebar">
+    <div class="brand">Farmer–Buyer Connect<small>Full wireframe set — v1.1</small></div>
+    <div id="roleTabs"></div>
+    <div class="role-note" id="roleNote"></div>
+  </div>
+  <div class="main">
+    <div class="screen-tabs" id="screenTabs"></div>
+    <div class="stage" id="stage"></div>
+  </div>
+</div>
+
+<script>
+function el(type, comp){
+  switch(type){
+    case 'topbar':
+      return '<div class="wf-topbar">' + (comp.back?'<div class="wf-back">‹</div>':'') + '<div class="wf-topbar-title">' + comp.title + '</div>' + (comp.addLabel?('<div class="wf-addbtn">'+comp.addLabel+'</div>'):'') + (comp.actions||[]).map(function(a){return '<div class="wf-icon">'+a+'</div>';}).join('') + '</div>';
+    case 'search':
+      return '<div class="wf-search"><span>🔍</span><span>' + comp.placeholder + '</span>' + (comp.mic?'<div class="mic">🎤</div>':'') + '</div>';
+    case 'listheader':
+      return '<div class="wf-listheader"><div class="wf-search" style="margin-bottom:0;flex:1;"><span>🔍</span><span>'+comp.placeholder+'</span></div>'+(comp.addLabel?('<div class="wf-addbtn">'+comp.addLabel+'</div>'):'')+'</div>';
+    case 'chips':
+      return '<div class="wf-chips">' + comp.items.map(function(c){return '<div class="wf-chip '+(c.active?'active':'')+'">'+c.label+'</div>';}).join('') + '</div>';
+    case 'sectiontitle':
+      return '<div class="wf-section-title">' + comp.text + '</div>';
+    case 'statrow':
+      return '<div class="wf-statrow">' + comp.stats.map(function(s){return '<div class="wf-stat '+(s.clickTo?'clickable':'')+'"><div class="v">'+s.value+'</div><div class="l">'+s.label+'</div>'+(s.clickTo?('<div class="ct">→ '+s.clickTo+'</div>'):'')+'</div>';}).join('') + '</div>';
+    case 'card': return renderCard(comp);
+    case 'cardlist': return comp.items.map(renderCard).join('');
+    case 'field': return renderField(comp);
+    case 'formerror': return '<div class="wf-formerror">⚠ ' + comp.text + '</div>';
+    case 'suggest': return '<div class="wf-suggest">' + comp.items.map(function(s,i){return '<div class="'+(i===0?'hi':'')+'">'+s+'</div>';}).join('') + '</div>';
+    case 'photoupload': return '<div class="wf-field"><label>'+(comp.label||'Photo (optional)')+'</label><div class="wf-photo-upload">+ Add photo</div></div>';
+    case 'switchrow': return '<div class="wf-switchrow"><div><div class="sw-t">'+comp.label+'</div>'+(comp.sub?('<div class="sw-s">'+comp.sub+'</div>'):'')+'</div><div class="wf-switch '+(comp.on?'on':'off')+'"><i></i></div></div>';
+    case 'button': return '<div class="wf-button '+(comp.style||'primary')+'">'+comp.label+'</div>';
+    case 'buttonrow': return '<div class="wf-buttonrow">' + comp.buttons.map(function(b){return '<div class="wf-button '+(b.style||'secondary')+'">'+b.label+'</div>';}).join('') + '</div>';
+    case 'fab': return '<div class="wf-fab">'+(comp.label||'+')+'</div>';
+    case 'notiflist': return comp.items.map(function(n){return '<div class="wf-notif '+(n.read?'read':'')+'"><div class="nd"></div><div><div class="wf-notif-title">'+n.title+'</div><div class="wf-notif-sub">'+n.sub+'</div><div class="wf-notif-time">'+n.time+'</div></div></div>';}).join('');
+    case 'banner': return '<div class="wf-banner '+(comp.accent?'accentb':'')+'"><span>'+comp.text+'</span>'+(comp.cta?('<div class="wf-button small '+(comp.style||'secondary')+'">'+comp.cta+'</div>'):'')+'</div>';
+    case 'coordcard': return '<div class="wf-coordcard">👤 <span>Your village coordinator: <b>'+comp.name+'</b> · tap to view</span></div>';
+    case 'toggle2': return '<div class="wf-toggle2"><div class="'+(comp.active===0?'active':'')+'">'+comp.a+'</div><div class="'+(comp.active===1?'active':'')+'">'+comp.b+'</div></div>';
+    case 'otp': return '<div class="wf-otp">' + '0000'.split('').map(function(){return '<div>•</div>';}).join('') + '</div>';
+    case 'text': return '<div class="wf-text">' + comp.value + '</div>';
+    case 'divider': return '<div class="wf-divider"></div>';
+    case 'avatar': return '<div class="wf-avatar">' + comp.initials + '</div>';
+    case 'center': return '<div class="wf-center">' + (comp.items||[]).map(function(c){return el(c.type,c);}).join('') + '</div>';
+    case 'table': return '<table class="wf-table"><thead><tr>' + comp.columns.map(function(c){return '<th>'+c+' '+(c.sortable!==false?'↕':'')+'</th>';}).join('') + '</tr></thead><tbody>' + comp.rows.map(function(r){return '<tr>'+r.map(function(cell){return '<td>'+cell+'</td>';}).join('')+'</tr>';}).join('') + '</tbody></table>';
+    case 'pagination': return '<div class="wf-pagination"><span>Showing '+comp.showing+' of '+comp.total+'</span><div class="wf-pagenums"><span>‹</span>'+(comp.pages||[1,2,3]).map(function(p){return '<span class="'+(p===comp.current?'cur':'')+'">'+p+'</span>';}).join('')+'<span>…</span><span>›</span></div></div>';
+    case 'dependency': return '<div class="wf-dependency"><div class="wf-dependency-title">'+comp.title+'</div><ul>'+comp.items.map(function(i){return '<li>'+i+'</li>';}).join('')+'</ul><div class="wf-buttonrow">'+(comp.buttons||[]).map(function(b){return '<div class="wf-button '+(b.style||'secondary')+'">'+b.label+'</div>';}).join('')+'</div></div>';
+    case 'formcard': return '<div class="wf-formcard">' + (comp.items||[]).map(function(c){return el(c.type,c);}).join('') + '</div>';
+    default: return '';
+  }
+}
+function renderCard(c){
+  return '<div class="wf-card '+(c.faded?'faded':'')+' '+(c.selectable?'selectable':'')+' '+(c.selected?'selected':'')+'">'+
+    (c.badge?('<div class="wf-badge '+(c.badgeStyle||'')+'">'+c.badge+'</div>'):'')+
+    (c.image!==false?'<div class="wf-thumb"></div>':'')+
+    '<div class="wf-card-main"><div class="wf-card-title">'+c.title+'</div><div class="wf-card-sub">'+(c.sub||'')+'</div>'+(c.meta?('<div class="wf-card-meta">'+c.meta+'</div>'):'')+'</div></div>';
+}
+function renderField(f){
+  var label = f.label + (f.required ? ' <span class="req">*</span>' : '');
+  var boxClass = f.error ? 'errbox' : '';
+  var errorHtml = f.error ? ('<div class="wf-fielderror">⚠ '+f.error+'</div>') : (f.hint ? ('<div class="hint">'+f.hint+'</div>') : '');
+  if(f.type==='select'){
+    return '<div class="wf-field"><label>'+label+'</label><div class="wf-input wf-select '+boxClass+'"><span>'+f.value+'</span><span class="car">▾</span></div>'+errorHtml+'</div>';
+  }
+  return '<div class="wf-field"><label>'+label+'</label><div class="wf-input '+(f.value?'':'ph')+' '+boxClass+'">'+(f.value||f.placeholder||'')+'</div>'+errorHtml+'</div>';
+}
+function renderScreen(screen){
+  var body = screen.components.map(function(c){return el(c.type,c);}).join('');
+  var nav = screen.frame==='browser' ? '' : '<div class="wf-bottomnav">'+(screen.bottomnav||[]).map(function(n){return '<div class="'+(n.active?'active':'')+'"><div class="ic"></div>'+n.label+'</div>';}).join('')+'</div>';
+  return '<div class="wf-body">'+body+(screen.fab?el('fab',screen.fab):'')+'</div>'+nav;
+}
+
+/* ---------------------------------------------------------------
+   Nav helpers
+--------------------------------------------------------------- */
+var CORE_NAV = ['Home','Search','Alerts','Profile'];
+function nav(active){ return CORE_NAV.map(function(l){return {label:l, active:l===active};}); }
+
+var roles = {
+
+/* ============================= GUEST ============================= */
+guest: {
+  label:'Guest (not registered)', dot:true,
+  note:'No login required to browse. v1.1: Home is now tile-based (Marketplace / Services Directory / Transport coming soon). Registration is asked for only at the moment a guest wants a contact detail, on either tile.',
+  screens: [
+    { id:'g1', name:'Splash / Select Village', frame:'phone', components:[
+      {type:'center', items:[{type:'avatar', initials:'FB'}]},
+      {type:'text', value:'See fresh produce from farmers near you.'},
+      {type:'field', label:'Your village', type:'select', value:'Kajali (auto-detected)'},
+      {type:'text', value:'Location detected — you can change this anytime.'},
+      {type:'button', label:'Browse produce', style:'primary'},
+      {type:'button', label:'Already registered? Log in', style:'ghost'}
+    ], notes:['Geolocation suggests the nearest village and pre-fills this dropdown; always manually overridable.','No phone number needed to reach this point.'], navnotes:['Browse produce → <b>Guest Browse</b>'] },
+
+    { id:'g2', name:'Home — Tiles', frame:'phone', components:[
+      {type:'topbar', title:'Kajali'},
+      {type:'text', value:'What are you looking for today?'},
+      {type:'cardlist', items:[
+        {title:'🧺 Marketplace', sub:'Produce from nearby farmers', meta:'Live', image:false},
+        {title:'🛠 Services Directory', sub:'Utility, medical, shops & more — search by service or profession', meta:'Live', image:false},
+        {title:'🚗 Transport', sub:'', meta:'Coming soon', image:false, faded:true, badge:'Coming soon', badgeStyle:'grey'}
+      ]}
+    ], notes:['New in v1.1 — the dashboard is tile-based. Marketplace and Services Directory are both fully live; Transport is visibly on the roadmap but not built yet, per PRD §11.','Same tile pattern repeats on the registered Buyer Home (see Buyer tab).'], navnotes:['Marketplace tile → <b>Guest Browse — Marketplace</b>','Services Directory tile → <b>Guest Browse — Services</b>'] },
+
+    { id:'g3', name:'Guest Browse — Marketplace', frame:'phone', components:[
+      {type:'topbar', title:'Produce near Kajali', back:true},
+      {type:'chips', items:[{label:'Kajali',active:true},{label:'+ 4 nearby villages',active:false}]},
+      {type:'sectiontitle', text:'Available now'},
+      {type:'cardlist', items:[
+        {title:'Leafy Spinach — 8 bunches', sub:'Kajali village', meta:'Posted 2 hrs ago'},
+        {title:'Alphonso Mango — 20 kg', sub:'Kajali village · ₹120/kg', meta:'Posted this morning'},
+        {title:'Cow milk — daily', sub:'Wadgaon (nearby)', meta:'Standing supply'}
+      ]},
+      {type:'text', value:'Farmer name and contact are shown after you register — free, takes a minute.'}
+    ], notes:['No farmer name or contact shown here — only item, rate/qty, village and recency.','Nearby-village chip reflects the coordinator-curated proximity mapping, not raw GPS distance.'], navnotes:['Any card → <b>Item Detail (guest)</b>'] },
+
+    { id:'g4', name:'Guest Browse — Services', frame:'phone', components:[
+      {type:'topbar', title:'Services near Kajali', back:true},
+      {type:'search', placeholder:'Search service, profession, keyword…', mic:true},
+      {type:'chips', items:[{label:'All',active:true},{label:'Utility',active:false},{label:'Medical',active:false},{label:'Shop',active:false},{label:'Other',active:false}]},
+      {type:'sectiontitle', text:'Available nearby'},
+      {type:'cardlist', items:[
+        {title:'Electrician', sub:'Kajali village', meta:'Utility', badge:'Utility', badgeStyle:'grey'},
+        {title:'Carpenter', sub:'Kajali village', meta:'Utility · also tagged: driver', badge:'Utility', badgeStyle:'grey'},
+        {title:'General Store', sub:'Wadgaon (nearby)', meta:'Shop', badge:'Shop', badgeStyle:'grey'}
+      ]},
+      {type:'text', value:'Self-declared by users, not verified by the app. Name and contact are shown after you register.'}
+    ], notes:['Search matches profession, category, and keywords per PRD §11.1 — "Carpenter" shows up under a search for "driver" because of its keyword tag.','Same no-name/no-contact guest gating as Marketplace — one consistent pattern across both modules.'], navnotes:['Any card → <b>Service Detail (guest)</b>'] },
+
+    { id:'g5', name:'Item Detail (guest)', frame:'phone', components:[
+      {type:'topbar', title:'Alphonso Mango — 20 kg', back:true},
+      {type:'cardlist', items:[{title:'A farmer in Kajali village', sub:'~4 km from you', meta:''}]},
+      {type:'statrow', stats:[{value:'₹120', label:'per kg'},{value:'20 kg', label:'available'}]},
+      {type:'button', label:'Interested — register to get contact', style:'primary'}
+    ], notes:['Identical to the registered Item Detail screen, minus the farmer\'s name/contact.'], navnotes:['Interested → <b>Register & Opt-in</b>'] },
+
+    { id:'g6', name:'Service Detail (guest)', frame:'phone', components:[
+      {type:'topbar', title:'Carpenter', back:true},
+      {type:'cardlist', items:[{title:'A user in Kajali village', sub:'Also tagged: driver', meta:''}]},
+      {type:'text', value:'Self-declared — the app does not verify professional credentials.'},
+      {type:'button', label:'Interested — register to get contact', style:'primary'}
+    ], notes:['Mirrors the produce guest-detail screen exactly — same gating, same disclaimer principle, different content.'], navnotes:['Interested → <b>Register & Opt-in</b>'] },
+
+    { id:'g7', name:'Search (guest)', frame:'phone', components:[
+      {type:'topbar', title:'Search', back:true},
+      {type:'toggle2', a:'Marketplace', b:'Services', active:0},
+      {type:'search', placeholder:'Search item… e.g. mango', mic:true},
+      {type:'chips', items:[{label:'All',active:true},{label:'Perishable',active:false},{label:'Recurring',active:false},{label:'Long shelf-life',active:false}]},
+      {type:'text', value:'Voice search works in Marathi, Hindi and English, across both Marketplace and Services.'}
+    ], notes:['One search entry point with a toggle, rather than two separate search screens — switching the toggle swaps the filter chip set and result type.'], navnotes:['Search → <b>Item Detail (guest)</b> or <b>Service Detail (guest)</b> depending on toggle'] },
+
+    { id:'g8', name:'Register & Opt-in', frame:'phone', components:[
+      {type:'topbar', title:'One last step', back:true},
+      {type:'text', value:'Register to see this farmer\'s contact — this is the only time you\'ll need to do this.'},
+      {type:'field', label:'Mobile number', placeholder:'+91 9XXXXXXXXX', required:true, error:'Enter a valid 10-digit mobile number.'},
+      {type:'otp'},
+      {type:'field', label:'Name (optional)', placeholder:'e.g. Suresh'},
+      {type:'sectiontitle', text:'Get notified about new listings like this?'},
+      {type:'chips', items:[{label:'Perishable',active:true},{label:'Recurring',active:true},{label:'Long shelf-life',active:false}]},
+      {type:'button', label:'Register & view contact', style:'primary'}
+    ], notes:['OTP verifies identity once; after this a persistent session keeps them logged in — no repeat OTP on future visits.','Registration + notification opt-in collapsed into one screen, triggered only at genuine intent.','Every new account lands as a Buyer by default — Seller and Manage tabs are earned later, not chosen here.'], navnotes:['Register → Contact revealed, then straight into <b>Buyer: Home</b>'] }
+  ]
+},
+
+/* ============================= BUYER ============================= */
+buyer: {
+  label:'Buyer (default for everyone)', dot:true,
+  note:'Every registered person starts here. v1.1: Home is tile-based (Marketplace / Services Directory / Transport coming soon). "Become a seller" unlocks the Farmer tab; "List your service" is a separate, optional, self-declared listing anyone can add regardless of seller status.',
+  screens: [
+    { id:'b1', name:'Home — Tiles', frame:'phone', bottomnav:nav('Home'), components:[
+      {type:'topbar', title:'Kajali', actions:['🔔']},
+      {type:'coordcard', name:'Anita Sawant'},
+      {type:'cardlist', items:[
+        {title:'🧺 Marketplace', sub:'Produce from nearby farmers', meta:'Live', image:false},
+        {title:'🛠 Services Directory', sub:'Utility, medical, shops & more', meta:'Live', image:false},
+        {title:'🚗 Transport', sub:'', meta:'Coming soon', image:false, faded:true, badge:'Coming soon', badgeStyle:'grey'}
+      ]},
+      {type:'banner', text:'Have produce to sell?', cta:'Become a seller', accent:true},
+      {type:'banner', text:'Offer a service — carpenter, shop, etc.?', cta:'List your service'}
+    ], notes:['New in v1.1 — Home becomes the tile selector (Marketplace / Services Directory / Transport), matching the Guest Home.','"Your village coordinator" card still sits here, not buried in Profile.','Both "Become a seller" and "List your service" banners live here — dismissible, with permanent links in Profile too.','Bottom nav stays to the 4 core items everyone has — Seller/Manage/service-listing flows are reached from Home, not crammed into the bottom bar.'], navnotes:['Marketplace tile → <b>Marketplace — Today</b>','Services Directory tile → <b>Services Directory — Browse</b>','Become a seller → <b>Farmer tab: Become a Seller</b>','List your service → <b>List Your Service</b>'] },
+
+    { id:'b1b', name:'Marketplace — Today', frame:'phone', components:[
+      {type:'topbar', title:'Today near you', back:true},
+      {type:'sectiontitle', text:'Fresh today · Perishable'},
+      {type:'cardlist', items:[
+        {title:'Leafy Spinach — 8 bunches', sub:'Ramesh Patil · Kajali village', meta:'Posted 2 hrs ago'}
+      ]},
+      {type:'sectiontitle', text:'Recurring supply'},
+      {type:'cardlist', items:[
+        {title:'Cow milk — daily', sub:'Gopal Kadam · Wadgaon · ₹55/litre', meta:'Standing supply'}
+      ]},
+      {type:'sectiontitle', text:'Long shelf-life'},
+      {type:'cardlist', items:[
+        {title:'Black pepper — 5 kg', sub:'Ramesh Patil · ₹550/kg', meta:'Available this week', badge:'New'}
+      ]}
+    ], notes:['This is the old single-purpose Home, now one level deeper behind the Marketplace tile rather than the landing screen itself.'], navnotes:['Any card → <b>Item Detail</b>'] },
+
+    { id:'b1c', name:'Services Directory — Browse', frame:'phone', components:[
+      {type:'topbar', title:'Services near you', back:true},
+      {type:'search', placeholder:'Search service, profession, keyword…', mic:true},
+      {type:'chips', items:[{label:'All',active:true},{label:'Utility',active:false},{label:'Medical',active:false},{label:'Shop',active:false},{label:'Other',active:false}]},
+      {type:'cardlist', items:[
+        {title:'Electrician — Suresh Kamble', sub:'Kajali village', meta:'Utility', badge:'Utility', badgeStyle:'grey'},
+        {title:'Carpenter — Vijay More', sub:'Ambeghar · also tagged: driver', meta:'Utility', badge:'Utility', badgeStyle:'grey'},
+        {title:'Dr. Mehta Clinic', sub:'Kajali village', meta:'Medical — self-declared, not verified', badge:'Medical', badgeStyle:'warn'},
+        {title:'General Store', sub:'Wadgaon', meta:'Shop', badge:'Shop', badgeStyle:'grey'}
+      ]}
+    ], notes:['Registered buyers see the name directly — contact reveal is still a separate tap, same pattern as Marketplace.','Medical entries carry a visibly stronger disclaimer tag than Utility/Shop, per PRD §11.','Search matches profession, category, and keywords together (PRD §11.1) — searching "driver" would surface Vijay More even though his main profession is Carpenter.'], navnotes:['Any card → <b>Service Detail</b>'] },
+
+    { id:'b1d', name:'Service Detail', frame:'phone', components:[
+      {type:'topbar', title:'Carpenter — Vijay More', back:true},
+      {type:'cardlist', items:[{title:'Vijay More', sub:'Ambeghar village · also tagged: driver', meta:''}]},
+      {type:'text', value:'Self-declared — the app does not verify professional credentials.'},
+      {type:'button', label:'Get contact details', style:'primary'}
+    ], notes:['Same "reveal on request" pattern as produce — no chat, no in-app negotiation.'], navnotes:['Get contact details → <b>Service Contact Revealed</b>'] },
+
+    { id:'b1e', name:'Service Contact Revealed', frame:'phone', components:[
+      {type:'topbar', title:'Contact details', back:true},
+      {type:'text', value:'Vijay More · Ambeghar village'},
+      {type:'field', label:'Phone', value:'+91 9XXXXXXXXX'},
+      {type:'button', label:'Call now', style:'primary'}
+    ], notes:['No "notify if unreachable" fallback here (unlike produce) — service requests are generally less time-sensitive than a perishable listing, so this is intentionally simpler.'] },
+
+    { id:'b1f', name:'List Your Service', frame:'phone', components:[
+      {type:'topbar', title:'List your service', back:true},
+      {type:'text', value:'Optional — add a service or profession so villagers can find you. Self-declared; the app does not verify credentials.'},
+      {type:'sectiontitle', text:'Category'},
+      {type:'cardlist', items:[
+        {title:'Utility', sub:'Carpenter, electrician, plumber, etc.', meta:'', selectable:true, selected:true, image:false},
+        {title:'Medical', sub:'Doctor, clinic, pharmacy', meta:'', selectable:true, image:false},
+        {title:'Shop', sub:'General store, hardware, etc.', meta:'', selectable:true, image:false},
+        {title:'Other', sub:'Anything else useful to villagers', meta:'', selectable:true, image:false}
+      ]},
+      {type:'field', label:'Profession / service', placeholder:'e.g. Carpenter', required:true},
+      {type:'field', label:'Keywords (optional)', placeholder:'e.g. driver, painter', hint:'Secondary skills — searchable alongside your main profession'},
+      {type:'field', label:'Description (optional)', placeholder:'A line about what you offer'},
+      {type:'button', label:'Publish', style:'primary'}
+    ], notes:['Entirely optional at every step, per PRD §11 — never required at registration or anywhere else.','Keywords field is exactly the "carpenter who also drives" case from PRD §11.1 — searchable without a second listing.','No expiry/shelf-life fields here, unlike produce listings — a profession doesn\'t go stale.'], navnotes:['Publish → <b>My Services</b>'] },
+
+    { id:'b1g', name:'My Services', frame:'phone', components:[
+      {type:'topbar', title:'My services', back:true},
+      {type:'cardlist', items:[
+        {title:'Carpenter', sub:'Also tagged: driver', meta:'Utility · Published', image:false}
+      ]},
+      {type:'buttonrow', buttons:[{label:'Edit', style:'secondary'},{label:'Remove listing', style:'ghost'}]}
+    ], notes:['Reached from Profile or from the "List your service" banner once a listing already exists.'] },
+
+    { id:'b2', name:'Search', frame:'phone', bottomnav:nav('Search'), components:[
+      {type:'topbar', title:'Search produce'},
+      {type:'search', placeholder:'Search item… e.g. mango', mic:true},
+      {type:'chips', items:[{label:'All',active:true},{label:'Perishable',active:false},{label:'Recurring',active:false},{label:'Long shelf-life',active:false}]}
+    ], notes:['Voice search with Marathi/Hindi/English support.'], navnotes:['Search → <b>Search Results</b>'] },
+
+    { id:'b3', name:'Search Results', frame:'phone', bottomnav:nav('Search'), components:[
+      {type:'topbar', title:'"Mango"', back:true},
+      {type:'sectiontitle', text:'Available now (2)'},
+      {type:'cardlist', items:[
+        {title:'Alphonso Mango — 20 kg', sub:'Ramesh Patil · Kajali village · ₹120/kg', meta:'4 km away'},
+        {title:'Raw Mango (Kairi) — 10 kg', sub:'Vijay More · Ambeghar · ₹60/kg', meta:'7 km away'}
+      ]},
+      {type:'sectiontitle', text:'Previously available — may return'},
+      {type:'cardlist', items:[
+        {title:'Alphonso Mango — sold out', sub:'Sunita Tai · Kajali village', meta:'Last listed 5 days ago', faded:true, badge:'Notify me', badgeStyle:'grey'}
+      ]}
+    ], notes:['Faded results carry "Notify me" — a standing subscription — instead of disappearing.'], navnotes:['Active card → <b>Item Detail</b>'] },
+
+    { id:'b4', name:'Item Detail', frame:'phone', components:[
+      {type:'topbar', title:'Alphonso Mango — 20 kg', back:true},
+      {type:'cardlist', items:[{title:'Ramesh Patil', sub:'Kajali village · ~4 km away', meta:''}]},
+      {type:'statrow', stats:[{value:'₹120', label:'per kg'},{value:'20 kg', label:'available'},{value:'4 days', label:'listing valid'}]},
+      {type:'button', label:'Interested — get contact details', style:'primary'}
+    ], notes:['No chat/negotiation here by design — this screen only bridges to a direct call.'], navnotes:['Interested → <b>Contact Revealed</b>'] },
+
+    { id:'b5', name:'Contact Revealed', frame:'phone', components:[
+      {type:'topbar', title:'Contact details', back:true},
+      {type:'text', value:'Ramesh Patil · Kajali village'},
+      {type:'field', label:'Phone', value:'+91 9XXXXXXXXX'},
+      {type:'field', label:'Address', value:'Near Hanuman temple, Kajali'},
+      {type:'button', label:'Call now', style:'primary'},
+      {type:'button', label:'Couldn\'t reach them? Notify farmer', style:'secondary'}
+    ], notes:['"Notify farmer" fallback pushes an alert to the farmer\'s dashboard + SMS if the call doesn\'t connect.'] },
+
+    { id:'b6', name:'Alerts', frame:'phone', bottomnav:nav('Alerts'), components:[
+      {type:'topbar', title:'Alerts'},
+      {type:'notiflist', items:[
+        {title:'You\'ve been made coordinator for Kajali', sub:'A new "Manage" tab is now on your Home — tap to view your responsibilities', time:'Just now', read:false},
+        {title:'Mango is back in stock', sub:'Sunita Tai relisted — you asked to be notified', time:'1 hr ago', read:false},
+        {title:'Today\'s perishables update', sub:'1 new listing near you (in-app, instant)', time:'9:10 AM', read:true},
+        {title:'WhatsApp digest sent', sub:'Batched summary of today\'s listings', time:'6:00 AM', read:true}
+      ]}
+    ], notes:['Role-change notification (coordinator assignment) shown as an example — same template would apply if a role is later removed.','In-app alerts fire instantly (free); the WhatsApp/SMS digest is the once-daily 6 AM batched version — visible here as a separate, later entry for the same day\'s activity.'] },
+
+    { id:'b7', name:'My Area', frame:'phone', components:[
+      {type:'topbar', title:'My area', back:true},
+      {type:'text', value:'You see produce from your village and these nearby villages, set by your village coordinator. You can customize this.'},
+      {type:'cardlist', items:[
+        {title:'Kajali (home village)', sub:'', meta:'Cannot be removed'},
+        {title:'Wadgaon', sub:'', meta:'Default — from coordinator', badge:'Default', badgeStyle:'grey'},
+        {title:'Ambeghar', sub:'', meta:'Added by you', badge:'Added by you'}
+      ]},
+      {type:'field', label:'+ Add another village', type:'select', value:'Select village'},
+      {type:'buttonrow', buttons:[{label:'Remove a village', style:'ghost'},{label:'Reset to default', style:'ghost'}]}
+    ], notes:['Personal overrides are stored as a diff from the coordinator\'s default, not a full copy — a later coordinator correction still reaches anyone who hasn\'t personally edited that village.'], navnotes:['Reached from Profile.'] },
+
+    { id:'b8', name:'Profile', frame:'phone', bottomnav:nav('Profile'), components:[
+      {type:'center', items:[{type:'avatar', initials:'SK'}]},
+      {type:'text', value:'Suresh Kamble · Kajali village · +91 9XXXXXXXXX'},
+      {type:'field', label:'App language', type:'select', value:'मराठी (Marathi)'},
+      {type:'button', label:'Become a seller', style:'secondary'},
+      {type:'button', label:'List your service / My services', style:'secondary'},
+      {type:'button', label:'My area (nearby villages)', style:'secondary'},
+      {type:'button', label:'Support this service (optional)', style:'ghost'},
+      {type:'button', label:'Log out', style:'ghost'}
+    ], notes:['Marathi is the default app language for new accounts; switching here is always available.','Persistent login means "Log out" is a deliberate, rare action — not something needed for normal day-to-day use.'], navnotes:['Become a seller → <b>Farmer tab: Become a Seller</b>','List your service / My services → <b>List Your Service</b> or <b>My Services</b> if one already exists'] },
+
+    { id:'b9', name:'Saved / Favorites', frame:'phone', components:[
+      {type:'topbar', title:'Saved', back:true},
+      {type:'sectiontitle', text:'Favorite farmers'},
+      {type:'cardlist', items:[{title:'Ramesh Patil', sub:'Kajali village', meta:'3 active listings'}]},
+      {type:'sectiontitle', text:'Notify-me subscriptions'},
+      {type:'cardlist', items:[{title:'Mango — any farmer nearby', sub:'You\'ll be notified when relisted', meta:'Set 2 days ago'}]}
+    ], notes:['Reached from Home; consolidates favorite farmers and item-level "notify me" subscriptions.'] }
+  ]
+},
+
+/* ============================= FARMER / SELLER TAB ============================= */
+farmer: {
+  label:'Farmer (Seller tab)', dot:true,
+  note:'Not a separate account — this is the Seller tab that unlocks on a buyer\'s dashboard the moment they publish their first listing.',
+  screens: [
+    { id:'f1', name:'Become a Seller', frame:'phone', components:[
+      {type:'topbar', title:'Start selling', back:true},
+      {type:'text', value:'List what you have — buyers nearby will see it. No fee, ever. Once you publish your first listing, a Seller tab appears on your Home permanently.'},
+      {type:'button', label:'Add your first listing', style:'primary'}
+    ], notes:['This intro screen is shown once, from either the Home banner or Profile link.','The Seller tab itself only unlocks on first published listing — not on reaching this screen — so nobody ends up with a half-committed empty tab.'], navnotes:['Add your first listing → <b>Add Listing</b>'] },
+
+    { id:'f2', name:'Add Listing', frame:'phone', components:[
+      {type:'topbar', title:'Add listing', back:true},
+      {type:'formerror', text:'Please fix the errors below before publishing.'},
+      {type:'sectiontitle', text:'Category (choose the closest fit)'},
+      {type:'cardlist', items:[
+        {title:'Perishable', sub:'Leafy greens, flowers — lasts 1–2 days', meta:'', selectable:true, selected:true, image:false},
+        {title:'Recurring supply', sub:'Milk, eggs — available regularly', meta:'', selectable:true, image:false},
+        {title:'Mid shelf-life', sub:'Most vegetables — lasts about a week', meta:'', selectable:true, image:false},
+        {title:'Long shelf-life', sub:'Cashew, pepper, grains — lasts weeks+', meta:'', selectable:true, image:false}
+      ]},
+      {type:'field', label:'Item name', placeholder:'Start typing…', required:true},
+      {type:'suggest', items:['Tomato','Tomato (cherry)','Tondli']},
+      {type:'field', label:'Quantity', placeholder:'e.g. 5', required:true},
+      {type:'field', label:'Unit', type:'select', value:'Bunches'},
+      {type:'text', value:'No weighing scale? Use bunches, pieces, or size (small/medium/large) instead of kg.'},
+      {type:'field', label:'Rate (optional)', placeholder:'₹ — leave blank if unsure'},
+      {type:'photoupload'},
+      {type:'field', label:'Listing valid until', value:'2 days from now (editable)', hint:'Prefilled from category, adjust if you know better'},
+      {type:'button', label:'Publish listing', style:'primary'}
+    ], notes:[
+      'Category is a manual, farmer-chosen tier with a plain-language example next to each option — not an abstract classification question.',
+      'Item name uses typeahead built from what other farmers have already typed — nudges spelling toward consistency without blocking free entry or requiring a pre-built catalog.',
+      'Unit is item-appropriate and flexible — bunches, pieces, size — not forced into kg for farmers without a scale.',
+      'End date is prefilled from the category default but editable, since actual freshness depends on that day\'s harvest.',
+      'Voice input available on the Item name field (Marathi/Hindi/English) — transcribed text always shown back as editable before submit.'
+    ], navnotes:['Publish (new item) → <b>Seller: My Listings</b>','Publish (name close to an existing active listing) → <b>Duplicate Detected</b>'] },
+
+    { id:'f3', name:'Duplicate Detected', frame:'phone', components:[
+      {type:'topbar', title:'Similar listing found', back:true},
+      {type:'text', value:'You already have an active listing that looks like this one.'},
+      {type:'cardlist', items:[{title:'Tomato — 10 kg', sub:'Listed 2 days ago, still active', meta:'₹35/kg'}]},
+      {type:'buttonrow', buttons:[{label:'Update that listing instead', style:'primary'},{label:'This is a different item — create new', style:'secondary'}]}
+    ], notes:['Fuzzy name-matching against the farmer\'s own active listings — the actual fix for typo-driven duplicates ("Tomato" vs "Tomatoe"), rather than relying on a listing cap alone.','A generous overall active-listing ceiling (8–10) still exists as a separate backstop against spam, set in Admin → Platform Settings.'] },
+
+    { id:'f4', name:'Seller: My Listings', frame:'phone', bottomnav:nav('Home'), fab:{label:'+'}, components:[
+      {type:'toggle2', a:'Buyer', b:'Seller', active:1},
+      {type:'topbar', title:'My listings'},
+      {type:'toggle2', a:'Active (3)', b:'Expired (7)', active:0},
+      {type:'cardlist', items:[
+        {title:'Tomato — 10 kg', sub:'₹35/kg', meta:'Mid shelf-life · expires in 5 days', badge:'Active'},
+        {title:'Leafy Spinach — 8 bunches', sub:'', meta:'Perishable · expires today', badge:'Active'},
+        {title:'Black pepper — 5 kg', sub:'₹550/kg', meta:'Long shelf-life · expires in 26 days', badge:'Active'}
+      ]}
+    ], notes:['The Seller tab, once unlocked, stays permanently — even in a season with zero active listings it shows an empty state ("No active listings — add one") rather than disappearing, so a seasonal farmer (e.g. mango-only) doesn\'t lose it between seasons.','Segmented control at top switches between this and the Buyer Home — kept off the bottom nav bar to avoid overcrowding it.'], navnotes:['+ → <b>Add Listing</b>', 'Card → <b>Listing Detail & Insights</b>'] },
+
+    { id:'f5', name:'Listing Detail & Insights', frame:'phone', components:[
+      {type:'topbar', title:'Leafy Spinach — 8 bunches', back:true},
+      {type:'statrow', stats:[{value:'6', label:'Views'},{value:'2', label:'Interested'},{value:'Today', label:'Expires'}]},
+      {type:'sectiontitle', text:'Buyer activity'},
+      {type:'notiflist', items:[
+        {title:'Suresh (Village B) requested contact', sub:'Viewed listing, tapped Interested', time:'2 hrs ago', read:false},
+        {title:'Buyer tried calling — no answer', sub:'Tap below to notify them you\'re available', time:'40 min ago', read:false}
+      ]},
+      {type:'buttonrow', buttons:[{label:'Mark sold out', style:'secondary'},{label:'Reduce quantity', style:'secondary'}]},
+      {type:'button', label:'Relist for 2 more days', style:'primary'}
+    ], notes:['Demand insight plus the buyer "notify farmer" fallback both surface here.'] }
+  ]
+},
+
+/* ============================= VILLAGE COORDINATOR / MANAGE TAB ============================= */
+coordinator: {
+  label:'Village Coordinator (Manage tab)', dot:true,
+  note:'A role flag admin grants to an existing registered user (buyer and/or seller) for one or more villages — not a separate account.',
+  screens: [
+    { id:'co1', name:'Role Assigned', frame:'phone', components:[
+      {type:'topbar', title:'New role', back:true},
+      {type:'text', value:'Admin has made you the village coordinator for Kajali. A "Manage" tab is now on your Home.'},
+      {type:'text', value:'As coordinator, you can help register buyers without a smartphone, confirm the village proximity mapping, and see local activity.'},
+      {type:'button', label:'Go to Manage tab', style:'primary'}
+    ], notes:['Role assignment is never silent — the person is notified and can see exactly what the role involves before using it, given the responsibility it carries.'], navnotes:['Go to Manage tab → <b>Manage Dashboard</b>'] },
+
+    { id:'co2', name:'Manage Dashboard', frame:'phone', bottomnav:nav('Home'), components:[
+      {type:'toggle2', a:'Buyer', b:'Manage', active:1},
+      {type:'topbar', title:'Kajali — Manage'},
+      {type:'statrow', stats:[{value:'42', label:'Farmers'},{value:'118', label:'Buyers'},{value:'76%', label:'Opt-in rate'}]},
+      {type:'sectiontitle', text:'Quick actions'},
+      {type:'buttonrow', buttons:[{label:'+ Add buyer (no app)', style:'secondary'},{label:'Edit proximity mapping', style:'secondary'}]},
+      {type:'sectiontitle', text:'Needs attention'},
+      {type:'notiflist', items:[
+        {title:'6 buyers pending opt-in reply', sub:'Added 3+ days ago', time:'', read:false},
+        {title:'1 listing flagged', sub:'Reported by a buyer', time:'', read:false}
+      ]}
+    ], notes:['"Manage" is reached via a segmented control from the same Home a coordinator uses as a buyer/seller — not a separate app or login.'], navnotes:['+ Add buyer → <b>Add Non-App Buyer</b>', 'Pending opt-in → <b>Buyer Opt-in Status</b>'] },
+
+    { id:'co3', name:'Add Non-App Buyer', frame:'phone', components:[
+      {type:'topbar', title:'Add a buyer', back:true},
+      {type:'text', value:'For people without a smartphone — they\'ll get SMS/WhatsApp updates without needing to install anything.'},
+      {type:'field', label:'Name', placeholder:'e.g. Suresh Shop', required:true},
+      {type:'field', label:'Mobile number', placeholder:'+91 9XXXXXXXXX', required:true, error:'Enter a valid 10-digit mobile number.'},
+      {type:'field', label:'Village / area', type:'select', value:'Select village'},
+      {type:'text', value:'An opt-in message will be sent to this number. They only receive updates once they reply YES.'},
+      {type:'button', label:'Send opt-in request', style:'primary'}
+    ], notes:['Kept separate from the main self-registration flow — this is specifically the assisted path for basic-phone users who can\'t register in the app themselves.'], navnotes:['Send → <b>Buyer Opt-in Status</b>'] },
+
+    { id:'co4', name:'Buyer Opt-in Status', frame:'phone', components:[
+      {type:'topbar', title:'Buyer opt-ins', back:true},
+      {type:'chips', items:[{label:'All',active:true},{label:'Pending',active:false},{label:'Confirmed',active:false},{label:'Declined',active:false}]},
+      {type:'cardlist', items:[
+        {title:'Suresh Shop', sub:'+91 9XXXXXXXXX', meta:'Pending · sent 3 days ago', badge:'Pending', badgeStyle:'grey'},
+        {title:'Meena Traders', sub:'+91 9XXXXXXXXX', meta:'Confirmed 1 day ago', badge:'Confirmed'}
+      ]},
+      {type:'button', label:'Resend to pending (6)', style:'secondary'}
+    ], notes:['Bulk resend avoids the coordinator chasing pending numbers one by one.'] },
+
+    { id:'co5', name:'Edit Proximity Mapping', frame:'phone', components:[
+      {type:'topbar', title:'Kajali — nearby villages', back:true},
+      {type:'text', value:'Suggested by distance. Confirm, remove, or add based on real travel — not just GPS distance.'},
+      {type:'cardlist', items:[
+        {title:'Wadgaon', sub:'6 km straight-line', meta:'Suggested — easy road access', badge:'Confirm?', badgeStyle:'grey'},
+        {title:'Devghar', sub:'5 km straight-line', meta:'Across the river, ~40 min by road', badge:'Suggested', badgeStyle:'grey'}
+      ]},
+      {type:'field', label:'+ Add a village manually', type:'select', value:'Select village'},
+      {type:'button', label:'Save mapping', style:'primary'}
+    ], notes:['Devghar is exactly the case that justifies manual curation — GPS-close but practically far by road.','Saved mapping becomes the default every registered user in Kajali inherits.'] },
+
+    { id:'co6', name:'Listing Moderation', frame:'phone', components:[
+      {type:'topbar', title:'Listings in this area', back:true},
+      {type:'toggle2', a:'Produce', b:'Services', active:0},
+      {type:'search', placeholder:'Search listings…'},
+      {type:'cardlist', items:[
+        {title:'Marigold flowers — 5 kg', sub:'Sunita Tai', meta:'1 report — buyer says unreachable', badge:'Flagged', badgeStyle:'warn'}
+      ]},
+      {type:'buttonrow', buttons:[{label:'View report', style:'secondary'},{label:'Remove listing', style:'ghost'}]}
+    ], notes:['New in v1.1 — a Produce/Services toggle covers both listing types in one screen rather than duplicating this whole screen for the Services Directory.','Light-touch moderation — remove a listing on request, not a full review system.'] },
+
+    { id:'co7', name:'Impact Report', frame:'phone', components:[
+      {type:'topbar', title:'This month', back:true},
+      {type:'statrow', stats:[{value:'54', label:'New buyers'},{value:'212', label:'Listings posted'},{value:'340', label:'Connections made'}]},
+      {type:'button', label:'Share report with panchayat', style:'secondary'}
+    ], notes:['Doubles as the evidence pack for funding/panchayat conversations.'] }
+  ]
+},
+
+/* ============================= SUPER ADMIN ============================= */
+admin: {
+  label:'Super Admin', dot:true,
+  note:'Web dashboard. Username + password only (no 2FA) with lockout + short session as compensating controls, and every change traceable in the Audit Log.',
+  screens: [
+    { id:'a1', name:'Login', frame:'browser', components:[
+      {type:'center', items:[
+        {type:'text', value:'Farmer–Buyer Connect — Admin console'},
+        {type:'field', label:'Username', placeholder:'e.g. admin.kajali', required:true},
+        {type:'field', label:'Password', placeholder:'••••••••', required:true},
+        {type:'formerror', text:'Incorrect username or password. 3 attempts remaining before temporary lockout.'},
+        {type:'button', label:'Sign in', style:'primary'}
+      ]}
+    ], notes:['No 2FA, per the decision to keep admin login simple — lockout after repeated failures and a short session expiry stand in as compensating controls.'], navnotes:['Sign in → <b>Admin Dashboard</b>'] },
+
+    { id:'a2', name:'Admin Dashboard', frame:'browser', components:[
+      {type:'topbar', title:'Overview — all villages', actions:['🔔','⚙']},
+      {type:'statrow', stats:[
+        {value:'6', label:'Villages', clickTo:'Villages List'},
+        {value:'330', label:'Users', clickTo:'Users Directory'},
+        {value:'4', label:'Coordinators', clickTo:'Users Directory (filtered)'},
+        {value:'9', label:'Categories', clickTo:'Categories List'},
+        {value:'58', label:'Service listings', clickTo:'Service Listings'},
+        {value:'4', label:'Templates', clickTo:'Message Templates'},
+        {value:'3', label:'Flagged items', clickTo:'Flagged Users/Listings'},
+        {value:'₹4,120', label:'Messaging cost (MTD)', clickTo:'Reports & Analytics'}
+      ]},
+      {type:'sectiontitle', text:'Recent activity'},
+      {type:'table', columns:['Time','User','Change'], rows:[
+        ['10:14 AM','Anita Sawant (coordinator)','Updated Kajali proximity mapping'],
+        ['9:02 AM','System','6 AM WhatsApp digest sent — 214 buyers'],
+        ['Yesterday','Admin','Assigned Suresh Kamble as coordinator — Kajali']
+      ]}
+    ], notes:['Every tile is clickable and routes to that module\'s list.','Users is now one unified directory (role badges), not separate Farmer/Buyer lists, matching the unified account model.'], navnotes:['Any tile → its list screen'] },
+
+    { id:'a3', name:'Users Directory', frame:'browser', components:[
+      {type:'topbar', title:'Users', addLabel:'+ Register user (assisted)'},
+      {type:'listheader', placeholder:'Search by name or village…'},
+      {type:'chips', items:[{label:'All',active:true},{label:'Buyers',active:false},{label:'Sellers',active:false},{label:'Coordinators',active:false}]},
+      {type:'table', columns:['Name','Village','Mobile','Roles','Status'], rows:[
+        ['Ramesh Patil','Kajali','+91 9XXXXXXXXX','Buyer, Seller','<span class="wf-pill ok">Active</span>'],
+        ['Suresh Kamble','Kajali','+91 9XXXXXXXXX','Buyer, Seller, Coordinator','<span class="wf-pill ok">Active</span>'],
+        ['Meena Traders','Kajali','+91 9XXXXXXXXX','Buyer','<span class="wf-pill ok">Active</span>']
+      ]},
+      {type:'pagination', showing:'1–3', total:'330', current:1, pages:[1,2,3]}
+    ], notes:['Role is shown as badges on one unified user, not a type — matches "buyer by default, seller once they list, coordinator if assigned" exactly.'], navnotes:['Row click → <b>User Detail</b>'] },
+
+    { id:'a4', name:'User Detail', frame:'browser', components:[
+      {type:'topbar', title:'Suresh Kamble', back:true},
+      {type:'field', label:'Name', value:'Suresh Kamble'},
+      {type:'field', label:'Mobile number', value:'+91 9XXXXXXXXX'},
+      {type:'field', label:'Home village', value:'Kajali'},
+      {type:'sectiontitle', text:'Roles'},
+      {type:'table', columns:['Role','Since','Detail'], rows:[
+        ['Buyer','Registered 3 months ago','—'],
+        ['Seller','Since first listing, 2 months ago','3 active listings'],
+        ['Coordinator','Assigned by Admin, 1 week ago','Kajali']
+      ]},
+      {type:'buttonrow', buttons:[{label:'Remove coordinator role', style:'ghost'},{label:'Deactivate user', style:'ghost'},{label:'Delete user', style:'danger'}]}
+    ], notes:['Removing the coordinator role only clears the flag and reassigns the village — it does not touch this person\'s own buyer/seller history.','Delete still routes through the dependency check (their listings, opt-in history, and any village they coordinate).'] },
+
+    { id:'a5', name:'Assign Coordinator', frame:'browser', components:[
+      {type:'topbar', title:'Assign coordinator', back:true},
+      {type:'formcard', items:[
+        {type:'field', label:'User', value:'Suresh Kamble (Kajali)', required:true},
+        {type:'field', label:'Village to coordinate', type:'select', value:'Kajali', required:true},
+        {type:'text', value:'Suresh will be notified in-app that he\'s been made coordinator for this village.'},
+        {type:'button', label:'Confirm assignment', style:'primary'}
+      ]}
+    ], notes:['Triggers the in-app "Role Assigned" notification (see Coordinator tab, screen co1) — never a silent grant.','Reachable from a user\'s own detail page, or started here directly from the Users Directory.'] },
+
+    { id:'a6', name:'Villages List', frame:'browser', components:[
+      {type:'topbar', title:'Villages', addLabel:'+ Add village'},
+      {type:'listheader', placeholder:'Search by village name…'},
+      {type:'chips', items:[{label:'All',active:true},{label:'Has coordinator',active:false},{label:'No coordinator',active:false}]},
+      {type:'table', columns:['Village','Coordinator','Users','Nearby mapped','Status'], rows:[
+        ['Kajali','Suresh Kamble','160','4 villages','<span class="wf-pill ok">Active</span>'],
+        ['Devghar','—','0','0 villages','<span class="wf-pill bad">No coordinator</span>']
+      ]},
+      {type:'pagination', showing:'1–2', total:'6', current:1, pages:[1,2,3]}
+    ], notes:['"Users" replaces separate Farmers/Buyers counts, consistent with the unified account model.'], navnotes:['Row click → <b>Village Detail / Edit</b>'] },
+
+    { id:'a7', name:'Village Detail / Edit', frame:'browser', components:[
+      {type:'topbar', title:'Kajali', back:true},
+      {type:'field', label:'Village name', value:'Kajali', required:true},
+      {type:'field', label:'Coordinates', value:'16.9944° N, 73.3120° E', required:true},
+      {type:'field', label:'Assigned coordinator', value:'Suresh Kamble'},
+      {type:'sectiontitle', text:'Danger zone'},
+      {type:'buttonrow', buttons:[{label:'Deactivate village', style:'ghost'},{label:'Delete village', style:'danger'}]}
+    ], notes:['Deactivate vs delete kept distinct — deactivate preserves history for reporting.'], navnotes:['Delete village → <b>Delete Village — Dependency Check</b>'] },
+
+    { id:'a8', name:'Delete Village — Dependency Check', frame:'browser', components:[
+      {type:'topbar', title:'Delete Kajali?', back:true},
+      {type:'dependency', title:'This village is not empty', items:[
+        '160 users are registered with Kajali as their home village',
+        '3 other villages list Kajali as a mapped nearby village',
+        '1 coordinator (Suresh Kamble) is assigned here'
+      ], buttons:[
+        {label:'Deactivate instead (keeps history)', style:'secondary'},
+        {label:'Reassign records, then delete', style:'ghost'},
+        {label:'Delete anyway', style:'danger'}
+      ]}
+    ], notes:['Same dependency-check pattern reused for deleting a category with active listings.'] },
+
+    { id:'a9', name:'Categories List', frame:'browser', components:[
+      {type:'topbar', title:'Categories & notify rules', addLabel:'+ Add category'},
+      {type:'listheader', placeholder:'Search by category name…'},
+      {type:'table', columns:['Category','Default shelf life','Notify mode','Send time','Active listings'], rows:[
+        ['Perishable','1–2 days','Daily digest','6:00 AM','16'],
+        ['Recurring supply','Standing','Change only','—','3'],
+        ['Mid shelf-life','~7 days','Daily digest','6:00 AM','22'],
+        ['Long shelf-life','30+ days','Weekly digest','Mon 8 AM','5']
+      ]}
+    ], notes:['These are the generic tiers the farmer picks from directly at listing time — admin sets each tier\'s default shelf life and notify cadence here.'], navnotes:['Row click → edit tier defaults'] },
+
+    { id:'a9b', name:'Service Listings', frame:'browser', components:[
+      {type:'topbar', title:'Service listings'},
+      {type:'listheader', placeholder:'Search by profession, name, or keyword…'},
+      {type:'chips', items:[{label:'All',active:true},{label:'Utility',active:false},{label:'Medical',active:false},{label:'Shop',active:false},{label:'Other',active:false},{label:'Flagged',active:false}]},
+      {type:'table', columns:['User','Profession/Service','Category','Keywords','Village','Status'], rows:[
+        ['Suresh Kamble','Electrician','Utility','—','Kajali','<span class="wf-pill ok">Active</span>'],
+        ['Vijay More','Carpenter','Utility','driver','Ambeghar','<span class="wf-pill ok">Active</span>'],
+        ['Dr. Mehta','Clinic','Medical','—','Kajali','<span class="wf-pill ok">Active</span>']
+      ]},
+      {type:'pagination', showing:'1–3', total:'58', current:1, pages:[1,2,3]}
+    ], notes:['New in v1.1 — mirrors the Users Directory pattern (search/filter/sort/paginate) rather than inventing a new list style.','Keywords column makes the search-matching behavior from PRD §11.1 visible to admin directly — Vijay More appears here with "driver" even though his main profession is Carpenter.','Medical entries are not treated differently in this table, but carry the stronger in-app disclaimer at display time (§11).'] },
+
+    { id:'a10', name:'Message Templates', frame:'browser', components:[
+      {type:'topbar', title:'DLT-registered templates', addLabel:'+ New template'},
+      {type:'listheader', placeholder:'Search by template name…'},
+      {type:'chips', items:[{label:'All',active:true},{label:'Approved',active:false},{label:'Pending',active:false},{label:'Transactional',active:false},{label:'Promotional',active:false}]},
+      {type:'table', columns:['Template','Languages','Type','Status'], rows:[
+        ['6 AM daily digest','EN, MR','Transactional','<span class="wf-pill ok">Approved (both)</span>'],
+        ['Buyer opt-in request','EN, MR','Transactional','<span class="wf-pill ok">Approved (both)</span>'],
+        ['Monthly re-engagement nudge','EN, MR','Promotional','<span class="wf-pill pending">MR pending DLT</span>']
+      ]}
+      ], notes:['"Type" column added — transactional vs promotional messages follow different DLT/DND rules, so this needs to be explicit per template, not assumed.'] },
+
+    { id:'a11', name:'Villages & Proximity (all)', frame:'browser', components:[
+      {type:'topbar', title:'Village proximity — all coordinators'},
+      {type:'listheader', placeholder:'Search by village name…'},
+      {type:'table', columns:['Village','Coordinator','Nearby mapped','Status'], rows:[
+        ['Kajali','Suresh Kamble','4 villages','<span class="wf-pill ok">Confirmed</span>'],
+        ['Devghar','—','0 villages','<span class="wf-pill bad">No coordinator</span>']
+      ]},
+      {type:'pagination', showing:'1–2', total:'6', current:1, pages:[1,2]}
+    ], notes:['Cross-village visibility for admin, same underlying data as each coordinator\'s own mapping screen.'] },
+
+    { id:'a12', name:'Promotional Messaging', frame:'browser', components:[
+      {type:'topbar', title:'Re-engagement messages'},
+      {type:'text', value:'For dormant users only — framed as an activity update, not a generic promotion, to stay closer to transactional in spirit and respect DND/opt-in expectations.'},
+      {type:'field', label:'Target', type:'select', value:'No app activity in 30+ days'},
+      {type:'field', label:'Message template', type:'select', value:'"3 farmers near you listed produce this week"'},
+      {type:'field', label:'Frequency cap', type:'select', value:'Once per month, per user'},
+      {type:'button', label:'Preview & send', style:'primary'}
+    ], notes:['Deliberately narrow targeting (dormant only) and low frequency — this is the module we discussed as a cost-and-trust-conscious engagement lever, not a broad broadcast tool.'] },
+
+    { id:'a13', name:'Reports & Analytics', frame:'browser', components:[
+      {type:'topbar', title:'Reports', actions:['⬇ Export CSV']},
+      {type:'statrow', stats:[{value:'+18%', label:'Users MoM'},{value:'340', label:'Connections (30d)'},{value:'62%', label:'Relist rate'}]},
+      {type:'table', columns:['Category tier','Interested-clicks','Active listings'], rows:[
+        ['Perishable','482','16'],
+        ['Mid shelf-life','310','22'],
+        ['Recurring supply','275','3']
+      ]}
+    ], notes:['CSV export for handing raw numbers to a coordinator or funder.'] },
+
+    { id:'a14', name:'Flagged Users / Listings', frame:'browser', components:[
+      {type:'topbar', title:'Flagged for review'},
+      {type:'listheader', placeholder:'Search by name or listing…'},
+      {type:'table', columns:['Reported','Reason','Status','Action'], rows:[
+        ['Marigold flowers listing','Farmer unreachable, suspected fake','<span class="wf-pill pending">Open</span>','Review']
+      ]}
+    ], notes:['Same dependency-aware pattern before removing a listing or blocking a number.'] },
+
+    { id:'a15', name:'Audit Log', frame:'browser', components:[
+      {type:'topbar', title:'Audit log'},
+      {type:'listheader', placeholder:'Search by user, module…'},
+      {type:'chips', items:[{label:'All modules',active:true},{label:'Roles',active:false},{label:'Proximity mapping',active:false},{label:'Templates',active:false},{label:'Login/security',active:false}]},
+      {type:'table', columns:['Time','User','Module','Change'], rows:[
+        ['Yesterday','Admin','Roles','Assigned Suresh Kamble as coordinator — Kajali'],
+        ['Yesterday, 2:10 PM','System','Login/security','3 failed login attempts — locked 15 min'],
+        ['2 days ago','Anita Sawant (coordinator)','Proximity mapping','Confirmed Wadgaon → Ambeghar suggestion']
+      ]},
+      {type:'pagination', showing:'1–3', total:'92', current:1, pages:[1,2,3]}
+    ], notes:['"Roles" is now a filterable module here — every coordinator assignment/removal is traceable, same principle as the login-lockout entries.'] },
+
+    { id:'a16', name:'Platform Settings', frame:'browser', components:[
+      {type:'topbar', title:'Platform settings'},
+      {type:'sectiontitle', text:'Language'},
+      {type:'field', label:'Default app language (new users)', type:'select', value:'मराठी (Marathi)'},
+      {type:'sectiontitle', text:'Voice input'},
+      {type:'switchrow', label:'Voice-to-text for listings', sub:'Free-text fields only (item name) — category/unit stay tap-to-select', on:true},
+      {type:'sectiontitle', text:'Listings & duplicates'},
+      {type:'field', label:'Max active listings per user', type:'select', value:'10'},
+      {type:'switchrow', label:'Duplicate-name detection on relist', sub:'Fuzzy-matches against the same user\'s own active listings', on:true},
+      {type:'sectiontitle', text:'Services Directory'},
+      {type:'switchrow', label:'Services Directory enabled', sub:'Marketplace and Services Directory are the two live tiles; Transport stays "Coming soon"', on:true},
+      {type:'field', label:'Medical listing disclaimer text', value:'Self-declared, not verified by the app'},
+      {type:'sectiontitle', text:'Notifications'},
+      {type:'field', label:'WhatsApp/SMS digest send time', value:'6:00 AM daily'},
+      {type:'switchrow', label:'Skip digest if nothing new', sub:'Applies per user, per category cadence', on:true},
+      {type:'sectiontitle', text:'Security'},
+      {type:'field', label:'Failed login lockout threshold', type:'select', value:'3 attempts'},
+      {type:'field', label:'Admin session expiry', type:'select', value:'4 hours idle'},
+      {type:'button', label:'Save settings', style:'primary'}
+    ], notes:[
+      'Consolidates every configurable decision from our discussions into one place: language default, voice input, the listing cap (backstop, not the primary duplicate-prevention mechanism), digest batching/skip logic, and the security controls standing in for 2FA.',
+      'New in v1.1 — a platform-level kill switch for the Services Directory tile, and an editable disclaimer string shown on Medical entries specifically, kept separate from the general self-declared disclaimer.'
+    ]}
+  ]
+}
+
+};
+
+/* ---------------------------------------------------------------
+   App wiring
+--------------------------------------------------------------- */
+var currentRole = 'guest';
+var currentScreenIdx = 0;
+
+function buildSidebar(){
+  var wrap = document.getElementById('roleTabs');
+  var keys = Object.keys(roles);
+  wrap.innerHTML = keys.map(function(key){
+    var r = roles[key];
+    return '<div class="role-tab '+(key===currentRole?'active':'')+'" data-role="'+key+'"><span class="dot"></span>'+r.label+'</div>';
+  }).join('');
+  var items = wrap.querySelectorAll('.role-tab');
+  for(var k=0;k<items.length;k++){
+    items[k].addEventListener('click', (function(t){ return function(){ currentRole=t.dataset.role; currentScreenIdx=0; render(); }; })(items[k]));
+  }
+  document.getElementById('roleNote').textContent = roles[currentRole].note;
+}
+function buildScreenTabs(){
+  var wrap = document.getElementById('screenTabs');
+  var screens = roles[currentRole].screens;
+  wrap.innerHTML = screens.map(function(s,i){
+    return '<div class="screen-tab '+(i===currentScreenIdx?'active':'')+'" data-idx="'+i+'">'+(i+1)+'. '+s.name+'</div>';
+  }).join('');
+  var items = wrap.querySelectorAll('.screen-tab');
+  for(var k=0;k<items.length;k++){
+    items[k].addEventListener('click', (function(t){ return function(){ currentScreenIdx=parseInt(t.dataset.idx); render(); }; })(items[k]));
+  }
+}
+function buildStage(){
+  var screens = roles[currentRole].screens;
+  var screen = screens[currentScreenIdx];
+  var stage = document.getElementById('stage');
+  var frameHtml = screen.frame==='browser'
+    ? '<div class="browser"><div class="browser-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="browser-url">fbconnect.org/admin</div></div><div class="browser-body">'+renderScreen(screen)+'</div></div>'
+    : '<div class="phone"><div class="phone-screen"><div class="statusbar"><span>9:41</span><span>●●● 4G</span></div>'+renderScreen(screen)+'</div></div>';
+  var notes = (screen.notes||[]).map(function(n){return '<li>'+n+'</li>';}).join('');
+  var navnotes = (screen.navnotes||[]).map(function(n){return '<li>'+n+'</li>';}).join('');
+  stage.innerHTML =
+    '<div class="canvas-col"><div class="canvas-title">'+roles[currentRole].label+' — '+screen.name+'</div>'+frameHtml+'</div>'+
+    '<div class="notes-col"><h4>Screen notes</h4><ul>'+(notes||'<li>—</li>')+'</ul><h4>Navigation</h4><ul class="nav-list">'+(navnotes||'<li>—</li>')+'</ul></div>';
+}
+function render(){ buildSidebar(); buildScreenTabs(); buildStage(); }
+render();
+</script>
+</body>
+</html>
