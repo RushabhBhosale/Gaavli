@@ -1,4 +1,21 @@
+> Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
+> with Get started → required first/last name and Indian mobile → OTP →
+> confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
+> for the implemented API, session, model, offline and security contract.
+> This supersedes earlier Phase-1-only/scaffold and mobile guest-first wording.
+> Verified users may have no village; existing display names stay intact and
+> unknown first/last names are not inferred. Test OTP and test sessions are
+> development-only; production requires a real SMS provider.
+
 # Current Approved Architecture (Authoritative)
+
+Foundation implemented — 2026-10-13: root npm workspaces and one root lockfile now
+include the existing web application, Expo mobile foundation and four shared safe
+packages. Shared packages contain source TS consumed by Expo/Next; Next declares
+transpilePackages and Expo uses standard automatic monorepo configuration.
+SQLite persists language only in Phase 1; no offline write engine or mobile auth
+is implemented yet. Root scripts reuse their invoking npm CLI to avoid legacy
+ancestor PATH executables on Windows.
 
 The final target is an npm-workspaces monorepo with `apps/mobile`, `apps/web`, and shared packages under `packages/`. `apps/web` owns the Next.js Admin UI, REST API, and backend application layer; do not split the target into separate API and Admin apps. Mobile calls REST/HTTPS/JSON endpoints under `/api/v1`.
 

@@ -1,0 +1,9 @@
+node_modules/
+.expo/
+.next/
+dist/
+coverage/
+*.tsbuildinfo
+.env*
+!.env.example
+gaavli-expo-template/

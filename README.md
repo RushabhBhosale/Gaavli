@@ -11,24 +11,34 @@ Gaavli is a Marathi-first, offline-first platform that connects villagers with n
 - **Package manager:** npm with npm workspaces and `package-lock.json`.
 - **AI workflow:** Codex implements production software. Lovable is limited to UI/UX design and prototypes.
 
-The repository documents the target architecture. See `docs/IMPLEMENTATION_STATUS.md` for what is actually present and what remains planned.
+The repository includes the Next.js Admin/backend and Phase 1 Expo mobile
+foundation. See `docs/IMPLEMENTATION_STATUS.md` for verified behavior and pending
+work. Mobile onboarding is registration-first, with Marathi/English language
+selection; Phase 1 stops at a registration scaffold.
 
 ## Setup
 
-The intended monorepo setup uses:
+Use Node.js 20.19.4 or newer and npm 10 or newer. Install from the repository root:
 
 ```bash
 npm install
 ```
 
-Workspace commands depend on the scripts defined by each app, for example:
+Start the applications in separate terminals:
 
 ```bash
-npm run dev --workspace=apps/web
-npm run start --workspace=apps/mobile
+npm run dev:web
+npm run dev:mobile
 ```
 
-The current documentation checkout may not contain the application workspaces or package manifests yet. Do not infer that the apps are implemented from these target paths.
+Mobile native development-client setup and LAN/API configuration are documented
+in [apps/mobile/README.md](apps/mobile/README.md). For Expo Go, run
+`npm run dev:mobile:go` from the root; it starts the mobile workspace and clears
+Metro's cache. Do not run plain `npx expo start` from the monorepo root.
+
+Run `npm run typecheck`,
+`npm run lint`, `npm run test`, `npm run build:web` and `npm run export:android`
+from the root. There is one root lockfile; do not create per-app lockfiles.
 
 ## Documentation map
 

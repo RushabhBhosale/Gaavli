@@ -1,4 +1,84 @@
+> Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
+> with Get started → required first/last name and Indian mobile → OTP →
+> confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
+> for the implemented API, session, model, offline and security contract.
+> This supersedes earlier Phase-1-only/scaffold and mobile guest-first wording.
+> Verified users may have no village; existing display names stay intact and
+> unknown first/last names are not inferred. Test OTP and test sessions are
+> development-only; production requires a real SMS provider.
+
 # Next.js Security Requirements
+
+Activity requests — 2026-10-15: request lists are participant-only and omit phone
+numbers. Only the recipient can mark Seen/Responded; first server timestamps are
+idempotent and cannot be downgraded. Explicit request confirmation grants callback
+permission to that seller only. Legacy notices do not grant permission. Callback
+APIs recheck current account, listing, interest and village scope on every action;
+no phone is persisted in request records or mobile storage. See
+`docs/03-api/ACTIVITY_REQUESTS.md`.
+
+Notify seller — 2026-10-15: explicit confirmation creates only an operational
+in-app notice after prior interest and current listing/account/village checks.
+Recipient-only no-store inbox reads omit internal references and all phone/token
+data. Sender name inclusion is explained before confirmation. Stable operation
+replay, 24-hour deduplication and rate limits prevent duplicate/spam sends. No SMS,
+WhatsApp, push or marketing permission is implied. See `docs/03-api/NOTIFY_SELLER.md`.
+
+Buyer contact — 2026-10-15: normal listing reads remain contact-free. Explicit
+Interested/Call actions now use the authenticated no-store contact endpoint with
+transactional eligibility checks, unique buyer/listing interest and persistent
+rate limits. Revealed contact stays only in scoped mobile memory, not SQLite or
+persisted response logs. No notification is sent by a contact reveal. See
+`docs/03-api/BUYER_CONTACT.md`.
+
+Returning sign-in — 2026-10-15: mobile-only OTP sends share registration's
+challenge response/throttling and do not disclose account existence. Only after
+valid OTP can unknown numbers receive REGISTRATION_REQUIRED; they cannot create
+nameless users. Existing account status/duplicate checks and transactional OTP
+consumption remain authoritative. See `docs/03-api/MOBILE_ONBOARDING.md`.
+
+2026-10-15 phone uploads: authenticated bounded multipart API, image decode/pixel
+limits, metadata stripping and immutable owner-scoped development files are now
+implemented. Unknown/cross-account upload keys cannot select arbitrary filesystem
+paths. Production local uploads are disabled pending durable storage integration.
+See `docs/03-api/PHONE_PHOTO_UPLOADS.md`; earlier no-upload statements below are
+historical. Product image URLs are public; photo selection is for publishable crop
+imagery, with draft files private on-device until upload.
+
+Listing CRUD — 2026-10-14: mobile writes require current bearer authentication,
+owned targets, bounded strict Zod inputs, current active village/category for
+publication/edit/relist and transaction-time active-user rechecks. Seller/roles/
+status/demo flags cannot be injected. Photo references require safe owned keys.
+Non-owner/missing targets share a 404; version/duplicate conflicts expose only
+owned business metadata, not documents/contact/token details. Persistent
+idempotency responses contain safe owner DTOs; no raw request/contact/token is
+stored there. Admin ceiling settings retain separate cookie/origin authentication
+and audited versioned writes. See `docs/03-api/LISTING_CRUD.md`.
+
+Listing photos — 2026-10-14: photo keys must remain under the `listings/` prefix
+with approved image extensions and no traversal/URL/credential content. The
+server resolves only a trusted configured public object base or development static
+path; production requires HTTPS. Mobile rejects unsafe schemes, protocol-relative
+paths and credentials, and allows development HTTP only at its configured backend
+origin. These public product images contain no contact/session information.
+Labelled demo offers are hidden from production listing queries. No upload endpoint
+or arbitrary remote-image proxy is introduced.
+
+Mobile listing reads — 2026-10-14: bearer authentication checks current session
+and active user; the saved active village controls scope. Queries use bounded
+Zod inputs and literal escaped name search. Safe projections omit seller/contact,
+addresses, credentials and raw documents. Both routes use `no-store`; hidden,
+expired and out-of-village details share an unavailable response. Removed sample
+seller contacts from the live navigation flow; reads do not bypass future interest
+authorization. See [MOBILE_MARKETPLACE.md](03-api/MOBILE_MARKETPLACE.md).
+
+Phase 1 mobile foundation — 2026-10-13: only language settings persist in SQLite.
+SecureStore helpers are available for future tokens; no authentication is
+implemented. API base URL is public configuration, requires HTTPS outside local
+development and cannot contain credentials/query strings. Mobile requests omit
+browser cookies. Development-only health diagnostics expose no server details;
+admin APIs retain their session/authorization/origin protections. Registration-
+first requirements supersede guest browsing on mobile; contact remains protected.
 
 This document remains authoritative for security and privacy behavior. Next.js implementation must keep secrets server-only; never expose secrets through `NEXT_PUBLIC_*` (all such values are public). Mongoose, MongoDB connections, repositories, and provider credentials are server-only. Protected Route Handlers authenticate and authorize on the server and validate input. Admin client role checks do not provide security. Return safe DTOs, use deliberate Mobile CORS, secure cookies for browser-session auth, CSRF protection where applicable, and deliberate caching. Do not publicly cache authenticated or user-specific data. Do not invent a new authentication model.
 

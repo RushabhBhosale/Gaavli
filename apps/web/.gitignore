@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.local/
+.env*
+!.env.example
+*.tsbuildinfo
+coverage/
+mongo-local-setup.log
+next-dev-local.log
+next-dev-local-error.log

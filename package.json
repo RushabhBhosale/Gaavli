@@ -1,0 +1,36 @@
+{
+  "name": "gaavli",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "node scripts/workspace.mjs run dev --workspace=@gaavli/web",
+    "mobile": "node scripts/workspace.mjs run start --workspace=@gaavli/mobile",
+    "dev:mobile:go": "node scripts/workspace.mjs run start:go --workspace=@gaavli/mobile",
+    "mobile:usb": "node scripts/mobile-usb.mjs",
+    "dev:mobile:usb": "node scripts/mobile-usb.mjs --start",
+    "typecheck": "tsc --noEmit -p packages/tsconfig.json && node scripts/workspace.mjs run typecheck --workspaces --if-present",
+    "lint": "node scripts/workspace.mjs run lint --workspaces --if-present",
+    "test": "node scripts/workspace.mjs run test --workspaces --if-present",
+    "test:health": "tsx scripts/verify-health.ts",
+    "build:web": "node scripts/workspace.mjs run build --workspace=@gaavli/web",
+    "export:android": "node scripts/workspace.mjs run export:android --workspace=@gaavli/mobile"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "tsx": "^4.23.15",
+    "prettier": "^3.9.9",
+    "@types/node": "^26.6.4"
+  },
+  "dependencies": {
+    "@gaavli/validation": "*"
+  },
+  "engines": {
+    "node": ">=20.19.4",
+    "npm": ">=10"
+  },
+  "packageManager": "npm@10.9.4"
+}

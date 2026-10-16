@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Gaavli",
+    "slug": "gaavli",
+    "version": "0.1.0",
+    "scheme": "gaavli",
+    "orientation": "portrait",
+    "icon": "./assets/brand.png",
+    "userInterfaceStyle": "light",
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.gaavli.mobile" },
+    "android": { "package": "com.gaavli.mobile" },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Gaavli to select a product photo for your listing.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ],
+      "expo-router",
+      "expo-sqlite",
+      "expo-secure-store",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow Gaavli to suggest nearby villages. You choose and confirm your village."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FFFDF5",
+          "image": "./assets/gaavli-welcome-mark.png",
+          "imageWidth": 120
+        }
+      ]
+    ]
+  }
+}

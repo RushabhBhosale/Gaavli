@@ -1,8 +1,34 @@
+> Returning-user revision — 2026-10-15: after logout, sign in with mobile + OTP.
+> First/last names remain required only for new-account registration. Existing
+> profile, village and capabilities are restored; see `docs/03-api/MOBILE_ONBOARDING.md`.
+
+> User-approved seller revision — 2026-10-14: Home's Become a Seller confirmation
+> activates the existing seller capability before a first listing is published.
+> Buyer capability and protected contacts remain intact. Sellers see My Listings
+> instead of the Marketplace tab; marketplace browsing remains accessible on Home.
+> See `docs/03-api/SELLER_ACTIVATION.md`. This supersedes first-listing-only activation.
+
+> Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
+> with Get started → required first/last name and Indian mobile → OTP →
+> confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
+> for the implemented API, session, model, offline and security contract.
+> This supersedes earlier Phase-1-only/scaffold and mobile guest-first wording.
+> Verified users may have no village; existing display names stay intact and
+> unknown first/last names are not inferred. Test OTP and test sessions are
+> development-only; production requires a real SMS provider.
+
 # Gaavli — Codex Instructions
 
 Codex is the primary coding agent. This file is the authoritative global instruction source; app-specific instructions live in `apps/mobile/AGENTS.md` and `apps/web/AGENTS.md`.
 
 ## Product North Star
+
+User-approved mobile revision — 2026-10-13: no guest entry point. Mobile starts
+with Marathi/English language selection, required first name, last name and
+mobile, OTP verification, then village selection and product browsing. This
+supersedes the guest-browsing wording below for the mobile application. Phase 1
+implements language selection and a registration scaffold only; real account
+creation and OTP remain later work.
 
 Gaavli connects villagers directly. It does not control transactions. Preserve guest browsing, protected contact details, buyer as the default capability, seller capability through listing creation, administratively granted coordinators, structurally separate Super Admin, manually authoritative village proximity, self-declared services, consent-aware notifications, Marathi-first UX, and offline-first behavior. The product has no payments, chat, delivery management, ecommerce checkout, or runtime LLM dependency for deterministic MVP features.
 

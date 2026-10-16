@@ -1,3 +1,36 @@
+> User-approved seller revision — 2026-10-14: buyers may activate seller capability
+> through the Home confirmation before adding any products. Preserve buyer and
+> protected contact details. Show My Listings as the seller's second tab and the
+> first-product empty state only after an owner read confirms no products.
+> Marketplace remains reachable from Home. Earlier first-listing-only activation
+> wording is superseded; first publication still grants seller as a fallback.
+
+> Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
+> with Get started → required first/last name and Indian mobile → OTP →
+> confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
+> for the implemented API, session, model, offline and security contract.
+> This supersedes earlier Phase-1-only/scaffold and mobile guest-first wording.
+> Verified users may have no village; existing display names stay intact and
+> unknown first/last names are not inferred. Test OTP and test sessions are
+> development-only; production requires a real SMS provider.
+
+Database listing revision — 2026-10-14: the user requires Home, Marketplace and
+Product Details to use database listings only, without sample fallback. The
+implemented read contract and remaining nearby/contact/offline/photo work are in
+`docs/03-api/MOBILE_MARKETPLACE.md`. This supersedes preview listing-data wording.
+
+Buyer dashboard revision — 2026-10-13: the requested Home screen is a working
+mobile UI preview with sample listings/coordinator, buyer-first seller conversion,
+optional seller actions, village exploration and four native tabs. Sample content
+is labelled. Saved identity/village, language and logout remain real; live
+marketplace data and seller/notification writes are future integration work.
+See `docs/06-ui/MOBILE_HOME_PREVIEW.md`.
+
+Mobile village selection revision — 2026-10-13: one Village dropdown and an
+optional Use Current Location card, followed by Continue. No search input,
+district selector or taluka selector. Location suggests choices; the user confirms
+one active village. Backend search capabilities remain available to other clients.
+
 # Farmer–Buyer Connect — Product Requirements
 
 **Version:** 1.2 — Technical Stack Revision\
@@ -23,6 +56,20 @@
 -   New **Recommended Technology Stack** section (§22).
 
 ## Current Approved Technical Decisions
+
+User-approved mobile onboarding revision — 2026-10-13: registration is required
+before browsing; no guest mobile flow. Language selection supports Marathi
+(preselected) and English, followed by required first name, last name and mobile,
+OTP verification, village selection using PIN/taluka/village/location, then
+village products. This supersedes historical guest-first, optional-name and Hindi
+mobile onboarding wording below. Buyer remains the default capability; protected
+contact, consent, seller/coordinator rules and offline requirements remain.
+Phase 1 supplies the foundation and registration scaffold, not account creation.
+
+User-approved product revision — 2026-10-12: each village has at most one assigned
+coordinator. A coordinator may still cover multiple villages. This supersedes
+earlier many-to-many wording in the historical change notes below. The village
+directory exposes Edit/Delete actions and the assigned coordinator's user name.
 
 This section supersedes earlier technical-stack recommendations in this document. Product requirements and scope remain unchanged.
 
@@ -147,11 +194,9 @@ a seasonal seller with zero current listings.
 
 ### 3.4 Village Coordinator (role flag, admin-granted)
 
-A trusted local person, assigned by admin to one or more villages. A
-village may also have more than one coordinator where useful (e.g. a
-larger village, or a handover period between an outgoing and incoming
-coordinator) — coordinator-to-village is a many-to-many relationship, not
-one-to-one. A coordinator additionally can:
+A trusted local person, assigned by admin to one or more villages. Each village
+has at most one assigned coordinator, per the user-approved 2026-10-12 revision.
+A coordinator may cover multiple villages. A coordinator additionally can:
 
 -   Register a buyer who has no smartphone (name + number), triggering an
     SMS/WhatsApp opt-in request on that buyer's behalf.
@@ -662,8 +707,8 @@ village_coordinators
   ├── id (PK)
   ├── village_id (FK → villages.id)
   └── coordinator_user_id (FK → users.id)
-  (many-to-many — a village may have more than one coordinator, and a
-  coordinator may cover more than one village)
+  (village_id UNIQUE — one assigned coordinator per village;
+  a coordinator may cover more than one village)
 
 village_proximity_default
   ├── id (PK)

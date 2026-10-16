@@ -24,6 +24,10 @@ These rules apply to Codex, the project's primary coding agent. The root [`AGENT
 
 ## Product and design boundaries
 
+Mobile guest-first behavior is superseded by the user-approved 2026-10-13
+registration-first flow in PROJECT_REQUIREMENTS.md. Marathi/English onboarding
+and required first/last name/mobile apply to the current mobile build.
+
 Gaavli connects people and leaves transactions between them. Preserve guest browsing, protected contact information, approved roles, manually authoritative village proximity, self-declared services, consent-aware notifications, and Marathi-first offline UX. There are no payments, chat, delivery management, or ecommerce checkout in scope.
 
 Lovable is UI/UX design-only. It may provide screen designs, navigation concepts, layouts, component designs, states, responsive behavior, prototypes, and a visual design system. It must not implement production application logic, APIs, database access, authentication, offline sync, notifications infrastructure, storage, or search. Codex implements production software.

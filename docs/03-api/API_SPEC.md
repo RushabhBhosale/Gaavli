@@ -1,4 +1,44 @@
+> Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
+> with Get started → required first/last name and Indian mobile → OTP →
+> confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
+> for the implemented API, session, model, offline and security contract.
+> This supersedes earlier Phase-1-only/scaffold and mobile guest-first wording.
+> Verified users may have no village; existing display names stay intact and
+> unknown first/last names are not inferred. Test OTP and test sessions are
+> development-only; production requires a real SMS provider.
+
+# Village creation coordinates — 2026-10-12
+
+Mobile listing reads — 2026-10-14: authenticated database-only listing page and
+detail endpoints are implemented. Their current contracts and compatibility
+limits are in [MOBILE_MARKETPLACE.md](MOBILE_MARKETPLACE.md). Historical listing
+mutation examples below remain target specifications, not implemented writes.
+
+Admin `POST /api/v1/admin/villages` allows latitude and longitude to be omitted
+together. Add Village does not request coordinates; omitted coordinates leave
+location unset, and the listing DTO returns null latitude/longitude. Existing
+clients may supply a valid coordinate pair. `PUT /api/v1/admin/villages/:id`
+continues to require valid coordinates and a version. Nearby villages remain
+manually mapped, independently of coordinates.
+
 # Implementation Architecture Note
+
+Listing CRUD implementation — 2026-10-14: bearer-authenticated create/edit/soft
+delete, owned reads, sold-out/relist and active categories are implemented. Their
+actual field names, retry/version rules and database additions are in
+[LISTING_CRUD.md](LISTING_CRUD.md), superseding historical illustrative writes.
+
+Phase 1 mobile foundation — 2026-10-13: `GET /api/v1/health` is public liveness
+only. HTTP 200: `{ "success": true, "data": { "status": "ok" } }` with
+`Cache-Control: no-store`. No DB query, credentials, versions or environment
+details are exposed. It does not attest database readiness. No CORS wildcard or
+admin authentication change was introduced; native clients call it over HTTPS
+(local HTTP allowed only in development).
+
+Mobile onboarding is now registration-first with no guest entry point and required
+first name/last name/mobile before OTP, followed by village selection. Existing
+mobile auth/reference contracts and nullable pre-village account support still
+need implementation in later phases. Phase 1 does not issue tokens or accounts.
 
 The API remains REST/JSON under `/api/v1`. Mobile requires stable network endpoints; Next.js Server Actions do not replace this API. In `apps/web`, Next.js Route Handlers are thin transport adapters that authenticate, authorize, validate with Zod, then call reusable server-side application services. Services use repositories/providers. Return explicit API DTOs, stable errors, pagination, idempotency, and conflict semantics. Keep MongoDB/Mongoose server-only.
 
@@ -723,6 +763,31 @@ They do not automatically change authoritative village relationships.
 
 # 26. Category APIs
 
+## Implemented Admin category directory — 2026-10-13
+
+`GET /api/v1/admin/categories` requires an active Super Admin browser session.
+Query: `search` (literal English/Marathi name, max 100 characters), `page`
+(default 1), `limit` (default 10, max 100), `sort` (`sortOrder` default, `name`,
+`defaultShelfLife`, `notifyMode`, `activeListings`), `direction` (`asc`/`desc`).
+Returns the existing success envelope with `{ categories, total, page, limit }`.
+Each safe category DTO contains `id`, `code`, `name`, `nameMr`,
+`defaultShelfLife`, `notifyMode`, `activeListings`. Text fields sort lexically;
+counts sort numerically. Pages clamp to the last available page.
+
+`POST /api/v1/admin/categories` requires the same session and same-origin JSON.
+Body: `code` (2–40 uppercase letters/numbers/underscores, starting with a letter),
+`name`, `nameMr` (2–100 characters), `defaultShelfLife` (1–100 characters),
+`notifyMode` (`daily_digest`, `change_only`, `weekly_digest`). Unknown fields are
+rejected. Returns `{ id }` with HTTP 201. Duplicate codes return 409 CONFLICT.
+Creation and `CATEGORY_CREATED` audit commit together in a MongoDB transaction.
+Both endpoints use `Cache-Control: no-store`. Send timing is omitted from this
+admin interface. Notification scheduling, category edit/delete and the public
+reference APIs below remain separate unfinished work.
+
+Active counts include unexpired active listings linked by ObjectId/string
+`categoryId` or legacy `category` matching the stable category code. Legacy generic
+`Produce` listings are not assigned to a tier automatically.
+
 ## List
 
 ```http
@@ -929,6 +994,13 @@ Prefer deactivation over hard deletion where history or references matter.
 
 # 34. Interested
 
+Implemented buyer-contact revision — 2026-10-15: the explicit Interested/Call
+action accepts a strict empty JSON body and returns protected seller name/mobile
+in addition to listingId/interested after authorization. Normal browsing DTOs stay
+contact-free. See `BUYER_CONTACT.md` for eligibility, natural-key idempotency,
+throttling and the response contract; the earlier minimal example below remains
+a subset of the response.
+
 ```http
 POST /api/v1/listings/:id/interested
 ```
@@ -954,6 +1026,18 @@ Response:
 ---
 
 # 35. Notify Farmer
+
+Buyer/seller requests revision: quantity and callback permission, participant
+Sent/Received lists, recipient Seen/Responded actions and protected callback APIs
+are implemented in `ACTIVITY_REQUESTS.md`. Existing empty-body notification sends
+remain supported for old clients/replays, without granting callback permission.
+
+Implemented in-app fallback — 2026-10-15: authenticated strict empty body plus
+Idempotency-Key, prior interest/current eligibility checks, durable replay and
+24-hour deduplication now create an actual recipient inbox notice. Mobile uses
+confirmation/success sheets with Call again. Recipient-only notifications reads
+power My Activity. See `NOTIFY_SELLER.md`; SMS/WhatsApp/push are not delivered by
+this implementation.
 
 ```http
 POST /api/v1/listings/:id/notify-farmer
@@ -1214,6 +1298,19 @@ Actual image bytes are stored in object storage.
 ---
 
 # 44. Admin APIs
+
+Implemented village admin transport update (2026-10-12):
+`POST /api/v1/admin/villages` creates villages, `PUT /api/v1/admin/villages/:id`
+replaces editable village details, `PATCH .../:id/status` activates/deactivates,
+`GET .../:id/dependencies` reports linked records, and `DELETE .../:id` accepts
+`{ version }` and deletes only unreferenced villages. All are Super Admin-only
+with same-origin mutation protection and transactionally committed audit records.
+Coordinator selection is optional with maximum one user ID per village, per the
+user-approved product revision. Assigned coordinator DTOs contain user ID/name,
+not contact information. Deletion requires a fresh server-side dependency check;
+links or stale versions return 409. Detailed payloads and supported dependency
+collections are documented in `apps/web/docs/API_SPEC.md`. Public/mobile reference
+APIs and authoritative nearby mappings are not changed by these admin endpoints.
 
 Admin endpoints require server-side authorization.
 

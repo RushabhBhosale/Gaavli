@@ -1,7 +1,46 @@
+> Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
+> with Get started → required first/last name and Indian mobile → OTP →
+> confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
+> for the implemented API, session, model, offline and security contract.
+> This supersedes earlier Phase-1-only/scaffold and mobile guest-first wording.
+> Verified users may have no village; existing display names stay intact and
+> unknown first/last names are not inferred. Test OTP and test sessions are
+> development-only; production requires a real SMS provider.
+
 
 ---
 
 # `docs/06-ui/UI_UX_PRD.md`
+
+Database listing revision — 2026-10-14: Home, Marketplace and Product Details now
+consume authenticated database-only listing reads. Preserve compact cards and
+show loading, empty, retry and offline freshness states instead of sample fallback.
+See `docs/03-api/MOBILE_MARKETPLACE.md` for current fields and unfinished features.
+
+Latest buyer dashboard revision — 2026-10-13: Home UI, product/marketplace previews
+and native tabs are implemented using the requested light #8BC34A/#B7DC7A palette
+and #FFFDF7 background. This supersedes the earlier shared palette below. Detailed
+UI, fixture boundaries and remaining integration: `MOBILE_HOME_PREVIEW.md`.
+
+Shared mobile styling revision — 2026-10-13: every screen consumes the village
+palette from `apps/mobile/src/theme.ts`: primary #559C34, cream #FFFDF5, soft green
+#ECF5DE and focus border #78AE5D. Reusable native controls in `components/ui.tsx`
+own rounded buttons/inputs/cards, back arrows, dropdowns, action cards, location
+pins and offline banners. Screen-specific layout and behavior remain separate.
+
+Village screen revision — 2026-10-13: back arrow, Select your village title,
+one rounded Village dropdown, soft-green Use Current Location card with pin icon,
+medium-green Continue button and local rural illustration anchored at the bottom.
+No search bar, district field or taluka field. Choices open in a paginated sheet;
+location suggestions require explicit user selection. Marathi/English and offline,
+loading, retry and saving states remain supported. Layout uses responsive logical
+units rather than a fixed 1080 × 1920 bitmap.
+
+Current mobile revision — 2026-10-13: storyboard green theme, pale cream surfaces,
+native controls/system fonts, Marathi preselected and English available.
+Onboarding is language → required first/last name/mobile → OTP → village →
+products, with no guest mode. This supersedes historical guest-first/Hindi
+onboarding below. Phase 1 stops at a translated registration scaffold.
 
 ```md
 # Gaavli — UI/UX Product Requirements Document

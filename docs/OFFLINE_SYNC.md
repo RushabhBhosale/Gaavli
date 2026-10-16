@@ -1,4 +1,63 @@
+> Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
+> with Get started → required first/last name and Indian mobile → OTP →
+> confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
+> for the implemented API, session, model, offline and security contract.
+> This supersedes earlier Phase-1-only/scaffold and mobile guest-first wording.
+> Verified users may have no village; existing display names stay intact and
+> unknown first/last names are not inferred. Test OTP and test sessions are
+> development-only; production requires a real SMS provider.
+
 # Approved Client/Server Flow
+
+Activity requests — 2026-10-15: pending notification sends persist their exact
+quantity/callback-permission body and stable key before networking. Uncertain
+results lock that body for restart retry; old key-only snapshots preserve their
+original empty body. Received statuses use monotonic idempotent server actions.
+Offline new sends/status writes/callback reads are disabled with explicit feedback;
+no background request queue is claimed. See `docs/03-api/ACTIVITY_REQUESTS.md`.
+
+2026-10-15 phone photos: the picker selection is copied to private documents and
+its relative name, MIME and upload ID are saved in the account/village draft.
+Offline selection does not publish. Manual upload retries reuse the ID; the returned
+object key persists before staging the listing request. No temporary picker URI or
+base64 bytes enter MongoDB. Device acceptance and early picker process-death recovery
+are not claimed. See `docs/03-api/PHONE_PHOTO_UPLOADS.md`.
+
+2026-10-15 Add Listing: edits now save to an account/village-scoped SQLite draft.
+Publishing stages the exact request body/expiry and stable operation key before
+sending. Uncertain outcomes retain a locked snapshot for manual replay after a
+restart. Offline drafts remain local and never appear as published stock. This is
+not a general background sync engine. See `docs/03-api/ADD_LISTING.md` for recovery
+behavior and remaining native-device verification.
+
+Listing write server contract — 2026-10-14: create/edit/delete/sold-out/relist now
+require stable Idempotency-Key values. User/key uniqueness and request hashes
+prevent duplicate delivery and conflicting reuse; original successful responses
+are recorded atomically with mutations. Explicit positive versions reject stale
+updates. Delete deactivates and retains history; old creates/edits cannot resurrect
+it. Server guarantees are implemented, while mobile SQLite queues, client conflict
+resolution/restart recovery and seller write UI remain pending. See
+`docs/03-api/LISTING_CRUD.md` for replay/version rules and retention.
+
+Listing photos — 2026-10-14: database-derived remote photo URLs now render with a
+placeholder on network/image failure. Native image caching may retain previously
+loaded images but is not a durable SQLite/offline photo store. No offline upload
+queue or locally generated replacement image is introduced.
+
+Mobile listing read revision — 2026-10-14: Home, Marketplace and Product Details
+now load only database-derived REST DTOs. Account/village/filter-scoped in-memory
+query results can be displayed during outages with an explicit freshness warning;
+network recovery/focus/mount revalidates. Expired entries are hidden on a 30-second
+clock and on foreground return. No sample fallback exists. SQLite listing cache,
+cold offline reads and write queues remain unfinished and are not claimed here.
+See [MOBILE_MARKETPLACE.md](03-api/MOBILE_MARKETPLACE.md).
+
+Phase 1 mobile foundation — 2026-10-13: confirmed language persists in SQLite
+before navigation, with restore/write failure retry. In-memory TanStack Query
+cache is not durable offline storage. NetInfo and AppState update query online/
+focus state. No listing cache, offline writes or executing sync queue is delivered
+yet; stable IDs, idempotency and conflict/restart recovery remain mandatory when
+later phases introduce those operations.
 
 Offline support remains mandatory. The target flow is React Native → TanStack Query/Zustand → Expo SQLite → persistent sync queue → sync engine → Next.js REST API → MongoDB Atlas. Preserve stable operation IDs, idempotency, retries, conflict handling, restart recovery, and server authority. Mobile consumes REST/JSON; it never connects to MongoDB. Next.js server caching and Mobile SQLite caching are separate concerns.
 

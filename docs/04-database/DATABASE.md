@@ -1,4 +1,79 @@
+> Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
+> with Get started → required first/last name and Indian mobile → OTP →
+> confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
+> for the implemented API, session, model, offline and security contract.
+> This supersedes earlier Phase-1-only/scaffold and mobile guest-first wording.
+> Verified users may have no village; existing display names stay intact and
+> unknown first/last names are not inferred. Test OTP and test sessions are
+> development-only; production requires a real SMS provider.
+
 # Approved Runtime Boundary
+
+Activity requests — 2026-10-15: BUYER_TRIED_CONTACT notifications now include
+quantity/unit, callbackConsent and product/participant/village snapshots. readAt
+is Seen, respondedAt records explicit seller response confirmation. A sender
+index supports buyer Sent history. No phone or synthetic legacy quantity/consent
+is stored. Existing records/recipient notices remain intact. See
+`docs/03-api/ACTIVITY_REQUESTS.md`.
+
+Notify seller — 2026-10-15: the existing notifications collection now also stores
+BUYER_TRIED_CONTACT, optional titleMr/bodyMr and internal data.buyerId/listingId.
+Notices hold only buyer/product names, not phone numbers or secrets. An indexed
+recipient/type/buyer/listing/time lookup deduplicates within 24 hours; existing
+ListingOperation user/key records make request replay durable and atomic. Existing
+role notices remain intact. See `docs/03-api/NOTIFY_SELLER.md`.
+
+Buyer contact — 2026-10-15: `interests` is implemented with listingId/userId
+ObjectId references, timestamps and their unique compound index. Explicit contact
+actions upsert this pair transactionally after current eligibility checks. Seller
+contact is returned from User only after authorization, not copied into interests
+or public listing DTOs. See `docs/03-api/BUYER_CONTACT.md`.
+
+Returning sign-in — 2026-10-15: temporary MobileOtpChallenge firstName/lastName
+are nullable for mobile-only login and cleared on login challenge replacement.
+Only a challenge carrying both validated registration names can create a new
+user; existing User identity/profile/roles/village remain unchanged. Logout
+deletes the current MobileSession, not the User or their listings. See
+`docs/03-api/MOBILE_ONBOARDING.md`.
+
+Listing CRUD — 2026-10-14: new writes persist validated categoryId plus legacy
+category code, version, optional minimumPurchaseQuantity and fulfillmentOptions.
+Soft deletion adds deactivatedAt; sold_out/deactivated extend lowercase statuses.
+Explicit null expiry is permitted only for standing RECURRING_SUPPLY; missing
+legacy expiry is not inferred as standing. Legacy versions read as 1 until first
+mutation. ListingOperation has a unique user/key index and retained response/hash
+records; ListingEvent stores action/version history; ListingSettings stores the
+default-10 active ceiling with admin version/audit controls. Writes/events/replay
+records and first-listing seller conversion commit in one transaction. No bulk
+record migration is performed. See `docs/03-api/LISTING_CRUD.md` for complete fields.
+
+Marketplace product groups — 2026-10-14: optional Listing `productGroup` is one
+of `vegetables`, `fruits`, `grain`, `dairy`. It is separate from the shelf-life
+category code. Missing values are unclassified and included only in All until
+explicitly assigned; no guessed migration of real listings. The existing five
+Narayangaon demo rows were classified with only this field updated; other stored
+details and timestamps remain intact.
+
+Listing photo/demo revision — 2026-10-14: optional `photoObjectKey` stores an
+approved listing object reference; `isDemo` defaults false for historical records.
+Safe API DTOs resolve keys through the server photo provider and do not expose raw
+keys. Image bytes are served from object/static storage, not embedded in MongoDB.
+Five labelled Narayangaon development demo listings and a dedicated contact-free
+demo seller were explicitly added at the user's request. No real account, village
+or other listing was replaced. See `docs/03-api/MOBILE_MARKETPLACE.md`.
+
+Mobile listing reads — 2026-10-14: existing Listing documents are read using
+`productName`, optional `productNameMr`, category string, quantity/unit/price,
+seller/village references, lowercase status and expiry/timestamps. Added optional
+`productNameMr` and a village/status/createdAt/_id index. No records are migrated
+or seeded. Target category-ID/lifecycle/photo-field migration remains pending.
+See [MOBILE_MARKETPLACE.md](../03-api/MOBILE_MARKETPLACE.md).
+
+Phase 1 mobile revision — 2026-10-13: SQLite `gaavli.db`, migration version 1,
+contains `settings(key TEXT PRIMARY KEY, value TEXT NOT NULL)` for confirmed
+language. No MongoDB model/data migration is performed. Later registration work
+must add first/last name compatibility and allow verified users before village
+selection; the existing web User model still requires `name` and `village`.
 
 MongoDB Atlas, Mongoose, and MongoDB Atlas Search remain approved. Database access is server-only and belongs behind repositories/application services. Mongoose models and connection code must not enter Client Components. Use Node.js runtime for Mongoose-backed Next.js Route Handlers unless another runtime is explicitly validated. Reuse connections appropriately in the Next.js runtime and map documents to explicit DTOs; raw Mongoose documents are not API responses. Mobile SQLite remains local/offline storage, not a replica or direct MongoDB client.
 
@@ -369,6 +444,20 @@ Stores authoritative village information.
 
 # 16. Village Document
 
+User-approved revision (2026-10-12): at most one coordinator is assigned per
+village. `villagecoordinators.villageId` is UNIQUE; a coordinator user can be
+assigned to multiple villages. Migration refuses existing multi-coordinator
+conflicts without silently deleting assignments. Village deletion is allowed
+only with no linked users, listings, assignments, mappings, preferences, services
+or subscriptions; audit history remains retained.
+
+Initial admin-panel implementation (2026-10-12) stores coordinates in the GeoJSON
+`location` field described below, retaining legacy `nameEn`/`isActive` fields.
+Explicit assignments are stored in `villagecoordinators` with `villageId`/`userId`
+and a unique compound index. Canonical naming/enum migration remains pending;
+details are in `apps/web/docs/DATABASE.md`. No coordinates are inferred for
+existing villages without location data.
+
 Example:
 
 ```json
@@ -509,6 +598,24 @@ Example:
 ---
 
 # 23. Category Rules
+
+### Implemented web category fields — 2026-10-13
+
+The web `Category` Mongoose model uses the `categories` collection with unique
+`code`, English `name`, Marathi `nameMr`, `status` (`ACTIVE`/`INACTIVE`),
+`sortOrder`, timestamps, plus `defaultShelfLife` (display text) and `notifyMode`
+(`daily_digest`, `change_only`, `weekly_digest`). Admin creation is transactional
+with a `CATEGORY_CREATED` audit. No send-time field is exposed in the admin UI.
+`scripts/seed-categories.ts` initializes the four approved tiers with insert-only
+upserts; reruns preserve existing configuration. It is an explicit setup script,
+not a read-time database mutation.
+
+Listing category migration is still pending: current sample listings use legacy
+`category: "Produce"`. The admin counter supports canonical ObjectId/string
+`categoryId` and legacy `category` equal to a tier code, excluding expired or
+non-active listings. It does not infer a tier from item names or generic Produce.
+Shelf-life text is configuration metadata; automatic expiry defaults and digest
+scheduling are not implemented by this admin UI change.
 
 Categories are controlled by the platform.
 
@@ -935,6 +1042,13 @@ Consider a compound uniqueness rule to prevent duplicate active subscriptions.
 ---
 
 # 46. Notifications Collection
+
+Implementation note (2026-10-12): the initial admin panel now persists coordinator
+grant/removal notices in `notifications`, with `userId`, `type`, Marathi title/body,
+nullable `readAt` and timestamps. These records commit atomically with role changes
+and audit entries. Supported initial types are `COORDINATOR_GRANTED` and
+`COORDINATOR_REMOVED`; broader notification types and retrieval/delivery remain
+pending. Details are in `apps/web/docs/DATABASE.md`.
 
 Collection:
 
@@ -1974,5 +2088,3 @@ The agent should be able to reason:
    → SQLite mapping
    → Sync handler
 ```
-
-
