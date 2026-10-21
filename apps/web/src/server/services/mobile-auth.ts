@@ -180,6 +180,8 @@ export async function verifyOtp(
             firstName: challenge.firstName,
             lastName: challenge.lastName,
             mobile: challenge.mobile,
+            mobileVerified: true,
+            registeredAt: new Date(),
             roles: ["buyer"],
             status: "active",
             preferredLanguage: challenge.language,
@@ -197,6 +199,11 @@ export async function verifyOtp(
         );
       // Preserve existing names, roles and village, including legacy unsplit display names.
       account.mobile = challenge.mobile;
+      account.mobileVerified = true;
+      if (!account.registeredAt)
+        account.registeredAt = account.preRegisteredAt
+          ? new Date()
+          : account.createdAt;
       account.preferredLanguage = challenge.language;
       await account.save({ session });
     }

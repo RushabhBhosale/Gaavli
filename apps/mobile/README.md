@@ -23,6 +23,12 @@ layout and navigation logic. Update theme tokens to adjust the app-wide palette.
 
 ## Buyer dashboard and marketplace
 
+Marketplace voice search uses the device speech recognizer in Marathi/English.
+Rebuild the development app after installing dependencies; Expo Go keeps manual
+search but cannot run this native feature. Permissions, setup, phrase matching,
+privacy and device verification are documented in
+[`docs/03-api/VOICE_SEARCH.md`](../../docs/03-api/VOICE_SEARCH.md).
+
 `src/screens/HomeScreen.tsx` is reached after the existing account/village flow.
 The four native Expo Router tabs are Home, Marketplace, My Activity and Profile.
 Expo Router uses React Navigation; there is no second navigation container.

@@ -13,6 +13,7 @@ import {
   requestPageSchema,
   requestStateSchema,
   requestContactSchema,
+  productMasterImportSchema,
 } from "@gaavli/validation";
 nextEnv.loadEnvConfig(process.cwd());
 const originalUri = process.env.MONGODB_URI;
@@ -51,6 +52,7 @@ const { listingPhotoUrl } =
 const { findMobileListings } =
   await import("../src/server/repositories/listings");
 const { mobileListingsQuerySchema } = await import("@gaavli/validation");
+const { ProductMaster } = await import("../src/server/models/product-master");
 const token = randomBytes(32).toString("hex");
 const request = (query = "", bearer: string | null = token) =>
   new Request(`http://localhost/api/v1/listings${query}`, {
@@ -202,6 +204,7 @@ try {
       ...base,
       isDemo: true,
       photoObjectKey: "listings/narayangaon-demo-v1/tomato.webp",
+      description: "Organic farm produce.\nFreshly picked.",
     },
     {
       ...base,
@@ -262,11 +265,23 @@ try {
   assert.equal(response.headers.get("cache-control"), "no-store");
   const page = mobileListingPageSchema.parse((await response.json()).data);
   assert.equal(page.total, 2);
+  assert.equal(page.villageCounts?.length, 1);
+  assert.equal(page.villageCounts?.[0].id, String(village._id));
+  assert.equal(page.villageCounts?.[0].count, 2);
+  const villageDairy = (
+    await (
+      await list(request(`?villageId=${village._id}&productGroup=dairy`))
+    ).json()
+  ).data;
+  assert.equal(villageDairy.total, 1);
+  assert.equal(villageDairy.villageCounts[0].count, 1);
+  assert.equal((await list(request(`?villageId=${other._id}`))).status, 403);
   for (const [group, expected] of [
     ["vegetables", 1],
     ["fruits", 0],
     ["grain", 0],
     ["dairy", 1],
+    ["homemade", 0],
   ] as const) {
     const filtered = (
       await (await list(request(`?productGroup=${group}`))).json()
@@ -280,11 +295,41 @@ try {
     0,
   );
   assert.equal((await list(request("?productGroup=unknown"))).status, 422);
+  const homemade = await Listing.create({
+    ...base,
+    productName: "Homemade Pickle",
+    productNameMr: "लोणचे",
+    productGroup: "homemade",
+  });
+  const homemadePage = (
+    await (await list(request("?productGroup=homemade&search=Pickle"))).json()
+  ).data;
+  assert.equal(homemadePage.total, 1);
+  assert.equal(homemadePage.listings[0].id, String(homemade._id));
+  assert.equal(
+    (
+      await (
+        await list(request("?productGroup=vegetables&search=Pickle"))
+      ).json()
+    ).data.total,
+    0,
+  );
+  const homemadeNextPage = (
+    await (await list(request("?productGroup=homemade&page=2&limit=1"))).json()
+  ).data;
+  assert.equal(homemadeNextPage.total, 1);
+  assert.equal(homemadeNextPage.listings.length, 0);
+  await Listing.deleteOne({ _id: homemade._id });
   assert.equal(page.isSeller, false);
   const tomato = page.listings.find(
     (listing) => listing.id === String(rows[0]._id),
   );
   assert.equal(tomato?.isDemo, true);
+  assert.equal(tomato?.description, "Organic farm produce.\nFreshly picked.");
+  assert.equal(
+    page.listings.find((row) => row.productName === "Milk")?.description,
+    null,
+  );
   assert.equal(
     tomato?.photoUrl,
     "/listing-photos/listings/narayangaon-demo-v1/tomato.webp",
@@ -300,6 +345,7 @@ try {
         String(village._id),
         mobileListingsQuerySchema.parse({}),
         String(buyer._id),
+        [String(village._id)],
       )
     ).total,
     1,
@@ -343,6 +389,50 @@ try {
     await list(request(`?search=${encodeURIComponent("टोमॅटो")}`))
   ).json();
   assert.equal(search.data.total, 1);
+  for (const value of [
+    "tomato",
+    "toma",
+    "TOMA",
+    "organic tomato",
+    "TOMA orga",
+    "  ORGANIC   tomato  ",
+    "Freshly orga",
+  ]) {
+    const found = mobileListingPageSchema.parse(
+      (
+        await (
+          await list(request(`?search=${encodeURIComponent(value)}&limit=1`))
+        ).json()
+      ).data,
+    );
+    assert.equal(found.total, 1, `partial word search: ${value}`);
+    assert.equal(found.listings[0].id, String(rows[0]._id));
+  }
+  for (const value of [
+    "organic milk",
+    "nonexistent tomato",
+    "org.* tomato",
+    "[tomato]",
+  ]) {
+    assert.equal(
+      (
+        await (
+          await list(request(`?search=${encodeURIComponent(value)}`))
+        ).json()
+      ).data.total,
+      0,
+      `all literal search terms must match: ${value}`,
+    );
+  }
+  assert.equal(
+    (
+      await (
+        await list(request("?search=organic%20tomato&productGroup=dairy"))
+      ).json()
+    ).data.total,
+    0,
+    "search retains category filtering",
+  );
   assert.equal(
     (await (await list(request("?search=.*"))).json()).data.total,
     0,
@@ -494,6 +584,164 @@ try {
     "another account must not inherit contact access",
   );
   assert.equal(await ListingInterest.countDocuments(), 1);
+  // Exact Product Master mappings bridge historical single-language names,
+  // as well as linked listings, without widening any visibility/group scope.
+  const voiceMaster = await ProductMaster.create(
+    productMasterImportSchema.parse([
+      {
+        code: "TOMATO",
+        nameEn: "Tomato",
+        nameMr: "टोमॅटो",
+        productGroup: "vegetables",
+        defaultUnit: "kg",
+        status: "ACTIVE",
+        sortOrder: 1,
+      },
+      {
+        code: "ONION",
+        nameEn: "Onion",
+        nameMr: "कांदा",
+        productGroup: "vegetables",
+        defaultUnit: "kg",
+        status: "ACTIVE",
+        sortOrder: 2,
+      },
+      {
+        code: "POTATO",
+        nameEn: "Potato",
+        nameMr: "बटाटा",
+        productGroup: "vegetables",
+        defaultUnit: "kg",
+        status: "ACTIVE",
+        sortOrder: 3,
+      },
+      {
+        code: "MANGO",
+        nameEn: "Mango",
+        nameMr: "आंबा",
+        productGroup: "fruits",
+        defaultUnit: "kg",
+        status: "ACTIVE",
+        sortOrder: 4,
+      },
+    ]),
+  );
+  for (const product of voiceMaster) {
+    const examples = await Listing.create([
+      {
+        ...base,
+        productName: product.nameEn,
+        productNameMr: null,
+        productGroup: product.productGroup,
+      },
+      {
+        ...base,
+        productName: product.nameMr,
+        productNameMr: null,
+        productGroup: product.productGroup,
+      },
+      {
+        ...base,
+        productName: "Historic linked label",
+        productNameMr: null,
+        productId: product._id,
+        productGroup: product.productGroup,
+      },
+      {
+        ...base,
+        productName: product.nameEn,
+        productNameMr: null,
+        village: other._id,
+        productGroup: product.productGroup,
+      },
+      {
+        ...base,
+        productName: product.nameEn,
+        productNameMr: null,
+        quantity: 0,
+        productGroup: product.productGroup,
+      },
+      {
+        ...base,
+        productName: product.nameEn,
+        productNameMr: null,
+        seller: buyer._id,
+        productGroup: product.productGroup,
+      },
+    ]);
+    for (const name of [product.nameEn, product.nameMr]) {
+      const found = mobileListingPageSchema.parse(
+        (
+          await (
+            await list(
+              request(
+                `?search=${encodeURIComponent(name)}&productGroup=${product.productGroup}`,
+              ),
+            )
+          ).json()
+        ).data,
+      );
+      const ids = new Set(found.listings.map((row) => row.id));
+      examples
+        .slice(0, 3)
+        .forEach((row) =>
+          assert.ok(
+            ids.has(String(row._id)),
+            `${name} finds bilingual/linked listing`,
+          ),
+        );
+      examples
+        .slice(3)
+        .forEach((row) =>
+          assert.equal(
+            ids.has(String(row._id)),
+            false,
+            "scope/stock/owner rules remain authoritative",
+          ),
+        );
+      const paged = mobileListingPageSchema.parse(
+        (
+          await (
+            await list(
+              request(`?search=${encodeURIComponent(name)}&limit=1&page=2`),
+            )
+          ).json()
+        ).data,
+      );
+      assert.ok(paged.total >= 3);
+      assert.equal(paged.listings.length, 1);
+    }
+    const wrongGroup = (
+      await (
+        await list(
+          request(
+            `?search=${encodeURIComponent(product.nameMr)}&productGroup=dairy`,
+          ),
+        )
+      ).json()
+    ).data;
+    assert.equal(wrongGroup.total, 0);
+    await Listing.deleteMany({ _id: { $in: examples.map((row) => row._id) } });
+  }
+  await ProductMaster.updateOne(
+    { _id: voiceMaster[1]._id },
+    { $set: { status: "INACTIVE" } },
+  );
+  const unmapped = await Listing.create({
+    ...base,
+    productName: "Onion",
+    productNameMr: null,
+  });
+  assert.equal(
+    (
+      await (
+        await list(request(`?search=${encodeURIComponent("कांदा")}`))
+      ).json()
+    ).data.total,
+    0,
+    "inactive catalog mappings are not expanded",
+  );
+  await Listing.deleteOne({ _id: unmapped._id });
   console.log(
     "PASS: saved interest restores contact for the same account/new session without a write; other buyers remain protected.",
   );

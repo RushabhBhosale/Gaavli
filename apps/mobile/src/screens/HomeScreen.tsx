@@ -14,8 +14,7 @@ import type {
   HomeDestination,
   HomeListing,
 } from "../types/home";
-import { VillageHeader } from "../components/dashboard/VillageHeader";
-import { WelcomeSection } from "../components/dashboard/WelcomeSection";
+import { AccountHeader } from "../components/dashboard/AccountHeader";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { MarketplaceCard } from "../components/dashboard/MarketplaceCard";
 import { BecomeSellerCard } from "../components/dashboard/SellerCards";
@@ -47,14 +46,7 @@ export function HomeDashboard({
   const t = messages(language);
   return (
     <DashboardScreen>
-      <VillageHeader
-        user={data.user}
-        coordinator={data.coordinator}
-        language={language}
-        changeVillageLabel={t.changeVillage}
-        onPress={onVillagePress}
-      />
-      <WelcomeSection user={data.user} language={language} />
+      <AccountHeader language={language} onVillagePress={onVillagePress} />
       {data.isPreview && <PreviewBanner />}
       <View style={d.section}>
         <SectionHeader

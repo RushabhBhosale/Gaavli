@@ -13,18 +13,20 @@ const retry = (count: number, error: unknown) =>
   count < 1 &&
   !(error instanceof ApiError && error.status && error.status < 500);
 export function useOwnListings(
-  status: "active" | "sold_out" = "active",
+  status: "active" | "sold_out" | "all" | "low_stock" = "active",
   enabled = true,
+  search = "",
+  sort: "newest" | "price_asc" | "price_desc" | "stock_asc" = "newest",
 ) {
   const session = useAppStore((state) => state.session);
   return useInfiniteQuery({
-    queryKey: ["own-listings", session?.user.id, status],
+    queryKey: ["own-listings", session?.user.id, status, search, sort],
     enabled: !!session?.user.isSeller && enabled,
     refetchOnMount: "always",
     initialPageParam: 1,
     queryFn: ({ pageParam, signal }) =>
       authenticatedApi(
-        `/listings/mine?status=${status}&page=${pageParam}&limit=20`,
+        `/listings/mine?status=${status}&page=${pageParam}&limit=20&search=${encodeURIComponent(search)}&sort=${sort}`,
         ownListingPageSchema,
         { signal },
       ),
@@ -46,7 +48,11 @@ export function useHomeListings() {
     retry,
   });
 }
-export function useMarketplaceListings(search: string, category: string) {
+export function useMarketplaceListings(
+  search: string,
+  category: string,
+  villageId?: string,
+) {
   const session = useAppStore((state) => state.session);
   return useInfiniteQuery({
     queryKey: [
@@ -55,6 +61,7 @@ export function useMarketplaceListings(search: string, category: string) {
       session?.user.village?.id,
       search,
       category,
+      villageId,
     ],
     enabled: !!session?.user.village,
     refetchOnMount: "always",
@@ -66,6 +73,7 @@ export function useMarketplaceListings(search: string, category: string) {
         limit: "20",
       });
       if (category !== "all") query.set("productGroup", category);
+      if (villageId) query.set("villageId", villageId);
       return authenticatedApi(`/listings?${query}`, mobileListingPageSchema, {
         signal,
       });

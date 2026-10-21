@@ -3,6 +3,7 @@ import { Types, type ClientSession } from "mongoose";
 import { Listing } from "../models";
 import { ListingInterest } from "../models/listing-interest";
 import { visiblePipeline } from "./listings";
+import { discoveryVillageIds } from "./village-discovery";
 
 export async function visibleSellerContact(
   id: string,
@@ -21,7 +22,10 @@ export async function visibleSellerContact(
     photoObjectKey: string | null;
   }>([
     { $match: { _id: new Types.ObjectId(id), isDemo: { $ne: true } } },
-    ...visiblePipeline(villageId, new Date()),
+    ...visiblePipeline(
+      await discoveryVillageIds(villageId, session),
+      new Date(),
+    ),
     {
       $project: {
         _id: 0,

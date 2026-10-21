@@ -116,6 +116,7 @@ try {
   const expiresAt = new Date(Date.now() + 86400000).toISOString();
   const body = {
     productName: "Cabbage",
+    description: "Fresh cabbage.\nGrown on our farm.",
     productNameMr: "कोबी",
     categoryId: String(perishable._id),
     villageId: String(village._id),
@@ -195,6 +196,7 @@ try {
   const created = ownedListingSchema.parse(await check(concurrent[0], 201));
   assert.deepEqual(await check(concurrent[1], 201), created);
   assert.equal(created.version, 1);
+  assert.equal(created.description, body.description);
   assert.equal(created.status, "active");
   assert.equal(await Listing.countDocuments(), 1);
   assert.equal(await ListingEvent.countDocuments(), 1);
@@ -237,6 +239,7 @@ try {
     200,
   );
   assert.equal(publicData.minimumPurchaseQuantity, 2);
+  assert.equal(publicData.description, body.description);
   assert.deepEqual(publicData.fulfillmentOptions, ["farm_pickup"]);
   for (const field of ["seller", "mobile", "photoObjectKey", "categoryId"])
     assert.equal(field in publicData, false);
@@ -324,6 +327,11 @@ try {
   const winner = edits.findIndex((response) => response.status === 200);
   const edited = await check(edits[winner], 200);
   assert.equal(edited.version, 2);
+  assert.equal(
+    edited.description,
+    body.description,
+    "partial edits preserve description",
+  );
   await check(edits[1 - winner], 409, "STALE_VERSION");
   assert.deepEqual(
     await check(
@@ -735,6 +743,7 @@ try {
   } = await import("../../mobile/src/data/listingForm");
   const form = {
     ...emptyListingDraft.form,
+    description: "Organic tomatoes.\nHarvested today.",
     name: "टोमॅटो",
     categoryId: String(perishable._id),
     photo: "tomato",
@@ -778,6 +787,11 @@ try {
       ctx(mobileCreated.id),
     ),
     200,
+  );
+  assert.equal(publicMobile.description, form.description);
+  assert.equal(
+    (await Listing.findById(mobileCreated.id))?.description,
+    form.description,
   );
   assert.equal(
     publicMobile.photoUrl,
@@ -934,13 +948,17 @@ try {
   const beforeEdit = ownedListingSchema.parse(withPhonePhoto);
   const initialEditForm = formFromListing(beforeEdit, "mr");
   const mobilePatch = prepareListingEdit(
-    { ...initialEditForm, price: "29" },
+    { ...initialEditForm, price: "29", description: "Fresh organic produce." },
     beforeEdit,
     initialEditForm,
     "mr",
     "PERISHABLE",
   );
-  assert.deepEqual(mobilePatch, { version: 2, price: 29 });
+  assert.deepEqual(mobilePatch, {
+    version: 2,
+    price: 29,
+    description: "Fresh organic produce.",
+  });
   const editRequest = () =>
     request(
       `/listings/${mobileCreated.id}`,
@@ -956,6 +974,7 @@ try {
   assert.equal(editedProduct.photoObjectKey, uploaded.photoObjectKey);
   assert.equal(editedProduct.productNameMr, beforeEdit.productNameMr);
   assert.equal(editedProduct.expiresAt, beforeEdit.expiresAt);
+  assert.equal(editedProduct.description, "Fresh organic produce.");
   assert.deepEqual(
     await check(await detail.PATCH(editRequest(), ctx(mobileCreated.id)), 200),
     editedProduct,
@@ -976,11 +995,43 @@ try {
   );
   const { pendingListingDeleteSchema } =
     await import("../../mobile/src/data/ownedListings");
+  const cleared = await check(
+    await detail.PATCH(
+      request(
+        `/listings/${mobileCreated.id}`,
+        "PATCH",
+        { version: editedProduct.version, description: null },
+        "clear-product-description",
+        refreshed.accessToken,
+      ),
+      ctx(mobileCreated.id),
+    ),
+    200,
+  );
+  assert.equal(cleared.description, null);
+  assert.equal(
+    (
+      await check(
+        await detail.GET(
+          request(
+            `/listings/${mobileCreated.id}`,
+            "GET",
+            undefined,
+            undefined,
+            refreshed.accessToken,
+          ),
+          ctx(mobileCreated.id),
+        ),
+        200,
+      )
+    ).description,
+    null,
+  );
   const deleteSnapshot = pendingListingDeleteSchema.parse(
     JSON.parse(
       JSON.stringify({
         id: mobileCreated.id,
-        version: editedProduct.version,
+        version: cleared.version,
         key: "mobile-confirmed-delete",
       }),
     ),
@@ -1021,6 +1072,57 @@ try {
   console.log(
     "PASS: mobile shared edit form preserves names/photos/expiry; version conflict, edit/delete replay and buyer removal.",
   );
+  const homemadeBody = prepareListing(
+    { ...form, group: "homemade", name: "लोणचे", photo: "" },
+    String(otherVillage._id),
+    "mr",
+    "PERISHABLE",
+  );
+  const createHomemade = () =>
+    collection.POST(
+      request(
+        "/listings",
+        "POST",
+        homemadeBody,
+        "homemade-group-create",
+        refreshed.accessToken,
+      ),
+    );
+  const homemadeCreated = await check(await createHomemade(), 201);
+  assert.equal(
+    (await Listing.findById(homemadeCreated.id))?.productGroup,
+    "homemade",
+  );
+  assert.deepEqual(await check(await createHomemade(), 201), homemadeCreated);
+  const homemadeOwned = await check(
+    await myDetail.GET(
+      request(
+        `/listings/mine/${homemadeCreated.id}`,
+        "GET",
+        undefined,
+        undefined,
+        refreshed.accessToken,
+      ),
+      ctx(homemadeCreated.id),
+    ),
+    200,
+  );
+  assert.equal(homemadeOwned.productGroup, "homemade");
+  assert.equal(formFromListing(homemadeOwned).group, "homemade");
+  const homemadeEdited = await check(
+    await detail.PATCH(
+      request(
+        `/listings/${homemadeCreated.id}`,
+        "PATCH",
+        { productGroup: "fruits", version: homemadeOwned.version },
+        "homemade-group-edit",
+        refreshed.accessToken,
+      ),
+      ctx(homemadeCreated.id),
+    ),
+    200,
+  );
+  assert.equal(homemadeEdited.productGroup, "fruits");
   console.log(
     "PASS: authenticated bounded phone upload, malformed/oversized/injected rejection, immutable replay/conflict, WebP resize/metadata stripping, file serving and buyer photo attachment.",
   );

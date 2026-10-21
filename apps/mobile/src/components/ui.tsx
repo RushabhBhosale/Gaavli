@@ -19,7 +19,15 @@ import { theme } from "../theme";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 
-export function Screen({ children }: { children: ReactNode }) {
+export function Screen({
+  children,
+  compact = false,
+  footer,
+}: {
+  children: ReactNode;
+  compact?: boolean;
+  footer?: ReactNode;
+}) {
   const offline = useAppStore((state) => state.offline);
   const language = useAppStore((state) => state.language);
   return (
@@ -30,11 +38,27 @@ export function Screen({ children }: { children: ReactNode }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <ScrollView
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[
+            styles.content,
+            compact && { paddingTop: 8, gap: 12 },
+          ]}
           keyboardShouldPersistTaps="handled"
         >
           {children}
         </ScrollView>
+        {footer && (
+          <View
+            style={{
+              paddingHorizontal: theme.layout.screenPadding,
+              paddingVertical: 12,
+              backgroundColor: theme.colors.surface,
+              borderTopWidth: 1,
+              borderTopColor: theme.colors.border,
+            }}
+          >
+            {footer}
+          </View>
+        )}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -326,7 +350,8 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: theme.colors.onPrimary,
     fontSize: 17,
-    lineHeight: 25,
+    includeFontPadding: true,
+    paddingVertical: 2,
     fontWeight: "600",
     textAlign: "center",
     flexShrink: 1,

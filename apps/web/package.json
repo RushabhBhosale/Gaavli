@@ -14,9 +14,12 @@
     "test:listing-crud": "node --conditions=react-server --import tsx tests/listing-crud.integration.mts",
     "test:mobile-integration": "node --conditions=react-server --import tsx tests/mobile.integration.mts",
     "test:listing-integration": "node --conditions=react-server --import tsx tests/listings.integration.mts",
+    "test:coordinator-integration": "node --conditions=react-server --import tsx tests/coordinator.integration.mts",
+    "test:product-master": "node --conditions=react-server --import tsx tests/product-master.integration.mts",
     "setup:mobile-auth": "node scripts/setup-mobile-auth.mjs",
     "smoke": "node scripts/smoke-http.mjs",
     "seed": "tsx scripts/seed.ts",
+    "import:product-master": "node --conditions=react-server --import tsx scripts/import-product-master.mts",
     "seed:sample": "tsx scripts/seed-sample.ts",
     "seed:narayangaon": "tsx scripts/seed-narayangaon.mts"
   },

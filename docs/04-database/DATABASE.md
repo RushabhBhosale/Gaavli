@@ -1,3 +1,25 @@
+> Product Master revision - 2026-10-21: collection `productMasters` contains
+> unique code, nameMr/nameEn, productGroup, defaultUnit, status, sortOrder and
+> timestamps, with no category fields. Listing gains optional ObjectId productId
+> and retains existing name/group/unit snapshots and category. Insert-only import
+> added 151 source products; repeat verified 151 with zero inserts. No existing
+> listing/category was migrated. See `docs/03-api/PRODUCT_MASTER.md`.
+
+> Coordinator revision — 2026-10-19: existing User gains optional verification,
+> pre-registration/creator, registration and seller-activation timestamps. Existing
+> VillageCoordinator assignments remain authoritative. `villageRelationships`
+> stores unique sorted active/inactive pairs; `reports` stores versioned complaints.
+> AuditLog adds separate actorUserId/villageId/targetName fields and scoped indexes;
+> Listing adds private moderationFlaggedAt. No application data is migrated/seeded.
+> See `docs/03-api/COORDINATOR_MOBILE.md` for contracts and historical compatibility.
+
+> Listing description revision — 2026-10-16: Listing adds optional `description`,
+> a trimmed string up to 2,000 characters. Missing/cleared values read as null in
+> safe DTOs; existing records need no migration or inferred content. Partial-term
+> case-insensitive product search also checks this field within the existing
+> visibility-scoped MongoDB query. No Elasticsearch deployment or new index is
+> introduced. See `docs/03-api/LISTING_CRUD.md` and MOBILE_MARKETPLACE.md.
+
 > Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
 > with Get started → required first/last name and Indian mobile → OTP →
 > confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
@@ -48,7 +70,7 @@ records and first-listing seller conversion commit in one transaction. No bulk
 record migration is performed. See `docs/03-api/LISTING_CRUD.md` for complete fields.
 
 Marketplace product groups — 2026-10-14: optional Listing `productGroup` is one
-of `vegetables`, `fruits`, `grain`, `dairy`. It is separate from the shelf-life
+of `vegetables`, `fruits`, `grain`, `dairy`, `homemade` (added 2026-10-19). It is separate from the shelf-life
 category code. Missing values are unclassified and included only in All until
 explicitly assigned; no guessed migration of real listings. The existing five
 Narayangaon demo rows were classified with only this field updated; other stored

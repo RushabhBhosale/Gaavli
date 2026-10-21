@@ -26,6 +26,21 @@ export function MarketplaceListingCard({
   const t = messages(language);
   const { width, fontScale } = useWindowDimensions();
   const stacked = width < 320 || fontScale > 1.4;
+  const minutes = listing.postedMinutesAgo;
+  const postedTime = formatMessage(
+    minutes < 60
+      ? t.minutesAgo
+      : minutes < 1440
+        ? t.hoursAgo
+        : t.postedDaysAgo,
+    {
+      count: new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(
+        minutes < 60
+          ? minutes
+          : Math.floor(minutes / (minutes < 1440 ? 60 : 1440)),
+      ),
+    },
+  );
   return (
     <Panel style={s.card}>
       <View style={s.info}>
@@ -55,6 +70,15 @@ export function MarketplaceListingCard({
                 distance: listing.distanceKm,
               })}`}
           </Text>
+        </View>
+        <View style={s.location}>
+          <Ionicons
+            name="time-outline"
+            size={16}
+            color={theme.colors.muted}
+            accessible={false}
+          />
+          <Text style={s.metadataText}>{postedTime}</Text>
         </View>
       </View>
       <Pressable

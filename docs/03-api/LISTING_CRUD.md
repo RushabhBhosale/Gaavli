@@ -1,4 +1,18 @@
+> Product Master revision - 2026-10-21: optional productId links the existing
+> Listing to an active master. Server resolves canonical English/Marathi names
+> and group within the existing transaction. Owner reads return ID/null, edit
+> restores snapshots, and existing no-ID records remain valid. Inactive masters
+> block new selections, while existing price/quantity edits remain available.
+> Categories/lifecycle/idempotency remain unchanged. See `PRODUCT_MASTER.md`.
+
 # Listing CRUD backend — 2026-10-14
+
+Description revision — 2026-10-16: create and PATCH accept optional nullable
+`description`: trimmed plain text up to 2,000 characters, allowing line breaks and
+tabs while rejecting other ASCII control characters. Omission preserves existing
+text on PATCH; null clears it. Owner and buyer listing DTOs include description
+as string|null, with missing historical values returned as null. Existing write
+authorization, version conflicts and idempotency apply without new endpoints.
 
 Implemented for the mobile unified buyer/seller account using the existing bearer
 session. These write contracts supersede the illustrative historical listing-write

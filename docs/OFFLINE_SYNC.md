@@ -1,3 +1,18 @@
+> Product Master revision - 2026-10-21: validated active catalog reference data
+> is cached in the existing SQLite settings table, separate from personal drafts.
+> Offline/network failures fall back with explicit cached status. Selected ID and
+> both names survive draft restarts; existing staged legacy request bodies remain
+> unchanged. Server validates active references on new selection/publication.
+> See `docs/03-api/PRODUCT_MASTER.md`.
+
+> Coordinator revision — 2026-10-19: coordinator mutations and product complaints
+> persist exact operation keys/payloads in SecureStore before networking, retain
+> uncertain outcomes across restart and expose an explicit safe retry. Definite
+> rejections permit correction; confirmed cleanup failures remain replayable.
+> Offline coordinator reads/writes require reconnection and are never reported as
+> confirmed queued work. Directory phone data is not stored in SQLite. Existing
+> listing drafts/requests remain intact. See `03-api/COORDINATOR_MOBILE.md`.
+
 > Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
 > with Get started → required first/last name and Indian mobile → OTP →
 > confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
@@ -1685,3 +1700,11 @@ User sees the correct result
 **Offline-first does not mean offline-authoritative.
 Local-first does not mean server-optional.
 The server remains the final source of truth.**
+# Marketplace village filter caching — 2026-10-21
+
+Marketplace reads partition TanStack Query keys by account, saved source village,
+search, product group and optional selected village. Source/account changes reset
+the effective selection. Village filter chips use server listing-page facets;
+historical cached pages without villageCounts parse with an empty facet array.
+Existing offline/stale/error presentation remains; selecting a village is only a
+read filter and never queues a write or changes saved village authority.

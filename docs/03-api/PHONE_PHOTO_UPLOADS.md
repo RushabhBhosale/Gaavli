@@ -2,10 +2,16 @@
 
 ## Mobile
 
-Add Listing now has **Choose photo from phone**, using the Expo SDK-compatible
-`expo-image-picker` library. Selection/cropping returns one image. No camera or
-microphone feature/permission is added. Cancel preserves the current selection.
-The existing stock collection and no-photo choice remain available.
+Camera revision — 2026-10-16: Add and Edit Listing offer **Take photo** and
+**Choose from gallery**, using the existing Expo SDK-compatible
+`expo-image-picker` library. Both return one image with cropping and use the same
+validation, private draft storage and upload flow. Cancel preserves the current
+selection. Camera permission is requested only when Take photo is selected;
+denial shows localized guidance to enable access in phone settings or use gallery.
+The image-picker config now enables camera permission; microphone access remains
+disabled. Existing custom development/native builds must be rebuilt to apply the
+permission change. Real-device camera/permission/cancel acceptance remains pending.
+Stock collection and no-photo controls were removed in the later photo UI revision.
 
 Supported inputs are JPEG, PNG and WebP up to 5 MiB after picker processing.
 `expo-file-system` copies the selection into the app's private documents folder:

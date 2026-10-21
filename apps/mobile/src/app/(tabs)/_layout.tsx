@@ -5,10 +5,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAppStore } from "../../store";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
+import { coordinatorMessages } from "../../coordinator/i18n";
+import { hasCoordinatorRole } from "../../data/accountAccess";
 
 export default function BuyerTabs() {
   const { session, language } = useAppStore();
   const t = messages(language);
+  const coordinator = hasCoordinatorRole(session?.user);
+  const c = coordinatorMessages(language);
   const { fontScale } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   if (!session) return <Redirect href="/register" />;
@@ -25,7 +29,7 @@ export default function BuyerTabs() {
           borderTopWidth: 1,
           elevation: 0,
           paddingTop: 6,
-          height: Math.max(64, 32 + 30 * fontScale) + insets.bottom,
+          height: Math.max(70, 38 + 32 * fontScale) + insets.bottom,
         },
         tabBarItemStyle: { minHeight: theme.layout.touchTarget },
         sceneStyle: { backgroundColor: theme.colors.background },
@@ -40,7 +44,8 @@ export default function BuyerTabs() {
               style={{
                 color,
                 fontSize: 10,
-                lineHeight: 15,
+                includeFontPadding: true,
+                paddingVertical: 2,
                 textAlign: "center",
               }}
             >
@@ -59,14 +64,15 @@ export default function BuyerTabs() {
       <Tabs.Screen
         name="marketplace"
         options={{
-          href: session.user.isSeller ? null : undefined,
+          href: coordinator || session.user.isSeller ? null : undefined,
           title: t.marketplace,
           tabBarLabel: ({ color }) => (
             <Text
               style={{
                 color,
                 fontSize: 10,
-                lineHeight: 15,
+                includeFontPadding: true,
+                paddingVertical: 2,
                 textAlign: "center",
               }}
             >
@@ -85,14 +91,15 @@ export default function BuyerTabs() {
       <Tabs.Screen
         name="my-listings"
         options={{
-          href: session.user.isSeller ? undefined : null,
+          href: !coordinator && session.user.isSeller ? undefined : null,
           title: t.myListings,
           tabBarLabel: ({ color }) => (
             <Text
               style={{
                 color,
                 fontSize: 10,
-                lineHeight: 15,
+                includeFontPadding: true,
+                paddingVertical: 2,
                 textAlign: "center",
               }}
             >
@@ -109,19 +116,47 @@ export default function BuyerTabs() {
         }}
       />
       <Tabs.Screen
-        name="activity"
+        name="manage"
         options={{
-          title: t.myActivity,
+          href: coordinator ? undefined : null,
+          title: c.manage,
           tabBarLabel: ({ color }) => (
             <Text
               style={{
                 color,
                 fontSize: 10,
-                lineHeight: 15,
+                includeFontPadding: true,
+                paddingVertical: 2,
                 textAlign: "center",
               }}
             >
-              {t.myActivity}
+              {c.manage}
+            </Text>
+          ),
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name={focused ? "grid" : "grid-outline"}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="activity"
+        options={{
+          title: coordinator ? c.activity : t.myActivity,
+          tabBarLabel: ({ color }) => (
+            <Text
+              style={{
+                color,
+                fontSize: 10,
+                includeFontPadding: true,
+                paddingVertical: 2,
+                textAlign: "center",
+              }}
+            >
+              {coordinator ? c.activity : t.myActivity}
             </Text>
           ),
           tabBarIcon: ({ color, size, focused }) => (
@@ -142,7 +177,8 @@ export default function BuyerTabs() {
               style={{
                 color,
                 fontSize: 10,
-                lineHeight: 15,
+                includeFontPadding: true,
+                paddingVertical: 2,
                 textAlign: "center",
               }}
             >

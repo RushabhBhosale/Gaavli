@@ -1,0 +1,1361 @@
+[
+  {
+    "code": "TOMATO",
+    "nameMr": "टोमॅटो",
+    "nameEn": "Tomato",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 1
+  },
+  {
+    "code": "ONION",
+    "nameMr": "कांदा",
+    "nameEn": "Onion",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 2
+  },
+  {
+    "code": "POTATO",
+    "nameMr": "बटाटा",
+    "nameEn": "Potato",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 3
+  },
+  {
+    "code": "BRINJAL",
+    "nameMr": "वांगी",
+    "nameEn": "Brinjal",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 4
+  },
+  {
+    "code": "OKRA",
+    "nameMr": "भेंडी",
+    "nameEn": "Okra",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 5
+  },
+  {
+    "code": "CAULIFLOWER",
+    "nameMr": "फ्लॉवर",
+    "nameEn": "Cauliflower",
+    "productGroup": "vegetables",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 6
+  },
+  {
+    "code": "CABBAGE",
+    "nameMr": "कोबी",
+    "nameEn": "Cabbage",
+    "productGroup": "vegetables",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 7
+  },
+  {
+    "code": "CARROT",
+    "nameMr": "गाजर",
+    "nameEn": "Carrot",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 8
+  },
+  {
+    "code": "RADISH",
+    "nameMr": "मुळा",
+    "nameEn": "Radish",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 9
+  },
+  {
+    "code": "BEETROOT",
+    "nameMr": "बीट",
+    "nameEn": "Beetroot",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 10
+  },
+  {
+    "code": "CUCUMBER",
+    "nameMr": "काकडी",
+    "nameEn": "Cucumber",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 11
+  },
+  {
+    "code": "RIDGE_GOURD",
+    "nameMr": "दोडका",
+    "nameEn": "Ridge Gourd",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 12
+  },
+  {
+    "code": "BOTTLE_GOURD",
+    "nameMr": "दुधी भोपळा",
+    "nameEn": "Bottle Gourd",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 13
+  },
+  {
+    "code": "BITTER_GOURD",
+    "nameMr": "कारले",
+    "nameEn": "Bitter Gourd",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 14
+  },
+  {
+    "code": "SPONGE_GOURD",
+    "nameMr": "घोसाळे",
+    "nameEn": "Sponge Gourd",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 15
+  },
+  {
+    "code": "PUMPKIN",
+    "nameMr": "लाल भोपळा",
+    "nameEn": "Pumpkin",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 16
+  },
+  {
+    "code": "SNAKE_GOURD",
+    "nameMr": "पडवळ",
+    "nameEn": "Snake Gourd",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 17
+  },
+  {
+    "code": "IVY_GOURD",
+    "nameMr": "तोंडली",
+    "nameEn": "Ivy Gourd",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 18
+  },
+  {
+    "code": "DRUMSTICK",
+    "nameMr": "शेवगा शेंगा",
+    "nameEn": "Drumstick",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 19
+  },
+  {
+    "code": "CLUSTER_BEANS",
+    "nameMr": "गवार",
+    "nameEn": "Cluster Beans",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 20
+  },
+  {
+    "code": "FRENCH_BEANS",
+    "nameMr": "फरसबी",
+    "nameEn": "French Beans",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 21
+  },
+  {
+    "code": "FIELD_BEAN_PODS",
+    "nameMr": "वालाच्या शेंगा",
+    "nameEn": "Field Bean Pods",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 22
+  },
+  {
+    "code": "GREEN_PEAS",
+    "nameMr": "वाटाणा",
+    "nameEn": "Green Peas",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 23
+  },
+  {
+    "code": "GREEN_CHILLI",
+    "nameMr": "हिरवी मिरची",
+    "nameEn": "Green Chilli",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 24
+  },
+  {
+    "code": "CAPSICUM",
+    "nameMr": "ढोबळी मिरची",
+    "nameEn": "Capsicum",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 25
+  },
+  {
+    "code": "GARLIC",
+    "nameMr": "लसूण",
+    "nameEn": "Garlic",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 26
+  },
+  {
+    "code": "GINGER",
+    "nameMr": "आले",
+    "nameEn": "Ginger",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 27
+  },
+  {
+    "code": "SWEET_POTATO",
+    "nameMr": "रताळे",
+    "nameEn": "Sweet Potato",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 28
+  },
+  {
+    "code": "ELEPHANT_FOOT_YAM",
+    "nameMr": "सुरण",
+    "nameEn": "Elephant Foot Yam",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 29
+  },
+  {
+    "code": "TARO_ROOT",
+    "nameMr": "अळूचे कंद",
+    "nameEn": "Taro Root",
+    "productGroup": "vegetables",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 30
+  },
+  {
+    "code": "SPINACH",
+    "nameMr": "पालक",
+    "nameEn": "Spinach",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 31
+  },
+  {
+    "code": "FENUGREEK_LEAVES",
+    "nameMr": "मेथी",
+    "nameEn": "Fenugreek Leaves",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 32
+  },
+  {
+    "code": "CORIANDER_LEAVES",
+    "nameMr": "कोथिंबीर",
+    "nameEn": "Coriander Leaves",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 33
+  },
+  {
+    "code": "DILL_LEAVES",
+    "nameMr": "शेपू",
+    "nameEn": "Dill Leaves",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 34
+  },
+  {
+    "code": "RED_AMARANTH",
+    "nameMr": "लाल माठ",
+    "nameEn": "Red Amaranth",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 35
+  },
+  {
+    "code": "GREEN_AMARANTH",
+    "nameMr": "हिरवा माठ",
+    "nameEn": "Green Amaranth",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 36
+  },
+  {
+    "code": "BATHUA",
+    "nameMr": "चाकवत",
+    "nameEn": "Bathua",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 37
+  },
+  {
+    "code": "SORREL_LEAVES",
+    "nameMr": "अंबाडी",
+    "nameEn": "Sorrel Leaves",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 38
+  },
+  {
+    "code": "MINT",
+    "nameMr": "पुदिना",
+    "nameEn": "Mint",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 39
+  },
+  {
+    "code": "CURRY_LEAVES",
+    "nameMr": "कढीपत्ता",
+    "nameEn": "Curry Leaves",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 40
+  },
+  {
+    "code": "TARO_LEAVES",
+    "nameMr": "अळूची पाने",
+    "nameEn": "Taro Leaves",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 41
+  },
+  {
+    "code": "MUSTARD_GREENS",
+    "nameMr": "मोहरीची पाने",
+    "nameEn": "Mustard Greens",
+    "productGroup": "leafy_vegetables",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 42
+  },
+  {
+    "code": "MANGO",
+    "nameMr": "आंबा",
+    "nameEn": "Mango",
+    "productGroup": "fruits",
+    "defaultUnit": "dozen",
+    "status": "ACTIVE",
+    "sortOrder": 43
+  },
+  {
+    "code": "BANANA",
+    "nameMr": "केळी",
+    "nameEn": "Banana",
+    "productGroup": "fruits",
+    "defaultUnit": "dozen",
+    "status": "ACTIVE",
+    "sortOrder": 44
+  },
+  {
+    "code": "APPLE",
+    "nameMr": "सफरचंद",
+    "nameEn": "Apple",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 45
+  },
+  {
+    "code": "ORANGE",
+    "nameMr": "संत्री",
+    "nameEn": "Orange",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 46
+  },
+  {
+    "code": "SWEET_LIME",
+    "nameMr": "मोसंबी",
+    "nameEn": "Sweet Lime",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 47
+  },
+  {
+    "code": "POMEGRANATE",
+    "nameMr": "डाळिंब",
+    "nameEn": "Pomegranate",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 48
+  },
+  {
+    "code": "GRAPES",
+    "nameMr": "द्राक्षे",
+    "nameEn": "Grapes",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 49
+  },
+  {
+    "code": "GUAVA",
+    "nameMr": "पेरू",
+    "nameEn": "Guava",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 50
+  },
+  {
+    "code": "PAPAYA",
+    "nameMr": "पपई",
+    "nameEn": "Papaya",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 51
+  },
+  {
+    "code": "WATERMELON",
+    "nameMr": "कलिंगड",
+    "nameEn": "Watermelon",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 52
+  },
+  {
+    "code": "MUSKMELON",
+    "nameMr": "खरबूज",
+    "nameEn": "Muskmelon",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 53
+  },
+  {
+    "code": "CUSTARD_APPLE",
+    "nameMr": "सीताफळ",
+    "nameEn": "Custard Apple",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 54
+  },
+  {
+    "code": "SAPOTA",
+    "nameMr": "चिकू",
+    "nameEn": "Sapota",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 55
+  },
+  {
+    "code": "PINEAPPLE",
+    "nameMr": "अननस",
+    "nameEn": "Pineapple",
+    "productGroup": "fruits",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 56
+  },
+  {
+    "code": "COCONUT",
+    "nameMr": "नारळ",
+    "nameEn": "Coconut",
+    "productGroup": "fruits",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 57
+  },
+  {
+    "code": "LEMON",
+    "nameMr": "लिंबू",
+    "nameEn": "Lemon",
+    "productGroup": "fruits",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 58
+  },
+  {
+    "code": "INDIAN_GOOSEBERRY",
+    "nameMr": "आवळा",
+    "nameEn": "Indian Gooseberry",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 59
+  },
+  {
+    "code": "INDIAN_JUJUBE",
+    "nameMr": "बोर",
+    "nameEn": "Indian Jujube",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 60
+  },
+  {
+    "code": "JACKFRUIT",
+    "nameMr": "फणस",
+    "nameEn": "Jackfruit",
+    "productGroup": "fruits",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 61
+  },
+  {
+    "code": "JAVA_PLUM",
+    "nameMr": "जांभूळ",
+    "nameEn": "Java Plum",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 62
+  },
+  {
+    "code": "KARONDA",
+    "nameMr": "करवंद",
+    "nameEn": "Karonda",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 63
+  },
+  {
+    "code": "FIG",
+    "nameMr": "अंजीर",
+    "nameEn": "Fig",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 64
+  },
+  {
+    "code": "STRAWBERRY",
+    "nameMr": "स्ट्रॉबेरी",
+    "nameEn": "Strawberry",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 65
+  },
+  {
+    "code": "TAMARIND",
+    "nameMr": "चिंच",
+    "nameEn": "Tamarind",
+    "productGroup": "fruits",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 66
+  },
+  {
+    "code": "RICE",
+    "nameMr": "तांदूळ",
+    "nameEn": "Rice",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 67
+  },
+  {
+    "code": "WHEAT",
+    "nameMr": "गहू",
+    "nameEn": "Wheat",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 68
+  },
+  {
+    "code": "SORGHUM",
+    "nameMr": "ज्वारी",
+    "nameEn": "Sorghum",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 69
+  },
+  {
+    "code": "PEARL_MILLET",
+    "nameMr": "बाजरी",
+    "nameEn": "Pearl Millet",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 70
+  },
+  {
+    "code": "FINGER_MILLET",
+    "nameMr": "नाचणी",
+    "nameEn": "Finger Millet",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 71
+  },
+  {
+    "code": "MAIZE",
+    "nameMr": "मका",
+    "nameEn": "Maize",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 72
+  },
+  {
+    "code": "BARNYARD_MILLET",
+    "nameMr": "वरई",
+    "nameEn": "Barnyard Millet",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 73
+  },
+  {
+    "code": "PROCESSED_BARNYARD_MILLET",
+    "nameMr": "भगर",
+    "nameEn": "Processed Barnyard Millet",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 74
+  },
+  {
+    "code": "LITTLE_MILLET",
+    "nameMr": "सावा",
+    "nameEn": "Little Millet",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 75
+  },
+  {
+    "code": "KODO_MILLET",
+    "nameMr": "कोद्रा",
+    "nameEn": "Kodo Millet",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 76
+  },
+  {
+    "code": "PADDY",
+    "nameMr": "भात (धान)",
+    "nameEn": "Paddy",
+    "productGroup": "grains",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 77
+  },
+  {
+    "code": "PIGEON_PEA",
+    "nameMr": "तूर",
+    "nameEn": "Pigeon Pea",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 78
+  },
+  {
+    "code": "GREEN_GRAM",
+    "nameMr": "मूग",
+    "nameEn": "Green Gram",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 79
+  },
+  {
+    "code": "BLACK_GRAM",
+    "nameMr": "उडीद",
+    "nameEn": "Black Gram",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 80
+  },
+  {
+    "code": "CHICKPEA",
+    "nameMr": "हरभरा",
+    "nameEn": "Chickpea",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 81
+  },
+  {
+    "code": "MOTH_BEAN",
+    "nameMr": "मटकी",
+    "nameEn": "Moth Bean",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 82
+  },
+  {
+    "code": "COWPEA",
+    "nameMr": "चवळी",
+    "nameEn": "Cowpea",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 83
+  },
+  {
+    "code": "FIELD_BEAN",
+    "nameMr": "वाल",
+    "nameEn": "Field Bean",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 84
+  },
+  {
+    "code": "LENTIL",
+    "nameMr": "मसूर",
+    "nameEn": "Lentil",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 85
+  },
+  {
+    "code": "HORSE_GRAM",
+    "nameMr": "हुलगा",
+    "nameEn": "Horse Gram",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 86
+  },
+  {
+    "code": "DRY_PEAS",
+    "nameMr": "वाटाणा (सुका)",
+    "nameEn": "Dry Peas",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 87
+  },
+  {
+    "code": "TOOR_DAL",
+    "nameMr": "तूर डाळ",
+    "nameEn": "Toor Dal",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 88
+  },
+  {
+    "code": "MOONG_DAL",
+    "nameMr": "मूग डाळ",
+    "nameEn": "Moong Dal",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 89
+  },
+  {
+    "code": "URAD_DAL",
+    "nameMr": "उडीद डाळ",
+    "nameEn": "Urad Dal",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 90
+  },
+  {
+    "code": "CHANA_DAL",
+    "nameMr": "हरभरा डाळ",
+    "nameEn": "Chana Dal",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 91
+  },
+  {
+    "code": "MASOOR_DAL",
+    "nameMr": "मसूर डाळ",
+    "nameEn": "Masoor Dal",
+    "productGroup": "pulses",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 92
+  },
+  {
+    "code": "TURMERIC",
+    "nameMr": "हळद",
+    "nameEn": "Turmeric",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 93
+  },
+  {
+    "code": "DRY_RED_CHILLI",
+    "nameMr": "लाल मिरची (सुकी)",
+    "nameEn": "Dry Red Chilli",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 94
+  },
+  {
+    "code": "CORIANDER_SEEDS",
+    "nameMr": "धणे",
+    "nameEn": "Coriander Seeds",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 95
+  },
+  {
+    "code": "CUMIN_SEEDS",
+    "nameMr": "जिरे",
+    "nameEn": "Cumin Seeds",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 96
+  },
+  {
+    "code": "MUSTARD_SEEDS",
+    "nameMr": "मोहरी",
+    "nameEn": "Mustard Seeds",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 97
+  },
+  {
+    "code": "FENUGREEK_SEEDS",
+    "nameMr": "मेथी दाणे",
+    "nameEn": "Fenugreek Seeds",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 98
+  },
+  {
+    "code": "FENNEL_SEEDS",
+    "nameMr": "बडीशेप",
+    "nameEn": "Fennel Seeds",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 99
+  },
+  {
+    "code": "CAROM_SEEDS",
+    "nameMr": "ओवा",
+    "nameEn": "Carom Seeds",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 100
+  },
+  {
+    "code": "BLACK_PEPPER",
+    "nameMr": "काळी मिरी",
+    "nameEn": "Black Pepper",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 101
+  },
+  {
+    "code": "CLOVE",
+    "nameMr": "लवंग",
+    "nameEn": "Clove",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 102
+  },
+  {
+    "code": "CINNAMON",
+    "nameMr": "दालचिनी",
+    "nameEn": "Cinnamon",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 103
+  },
+  {
+    "code": "CARDAMOM",
+    "nameMr": "वेलची",
+    "nameEn": "Cardamom",
+    "productGroup": "spices",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 104
+  },
+  {
+    "code": "GROUNDNUT",
+    "nameMr": "भुईमूग",
+    "nameEn": "Groundnut",
+    "productGroup": "oilseeds",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 105
+  },
+  {
+    "code": "SOYBEAN",
+    "nameMr": "सोयाबीन",
+    "nameEn": "Soybean",
+    "productGroup": "oilseeds",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 106
+  },
+  {
+    "code": "SUNFLOWER_SEEDS",
+    "nameMr": "सूर्यफूल बिया",
+    "nameEn": "Sunflower Seeds",
+    "productGroup": "oilseeds",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 107
+  },
+  {
+    "code": "SESAME_SEEDS",
+    "nameMr": "तीळ",
+    "nameEn": "Sesame Seeds",
+    "productGroup": "oilseeds",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 108
+  },
+  {
+    "code": "SAFFLOWER",
+    "nameMr": "करडई",
+    "nameEn": "Safflower",
+    "productGroup": "oilseeds",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 109
+  },
+  {
+    "code": "FLAXSEED",
+    "nameMr": "जवस",
+    "nameEn": "Flaxseed",
+    "productGroup": "oilseeds",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 110
+  },
+  {
+    "code": "CASTOR_SEEDS",
+    "nameMr": "एरंडी",
+    "nameEn": "Castor Seeds",
+    "productGroup": "oilseeds",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 111
+  },
+  {
+    "code": "NIGER_SEEDS",
+    "nameMr": "कारळे",
+    "nameEn": "Niger Seeds",
+    "productGroup": "oilseeds",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 112
+  },
+  {
+    "code": "MARIGOLD",
+    "nameMr": "झेंडू",
+    "nameEn": "Marigold",
+    "productGroup": "flowers",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 113
+  },
+  {
+    "code": "ROSE",
+    "nameMr": "गुलाब",
+    "nameEn": "Rose",
+    "productGroup": "flowers",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 114
+  },
+  {
+    "code": "ARABIAN_JASMINE",
+    "nameMr": "मोगरा",
+    "nameEn": "Arabian Jasmine",
+    "productGroup": "flowers",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 115
+  },
+  {
+    "code": "JAI_JASMINE",
+    "nameMr": "जाई",
+    "nameEn": "Jai Jasmine",
+    "productGroup": "flowers",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 116
+  },
+  {
+    "code": "JUI_JASMINE",
+    "nameMr": "जुई",
+    "nameEn": "Jui Jasmine",
+    "productGroup": "flowers",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 117
+  },
+  {
+    "code": "CHRYSANTHEMUM",
+    "nameMr": "शेवंती",
+    "nameEn": "Chrysanthemum",
+    "productGroup": "flowers",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 118
+  },
+  {
+    "code": "TUBEROSE",
+    "nameMr": "निशिगंध",
+    "nameEn": "Tuberose",
+    "productGroup": "flowers",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 119
+  },
+  {
+    "code": "GERBERA",
+    "nameMr": "जरबेरा",
+    "nameEn": "Gerbera",
+    "productGroup": "flowers",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 120
+  },
+  {
+    "code": "GLADIOLUS",
+    "nameMr": "ग्लॅडिओलस",
+    "nameEn": "Gladiolus",
+    "productGroup": "flowers",
+    "defaultUnit": "bunch",
+    "status": "ACTIVE",
+    "sortOrder": 121
+  },
+  {
+    "code": "LOTUS",
+    "nameMr": "कमळ",
+    "nameEn": "Lotus",
+    "productGroup": "flowers",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 122
+  },
+  {
+    "code": "SUGARCANE",
+    "nameMr": "ऊस",
+    "nameEn": "Sugarcane",
+    "productGroup": "cash_crops",
+    "defaultUnit": "ton",
+    "status": "ACTIVE",
+    "sortOrder": 123
+  },
+  {
+    "code": "COTTON",
+    "nameMr": "कापूस",
+    "nameEn": "Cotton",
+    "productGroup": "cash_crops",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 124
+  },
+  {
+    "code": "TOBACCO",
+    "nameMr": "तंबाखू",
+    "nameEn": "Tobacco",
+    "productGroup": "cash_crops",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 125
+  },
+  {
+    "code": "COFFEE_BEANS",
+    "nameMr": "कॉफी बिया",
+    "nameEn": "Coffee Beans",
+    "productGroup": "cash_crops",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 126
+  },
+  {
+    "code": "TEA_LEAVES",
+    "nameMr": "चहाची पाने",
+    "nameEn": "Tea Leaves",
+    "productGroup": "cash_crops",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 127
+  },
+  {
+    "code": "JAGGERY",
+    "nameMr": "गूळ",
+    "nameEn": "Jaggery",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 128
+  },
+  {
+    "code": "HONEY",
+    "nameMr": "मध",
+    "nameEn": "Honey",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 129
+  },
+  {
+    "code": "PEANUTS",
+    "nameMr": "शेंगदाणे",
+    "nameEn": "Peanuts",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 130
+  },
+  {
+    "code": "DRIED_COCONUT",
+    "nameMr": "सुके खोबरे",
+    "nameEn": "Dried Coconut",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 131
+  },
+  {
+    "code": "MUSHROOM",
+    "nameMr": "मशरूम",
+    "nameEn": "Mushroom",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 132
+  },
+  {
+    "code": "CORN_COB",
+    "nameMr": "मका कणीस",
+    "nameEn": "Corn Cob",
+    "productGroup": "farm_products",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 133
+  },
+  {
+    "code": "GREEN_FODDER",
+    "nameMr": "हिरवा चारा",
+    "nameEn": "Green Fodder",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 134
+  },
+  {
+    "code": "DRY_FODDER",
+    "nameMr": "कडबा",
+    "nameEn": "Dry Fodder",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 135
+  },
+  {
+    "code": "STRAW",
+    "nameMr": "पेंढा",
+    "nameEn": "Straw",
+    "productGroup": "farm_products",
+    "defaultUnit": "bundle",
+    "status": "ACTIVE",
+    "sortOrder": 136
+  },
+  {
+    "code": "FARMYARD_MANURE",
+    "nameMr": "शेणखत",
+    "nameEn": "Farmyard Manure",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 137
+  },
+  {
+    "code": "VERMICOMPOST",
+    "nameMr": "गांडूळखत",
+    "nameEn": "Vermicompost",
+    "productGroup": "farm_products",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 138
+  },
+  {
+    "code": "DESI_MILK",
+    "nameMr": "गावठी दूध",
+    "nameEn": "Desi Milk",
+    "productGroup": "dairy",
+    "defaultUnit": "litre",
+    "status": "ACTIVE",
+    "sortOrder": 139
+  },
+  {
+    "code": "COW_MILK",
+    "nameMr": "गायीचे दूध",
+    "nameEn": "Cow Milk",
+    "productGroup": "dairy",
+    "defaultUnit": "litre",
+    "status": "ACTIVE",
+    "sortOrder": 140
+  },
+  {
+    "code": "BUFFALO_MILK",
+    "nameMr": "म्हशीचे दूध",
+    "nameEn": "Buffalo Milk",
+    "productGroup": "dairy",
+    "defaultUnit": "litre",
+    "status": "ACTIVE",
+    "sortOrder": 141
+  },
+  {
+    "code": "CURD",
+    "nameMr": "दही",
+    "nameEn": "Curd",
+    "productGroup": "dairy",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 142
+  },
+  {
+    "code": "BUTTERMILK",
+    "nameMr": "ताक",
+    "nameEn": "Buttermilk",
+    "productGroup": "dairy",
+    "defaultUnit": "litre",
+    "status": "ACTIVE",
+    "sortOrder": 143
+  },
+  {
+    "code": "BUTTER",
+    "nameMr": "लोणी",
+    "nameEn": "Butter",
+    "productGroup": "dairy",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 144
+  },
+  {
+    "code": "GHEE",
+    "nameMr": "तूप",
+    "nameEn": "Ghee",
+    "productGroup": "dairy",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 145
+  },
+  {
+    "code": "PANEER",
+    "nameMr": "पनीर",
+    "nameEn": "Paneer",
+    "productGroup": "dairy",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 146
+  },
+  {
+    "code": "KHOYA",
+    "nameMr": "खवा",
+    "nameEn": "Khoya",
+    "productGroup": "dairy",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 147
+  },
+  {
+    "code": "CHAKKA",
+    "nameMr": "चक्का",
+    "nameEn": "Chakka",
+    "productGroup": "dairy",
+    "defaultUnit": "kg",
+    "status": "ACTIVE",
+    "sortOrder": 148
+  },
+  {
+    "code": "COUNTRY_EGGS",
+    "nameMr": "गावठी अंडी",
+    "nameEn": "Country Eggs",
+    "productGroup": "eggs_poultry",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 149
+  },
+  {
+    "code": "CHICKEN_EGGS",
+    "nameMr": "कोंबडीची अंडी",
+    "nameEn": "Chicken Eggs",
+    "productGroup": "eggs_poultry",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 150
+  },
+  {
+    "code": "DUCK_EGGS",
+    "nameMr": "बदकाची अंडी",
+    "nameEn": "Duck Eggs",
+    "productGroup": "eggs_poultry",
+    "defaultUnit": "piece",
+    "status": "ACTIVE",
+    "sortOrder": 151
+  }
+]

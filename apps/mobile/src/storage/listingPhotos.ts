@@ -33,15 +33,24 @@ export function localListingPhotoUri(
 export async function pickListingPhoto(
   accountId: string,
   villageId: string,
+  source: "camera" | "gallery" = "gallery",
 ): Promise<LocalListingPhoto | null> {
-  const result = await ImagePicker.launchImageLibraryAsync({
+  if (source === "camera") {
+    const permission = await ImagePicker.requestCameraPermissionsAsync();
+    if (!permission.granted) throw new ApiError("CAMERA_PERMISSION_REQUIRED");
+  }
+  const options: ImagePicker.ImagePickerOptions = {
     mediaTypes: ["images"],
     allowsEditing: true,
     quality: 0.8,
     exif: false,
     preferredAssetRepresentationMode:
       ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible,
-  });
+  };
+  const result =
+    source === "camera"
+      ? await ImagePicker.launchCameraAsync(options)
+      : await ImagePicker.launchImageLibraryAsync(options);
   if (result.canceled || !result.assets[0]) return null;
   const asset = result.assets[0];
   const mimeType = asset.mimeType || "image/jpeg";

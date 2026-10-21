@@ -8,7 +8,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import { useFocusEffect } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import {
   useInfiniteQuery,
   useQueryClient,
@@ -24,13 +24,14 @@ import {
   type activityRequestSchema,
 } from "@gaavli/validation";
 import { authenticatedApi } from "../session";
-import { Button, ErrorMessage } from "../components/ui";
+import { Button, ErrorMessage, BackButton } from "../components/ui";
 import { useAppStore } from "../store";
 import { formatMessage, messages } from "../i18n";
 import { errorMessage } from "../errors";
 import { showToast } from "../toast";
 import { theme } from "../theme";
 import { ListingImage } from "../components/dashboard/ListingImage";
+import { PageSceneHeader } from "../components/dashboard/PageSceneHeader";
 import { listingUnit } from "../components/dashboard/listingText";
 import {
   DashboardScreen,
@@ -41,18 +42,32 @@ import {
 
 type Request = z.infer<typeof activityRequestSchema>;
 type Page = z.infer<typeof requestPageSchema>;
-export default function ActivityScreen() {
+export default function ActivityScreen({
+  onBack,
+  initialDirection,
+}: { onBack?: () => void; initialDirection?: "sent" | "received" } = {}) {
   const session = useAppStore((state) => state.session);
   return (
-    <ActivityContent key={`${session?.user.id}:${session?.user.village?.id}`} />
+    <ActivityContent
+      key={`${session?.user.id}:${session?.user.village?.id}`}
+      onBack={onBack}
+      initialDirection={initialDirection}
+    />
   );
 }
-function ActivityContent() {
+function ActivityContent({
+  onBack,
+  initialDirection,
+}: {
+  onBack?: () => void;
+  initialDirection?: "sent" | "received";
+}) {
   const { language, session, offline } = useAppStore();
   const t = messages(language);
+  const router = useRouter();
   const client = useQueryClient();
-  const [direction, setDirection] = useState<"sent" | "received">(() =>
-    session?.user.isSeller ? "received" : "sent",
+  const [direction, setDirection] = useState<"sent" | "received">(
+    () => initialDirection || (session?.user.isSeller ? "received" : "sent"),
   );
   const [busy, setBusy] = useState<string | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
@@ -186,8 +201,17 @@ function ActivityContent() {
   }
   return (
     <DashboardScreen>
+      {!onBack && (
+        <PageSceneHeader
+          title={t.myActivity}
+          subtitle={t.activitySubtitle}
+          backLabel={t.back}
+          onBack={() => router.replace("/home")}
+        />
+      )}
+      {onBack && <BackButton label={t.back} onPress={onBack} />}
       <SectionHeader
-        title={t.myActivity}
+        title={onBack ? t.myActivity : t.activityRequests}
         action={
           !offline && !busy && !query.isFetching ? t.refreshRequests : undefined
         }

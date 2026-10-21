@@ -14,13 +14,23 @@
         "expo-image-picker",
         {
           "photosPermission": "Allow Gaavli to select a product photo for your listing.",
-          "cameraPermission": false,
-          "microphonePermission": false
+          "cameraPermission": "Allow Gaavli to take a product photo for your listing.",
+          "microphonePermission": "Allow Gaavli to use your microphone to search for products by voice."
         }
       ],
       "expo-router",
       "expo-sqlite",
       "expo-secure-store",
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Allow Gaavli to use your microphone to search for products by voice.",
+          "speechRecognitionPermission": "Allow Gaavli to convert spoken product names into search text.",
+          "androidSpeechServicePackages": [
+            "com.google.android.googlequicksearchbox"
+          ]
+        }
+      ],
       [
         "expo-location",
         {

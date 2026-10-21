@@ -1,9 +1,15 @@
 import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import { LISTING_PRODUCT_GROUPS } from "@gaavli/constants";
 const userSchema = new Schema(
   {
     name: { type: String, required: true },
     firstName: { type: String, trim: true },
     lastName: { type: String, trim: true },
+    mobileVerified: Boolean,
+    registeredAt: Date,
+    preRegisteredAt: Date,
+    createdByCoordinator: { type: Schema.Types.ObjectId, ref: "User" },
+    sellerActivatedAt: Date,
     email: {
       type: String,
       lowercase: true,
@@ -82,11 +88,13 @@ villageSchema.index({ location: "2dsphere" });
 villageSchema.index({ isActive: 1, pinCode: 1 });
 const listingSchema = new Schema(
   {
+    productId: { type: Schema.Types.ObjectId, ref: "ProductMaster" },
     productName: { type: String, required: true, trim: true, maxlength: 120 },
     productNameMr: { type: String, trim: true },
+    description: { type: String, trim: true, maxlength: 2000 },
     productGroup: {
       type: String,
-      enum: ["vegetables", "fruits", "grain", "dairy"],
+      enum: LISTING_PRODUCT_GROUPS,
     },
     photoObjectKey: { type: String, trim: true },
     isDemo: { type: Boolean, default: false },
@@ -100,6 +108,7 @@ const listingSchema = new Schema(
       default: [],
     },
     deactivatedAt: Date,
+    moderationFlaggedAt: Date,
     quantity: { type: Number, min: 0, max: 1e9 },
     unit: { type: String, trim: true, maxlength: 30 },
     price: { type: Number, min: 0, max: 1e9 },
@@ -162,12 +171,17 @@ sessionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 const auditSchema = new Schema(
   {
     actorId: { type: Schema.Types.ObjectId, ref: "Admin" },
+    actorUserId: { type: Schema.Types.ObjectId, ref: "User" },
+    villageId: { type: Schema.Types.ObjectId, ref: "Village" },
+    targetName: String,
     action: { type: String, required: true },
     targetId: Schema.Types.ObjectId,
   },
   { timestamps: true },
 );
 auditSchema.index({ createdAt: -1 });
+auditSchema.index({ villageId: 1, createdAt: -1, _id: -1 });
+auditSchema.index({ villageId: 1, targetId: 1, createdAt: -1 });
 const notificationSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },

@@ -5,6 +5,7 @@ export type HomeListing = {
   id: string;
   name: string;
   nameMr: string;
+  description?: string | null;
   category: string;
   categoryMr: string;
   price: number | null;

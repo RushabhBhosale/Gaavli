@@ -139,7 +139,10 @@ test("seller capability is securely persisted and restored without changing iden
       saved = null;
     },
   };
-  const activated = { ...session, user: { ...session.user, isSeller: true } };
+  const activated = {
+    ...session,
+    user: { ...session.user, isSeller: true, coordinatorVillages: [] },
+  };
   await persistSession(storage, activated, useAppStore.getState().setSession);
   assert.equal(useAppStore.getState().session?.user.isSeller, true);
   useAppStore.getState().setSession(null);

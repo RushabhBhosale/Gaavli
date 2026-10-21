@@ -17,6 +17,8 @@ export type MobileVillage = {
   distanceKm?: number;
 };
 export type MobileUser = {
+  isCoordinator?: boolean;
+  coordinatorVillages?: MobileVillage[];
   isSeller?: boolean;
   id: string;
   name: string;
@@ -45,6 +47,7 @@ export type MobileListing = {
   id: string;
   productName: string;
   productNameMr: string | null;
+  description: string | null;
   photoUrl: string | null;
   isDemo: boolean;
   category: string | null;
@@ -67,14 +70,41 @@ export type MobileListingPage = {
   limit: number;
   categories: { code: string; name: string; nameMr: string | null }[];
   isSeller: boolean;
+  villageCounts?: { id: string; name: string; nameMr: string; count: number }[];
 };
-export type ListingProductGroup = "vegetables" | "fruits" | "grain" | "dairy";
+export type ListingProductGroup =
+  | "vegetables"
+  | "leafy_vegetables"
+  | "fruits"
+  | "grain"
+  | "grains"
+  | "pulses"
+  | "spices"
+  | "oilseeds"
+  | "flowers"
+  | "cash_crops"
+  | "farm_products"
+  | "dairy"
+  | "eggs_poultry"
+  | "homemade";
+export type MasterProduct = {
+  productId: string;
+  code: string;
+  nameMr: string;
+  nameEn: string;
+  productGroup: ListingProductGroup;
+  defaultUnit: string;
+  status: "ACTIVE" | "INACTIVE";
+  sortOrder: number;
+};
 export type ListingStatus =
   "active" | "expired" | "sold_out" | "deactivated" | "reported" | "pending";
 export type ListingFulfillmentOption = "farm_pickup" | "local_transport";
 export type CreateListingInput = {
+  productId?: string;
   productName: string;
   productNameMr?: string | null;
+  description?: string | null;
   villageId: string;
   categoryId: string;
   productGroup?: ListingProductGroup | null;
@@ -91,8 +121,10 @@ export type UpdateListingInput = Partial<
 > & { version: number };
 export type OwnedListing = {
   id: string;
+  productId?: string | null;
   productName: string;
   productNameMr: string | null;
+  description: string | null;
   categoryId: string | null;
   category: string | null;
   productGroup: ListingProductGroup | null;

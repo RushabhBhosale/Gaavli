@@ -1,7 +1,21 @@
 import type { MobileLanguage } from "@gaavli/types";
 
 const en = {
+  headerGreeting: "Namaskar,",
   myProducts: "My products",
+  manageProductsSubtitle: "Manage your product listings and stock",
+  totalProducts: "Total products",
+  allProducts: "All",
+  lowStockProducts: "Low stock",
+  sellerProductSearch: "Search products…",
+  clearProductSearch: "Clear search",
+  productFilterSort: "Filter / Sort",
+  sortNewest: "Newest first",
+  sortPriceLow: "Price: low to high",
+  sortPriceHigh: "Price: high to low",
+  sortStockLow: "Lowest stock first",
+  lowStockHelp:
+    "Use the status tabs to filter. Low stock means at or below the minimum purchase quantity, or one unit if no minimum is set.",
   activeProducts: "Active",
   soldProducts: "Sold out",
   savedProducts: "Drafts",
@@ -36,6 +50,10 @@ const en = {
     "Product was added, but the app could not finish updating. Retry safely.",
   dismissToast: "Dismiss message",
   choosePhonePhoto: "Choose photo",
+  takeListingPhoto: "Take photo",
+  chooseListingGallery: "Choose from gallery",
+  cameraPermissionRequired:
+    "Allow camera access to take a product photo. You can enable it in your phone settings or choose from gallery.",
   changeListingPhoto: "Change photo",
   phonePhotoSaved:
     "Photo saved with this draft. It will upload when you publish.",
@@ -46,6 +64,21 @@ const en = {
   photoStorageUnavailable:
     "Photo storage is unavailable. Please try again later.",
   listingProductName: "Product name *",
+  productMasterSearch: "Search Marathi or English product name",
+  productMasterLoading: "Loading products…",
+  productMasterUnavailable:
+    "Products could not be loaded. Retry to choose a product.",
+  productMasterEmpty: "No active products are available yet.",
+  productMasterNoMatches: "No matching products.",
+  productMasterCached:
+    "Using saved products. Availability is checked when publishing.",
+  productMasterLegacy:
+    "This listing keeps its saved product name. Choose a product only if you want to link it to Product Master.",
+  productMasterRequired: "Choose a product from the list.",
+  productMasterInactive:
+    "This product is no longer available. Choose another active product.",
+  listingDescription: "Description (optional, up to 2,000 characters)",
+  defaultShelf: "Default Shelf",
   listingGroup: "Product group *",
   listingCategory: "Shelf-life category *",
   listingQuantityLabel: "Available quantity *",
@@ -84,7 +117,10 @@ const en = {
   unitDozen: "dozen",
   unitBunch: "bunch",
   unitPieces: "pieces",
+  unitTon: "ton",
+  unitBundle: "bundle",
   settings: "Settings",
+  settingsSubtitle: "Manage your account and preferences",
   accountSettings: "Account",
   updateProfile: "Update profile",
   languageSetting: "Language",
@@ -114,13 +150,34 @@ const en = {
   freshInVillage: "Fresh in your village",
   viewAll: "View All",
   marketplace: "Marketplace",
+  marketplaceBrandTagline: "Your village. Your market.",
+  marketplaceSearchPlaceholder: "Search products",
   cropSearch: "Search crop",
   allCategories: "All",
   vegetables: "Vegetables",
   fruits: "Fruits",
-  grains: "Grain",
+  grains: "Grains",
   dairy: "Dairy products",
+  homemade: "Homemade products",
   voiceSearch: "Voice search",
+  voiceListening: "Listening… Say a product name.",
+  voiceRequesting:
+    "Allow microphone and speech recognition access to continue.",
+  voiceProcessing: "Recognizing speech…",
+  voiceCancel: "Cancel voice search",
+  voicePermission:
+    "Microphone and speech recognition access is needed. Allow access in your phone settings, then try again.",
+  voiceNoSpeech: "No speech was detected. Tap the microphone and try again.",
+  voiceNetwork:
+    "Speech recognition could not connect. Check your internet connection or type your search.",
+  voiceService:
+    "Speech recognition is unavailable. Enable a speech recognition service on your phone or type your search.",
+  voiceLanguage:
+    "Your phone's speech service does not support the selected language. Enable Marathi or English (India) in the speech service, or type your search.",
+  voiceFailed: "Could not recognize speech. Try again or type your search.",
+  voiceBuild:
+    "Voice search is unavailable in this version of Gaavli. Update the app or type your search.",
+  voiceSettings: "Open phone settings",
   voiceSearchUnavailable:
     "Voice search is not connected yet. It needs a speech-recognition integration. Please type your search for now.",
   viewDetails: "View details",
@@ -158,7 +215,7 @@ const en = {
   becomeSeller: "Become a Seller",
   sellerDashboard: "Seller Dashboard",
   addListing: "Add Listing",
-  myListings: "My Listings",
+  myListings: "Products",
   viewInsights: "View Insights",
   villageCoordinator: "Village Coordinator",
   verified: "Verified",
@@ -179,6 +236,8 @@ const en = {
   villageInformation: "Village Information",
   villageInformationDescription: "Important information and local updates",
   myActivity: "My Activity",
+  activitySubtitle: "View your requests and notifications",
+  activityRequests: "Requests",
   profile: "Profile",
   previewLabel: "Sample marketplace",
   previewDescription: "Sample listings and contacts shown for preview.",
@@ -359,15 +418,28 @@ const en = {
 };
 type Messages = { [Key in keyof typeof en]: string };
 const mr: Messages = {
-  myProducts: "माझी पिके",
+  myProducts: "माझी उत्पादने",
+  manageProductsSubtitle: "तुमच्या उत्पादनांची यादी आणि साठा व्यवस्थापित करा",
+  totalProducts: "एकूण उत्पादने",
+  allProducts: "सर्व",
+  lowStockProducts: "कमी साठा",
+  sellerProductSearch: "उत्पादने शोधा…",
+  clearProductSearch: "शोध पुसा",
+  productFilterSort: "फिल्टर / क्रम",
+  sortNewest: "नवीन आधी",
+  sortPriceLow: "किंमत: कमी ते जास्त",
+  sortPriceHigh: "किंमत: जास्त ते कमी",
+  sortStockLow: "कमी साठा आधी",
+  lowStockHelp:
+    "श्रेणी निवडून उत्पादने पाहा. किमान खरेदी प्रमाणाइतका किंवा त्यापेक्षा कमी साठा म्हणजे कमी साठा. किमान प्रमाण नसल्यास एक एकक वापरले जाते.",
   activeProducts: "चालू",
   soldProducts: "संपलेली",
   savedProducts: "मसुदे",
-  newProduct: "नवीन पीक",
-  listingActions: "उत्पादनाचे पर्याय",
-  editListing: "उत्पादन बदला",
-  deleteListing: "उत्पादन काढून टाका",
-  deleteListingQuestion: "तुम्हाला हे उत्पादन काढून टाकायचे आहे का?",
+  newProduct: "नवीन उत्पादन",
+  listingActions: "उत्पादन पर्याय",
+  editListing: "बदल करा",
+  deleteListing: "काढून टाका",
+  deleteListingQuestion: "हे उत्पादन काढून टाकायचे का?",
   listingDeletedSuccess: "उत्पादन यशस्वीपणे काढून टाकले.",
   listingDeleteFollowupError:
     "उत्पादन काढून टाकले आहे, पण अ‍ॅप अद्ययावत झाले नाही. सुरक्षितपणे पुन्हा प्रयत्न करा.",
@@ -393,6 +465,10 @@ const mr: Messages = {
     "उत्पादन जोडले गेले आहे, पण अ‍ॅप अद्ययावत झाले नाही. सुरक्षितपणे पुन्हा प्रयत्न करा.",
   dismissToast: "संदेश बंद करा",
   choosePhonePhoto: "फोटो निवडा",
+  takeListingPhoto: "फोटो काढा",
+  chooseListingGallery: "गॅलरीतून निवडा",
+  cameraPermissionRequired:
+    "उत्पादनाचा फोटो काढण्यासाठी कॅमेऱ्याची परवानगी द्या. फोनच्या सेटिंग्जमध्ये परवानगी द्या किंवा गॅलरीतून फोटो निवडा.",
   changeListingPhoto: "फोटो बदला",
   phonePhotoSaved: "फोटो मसुद्यासोबत जतन झाला आहे. प्रकाशित करताना अपलोड होईल.",
   phonePhotoUploaded: "फोटो अपलोड झाला आहे. उत्पादन प्रकाशित करा.",
@@ -402,6 +478,21 @@ const mr: Messages = {
   photoStorageUnavailable:
     "फोटो साठवण्याची सुविधा सध्या उपलब्ध नाही. नंतर पुन्हा प्रयत्न करा.",
   listingProductName: "उत्पादनाचे नाव *",
+  productMasterSearch: "मराठी किंवा इंग्रजी नावाने उत्पादन शोधा",
+  productMasterLoading: "उत्पादने लोड होत आहेत…",
+  productMasterUnavailable:
+    "उत्पादने लोड झाली नाहीत. उत्पादन निवडण्यासाठी पुन्हा प्रयत्न करा.",
+  productMasterEmpty: "अद्याप कोणतीही सक्रिय उत्पादने उपलब्ध नाहीत.",
+  productMasterNoMatches: "जुळणारे उत्पादन सापडले नाही.",
+  productMasterCached:
+    "जतन केलेली उत्पादने वापरत आहोत. प्रकाशित करताना उपलब्धता तपासली जाईल.",
+  productMasterLegacy:
+    "या नोंदीचे जतन केलेले नाव कायम राहील. उत्पादन मास्टरशी जोडण्यासाठीच नवीन उत्पादन निवडा.",
+  productMasterRequired: "यादीतून उत्पादन निवडा.",
+  productMasterInactive:
+    "हे उत्पादन आता उपलब्ध नाही. दुसरे सक्रिय उत्पादन निवडा.",
+  listingDescription: "वर्णन (ऐच्छिक, २,००० अक्षरांपर्यंत)",
+  defaultShelf: "नेहमीचा टिकण्याचा कालावधी",
   listingGroup: "उत्पादनाचा प्रकार *",
   listingCategory: "टिकण्याच्या कालावधीनुसार श्रेणी *",
   listingQuantityLabel: "उपलब्ध प्रमाण *",
@@ -441,7 +532,10 @@ const mr: Messages = {
   unitDozen: "डझन",
   unitBunch: "जुडी",
   unitPieces: "नग",
+  unitTon: "टन",
+  unitBundle: "बंडल",
   settings: "सेटिंग्ज",
+  settingsSubtitle: "तुमचे खाते आणि प्राधान्ये व्यवस्थापित करा",
   accountSettings: "खाते",
   updateProfile: "प्रोफाइल अपडेट करा",
   languageSetting: "भाषा",
@@ -456,18 +550,41 @@ const mr: Messages = {
   home: "मुख्यपृष्ठ",
   buyer: "खरेदीदार",
   seller: "विक्रेता",
+  headerGreeting: "नमस्कार,",
   greeting: "नमस्कार, {name} 👋",
   availableInVillage: "आज {village} येथे काय उपलब्ध आहे ते पाहा",
   freshInVillage: "तुमच्या गावातील ताज्या वस्तू",
   viewAll: "सर्व पाहा",
   marketplace: "बाजार",
+  marketplaceBrandTagline: "आपलं गाव, आपला बाजार",
+  marketplaceSearchPlaceholder: "उत्पादने शोधा",
   cropSearch: "पीक शोधा · Search crop",
   allCategories: "सर्व",
-  vegetables: "भाज्या",
+  vegetables: "भाजीपाला",
   fruits: "फळे",
   grains: "धान्य",
   dairy: "दुग्धजन्य पदार्थ",
+  homemade: "घरगुती उत्पादने",
   voiceSearch: "आवाजाने शोधा",
+  voiceListening: "ऐकत आहे… उत्पादनाचे नाव सांगा.",
+  voiceRequesting:
+    "पुढे जाण्यासाठी मायक्रोफोन आणि आवाज ओळखण्याची परवानगी द्या.",
+  voiceProcessing: "आवाज ओळखत आहे…",
+  voiceCancel: "आवाजाने शोध रद्द करा",
+  voicePermission:
+    "मायक्रोफोन आणि आवाज ओळखण्याची परवानगी आवश्यक आहे. फोनच्या सेटिंग्जमध्ये परवानगी देऊन पुन्हा प्रयत्न करा.",
+  voiceNoSpeech: "आवाज ऐकू आला नाही. मायक्रोफोन दाबून पुन्हा बोला.",
+  voiceNetwork:
+    "आवाज ओळखण्याच्या सेवेशी संपर्क झाला नाही. इंटरनेट तपासा किंवा शोधासाठी टाइप करा.",
+  voiceService:
+    "आवाज ओळखण्याची सेवा उपलब्ध नाही. फोनमध्ये ही सेवा सुरू करा किंवा शोधासाठी टाइप करा.",
+  voiceLanguage:
+    "फोनच्या आवाज सेवेत निवडलेली भाषा उपलब्ध नाही. मराठी किंवा इंग्रजी (भारत) सुरू करा किंवा शोधासाठी टाइप करा.",
+  voiceFailed:
+    "आवाज ओळखता आला नाही. पुन्हा प्रयत्न करा किंवा शोधासाठी टाइप करा.",
+  voiceBuild:
+    "गावलीच्या या आवृत्तीत आवाजाने शोध उपलब्ध नाही. अॅप अद्ययावत करा किंवा शोधासाठी टाइप करा.",
+  voiceSettings: "फोनच्या सेटिंग्ज उघडा",
   voiceSearchUnavailable:
     "आवाजाने शोधण्याची सुविधा अजून जोडलेली नाही. त्यासाठी आवाज ओळखण्याची सुविधा जोडावी लागेल. सध्या शोधासाठी टाइप करा.",
   viewDetails: "तपशील पहा",
@@ -505,7 +622,7 @@ const mr: Messages = {
   becomeSeller: "विक्रेता बना",
   sellerDashboard: "विक्रेता मुख्यपृष्ठ",
   addListing: "नोंद जोडा",
-  myListings: "माझ्या नोंदी",
+  myListings: "उत्पादने",
   sellerConfirmTitle: "तुम्हाला विक्रेता व्हायचे आहे का?",
   sellerConfirmDescription:
     "जवळच्या खरेदीदारांसाठी तुमची उत्पादने जोडा. तुमचा मोबाईल क्रमांक सुरक्षित राहील.",
@@ -536,6 +653,8 @@ const mr: Messages = {
   villageInformation: "गावाची माहिती",
   villageInformationDescription: "महत्त्वाची माहिती आणि स्थानिक घडामोडी",
   myActivity: "माझी माहिती",
+  activitySubtitle: "तुमच्या विनंत्या आणि सूचना पहा",
+  activityRequests: "विनंत्या",
   profile: "प्रोफाइल",
   previewLabel: "बाजाराचा नमुना",
   previewDescription: "येथे नमुना नोंदी आणि संपर्क दाखवले आहेत.",

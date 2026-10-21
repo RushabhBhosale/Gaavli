@@ -1,3 +1,31 @@
+> Product Master revision - 2026-10-21: catalog reads require existing mobile
+> authentication and no-store responses. Strict query/import validation rejects
+> injected fields; bilingual search escapes regex input. Linked names/groups are
+> resolved server-side from an active reference in the listing transaction.
+> Ownership, contacts, version checks and idempotency remain intact; SQLite
+> catalog cache contains reference data only. See `docs/03-api/PRODUCT_MASTER.md`.
+
+> Marketplace village filters — 2026-10-21: optional listing `villageId` can only
+> narrow the server-derived active selected/confirmed-connected village scope.
+> Foreign or disconnected selections return 403. Village chip counts use the
+> same stock, seller, category, own-offer and privacy rules as the listing feed;
+> no contact data is included. Filters never alter the account's saved village.
+
+> Add Buyer exception — 2026-10-19: an active assigned coordinator may create a
+> new unverified buyer in any selected active village using `targetVillageId`.
+> Actor assignment and active target are rechecked transactionally on writes and
+> replays. The audit uses the actual target village. This grants no directory,
+> contact, editing or moderation access to unassigned villages and changes no
+> existing buyer's village or verification state.
+
+> Coordinator revision — 2026-10-19: mobile coordinator operations verify active
+> role, assignment and village on every request and mutation replay. Directory
+> phone access is confined to those villages; name corrections are limited to
+> the actor's unverified pre-registrations. No coordinator role/mobile/village or
+> seller price/quantity mutation is accepted. Manual connections extend protected
+> contact eligibility bidirectionally; GPS suggestions alone grant no access.
+> Buyer callback consent remains required. See `03-api/COORDINATOR_MOBILE.md`.
+
 > Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
 > with Get started → required first/last name and Indian mobile → OTP →
 > confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)
@@ -2355,3 +2383,12 @@ IMPLEMENTATION_STATUS.md
    ↓
 What is actually implemented and verified
 ````
+# Marketplace voice search — 2026-10-21
+
+Voice search is user-triggered and permission-gated. Recording is bounded and
+canceled on leaving/backgrounding/manual input; raw audio/transcripts are not
+persisted or logged by Gaavli. Device speech providers may process audio over
+their network services. Only normalized product search text reaches the existing
+authenticated listing API; scope and contact protections remain unchanged. See
+`docs/03-api/VOICE_SEARCH.md` for implementation and device limitations.
+

@@ -24,6 +24,7 @@ import {
   mobileUserSchema,
   ownedListingSchema,
   listingIdSchema,
+  productMasterPageSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
 import { showToast } from "../toast";
@@ -42,7 +43,11 @@ import {
 } from "../components/ui";
 import { d } from "../components/dashboard/primitives";
 import { ListingImage } from "../components/dashboard/ListingImage";
-import { listingDraftStorage } from "../storage/sqlite";
+import { listingDraftStorage, productMasterCache } from "../storage/sqlite";
+import {
+  loadMasterProducts,
+  matchesProductSearch,
+} from "../data/productMaster";
 import {
   emptyListingDraft,
   listingDraftSchema,
@@ -52,6 +57,7 @@ import {
   formFromListing,
   prepareListingEdit,
   listingOperationId,
+  selectMasterProduct,
   type ListingDraft,
   type ListingForm,
 } from "../data/listingForm";
@@ -115,6 +121,19 @@ function ListingFormScreen({
     queryFn: ({ signal }) =>
       authenticatedApi("/categories", mobileCategoriesSchema, { signal }),
     retry: 1,
+  });
+  const products = useQuery({
+    queryKey: ["product-master", accountId, offline],
+    queryFn: () =>
+      loadMasterProducts({
+        storage: productMasterCache,
+        offline,
+        fetch: () =>
+          authenticatedApi("/product-master", productMasterPageSchema),
+      }),
+    networkMode: "always",
+    retry: false,
+    refetchOnMount: "always",
   });
   function loadDraft(replace = false) {
     const version = ++loadVersion.current;
@@ -239,7 +258,7 @@ function ListingFormScreen({
       )
       .catch(() => undefined);
   }
-  async function choosePhonePhoto() {
+  async function choosePhonePhoto(source: "camera" | "gallery") {
     if (
       !ready ||
       submitting.current ||
@@ -251,7 +270,7 @@ function ListingFormScreen({
     setBusy(true);
     setFailure(null);
     try {
-      const photo = await pickListingPhoto(accountId, villageId);
+      const photo = await pickListingPhoto(accountId, villageId, source);
       if (!photo) return;
       if (!active.current) {
         await removeDraftPhoto(photo, accountId, villageId);
@@ -300,6 +319,8 @@ function ListingFormScreen({
     try {
       let next = latest.current;
       if (!next.pending && !next.editPending) {
+        if (!editId && !next.form.productId)
+          throw new ListingFormError("productId");
         const category = categories.data?.categories.find(
           (item) => item.id === next.form.categoryId,
         );
@@ -438,9 +459,11 @@ function ListingFormScreen({
         : error instanceof ListingFormError
           ? error.field === "unchanged"
             ? t.noListingChanges
-            : error.field === "categoryId"
-              ? t.listingCategoryMissing
-              : t.listingInvalid
+            : error.field === "productId"
+              ? t.productMasterRequired
+              : error.field === "categoryId"
+                ? t.listingCategoryMissing
+                : t.listingInvalid
           : error instanceof ApiError && error.code === "DUPLICATE_LISTING"
             ? t.listingDuplicate
             : error instanceof ApiError && error.code === "LISTING_LIMIT"
@@ -511,13 +534,77 @@ function ListingFormScreen({
           {!!(draft.pending || draft.editPending) && (
             <Text style={s.warning}>{t.listingPending}</Text>
           )}
-          <Input
+          <ListingDropdown
             label={t.listingProductName}
-            value={form.name}
-            editable={!locked}
-            maxLength={120}
-            onChangeText={(value) => update("name", value)}
+            value={form.productId || ""}
+            disabled={locked}
+            selectedLabel={
+              form.productId
+                ? (language === "mr"
+                    ? form.productNameMr
+                    : form.productNameEn) || form.name
+                : form.name
+            }
+            searchable
+            searchPlaceholder={t.productMasterSearch}
+            searchTexts={Object.fromEntries(
+              (products.data?.products || []).map((product) => [
+                product.productId,
+                `${product.nameMr} ${product.nameEn}`,
+              ]),
+            )}
+            options={(products.data?.products || []).map(
+              (product) =>
+                [
+                  product.productId,
+                  language === "mr" ? product.nameMr : product.nameEn,
+                ] as const,
+            )}
+            onChange={(id) => {
+              const product = products.data?.products.find(
+                (item) => item.productId === id,
+              );
+              if (
+                !product ||
+                submitting.current ||
+                latest.current.pending ||
+                latest.current.editPending
+              )
+                return;
+              const next = {
+                ...latest.current,
+                form: selectMasterProduct(
+                  latest.current.form,
+                  product,
+                  language,
+                ),
+              };
+              latest.current = next;
+              setDraft(next);
+              setFailure(null);
+              void persist(next).catch(() => undefined);
+            }}
           />
+          {products.isPending && (
+            <Text style={d.description}>{t.productMasterLoading}</Text>
+          )}
+          {products.isError && (
+            <>
+              <ErrorMessage message={t.productMasterUnavailable} />
+              <Button secondary onPress={() => void products.refetch()}>
+                {t.retry}
+              </Button>
+            </>
+          )}
+          {products.data?.cached && (
+            <Text style={d.description}>{t.productMasterCached}</Text>
+          )}
+          {products.data && !products.data.products.length && (
+            <Text style={d.description}>{t.productMasterEmpty}</Text>
+          )}
+          {editId && !form.productId && (
+            <Text style={d.description}>{t.productMasterLegacy}</Text>
+          )}
           <Text style={s.label}>{t.listingPhoto}</Text>
           <View style={s.photoRow}>
             <View style={s.photoSlot}>
@@ -555,27 +642,37 @@ function ListingFormScreen({
               <Button
                 secondary
                 disabled={locked}
-                onPress={() => void choosePhonePhoto()}
+                onPress={() => void choosePhonePhoto("camera")}
               >
-                {editId ? t.changeListingPhoto : t.choosePhonePhoto}
+                {t.takeListingPhoto}
+              </Button>
+              <Button
+                secondary
+                disabled={locked}
+                onPress={() => void choosePhonePhoto("gallery")}
+              >
+                {t.chooseListingGallery}
               </Button>
             </View>
           </View>
-          <ListingDropdown
-            label={t.listingGroup}
-            value={form.group}
-            disabled={locked}
-            onChange={(value) => update("group", value)}
-            options={
-              [
-                ["vegetables", t.vegetables],
-                ["fruits", t.fruits],
-                ["grain", t.grains],
-                ["dairy", t.dairy],
-                ["other", t.listingOtherGroup],
-              ] as const
-            }
-          />
+          {editId && !form.productId ? (
+            <ListingDropdown
+              label={t.listingGroup}
+              value={form.group}
+              disabled={locked}
+              onChange={(value) => update("group", value)}
+              options={
+                [
+                  ["vegetables", t.vegetables],
+                  ["fruits", t.fruits],
+                  ["grain", t.grains],
+                  ["dairy", t.dairy],
+                  ["homemade", t.homemade],
+                  ["other", t.listingOtherGroup],
+                ] as const
+              }
+            />
+          ) : null}
           {categories.isPending && (
             <Text style={d.description}>{t.listingsLoading}</Text>
           )}
@@ -598,7 +695,7 @@ function ListingFormScreen({
                 (item) =>
                   [
                     item.id,
-                    language === "mr" ? item.nameMr : item.name,
+                    `${language === "mr" ? item.nameMr : item.name} (${language === "mr" ? item.defaultShelfLife.replace(/\bdays?\b/gi, "दिवस") : item.defaultShelfLife})`,
                   ] as const,
               ) ?? []
             }
@@ -627,9 +724,19 @@ function ListingFormScreen({
                     ["dozen", t.unitDozen],
                     ["bunch", t.unitBunch],
                     ["pieces", t.unitPieces],
-                    ...(!["kg", "litre", "dozen", "bunch", "pieces"].includes(
-                      form.unit,
-                    )
+                    ["piece", t.unitPieces],
+                    ["ton", t.unitTon],
+                    ["bundle", t.unitBundle],
+                    ...(![
+                      "kg",
+                      "litre",
+                      "dozen",
+                      "bunch",
+                      "pieces",
+                      "piece",
+                      "ton",
+                      "bundle",
+                    ].includes(form.unit)
                       ? [[form.unit, form.unit] as const]
                       : []),
                   ] as const
@@ -682,6 +789,15 @@ function ListingFormScreen({
               onPress={() => update("localTransport", !form.localTransport)}
             />
           </View>
+          <Input
+            label={t.listingDescription}
+            value={form.description}
+            editable={!locked}
+            multiline
+            maxLength={2000}
+            style={{ minHeight: 110, textAlignVertical: "top" }}
+            onChangeText={(value) => update("description", value)}
+          />
           {failure && <ErrorMessage message={failure} />}
           {editId && conflict && !draft.editPending && (
             <Button
@@ -726,6 +842,10 @@ function ListingDropdown<T extends string>({
   onChange,
   disabled,
   placeholder,
+  searchable = false,
+  searchTexts = {},
+  searchPlaceholder,
+  selectedLabel,
 }: {
   label: string;
   value: T;
@@ -733,11 +853,20 @@ function ListingDropdown<T extends string>({
   onChange: (value: T) => void;
   disabled: boolean;
   placeholder?: string;
+  searchable?: boolean;
+  searchTexts?: Record<string, string>;
+  searchPlaceholder?: string;
+  selectedLabel?: string | null;
 }) {
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const language = useAppStore((state) => state.language);
   const t = messages(language);
-  const selected = options.find(([id]) => id === value)?.[1];
+  const selected =
+    selectedLabel || options.find(([id]) => id === value)?.[1] || undefined;
+  const visibleOptions = options.filter(([id, text]) =>
+    matchesProductSearch(`${text} ${searchTexts[id] || ""}`, search),
+  );
   const unavailable = disabled || !options.length;
   return (
     <>
@@ -747,7 +876,10 @@ function ListingDropdown<T extends string>({
         placeholder={placeholder || label}
         disabled={unavailable}
         expanded={open}
-        onPress={() => setOpen(true)}
+        onPress={() => {
+          setSearch("");
+          setOpen(true);
+        }}
       />
       <Modal
         visible={open}
@@ -760,8 +892,20 @@ function ListingDropdown<T extends string>({
             <Text accessibilityRole="header" style={s.label}>
               {label}
             </Text>
+            {searchable && (
+              <Input
+                label={searchPlaceholder || label}
+                value={search}
+                onChangeText={setSearch}
+                maxLength={100}
+                autoCapitalize="none"
+              />
+            )}
             <ScrollView keyboardShouldPersistTaps="handled">
-              {options.map(([id, text]) => (
+              {!visibleOptions.length && (
+                <Text style={d.description}>{t.productMasterNoMatches}</Text>
+              )}
+              {visibleOptions.map(([id, text]) => (
                 <Pressable
                   key={id}
                   accessibilityRole="radio"

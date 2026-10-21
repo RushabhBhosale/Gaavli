@@ -1,4 +1,35 @@
 import { z } from "zod";
+import { productGroupSchema } from "./product-master";
+export {
+  productGroupSchema,
+  productMasterSchema,
+  productMasterPageSchema,
+  productMasterQuerySchema,
+  productMasterImportRowSchema,
+  productMasterImportSchema,
+} from "./product-master";
+import { indianMobileSchema, personNameSchema } from "./identity";
+export { indianMobileSchema, personNameSchema } from "./identity";
+export {
+  coordinatorQuerySchema,
+  coordinatorBuyerSchema,
+  coordinatorUserEditSchema,
+  coordinatorConnectionInputSchema,
+  coordinatorReportActionSchema,
+  listingReportInputSchema,
+  coordinatorActivityIdSchema,
+  coordinatorUserSchema,
+  coordinatorUserDetailSchema,
+  coordinatorUsersSchema,
+  coordinatorConnectionsSchema,
+  coordinatorActivitySchema,
+  coordinatorActivityPageSchema,
+  coordinatorDashboardSchema,
+  coordinatorReportsSchema,
+  coordinatorReportSchema,
+  coordinatorListingSchema,
+  coordinatorMutationSchema,
+} from "./coordinator";
 import { MOBILE_LANGUAGES } from "@gaavli/constants";
 
 export const mobileLanguageSchema = z.enum(MOBILE_LANGUAGES);
@@ -19,26 +50,6 @@ export function apiSuccessSchema<T extends z.ZodType>(data: T) {
   return z.object({ success: z.literal(true), data });
 }
 
-// Canonical storage stays compatible with existing admin users: 10 Indian digits.
-export const indianMobileSchema = z
-  .string()
-  .trim()
-  .max(24)
-  .transform((value) => value.replace(/[\s()-]/g, ""))
-  .transform((value) =>
-    value.startsWith("+91")
-      ? value.slice(3)
-      : value.length === 12 && value.startsWith("91")
-        ? value.slice(2)
-        : value,
-  )
-  .pipe(z.string().regex(/^[6-9]\d{9}$/, "MOBILE_INVALID"));
-export const personNameSchema = z
-  .string()
-  .trim()
-  .min(1, "NAME_REQUIRED")
-  .max(60, "NAME_INVALID")
-  .regex(/^[\p{L}\p{M}][\p{L}\p{M} .'’-]*$/u, "NAME_INVALID");
 export const registrationSchema = z
   .object({
     firstName: personNameSchema,
@@ -148,6 +159,8 @@ export const mobileVillageSchema = z.object({
   distanceKm: z.number().optional(),
 });
 export const mobileUserSchema = z.object({
+  isCoordinator: z.boolean().optional(),
+  coordinatorVillages: z.array(mobileVillageSchema).default([]),
   isSeller: z.boolean().default(false),
   id: z.string(),
   name: z.string(),
@@ -247,9 +260,14 @@ export const requestContactSchema = z
   .strict();
 export const mobileListingsQuerySchema = z
   .object({
+    villageId: z
+      .string()
+      .regex(/^[a-f0-9]{24}$/i)
+      .toLowerCase()
+      .optional(),
     search: z.string().trim().max(100).default(""),
     category: z.string().trim().min(1).max(100).optional(),
-    productGroup: z.enum(["vegetables", "fruits", "grain", "dairy"]).optional(),
+    productGroup: productGroupSchema.optional(),
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(20),
   })
@@ -285,6 +303,7 @@ export const mobileListingSchema = z
     category: z.string().nullable(),
     categoryName: z.string().nullable(),
     categoryNameMr: z.string().nullable(),
+    description: z.string().nullable().default(null),
     quantity: z.number().finite().nonnegative().nullable(),
     unit: z.string().nullable(),
     price: z.number().finite().nonnegative().nullable(),
@@ -300,6 +319,18 @@ export const mobileListingSchema = z
   .strict();
 export const mobileListingPageSchema = z
   .object({
+    villageCounts: z
+      .array(
+        z
+          .object({
+            id: z.string().regex(/^[a-f0-9]{24}$/i),
+            name: z.string(),
+            nameMr: z.string(),
+            count: z.number().int().nonnegative(),
+          })
+          .strict(),
+      )
+      .default([]),
     listings: z.array(mobileListingSchema),
     total: z.number().int().nonnegative(),
     page: z.number().int().positive(),
@@ -315,12 +346,6 @@ export const mobileListingPageSchema = z
   })
   .strict();
 
-export const productGroupSchema = z.enum([
-  "vegetables",
-  "fruits",
-  "grain",
-  "dairy",
-]);
 export const listingPhotoKeySchema = z
   .string()
   .max(250)
@@ -341,8 +366,16 @@ const listingNameSchema = z
   .regex(/^[^\p{Cc}\p{Cf}]+$/u);
 const quantitySchema = z.number().finite().positive().max(1e9);
 const listingFields = {
+  productId: listingIdSchema.optional(),
   productName: listingNameSchema,
   productNameMr: listingNameSchema.nullable().optional(),
+  description: z
+    .string()
+    .trim()
+    .max(2000)
+    .regex(/^[^\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]*$/)
+    .nullable()
+    .optional(),
   categoryId: listingIdSchema,
   productGroup: productGroupSchema.nullable().optional(),
   quantity: quantitySchema,
@@ -408,14 +441,22 @@ export const ownListingsQuerySchema = z
   .object({
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(20),
-    status: listingStatusSchema.optional(),
+    status: z
+      .union([listingStatusSchema, z.enum(["all", "low_stock"])])
+      .optional(),
+    search: z.string().trim().max(100).default(""),
+    sort: z
+      .enum(["newest", "price_asc", "price_desc", "stock_asc"])
+      .default("newest"),
   })
   .strict();
 export const ownedListingSchema = z
   .object({
     id: listingIdSchema,
+    productId: listingIdSchema.nullable().default(null),
     productName: z.string(),
     productNameMr: z.string().nullable(),
+    description: z.string().nullable().default(null),
     categoryId: listingIdSchema.nullable(),
     category: z.string().nullable(),
     productGroup: productGroupSchema.nullable(),
@@ -437,6 +478,14 @@ export const ownedListingSchema = z
   .strict();
 export const ownListingPageSchema = z.object({
   listings: z.array(ownedListingSchema),
+  summary: z
+    .object({
+      total: z.number().int().nonnegative(),
+      active: z.number().int().nonnegative(),
+      soldOut: z.number().int().nonnegative(),
+      lowStock: z.number().int().nonnegative(),
+    })
+    .optional(),
   total: z.number().int().nonnegative(),
   page: z.number().int().positive(),
   limit: z.number().int().positive(),

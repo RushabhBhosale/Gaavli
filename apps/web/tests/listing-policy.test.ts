@@ -38,6 +38,8 @@ test("listing inputs bound data and reject privilege injection, unsafe photos an
     { ...input, fulfillmentOptions: ["farm_pickup", "farm_pickup"] },
     { ...input, photoObjectKey: "listings/../secret.webp" },
     { ...input, productName: "Unsafe\u0000name" },
+    { ...input, description: "x".repeat(2001) },
+    { ...input, description: "Unsafe\u0000description" },
   ])
     assert.equal(createListingSchema.safeParse(invalid).success, false);
   assert.equal(updateListingSchema.safeParse({ version: 1 }).success, false);
@@ -64,6 +66,23 @@ test("listing inputs bound data and reject privilege injection, unsafe photos an
     true,
   );
   assert.equal(listingOperationKeySchema.safeParse("short").success, false);
+});
+test("listing descriptions allow bounded multiline text, optional legacy creates and explicit clearing", () => {
+  assert.equal(
+    createListingSchema.parse({ ...input, description: "  Organic\nFresh  " })
+      .description,
+    "Organic\nFresh",
+  );
+  assert.equal(createListingSchema.parse(input).description, undefined);
+  assert.equal(
+    updateListingSchema.parse({ version: 1, description: null }).description,
+    null,
+  );
+  assert.equal(
+    updateListingSchema.safeParse({ version: 1, description: "x".repeat(2001) })
+      .success,
+    false,
+  );
 });
 test("duplicate detection normalizes names and catches close spellings without conflating unrelated produce", () => {
   for (const [a, b] of [

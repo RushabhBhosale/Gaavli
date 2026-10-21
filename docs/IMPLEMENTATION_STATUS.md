@@ -1,3 +1,374 @@
+# Product Master - 2026-10-21
+
+- Marketplace listing cards now show posting age in minutes, hours or days using
+  the listing's original creation time and existing Marathi/English translations.
+  The existing listing clock refreshes the age while the screen remains open.
+  Focused ESLint and mobile TypeScript passed; native visual check pending.
+- Marketplace voice search: installed Expo SDK 57-compatible native speech
+  recognition, enabled microphone/speech permissions and Android service queries,
+  and connected the existing mic to mr-IN/en-IN recognition with localized
+  permission/service/network/no-speech errors, settings recovery, listening/cancel
+  UI and bounded recording. Native-module absence preserves manual search.
+  Final text uses Product Master/cache plus lightweight phrase/plural matching,
+  populates the search field and selects the known product group. Existing
+  listing API expands exact active master names to paired names/product IDs for
+  historical single-language rows without changing data or visibility rules.
+  Cancellation covers permissions in flight, late callbacks, blur/background,
+  manual input and language/account changes. Workspace TypeScript, focused
+  mobile/web ESLint, 53 mobile tests, listing and Product Master API integrations,
+  Expo permission introspection, merged Android permissions and Android JS export
+  passed. The arm64 Android debug APK built successfully with the speech module.
+  The first native attempt exhausted C: disk space; its new version cache was
+  relocated to ignored E: `.gradle` storage, existing dependency/wrapper caches
+  were copied, and the retry passed. Metro excludes `.gradle` build caches while
+  preserving Expo defaults. Existing SDK emulator metadata/deprecation warnings
+  remain. Expo's dependency check reports four pre-existing recommended
+  patch upgrades (expo/constants/linking/router), left outside this change.
+  Phone speech accuracy/permission behavior and native iOS acceptance remain
+  pending. See `docs/03-api/VOICE_SEARCH.md` for rebuild/setup instructions.
+- Coordinator role visibility: mobile profile/session responses now expose the
+  active admin-granted `isCoordinator` capability separately from assigned
+  villages. Navigation and identity prioritize Coordinator even while village
+  assignment is pending; Manage/Activity show a localized pending state without
+  issuing scoped requests. Existing sessions retain assignment-based fallback.
+  Foreground/30-second profile refresh syncs both role and assignments; server
+  authorization still requires an explicit active village assignment. No account
+  roles or village assignments were changed in the configured application DB.
+  Workspace TypeScript, focused mobile/web ESLint, all 44 mobile tests and the
+  isolated coordinator API integration passed, including role-only identity,
+  denied unassigned work, assignment discovery and role revocation using the
+  same bearer session. Native visual verification remains pending.
+- My Products simplification: removed Total products/Active summary cards and
+  the Filter / Sort control and modal. Existing status tabs and bilingual search
+  remain, using default newest ordering. Added the Marketplace-style microphone
+  icon with its localized unavailable message; speech recognition is pending.
+- Marketplace header uses a subtle village illustration confined to the right
+  of the top row over a plain cream base, preserving the soft green and yellow
+  palette. Brand and search remain; the village is a static label with no
+  dropdown. Notification and initials/profile controls have been removed from
+  this header, leaving room for the right-side farm illustration.
+  The village label sits at the right edge and the brand tagline stays on one
+  line in both languages.
+  Native visual check pending.
+- Activity/Settings art placement: PageSceneHeader now uses the existing
+  soft-green/yellow village scene as a full-header background over a cream base,
+  at reduced opacity. The artwork's quiet left area keeps the page title and
+  subtitle readable, with the farm scene on the right. Native visual check pending.
+- Activity/Settings header correction: Home retains the personal identity
+  header. Activity and Settings now reuse only its village landscape behind a
+  Product page style back button, localized page title and subtitle. Name,
+  greeting, role, location, bell and avatar are absent from these page headers.
+  Buyer/seller and coordinator Activity use the same treatment; coordinator
+  assigned-village controls and Activity actions remain below. The standalone
+  notifications/back route keeps its own navigation. Native visual check pending.
+- Shared identity-header reference follow-up: Home, Settings and Activity now
+  share a compact, full-width mint header with generated village landscape,
+  actual greeting/name/role/location, notification bell and initials avatar.
+  Coordinator Activity opts into the same header while retaining its assigned
+  village controls and scoped activity. The standalone notifications/back screen
+  retains its existing navigation. Typography wraps for long names/Marathi and
+  does not insert sample badge counts. Mobile TypeScript, focused ESLint, all 43
+  mobile tests and Android export passed. Native visual acceptance remains pending.
+- Seller reference follow-up: replaced native-shape header art with a bundled
+  generated farm/vegetable-crate scene. Added real Total products/Active summary,
+  bilingual debounced product search, sort options and counted All/Active/Drafts/
+  Low stock/Sold out tabs. Orders and sales tiles are omitted. Owner API filters
+  search before pagination and scopes inventory counts to the authenticated
+  seller. Low stock uses minimum purchase quantity (one-unit fallback). See
+  `docs/03-api/SELLER_PRODUCTS.md`. Workspace TypeScript, focused mobile/web
+  ESLint, all 43 mobile tests, Product Master/seller read integration, existing
+  listing CRUD integration and Android export passed. Native visual acceptance
+  remains pending.
+- Seller Products header follows the supplied reference: localized title and
+  stock-management subtitle, Home back action, and a subtle native countryside /
+  produce-crate illustration on the right. Existing cream/soft-green/yellow
+  tokens are reused. Marketplace/Add actions and the three working status tabs
+  remain below; no total-order or total-sales tiles are included. Native visual
+  and large-text acceptance remains pending.
+- Seller text follow-up: bottom tab uses Products / उत्पादने, with Marathi
+  product wording and shorter edit/delete actions. Tab and shared button labels
+  use native font metrics with vertical padding instead of tight fixed line
+  heights; tab bar reserves extra scalable height. Seller headings/status tabs
+  have extra glyph room. Native Marathi clipping/large-text acceptance pending.
+  Add/Edit description is now the last field, before submission feedback/actions.
+- Category-label follow-up: Add/Edit dropdown removes the Default Shelf prefix,
+  retaining the configured duration in parentheses. Marathi replaces day/days
+  with दिवस; existing form styling and stored category values are unchanged.
+- Added category-free ProductMaster model/repository/service, unique code index,
+  validated insert-only import CLI and authenticated active-only bilingual API.
+  Supplied JSON is preserved verbatim; configured application database import
+  inserted 151 and verified 151. Second apply inserted 0, matched/verified 151.
+- Seller/farmer Add/Edit use the existing dropdown styling with bilingual search,
+  localized labels, automatic name/group/default-unit selection, persisted
+  productId and saved edit prefilling. Server owns linked identity metadata.
+- Legacy no-ID listings, staged requests, Admin categories, lifecycle, ownership,
+  versions, contacts and filters remain compatible. No listing migration or
+  inferred links. Raw catalog groups and exact Marketplace filters are retained.
+- SQLite reference cache supports offline drafts and network fallback with clear
+  status. Native visual/keyboard/accessibility acceptance remains pending.
+- Verified: workspace TypeScript, focused mobile/web ESLint, 43 mobile tests,
+  14 web unit tests, isolated Product Master integration and existing listing
+  CRUD/read integrations passed. Android export and web production build passed;
+  web build reports an existing dynamic filesystem tracing warning in the local
+  photo provider. See `docs/03-api/PRODUCT_MASTER.md` for API/import contracts.
+
+# Marketplace village product filters — 2026-10-21
+
+- Added All and per-village chips below Marketplace category icons, showing the
+  saved source village and confirmed active nearby villages with server counts.
+  Selected chip narrows products without changing the account's saved village.
+- Listing API accepts optional villageId limited to current discovery scope.
+  villageCounts respects search/group/stock/seller/category/own-offer visibility
+  across eligible villages before village selection/pagination. Zero-count villages
+  remain selectable, and disconnected/foreign village requests are rejected.
+- Query keys include the selected filter; account/source changes reset its
+  effective value. Missing historical villageCounts defaults to an empty array.
+  Native chip/count/selection/scroll acceptance remains pending.
+- Verification: workspace TypeScript, focused mobile/web ESLint, all 39 mobile
+  tests and isolated listing/coordinator integrations passed. Checks cover exact
+  village results, category/search counts, pagination, zero-count villages,
+  foreign-village denial and loss of filtering access after disconnection.
+
+# Marketplace branded village header — 2026-10-19
+
+- Header simplification: Marketplace shows only a plain village name/location
+  icon, with no dropdown, chevron, district/taluka subtitle or village-change
+  action. Search placeholder is now Search products / उत्पादने शोधा, with explicit
+  single-line input and shrink-safe sizing. Device visual check pending.
+  Mobile TypeScript and focused ESLint passed for this text/layout revision.
+- Replaced the plain Marketplace heading/village row with a compact countryside
+  banner using the existing Gaavli mark, localized tagline, selected village and
+  taluka/district dropdown, notification bell and initials avatar. Search is below
+  the row inside the banner with a selected-language product-category placeholder.
+- Existing village, Settings and protected notifications navigation is reused.
+  No sample identity/location/count is added. Category filters, API search,
+  microphone availability message, offline states and listing navigation remain.
+- Mobile TypeScript, focused ESLint, all 39 mobile tests and Android export passed.
+  Native banner/long-location/large-text/keyboard acceptance remains pending.
+
+# Marketplace illustrated categories and Homemade group — 2026-10-19
+
+- Replaced Marketplace's All/text chips with five circular colorful icon filters:
+  Vegetables/भाजीपाला, Fruits, Grains, Dairy Products and Homemade Products.
+  Vegetables starts selected; localized 14px labels, selected ring and horizontal
+  scrolling preserve readable category controls. Existing search/listing/detail
+  navigation and offline/query behavior remain.
+- Added `homemade` to shared product-group types, search/create/edit validation,
+  Listing enum and mobile Add/Edit/draft options. It uses the existing exact
+  server group filter. Legacy null/Other records and shelf-life categories remain
+  unchanged; no application data migration or sample records were added.
+- Native icon/font/scroll/category-switch acceptance remains pending.
+- Verification: workspace TypeScript, focused mobile/web ESLint, all 39 mobile
+  tests and isolated listing-read/CRUD integration passed. Added Homemade query,
+  search, pagination, create/replay, edit and draft/owner round-trip checks.
+
+# Shared identity header on Home and Settings — 2026-10-19
+
+- Header spacing follow-up: removed the fixed minimum height, reduced vertical
+  padding and role-to-village gap, and shortened the village row's visible height
+  with extra touch padding. Existing font sizes remain. Device check pending.
+  Focused ESLint passed; no new tests were added for this spacing-only change.
+- Added shared `AccountHeader` with saved display name, localized greeting/role,
+  initials avatar, notification bell and village/taluka/district. Existing local
+  countryside artwork and font/theme styles provide the supplied reference's
+  visual treatment. Role precedence mirrors native navigation: active coordinator
+  assignments, then seller, then buyer. No names or unread counts are fabricated.
+- Home replaces its old village/greeting blocks; Settings replaces the duplicate
+  identity card. Existing marketplace, settings, language, logout and seller actions
+  remain. This supersedes earlier unchanged Home/Settings header wording.
+- Header village opens the existing selector and avatar opens Settings. The bell
+  opens protected `/notifications`, reusing existing Received activity/notifications
+  via an optional ActivityScreen initial direction. Existing Activity tab defaults
+  remain unchanged; no notification API or new unread-count semantics were added.
+- Mobile TypeScript, 39 mobile tests and focused ESLint passed. Added identity,
+  role precedence/revocation, initials and selected-language location checks.
+  Android export also passed with the new shared header and notifications route.
+  Native visual/large-text/header-navigation acceptance remains pending.
+
+# Manage compact header and three summary cards — 2026-10-19
+
+- Filter readability adjustment: use existing 13px description typography with
+  semibold text, no automatic shrinking, and allocate pill widths by label length.
+  Reduced padding/gaps keeps three pills on one row. Long labels stay single-line
+  with full accessibility labels. Supersedes the earlier 11px badge text.
+  Focused ESLint passed. Native visual acceptance remains pending.
+- Add Village filter spacing: all three pills share one non-wrapping row, using
+  existing compact badge typography, smaller horizontal padding and single-line
+  labels. Marathi GPS label shortened to जवळची गावे; the accessibility label
+  still describes GPS discovery. Native narrow-screen/large-text check pending.
+  Focused ESLint passed; no new tests were added for this styling/text change.
+- Connection removal now uses a custom centered confirmation popup matching the
+  supplied reference: pale red circle/trash icon, localized question, selected
+  village name/explanation, red Yes and secondary No. Existing font styles and
+  server-scoped removal/recovery are reused. A submit lock/loading state prevents
+  repeated deletion; No dismisses without a write. Failures surface through the
+  existing page recovery UI. Mobile TypeScript, focused ESLint and all 38 mobile
+  tests passed. Device modal/large-text/back acceptance remains pending.
+- Manage spacing revision: removed space-evenly/flex expansion between action
+  tiles and reduced the gaps to 12px, with 8px above Quick Actions. This supersedes
+  the earlier full-height distribution. Device visual acceptance remains pending.
+  Focused ESLint passed; no new tests were added for this spacing-only change.
+- Village three-dot menu now contains only Remove connection. Selecting it asks
+  whether to delete the connection, with localized Yes/No buttons; only Yes calls
+  the existing scoped DELETE. Both villages/listings remain intact. Existing
+  theme/typography retained. Mobile TypeScript, focused ESLint and all 38 mobile
+  tests passed; native menu/confirmation visual acceptance remains pending.
+- Add Village now uses the requested pill filters: actual source Taluka name
+  (default), Other Talukas, Nearby by GPS. Existing theme/typography reused;
+  selected-language labels preserved. Other Talukas filters other populated
+  talukas in the source district on the server before search/count/pagination.
+  GPS switches only after permission/location succeeds; regional pills clear GPS.
+  Workspace TypeScript, focused mobile/web ESLint, all 38 mobile tests and isolated
+  coordinator integration passed, including other-taluka exclusion, district
+  boundaries, search and pagination. Device visual/GPS acceptance remains pending.
+- Typography/language follow-up: village screens reuse existing headings,
+  card titles, descriptions, input and button styles. Removed bilingual village
+  names; coordinator subtitle and Quick Actions follow the selected language.
+  Existing server-side source Taluka/District filtering remains in use, with the
+  active area shown and the GPS radius cleared when changing area. Native visual
+  and font-size acceptance remains pending.
+  Verification: mobile TypeScript, focused ESLint, all 38 mobile tests and a fresh
+  isolated coordinator integration run passed, including area/search/pagination.
+- Add Village picker now follows the supplied multi-select reference: compact
+  title/count, search, All/Taluka/District filters, checkbox rows and fixed bottom
+  selected-count/Add (N) bar. Choices persist across queries/pages during a visit.
+  Candidate area filters apply on the server before pagination; confirmed bulk
+  selections reuse sequential durable idempotent writes and stop on partial or
+  uncertain failure. Confirmed choices clear, remaining choices stay selected.
+  All-confirmed success returns to connections. Distances use actual API data;
+  GPS is explicitly requested through the locate icon. Native visual, keyboard,
+  large-text and multi-select transition acceptance remain pending.
+  Verification: workspace TypeScript, focused mobile/web ESLint, all 38 mobile
+  tests and isolated coordinator integration passed. Added partial-failure/retry
+  coverage and server area-filter/search/pagination checks. Final footer/search
+  layout adjustment also passed focused ESLint; no device visual check was run.
+- Village Connections reference layout: compact Back/title, green source-village
+  card, connected total and Add village action. Confirmed zero connections show
+  the first-village empty state; nonzero results show compact rows and overflow
+  removal with the existing confirmation. Add/remove invalidation and focus
+  refresh drive transitions; server errors/loading do not show false empty states.
+  Actual distance is shown only when available, otherwise taluka/district.
+  Native visual/overflow/add-remove transition acceptance remains pending.
+  Verification: mobile TypeScript, focused ESLint and all 37 mobile tests passed.
+- Village-list follow-up: Add Buyer now lists all active villages from the
+  existing paginated village API, with Load more/loading/error/empty handling.
+  Optional targetVillageId saves the selected buyer village; server assignment
+  checks remain on the actor's source scope and active target is checked during
+  creation and replay. Audit uses the target village. Unassigned target villages
+  grant no directory/editing access; their success screen omits View Buyer.
+  Supersedes the earlier assigned-only dropdown. Workspace TypeScript, focused
+  mobile/web ESLint, all 37 mobile tests and isolated coordinator integration
+  passed, including target persistence, duplicate-free replay, missing/inactive
+  targets, inactive-target replay and unchanged directory access boundaries.
+  Native dropdown visual/interaction acceptance remains pending.
+- Spacing follow-up: Manage distributes action tiles through available height.
+  Add Buyer has an inline Back/title row and compact top padding; removed its
+  assigned-village section. An assigned-village dropdown now follows Mobile.
+  Name/mobile input survives village changes; pending/in-flight writes lock the
+  selector and existing village-scoped recovery/authorization remain intact.
+  Native keyboard, village switching and visual acceptance remain pending.
+  Verification: mobile TypeScript, focused coordinator ESLint and all 37 mobile
+  regression tests passed for this spacing/dropdown revision.
+- Added the reference Quick Actions heading with lightning icon and Coordinator
+  work caption above Manage actions, with extra separation from counts and 16px
+  gaps between action tiles. Marathi/English copy included. Visual check pending.
+  Mobile TypeScript and focused ESLint passed for this heading/spacing change.
+- Follow-up reference styling: Manage now shows a dark green round coordinator
+  monogram, the signed-in user's saved name and coordinator role, Village
+  Coordinator subtitle and a small pale green village badge with location icon.
+  Multiple assigned villages remain selectable. Device visual acceptance pending.
+  Follow-up checks: mobile TypeScript and focused header ESLint passed.
+- Reduced Manage top padding and spacing; moved village selection into the
+  Coordinator header with regular-weight village text. Other coordinator screens
+  retain their existing layout.
+- Added exactly three summary cards: Sellers, Buyers and Villages. Seller/buyer
+  totals come from the existing selected-village directory API; Villages counts
+  active coordinator assignments. No No App summary card or sample counts added.
+- Existing Manage actions, authorization, offline handling and mutation recovery
+  are preserved. Native visual and large-text acceptance remains pending.
+- Verification: mobile TypeScript, mobile lint and all 37 existing mobile tests
+  passed. Device rendering was not checked for this layout revision.
+
+# Village Coordinator Manage and Activity — 2026-10-19
+
+Status: **IMPLEMENTED — VERIFICATION PENDING** for native device acceptance.
+
+- Active assigned coordinators now have Home | Manage | Activity | Settings in
+  the existing app. Home and Settings screens are unchanged. Buyer/seller tabs
+  and personal requests remain intact; coordinators have links to their personal
+  requests and owner listings. Active assignments refresh on foreground/30 seconds;
+  unauthorized coordinator reads/writes immediately remove the protected UI.
+- Manage implements assisted buyer pre-registration/success/duplicate handling,
+  manual connections with village search/GPS suggestions/removal confirmation,
+  and a scoped, filtered user directory/detail/name correction flow. Existing
+  admin assignments and the unified User collection are reused. OTP verification
+  links a pre-registration to the same account and preserves its provenance.
+- Added server-authoritative coordinator APIs under `/api/v1/coordinator` with
+  current role/assignment/village checks, strict validation, bounded pagination,
+  safe DTOs, versions, rate limits, transactional audit and authorized replay.
+  Coordinator name corrections are limited to the actor's active, unverified
+  pre-registered buyers; mobile/role/village/status and stock/rate edits are denied.
+- Confirmed active connections extend marketplace/detail/contact/notifications
+  and callbacks bidirectionally by one hop. GPS never grants discovery scope by
+  itself. Disconnecting preserves villages, listings and historical requests.
+- Activity has six actual counts, chronological feed, summary drilldowns,
+  user/listing/mapping/report filters, validated UTC date ranges, pagination and
+  authorized detail navigation. Historical seller activation dates are not guessed.
+- Added real product complaints and scoped report detail/moderation (dismiss,
+  flag, hide, escalate), with audit history and preserved quantities/prices. The
+  existing Super Admin Reports page now lists complaints and escalations.
+- Exact pending mutation keys/payloads persist in SecureStore before networking.
+  A per-storage/account/village promise queue prevents overlapping screens from
+  replacing an uncertain operation. Offline actions are not reported as confirmed;
+  scoped directory phone data is held only in temporary memory.
+- Workspace TypeScript/lint, 37 mobile and 14 web tests, plus isolated coordinator,
+  onboarding, listing-read/request and listing-CRUD integration suites passed.
+  Android export and web production build passed. The final client queue change
+  also passed mobile tests, TypeScript, lint and a fresh Android export. The web
+  build retains its pre-existing local-photo filesystem tracing warning.
+- Native visual/large-text/keyboard/back/tab acceptance, GPS permission on a real
+  device, and phone dialer acceptance remain unverified. No application accounts,
+  assignments or villages were seeded/migrated. See
+  `03-api/COORDINATOR_MOBILE.md` for created/modified areas and full API contracts.
+
+# Product descriptions, category shelf labels and partial search — 2026-10-16
+
+- Added optional multiline descriptions (up to 2,000 characters) to Add/Edit,
+  shared create/PATCH validation, Listing storage and safe owner/buyer DTOs.
+  Product Details displays saved text in its original language. Empty/legacy
+  descriptions remain absent; explicit null clears. Draft restoration defaults
+  old forms to empty without altering pending request bodies or retry identity.
+- Shelf-life dropdowns display actual API category names and defaultShelfLife,
+  with localized Default Shelf labels. Free-text defaults remain informational;
+  they do not infer expiry or replace the user's availability days.
+- Product search matches every literal partial term across name, Marathi name
+  and description, ignoring case and word order. Marketplace's existing input,
+  search icon and keyboard Search use the same API; pagination, counts, group
+  filtering, village/visibility/owner boundaries and escaped regex input remain.
+  No Elasticsearch dependency/service or Atlas Search index was introduced.
+- Workspace TypeScript/lint and 32 mobile/14 web unit tests passed. Isolated
+  listing read and CRUD integration suites passed, including description
+  create/edit/preserve/clear/durable replay, historical null data and searches
+  tomato/toma/TOMA/organic tomato, reversed partial terms, whitespace, filters
+  and literal metacharacters. Application records were not migrated or seeded.
+  Native description input, long category labels, keyboard/search and visual
+  acceptance remain pending; status is IMPLEMENTED — VERIFICATION PENDING for
+  device acceptance. See `03-api/ADD_LISTING.md`, `LISTING_CRUD.md` and
+  `MOBILE_MARKETPLACE.md` for current contracts.
+
+# Listing camera and gallery options — 2026-10-16
+
+- Add and Edit Listing now offer localized Take photo and Choose from gallery
+  actions. Camera permission is requested on demand with localized denial
+  guidance. Both sources reuse image validation, private draft copies, stable
+  upload IDs and existing upload/retry behavior; cancel keeps the current photo.
+- Enabled camera in Expo configuration and the checked-in Android manifest.
+  Existing custom native/development apps require a rebuild. No dependency or
+  microphone feature was added. Mobile TypeScript, lint and all 31 existing
+  regression tests passed; camera capture/permission denial/cancel/cropping and
+  visual acceptance on physical devices remain pending. See
+  `03-api/PHONE_PHOTO_UPLOADS.md`.
+
 # Product Details photo-led layout — 2026-10-15
 
 - Replaced the thumbnail/chips/options grid with a large 4:3 photo, product name,

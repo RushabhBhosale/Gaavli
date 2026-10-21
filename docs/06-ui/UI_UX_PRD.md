@@ -1,3 +1,93 @@
+> Activity/Settings correction - 2026-10-21: these tab pages use only the
+> shared village scenery as background behind a Product page style back action,
+> title and short subtitle. Personal greeting/name/role/location, bell and
+> avatar appear on Home only. Coordinator Activity retains assigned-village
+> controls below its scene header. The notifications route keeps its own back
+> navigation. This supersedes the earlier shared identity-header wording below.
+>
+> Shared account-header reference - 2026-10-21: Home, Settings and Activity use
+> the same compact full-width mint header with greeting, actual name, localized
+> buyer/seller/coordinator role, location, bell and initials avatar. A bundled
+> village landscape occupies the lower right. Coordinator Activity retains its
+> separate assigned-village controls below this identity header. Long/Marathi
+> text wraps; notification navigation uses the existing protected inbox.
+>
+> Seller Products reference follow-up - 2026-10-21: bundled illustrated farm and
+> vegetable crate replace the native-shape artwork. Show only Total products and
+> Active summary counts, bilingual product search, Filter / Sort and counted All,
+> Active, Drafts, Low stock and Sold out chips. Keep a single horizontal chip row
+> with scrolling and existing Add/Marketplace actions below the list. See
+> `docs/03-api/SELLER_PRODUCTS.md` for counts/search semantics.
+>
+> Seller Products header revision - 2026-10-21: localized My products title,
+> stock-management subtitle and back-to-Home action, with subtle farm / produce
+> crate artwork on the right. Reuse cream, soft green and yellow theme colors.
+> Keep existing Marketplace/Add actions and status tabs below. Omit total-orders
+> and total-sales tiles from the reference; no sample metrics. Native check pending.
+>
+> Product Master revision - 2026-10-21: Add/Edit reuse the existing dropdown
+> modal, fonts, sizes and theme for localized product selection with bilingual
+> search. Display one language; prefill saved listing names, including legacy
+> and retired references. Show loading, retry, empty and cached-reference states.
+> Selection fills default unit; shelf-life category and other controls remain
+> independent. Native visual/keyboard acceptance pending. See
+> `docs/03-api/PRODUCT_MASTER.md`.
+
+> Marketplace village filters — 2026-10-21: below the category icons show an All
+> chip and each eligible selected/confirmed-nearby village with its real matching
+> product count. Selected chip uses the existing dark theme color; names follow
+> the selected language, with horizontal scrolling on small screens. Village
+> chips narrow products without changing the saved village or expanding access.
+
+> Marketplace header simplification — 2026-10-19: show village name only as
+> plain text, without dropdown or taluka/district subtitle. Use short Search
+> products / उत्पादने शोधा placeholder in a single-line search input. This
+> supersedes the dropdown/long-placeholder wording below.
+
+> Marketplace header revision — 2026-10-19: use a compact branded countryside
+> banner with the existing Gaavli mark, localized tagline, selected village and
+> taluka/district dropdown, notification bell and initials avatar. Search sits
+> inside the banner below this row, with localized product-category guidance.
+> Existing village/settings/notifications navigation is reused; no unread count
+> is fabricated. Preserve category icons and product-list/search behavior.
+
+> Marketplace category revision — 2026-10-19: replace the All/text chips with
+> five colorful circular category icons and localized labels: Vegetables
+> (भाजीपाला), Fruits, Grains, Dairy Products and Homemade Products. Vegetables
+> starts selected. Use existing 14px label typography, a selected icon outline,
+> and horizontal scrolling on narrow screens. No services/Other category added.
+
+> Shared Home/Settings header revision — 2026-10-19: show the signed-in saved
+> name, localized greeting/role, initials avatar, notification bell and village,
+> taluka/district over the existing countryside artwork. Display role precedence
+> is active assigned Coordinator, then Seller, then Buyer; capabilities remain
+> unchanged. Village opens the existing selector, avatar opens Settings, and bell
+> opens existing Received activity/notifications through `/notifications`.
+> No unread count is invented. Earlier unchanged Home/Settings wording applies to
+> their existing business flows; this revision updates their shared header.
+
+> Add Village filter-pill revision — 2026-10-19: show the source Taluka name
+> (default), Other Talukas in its district, and Nearby by GPS. Reuse existing
+> theme and typography, with selected-language labels and explicit GPS permission.
+> This supersedes the earlier All/Taluka/District picker controls.
+
+> Village screen typography/language revision — 2026-10-19: reuse existing app
+> font styles and sizes. Village names show only the selected language. Taluka
+> and District filters match the coordinator's source area and show that area
+> beneath the controls; switching area clears the optional GPS radius.
+
+> Add Village picker revision — 2026-10-19: search, All / By taluka / By district
+> filters, checkbox rows, selected count and fixed Add (N) footer. Confirmed links
+> return to the village connections list; partial failures retain remaining
+> selections. Real distances only; GPS remains an explicit action. See
+> `03-api/COORDINATOR_MOBILE.md`.
+
+> Coordinator navigation revision — 2026-10-19: active assigned coordinators use
+> Home | Manage | Activity | Settings. This supersedes the historical coordinator
+> segmented-Home approach. Existing Home/Settings are reused unchanged; buyer and
+> seller navigation remains intact. Manage contains exactly three modules: Add
+> Buyer, Village Connections and User Directory. See `03-api/COORDINATOR_MOBILE.md`.
+
 > Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
 > with Get started → required first/last name and Indian mobile → OTP →
 > confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)

@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useAppStore } from "./store";
+import { CoordinatorAccessSync } from "./coordinator/access";
 
 export function AppProviders({ children }: { children: ReactNode }) {
   const [client] = useState(
@@ -38,7 +39,10 @@ export function AppProviders({ children }: { children: ReactNode }) {
   }, []);
   return (
     <SafeAreaProvider>
-      <QueryClientProvider client={client}>{children}</QueryClientProvider>
+      <QueryClientProvider client={client}>
+        <CoordinatorAccessSync />
+        {children}
+      </QueryClientProvider>
     </SafeAreaProvider>
   );
 }

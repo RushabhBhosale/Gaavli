@@ -3,6 +3,7 @@ import type { z } from "zod";
 import type { requestsQuerySchema } from "@gaavli/validation";
 import { Notification, User, Village, Listing, Category } from "../models";
 import { listingPhotoUrl } from "../providers/listing-photos";
+import { discoveryVillageIds } from "./village-discovery";
 
 export function requestState(row: {
   _id: unknown;
@@ -62,6 +63,17 @@ export async function findActivityRequests(
     .select("code")
     .lean();
   const inactive = new Set(categories.map((category) => category.code));
+  const discovery = new Map(
+    await Promise.all(
+      [
+        ...new Set(
+          people.flatMap((person) =>
+            person.village ? [String(person.village)] : [],
+          ),
+        ),
+      ].map(async (id) => [id, await discoveryVillageIds(id)] as const),
+    ),
+  );
   const userMap = new Map(people.map((person) => [String(person._id), person]));
   const villageMap = new Map(
     villages.map((village) => [String(village._id), village]),
@@ -103,7 +115,9 @@ export async function findActivityRequests(
         seller?.status === "active" &&
         String(listing.seller) === String(row.userId) &&
         buyer.village &&
-        String(buyer.village) === String(listing.village) &&
+        discovery
+          .get(String(buyer.village))
+          ?.includes(String(listing.village)) &&
         villageMap.get(String(buyer.village))?.isActive
       );
       return {

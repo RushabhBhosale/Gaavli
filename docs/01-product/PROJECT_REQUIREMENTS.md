@@ -1,3 +1,21 @@
+> Product Master revision - 2026-10-21 (user approved): seller/farmer Add and
+> Edit use a searchable Marathi/English reference with existing styling. Save
+> productId and canonical name/group snapshots, default the editable unit, and
+> preserve legacy listings without an ID. Admin PERISHABLE/RECURRING_SUPPLY
+> categories remain separate. See `docs/03-api/PRODUCT_MASTER.md`.
+
+> Add Buyer village-list revision — 2026-10-19: its dropdown shows all active
+> villages, with pagination. Coordinators may pre-register a new buyer in the
+> selected village; this does not grant directory/editing access outside their
+> assigned villages. See `docs/03-api/COORDINATOR_MOBILE.md`.
+
+> User-approved coordinator revision — 2026-10-19: active assigned coordinators
+> use Home | Manage | Activity | Settings in the existing mobile app. Home and
+> Settings remain shared. Manage adds pre-registration, manual/GPS-suggested village
+> connections and an authorized user directory; Activity adds counts/feed/reports.
+> Manual confirmed connections are bidirectional for marketplace discovery. See
+> `docs/03-api/COORDINATOR_MOBILE.md` for scope, identity, editing and moderation.
+
 > User-approved seller revision — 2026-10-14: buyers may activate seller capability
 > through the Home confirmation before adding any products. Preserve buyer and
 > protected contact details. Show My Listings as the seller's second tab and the

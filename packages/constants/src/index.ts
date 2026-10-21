@@ -4,6 +4,23 @@ export const MOBILE_LANGUAGES: readonly MobileLanguage[] = ["mr", "en"];
 export const DEFAULT_MOBILE_LANGUAGE: MobileLanguage = "mr";
 export const API_TIMEOUT_MS = 10000;
 
+export const LISTING_PRODUCT_GROUPS = [
+  "vegetables",
+  "leafy_vegetables",
+  "fruits",
+  "grain",
+  "grains",
+  "pulses",
+  "spices",
+  "oilseeds",
+  "flowers",
+  "cash_crops",
+  "farm_products",
+  "dairy",
+  "eggs_poultry",
+  "homemade",
+] as const;
+
 // Immutable stock photos shipped with both apps; never arbitrary client paths.
 export const LISTING_ASSET_PHOTOS = [
   {

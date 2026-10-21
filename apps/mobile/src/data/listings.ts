@@ -10,6 +10,7 @@ export function toHomeListing(
     name: listing.productName,
     // Preserve original DB name if no Marathi name exists; never invent one.
     nameMr: listing.productNameMr || listing.productName,
+    description: listing.description,
     category: listing.categoryName || listing.category || "",
     categoryMr:
       listing.categoryNameMr || listing.categoryName || listing.category || "",

@@ -1,11 +1,14 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  Alert,
   FlatList,
+  Image,
   Modal,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,7 +21,13 @@ import { useAppStore } from "../store";
 import { useOwnListings } from "../listings";
 import { formatMessage, messages } from "../i18n";
 import { theme } from "../theme";
-import { Button, ErrorMessage, OfflineBanner } from "../components/ui";
+import {
+  BackButton,
+  Button,
+  ErrorMessage,
+  OfflineBanner,
+} from "../components/ui";
+import { matchesProductSearch } from "../data/productMaster";
 import { ListingImage } from "../components/dashboard/ListingImage";
 import { listingUnit } from "../components/dashboard/listingText";
 import { listingDraftStorage } from "../storage/sqlite";
@@ -40,7 +49,15 @@ export default function MyListingsScreen() {
   const client = useQueryClient();
   const { session, language, offline } = useAppStore();
   const t = messages(language);
-  const [tab, setTab] = useState<"active" | "sold_out" | "drafts">("active");
+  const [tab, setTab] = useState<
+    "all" | "active" | "sold_out" | "drafts" | "low_stock"
+  >("all");
+  const [searchText, setSearchText] = useState("");
+  const [search, setSearch] = useState("");
+  useEffect(() => {
+    const timer = setTimeout(() => setSearch(searchText.trim()), 300);
+    return () => clearTimeout(timer);
+  }, [searchText]);
   const [menu, setMenu] = useState<OwnedListing | null>(null);
   const [target, setTarget] = useState<PendingListingDelete | null>(null);
   const [busy, setBusy] = useState(false);
@@ -48,10 +65,7 @@ export default function MyListingsScreen() {
   const [deletedIds, setDeletedIds] = useState<string[]>([]);
   const [failure, setFailure] = useState<string | null>(null);
   const now = useListingClock();
-  const query = useOwnListings(
-    tab === "sold_out" ? "sold_out" : "active",
-    tab !== "drafts",
-  );
+  const query = useOwnListings(tab === "drafts" ? "all" : tab, true, search);
   const accountId = session?.user.id;
   const villageId = session?.user.village?.id;
   const deleteKey = `delete:${accountId}`;
@@ -68,7 +82,7 @@ export default function MyListingsScreen() {
   const drafts = useQuery({
     queryKey: ["saved-product-drafts", accountId, villageId],
     networkMode: "always",
-    enabled: tab === "drafts" && !!accountId && !!villageId,
+    enabled: !!accountId && !!villageId,
     refetchOnMount: "always",
     retry: false,
     queryFn: async () =>
@@ -83,11 +97,23 @@ export default function MyListingsScreen() {
   const items = allItems.filter(
     (item) =>
       !deletedIds.includes(item.id) &&
-      (tab !== "active" ||
+      (!["active", "low_stock"].includes(tab) ||
         item.expiresAt === null ||
         Date.parse(item.expiresAt) > now),
   );
   const pending = pendingQuery.data;
+  const summary = query.data?.pages[0]?.summary;
+  const number = new Intl.NumberFormat(
+    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
+  );
+  const count = (value: number | undefined) =>
+    value === undefined ? "—" : number.format(value);
+  const matchingDrafts = drafts.data?.filter(({ draft }) =>
+    matchesProductSearch(
+      `${draft.form.name} ${draft.form.productNameEn || ""} ${draft.form.productNameMr || ""}`,
+      search,
+    ),
+  );
   const ready = !!query.data && !query.isError;
   const add = () => router.push("/add-listing");
   const edit = (id: string) =>
@@ -233,6 +259,8 @@ export default function MyListingsScreen() {
               ? t.listingsLoading
               : t.ownListingsFailed}
         </Text>
+      ) : search || tab === "low_stock" ? (
+        <Text style={s.muted}>{t.noListingMatches}</Text>
       ) : tab === "sold_out" ? (
         <Text style={s.muted}>{t.noSoldProducts}</Text>
       ) : (
@@ -256,49 +284,108 @@ export default function MyListingsScreen() {
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={s.safe}>
       {offline && <OfflineBanner message={t.offline} />}
-      <View style={s.top}>
-        <Text accessibilityRole="header" style={s.heading}>
-          {t.myProducts}
-        </Text>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t.marketplace}
-          onPress={() => router.push("/marketplace")}
-          style={s.iconButton}
+      <View style={s.banner}>
+        <View
+          pointerEvents="none"
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+          style={s.headerArt}
         >
-          <Ionicons
-            name="storefront-outline"
-            size={22}
-            color={theme.colors.heading}
+          <Image
+            source={require("../../assets/seller-products-header.png")}
+            style={s.sceneImage}
+            resizeMode="cover"
           />
-        </Pressable>
-        <Pressable accessibilityRole="button" onPress={add} style={s.addButton}>
-          <Ionicons name="add" size={20} color={theme.colors.onPrimary} />
-          <Text style={s.addText}>{t.newProduct}</Text>
-        </Pressable>
+        </View>
+        <View style={s.headerRow}>
+          <BackButton label={t.back} onPress={() => router.replace("/home")} />
+          <View style={s.headerCopy}>
+            <Text accessibilityRole="header" style={s.headerTitle}>
+              {t.myProducts}
+            </Text>
+            <Text style={s.headerSubtitle}>{t.manageProductsSubtitle}</Text>
+          </View>
+        </View>
       </View>
-      <View style={s.tabs}>
-        {(
-          [
-            ["active", t.activeProducts],
-            ["sold_out", t.soldProducts],
-            ["drafts", t.savedProducts],
-          ] as const
-        ).map(([value, label]) => (
+      <View style={s.searchRow}>
+        <View style={s.searchBox}>
+          <Ionicons
+            name="search-outline"
+            size={21}
+            color={theme.colors.muted}
+          />
+          <TextInput
+            value={searchText}
+            onChangeText={setSearchText}
+            placeholder={t.sellerProductSearch}
+            accessibilityLabel={t.sellerProductSearch}
+            placeholderTextColor={theme.colors.placeholder}
+            style={s.searchInput}
+            maxLength={100}
+            autoCapitalize="none"
+            returnKeyType="search"
+          />
+          {!!searchText && (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t.clearProductSearch}
+              onPress={() => setSearchText("")}
+              style={s.clearSearch}
+            >
+              <Ionicons
+                name="close-circle"
+                size={20}
+                color={theme.colors.muted}
+              />
+            </Pressable>
+          )}
           <Pressable
-            key={value}
-            accessibilityRole="tab"
-            accessibilityState={{ selected: tab === value }}
-            onPress={() => {
-              setTab(value);
-              setFailure(null);
-              if (value === "drafts") void drafts.refetch();
-            }}
-            style={[s.tab, tab === value && s.selected]}
+            accessibilityRole="button"
+            accessibilityLabel={t.voiceSearch}
+            accessibilityHint={t.voiceSearchUnavailable}
+            onPress={() => Alert.alert(t.voiceSearch, t.voiceSearchUnavailable)}
+            style={s.voiceSearch}
           >
-            <Text style={s.tabText}>{label}</Text>
+            <Ionicons
+              name="mic-outline"
+              size={22}
+              color={theme.colors.primary}
+            />
           </Pressable>
-        ))}
+        </View>
+      </View>
+      <View style={s.tabsContainer}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={s.tabs}
+        >
+          {(
+            [
+              ["all", t.allProducts, summary?.total],
+              ["active", t.activeProducts, summary?.active],
+              ["drafts", t.savedProducts, drafts.data?.length],
+              ["low_stock", t.lowStockProducts, summary?.lowStock],
+              ["sold_out", t.soldProducts, summary?.soldOut],
+            ] as const
+          ).map(([value, label, total]) => (
+            <Pressable
+              key={value}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: tab === value }}
+              onPress={() => {
+                setTab(value);
+                setFailure(null);
+                if (value === "drafts") void drafts.refetch();
+              }}
+              style={[s.tab, tab === value && s.selected]}
+            >
+              <Text style={[s.tabText, tab === value && s.selectedText]}>
+                {label} ({count(total)})
+              </Text>
+            </Pressable>
+          ))}
+        </ScrollView>
       </View>
       {tab === "drafts" ? (
         <ScrollView contentContainerStyle={s.content}>
@@ -314,7 +401,7 @@ export default function MyListingsScreen() {
               </Button>
             </>
           )}
-          {drafts.data?.map(({ key, draft }) => (
+          {matchingDrafts?.map(({ key, draft }) => (
             <Pressable
               key={key}
               accessibilityRole="button"
@@ -337,8 +424,10 @@ export default function MyListingsScreen() {
               />
             </Pressable>
           ))}
-          {drafts.data && !drafts.isError && !drafts.data.length && (
-            <Text style={s.muted}>{t.noSavedProducts}</Text>
+          {matchingDrafts && !drafts.isError && !matchingDrafts.length && (
+            <Text style={s.muted}>
+              {search ? t.noListingMatches : t.noSavedProducts}
+            </Text>
           )}
         </ScrollView>
       ) : (
@@ -409,6 +498,24 @@ export default function MyListingsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
+      <View style={s.top}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t.marketplace}
+          onPress={() => router.push("/marketplace")}
+          style={s.iconButton}
+        >
+          <Ionicons
+            name="storefront-outline"
+            size={22}
+            color={theme.colors.heading}
+          />
+        </Pressable>
+        <Pressable accessibilityRole="button" onPress={add} style={s.addButton}>
+          <Ionicons name="add" size={20} color={theme.colors.onPrimary} />
+          <Text style={s.addText}>{t.newProduct}</Text>
+        </Pressable>
+      </View>
       <Modal
         visible={!!menu}
         transparent
@@ -505,6 +612,89 @@ export default function MyListingsScreen() {
 }
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
+  banner: {
+    width: "100%",
+    maxWidth: theme.layout.contentWidth,
+    alignSelf: "center",
+    minHeight: 84,
+    backgroundColor: theme.colors.background,
+    borderBottomLeftRadius: theme.radii.card,
+    borderBottomRightRadius: theme.radii.card,
+    overflow: "hidden",
+    paddingVertical: 6,
+    paddingLeft: 4,
+    paddingRight: 110,
+    justifyContent: "center",
+  },
+  headerRow: { flexDirection: "row", alignItems: "flex-start", gap: 6 },
+  headerCopy: { flex: 1, minWidth: 0, gap: 2 },
+  headerTitle: {
+    fontSize: 22,
+    lineHeight: 34,
+    fontWeight: "700",
+    color: theme.colors.heading,
+    includeFontPadding: true,
+  },
+  headerSubtitle: {
+    fontSize: 13,
+    lineHeight: 21,
+    color: theme.colors.muted,
+  },
+  headerArt: {
+    position: "absolute",
+    width: 190,
+    height: 92,
+    right: 0,
+    bottom: 0,
+    overflow: "hidden",
+  },
+  sceneImage: {
+    position: "absolute",
+    width: 260,
+    height: 173,
+    right: -20,
+    bottom: -20,
+  },
+  searchRow: {
+    flexDirection: "row",
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingBottom: 6,
+  },
+  searchBox: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+    gap: 6,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.radii.control,
+    backgroundColor: theme.colors.surface,
+  },
+  searchInput: {
+    flex: 1,
+    minWidth: 0,
+    minHeight: 46,
+    paddingVertical: 8,
+    fontSize: 14,
+    color: theme.colors.text,
+  },
+  clearSearch: {
+    minWidth: 40,
+    minHeight: 46,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  voiceSearch: {
+    minWidth: theme.layout.touchTarget,
+    minHeight: 46,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tabsContainer: { flexShrink: 0 },
+  selectedText: { color: theme.colors.surface, fontWeight: "600" },
   top: {
     width: "100%",
     maxWidth: theme.layout.contentWidth,
@@ -520,6 +710,8 @@ const s = StyleSheet.create({
   heading: {
     flexShrink: 1,
     fontSize: 19,
+    lineHeight: 30,
+    includeFontPadding: true,
     fontWeight: "700",
     color: theme.colors.heading,
   },
@@ -529,7 +721,7 @@ const s = StyleSheet.create({
     minHeight: theme.layout.touchTarget,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.accentBackground,
     borderRadius: theme.radii.pill,
   },
   addButton: {
@@ -550,14 +742,9 @@ const s = StyleSheet.create({
   },
   tabs: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 8,
-    width: "100%",
-    maxWidth: theme.layout.contentWidth,
-    alignSelf: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
   },
   tab: {
     minHeight: theme.layout.touchTarget,
@@ -569,10 +756,15 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.surface,
   },
   selected: {
-    backgroundColor: theme.colors.tint,
-    borderColor: theme.colors.primary,
+    backgroundColor: theme.illustration.tree,
+    borderColor: theme.illustration.tree,
   },
-  tabText: { color: theme.colors.text, fontSize: 14 },
+  tabText: {
+    color: theme.colors.text,
+    fontSize: 14,
+    includeFontPadding: true,
+    paddingVertical: 2,
+  },
   content: {
     flexGrow: 1,
     padding: 20,

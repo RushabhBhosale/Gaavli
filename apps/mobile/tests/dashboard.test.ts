@@ -22,6 +22,8 @@ import {
   pendingListingDeleteSchema,
 } from "../src/data/ownedListings";
 import { toHomeListing, liveDashboard } from "../src/data/listings";
+import { accountHeaderIdentity } from "../src/data/accountHeader";
+import { hasCoordinatorRole } from "../src/data/accountAccess";
 import { resolveListingPhotoUrl } from "../src/data/listingPhotos";
 import {
   listingRate,
@@ -51,10 +53,72 @@ const account: MobileUser = {
     pinCode: "410206",
   },
 };
+
+test("shared header preserves identity and prioritizes active coordinator, seller, then buyer", () => {
+  const buyer = accountHeaderIdentity(account, "en");
+  assert.equal(buyer.name, "Riya More");
+  assert.equal(buyer.initials, "RM");
+  assert.equal(buyer.role, "buyer");
+  assert.equal(buyer.location, "Nere, Panvel, Raigad");
+  assert.equal(
+    accountHeaderIdentity(account, "mr").location,
+    "नेरे, Panvel, Raigad",
+  );
+  assert.equal(
+    accountHeaderIdentity({ ...account, isSeller: true }, "en").role,
+    "seller",
+  );
+  assert.equal(
+    accountHeaderIdentity(
+      { ...account, isSeller: true, coordinatorVillages: [account.village!] },
+      "en",
+    ).role,
+    "coordinator",
+  );
+  assert.equal(
+    accountHeaderIdentity(
+      { ...account, isSeller: true, coordinatorVillages: [] },
+      "en",
+    ).role,
+    "seller",
+  );
+  const legacy = accountHeaderIdentity(
+    {
+      ...account,
+      name: "Saved Display Name",
+      firstName: null,
+      lastName: null,
+      village: null,
+    },
+    "mr",
+  );
+  assert.equal(legacy.name, "Saved Display Name");
+  assert.equal(legacy.initials, "SN");
+  assert.equal(legacy.location, "");
+});
+test("admin-granted coordinator role is visible before village assignment and explicit revocation wins over cached villages", () => {
+  const pending = { ...account, isCoordinator: true, coordinatorVillages: [] };
+  assert.equal(hasCoordinatorRole(pending), true);
+  assert.equal(accountHeaderIdentity(pending, "en").role, "coordinator");
+  const revoked = {
+    ...account,
+    isCoordinator: false,
+    coordinatorVillages: [account.village!],
+  };
+  assert.equal(hasCoordinatorRole(revoked), false);
+  assert.equal(accountHeaderIdentity(revoked, "en").role, "buyer");
+  assert.equal(hasCoordinatorRole(null), false);
+  assert.equal(hasCoordinatorRole(account), false);
+  assert.equal(
+    hasCoordinatorRole({ ...account, coordinatorVillages: [account.village!] }),
+    true,
+  );
+});
 const databaseListing: MobileListing = {
   id: "123456789012345678901234",
   productName: "Milk",
   productNameMr: null,
+  description: "Fresh milk from the morning milking.",
   photoUrl: null,
   isDemo: false,
   category: "RECURRING_SUPPLY",
@@ -266,6 +330,7 @@ test("revealed contact accepts only the protected DTO and a safe Indian dialer n
 test("database adapter preserves actual fields without sample prices, names, photos, contacts or distances", () => {
   const listing = toHomeListing(databaseListing);
   assert.equal(listing.nameMr, "Milk");
+  assert.equal(listing.description, databaseListing.description);
   assert.equal(listing.price, null);
   assert.equal(listing.image, null);
   assert.equal(listing.sellerName, "");
@@ -386,6 +451,17 @@ test("listing form validates buyer fields, Marathi numbers, minimums, expiry and
   assert.equal(body.minimumPurchaseQuantity, 2);
   assert.equal(body.photoObjectKey, "listings/assets/tomato.webp");
   assert.equal(body.expiresAt, new Date(1000000 + 2 * 86400000).toISOString());
+  const homemade = prepareListing(
+    { ...form, group: "homemade" },
+    villageId,
+    "mr",
+    "PERISHABLE",
+  );
+  assert.equal(homemade.productGroup, "homemade");
+  assert.equal(
+    mobileListingsQuerySchema.parse({ productGroup: "homemade" }).productGroup,
+    "homemade",
+  );
   for (const invalid of [
     { name: "" },
     { quantity: "0" },
@@ -514,6 +590,7 @@ function ownedProduct(now: number): OwnedListing {
   return {
     id: "c".repeat(24),
     productName: "Tomato",
+    description: "Organic tomatoes.\nPicked this morning.",
     productNameMr: "टोमॅटो",
     categoryId: "b".repeat(24),
     category: "PERISHABLE",
@@ -534,6 +611,49 @@ function ownedProduct(now: number): OwnedListing {
     updatedAt: new Date(now).toISOString(),
   };
 }
+test("descriptions survive drafts, edits and legacy data without changing pending retry payloads", () => {
+  const row = ownedProduct(Date.now());
+  const initial = formFromListing(row, "en");
+  assert.equal(initial.description, row.description);
+  const next = { ...initial, description: "  Farm grown\nFreshly picked  " };
+  const body = prepareListing(next, row.villageId, "en", "PERISHABLE");
+  assert.equal(body.description, "Farm grown\nFreshly picked");
+  const pending = newListingOperation(body);
+  const draft = listingDraftSchema.parse(
+    JSON.parse(JSON.stringify({ form: next, pending })),
+  );
+  assert.equal(draft.form.description, next.description);
+  assert.deepEqual(draft.pending, pending);
+  assert.deepEqual(prepareListingEdit(next, row, initial, "en", "PERISHABLE"), {
+    version: row.version,
+    description: "Farm grown\nFreshly picked",
+  });
+  assert.deepEqual(
+    prepareListingEdit(
+      { ...initial, description: "" },
+      row,
+      initial,
+      "en",
+      "PERISHABLE",
+    ),
+    { version: row.version, description: null },
+  );
+  const legacyForm = { ...initial } as Partial<typeof initial>;
+  delete legacyForm.description;
+  const legacyBody = { ...body };
+  delete legacyBody.description;
+  const legacyPending = { key: pending.key, body: legacyBody };
+  const legacyDraft = listingDraftSchema.parse({
+    form: legacyForm,
+    pending: legacyPending,
+  });
+  assert.equal(legacyDraft.form.description, "");
+  assert.deepEqual(legacyDraft.pending, legacyPending);
+  const legacyListing = { ...databaseListing } as Partial<MobileListing>;
+  delete legacyListing.description;
+  assert.equal(mobileListingSchema.parse(legacyListing).description, null);
+});
+
 test("editing a rate preserves other-language name, existing image, unit and exact expiry; only changed fields are patched", () => {
   const now = Date.now();
   const row = ownedProduct(now);

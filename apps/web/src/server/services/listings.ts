@@ -8,6 +8,7 @@ import {
 } from "../repositories/listings";
 import { AppError } from "../utils/errors";
 import { listingPhotoUrl } from "../providers/listing-photos";
+import { discoveryVillageIds } from "../repositories/village-discovery";
 
 async function activeVillage(user: UserRecord) {
   if (
@@ -21,10 +22,19 @@ export async function listMobileListings(
   user: UserRecord,
   query: z.infer<typeof mobileListingsQuerySchema>,
 ) {
+  const sourceVillageId = await activeVillage(user);
+  const allowedVillageIds = await discoveryVillageIds(sourceVillageId);
+  if (query.villageId && !allowedVillageIds.includes(query.villageId))
+    throw new AppError(
+      403,
+      "VILLAGE_FILTER_UNAVAILABLE",
+      "Choose your village or an active connected village.",
+    );
   const page = await findMobileListings(
-    await activeVillage(user),
+    sourceVillageId,
     query,
     String(user._id),
+    allowedVillageIds,
   );
   return {
     ...page,

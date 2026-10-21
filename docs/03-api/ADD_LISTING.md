@@ -1,6 +1,28 @@
+> Product Master revision - 2026-10-21: manual product name is replaced by the
+> existing styled dropdown with Marathi/English search. Selection saves productId,
+> both names, raw group and default unit; unit stays editable. New unstaged mobile
+> creates require selection; old staged requests retain their exact body. Legacy
+> edits retain their saved name until explicitly linked. See `PRODUCT_MASTER.md`.
+
 # Mobile Add Listing — 2026-10-15
 
-Photo UI revision: Add/Edit now offers only phone photo selection/replacement,
+Description/category revision — 2026-10-16: Add and Edit include an optional,
+multiline description up to 2,000 characters. The saved original-language text
+appears on Product Details; missing descriptions show Not provided. Clearing the
+field sends null. Description survives draft/restart and versioned partial edits;
+old drafts default to empty without changing already staged request bodies.
+Shelf-life dropdown labels use the active category API's actual name/nameMr and
+defaultShelfLife, in the form `Vegetables (1–2 days)`, without a Default Shelf
+prefix. Marathi labels display `दिवस` instead of English day/days (2026-10-21).
+The default shelf string is informational; it does not override the entered
+availability days or infer an expiry from free text.
+
+Camera revision — 2026-10-16: Add/Edit offer Take photo and Choose from gallery.
+Camera access is requested on demand; cancellation retains the current photo.
+Both sources share existing draft persistence and upload behavior. See
+`PHONE_PHOTO_UPLOADS.md` for permissions and native rebuild requirements.
+
+Photo UI revision: Add/Edit now offers phone photo selection/replacement,
 beside a square contained preview. Photo and button columns share the row equally.
 Stock-photo and No photo controls and
 routine draft-saved messages are removed. Existing photos/drafts are preserved;
@@ -33,7 +55,7 @@ contract as before. Categories still come from the active-category API.
 | Form field | Persisted field / behavior |
 | --- | --- |
 | Product name (required) | `productName`; Marathi entry also populates `productNameMr`. No automatic translation or bilingual subtitle. |
-| Product group | `productGroup`: vegetables/fruits/grain/dairy; Other saves null and appears under All. |
+| Product group | `productGroup`: vegetables/fruits/grain/dairy/homemade; Other saves null and remains available in unfiltered reads/Home. Marketplace has five illustrated group filters with no All chip. |
 | Shelf-life category (required) | Actual active `categoryId` from GET `/categories`; server mirrors its category code. |
 | Available quantity (required) | Positive `quantity`, shown on Marketplace/detail. |
 | Unit (required) | kg/litre/dozen/bunch/pieces; translated when displaying rate, availability and minimum purchase. |

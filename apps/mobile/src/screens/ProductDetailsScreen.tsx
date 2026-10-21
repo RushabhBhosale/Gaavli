@@ -37,6 +37,7 @@ import { useListingClock } from "../hooks/useListingClock";
 import { ApiError } from "../api/client";
 import { listingName } from "../types/home";
 import { theme } from "../theme";
+import { coordinatorMessages } from "../coordinator/i18n";
 import { Button, ErrorMessage, Input, Screen } from "../components/ui";
 import { Badge, Panel, d } from "../components/dashboard/primitives";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
@@ -415,8 +416,18 @@ function ProductDetailsContent({ id }: { id: string }) {
                 <Text accessibilityRole="header" style={s.descriptionTitle}>
                   {t.productDescriptionLabel}
                 </Text>
-                <Text style={d.description}>{t.detailsNotProvided}</Text>
+                <Text style={d.description}>
+                  {listing.description || t.detailsNotProvided}
+                </Text>
               </View>
+              {!listing.isDemo && (
+                <Button
+                  secondary
+                  onPress={() => router.push(`/report-product/${id}`)}
+                >
+                  {coordinatorMessages(language).reportProduct}
+                </Button>
+              )}
             </View>
             <Panel style={s.seller}>
               <Text accessibilityRole="header" style={d.sectionTitle}>

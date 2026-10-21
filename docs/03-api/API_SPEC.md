@@ -1,3 +1,67 @@
+> Voice search - 2026-10-21: Marketplace uses native speech-to-text and the
+> existing listing search API. Exact active Product Master names expand to paired
+> Marathi/English names or productId; all existing visibility/pagination rules
+> remain. No voice/audio API is added. See `VOICE_SEARCH.md`.
+>
+> Coordinator role visibility - 2026-10-21: mobile user/session DTOs expose
+> `isCoordinator` separately from `coordinatorVillages`. An active admin-granted
+> role selects coordinator navigation; protected coordinator endpoints still
+> require an active village assignment. See `COORDINATOR_MOBILE.md`.
+>
+> Seller Products revision - 2026-10-21: existing GET `/api/v1/listings/mine`
+> accepts bilingual literal `search`, deterministic `sort`, and additional all /
+> low_stock status filters. Response adds owner-only inventory summary counts;
+> existing page total remains search/status filtered. See `SELLER_PRODUCTS.md`.
+>
+> Product Master revision - 2026-10-21: authenticated GET
+> `/api/v1/product-master?search=` returns all active master products, with literal
+> bilingual search and existing no-store envelope. Listing create/PATCH accepts
+> optional productId; owner DTOs return ID/null. Linked metadata is server-owned;
+> legacy callers remain valid. See `docs/03-api/PRODUCT_MASTER.md`.
+
+> Village-product filters — 2026-10-21: GET `/api/v1/listings` accepts optional
+> `villageId`, restricted to the authenticated buyer's active selected village and
+> directly connected active villages. Foreign/disconnected selection returns 403
+> `VILLAGE_FILTER_UNAVAILABLE`. Listing pages add `villageCounts` with id/name/
+> nameMr/count, respecting search/group/visibility before village selection and
+> pagination. See `MOBILE_MARKETPLACE.md`.
+
+> Marketplace category revision — 2026-10-19: listing productGroup queries,
+> create/PATCH, owner DTOs and storage also support `homemade`. Marketplace now
+> shows five illustrated categories with Vegetables selected initially and no
+> All chip. Other/null legacy groups are unchanged; unfiltered API/Home still
+> include eligible records. See `MOBILE_MARKETPLACE.md` and `ADD_LISTING.md`.
+
+> Add Village filter-pill revision — 2026-10-19: candidate `area` also accepts
+> `other_talukas`, matching other populated talukas in the assigned source
+> district before pagination. Mobile shows source Taluka / Other Talukas /
+> Nearby by GPS, with GPS using existing coordinate suggestions.
+
+> Add Village picker revision — 2026-10-19: coordinator village candidate reads
+> accept `area=all|taluka|district`, default all. Area filtering uses the assigned
+> source village before pagination/counting. Multiple selections reuse existing
+> individually idempotent connection writes. See `COORDINATOR_MOBILE.md`.
+
+> Add Buyer village-list revision — 2026-10-19: POST `/api/v1/coordinator/buyers`
+> accepts optional `targetVillageId` from the active `/api/v1/villages` list.
+> Requires the actor's existing active coordinator assignment; the target selects
+> only the new buyer's village and grants no management scope. Active target is
+> rechecked on writes/replays. Omission keeps the assigned-village default.
+
+> Coordinator revision — 2026-10-19: `/api/v1/coordinator` now provides dashboard,
+> pre-registration, scoped directory/corrections, connections/candidates, activity,
+> read-only listing detail and reports/moderation. Product complaint creation and
+> Super Admin report reads are also available. Current route/DTO/authorization
+> contracts are in `COORDINATOR_MOBILE.md`. Historical village-only discovery is
+> superseded by active bidirectional manually confirmed connections.
+
+> Listing revision — 2026-10-16: create/PATCH accept optional nullable description
+> (trimmed plain text up to 2,000 characters); owner/buyer DTOs return string|null.
+> Product search matches every whitespace-separated literal partial term across
+> productName/productNameMr/description, case-insensitively. Category dropdowns
+> display the API's actual name and defaultShelfLife. See LISTING_CRUD.md,
+> ADD_LISTING.md and MOBILE_MARKETPLACE.md for the implemented contracts.
+
 > Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
 > with Get started → required first/last name and Indian mobile → OTP →
 > confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)

@@ -1,7 +1,8 @@
 import "server-only";
+import { Types } from "mongoose";
 import type { z } from "zod";
 import type { villageSearchSchema } from "@gaavli/validation";
-import { Village, User, type UserRecord } from "../models";
+import { Village, User, VillageCoordinator, type UserRecord } from "../models";
 import { MobileRateLimit } from "../models/mobile-auth";
 import { hashToken } from "../auth/mobile-policy";
 import { AppError } from "../utils/errors";
@@ -69,10 +70,22 @@ export function mobileVillageDto(v: VillageRow) {
   };
 }
 export async function mobileUserDto(user: UserRecord) {
+  const assignments =
+    user.roles.includes("coordinator") && user.status === "active"
+      ? await VillageCoordinator.find({ userId: user._id }).lean()
+      : [];
+  const coordinatorVillages = await Village.find({
+    _id: { $in: assignments.map((row) => row.villageId) },
+    isActive: true,
+  })
+    .sort({ nameEn: 1, _id: 1 })
+    .lean();
   const village = user.village
     ? await Village.findOne({ _id: user.village, isActive: true }).lean()
     : null;
   return {
+    isCoordinator: user.roles.includes("coordinator") && user.status === "active",
+    coordinatorVillages: coordinatorVillages.map(mobileVillageDto),
     isSeller: user.roles.includes("seller"),
     id: String(user._id),
     name: user.name,
@@ -85,15 +98,34 @@ export async function mobileUserDto(user: UserRecord) {
 }
 export async function searchMobileVillages(
   query: z.infer<typeof villageSearchSchema>,
+  excludedVillageIds: string[] = [],
+  areaFilter: {
+    district?: string;
+    taluka?: string;
+    excludeTaluka?: string;
+  } = {},
 ) {
   const search = query.search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const filter = {
     isActive: true,
+    ...(areaFilter.district ? { district: areaFilter.district } : {}),
+    ...(areaFilter.taluka
+      ? { taluka: areaFilter.taluka }
+      : areaFilter.excludeTaluka
+        ? { taluka: { $nin: [areaFilter.excludeTaluka, "", null] } }
+        : {}),
+    ...(excludedVillageIds.length
+      ? {
+          _id: { $nin: excludedVillageIds.map((id) => new Types.ObjectId(id)) },
+        }
+      : {}),
     ...(search
       ? {
-          $or: ["nameEn", "nameMr", "taluka", "pinCode"].map((field) => ({
-            [field]: { $regex: search, $options: "i" },
-          })),
+          $or: ["nameEn", "nameMr", "taluka", "district", "pinCode"].map(
+            (field) => ({
+              [field]: { $regex: search, $options: "i" },
+            }),
+          ),
         }
       : {}),
   };
@@ -168,15 +200,6 @@ export async function saveMobileVillage(userId: string, villageId: string) {
       { new: true, session },
     );
     if (!user) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
-    return {
-      isSeller: user.roles.includes("seller"),
-      id: String(user._id),
-      name: user.name,
-      firstName: user.firstName || null,
-      lastName: user.lastName || null,
-      language:
-        user.preferredLanguage === "en" ? ("en" as const) : ("mr" as const),
-      village: mobileVillageDto(village),
-    };
+    return mobileUserDto(user.toObject() as UserRecord);
   });
 }

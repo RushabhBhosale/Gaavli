@@ -48,8 +48,10 @@ export async function ownedListingDto(
     : await Category.findOne({ code: row.category }).session(session).lean();
   return ownedListingSchema.parse({
     id: String(row._id),
+    productId: row.productId ? String(row.productId) : null,
     productName: row.productName,
     productNameMr: row.productNameMr || null,
+    description: row.description || null,
     categoryId: category ? String(category._id) : null,
     category: row.category || null,
     productGroup: row.productGroup || null,
@@ -90,29 +92,72 @@ export async function findOwnListings(
   query: z.infer<typeof ownListingsQuerySchema>,
 ) {
   const now = new Date();
+  const lowStock = {
+    ...activeStockFilter(now),
+    $expr: {
+      $lte: ["$quantity", { $ifNull: ["$minimumPurchaseQuantity", 1] }],
+    },
+  };
   const statusFilter =
-    query.status === "expired"
+    query.status === "all"
+      ? { status: { $ne: "deactivated" } }
+      : query.status === "low_stock"
+        ? lowStock
+        : query.status === "expired"
+          ? {
+              $or: [
+                { status: "expired" },
+                { status: "active", expiresAt: { $lte: now } },
+              ],
+            }
+          : query.status === "active"
+            ? activeStockFilter(now)
+            : query.status
+              ? { status: query.status }
+              : {};
+  const terms = query.search.trim().split(/\s+/).filter(Boolean);
+  const filter = {
+    seller: userId,
+    ...statusFilter,
+    ...(terms.length
       ? {
-          $or: [
-            { status: "expired" },
-            { status: "active", expiresAt: { $lte: now } },
-          ],
+          $and: terms.map((term) => ({
+            $or: ["productName", "productNameMr"].map((field) => ({
+              [field]: {
+                $regex: term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+                $options: "i",
+              },
+            })),
+          })),
         }
-      : query.status === "active"
-        ? activeStockFilter(now)
-        : query.status
-          ? { status: query.status }
-          : {};
-  const filter = { seller: userId, ...statusFilter };
-  const [rows, total] = await Promise.all([
-    Listing.find(filter)
-      .sort({ createdAt: -1, _id: -1 })
-      .skip((query.page - 1) * query.limit)
-      .limit(query.limit),
-    Listing.countDocuments(filter),
-  ]);
+      : {}),
+  };
+  const sort: Record<string, 1 | -1> =
+    query.sort === "price_asc"
+      ? { price: 1, _id: -1 }
+      : query.sort === "price_desc"
+        ? { price: -1, _id: -1 }
+        : query.sort === "stock_asc"
+          ? { quantity: 1, _id: -1 }
+          : { createdAt: -1, _id: -1 };
+  const [rows, total, totalProducts, active, soldOut, lowStockCount] =
+    await Promise.all([
+      Listing.find(filter)
+        .sort(sort)
+        .skip((query.page - 1) * query.limit)
+        .limit(query.limit),
+      Listing.countDocuments(filter),
+      Listing.countDocuments({
+        seller: userId,
+        status: { $ne: "deactivated" },
+      }),
+      Listing.countDocuments({ seller: userId, ...activeStockFilter(now) }),
+      Listing.countDocuments({ seller: userId, status: "sold_out" }),
+      Listing.countDocuments({ seller: userId, ...lowStock }),
+    ]);
   return {
     listings: await Promise.all(rows.map((row) => ownedListingDto(row))),
+    summary: { total: totalProducts, active, soldOut, lowStock: lowStockCount },
     total,
     page: query.page,
     limit: query.limit,
@@ -138,6 +183,10 @@ export async function listingOperation(
     session: ClientSession,
     user: ActiveListingUser,
   ) => Promise<MutationResult>,
+  authorizeReplay?: (
+    session: ClientSession,
+    user: ActiveListingUser,
+  ) => Promise<void>,
 ): Promise<MutationResult> {
   await connectDb();
   await Promise.all([
@@ -178,6 +227,7 @@ export async function listingOperation(
           "ACCOUNT_UNAVAILABLE",
           "This account is not active.",
         );
+      await authorizeReplay?.(session, user);
       const saved = await ListingOperation.findOne({ user: userId, key })
         .session(session)
         .lean();
@@ -209,7 +259,25 @@ export async function listingOperation(
         user: userId,
         key,
       }).lean();
-      if (saved) return replay(saved);
+      if (saved) {
+        if (authorizeReplay)
+          return User.db.transaction(async (session) => {
+            const actor = await User.findOneAndUpdate(
+              { _id: userId, status: "active" },
+              { $inc: { __v: 1 } },
+              { new: true, session },
+            );
+            if (!actor)
+              throw new AppError(
+                403,
+                "ACCOUNT_UNAVAILABLE",
+                "This account is not active.",
+              );
+            await authorizeReplay(session, actor);
+            return replay(saved);
+          });
+        return replay(saved);
+      }
     }
     throw error;
   }

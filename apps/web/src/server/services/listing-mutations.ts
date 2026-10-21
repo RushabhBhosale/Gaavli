@@ -25,6 +25,7 @@ import {
 } from "../repositories/listing-mutations";
 import { AppError } from "../utils/errors";
 import { similarProductName } from "./listing-policy";
+import { masterListingFields } from "./product-master";
 type ActiveUser = ActiveListingUser;
 
 async function lockVillage(
@@ -162,18 +163,28 @@ export function createOwnedListing(
     "POST /listings",
     input,
     async (session, user) => {
+      const selected = input.productId
+        ? {
+            ...input,
+            ...(await masterListingFields(
+              input.productId,
+              session,
+              input.unit,
+            )),
+          }
+        : input;
       await lockVillage(user, input.villageId, session);
       const category = await activeCategory(input.categoryId, null, session);
       expiryValid(input.expiresAt, category.code);
       await photoOwned(input.photoObjectKey, userId);
       await duplicateCheck(
         userId,
-        input.productName,
-        input.productNameMr,
+        selected.productName,
+        selected.productNameMr,
         session,
       );
       await listingLimit(userId, session);
-      const { villageId, ...fields } = input;
+      const { villageId, ...fields } = selected;
       const [row] = await Listing.create(
         [
           {
@@ -189,8 +200,11 @@ export function createOwnedListing(
         { session },
       );
       await User.updateOne(
-        { _id: userId },
-        { $addToSet: { roles: { $each: ["buyer", "seller"] } } },
+        { _id: userId, roles: { $ne: "seller" } },
+        {
+          $addToSet: { roles: { $each: ["buyer", "seller"] } },
+          $set: { sellerActivatedAt: new Date() },
+        },
         { session },
       );
       await recordListingEvent(userId, row, "created", session);
@@ -212,6 +226,28 @@ export function updateOwnedListing(
     async (session, user) => {
       const row = await ownedListing(userId, id, session);
       versionMatches(row, input.version);
+      const selectedId =
+        input.productId ||
+        (row.productId &&
+        (input.productName !== undefined ||
+          input.productNameMr !== undefined ||
+          input.productGroup !== undefined)
+          ? String(row.productId)
+          : undefined);
+      const selected = selectedId
+        ? {
+            ...input,
+            ...(await masterListingFields(
+              selectedId,
+              session,
+              input.unit ??
+                (input.productId &&
+                input.productId !== String(row.productId || "")
+                  ? undefined
+                  : row.unit || undefined),
+            )),
+          }
+        : input;
       if (effectiveListingStatus(row) !== "active")
         throw new AppError(
           409,
@@ -237,14 +273,14 @@ export function updateOwnedListing(
       );
       await duplicateCheck(
         userId,
-        input.productName || row.productName,
-        input.productNameMr === undefined
+        selected.productName || row.productName,
+        selected.productNameMr === undefined
           ? row.productNameMr
-          : input.productNameMr,
+          : selected.productNameMr,
         session,
         id,
       );
-      const { version, ...fields } = input;
+      const { version, ...fields } = selected;
       row.set({
         ...fields,
         categoryId: category._id,

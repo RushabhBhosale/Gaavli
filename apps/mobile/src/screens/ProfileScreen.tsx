@@ -12,12 +12,8 @@ import { preferenceStorage } from "../storage/sqlite";
 import { logout } from "../session";
 import { errorMessage } from "../errors";
 import { Button, ErrorMessage } from "../components/ui";
-import {
-  Badge,
-  DashboardScreen,
-  SectionHeader,
-  d,
-} from "../components/dashboard/primitives";
+import { DashboardScreen } from "../components/dashboard/primitives";
+import { PageSceneHeader } from "../components/dashboard/PageSceneHeader";
 
 export default function ProfileScreen() {
   const router = useRouter();
@@ -71,21 +67,12 @@ export default function ProfileScreen() {
     Alert.alert(t.settingsUnavailable, message);
   return (
     <DashboardScreen>
-      <SectionHeader title={t.settings} />
-      <View style={[s.group, s.identity]}>
-        <View style={s.avatar}>
-          <Text accessible={false} style={s.initial}>
-            {Array.from(session.user.name.trim())[0] || ""}
-          </Text>
-        </View>
-        <View style={s.identityInfo}>
-          <Text style={d.cardTitle}>{session.user.name}</Text>
-          {!!villageName && <Text style={d.description}>{villageName}</Text>}
-          <View style={s.badge}>
-            <Badge yellow>{session.user.isSeller ? t.seller : t.buyer}</Badge>
-          </View>
-        </View>
-      </View>
+      <PageSceneHeader
+        title={t.settings}
+        subtitle={t.settingsSubtitle}
+        backLabel={t.back}
+        onBack={() => router.replace("/home")}
+      />
       <View style={s.section}>
         <Text accessibilityRole="header" style={s.sectionLabel}>
           {t.accountSettings}
@@ -249,23 +236,6 @@ const s = StyleSheet.create({
     borderRadius: theme.radii.card,
     overflow: "hidden",
   },
-  identity: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 14,
-    padding: 16,
-  },
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: theme.colors.tint,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  initial: { fontSize: 27, fontWeight: "700", color: theme.colors.heading },
-  identityInfo: { flex: 1, gap: 5 },
-  badge: { alignSelf: "flex-start" },
   section: { gap: 10 },
   sectionLabel: {
     color: theme.colors.muted,

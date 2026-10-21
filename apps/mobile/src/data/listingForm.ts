@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { LISTING_ASSET_PHOTOS } from "@gaavli/constants";
+import {
+  LISTING_ASSET_PHOTOS,
+  LISTING_PRODUCT_GROUPS,
+} from "@gaavli/constants";
 import {
   createListingSchema,
   listingOperationKeySchema,
@@ -7,7 +10,11 @@ import {
   updateListingSchema,
   ownedListingSchema,
 } from "@gaavli/validation";
-import type { MobileLanguage, OwnedListing } from "@gaavli/types";
+import type {
+  MobileLanguage,
+  OwnedListing,
+  MasterProduct,
+} from "@gaavli/types";
 
 export const localListingPhotoSchema = z.object({
   fileName: z.string().regex(/^[a-zA-Z0-9_-]+\.(jpg|png|webp)$/),
@@ -17,9 +24,17 @@ export const localListingPhotoSchema = z.object({
 });
 export type LocalListingPhoto = z.infer<typeof localListingPhotoSchema>;
 export const listingFormSchema = z.object({
+  productId: z
+    .string()
+    .regex(/^[a-f0-9]{24}$/i)
+    .nullable()
+    .optional(),
+  productNameEn: z.string().max(120).nullable().optional(),
+  productNameMr: z.string().max(120).nullable().optional(),
   name: z.string().max(120),
+  description: z.string().max(2000).default(""),
   categoryId: z.string(),
-  group: z.enum(["vegetables", "fruits", "grain", "dairy", "other"]),
+  group: z.enum([...LISTING_PRODUCT_GROUPS, "other"]),
   quantity: z.string().max(40),
   unit: z.string().max(30),
   price: z.string().max(40),
@@ -50,7 +65,11 @@ export const listingDraftSchema = z.object({
 export type ListingDraft = z.infer<typeof listingDraftSchema>;
 export const emptyListingDraft: ListingDraft = {
   form: {
+    productId: null,
+    productNameEn: null,
+    productNameMr: null,
     name: "",
+    description: "",
     categoryId: "",
     group: "vegetables",
     quantity: "",
@@ -98,8 +117,14 @@ export function prepareListing(
   if (days !== null && (!Number.isInteger(days) || days < 1 || days > 365))
     throw new ListingFormError("days");
   const parsed = createListingSchema.safeParse({
-    productName: form.name.trim(),
-    productNameMr: language === "mr" ? form.name.trim() : null,
+    ...(form.productId ? { productId: form.productId } : {}),
+    productName: form.productId ? form.productNameEn : form.name.trim(),
+    productNameMr: form.productId
+      ? form.productNameMr
+      : language === "mr"
+        ? form.name.trim()
+        : null,
+    description: form.description.trim() || null,
     villageId,
     categoryId: form.categoryId,
     productGroup: form.group === "other" ? null : form.group,
@@ -142,11 +167,15 @@ export function formFromListing(
 ): ListingForm {
   return listingFormSchema.parse({
     ...emptyListingDraft.form,
+    productId: row.productId || null,
+    productNameEn: row.productId ? row.productName : null,
+    productNameMr: row.productId ? row.productNameMr : null,
     name:
       language === "mr"
         ? row.productNameMr || row.productName
         : row.productName,
     categoryId: row.categoryId || "",
+    description: row.description || "",
     group: row.productGroup || "other",
     quantity: row.quantity === null ? "" : String(row.quantity),
     unit: row.unit || "kg",
@@ -181,14 +210,16 @@ export function prepareListingEdit(
     now,
   );
   const originalName = initialForm.name.trim();
-  candidate.productName =
-    form.name.trim() !== originalName && language === "en"
-      ? form.name.trim()
-      : row.productName;
-  candidate.productNameMr =
-    form.name.trim() !== originalName && language === "mr"
-      ? form.name.trim()
-      : row.productNameMr;
+  if (!form.productId) {
+    candidate.productName =
+      form.name.trim() !== originalName && language === "en"
+        ? form.name.trim()
+        : row.productName;
+    candidate.productNameMr =
+      form.name.trim() !== originalName && language === "mr"
+        ? form.name.trim()
+        : row.productNameMr;
+  }
   if (
     form.categoryId === initialForm.categoryId &&
     form.days === initialForm.days
@@ -207,4 +238,20 @@ export function prepareListingEdit(
   }
   if (Object.keys(patch).length === 1) throw new ListingFormError("unchanged");
   return updateListingSchema.parse(patch);
+}
+
+export function selectMasterProduct(
+  form: ListingForm,
+  product: MasterProduct,
+  language: MobileLanguage,
+): ListingForm {
+  return {
+    ...form,
+    productId: product.productId,
+    productNameEn: product.nameEn,
+    productNameMr: product.nameMr,
+    name: language === "mr" ? product.nameMr : product.nameEn,
+    group: product.productGroup,
+    unit: product.defaultUnit,
+  };
 }

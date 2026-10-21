@@ -1,5 +1,33 @@
 # Mobile database listing reads — 2026-10-14
 
+Voice search revision — 2026-10-21: Marketplace microphone now converts speech
+to text using the device recognizer in mr-IN/en-IN. Lightweight Product Master
+matching extracts product names; the same listing API/search input is reused.
+Exact active catalog-name searches also match paired Marathi/English names and
+linked product IDs, preserving literal search and all visibility filters.
+See [VOICE_SEARCH.md](VOICE_SEARCH.md) for permissions, native rebuild steps,
+lifecycle, offline/device limitations and verification. Earlier voice-placeholder
+notes below describe the previous implementation.
+
+Coordinator proximity revision — 2026-10-19: confirmed active manual village links
+extend marketplace/detail and protected contact eligibility by one hop in both
+directions, retaining active-village/seller/category/stock checks and owner-feed
+exclusion. GPS alone never expands scope. Removal affects new reads immediately
+without deleting listings or request history. See `COORDINATOR_MOBILE.md`; earlier
+confirmed-village-only boundaries below describe the previous milestone.
+
+Description/search revision — 2026-10-16: listing DTOs include nullable plain-text
+description, shown on Product Details in the seller's original language. Product
+search splits whitespace into literal terms; every term must match a substring
+of productName, productNameMr or description, case-insensitively. Terms can match
+different fields and appear in any order. For a Tomato described as Organic,
+`tomato`, `toma`, `TOMA`, `organic tomato` and `toma orga` match. Regex metacharacters
+are escaped; 100-character input bounds, village/visibility/owner exclusions,
+category filters, pagination and accurate counts remain intact. Marketplace's
+existing debounced input, search icon and keyboard Search use this API. No new
+search screen, Elasticsearch service, fuzzy matching or relevance index is added.
+This extends the historical single-substring/name-only description below.
+
 Own-offer browsing revision — 2026-10-15: authenticated listing collection reads
 exclude products whose seller is the current user, before pagination, totals and
 category facets. This applies to Marketplace and Home's fresh-product feed. The
@@ -13,11 +41,49 @@ optional saved minimumPurchaseQuantity/fulfillmentOptions. Standing recurring
 supplies have explicit null expiry and remain visible until sold out/deactivated.
 Earlier no-write/no-standing-field limitations below are historical.
 
-Filter revision: mobile shows fixed All, Vegetables, Fruits, Grain and Dairy
-products chips. Optional `productGroup=vegetables|fruits|grain|dairy` queries filter
-an explicit stored Listing product group on the server, separately from the
-existing shelf-life category. Unclassified legacy rows remain visible under All;
-they are not guessed from a product name or shelf-life tier. Existing five
+Village-product filters — 2026-10-21: below the product-group icons, Marketplace
+shows All plus the buyer's active village and directly confirmed active connected
+villages, with localized names and real listing counts. All refers to those
+villages within the current search/product group, not every village in the system.
+Selecting a chip sends optional `villageId` to GET `/api/v1/listings`; it narrows
+results without changing the saved account village. The server rejects a village
+outside current discovery scope with 403 `VILLAGE_FILTER_UNAVAILABLE`, including
+after disconnection. The same visibility/own-stock/privacy rules remain.
+
+Responses add `villageCounts: [{id,name,nameMr,count}]`: counts reflect the current
+search/category/productGroup across all eligible villages before village selection
+and pagination. Source village appears first; connected villages follow name order,
+including zero-count choices. Product results and total apply village selection
+before pagination. Missing historical `villageCounts` defaults to [] on mobile.
+Marketplace query keys include account/source village/search/group/selected village;
+an account/source change resets the effective village filter. No locations or
+listing groups are migrated by filtering.
+
+Header simplification — 2026-10-19: show the selected village name as plain text
+with a location icon, without a dropdown or taluka/district subtitle. Village
+changes remain available through existing Home/Settings controls. Use the short
+single-language Search products / उत्पादने शोधा placeholder and single-line input.
+This supersedes the dropdown and longer placeholder in the header revision below.
+
+Header revision — 2026-10-19: Marketplace uses the existing Gaavli mark and
+native countryside artwork in a branded banner with localized tagline, current
+village/taluka/district selector, notification bell and initials avatar. The bell
+opens the protected existing Received activity/notifications route; avatar opens
+Settings and village opens the existing selector. No notification count is guessed.
+Search remains debounced/API-backed with the existing explicit voice-unavailable
+message, now using a localized vegetables/fruits/grains/dairy/homemade placeholder.
+The category row remains below the banner; no new API is required for this header.
+
+Filter revision — 2026-10-19: Marketplace replaces the All/text-chip row with
+five illustrated circular categories: Vegetables, Fruits, Grains, Dairy Products
+and Homemade Products. Vegetables is initially selected. Labels use the selected
+language and existing 14px typography; narrower screens scroll horizontally.
+Optional `productGroup=vegetables|fruits|grain|dairy|homemade` queries filter an
+explicit stored Listing product group on the server, separately from the existing
+shelf-life category. Homemade is supported by create/edit/drafts/owner DTOs and
+the database enum. Unfiltered API reads and Home still include unclassified legacy
+rows; no product groups are guessed or migrated. This supersedes the All chip.
+Existing five
 Narayangaon demo rows were explicitly classified (3 vegetables, 1 fruit, 1 grain).
 The search field has an accessible microphone action which reports that speech
 recognition is not yet integrated. No voice dependency, recording permission or
