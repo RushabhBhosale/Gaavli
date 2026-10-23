@@ -1,3 +1,10 @@
+> Temporary hosted OTP testing — 2026-10-23 (explicitly user approved):
+> OTP_PROVIDER=test with OTP_TEST_CODE=123456 is allowed in production for shared
+> APK testing, for all mobile numbers. Test sessions authenticate/refresh across
+> environments. This supersedes the development-only OTP/session restrictions
+> below, not expiry/throttling/account checks or the development-only photo
+> provider. No real SMS delivery is implemented. See docs/03-api/MOBILE_ONBOARDING.md.
+
 > Guest browsing revision — 2026-10-22: Get started asks for a village, then
 > Home is available without an account. Seller phone numbers stay off guest
 > responses. Contact seller opens registration and returns to that product.

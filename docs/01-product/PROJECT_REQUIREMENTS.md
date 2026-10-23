@@ -1,3 +1,9 @@
+> Temporary hosted OTP testing - 2026-10-23 (explicit user approval): configured
+> fixed OTP 123456 may authenticate all mobile numbers on the existing hosted
+> API/database for APK testing. Test sessions work in production. This replaces
+> development-only OTP/session restrictions, with normal expiry/throttles/account
+> authorization retained. Real SMS remains unimplemented; see MOBILE_ONBOARDING.md.
+
 > Browsing village revision - 2026-10-23 (user approved): Home and Marketplace
 > share a searchable active-village dropdown and persisted global browsing
 > preference. Selection refreshes public product discovery independently of

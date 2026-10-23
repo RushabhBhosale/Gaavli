@@ -122,7 +122,7 @@ test("village query constrains pagination and coordinates and selection accepts 
     false,
   );
 });
-test("test OTP provider fails closed outside development and secrets are hashed", async () => {
+test("explicit test OTP works in production, requires configuration and hashes secrets", async () => {
   const old = {
     NODE_ENV: process.env.NODE_ENV,
     OTP_PROVIDER: process.env.OTP_PROVIDER,
@@ -136,9 +136,18 @@ test("test OTP provider fails closed outside development and secrets are hashed"
       OTP_TEST_CODE: "123456",
       MOBILE_AUTH_SECRET: "a".repeat(64),
     });
-    assert.throws(otpProvider);
-    Object.assign(process.env, { NODE_ENV: "development" });
-    assert.equal(otpProvider().code().length, 6);
+    assert.equal(otpProvider().code(), "123456");
+    for (const provider of ["", "disabled", "sms"]) {
+      process.env.OTP_PROVIDER = provider;
+      assert.throws(otpProvider);
+    }
+    process.env.OTP_PROVIDER = "test";
+    for (const code of ["", "12345", "abcdef"]) {
+      process.env.OTP_TEST_CODE = code;
+      assert.throws(otpProvider);
+    }
+    process.env.OTP_TEST_CODE = "123456";
+    assert.equal(otpProvider().code(), "123456");
     assert.notEqual(
       otpDigest("first", "123456"),
       otpDigest("second", "123456"),

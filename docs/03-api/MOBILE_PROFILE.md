@@ -82,9 +82,10 @@ URLs use the same shareable image-serving behavior as existing listing photos.
 - Replay, concurrent consumption, a foreign account's challenge, expired or
   exhausted attempts fail closed. Unknown verification outcomes are reconciled
   by a self-profile read rather than resubmitting a consumed code indefinitely.
-- The existing test OTP provider is **development-only**. Production requires
-  a real SMS provider and otherwise returns AUTH_UNAVAILABLE. No production
-  OTP or SMS integration is claimed by this change.
+- Temporary user-approved hosted testing (2026-10-23): the configured test
+  provider also works in production for mobile changes. OTP_PROVIDER=test and
+  OTP_TEST_CODE=123456 do not require NODE_ENV=development or a number allowlist.
+  Real SMS is not implemented. See MOBILE_ONBOARDING.md for this exception.
 
 ## Verification
 
@@ -93,6 +94,7 @@ validation and localized errors. Isolated MongoDB route tests use a fresh random
 database and temporary photo directory; never write to the configured app DB.
 They exercise authentication/origin, name/primary-phone injection rejection,
 legacy names, conflict/ownership, photo references and idempotent attachment,
-OTP binding/attempt limits/expiry/concurrency/replay, session revocation and the
-production test-provider gate. Phone layout, camera/gallery, dialer-independent
+OTP binding/attempt limits/expiry/concurrency/replay, session revocation,
+production test-mode login/refresh/logout/mobile change and disabled-provider
+rejection. Phone layout, camera/gallery, dialer-independent
 OTP interaction and restart recovery still require device verification.

@@ -73,7 +73,7 @@ export async function verifyMobileChangeOtp(
   input: { challengeId: string; code: string },
   token: string,
 ) {
-  otpProvider(); // The existing test provider remains development-only.
+  otpProvider(); // The explicit test-provider switch also applies to mobile changes.
   await connectMobileDb();
   await MobilePhoneChange.init();
   await limitRequests("mobile-change-verify", userId, 30, 3600_000);

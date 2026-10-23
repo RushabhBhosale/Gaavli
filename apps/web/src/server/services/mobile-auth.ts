@@ -97,7 +97,7 @@ export async function verifyOtp(
   input: z.infer<typeof verifyOtpSchema>,
   network: string,
 ) {
-  otpProvider(); // Test challenges can never be redeemed in a production process.
+  otpProvider(); // Test challenges require the explicitly configured test provider.
   await connectDb();
   await limitRequests("verify-network", network, 100, 3600_000);
   const challenge = await OtpChallenge.findOneAndUpdate(
@@ -256,8 +256,6 @@ export async function requireMobile(request: Request) {
     accessExpiresAt: { $gt: new Date() },
     expiresAt: { $gt: new Date() },
   }).lean();
-  if (session?.provider === "test" && process.env.NODE_ENV !== "development")
-    throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
   const user =
     session &&
     (await User.findOne({ _id: session.user, status: "active" }).lean());
@@ -270,8 +268,6 @@ export async function refreshMobile(refreshToken: string) {
     refreshHash: hashToken(refreshToken),
     expiresAt: { $gt: new Date() },
   }).lean();
-  if (saved?.provider === "test" && process.env.NODE_ENV !== "development")
-    throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
   const user =
     saved && (await User.findOne({ _id: saved.user, status: "active" }).lean());
   if (!user) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");

@@ -1,5 +1,24 @@
 # Mobile onboarding — implemented contract (2026-10-13)
 
+## Temporary hosted OTP testing — 2026-10-23
+
+Explicit user-approved exception for shared APK testing on the existing API and
+database: the test provider and test-issued sessions are no longer blocked by
+NODE_ENV=production. Set server-only OTP_PROVIDER=test, OTP_TEST_CODE=123456 and
+a valid MOBILE_AUTH_SECRET (at least 32 characters), then redeploy the backend.
+There is no tester-number allowlist: this fixed code authenticates any supplied
+mobile identity. It does not prove ownership of that number and sends no SMS.
+The user accepted this temporary authentication limitation.
+
+The provider still requires explicit configuration and a valid six-digit code.
+Normal expiry, single-use challenges, attempts, rate limits, active-account
+checks, session rotation/logout and admin authorization remain. The same
+provider works for mobile-number changes. An unchanged API URL requires no APK
+rebuild. Changing/disabling the provider blocks new test OTP issuance/verification;
+existing test sessions retain their normal expiry/revocation behavior.
+Real SMS remains unfinished. This exception supersedes older development-only
+OTP/session statements below; photo storage remains development-only.
+
 ## Guest browsing — 2026-10-22
 
 This revision supersedes the registration-before-browsing startup rule below.
@@ -125,13 +144,13 @@ OTP: `400 OTP_INVALID`, `400 OTP_EXPIRED`, `429 OTP_ATTEMPTS_EXCEEDED`,
 `429 OTP_THROTTLED`, `429 RATE_LIMITED`, `503 OTP_DELIVERY_FAILED`.
 Selection: `422 VILLAGE_UNAVAILABLE`.
 
-The current provider is **local development only**. Set `OTP_PROVIDER=test`,
-`OTP_TEST_CODE` to a six-digit local test value, and `MOBILE_AUTH_SECRET` to a
-random server-only secret of at least 32 characters. `NODE_ENV` must equal
-`development`. `npm run setup:mobile-auth --workspace=@gaavli/web` adds missing
+The current provider is **explicit test mode**, including hosted production
+testing under the temporary exception above. Set `OTP_PROVIDER=test`,
+`OTP_TEST_CODE=123456`, and `MOBILE_AUTH_SECRET` to a random server-only secret
+of at least 32 characters. `npm run setup:mobile-auth --workspace=@gaavli/web` adds missing
 values to the ignored `.env.local` without overwriting existing values. Restart
 Next.js afterward. Test OTP is configured locally, never delivered by SMS.
-Real SMS integration is a public-launch gate; production fails closed today.
+Real SMS integration remains unfinished; configured test mode now works hosted.
 
 Native clients use bearer headers and no cookies. Cross-origin browser requests
 are rejected; no permissive CORS is added. `MOBILE_TRUST_PROXY=true` is allowed only

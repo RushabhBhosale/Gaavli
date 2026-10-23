@@ -1,3 +1,12 @@
+> Temporary hosted OTP testing - 2026-10-23 (explicit user approval):
+> production accepts the configured test OTP and test-issued mobile sessions.
+> OTP_PROVIDER=test and OTP_TEST_CODE=123456 apply to every mobile number, with
+> no allowlist or real SMS/number-ownership proof. This is a deliberately weaker
+> temporary test authentication mode accepted by the user. Expiry, attempt/rate
+> limits, account/village/contact/role checks and admin auth remain. This
+> supersedes development-only OTP/session wording below, not photo storage.
+> See `03-api/MOBILE_ONBOARDING.md` for configuration and session behavior.
+
 > Browsing village - 2026-10-23: public listing reads may use a validated active
 > sourceVillageId independently of registered village. The local preference
 > stores public village metadata only. Contact, callback, notification, listing

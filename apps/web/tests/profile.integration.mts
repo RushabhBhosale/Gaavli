@@ -352,6 +352,70 @@ try {
   );
   assert.equal(expired.error.code, "OTP_EXPIRED");
   Object.assign(process.env, { NODE_ENV: "production" });
+  const { sendOtp, verifyOtp, requireMobile, refreshMobile, logoutMobile } =
+    await import("../src/server/services/mobile-auth");
+  const hostedChallenge = await sendOtp(
+    {
+      firstName: "Hosted",
+      lastName: "Tester",
+      mobile: "9876543217",
+      language: "en",
+    },
+    "hosted-integration",
+  );
+  await assert.rejects(
+    verifyOtp(
+      { challengeId: hostedChallenge.challengeId, code: "000000" },
+      "hosted-integration",
+    ),
+    (error: unknown) =>
+      error instanceof Error && "code" in error && error.code === "OTP_INVALID",
+  );
+  const hostedSession = await verifyOtp(
+    { challengeId: hostedChallenge.challengeId, code: "123456" },
+    "hosted-integration",
+  );
+  assert.equal(
+    (
+      await requireMobile(
+        request("profile", undefined, hostedSession.accessToken),
+      )
+    ).name,
+    "Hosted Tester",
+  );
+  await payload(
+    await GET(request("profile", undefined, hostedSession.accessToken)),
+  );
+  const hostedRefresh = await refreshMobile(hostedSession.refreshToken);
+  await requireMobile(request("profile", undefined, hostedRefresh.accessToken));
+  await logoutMobile(hostedRefresh.refreshToken);
+  await payload(
+    await GET(request("profile", undefined, hostedRefresh.accessToken)),
+    401,
+  );
+
+  // Existing development-issued sessions and mobile-change OTPs also work hosted.
+  await MobilePhoneChange.updateOne(
+    { user: owner._id },
+    { $set: { resendAt: new Date(0) } },
+  );
+  const hostedMobileChallenge = (
+    await payload(
+      await send(request("mobile/send-otp", { mobile: "9876543218" })),
+    )
+  ).data;
+  const hostedMobileProfile = (
+    await payload(
+      await verify(
+        request("mobile/verify-otp", {
+          challengeId: hostedMobileChallenge.challengeId,
+          code: "123456",
+        }),
+      ),
+    )
+  ).data;
+  assert.equal(hostedMobileProfile.mobile, "9876543218");
+  Object.assign(process.env, { OTP_PROVIDER: "disabled" });
   await assert.rejects(
     verifyMobileChangeOtp(
       String(owner._id),
@@ -364,7 +428,7 @@ try {
       error.code === "AUTH_UNAVAILABLE",
   );
   console.log(
-    "PASS: isolated profile reads/saves, immutable identity, ownership, version conflicts, photo attachment/replay, OTP account binding/concurrency/replay/attempt limits, session revocation and production test-provider rejection.",
+    "PASS: isolated profile protections, photo ownership/replay, OTP limits/concurrency, production fixed-code login/session refresh/logout/mobile change, and disabled-provider rejection.",
   );
 } finally {
   Object.assign(process.env, { NODE_ENV: "development" });

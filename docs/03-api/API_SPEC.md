@@ -1,3 +1,8 @@
+> Temporary hosted OTP testing - 2026-10-23 (explicit user approval):
+> configured test OTP and mobile sessions now work in production for APK testing.
+> Set OTP_PROVIDER=test and OTP_TEST_CODE=123456 on the server, with a valid
+> MOBILE_AUTH_SECRET. No allowlist or real SMS is added. See MOBILE_ONBOARDING.md.
+
 > Browsing village - 2026-10-23: listing feed/detail GETs honor the optional
 > sourceVillageId for guests and signed-in readers. Validate an active source;
 > retain registered-account contact/write/coordinator authorization. Omitting

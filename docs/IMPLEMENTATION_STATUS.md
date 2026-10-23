@@ -1,3 +1,24 @@
+# Temporary hosted fixed-OTP testing — 2026-10-23
+
+- Explicit user-approved exception: removed production-environment blocks on
+  configured test OTP generation/verification, bearer-session authentication,
+  refresh and mobile-change OTPs. OTP_PROVIDER=test and OTP_TEST_CODE=123456
+  can now serve remote APK testers on the existing deployment/database, for
+  all mobile numbers without an allowlist. No real SMS is sent or claimed.
+- Existing secret validation, hashing, expiry, single-use consumption, attempt
+  limits, throttles, active-account checks, logout and contact/role/admin
+  authorization remain. Disabling the provider blocks new test OTPs; existing
+  sessions retain normal expiry/revocation behavior. Photo storage gates stay.
+- Verification: 14 web unit tests, isolated profile/auth integration (including
+  NODE_ENV=production login, wrong-code rejection, authenticated reads, refresh,
+  logout and mobile-number change), web TypeScript and focused ESLint passed.
+  Test writes used only the isolated random DB/photo directory and were cleaned.
+- Deployment pending: set the test-provider/code and a valid MOBILE_AUTH_SECRET
+  in Vercel and redeploy these backend changes. The same API URL requires no
+  APK rebuild. Real SMS integration and removal of this temporary mode remain
+  future work. The older broader onboarding integration suite has pre-existing
+  stale profile-call expectations and was not used for this verification.
+
 # Add/Edit shelf-life dropdown labels — 2026-10-23
 
 - Shared Add/Edit Product category options now append the existing backend

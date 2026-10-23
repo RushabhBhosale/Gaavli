@@ -26,10 +26,7 @@ export interface OtpProvider {
   send(mobile: string, code: string): Promise<void>;
 }
 export function otpProvider(): OtpProvider {
-  if (
-    process.env.NODE_ENV !== "development" ||
-    process.env.OTP_PROVIDER !== "test"
-  )
+  if (process.env.OTP_PROVIDER !== "test")
     throw new AppError(
       503,
       "AUTH_UNAVAILABLE",
@@ -45,7 +42,7 @@ export function otpProvider(): OtpProvider {
   return {
     code: () => code,
     async send() {
-      /* Explicit local test provider: never sends, logs or returns OTP. */
+      /* Explicit test mode, including hosted APK testing: never sends SMS or logs OTP. */
     },
   };
 }

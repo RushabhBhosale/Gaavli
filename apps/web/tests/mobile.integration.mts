@@ -188,9 +188,7 @@ try {
   await rejects(requireMobile(request(signedIn.accessToken)), "AUTH_REQUIRED");
   await requireMobile(request(refreshed.accessToken));
   Object.assign(process.env, { NODE_ENV: "production" });
-  await rejects(sendOtp(input, "integration"), "AUTH_UNAVAILABLE");
-  await rejects(requireMobile(request(refreshed.accessToken)), "AUTH_REQUIRED");
-  await rejects(refreshMobile(refreshed.refreshToken), "AUTH_REQUIRED");
+  await requireMobile(request(refreshed.accessToken));
   Object.assign(process.env, { NODE_ENV: "development" });
   await User.updateOne(
     { _id: signedIn.user.id },
@@ -337,7 +335,7 @@ try {
   assert.equal(await User.countDocuments(), 2);
   assert.ok((await MobileRateLimit.countDocuments()) > 0);
   console.log(
-    "PASS: isolated MongoDB onboarding integration (OTP, concurrency, sessions, legacy accounts, village search and confirmation, production rejection).",
+    "PASS: isolated MongoDB onboarding integration (OTP, concurrency, sessions, legacy accounts, village search and confirmation, production test sessions).",
   );
 } finally {
   // Drop only the exact fresh test database; never use the configured application's DB.
