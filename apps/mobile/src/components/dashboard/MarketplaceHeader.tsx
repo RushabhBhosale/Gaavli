@@ -1,11 +1,10 @@
 import type { ReactNode } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
-import { useAppStore } from "../../store";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { d } from "./primitives";
+import { BrowsingVillageSelector } from "../BrowsingVillageSelector";
 
 export function MarketplaceHeader({
   language,
@@ -14,15 +13,7 @@ export function MarketplaceHeader({
   language: MobileLanguage;
   children: ReactNode;
 }) {
-  const session = useAppStore((state) => state.session);
-  if (!session) return null;
   const t = messages(language);
-  const village = session.user.village;
-  const villageName = village
-    ? language === "mr"
-      ? village.nameMr
-      : village.name
-    : t.villageLabel;
   return (
     <View style={s.banner}>
       <View
@@ -65,21 +56,7 @@ export function MarketplaceHeader({
           </View>
         </View>
         <View style={s.village}>
-          <Ionicons
-            accessible={false}
-            name="location"
-            size={16}
-            color={theme.colors.primaryDark}
-          />
-          <Text
-            numberOfLines={1}
-            style={[
-              d.description,
-              { color: theme.colors.text, fontWeight: "600", flexShrink: 1 },
-            ]}
-          >
-            {villageName}
-          </Text>
+          <BrowsingVillageSelector />
         </View>
       </View>
       {children}
@@ -115,19 +92,7 @@ const s = StyleSheet.create({
   },
   brandCopy: { flex: 1, gap: 1 },
   logo: { width: 28, height: 34 },
-  village: {
-    flexShrink: 1,
-    maxWidth: "40%",
-    marginLeft: "auto",
-    minWidth: 0,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 3,
-    paddingHorizontal: 6,
-    paddingVertical: 5,
-    borderRadius: theme.radii.control,
-    backgroundColor: "rgba(255, 253, 247, 0.9)",
-  },
+  village: { flexShrink: 1, maxWidth: "48%", minWidth: 0 },
   art: {
     position: "absolute",
     top: 0,

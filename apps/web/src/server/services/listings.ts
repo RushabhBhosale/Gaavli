@@ -18,11 +18,25 @@ async function activeVillage(user: UserRecord) {
     throw new AppError(422, "VILLAGE_UNAVAILABLE", "Select an active village.");
   return String(user.village);
 }
+async function activeBrowsingVillage(
+  user: UserRecord,
+  browsingVillageId?: string,
+) {
+  const registeredVillageId = await activeVillage(user);
+  if (!browsingVillageId || browsingVillageId === registeredVillageId)
+    return registeredVillageId;
+  if (!(await Village.exists({ _id: browsingVillageId, isActive: true })))
+    throw new AppError(422, "VILLAGE_UNAVAILABLE", "Select an active village.");
+  return browsingVillageId;
+}
 export async function listMobileListings(
   user: UserRecord,
   query: z.infer<typeof mobileListingsQuerySchema>,
 ) {
-  const sourceVillageId = await activeVillage(user);
+  const sourceVillageId = await activeBrowsingVillage(
+    user,
+    query.sourceVillageId,
+  );
   const allowedVillageIds = await discoveryVillageIds(sourceVillageId);
   if (query.villageId && !allowedVillageIds.includes(query.villageId))
     throw new AppError(
@@ -36,17 +50,58 @@ export async function listMobileListings(
     String(user._id),
     allowedVillageIds,
   );
+  return publicListingPage(page, user.roles.includes("seller"));
+}
+export async function listGuestListings(
+  sourceVillageId: string,
+  query: z.infer<typeof mobileListingsQuerySchema>,
+) {
+  if (!(await Village.exists({ _id: sourceVillageId, isActive: true })))
+    throw new AppError(422, "VILLAGE_UNAVAILABLE", "Select an active village.");
+  const allowedVillageIds = await discoveryVillageIds(sourceVillageId);
+  if (query.villageId && !allowedVillageIds.includes(query.villageId))
+    throw new AppError(
+      403,
+      "VILLAGE_FILTER_UNAVAILABLE",
+      "Choose your village or an active connected village.",
+    );
+  const page = await findMobileListings(
+    sourceVillageId,
+    query,
+    null,
+    allowedVillageIds,
+  );
+  return publicListingPage(page, false);
+}
+function publicListingPage(
+  page: Awaited<ReturnType<typeof findMobileListings>>,
+  isSeller: boolean,
+) {
   return {
     ...page,
     listings: page.listings.map(({ photoObjectKey, ...listing }) => ({
       ...listing,
       photoUrl: listingPhotoUrl(photoObjectKey),
     })),
-    isSeller: user.roles.includes("seller"),
+    isSeller,
   };
 }
-export async function getMobileListing(user: UserRecord, id: string) {
-  const listing = await findMobileListing(await activeVillage(user), id);
+export async function getGuestListing(sourceVillageId: string, id: string) {
+  if (!(await Village.exists({ _id: sourceVillageId, isActive: true })))
+    throw new AppError(422, "VILLAGE_UNAVAILABLE", "Select an active village.");
+  return publishListing(await findMobileListing(sourceVillageId, id));
+}
+export async function getMobileListing(
+  user: UserRecord,
+  id: string,
+  browsingVillageId?: string,
+) {
+  const sourceVillageId = await activeBrowsingVillage(user, browsingVillageId);
+  return publishListing(await findMobileListing(sourceVillageId, id));
+}
+function publishListing(
+  listing: Awaited<ReturnType<typeof findMobileListing>>,
+) {
   if (!listing)
     throw new AppError(
       404,

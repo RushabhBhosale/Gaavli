@@ -97,7 +97,7 @@ const dtoProjection = {
 export async function findMobileListings(
   villageId: string,
   query: z.infer<typeof mobileListingsQuerySchema>,
-  viewerId: string,
+  viewerId: string | null,
   allowedVillageIds: string[],
 ) {
   const terms = [...new Set(query.search.trim().split(/\s+/).filter(Boolean))];
@@ -154,7 +154,9 @@ export async function findMobileListings(
       categories: MobileListingPage["categories"];
       villageCounts: { id: string; count: number }[];
     }>([
-      { $match: { seller: { $ne: new Types.ObjectId(viewerId) } } },
+      ...(viewerId
+        ? [{ $match: { seller: { $ne: new Types.ObjectId(viewerId) } } }]
+        : []),
       ...visiblePipeline(allowedVillageIds, new Date()),
       {
         $facet: {

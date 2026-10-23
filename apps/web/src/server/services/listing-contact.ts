@@ -1,5 +1,9 @@
 import "server-only";
-import { indianMobileSchema, sellerContactSchema } from "@gaavli/validation";
+import {
+  indianMobileSchema,
+  sellerContactSchema,
+  sellerDetailsSchema,
+} from "@gaavli/validation";
 import { connectMobileDb } from "../db/mobile";
 import { User, Village } from "../models";
 import { ListingInterest } from "../models/listing-interest";
@@ -13,14 +17,14 @@ import { AppError } from "../utils/errors";
 export async function revealListingContact(
   userId: string,
   id: string,
-  restoreOnly = false,
+  mode: "record" | "restore" | "view" = "record",
 ) {
   await connectMobileDb();
   await ListingInterest.init();
   await limitRequests(
-    restoreOnly ? "listing-contact-read" : "listing-contact",
+    mode === "record" ? "listing-contact" : "listing-contact-read",
     userId,
-    restoreOnly ? 120 : 60,
+    mode === "record" ? 60 : 120,
     3600_000,
   );
   for (let attempt = 0; ; attempt++) {
@@ -60,7 +64,7 @@ export async function revealListingContact(
             "This is your own listing.",
           );
         if (
-          restoreOnly &&
+          mode === "restore" &&
           !(await ListingInterest.exists({ userId, listingId: id }).session(
             session,
           ))
@@ -78,7 +82,12 @@ export async function revealListingContact(
           interested: true,
           seller: { name: row.name, mobile: `+91${mobile.data}` },
         });
-        if (!restoreOnly) await recordListingInterest(userId, id, session);
+        if (mode === "view")
+          return sellerDetailsSchema.parse({
+            listingId: id,
+            seller: dto.seller,
+          });
+        if (mode === "record") await recordListingInterest(userId, id, session);
         return dto;
       });
     } catch (error) {

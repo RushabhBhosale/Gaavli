@@ -9,6 +9,7 @@ import {
   Text,
   TextInput,
   View,
+  useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -28,12 +29,17 @@ import { productMasterPageSchema } from "@gaavli/validation";
 import { loadMasterProducts } from "../data/productMaster";
 import { voiceProductSearch } from "../data/voiceSearch";
 import { productMasterCache } from "../storage/sqlite";
+import { api } from "../api";
 import { authenticatedApi } from "../session";
 import { useVoiceSearch } from "../hooks/useVoiceSearch";
+import { browsingVillageFor } from "../storage/browsingVillage";
 
 export default function MarketplaceScreen() {
   const router = useRouter();
-  const { language, offline, session } = useAppStore();
+  const { width: windowWidth } = useWindowDimensions();
+  const { language, offline, session, guestVillage } = useAppStore();
+  const cardWidth =
+    (Math.min(windowWidth, theme.layout.contentWidth) - 20 * 2 - 12) / 2;
   const t = messages(language);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("vegetables");
@@ -43,7 +49,9 @@ export default function MarketplaceScreen() {
     scope: string;
     id: string;
   } | null>(null);
-  const scope = `${session?.user.id}:${session?.user.village?.id}`;
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
+  const scope = `${session?.user.id ?? "guest"}:${sourceId}`;
   const selectedVillageId =
     villageFilter?.scope === scope ? villageFilter.id : undefined;
   useEffect(() => {
@@ -52,14 +60,17 @@ export default function MarketplaceScreen() {
   }, [query]);
   const result = useMarketplaceListings(search, category, selectedVillageId);
   const products = useQuery({
-    queryKey: ["product-master", session?.user.id, offline],
-    enabled: !!session,
+    queryKey: ["product-master", session?.user.id ?? "guest", offline],
+    enabled: session ? !!session.user.village : !!guestVillage,
     queryFn: () =>
       loadMasterProducts({
         storage: productMasterCache,
         offline,
         fetch: () =>
-          authenticatedApi("/product-master", productMasterPageSchema),
+          (session ? authenticatedApi : api)(
+            "/product-master",
+            productMasterPageSchema,
+          ),
       }),
     networkMode: "always",
     retry: false,
@@ -153,6 +164,8 @@ export default function MarketplaceScreen() {
       <FlatList
         data={listings}
         keyExtractor={(item) => item.id}
+        numColumns={2}
+        columnWrapperStyle={listings.length ? s.gridRow : undefined}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
@@ -326,12 +339,7 @@ export default function MarketplaceScreen() {
                       pressed && d.pressed,
                     ]}
                   >
-                    <Text
-                      style={[
-                        s.villageFilterText,
-                        selected && s.selectedVillageFilterText,
-                      ]}
-                    >
+                    <Text style={s.villageFilterText}>
                       {label} (
                       {village.count === undefined
                         ? "—"
@@ -365,7 +373,6 @@ export default function MarketplaceScreen() {
                     : t.noListings}
           </Text>
         }
-        ItemSeparatorComponent={() => <View style={s.separator} />}
         ListFooterComponent={
           result.hasNextPage && !result.isError ? (
             <View style={{ paddingTop: 14 }}>
@@ -384,6 +391,7 @@ export default function MarketplaceScreen() {
           <MarketplaceListingCard
             listing={item}
             language={language}
+            width={cardWidth}
             onPress={() =>
               router.push({
                 pathname: "/product/[id]",
@@ -398,8 +406,9 @@ export default function MarketplaceScreen() {
 }
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
-  content: { ...d.content, gap: 0 },
-  header: { gap: 14, paddingBottom: 16 },
+  content: { ...d.content, gap: 12 },
+  gridRow: { gap: 12, alignItems: "flex-start" },
+  header: { gap: 14, paddingBottom: 4 },
   search: {
     flexDirection: "row",
     alignItems: "center",
@@ -439,15 +448,14 @@ const s = StyleSheet.create({
     borderRadius: theme.radii.control,
   },
   selectedVillageFilter: {
-    backgroundColor: theme.colors.primaryDark,
-    borderColor: theme.colors.primaryDark,
+    backgroundColor: theme.colors.tint,
+    borderColor: theme.colors.primary,
   },
   villageFilterText: {
     ...d.description,
     color: theme.colors.text,
     fontWeight: "600",
   },
-  selectedVillageFilterText: { color: theme.colors.surface },
   voiceSearch: {
     minHeight: theme.layout.touchTarget,
     minWidth: theme.layout.touchTarget,
@@ -478,7 +486,6 @@ const s = StyleSheet.create({
     textAlign: "center",
   },
   selectedCategoryText: { color: theme.colors.text, fontWeight: "600" },
-  separator: { height: 14 },
   empty: {
     color: theme.colors.muted,
     fontSize: 14,

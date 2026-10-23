@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import type { MobileLanguage } from "@gaavli/types";
 import { theme } from "../../theme";
-import { formatMessage, messages } from "../../i18n";
+import { messages } from "../../i18n";
 import { listingName, type HomeListing } from "../../types/home";
 import { ListingImage } from "./ListingImage";
 import { listingRate } from "./listingText";
@@ -50,17 +50,6 @@ export function ProductCard({
         {listing.isDemo && <Badge yellow>{t.demoListing}</Badge>}
         <Text style={s.name}>{name}</Text>
         <Text style={s.price}>{rate}</Text>
-        <Text style={s.time}>
-          {formatMessage(
-            listing.postedMinutesAgo < 60 ? t.minutesAgo : t.hoursAgo,
-            {
-              count:
-                listing.postedMinutesAgo < 60
-                  ? listing.postedMinutesAgo
-                  : Math.floor(listing.postedMinutesAgo / 60),
-            },
-          )}
-        </Text>
       </View>
     </Pressable>
   );
@@ -91,12 +80,6 @@ const s = StyleSheet.create({
     fontSize: 16,
     lineHeight: 23,
     fontWeight: "700",
-  },
-  time: {
-    color: theme.colors.muted,
-    fontSize: 11,
-    lineHeight: 17,
-    marginTop: 2,
   },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

@@ -5,15 +5,17 @@ import {
   listingIdSchema,
   ownListingPageSchema,
 } from "@gaavli/validation";
+import { api } from "./api";
 import { authenticatedApi } from "./session";
 import { useAppStore } from "./store";
 import { ApiError } from "./api/client";
+import { browsingVillageFor } from "./storage/browsingVillage";
 
 const retry = (count: number, error: unknown) =>
   count < 1 &&
   !(error instanceof ApiError && error.status && error.status < 500);
 export function useOwnListings(
-  status: "active" | "sold_out" | "all" | "low_stock" = "active",
+  status: "active" | "sold_out" | "all" | "low_stock" | "expired" = "active",
   enabled = true,
   search = "",
   sort: "newest" | "price_asc" | "price_desc" | "stock_asc" = "newest",
@@ -37,14 +39,27 @@ export function useOwnListings(
 }
 export function useHomeListings() {
   const session = useAppStore((state) => state.session);
+  const guestVillage = useAppStore((state) => state.guestVillage);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
   return useQuery({
-    queryKey: ["home-listings", session?.user.id, session?.user.village?.id],
-    enabled: !!session?.user.village,
+    queryKey: ["home-listings", session?.user.id ?? "guest", sourceId],
+    enabled: session ? !!session.user.village : !!guestVillage,
     refetchOnMount: "always",
     queryFn: ({ signal }) =>
-      authenticatedApi("/listings?limit=5", mobileListingPageSchema, {
-        signal,
-      }),
+      session
+        ? authenticatedApi(
+            `/listings?limit=5&sourceVillageId=${sourceId}`,
+            mobileListingPageSchema,
+            {
+              signal,
+            },
+          )
+        : api(
+            `/listings?limit=5&sourceVillageId=${sourceId}`,
+            mobileListingPageSchema,
+            { signal },
+          ),
     retry,
   });
 }
@@ -54,16 +69,19 @@ export function useMarketplaceListings(
   villageId?: string,
 ) {
   const session = useAppStore((state) => state.session);
+  const guestVillage = useAppStore((state) => state.guestVillage);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
   return useInfiniteQuery({
     queryKey: [
       "marketplace-listings",
-      session?.user.id,
-      session?.user.village?.id,
+      session?.user.id ?? "guest",
+      sourceId,
       search,
       category,
       villageId,
     ],
-    enabled: !!session?.user.village,
+    enabled: session ? !!session.user.village : !!guestVillage,
     refetchOnMount: "always",
     initialPageParam: 1,
     queryFn: ({ pageParam, signal }) => {
@@ -74,9 +92,12 @@ export function useMarketplaceListings(
       });
       if (category !== "all") query.set("productGroup", category);
       if (villageId) query.set("villageId", villageId);
-      return authenticatedApi(`/listings?${query}`, mobileListingPageSchema, {
-        signal,
-      });
+      if (sourceId) query.set("sourceVillageId", sourceId);
+      return (session ? authenticatedApi : api)(
+        `/listings?${query}`,
+        mobileListingPageSchema,
+        { signal },
+      );
     },
     getNextPageParam: (last) =>
       last.page * last.limit < last.total ? last.page + 1 : undefined,
@@ -85,22 +106,27 @@ export function useMarketplaceListings(
 }
 export function useListing(id: unknown) {
   const session = useAppStore((state) => state.session);
+  const guestVillage = useAppStore((state) => state.guestVillage);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
   const parsed = listingIdSchema.safeParse(id);
   return useQuery({
     queryKey: [
       "listing",
-      session?.user.id,
-      session?.user.village?.id,
+      session?.user.id ?? "guest",
+      sourceId,
       typeof id === "string" ? id : null,
     ],
-    enabled: parsed.success && !!session?.user.village,
+    enabled:
+      parsed.success && (session ? !!session.user.village : !!guestVillage),
     refetchOnMount: "always",
-    queryFn: ({ signal }) =>
-      authenticatedApi(
-        `/listings/${parsed.success ? parsed.data : ""}`,
-        mobileListingSchema,
-        { signal },
-      ),
+    queryFn: ({ signal }) => {
+      const listingId = parsed.success ? parsed.data : "";
+      const path = `/listings/${listingId}?sourceVillageId=${sourceId}`;
+      return (session ? authenticatedApi : api)(path, mobileListingSchema, {
+        signal,
+      });
+    },
     retry,
   });
 }

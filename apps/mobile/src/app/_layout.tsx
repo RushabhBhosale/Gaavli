@@ -7,6 +7,7 @@ import { AppProviders } from "../providers";
 import { useAppStore } from "../store";
 import { preferenceStorage } from "../storage/sqlite";
 import { restorePreferences } from "../storage/preferences";
+import { restoreBrowsingVillage } from "../storage/browsingVillage";
 import { messages } from "../i18n";
 import { Screen, Brand, Button, ErrorMessage } from "../components/ui";
 import { theme } from "../theme";
@@ -20,10 +21,14 @@ function Startup() {
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     let active = true;
-    void restorePreferences(preferenceStorage)
-      .then(async (preferences) => {
+    void Promise.all([
+      restorePreferences(preferenceStorage),
+      restoreBrowsingVillage(preferenceStorage),
+    ])
+      .then(async ([preferences, browsingVillage]) => {
         await restoreSession();
         if (active) {
+          useAppStore.getState().setBrowsingVillage(browsingVillage);
           useAppStore
             .getState()
             .setAuthMode(preferences.confirmed ? "login" : "register");

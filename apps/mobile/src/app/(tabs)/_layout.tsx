@@ -9,14 +9,14 @@ import { coordinatorMessages } from "../../coordinator/i18n";
 import { hasCoordinatorRole } from "../../data/accountAccess";
 
 export default function BuyerTabs() {
-  const { session, language } = useAppStore();
+  const { session, language, guestVillage } = useAppStore();
   const t = messages(language);
   const coordinator = hasCoordinatorRole(session?.user);
   const c = coordinatorMessages(language);
   const { fontScale } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-  if (!session) return <Redirect href="/register" />;
-  if (!session.user.village) return <Redirect href="/village" />;
+  if (session && !session.user.village) return <Redirect href="/village" />;
+  if (!session && !guestVillage) return <Redirect href="/language" />;
   return (
     <Tabs
       screenOptions={{
@@ -64,7 +64,7 @@ export default function BuyerTabs() {
       <Tabs.Screen
         name="marketplace"
         options={{
-          href: coordinator || session.user.isSeller ? null : undefined,
+          href: coordinator || session?.user.isSeller ? null : undefined,
           title: t.marketplace,
           tabBarLabel: ({ color }) => (
             <Text
@@ -91,7 +91,7 @@ export default function BuyerTabs() {
       <Tabs.Screen
         name="my-listings"
         options={{
-          href: !coordinator && session.user.isSeller ? undefined : null,
+          href: !coordinator && session?.user.isSeller ? undefined : null,
           title: t.myListings,
           tabBarLabel: ({ color }) => (
             <Text
@@ -145,6 +145,7 @@ export default function BuyerTabs() {
       <Tabs.Screen
         name="activity"
         options={{
+          href: session ? undefined : null,
           title: coordinator ? c.activity : t.myActivity,
           tabBarLabel: ({ color }) => (
             <Text

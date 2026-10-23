@@ -5,8 +5,7 @@ import type { MobileSession } from "@gaavli/types";
 import {
   mobileSessionSchema,
   otpChallengeSchema,
-  registrationSchema,
-  loginSchema,
+  mobileUserSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
@@ -21,12 +20,21 @@ import {
 import { api } from "../api";
 import { errorMessage } from "../errors";
 import { ApiError } from "../api/client";
-import { saveSession } from "../session";
+import { saveSession, authenticatedApi } from "../session";
+import { postAuthHref, saveGuestVillage } from "../storage/preferences";
+import { preferenceStorage } from "../storage/sqlite";
+import { parseOtpRequest } from "../data/otpRequest";
 
 export default function OtpScreen() {
   const router = useRouter();
-  const { language, session, challenge, draft, offline, authMode } =
-    useAppStore();
+  const {
+    language,
+    session,
+    challenge,
+    draft,
+    offline,
+    contactReturnListingId,
+  } = useAppStore();
   const t = messages(language);
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
@@ -40,8 +48,12 @@ export default function OtpScreen() {
     const timer = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
-  if (session)
-    return <Redirect href={session.user.village ? "/home" : "/village"} />;
+  // Publishing the verified session must not navigate before the guest village
+  // has been confirmed and the final product return destination is resolved.
+  if (session && (busy !== "verify" || !challenge))
+    return (
+      <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
+    );
   if (!challenge) return <Redirect href="/register" />;
   const seconds = Math.max(
     0,
@@ -68,10 +80,28 @@ export default function OtpScreen() {
       );
       setHasPendingSession(true);
       await saveSession(pendingSession.current);
-      const village = pendingSession.current.user.village;
+      let user = pendingSession.current.user;
+      const guestVillage = useAppStore.getState().guestVillage;
+      if (!user.village && guestVillage && user.firstName && user.lastName) {
+        try {
+          user = await authenticatedApi("/users/me", mobileUserSchema, {
+            method: "PATCH",
+            body: JSON.stringify({ villageId: guestVillage.id }),
+          });
+          const current = useAppStore.getState().session;
+          if (current?.user.id === user.id)
+            await saveSession({ ...current, user });
+          useAppStore
+            .getState()
+            .restore(await saveGuestVillage(preferenceStorage, guestVillage));
+        } catch {
+          /* Village selection remains available when the saved village cannot be confirmed. */
+        }
+      }
+      const listingId = useAppStore.getState().contactReturnListingId;
       pendingSession.current = null;
       useAppStore.getState().clearRegistration();
-      router.replace(village ? "/home" : "/village");
+      router.replace(postAuthHref(user, listingId));
     } catch (failure) {
       setNeedsRegistration(
         failure instanceof ApiError && failure.code === "REGISTRATION_REQUIRED",
@@ -92,13 +122,18 @@ export default function OtpScreen() {
     setBusy("resend");
     setError("");
     try {
-      const input =
-        authMode === "register"
-          ? registrationSchema.parse({ ...draft, language })
-          : loginSchema.parse({ mobile: draft.mobile, language });
+      const input = parseOtpRequest(
+        useAppStore.getState().authMode,
+        draft,
+        language,
+      );
+      if (!input.success) {
+        setError(t.genericError);
+        return;
+      }
       const next = await api("/auth/send-otp", otpChallengeSchema, {
         method: "POST",
-        body: JSON.stringify(input),
+        body: JSON.stringify(input.data),
       });
       useAppStore.getState().setChallenge(next);
       setCode("");

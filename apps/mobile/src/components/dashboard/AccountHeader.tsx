@@ -1,4 +1,5 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import type { ReactNode } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import type { MobileLanguage } from "@gaavli/types";
@@ -11,27 +12,48 @@ import { d } from "./primitives";
 export function AccountHeader({
   language,
   onVillagePress,
+  browsingVillageControl,
   disabled = false,
   edgeInset = 20,
   topInset = 14,
 }: {
   language: MobileLanguage;
   onVillagePress?: () => void;
+  browsingVillageControl?: ReactNode;
   disabled?: boolean;
   edgeInset?: number;
   topInset?: number;
 }) {
   const session = useAppStore((state) => state.session);
+  const guestVillage = useAppStore((state) => state.guestVillage);
   const router = useRouter();
-  if (!session) return null;
+  const village = session?.user.village ?? guestVillage;
+  if (!session && !village) return null;
   const t = messages(language);
-  const identity = accountHeaderIdentity(session.user, language);
+  const identity = session
+    ? accountHeaderIdentity(session.user, language)
+    : {
+        name: t.guest,
+        initials: "",
+        role: "guest" as const,
+        location: village
+          ? [
+              language === "mr" ? village.nameMr : village.name,
+              village.taluka,
+              village.district,
+            ]
+              .filter(Boolean)
+              .join(", ")
+          : "",
+      };
   const role =
     identity.role === "coordinator"
       ? t.villageCoordinator
       : identity.role === "seller"
         ? t.seller
-        : t.buyer;
+        : identity.role === "guest"
+          ? t.guestBrowsing
+          : t.buyer;
   return (
     <View
       style={[s.header, { marginHorizontal: -edgeInset, marginTop: -topInset }]}
@@ -58,10 +80,10 @@ export function AccountHeader({
         </View>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={t.notificationSettings}
+          accessibilityLabel={session ? t.notificationSettings : t.loginTitle}
           accessibilityState={{ disabled }}
           disabled={disabled}
-          onPress={() => router.push("/notifications")}
+          onPress={() => router.push(session ? "/notifications" : "/register")}
           style={({ pressed }) => [
             s.control,
             pressed && d.pressed,
@@ -70,7 +92,7 @@ export function AccountHeader({
         >
           <Ionicons
             accessible={false}
-            name="notifications-outline"
+            name={session ? "notifications-outline" : "log-in-outline"}
             size={24}
             color={theme.colors.heading}
           />
@@ -101,29 +123,33 @@ export function AccountHeader({
           </View>
         </Pressable>
       </View>
-      {!!identity.location && (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={`${identity.location}. ${t.changeVillage}`}
-          hitSlop={{ top: 8, bottom: 8 }}
-          accessibilityState={{ disabled }}
-          disabled={disabled}
-          onPress={onVillagePress || (() => router.push("/village"))}
-          style={({ pressed }) => [
-            s.location,
-            pressed && d.pressed,
-            disabled && s.disabled,
-          ]}
-        >
-          <Ionicons
-            accessible={false}
-            name="location"
-            size={18}
-            color={theme.colors.primaryDark}
-          />
-          <Text style={s.locationText}>{identity.location}</Text>
-        </Pressable>
-      )}
+      {browsingVillageControl ||
+        (!!identity.location && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`${identity.location}. ${t.changeVillage}`}
+            hitSlop={{ top: 8, bottom: 8 }}
+            accessibilityState={{ disabled }}
+            disabled={disabled}
+            onPress={
+              onVillagePress ||
+              (() => router.push(session ? "/village" : "/language"))
+            }
+            style={({ pressed }) => [
+              s.location,
+              pressed && d.pressed,
+              disabled && s.disabled,
+            ]}
+          >
+            <Ionicons
+              accessible={false}
+              name="location"
+              size={18}
+              color={theme.colors.primaryDark}
+            />
+            <Text style={s.locationText}>{identity.location}</Text>
+          </Pressable>
+        ))}
     </View>
   );
 }

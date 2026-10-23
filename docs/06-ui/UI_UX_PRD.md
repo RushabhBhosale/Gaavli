@@ -1,3 +1,29 @@
+> Browsing village - 2026-10-23 (user approved): Home and Marketplace headers
+> show one synchronized browsing village with location/dropdown icons. Search
+> active villages in the existing picker. Preserve shared theme, typography,
+> loading/empty/error/offline states and persisted selection. Profile's
+> registered-village flow remains separate. See `../03-api/BROWSING_VILLAGE.md`.
+
+> My Profile - 2026-10-23 (user approved): Settings → Update profile uses the
+> reference's existing form/card arrangement with the app's shared inputs,
+> buttons, theme, spacing and typography. Replace Full Name with read-only
+> First Name and Last Name; primary mobile remains read-only with a separate
+> OTP change dialog. Address, alternative mobile and occupation are editable.
+> Keep Save, photo update and village change. See `../03-api/MOBILE_PROFILE.md`.
+
+> Product Details seller actions - 2026-10-23 (user approved): registration
+> returns to the same product. The existing Seller Information card reveals
+> authorized contact automatically and places equal-width outlined Call and
+> Notify buttons side by side, with phone/bell icons, a thin border, transparent
+> background and existing typography/radii. Other product sections stay intact.
+
+> Village picker revision - 2026-10-23 (user approved): Get started and the
+> signed-in village screen use a searchable dropdown. Show names in the selected
+> language; show taluka/district only for duplicate names in the loaded results.
+> Search supports Marathi/English through the existing API, with 20 results per
+> page and automatic loading on scroll. The closed field shows only the name.
+> This supersedes the earlier no-search village-picker wording.
+
 > Activity/Settings correction - 2026-10-21: these tab pages use only the
 > shared village scenery as background behind a Product page style back action,
 > title and short subtitle. Personal greeting/name/role/location, bell and

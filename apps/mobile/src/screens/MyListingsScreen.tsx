@@ -16,10 +16,10 @@ import { Redirect, useRouter } from "expo-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { OwnedListing } from "@gaavli/types";
-import { deletedListingSchema } from "@gaavli/validation";
+import { deletedListingSchema, ownedListingSchema } from "@gaavli/validation";
 import { useAppStore } from "../store";
 import { useOwnListings } from "../listings";
-import { formatMessage, messages } from "../i18n";
+import { messages } from "../i18n";
 import { theme } from "../theme";
 import {
   BackButton,
@@ -50,7 +50,7 @@ export default function MyListingsScreen() {
   const { session, language, offline } = useAppStore();
   const t = messages(language);
   const [tab, setTab] = useState<
-    "all" | "active" | "sold_out" | "drafts" | "low_stock"
+    "all" | "active" | "sold_out" | "drafts" | "expired"
   >("all");
   const [searchText, setSearchText] = useState("");
   const [search, setSearch] = useState("");
@@ -61,6 +61,7 @@ export default function MyListingsScreen() {
   const [menu, setMenu] = useState<OwnedListing | null>(null);
   const [target, setTarget] = useState<PendingListingDelete | null>(null);
   const [busy, setBusy] = useState(false);
+  const [sellingId, setSellingId] = useState<string | null>(null);
   const submitting = useRef(false);
   const [deletedIds, setDeletedIds] = useState<string[]>([]);
   const [failure, setFailure] = useState<string | null>(null);
@@ -97,7 +98,7 @@ export default function MyListingsScreen() {
   const items = allItems.filter(
     (item) =>
       !deletedIds.includes(item.id) &&
-      (!["active", "low_stock"].includes(tab) ||
+      (tab !== "active" ||
         item.expiresAt === null ||
         Date.parse(item.expiresAt) > now),
   );
@@ -213,6 +214,38 @@ export default function MyListingsScreen() {
       setBusy(false);
     }
   }
+  async function markSold(item: OwnedListing) {
+    if (submitting.current || offline || !accountId) return;
+    submitting.current = true;
+    setSellingId(item.id);
+    setFailure(null);
+    try {
+      if (useAppStore.getState().session?.user.id !== accountId)
+        throw new ApiError("AUTH_REQUIRED", 401);
+      await authenticatedApi(
+        `/listings/${item.id}/sold-out`,
+        ownedListingSchema,
+        {
+          method: "POST",
+          headers: { "Idempotency-Key": listingOperationId() },
+          body: JSON.stringify({ version: item.version }),
+        },
+      );
+      void client.invalidateQueries({ queryKey: ["own-listings"] });
+      void client.invalidateQueries({ queryKey: ["home-listings"] });
+      void client.invalidateQueries({ queryKey: ["marketplace-listings"] });
+      void client.invalidateQueries({ queryKey: ["listing"] });
+      showToast(t.markedSoldSuccess, "success");
+    } catch (error) {
+      if (useAppStore.getState().session?.user.id !== accountId) return;
+      const message = errorMessage(error, language);
+      setFailure(message);
+      showToast(message, "error");
+    } finally {
+      submitting.current = false;
+      setSellingId(null);
+    }
+  }
   const errors = (
     <>
       {failure && <ErrorMessage message={failure} />}
@@ -259,8 +292,10 @@ export default function MyListingsScreen() {
               ? t.listingsLoading
               : t.ownListingsFailed}
         </Text>
-      ) : search || tab === "low_stock" ? (
+      ) : search ? (
         <Text style={s.muted}>{t.noListingMatches}</Text>
+      ) : tab === "expired" ? (
+        <Text style={s.muted}>{t.noExpiredProducts}</Text>
       ) : tab === "sold_out" ? (
         <Text style={s.muted}>{t.noSoldProducts}</Text>
       ) : (
@@ -365,7 +400,7 @@ export default function MyListingsScreen() {
               ["all", t.allProducts, summary?.total],
               ["active", t.activeProducts, summary?.active],
               ["drafts", t.savedProducts, drafts.data?.length],
-              ["low_stock", t.lowStockProducts, summary?.lowStock],
+              ["expired", t.expiredProducts, summary?.expired],
               ["sold_out", t.soldProducts, summary?.soldOut],
             ] as const
           ).map(([value, label, total]) => (
@@ -437,52 +472,130 @@ export default function MyListingsScreen() {
           contentContainerStyle={s.content}
           ListHeaderComponent={errors}
           ListEmptyComponent={empty}
-          renderItem={({ item }) => (
-            <View style={s.card}>
-              <ListingImage
-                listing={{ photoUrl: item.photoUrl, image: null }}
-                style={s.image}
-              />
-              <View style={s.info}>
-                <Text style={s.productTitle}>
-                  {language === "mr"
-                    ? item.productNameMr || item.productName
-                    : item.productName}
-                </Text>
-                <Text style={s.rate}>
-                  {item.price === null
-                    ? t.rateNotProvided
-                    : `₹${new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(item.price)} / ${listingUnit(item.unit, language)}`}
-                </Text>
-                <Text style={s.quantity}>
-                  {item.quantity === null
-                    ? t.quantityNotProvided
-                    : formatMessage(t.quantityAvailable, {
-                        quantity: new Intl.NumberFormat(
-                          language === "mr" ? "mr-IN" : "en-IN",
-                        ).format(item.quantity),
-                        unit: listingUnit(item.unit, language),
-                      })}
-                </Text>
-              </View>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={`${t.listingActions}: ${language === "mr" ? item.productNameMr || item.productName : item.productName}`}
-                disabled={busy}
-                onPress={() => {
-                  setFailure(null);
-                  setMenu(item);
-                }}
-                style={s.more}
-              >
-                <Ionicons
-                  name="ellipsis-vertical"
-                  size={21}
-                  color={theme.colors.muted}
+          renderItem={({ item }) => {
+            const expired =
+              item.status === "expired" ||
+              (item.status === "active" &&
+                !!item.expiresAt &&
+                Date.parse(item.expiresAt) <= now);
+            const statusLabel = expired
+              ? t.expiredProducts
+              : item.status === "sold_out"
+                ? t.soldProducts
+                : item.status === "active"
+                  ? t.activeProducts
+                  : null;
+            const canMarkSold = item.status === "active" && !expired;
+            const name =
+              language === "mr"
+                ? item.productNameMr || item.productName
+                : item.productName;
+            return (
+              <View style={s.card}>
+                <ListingImage
+                  listing={{ photoUrl: item.photoUrl, image: null }}
+                  style={s.image}
                 />
-              </Pressable>
-            </View>
-          )}
+                <View style={s.info}>
+                  <Text style={s.productTitle} numberOfLines={2}>
+                    {name}
+                  </Text>
+                  <Text style={s.rate} numberOfLines={1}>
+                    {item.price === null
+                      ? t.rateNotProvided
+                      : `₹${new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(item.price)} / ${listingUnit(item.unit, language)}`}
+                  </Text>
+                </View>
+                <View style={s.actions}>
+                  <View style={s.actionRow}>
+                    {statusLabel && (
+                      <View
+                        style={[
+                          s.statusPill,
+                          expired
+                            ? s.statusExpired
+                            : item.status === "sold_out"
+                              ? s.statusSold
+                              : s.statusActive,
+                        ]}
+                      >
+                        <View
+                          style={[
+                            s.statusDot,
+                            expired
+                              ? s.dotExpired
+                              : item.status === "sold_out"
+                                ? s.dotSold
+                                : s.dotActive,
+                          ]}
+                        />
+                        <Text
+                          numberOfLines={1}
+                          style={[
+                            s.statusText,
+                            expired
+                              ? s.statusTextExpired
+                              : item.status === "sold_out"
+                                ? s.statusTextSold
+                                : s.statusTextActive,
+                          ]}
+                        >
+                          {statusLabel}
+                        </Text>
+                      </View>
+                    )}
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel={`${t.listingActions}: ${name}`}
+                      disabled={busy || sellingId === item.id}
+                      onPress={() => {
+                        setFailure(null);
+                        setMenu(item);
+                      }}
+                      style={s.more}
+                    >
+                      <Ionicons
+                        name="ellipsis-vertical"
+                        size={21}
+                        color={theme.colors.muted}
+                      />
+                    </Pressable>
+                  </View>
+                  {canMarkSold && (
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityState={{
+                        disabled: offline || busy || !!sellingId,
+                        busy: sellingId === item.id,
+                      }}
+                      disabled={offline || busy || !!sellingId}
+                      onPress={() =>
+                        Alert.alert(t.markAsSold, t.markAsSoldQuestion, [
+                          { text: t.cancel, style: "cancel" },
+                          {
+                            text: t.markAsSold,
+                            onPress: () => void markSold(item),
+                          },
+                        ])
+                      }
+                      style={({ pressed }) => [
+                        s.soldButton,
+                        (offline || busy || !!sellingId) && s.soldDisabled,
+                        pressed && s.soldPressed,
+                      ]}
+                    >
+                      <Ionicons
+                        name="cart-outline"
+                        size={16}
+                        color={theme.colors.onPrimary}
+                      />
+                      <Text style={s.soldText} numberOfLines={1}>{t.markAsSold}</Text>
+                    </Pressable>
+                  )}
+                </View>
+              </View>
+            );
+          }}
           ListFooterComponent={
             query.hasNextPage ? (
               <Button
@@ -785,23 +898,68 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.surface,
   },
   image: {
-    width: 58,
-    height: 58,
+    width: 64,
+    height: 64,
     borderRadius: theme.radii.control,
     backgroundColor: theme.colors.tint,
   },
-  info: { flex: 1, gap: 4 },
+  info: { flex: 1, minWidth: 0, gap: 4 },
   productTitle: {
     fontSize: 16,
+    lineHeight: 22,
     fontWeight: "700",
     color: theme.colors.heading,
   },
   rate: { color: theme.colors.heading, fontSize: 16, fontWeight: "700" },
-  quantity: { color: theme.colors.muted, fontSize: 13, lineHeight: 19 },
+  actions: { alignItems: "flex-end", gap: 8, maxWidth: "46%" },
+  actionRow: { flexDirection: "row", alignItems: "center", gap: 2 },
+  statusPill: {
+    flexShrink: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: theme.radii.pill,
+  },
+  statusActive: { backgroundColor: theme.colors.tint },
+  statusExpired: { backgroundColor: theme.colors.warningBackground },
+  statusSold: { backgroundColor: theme.colors.accentBackground },
+  statusDot: { width: 8, height: 8, borderRadius: 4 },
+  dotActive: { backgroundColor: theme.colors.primary },
+  dotExpired: { backgroundColor: theme.colors.warning },
+  dotSold: { backgroundColor: theme.colors.accent },
+  statusText: {
+    flexShrink: 1,
+    fontSize: 12,
+    lineHeight: 16,
+    fontWeight: "700",
+  },
+  statusTextActive: { color: theme.colors.heading },
+  statusTextExpired: { color: theme.colors.warning },
+  statusTextSold: { color: theme.colors.heading },
+  soldButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    minHeight: 36,
+    paddingHorizontal: 10,
+    borderRadius: theme.radii.control,
+    backgroundColor: theme.colors.primary,
+  },
+  soldDisabled: { opacity: theme.interaction.disabledOpacity },
+  soldPressed: { opacity: theme.interaction.pressedOpacity },
+  soldText: {
+    flexShrink: 1,
+    color: theme.colors.onPrimary,
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: "700",
+  },
   more: {
-    minWidth: theme.layout.touchTarget,
-    minHeight: theme.layout.touchTarget,
-    alignSelf: "flex-start",
+    minWidth: 32,
+    minHeight: 32,
     alignItems: "center",
     justifyContent: "center",
   },

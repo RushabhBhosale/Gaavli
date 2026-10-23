@@ -13,6 +13,6 @@ export async function PATCH(request: Request) {
   return mobileEndpoint(request, async () => {
     const user = await requireMobile(request);
     const input = selectVillageSchema.parse(await jsonBody(request));
-    return ok(await saveMobileVillage(String(user._id), input.villageId));
+    return ok(await saveMobileVillage(String(user._id), input));
   });
 }

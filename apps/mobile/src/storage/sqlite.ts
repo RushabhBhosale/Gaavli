@@ -1,5 +1,6 @@
 import * as SQLite from "expo-sqlite";
 import type { PreferenceStorage } from "./preferences";
+import type { BrowsingVillageStorage } from "./browsingVillage";
 import { orderedDraftStorage } from "./orderedDrafts";
 
 let connection: Promise<SQLite.SQLiteDatabase> | undefined;
@@ -32,26 +33,32 @@ function database() {
   });
   return connection;
 }
-export const preferenceStorage: PreferenceStorage = {
-  async readLanguage() {
-    const db = await database();
-    return (
-      (
-        await db.getFirstAsync<{ value: string }>(
-          "SELECT value FROM settings WHERE key = ?",
-          "language",
-        )
-      )?.value ?? null
-    );
-  },
-  async writeLanguage(language) {
-    const db = await database();
-    await db.runAsync(
-      "INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
-      "language",
-      language,
-    );
-  },
+async function readSetting(key: string) {
+  const db = await database();
+  return (
+    (
+      await db.getFirstAsync<{ value: string }>(
+        "SELECT value FROM settings WHERE key = ?",
+        key,
+      )
+    )?.value ?? null
+  );
+}
+async function writeSetting(key: string, value: string) {
+  const db = await database();
+  await db.runAsync(
+    "INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+    key,
+    value,
+  );
+}
+export const preferenceStorage: PreferenceStorage & BrowsingVillageStorage = {
+  readLanguage: () => readSetting("language"),
+  writeLanguage: (language) => writeSetting("language", language),
+  readGuestVillage: () => readSetting("guest-village"),
+  writeGuestVillage: (value) => writeSetting("guest-village", value),
+  readBrowsingVillage: () => readSetting("browsing-village"),
+  writeBrowsingVillage: (value) => writeSetting("browsing-village", value),
 };
 
 // Public product reference data only; no session, phone or account details.

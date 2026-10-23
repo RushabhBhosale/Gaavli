@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  Alert,
   Linking,
   Modal,
   ScrollView,
@@ -10,13 +11,13 @@ import {
   useWindowDimensions,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useAppStore } from "../store";
 import { formatMessage, messages } from "../i18n";
 import {
   listingIdSchema,
   sellerContactSchema,
-  sellerContactStateSchema,
+  sellerDetailsSchema,
   notifySellerResultSchema,
 } from "@gaavli/validation";
 import {
@@ -37,12 +38,12 @@ import { useListingClock } from "../hooks/useListingClock";
 import { ApiError } from "../api/client";
 import { listingName } from "../types/home";
 import { theme } from "../theme";
-import { coordinatorMessages } from "../coordinator/i18n";
 import { Button, ErrorMessage, Input, Screen } from "../components/ui";
 import { Badge, Panel, d } from "../components/dashboard/primitives";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { ListingImage } from "../components/dashboard/ListingImage";
 import {
+  listingPosted,
   listingRate,
   listingQuantity,
   listingUnit,
@@ -88,6 +89,16 @@ function ProductDetailsContent({ id }: { id: string }) {
       mounted.current = false;
     };
   }, []);
+  useFocusEffect(
+    useCallback(() => {
+      // The product can stay mounted behind registration while the session changes.
+      if (
+        session?.user.village &&
+        useAppStore.getState().contactReturnListingId === id
+      )
+        useAppStore.getState().setContactReturn(null);
+    }, [session?.user.village, id]),
+  );
   const t = messages(language);
   const query = useListing(id);
   const now = useListingClock();
@@ -112,7 +123,7 @@ function ProductDetailsContent({ id }: { id: string }) {
     queryKey: contactKey,
     enabled: !!session?.user.village && !!listing && !offline,
     queryFn: ({ signal }) =>
-      authenticatedApi(`/listings/${id}/interested`, sellerContactStateSchema, {
+      authenticatedApi(`/listings/${id}/contact`, sellerDetailsSchema, {
         signal,
       }),
     gcTime: 0,
@@ -121,9 +132,7 @@ function ProductDetailsContent({ id }: { id: string }) {
     refetchOnWindowFocus: false,
     retry: false,
   });
-  const savedContact = restoredContact.data?.interested
-    ? restoredContact.data
-    : null;
+  const savedContact = restoredContact.data;
   const denied =
     restoredContact.error instanceof ApiError &&
     [401, 403, 404, 422].includes(restoredContact.error.status ?? 0);
@@ -239,6 +248,16 @@ function ProductDetailsContent({ id }: { id: string }) {
       useAppStore.getState().session?.user.id === accountId &&
       useAppStore.getState().session?.user.village?.id === villageId;
     try {
+      // Notify is an explicit interest action; merely opening details is not.
+      await authenticatedApi(
+        `/listings/${id}/interested`,
+        sellerContactSchema,
+        {
+          method: "POST",
+          body: JSON.stringify({}),
+        },
+      );
+      if (!isCurrent()) return;
       const result = await sendSellerNotification({
         accountId,
         listingId: id,
@@ -266,6 +285,13 @@ function ProductDetailsContent({ id }: { id: string }) {
       void client.invalidateQueries({ queryKey: ["activity-requests"] });
     } catch (error) {
       if (isCurrent()) {
+        if (
+          error instanceof ApiError &&
+          [401, 403, 404, 422].includes(error.status ?? 0)
+        ) {
+          void client.resetQueries({ queryKey: contactKey, exact: true });
+          void query.refetch();
+        }
         if (
           error instanceof ApiError &&
           error.status &&
@@ -296,7 +322,7 @@ function ProductDetailsContent({ id }: { id: string }) {
     }
   }
   return (
-    <ProtectedPage>
+    <ProtectedPage allowGuest>
       <Screen>
         <View style={s.header}>
           <Pressable
@@ -360,47 +386,10 @@ function ProductDetailsContent({ id }: { id: string }) {
                       : quantityValue(listing.availableQuantity),
                   ],
                   [
-                    t.minimumPurchase,
-                    listing.minimumPurchaseQuantity == null
-                      ? t.detailsNotProvided
-                      : quantityValue(listing.minimumPurchaseQuantity),
-                  ],
-                  [
-                    t.availableUntilLabel,
-                    query.data?.expiresAt
-                      ? new Intl.DateTimeFormat(
-                          language === "mr" ? "mr-IN" : "en-IN",
-                          { day: "numeric", month: "short", year: "numeric" },
-                        ).format(new Date(query.data.expiresAt))
-                      : t.ongoingSupply,
-                  ],
-                  [
-                    t.approxDistanceLabel,
-                    listing.distanceKm == null
-                      ? t.detailsNotProvided
-                      : formatMessage(t.distanceAway, {
-                          distance: new Intl.NumberFormat(
-                            language === "mr" ? "mr-IN" : "en-IN",
-                            { maximumFractionDigits: 1 },
-                          ).format(listing.distanceKm),
-                        }),
-                  ],
-                  [
-                    t.pickupLabel,
-                    listing.fulfillmentOptions?.length
-                      ? listing.fulfillmentOptions
-                          .map((option) =>
-                            option === "farm_pickup"
-                              ? t.farmPickup
-                              : t.localTransport,
-                          )
-                          .join(" / ")
-                      : t.detailsNotProvided,
-                  ],
-                  [
                     t.villageLabel,
                     language === "mr" ? listing.villageMr : listing.village,
                   ],
+                  [t.postedLabel, listingPosted(listing, language)],
                 ].map(([label, value]) => (
                   <View key={label} style={[s.detailRow, stacked && s.stacked]}>
                     <Text style={[s.detailLabel, stacked && s.stackedColumn]}>
@@ -420,42 +409,51 @@ function ProductDetailsContent({ id }: { id: string }) {
                   {listing.description || t.detailsNotProvided}
                 </Text>
               </View>
-              {!listing.isDemo && (
-                <Button
-                  secondary
-                  onPress={() => router.push(`/report-product/${id}`)}
-                >
-                  {coordinatorMessages(language).reportProduct}
-                </Button>
-              )}
             </View>
             <Panel style={s.seller}>
-              <Text accessibilityRole="header" style={d.sectionTitle}>
-                {t.sellerDetails}
+              <Text accessibilityRole="header" style={s.descriptionTitle}>
+                {t.sellerInformation}
               </Text>
               <View style={s.sellerRow}>
                 <View style={s.avatar}>
                   <Ionicons
                     name="person-outline"
-                    size={24}
-                    color={theme.colors.icon}
+                    size={26}
+                    color={theme.colors.primary}
                   />
                 </View>
-                <Text style={seller ? s.sellerName : s.sellerMessage}>
-                  {seller ? seller.name : t.contactRevealHelp}
-                </Text>
+                <View style={s.sellerCopy}>
+                  <Text style={s.sellerName}>
+                    {seller ? seller.name : t.contactProtected}
+                  </Text>
+                  <View style={s.villageRow}>
+                    <Ionicons
+                      name="location-outline"
+                      size={15}
+                      color={theme.colors.muted}
+                    />
+                    <Text style={s.villageText}>
+                      {[
+                        language === "mr" ? listing.villageMr : listing.village,
+                        query.data?.village.district,
+                      ]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </Text>
+                  </View>
+                  {seller && (
+                    <View style={s.contactRow}>
+                      <Ionicons
+                        name="call-outline"
+                        size={15}
+                        color={theme.colors.primary}
+                      />
+                      <Text style={s.phone}>{seller.mobile}</Text>
+                    </View>
+                  )}
+                </View>
               </View>
-              <View style={s.contactRow}>
-                <Ionicons
-                  name={seller ? "call-outline" : "lock-closed-outline"}
-                  size={20}
-                  color={theme.colors.icon}
-                />
-                <Text style={seller ? s.phone : s.contactLabel}>
-                  {seller ? seller.mobile : t.contactProtected}
-                </Text>
-              </View>
-              {!seller && restoredContact.isPending && (
+              {!!session && !seller && restoredContact.isPending && (
                 <Text style={d.description}>
                   {offline ? t.offlineAction : t.listingsLoading}
                 </Text>
@@ -474,50 +472,72 @@ function ProductDetailsContent({ id }: { id: string }) {
                   </Button>
                 </>
               )}
-              {!seller && restoredContact.data?.interested === false && (
+              {contactError && <ErrorMessage message={contactError} />}
+              {seller && (
+                <View style={s.sellerActions}>
+                  <View style={s.sellerAction}>
+                    <Button
+                      outlined
+                      loading={contactBusy}
+                      disabled={offline || contactBusy || notifyBusy}
+                      icon={
+                        <Ionicons
+                          accessible={false}
+                          name="call-outline"
+                          size={18}
+                          color={theme.colors.heading}
+                        />
+                      }
+                      onPress={() => void revealContact(true)}
+                    >
+                      {t.call}
+                    </Button>
+                  </View>
+                  <View style={s.sellerAction}>
+                    <Button
+                      outlined
+                      loading={notifyBusy}
+                      disabled={offline || contactBusy || notifyBusy}
+                      icon={
+                        <Ionicons
+                          accessible={false}
+                          name="notifications-outline"
+                          size={18}
+                          color={theme.colors.heading}
+                        />
+                      }
+                      onPress={() => void openNotify()}
+                    >
+                      {t.notify}
+                    </Button>
+                  </View>
+                </View>
+              )}
+              {!session && (
                 <Button
-                  secondary
-                  disabled={offline || contactBusy}
-                  loading={contactBusy}
-                  onPress={() => void revealContact(false)}
+                  onPress={() => {
+                    Alert.alert(
+                      t.signInRequired,
+                      undefined,
+                      [
+                        { text: t.notNow, style: "cancel" },
+                        {
+                          text: t.loginTitle,
+                          onPress: () => {
+                            useAppStore.getState().setAuthMode("register");
+                            useAppStore.getState().setContactReturn(id);
+                            router.push("/register");
+                          },
+                        },
+                      ],
+                      { cancelable: true },
+                    );
+                  }}
                 >
-                  {t.interested}
+                  {t.contactSeller}
                 </Button>
               )}
-              {contactError && <ErrorMessage message={contactError} />}
             </Panel>
-            {seller && (
-              <View style={s.actions}>
-                <Button
-                  disabled={offline || contactBusy}
-                  loading={contactBusy}
-                  icon={
-                    <Ionicons
-                      name="call-outline"
-                      size={20}
-                      color={theme.colors.onPrimary}
-                    />
-                  }
-                  onPress={() => void revealContact(true)}
-                >
-                  {t.callSeller}
-                </Button>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityState={{ disabled: notifyBusy || contactBusy }}
-                  disabled={notifyBusy || contactBusy}
-                  onPress={() => void openNotify()}
-                  style={s.notify}
-                >
-                  <Ionicons
-                    name="notifications-outline"
-                    size={20}
-                    color={theme.colors.text}
-                  />
-                  <Text style={s.notifyText}>{t.notifySeller}</Text>
-                </Pressable>
-              </View>
-            )}
           </>
         ) : unavailable ? (
           <Text style={d.cardTitle}>{t.productUnavailable}</Text>
@@ -604,9 +624,6 @@ function ProductDetailsContent({ id }: { id: string }) {
                     {listing && (
                       <Text style={s.modalDescription}>
                         {listingQuantity(listing, language)}
-                        {listing.minimumPurchaseQuantity != null
-                          ? ` · ${t.minimumPurchase}: ${listing.minimumPurchaseQuantity} ${listingUnit(listing.unit, language)}`
-                          : ""}
                       </Text>
                     )}
                     {notifyPending && (
@@ -761,69 +778,44 @@ const s = StyleSheet.create({
     lineHeight: 26,
     fontWeight: "700",
   },
-  seller: { gap: 14 },
+  seller: { gap: 16 },
+  sellerActions: { flexDirection: "row", alignItems: "stretch", gap: 12 },
+  sellerAction: { flex: 1 },
   sellerRow: { flexDirection: "row", alignItems: "center", gap: 12 },
   avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: theme.radii.pill,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.colors.tint,
   },
-  sellerMessage: {
+  sellerCopy: { flex: 1, gap: 2 },
+  sellerName: {
+    color: theme.colors.heading,
+    fontSize: 18,
+    lineHeight: 24,
+    fontWeight: "700",
+  },
+  villageRow: { flexDirection: "row", alignItems: "center", gap: 4 },
+  villageText: {
     flex: 1,
     color: theme.colors.muted,
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 20,
-  },
-  sellerName: {
-    flex: 1,
-    color: theme.colors.heading,
-    fontSize: 20,
-    lineHeight: 28,
-    fontWeight: "700",
   },
   phone: {
     flex: 1,
     color: theme.colors.heading,
-    fontSize: 21,
-    lineHeight: 30,
-    fontWeight: "700",
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: "600",
   },
   contactRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    padding: 12,
-    borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.tint,
-  },
-  contactLabel: {
-    flex: 1,
-    color: theme.colors.muted,
-    fontSize: 15,
-    lineHeight: 22,
-    fontWeight: "600",
-  },
-  actions: { gap: 12, marginTop: 8 },
-  notify: {
-    minHeight: theme.layout.touchTarget,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-    padding: 16,
-    borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.accentBackground,
-  },
-  notifyText: {
-    flexShrink: 1,
-    color: theme.colors.text,
-    fontSize: 15,
-    lineHeight: 22,
-    fontWeight: "600",
-    textAlign: "center",
+    gap: 4,
+    marginTop: 4,
   },
   modalOverlay: {
     flex: 1,

@@ -1,11 +1,10 @@
 import { useState, useRef } from "react";
 import { Redirect, useRouter } from "expo-router";
 import { Text } from "react-native";
-import {
-  registrationSchema,
-  loginSchema,
-  otpChallengeSchema,
-} from "@gaavli/validation";
+import { otpChallengeSchema } from "@gaavli/validation";
+import { limitIndianMobileInput } from "../data/mobileInput";
+import { parseOtpRequest } from "../data/otpRequest";
+import { postAuthHref } from "../storage/preferences";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import {
@@ -22,8 +21,16 @@ import { errorMessage } from "../errors";
 
 export default function RegistrationScreen() {
   const router = useRouter();
-  const { language, confirmed, session, draft, offline, authMode } =
-    useAppStore();
+  const {
+    language,
+    confirmed,
+    session,
+    draft,
+    offline,
+    authMode,
+    contactReturnListingId,
+    guestVillage,
+  } = useAppStore();
   const registering = authMode === "register";
   const t = messages(language);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -31,7 +38,9 @@ export default function RegistrationScreen() {
   const [busy, setBusy] = useState(false);
   const submitting = useRef(false);
   if (session)
-    return <Redirect href={session.user.village ? "/home" : "/village"} />;
+    return (
+      <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
+    );
   if (!confirmed) return <Redirect href="/language" />;
   function change(key: keyof typeof draft, value: string) {
     useAppStore.getState().setDraft({ ...draft, [key]: value });
@@ -40,9 +49,11 @@ export default function RegistrationScreen() {
   }
   async function send() {
     if (submitting.current) return;
-    const parsed = registering
-      ? registrationSchema.safeParse({ ...draft, language })
-      : loginSchema.safeParse({ mobile: draft.mobile, language });
+    const parsed = parseOtpRequest(
+      registering ? "register" : "login",
+      draft,
+      language,
+    );
     if (!parsed.success) {
       setErrors(
         Object.fromEntries(
@@ -58,25 +69,25 @@ export default function RegistrationScreen() {
       );
       return;
     }
+    const body = parsed.data;
     submitting.current = true;
     setBusy(true);
     setFailure(null);
     try {
       const challenge = await api("/auth/send-otp", otpChallengeSchema, {
         method: "POST",
-        body: JSON.stringify(parsed.data),
+        body: JSON.stringify(body),
       });
       useAppStore.getState().setDraft({
         firstName:
-          "firstName" in parsed.data &&
-          typeof parsed.data.firstName === "string"
-            ? parsed.data.firstName
-            : "",
+          "firstName" in body && typeof body.firstName === "string"
+            ? body.firstName
+            : draft.firstName,
         lastName:
-          "lastName" in parsed.data && typeof parsed.data.lastName === "string"
-            ? parsed.data.lastName
-            : "",
-        mobile: parsed.data.mobile,
+          "lastName" in body && typeof body.lastName === "string"
+            ? body.lastName
+            : draft.lastName,
+        mobile: body.mobile,
       });
       useAppStore.getState().setChallenge(challenge);
       router.push("/otp");
@@ -92,14 +103,20 @@ export default function RegistrationScreen() {
       <BackButton
         label={t.back}
         disabled={busy}
-        onPress={() => router.replace("/language")}
+        onPress={() =>
+          router.replace(guestVillage ? "/home" : "/language")
+        }
       />
       <Brand compact />
       <Text style={styles.title}>
         {registering ? t.registrationTitle : t.loginTitle}
       </Text>
       <Text style={styles.body}>
-        {registering ? t.registrationDescription : t.loginDescription}
+        {contactReturnListingId
+          ? t.contactSellerReason
+          : registering
+            ? t.registrationDescription
+            : t.loginDescription}
       </Text>
       {registering && (
         <>
@@ -126,11 +143,11 @@ export default function RegistrationScreen() {
       <Input
         label={t.mobile}
         value={draft.mobile}
-        onChangeText={(value) => change("mobile", value)}
+        onChangeText={(value) => change("mobile", limitIndianMobileInput(value))}
         error={errors.mobile}
-        keyboardType="phone-pad"
+        keyboardType="number-pad"
         autoComplete="tel"
-        maxLength={24}
+        maxLength={10}
         editable={!busy}
       />
       {!!failure && <ErrorMessage message={errorMessage(failure, language)} />}

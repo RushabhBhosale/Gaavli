@@ -2,9 +2,19 @@ import type { ReactNode } from "react";
 import { Redirect } from "expo-router";
 import { useAppStore } from "../../store";
 
-export function ProtectedPage({ children }: { children: ReactNode }) {
+export function ProtectedPage({
+  children,
+  allowGuest = false,
+}: {
+  children: ReactNode;
+  allowGuest?: boolean;
+}) {
   const session = useAppStore((state) => state.session);
-  if (!session) return <Redirect href="/register" />;
-  if (!session.user.village) return <Redirect href="/village" />;
+  const guestVillage = useAppStore((state) => state.guestVillage);
+  if (session && !session.user.village) return <Redirect href="/village" />;
+  if (!session) {
+    if (allowGuest && guestVillage) return children;
+    return <Redirect href={allowGuest ? "/language" : "/register"} />;
+  }
   return children;
 }

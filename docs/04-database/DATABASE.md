@@ -1,3 +1,10 @@
+> My Profile - 2026-10-23: existing User gains optional address,
+> alternativeMobile, occupation and profilePhotoObjectKey; existing firstName,
+> lastName, name and mobile are reused. User.__v protects conditional profile
+> saves. MobilePhoneChange holds user-bound, hashed, expiring OTP challenges
+> with unique user/challengeId indexes and a deleteAt TTL index. No application
+> records are migrated or seeded. See `../03-api/MOBILE_PROFILE.md`.
+
 > Product Master revision - 2026-10-21: collection `productMasters` contains
 > unique code, nameMr/nameEn, productGroup, defaultUnit, status, sortOrder and
 > timestamps, with no category fields. Listing gains optional ObjectId productId

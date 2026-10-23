@@ -1,3 +1,25 @@
+> Browsing village - 2026-10-23: public listing reads may use a validated active
+> sourceVillageId independently of registered village. The local preference
+> stores public village metadata only. Contact, callback, notification, listing
+> writes and coordinator authorization retain their registered-account scope.
+> Browsing never changes profiles or assignments. See `03-api/BROWSING_VILLAGE.md`.
+
+> My Profile - 2026-10-23: own-profile reads are authenticated/no-store and
+> excluded from guest/session/listing DTOs. Save accepts only bounded address,
+> alternative mobile, occupation and a version; it cannot alter names or
+> primary mobile. Phone change uses a separate account-bound OTP challenge,
+> atomic one-time verification, throttles/expiry/attempt limits and revocation
+> of other sessions. Photos must reference existing owned uploads. Existing
+> development-only OTP/photo provider gates remain; no real SMS, public-launch
+> photo storage or marketing consent is introduced. See `03-api/MOBILE_PROFILE.md`.
+
+> Direct seller details revision - 2026-10-21 (user approved): Product Details
+> may show contact to an eligible signed-in mobile user without an Interested tap.
+> A dedicated rate-limited, no-store GET /listings/:id/contact rechecks the
+> existing account/village/listing protections and writes no interest or notice.
+> Feed DTOs remain contact-free; phones stay in scoped memory only. Call and
+> confirmed Notify remain explicit actions. See docs/03-api/BUYER_CONTACT.md.
+
 > Product Master revision - 2026-10-21: catalog reads require existing mobile
 > authentication and no-store responses. Strict query/import validation rejects
 > injected fields; bilingual search escapes regex input. Linked names/groups are
@@ -59,11 +81,11 @@ rate limits. Revealed contact stays only in scoped mobile memory, not SQLite or
 persisted response logs. No notification is sent by a contact reveal. See
 `docs/03-api/BUYER_CONTACT.md`.
 
-Returning sign-in — 2026-10-15: mobile-only OTP sends share registration's
-challenge response/throttling and do not disclose account existence. Only after
-valid OTP can unknown numbers receive REGISTRATION_REQUIRED; they cannot create
-nameless users. Existing account status/duplicate checks and transactional OTP
-consumption remain authoritative. See `docs/03-api/MOBILE_ONBOARDING.md`.
+Returning sign-in — 2026-10-21: mobile-only OTP sends do not disclose account
+existence. A verified unknown number creates an active buyer without names.
+First and last name are saved with the first village selection. Existing
+account status/duplicate checks and transactional OTP consumption remain
+authoritative. See `docs/03-api/MOBILE_ONBOARDING.md`.
 
 2026-10-15 phone uploads: authenticated bounded multipart API, image decode/pixel
 limits, metadata stripping and immutable owner-scoped development files are now

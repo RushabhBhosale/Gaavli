@@ -1,3 +1,191 @@
+# Add/Edit shelf-life dropdown labels — 2026-10-23
+
+- Shared Add/Edit Product category options now append the existing backend
+  defaultShelfLife in brackets, including the selected dropdown value. Marathi
+  localizes day/standing labels and digits; durations are not hardcoded.
+- Display-only change; listing expiry and category saving are unchanged.
+  Mobile TypeScript and focused ESLint passed. Phone visual check pending.
+
+# Independent Home/Marketplace browsing village — 2026-10-23
+
+- Both headers share a location/chevron control and existing searchable village
+  picker, loading active backend villages with bilingual search and pagination.
+  Selection is synchronized in the global store and persisted separately as
+  SQLite `browsing-village`, with validated startup recovery and ordered writes.
+  Failed saves retain the old choice. No registration/profile/assignment writes.
+- Home, Marketplace and product-detail queries use the browsing source; existing
+  Marketplace chip/voice scope follows it. Signed-in listing GETs now honor the
+  validated active source while preserving public DTOs, manual discovery links,
+  own-offer exclusion and registered-account contact/write authorization.
+- Verification: all 63 mobile tests, isolated listing/contact integration,
+  workspace TypeScript, focused mobile/web ESLint and Android export passed.
+  Tests cover restart/write-failure recovery, cross-tab ordering, registered
+  village and assignment isolation, unrelated-village reads and a failed contact
+  scope-override attempt. Device layout/keyboard/scroll/restart checks remain
+  pending. See `03-api/BROWSING_VILLAGE.md` for behavior and defaults.
+
+# My Profile with protected registered names — 2026-10-23
+
+- Replaced Settings' Update profile placeholder with `/my-profile`, following
+  the supplied form/card reference and reusing current theme/components.
+  Existing User.firstName/lastName are read-only; there is no Full Name input
+  or duplicated name storage. Unknown legacy name parts remain unknown.
+- Self-only profile GET/PATCH adds optional address, alternativeMobile and
+  occupation on User. Save strictly rejects registered-name, primary-phone,
+  role/ID and photo mutations, with optimistic version conflict handling.
+  Existing User.name remains the display source throughout account/seller
+  screens. No names, capabilities or application records were migrated.
+- The user explicitly approved the missing full-profile implementation,
+  including new mobile-change OTP and photo functionality. Mobile changes
+  use separate user/old-number-bound hashed challenges, throttles/attempts/TTL,
+  transactional one-time consumption, uniqueness rechecks, old login-challenge
+  invalidation and other-device session revocation. Registration is unchanged.
+- Photo updates reuse the existing picker/upload/provider with owned-reference
+  attachment, stable operation keys and durable account-scoped pending-photo
+  recovery. Existing village change is reused. Address/phone profile reads stay
+  in memory; there is no persistent offline profile-text draft/write queue.
+- Verification: workspace TypeScript, focused mobile/web ESLint, all 59 mobile
+  tests, isolated profile/OTP/photo integration and existing listing/contact
+  integration passed. Android JS export passed. Profile integration uses only
+  a fresh random DB and checked temporary photo directory, then cleans both.
+- Device layout, native camera/gallery, OTP interaction and photo restart
+  recovery remain pending. Existing OTP and upload/storage providers support
+  local development only; real SMS and production object-storage wiring remain
+  launch gates. See `03-api/MOBILE_PROFILE.md` for contracts and limitations.
+
+# Product registration return and seller actions — 2026-10-23
+
+- Seller-card styling follow-up: the phone sits directly beneath the village
+  in the seller text column; Call/Notify outlines use the existing light-green
+  theme color. Mobile TypeScript and focused ESLint passed; phone visual check
+  remains pending.
+- Product Details consumes the pending product destination only when focused
+  with a confirmed account village. OTP waits for guest-village confirmation
+  before redirecting, so intermediate session updates cannot lose the product
+  destination or navigate prematurely to village selection.
+- The existing Seller Information card automatically reads authorized contact
+  details and shows equal-width outlined Call/Notify buttons with phone/bell
+  icons. The shared Button gained an optional transparent outline variant.
+  Call reuses the existing interest/dialer flow; Notify retains the existing
+  quantity/consent confirmation and durable request behavior.
+- Mobile TypeScript, focused ESLint, diff whitespace and all 56 mobile tests
+  passed, including a regression for product-return preservation through
+  session publication/registration cleanup and priority over role home routes.
+  Full OTP return, card appearance, native dialer and notification interactions
+  remain pending verification on a phone. No backend or database changes.
+
+# Guest Contact seller sign-in popup — 2026-10-23
+
+- A guest tapping Contact seller on Product Details sees a native "You need
+  to sign in first" popup with Sign in and Not now, localized in Marathi and
+  English. Sign in opens Create your account and sets the existing product
+  return destination. Cancel/dismiss keeps the product open without starting
+  registration. Signed-in contact behavior remains unchanged.
+- Mobile TypeScript, focused ESLint and all 55 existing mobile tests passed.
+  Popup layout and button navigation still need verification in Expo Go.
+
+# Searchable village dropdown — 2026-10-23
+
+- Get started and signed-in village selection share a compact name-only picker.
+  Marathi/English search is debounced and sent to the existing village endpoint;
+  changing the search resets pagination and hides stale results while waiting.
+  The picker loads 20 results per page automatically as the user scrolls.
+- Taluka/district appear only for duplicate names among loaded results. The
+  selected field displays only the village name. Existing location suggestions,
+  manual fallback, offline/error/retry behavior and confirmed selection remain.
+- Mobile TypeScript, focused ESLint and all 55 existing mobile tests passed.
+  Native keyboard, scrolling and duplicate-name visual checks remain pending
+  on a phone. No dependencies, API contracts or database records were changed.
+
+# Guest API database startup fix — 2026-10-23
+
+- Guest requests now initialize the mobile database connection before querying
+  models. Previously optional authentication returned before connecting, so a
+  first guest village read could hit Mongoose's buffer timeout and return 500.
+- The focused isolated MongoDB startup integration passed: the first guest
+  village read connects without prior sign-in, returns active villages only,
+  and still rejects an invalid bearer token. Web TypeScript passed. The running
+  LAN village endpoint returned HTTP 200 with 20 villages (21 total).
+- The existing broader mobile integration remains outdated: it passes a string
+  to `saveMobileVillage`, which now takes an object, and stopped with
+  `VILLAGE_UNAVAILABLE`. That suite was not changed. Phone verification remains
+  pending; no configured application database records were changed.
+
+# Create account names before OTP — 2026-10-22
+
+- Create account collects first name, last name and mobile number, then OTP.
+  Sign-in still asks for the mobile number only. After a new account is
+  verified, the guest's saved village is confirmed and the app returns to the
+  product that opened registration, revealing the seller's phone. A signed-in
+  buyer already sees that phone. Back from Create account returns to Home.
+- A signed-in seller opens My Products, and a coordinator opens Manage.
+  Buyers still open Home. A product chosen before registration still opens
+  that product first.
+- Phone visual check remains pending. Mobile typecheck and 54 mobile tests passed.
+
+# Guest browsing — 2026-10-22
+
+- Get started now keeps the language and adds a village dropdown. A guest with
+  a saved village opens Home, Marketplace and Product Details without an
+  account. Seller, coordinator and activity tools stay signed-in only.
+- Contact seller opens the existing registration or sign-in screen. After the
+  account has a village, navigation returns to that product and the existing
+  contact read reveals the phone. Call and in-app notify stay available to the
+  signed-in buyer.
+- Public listing, village and product-master reads accept a missing bearer
+  token. Guest listing responses use the existing public DTO, so seller phone
+  numbers are not included. Contact and listing writes remain authenticated.
+- The guest village is stored in SQLite beside the language. Mobile typecheck
+  and 53 mobile tests passed. Web typecheck and the listing integration test
+  passed, including a guest read that contains no seller name or phone and a
+  rejected guest contact read. Phone visual checks remain pending.
+
+# Direct seller details on Product Details - 2026-10-21
+
+- Removed this screen's Report Product button and Interested-first contact step.
+  Seller name, phone and listing village now appear below Description, with Call
+  Seller and Notify Seller inside the same card. Existing Marathi/English copy,
+  quantity/consent confirmation, offline feedback and retry controls are reused.
+- Added authenticated no-store GET /listings/:id/contact, reusing transactional
+  eligibility checks and contact-read rate limiting. Viewing writes no interest
+  or notice. Call and confirmed Notify record interest explicitly; existing
+  interested endpoints remain compatible and contacts are never persisted locally.
+- Verification: isolated MongoDB listing/contact/notification integration passed,
+  including new direct-read auth/origin/visibility/self/invalid-phone/rate-limit
+  checks and no interest/notification side effects. All 20 mobile dashboard tests
+  passed. Workspace TypeScript, focused mobile/web ESLint and diff whitespace
+  checks passed. Native layout, dialer and notification-sheet checks remain
+  pending on a phone.
+
+# Product form fields — 2026-10-21
+
+- Add, edit, and product details no longer show minimum quantity, available
+  until, approximate distance, or pickup. New and edited listings still keep
+  the existing saved expiry, minimum, and pickup values. Phone visual check
+  remains pending.
+
+# Registration names on village selection — 2026-10-21
+
+- Account registration and sign-in ask for the mobile number only. After OTP, a
+  new account enters first and last name on the village screen; both are saved
+  with the confirmed village. Accounts that already have names only choose a
+  village. Phone visual check remains pending.
+
+# My products expiry filter — 2026-10-21
+
+- The My products status tabs replace Low stock with Expired. The tab loads
+  this seller's expired listings, including active listings whose expiry time
+  has passed, and shows the inventory expired count. Product cards follow the
+  existing theme: a status pill with a dot, and Mark as Sold for active stock
+  through the existing sold-out API. Phone visual check remains pending.
+
+# Marketplace product grid — 2026-10-21
+
+- Marketplace listings render as a two-column card grid. Each card shows the
+  photo, name, price, quantity and village, and the whole card opens product
+  details. Posting age is on the product details screen. Home cards no longer
+  show posting age. Phone visual check remains pending.
+
 # Product Master - 2026-10-21
 
 - Marketplace listing cards now show posting age in minutes, hours or days using

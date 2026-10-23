@@ -1,7 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { MobileSession } from "@gaavli/types";
-import { initialRoute } from "../src/storage/preferences";
+import { initialRoute, postAuthHref } from "../src/storage/preferences";
+import { limitIndianMobileInput } from "../src/data/mobileInput";
+import { parseOtpRequest } from "../src/data/otpRequest";
 import { persistSession, type SessionStorage } from "../src/storage/session";
 import { useAppStore } from "../src/store";
 import { errorMessage } from "../src/errors";
@@ -38,6 +40,77 @@ test("a restored verified session resumes village selection, then saved home", (
     "/home",
   );
   assert.equal(initialRoute(false, null), "/language");
+  const guestVillage = {
+    id: "village",
+    name: "Palaspe",
+    nameMr: "पळस्पे",
+    taluka: "Panvel",
+    district: "Raigad",
+    pinCode: null,
+  };
+  assert.equal(initialRoute(true, null, guestVillage), "/home");
+  assert.equal(postAuthHref(session.user, "a".repeat(24)), "/village");
+  assert.equal(
+    postAuthHref({ ...session.user, village: guestVillage }, "ab".repeat(12)),
+    `/product/${"ab".repeat(12)}`,
+  );
+  assert.equal(
+    postAuthHref({ ...session.user, village: guestVillage }, "not-a-listing"),
+    "/home",
+  );
+  assert.equal(
+    postAuthHref({ ...session.user, village: guestVillage, isSeller: true }),
+    "/my-listings",
+  );
+  assert.equal(
+    initialRoute(true, {
+      ...session.user,
+      village: guestVillage,
+      isCoordinator: true,
+    }),
+    "/manage",
+  );
+});
+test("registration preserves the selected product through session publication and cleanup", async () => {
+  const previous = useAppStore.getState();
+  const listingId = "ab".repeat(12);
+  const village = {
+    id: "village",
+    name: "Palaspe",
+    nameMr: "पळस्पे",
+    taluka: "Panvel",
+    district: "Raigad",
+    pinCode: null,
+  };
+  const storage: SessionStorage = {
+    read: async () => null,
+    write: async () => undefined,
+    clear: async () => undefined,
+  };
+  try {
+    useAppStore.setState({ session: null, guestVillage: village });
+    useAppStore.getState().setAuthMode("register");
+    useAppStore.getState().setContactReturn(listingId);
+    await persistSession(storage, session, useAppStore.getState().setSession);
+    assert.equal(useAppStore.getState().contactReturnListingId, listingId);
+    assert.equal(postAuthHref(session.user, listingId), "/village");
+
+    const confirmed = { ...session, user: { ...session.user, village } };
+    await persistSession(storage, confirmed, useAppStore.getState().setSession);
+    useAppStore.getState().clearRegistration();
+    const state = useAppStore.getState();
+    assert.equal(state.contactReturnListingId, listingId);
+    for (const role of [{}, { isSeller: true }, { isCoordinator: true }])
+      assert.equal(
+        postAuthHref(
+          { ...state.session!.user, ...role },
+          state.contactReturnListingId,
+        ),
+        `/product/${listingId}`,
+      );
+  } finally {
+    useAppStore.setState(previous);
+  }
 });
 test("session storage failure never commits authenticated navigation; saving can be retried", async () => {
   let saved: MobileSession | null = null;
@@ -126,6 +199,29 @@ test("logout-cleared onboarding returns to mobile-only sign-in and mode changes 
     messages("mr").registrationRequired,
   );
   useAppStore.getState().clearRegistration();
+});
+
+test("mobile entry keeps at most 10 digits", () => {
+  assert.equal(limitIndianMobileInput("98765"), "98765");
+  assert.equal(limitIndianMobileInput("98765432109"), "9876543210");
+  assert.equal(limitIndianMobileInput("+91 98765-43210"), "9876543210");
+  assert.equal(limitIndianMobileInput("91987654321099"), "9876543210");
+});
+test("create account sends both names and sign-in sends only the mobile number", () => {
+  const draft = { firstName: "Riya", lastName: "More", mobile: "9876543210" };
+  const created = parseOtpRequest("register", draft, "mr");
+  assert.equal(created.success, true);
+  if (!created.success) return;
+  assert.equal(JSON.stringify(created.data).includes("Riya"), true);
+  assert.equal(JSON.stringify(created.data).includes("More"), true);
+  const signedIn = parseOtpRequest("login", draft, "en");
+  assert.equal(signedIn.success, true);
+  if (!signedIn.success) return;
+  assert.equal(JSON.stringify(signedIn.data).includes("Riya"), false);
+  assert.equal(
+    parseOtpRequest("register", { ...draft, firstName: "" }, "mr").success,
+    false,
+  );
 });
 
 test("seller capability is securely persisted and restored without changing identity", async () => {

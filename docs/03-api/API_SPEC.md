@@ -1,3 +1,21 @@
+> Browsing village - 2026-10-23: listing feed/detail GETs honor the optional
+> sourceVillageId for guests and signed-in readers. Validate an active source;
+> retain registered-account contact/write/coordinator authorization. Omitting
+> it retains the registered-village default. See [BROWSING_VILLAGE.md](BROWSING_VILLAGE.md).
+
+> My Profile - 2026-10-23: authenticated self-only GET/PATCH
+> `/api/v1/users/me/profile`, POST `/users/me/profile/photo` and POST
+> `/users/me/mobile/{send-otp,verify-otp}` reuse existing bearer sessions and
+> no-store/origin protections. Save strictly excludes registered names and
+> primary mobile. See [MOBILE_PROFILE.md](MOBILE_PROFILE.md) for contracts,
+> optimistic conflicts, OTP protections and development provider limitations.
+
+> Direct seller details - 2026-10-21: authenticated GET
+> `/api/v1/listings/:id/contact` returns `{listingId,seller:{name,mobile}}`
+> without creating interest or notifications. It reuses current contact eligibility
+> and read rate limits, with no-store responses. Existing interested routes retain
+> their contracts. See [BUYER_CONTACT.md](BUYER_CONTACT.md).
+
 > Voice search - 2026-10-21: Marketplace uses native speech-to-text and the
 > existing listing search API. Exact active Product Master names expand to paired
 > Marathi/English names or productId; all existing visibility/pagination rules

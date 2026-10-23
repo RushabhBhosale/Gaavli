@@ -1,3 +1,10 @@
+> Browsing village - 2026-10-23: public village metadata persists separately in
+> SQLite settings. Serialize cross-tab writes and update global state only after
+> persistence; failed writes keep the last selection. Startup restores it before
+> loading feeds. Cached choices can be selected offline; new source queries do
+> not display old-source listings as fresh results. No profile/write queue or
+> registered-village mutation is added. See `03-api/BROWSING_VILLAGE.md`.
+
 > Product Master revision - 2026-10-21: validated active catalog reference data
 > is cached in the existing SQLite settings table, separate from personal drafts.
 > Offline/network failures fall back with explicit cached status. Selected ID and

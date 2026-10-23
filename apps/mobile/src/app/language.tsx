@@ -15,17 +15,28 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { MOBILE_LANGUAGES } from "@gaavli/constants";
+import type { MobileVillage } from "@gaavli/types";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
-import { confirmLanguage } from "../storage/preferences";
+import {
+  confirmLanguage,
+  postAuthHref,
+  saveGuestVillage,
+} from "../storage/preferences";
 import { preferenceStorage } from "../storage/sqlite";
 import { Button, ErrorMessage } from "../components/ui";
+import { VillageSelectField } from "../components/VillageSelectField";
 
 export default function LanguageScreen() {
   const router = useRouter();
   const language = useAppStore((state) => state.language);
   const session = useAppStore((state) => state.session);
+  const guestVillage = useAppStore((state) => state.guestVillage);
+  const contactReturnListingId = useAppStore(
+    (state) => state.contactReturnListingId,
+  );
   const t = messages(language);
+  const [selected, setSelected] = useState<MobileVillage | null>(guestVillage);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
   const submitting = useRef(false);
@@ -36,17 +47,25 @@ export default function LanguageScreen() {
     Math.min(340, (height - insets.top - insets.bottom) * 0.33),
   );
   if (session)
-    return <Redirect href={session.user.village ? "/home" : "/village"} />;
+    return (
+      <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
+    );
 
-  async function next() {
+  async function next(destination: "/home" | "/register") {
     if (submitting.current) return;
+    if (destination === "/home" && !selected) return;
     submitting.current = true;
     setBusy(true);
     setFailed(false);
     try {
-      const preferences = await confirmLanguage(preferenceStorage, language);
+      await confirmLanguage(preferenceStorage, language);
+      const preferences = selected
+        ? await saveGuestVillage(preferenceStorage, selected)
+        : await confirmLanguage(preferenceStorage, language);
       useAppStore.getState().restore(preferences);
-      router.replace("/register");
+      if (destination === "/register")
+        useAppStore.getState().setAuthMode("login");
+      router.replace(destination);
     } catch {
       setFailed(true);
     } finally {
@@ -113,9 +132,26 @@ export default function LanguageScreen() {
           <Text style={s.support}>{t.splashDescription}</Text>
         </View>
         <View style={s.action}>
+          <VillageSelectField
+            selected={selected}
+            disabled={busy}
+            onSelect={setSelected}
+          />
+          <Text style={s.villageHelp}>{t.villageRequired}</Text>
           {failed && <ErrorMessage message={t.storageError} />}
-          <Button loading={busy} onPress={() => void next()}>
+          <Button
+            loading={busy}
+            disabled={!selected}
+            onPress={() => void next("/home")}
+          >
             {t.getStarted}
+          </Button>
+          <Button
+            secondary
+            disabled={busy}
+            onPress={() => void next("/register")}
+          >
+            {t.switchToLogin}
           </Button>
         </View>
         <View style={[s.illustration, { height: illustrationHeight }]}>
@@ -213,6 +249,12 @@ const s = StyleSheet.create({
     lineHeight: 24,
     textAlign: "center",
     maxWidth: 350,
+  },
+  villageHelp: {
+    color: theme.colors.muted,
+    fontSize: 14,
+    lineHeight: 20,
+    textAlign: "center",
   },
   action: {
     paddingHorizontal: 28,

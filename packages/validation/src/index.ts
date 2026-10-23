@@ -1,4 +1,10 @@
 import { z } from "zod";
+export {
+  mobileProfileSchema,
+  updateMobileProfileSchema,
+  profilePhotoSchema,
+  mobileChangeSchema,
+} from "./profile";
 import { productGroupSchema } from "./product-master";
 export {
   productGroupSchema,
@@ -90,6 +96,10 @@ export const sellerContactStateSchema = z.union([
     })
     .strict(),
 ]);
+// Authorized detail-screen read; viewing a contact does not declare interest.
+export const sellerDetailsSchema = sellerContactSchema.omit({
+  interested: true,
+});
 export const notifySellerResultSchema = z
   .object({
     listingId: z.string().regex(/^[a-f0-9]{24}$/i),
@@ -192,8 +202,32 @@ export const villagePageSchema = z.object({
   limit: z.number(),
 });
 export const selectVillageSchema = z
-  .object({ villageId: z.string().regex(/^[a-f0-9]{24}$/i) })
-  .strict();
+  .object({
+    villageId: z.string().regex(/^[a-f0-9]{24}$/i),
+    firstName: personNameSchema.optional(),
+    lastName: personNameSchema.optional(),
+  })
+  .strict()
+  .superRefine((value, context) => {
+    const hasFirst = value.firstName !== undefined;
+    const hasLast = value.lastName !== undefined;
+    if (hasFirst !== hasLast)
+      context.addIssue({
+        code: "custom",
+        message: "NAME_REQUIRED",
+        path: [hasFirst ? "lastName" : "firstName"],
+      });
+    if (
+      value.firstName &&
+      value.lastName &&
+      value.firstName.length + value.lastName.length + 1 > 100
+    )
+      context.addIssue({
+        code: "custom",
+        message: "FULL_NAME_TOO_LONG",
+        path: ["lastName"],
+      });
+  });
 export const logoutResultSchema = z.object({ loggedOut: z.literal(true) });
 
 export const listingIdSchema = z
@@ -261,6 +295,12 @@ export const requestContactSchema = z
 export const mobileListingsQuerySchema = z
   .object({
     villageId: z
+      .string()
+      .regex(/^[a-f0-9]{24}$/i)
+      .toLowerCase()
+      .optional(),
+    // Public browsing scope for guests and signed-in readers; never a contact/write scope.
+    sourceVillageId: z
       .string()
       .regex(/^[a-f0-9]{24}$/i)
       .toLowerCase()
@@ -484,6 +524,7 @@ export const ownListingPageSchema = z.object({
       active: z.number().int().nonnegative(),
       soldOut: z.number().int().nonnegative(),
       lowStock: z.number().int().nonnegative(),
+      expired: z.number().int().nonnegative(),
     })
     .optional(),
   total: z.number().int().nonnegative(),

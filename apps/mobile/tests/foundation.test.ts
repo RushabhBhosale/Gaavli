@@ -25,27 +25,34 @@ test("both languages have complete, non-empty translations", () => {
     );
   }
 });
-test("first launch is Marathi; only saved confirmation resumes registration", async () => {
+test("first launch is Marathi; a saved language still opens village selection", async () => {
   let saved: string | null = null;
+  let village: string | null = null;
   const storage: PreferenceStorage = {
     readLanguage: async () => saved,
     writeLanguage: async (value) => {
       saved = value;
     },
+    readGuestVillage: async () => village,
+    writeGuestVillage: async (value) => {
+      village = value;
+    },
   };
   assert.deepEqual(await restorePreferences(storage), {
     language: "mr",
     confirmed: false,
+    guestVillage: null,
   });
   assert.equal(initialRoute(false), "/language");
   await confirmLanguage(storage, "en");
   const restarted = await restorePreferences(storage);
   assert.equal(restarted.language, "en");
-  assert.equal(initialRoute(restarted.confirmed), "/register");
+  assert.equal(initialRoute(restarted.confirmed), "/language");
   saved = "invalid-language";
   assert.deepEqual(await restorePreferences(storage), {
     language: "mr",
     confirmed: false,
+    guestVillage: null,
   });
 });
 test("storage failures do not report confirmation and recovery can be retried", async () => {
@@ -60,6 +67,8 @@ test("storage failures do not report confirmation and recovery can be retried", 
       if (broken) throw new Error("full");
       saved = value;
     },
+    readGuestVillage: async () => null,
+    writeGuestVillage: async () => undefined,
   };
   await assert.rejects(restorePreferences(storage));
   await assert.rejects(confirmLanguage(storage, "en"));
@@ -69,6 +78,7 @@ test("storage failures do not report confirmation and recovery can be retried", 
   assert.deepEqual(await restorePreferences(storage), {
     language: "mr",
     confirmed: true,
+    guestVillage: null,
   });
 });
 const baseUrl = "https://example.test/api/v1";

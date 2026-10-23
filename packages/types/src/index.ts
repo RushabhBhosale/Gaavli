@@ -27,6 +27,16 @@ export type MobileUser = {
   language: MobileLanguage;
   village: MobileVillage | null;
 };
+export type MobileProfile = {
+  firstName: string | null;
+  lastName: string | null;
+  mobile: string | null;
+  address: string | null;
+  alternativeMobile: string | null;
+  occupation: string | null;
+  photoUrl: string | null;
+  version: number;
+};
 export type MobileSession = {
   accessToken: string;
   refreshToken: string;

@@ -98,18 +98,19 @@ export async function findOwnListings(
       $lte: ["$quantity", { $ifNull: ["$minimumPurchaseQuantity", 1] }],
     },
   };
+  const expired = {
+    $or: [
+      { status: "expired" },
+      { status: "active", expiresAt: { $lte: now } },
+    ],
+  };
   const statusFilter =
     query.status === "all"
       ? { status: { $ne: "deactivated" } }
       : query.status === "low_stock"
         ? lowStock
         : query.status === "expired"
-          ? {
-              $or: [
-                { status: "expired" },
-                { status: "active", expiresAt: { $lte: now } },
-              ],
-            }
+          ? expired
           : query.status === "active"
             ? activeStockFilter(now)
             : query.status
@@ -140,8 +141,15 @@ export async function findOwnListings(
         : query.sort === "stock_asc"
           ? { quantity: 1, _id: -1 }
           : { createdAt: -1, _id: -1 };
-  const [rows, total, totalProducts, active, soldOut, lowStockCount] =
-    await Promise.all([
+  const [
+    rows,
+    total,
+    totalProducts,
+    active,
+    soldOut,
+    lowStockCount,
+    expiredCount,
+  ] = await Promise.all([
       Listing.find(filter)
         .sort(sort)
         .skip((query.page - 1) * query.limit)
@@ -154,10 +162,17 @@ export async function findOwnListings(
       Listing.countDocuments({ seller: userId, ...activeStockFilter(now) }),
       Listing.countDocuments({ seller: userId, status: "sold_out" }),
       Listing.countDocuments({ seller: userId, ...lowStock }),
+      Listing.countDocuments({ seller: userId, ...expired }),
     ]);
   return {
     listings: await Promise.all(rows.map((row) => ownedListingDto(row))),
-    summary: { total: totalProducts, active, soldOut, lowStock: lowStockCount },
+    summary: {
+      total: totalProducts,
+      active,
+      soldOut,
+      lowStock: lowStockCount,
+      expired: expiredCount,
+    },
     total,
     page: query.page,
     limit: query.limit,

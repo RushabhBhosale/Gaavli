@@ -1,6 +1,12 @@
-> Returning-user revision — 2026-10-15: logout opens mobile + OTP sign-in.
-> New-account registration alone requires first/last name. Existing profile,
-> village and capabilities are restored. See `docs/03-api/MOBILE_ONBOARDING.md`.
+> Guest browsing revision — 2026-10-22: Get started saves a language and
+> village locally, then opens Home without an account. Create account asks for
+> first name, last name and mobile number, then OTP, confirms the saved
+> village, and returns to the product that requested seller contact. Signed-in
+> buyers see that phone directly. See `docs/03-api/MOBILE_ONBOARDING.md`.
+
+> Returning-user revision — 2026-10-21: registration asks for the mobile number
+> only. First and last name are collected on the village screen after OTP.
+> Existing named profiles stay unchanged. See `docs/03-api/MOBILE_ONBOARDING.md`.
 
 > Seller revision — 2026-10-14: explicit Home confirmation activates seller on
 > the server, preserves buyer, and replaces the visible Marketplace tab with
@@ -28,10 +34,12 @@ Applies to `apps/mobile`. Read the root `/AGENTS.md` and the relevant product, a
 
 ## Product and UX
 
-- User-approved 2026-10-13 flow: Marathi/English selection (Marathi default) →
-  required first name/last name/mobile → OTP → village → products. No guest mode.
-  Phase 1 stops at a clearly labelled registration scaffold, without fake accounts
-  or authentication. Earlier guest-first references are superseded for mobile.
+- User-approved 2026-10-22 flow: Marathi/English selection (Marathi default)
+  and a village on Get started, then Home without an account. Guests can browse
+  active listings. Create account asks for first name, last name and mobile
+  number, then OTP. The saved village is confirmed and the app returns to the
+  product, where the seller's phone is shown. Signed-in buyers see that phone
+  directly. Back from Create account returns to Home.
 
 - Preserve Marathi-first UX, accessible language,  and the approved role/capability rules.
 - Offline and low-connectivity states are normal product states. Clearly distinguish local drafts, queued/pending sync, synced, retryable failure, and conflict states.

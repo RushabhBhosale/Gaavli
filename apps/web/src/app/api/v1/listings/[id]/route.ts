@@ -1,12 +1,14 @@
 import {
   listingIdSchema,
   mobileListingSchema,
+  mobileListingsQuerySchema,
   updateListingSchema,
   listingVersionSchema,
   listingOperationKeySchema,
 } from "@gaavli/validation";
-import { requireMobile } from "@/server/services/mobile-auth";
-import { getMobileListing } from "@/server/services/listings";
+import { optionalMobile, requireMobile } from "@/server/services/mobile-auth";
+import { getGuestListing, getMobileListing } from "@/server/services/listings";
+import { AppError } from "@/server/utils/errors";
 import {
   updateOwnedListing,
   deleteOwnedListing,
@@ -19,9 +21,21 @@ export async function GET(
   context: { params: Promise<{ id: string }> },
 ) {
   return mobileEndpoint(request, async () => {
-    const user = await requireMobile(request);
     const id = listingIdSchema.parse((await context.params).id);
-    return ok(mobileListingSchema.parse(await getMobileListing(user, id)));
+    const sourceVillageId = new URL(request.url).searchParams.get(
+      "sourceVillageId",
+    );
+    const source = mobileListingsQuerySchema.shape.sourceVillageId.parse(
+      sourceVillageId ?? undefined,
+    );
+    const user = await optionalMobile(request);
+    if (!user) {
+      if (!source) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
+      return ok(mobileListingSchema.parse(await getGuestListing(source, id)));
+    }
+    return ok(
+      mobileListingSchema.parse(await getMobileListing(user, id, source)),
+    );
   });
 }
 export async function PATCH(

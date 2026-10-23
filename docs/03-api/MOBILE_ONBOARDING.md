@@ -1,5 +1,32 @@
 # Mobile onboarding — implemented contract (2026-10-13)
 
+## Guest browsing — 2026-10-22
+
+This revision supersedes the registration-before-browsing startup rule below.
+Signed-in registration, OTP, sessions and village updates are unchanged.
+
+- Get started saves the language and one active village in SQLite, then opens
+  Home. No account is created. A later sign-in still uses the secure session.
+- `GET /villages` and `GET /product-master` accept a missing bearer token.
+  A present bearer token is still validated. Village and product-master payloads
+  stay public reference data.
+- `GET /listings` and `GET /listings/:id` accept a guest when `sourceVillageId`
+  is an active village. Results use that village's existing discovery scope.
+  The 2026-10-23 browsing-village revision also lets authenticated public reads
+  use a validated active `sourceVillageId`; omitting it uses the account village.
+  This never changes registration or protected-contact scope. Guest pages report
+  `isSeller: false`. See [BROWSING_VILLAGE.md](BROWSING_VILLAGE.md).
+- Listing responses remain the existing public DTO: product, price, quantity,
+  image, description and village. They do not include seller name, phone,
+  address or account identifiers. Contact, interest, notify, listing writes and
+  buyer activity stay bearer-authenticated.
+- Contact seller opens Create account, which asks for first name, last name
+  and mobile number before OTP. Sign-in stays mobile-only. After OTP, a new
+  account keeps those names and the guest's saved village is confirmed on the
+  server. The app then returns to the listing that opened registration, and the
+  authenticated contact read shows the seller's phone. A buyer who is already
+  signed in sees that phone directly. Back on Create account returns to Home.
+
 This contract supersedes the historical mobile auth examples in API_SPEC.md for
 Phases 2–4. All endpoints use `/api/v1`, JSON envelopes `{success:true,data}` /
 `{success:false,error:{code,message},requestId}`, and `Cache-Control: no-store`.
@@ -7,22 +34,17 @@ Admin cookie authentication and CSRF/origin checks remain separate.
 
 ## Registration and verification
 
-- Returning-user revision — 2026-10-15: `POST /auth/send-otp` also accepts the
-  strict login payload `{mobile,language}`, without either name. Registration
-  still requires both names; partial-name or extra-field payloads fail validation.
-  Both modes return only the same challenge DTO and use the same expiry, rate
-  limits, resend delay, attempt cap and OTP provider. Account existence is not
-  disclosed before valid OTP verification.
-- For a mobile-only challenge, valid OTP restores only an existing account;
-  unknown numbers receive `409 REGISTRATION_REQUIRED` after verification and
-  cannot create a nameless account. The UI offers Create an account, retains
-  the entered mobile, and requires names plus a new registration OTP challenge.
-  Existing profile/village/capabilities and unknown legacy names remain intact.
-  Temporary challenge names are now nullable; sending mobile-only clears names
-  left by any earlier registration challenge for that number. No user migration.
-- `POST /auth/send-otp`: `{firstName,lastName,mobile,language}`. Both names are
-  required, trimmed, max 60 characters each (combined display name max 100), and accept Unicode letters/marks,
-  spaces, apostrophes, periods and hyphens. Language is `mr` or `en`.
+- Returning-user revision — 2026-10-21: registration and sign-in both send
+  `{mobile,language}`. A verified new number creates an active buyer with no
+  names and no village. First and last name are required on the village screen
+  and are saved in the same village update. Accounts that already have both
+  names keep the village-only update. Existing profile, village and
+  capabilities are otherwise unchanged.
+- `POST /auth/send-otp` still accepts the older `{firstName,lastName,mobile,language}`
+  payload. Both names are trimmed, max 60 characters each (combined display name
+  max 100), and accept Unicode letters/marks, spaces, apostrophes, periods and
+  hyphens. Language is `mr` or `en`. The mobile app no longer collects names
+  before OTP.
 - Indian mobile input accepts 10 digits, `+91` or `91` prefix and common spaces,
   hyphens/parentheses. The canonical account key remains 10 digits starting 6–9,
   compatible with existing admin user writes and the unique mobile index.
@@ -78,11 +100,17 @@ villages resolve to null so a refreshed session returns to selection.
   50 km ordered by distance, using only existing GeoJSON coordinates and a
   `2dsphere` index. Missing coordinates are excluded from suggestions, remain in
   manual search, and are never invented. This does not create proximity mappings.
-- `PATCH /users/me`: `{villageId}` only. Transactionally rechecks active village
+- `PATCH /users/me`: `{villageId}` for an account that already has both names.
+  A new account must also send `{firstName,lastName}` using the same name rules
+  as registration. The update saves the display name, both name fields and the
+  confirmed village together. Transactionally rechecks active village
   and user and locks the village using the same version counter as admin writers.
   Saves the confirmed selection and returns the safe user DTO.
 - Village selection is online-only in this phase. Repeating the same selection
-  safely sets the same village. No offline queue or general profile editing.
+  safely sets the same village. No offline queue is added to village selection.
+  The separate user-approved My Profile flow is documented in
+  [MOBILE_PROFILE.md](MOBILE_PROFILE.md); profile Save cannot alter registered
+  names or primary mobile and does not change this onboarding contract.
 - Admin create/edit accepts optional `pinCode` (six digits, starting 1–9). Empty
   string clears it; omission preserves it on edit. Admin edit may omit both
   coordinates and preserves existing coordinates, so PIN updates never require
@@ -122,7 +150,7 @@ used as the validity check: expiry is checked in every auth query.
 Native splash is followed by a cream/green interactive welcome screen with
 Marathi/English selection, local lightweight countryside shapes and Get started.
 Language is in SQLite. Registration drafts and entered OTPs are memory-only;
-back from OTP preserves names/mobile, while successful sign-in/logout clears them.
+back from OTP preserves the mobile number, while successful sign-in/logout clears them.
 Credentials and the small last-confirmed user snapshot are one atomic SecureStore
 value, never SQLite or persisted Zustand. Failure to save credentials blocks
 authenticated navigation and offers a local save retry.
@@ -136,15 +164,21 @@ secure local data is cleared. Authenticated query cache is cleared on logout.
 Returning-user UI revision — 2026-10-15: successful logout now opens Sign in
 directly with only mobile number, Send OTP and a Create an account option. Existing
 language preference stays saved. A cold launch with a saved language and no session
-also offers Sign in; first welcome still opens registration. Sign in/registration
+also offers Sign in; first welcome still opens registration. Sign in and
+registration both ask only for the mobile number. After OTP, a new account
+enters first name, last name and village on the village screen. Existing
+accounts that already have names only confirm a village. Sign in/registration
 can be switched explicitly, clearing any previous OTP challenge. Resend uses the
-same selected mode. Registration alone displays and requires first/last names.
-Account/profile/listing data remains in MongoDB after logout.
+same mobile-only challenge. Account/profile/listing data remains in MongoDB after logout.
 
 Location requests foreground permission only after the user taps Use current
 location; denial, timeout, missing data and zero matches preserve manual village
-selection. The current mobile UI uses one paginated Village dropdown, without
-search/district/taluka fields. Backend search parameters remain supported.
+selection. The mobile UI uses one searchable Village dropdown (user-approved
+2026-10-23 revision) with a Marathi/English name search inside the picker,
+20 results per page and automatic loading on scroll. Only village names are
+shown, except taluka/district distinguish duplicate names in the loaded results.
+The closed field shows only the selected name. No separate district/taluka
+selectors are added; the existing backend search parameters remain unchanged.
 Home, Marketplace and Product Details now use authenticated database listing
 reads; see [MOBILE_MARKETPLACE.md](MOBILE_MARKETPLACE.md). No sample fallback exists.
 

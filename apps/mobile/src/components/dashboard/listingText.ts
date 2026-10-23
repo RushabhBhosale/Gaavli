@@ -19,6 +19,25 @@ export function listingRate(listing: HomeListing, language: MobileLanguage) {
     ? t.rateNotProvided
     : `₹${listing.price}${unit ? ` / ${unit}` : ""}`;
 }
+export function listingPosted(listing: HomeListing, language: MobileLanguage) {
+  const t = messages(language);
+  const minutes = listing.postedMinutesAgo;
+  const count = new Intl.NumberFormat(
+    language === "mr" ? "mr-IN" : "en-IN",
+  ).format(
+    minutes < 60
+      ? minutes
+      : Math.floor(minutes / (minutes < 1440 ? 60 : 1440)),
+  );
+  return formatMessage(
+    minutes < 60
+      ? t.minutesAgo
+      : minutes < 1440
+        ? t.hoursAgo
+        : t.daysAgo,
+    { count },
+  );
+}
 export function listingQuantity(
   listing: HomeListing,
   language: MobileLanguage,

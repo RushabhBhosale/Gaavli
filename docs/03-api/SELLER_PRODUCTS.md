@@ -3,8 +3,8 @@
 User-requested reference layout: cream/soft-green/yellow header with localized
 title/subtitle and right-side farm/crate artwork. The latest revision removes
 the summary cards and Filter / Sort control; products use the default newest
-order. Search and All, Active, Drafts, Low stock, Sold out tabs are functional. Tabs scroll
-horizontally on smaller screens; text follows the selected language. Existing
+order. Search and All, Active, Drafts, Expired and Sold out tabs are functional.
+Tabs scroll horizontally on smaller screens; text follows the selected language. Existing
 Marketplace and Add actions remain available in a bottom action row.
 
 ## Existing owner API extended
@@ -17,6 +17,9 @@ pagination and status behavior. It additionally accepts:
   name. Escaped regex input, filtering before pagination and total counting.
 - `status=all`: all of this seller's non-deactivated products, including expired
   products. Omitted status retains historical API behavior.
+- `status=expired`: listings already marked expired, plus active listings whose
+  `expiresAt` is now or earlier. Standing supplies with no expiry stay out of
+  this filter.
 - `status=low_stock`: currently active, unexpired positive stock at or below the
   listing's minimum purchase quantity; fallback threshold is one unit when no
   minimum is set.
@@ -25,7 +28,7 @@ pagination and status behavior. It additionally accepts:
   MongoDB's ordinary null sort position.
 
 Responses add optional-compatible `summary` with non-deleted `total`, currently
-`active`, `soldOut` and `lowStock` counts for this seller. Summary is independent
+`active`, `soldOut`, `lowStock` and `expired` counts for this seller. Summary is independent
 of the current search/status/page, so tab counts describe the inventory.
 Response `total` continues to mean matching rows for the current query. Old
 cached pages without summary remain valid and display unavailable counts as an

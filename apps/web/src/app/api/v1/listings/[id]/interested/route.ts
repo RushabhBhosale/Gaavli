@@ -36,7 +36,7 @@ export async function GET(
     const id = listingIdSchema.parse((await context.params).id);
     return ok(
       sellerContactStateSchema.parse(
-        await revealListingContact(String(user._id), id, true),
+        await revealListingContact(String(user._id), id, "restore"),
       ),
     );
   });

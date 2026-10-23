@@ -15,6 +15,8 @@ import type {
   HomeListing,
 } from "../types/home";
 import { AccountHeader } from "../components/dashboard/AccountHeader";
+import { BrowsingVillageSelector } from "../components/BrowsingVillageSelector";
+import { browsingVillageFor } from "../storage/browsingVillage";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { MarketplaceCard } from "../components/dashboard/MarketplaceCard";
 import { BecomeSellerCard } from "../components/dashboard/SellerCards";
@@ -31,7 +33,6 @@ export function HomeDashboard({
   language,
   onNavigate,
   onProductPress,
-  onVillagePress,
   listingStatus,
   listingsReady = true,
 }: {
@@ -39,14 +40,16 @@ export function HomeDashboard({
   language: MobileLanguage;
   onNavigate: (route: HomeDestination) => void;
   onProductPress: (listing: HomeListing) => void;
-  onVillagePress: () => void;
   listingStatus?: React.ReactNode;
   listingsReady?: boolean;
 }) {
   const t = messages(language);
   return (
     <DashboardScreen>
-      <AccountHeader language={language} onVillagePress={onVillagePress} />
+      <AccountHeader
+        language={language}
+        browsingVillageControl={<BrowsingVillageSelector />}
+      />
       {data.isPreview && <PreviewBanner />}
       <View style={d.section}>
         <SectionHeader
@@ -109,21 +112,31 @@ export default function HomeScreen() {
   const [sellerDialog, setSellerDialog] = useState(false);
   const router = useRouter();
   const { session, language, offline } = useAppStore();
+  const village = useAppStore(browsingVillageFor);
   const query = useHomeListings();
   const now = useListingClock();
   const t = messages(language);
-  if (!session?.user.village) return null; // Protected by the tabs layout.
+  if (!village || (session && !session.user.village)) return null;
+  const account = session?.user ?? {
+    id: "guest",
+    name: t.guest,
+    firstName: null,
+    lastName: null,
+    language,
+    village,
+    isSeller: false,
+  };
   const page = query.data;
   const listings = (page?.listings || []).filter(
     (listing) =>
       listing.expiresAt === null || Date.parse(listing.expiresAt) > now,
   );
   const data = liveDashboard(
-    session.user,
+    account,
     language,
     listings,
     page?.total || 0,
-    session.user.isSeller ?? page?.isSeller ?? false,
+    account.isSeller ?? page?.isSeller ?? false,
     now,
   );
   const listingStatus = (
@@ -156,12 +169,17 @@ export default function HomeScreen() {
         language={language}
         listingStatus={listingStatus}
         listingsReady={!!page}
-        onNavigate={(route) =>
-          route === "/become-seller"
-            ? setSellerDialog(true)
-            : router.push(route)
-        }
-        onVillagePress={() => router.push("/village")}
+        onNavigate={(route) => {
+          if (route === "/become-seller") {
+            if (session) setSellerDialog(true);
+            else {
+              useAppStore.getState().setAuthMode("register");
+              router.push("/register");
+            }
+            return;
+          }
+          router.push(route);
+        }}
         onProductPress={(listing) =>
           router.push({ pathname: "/product/[id]", params: { id: listing.id } })
         }

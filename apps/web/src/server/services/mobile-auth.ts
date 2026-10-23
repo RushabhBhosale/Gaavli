@@ -167,18 +167,15 @@ export async function verifyOtp(
       );
     let account = matches[0];
     if (!account) {
-      if (!challenge.firstName || !challenge.lastName)
-        throw new AppError(
-          409,
-          "REGISTRATION_REQUIRED",
-          "Create an account to continue.",
-        );
+      const named = challenge.firstName && challenge.lastName;
       [account] = await User.create(
         [
           {
-            name: `${challenge.firstName} ${challenge.lastName}`,
-            firstName: challenge.firstName,
-            lastName: challenge.lastName,
+            name: named
+              ? `${challenge.firstName} ${challenge.lastName}`
+              : challenge.mobile,
+              firstName: named ? challenge.firstName : undefined,
+              lastName: named ? challenge.lastName : undefined,
             mobile: challenge.mobile,
             mobileVerified: true,
             registeredAt: new Date(),
@@ -240,6 +237,14 @@ export async function verifyOtp(
   };
 }
 
+export async function optionalMobile(request: Request) {
+  if (!request.headers.get("authorization")) {
+    // Guest reads also need a connection before querying Mongoose models.
+    await connectDb();
+    return null;
+  }
+  return requireMobile(request);
+}
 export async function requireMobile(request: Request) {
   const token = request.headers
     .get("authorization")

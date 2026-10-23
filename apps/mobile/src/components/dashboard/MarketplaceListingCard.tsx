@@ -1,154 +1,137 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
-import { formatMessage, messages } from "../../i18n";
+import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { listingName, type HomeListing } from "../../types/home";
-import { Badge, Panel, d } from "./primitives";
+import { Badge } from "./primitives";
 import { ListingImage } from "./ListingImage";
-import { listingRate, listingQuantity } from "./listingText";
+import { listingQuantity, listingRate, listingUnit } from "./listingText";
 
 export function MarketplaceListingCard({
   listing,
   language,
+  width,
   onPress,
 }: {
   listing: HomeListing;
   language: MobileLanguage;
+  width: number;
   onPress: () => void;
 }) {
   const t = messages(language);
-  const { width, fontScale } = useWindowDimensions();
-  const stacked = width < 320 || fontScale > 1.4;
-  const minutes = listing.postedMinutesAgo;
-  const postedTime = formatMessage(
-    minutes < 60
-      ? t.minutesAgo
-      : minutes < 1440
-        ? t.hoursAgo
-        : t.postedDaysAgo,
-    {
-      count: new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(
-        minutes < 60
-          ? minutes
-          : Math.floor(minutes / (minutes < 1440 ? 60 : 1440)),
-      ),
-    },
-  );
+  const name = listingName(listing, language);
+  const rate = listingRate(listing, language);
+  const quantity = listingQuantity(listing, language);
+  const village = language === "mr" ? listing.villageMr : listing.village;
+  const unit = listingUnit(listing.unit, language);
   return (
-    <Panel style={s.card}>
-      <View style={s.info}>
-        <View style={[s.product, stacked && s.stacked]}>
-          <ListingImage listing={listing} style={s.image} />
-          <View style={s.copy}>
-            {listing.isDemo && <Badge yellow>{t.demoListing}</Badge>}
-            <Text style={s.name}>{listingName(listing, language)}</Text>
-            <Text style={s.price}>{listingRate(listing, language)}</Text>
-            <Text style={s.quantityText}>
-              {listingQuantity(listing, language)}
+    <View style={[s.shadow, { width }]}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${name}, ${rate}, ${quantity}, ${village}`}
+        android_ripple={{ color: theme.colors.border }}
+        onPress={onPress}
+        style={({ pressed }) => [s.card, pressed && s.pressed]}
+      >
+        <View style={s.imageFrame}>
+          <ListingImage listing={listing} style={s.image} resizeMode="cover" />
+          {listing.isDemo && (
+            <View style={s.demo}>
+              <Badge yellow>{t.demoListing}</Badge>
+            </View>
+          )}
+        </View>
+        <View style={s.body}>
+          <Text style={s.name} numberOfLines={2}>
+            {name}
+          </Text>
+          <Text style={s.price} numberOfLines={1}>
+            {listing.price === null ? (
+              t.rateNotProvided
+            ) : (
+              <>
+                {`₹${listing.price}`}
+                {unit ? <Text style={s.unit}>{` / ${unit}`}</Text> : null}
+              </>
+            )}
+          </Text>
+          <Text style={s.meta} numberOfLines={1}>
+            {quantity}
+          </Text>
+          <View style={s.villageRow}>
+            <Ionicons
+              name="location-outline"
+              size={13}
+              color={theme.colors.primary}
+            />
+            <Text style={s.village} numberOfLines={1}>
+              {village}
             </Text>
           </View>
         </View>
-        <View style={s.location}>
-          <Ionicons
-            name="location-outline"
-            size={16}
-            color={theme.colors.primary}
-          />
-          <Text style={s.metadataText}>
-            {formatMessage(t.listingVillage, {
-              village: language === "mr" ? listing.villageMr : listing.village,
-            })}
-            {listing.distanceKm !== undefined &&
-              ` · ${formatMessage(t.listingDistance, {
-                distance: listing.distanceKm,
-              })}`}
-          </Text>
-        </View>
-        <View style={s.location}>
-          <Ionicons
-            name="time-outline"
-            size={16}
-            color={theme.colors.muted}
-            accessible={false}
-          />
-          <Text style={s.metadataText}>{postedTime}</Text>
-        </View>
-      </View>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${t.viewDetails}: ${listingName(listing, language)}`}
-        onPress={onPress}
-        style={({ pressed }) => [s.details, pressed && d.pressed]}
-      >
-        <Text style={s.detailsText}>{t.viewDetails}</Text>
-        <Ionicons name="chevron-forward" size={14} color={theme.colors.text} />
       </Pressable>
-    </Panel>
+    </View>
   );
 }
+
 const s = StyleSheet.create({
-  card: { padding: 12, gap: 10, flexDirection: "row", alignItems: "center" },
-  info: { flex: 1, gap: 8 },
-  product: { flexDirection: "row", alignItems: "flex-start", gap: 12 },
-  stacked: { flexDirection: "column" },
-  image: {
-    width: 64,
-    height: 64,
-    borderRadius: theme.radii.card,
-    backgroundColor: theme.colors.tint,
+  shadow: {
+    borderRadius: 16,
+    backgroundColor: theme.colors.surface,
+    shadowColor: theme.shadow.color,
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 2,
   },
-  copy: { flexShrink: 1, gap: 3 },
+  card: {
+    borderRadius: 16,
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+  },
+  pressed: { opacity: 0.92 },
+  imageFrame: {
+    width: "100%",
+    aspectRatio: 1,
+    backgroundColor: theme.colors.tint,
+    overflow: "hidden",
+  },
+  image: { width: "100%", height: "100%" },
+  demo: { position: "absolute", top: 8, left: 8, maxWidth: "88%" },
+  body: { paddingHorizontal: 10, paddingTop: 10, paddingBottom: 12, gap: 4 },
   name: {
-    color: theme.colors.text,
-    fontSize: 16,
-    lineHeight: 23,
+    color: theme.colors.heading,
+    fontSize: 14,
+    lineHeight: 19,
     fontWeight: "700",
+    minHeight: 38,
   },
   price: {
-    color: theme.colors.text,
-    fontSize: 18,
-    lineHeight: 25,
-    fontWeight: "700",
+    color: theme.colors.heading,
+    fontSize: 17,
+    lineHeight: 22,
+    fontWeight: "800",
   },
-  unit: { color: theme.colors.muted, fontSize: 14, fontWeight: "400" },
-  quantityText: { color: theme.colors.muted, fontSize: 12, lineHeight: 18 },
-  details: {
-    alignSelf: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 4,
-    minHeight: theme.layout.touchTarget,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    backgroundColor: theme.colors.softGreen,
-    borderRadius: theme.radii.control,
-    maxWidth: "32%",
-  },
-  detailsText: {
-    color: theme.colors.text,
-    fontSize: 12,
-    lineHeight: 18,
-    fontWeight: "600",
-    flexShrink: 1,
-  },
-  location: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    flexShrink: 1,
-  },
-  metadataText: {
+  unit: {
     color: theme.colors.muted,
     fontSize: 12,
     lineHeight: 18,
-    flexShrink: 1,
+    fontWeight: "500",
+  },
+  meta: {
+    color: theme.colors.muted,
+    fontSize: 12,
+    lineHeight: 17,
+    minHeight: 17,
+  },
+  villageRow: { flexDirection: "row", alignItems: "center", gap: 3, minHeight: 18 },
+  village: {
+    flex: 1,
+    color: theme.colors.muted,
+    fontSize: 12,
+    lineHeight: 17,
   },
 });

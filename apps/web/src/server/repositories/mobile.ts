@@ -180,11 +180,14 @@ export async function searchMobileVillages(
     limit: query.limit,
   };
 }
-export async function saveMobileVillage(userId: string, villageId: string) {
+export async function saveMobileVillage(
+  userId: string,
+  input: { villageId: string; firstName?: string; lastName?: string },
+) {
   return User.db.transaction(async (session) => {
     // Same write lock as admin membership/deactivation/deletion writers.
     const village = await Village.findOneAndUpdate(
-      { _id: villageId, isActive: true },
+      { _id: input.villageId, isActive: true },
       { $inc: { __v: 1 } },
       { new: true, session },
     );
@@ -194,9 +197,31 @@ export async function saveMobileVillage(userId: string, villageId: string) {
         "VILLAGE_UNAVAILABLE",
         "Select an active village.",
       );
+    const current = await User.findOne({
+      _id: userId,
+      status: "active",
+    }).session(session);
+    if (!current) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
+    if (
+      (!current.firstName || !current.lastName) &&
+      (!input.firstName || !input.lastName)
+    )
+      throw new AppError(
+        422,
+        "VALIDATION_ERROR",
+        "Enter your first and last name.",
+      );
+    const names =
+      input.firstName && input.lastName
+        ? {
+            firstName: input.firstName,
+            lastName: input.lastName,
+            name: `${input.firstName} ${input.lastName}`,
+          }
+        : {};
     const user = await User.findOneAndUpdate(
       { _id: userId, status: "active" },
-      { $set: { village: villageId }, $inc: { __v: 1 } },
+      { $set: { village: input.villageId, ...names }, $inc: { __v: 1 } },
       { new: true, session },
     );
     if (!user) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");

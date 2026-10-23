@@ -18,12 +18,11 @@ import { PageSceneHeader } from "../components/dashboard/PageSceneHeader";
 export default function ProfileScreen() {
   const router = useRouter();
   const client = useQueryClient();
-  const { session, language, offline } = useAppStore();
+  const { session, language, offline, guestVillage } = useAppStore();
   const t = messages(language);
   const [busy, setBusy] = useState<"language" | "logout" | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
   const submitting = useRef(false);
-  if (!session) return null;
   async function selectLanguage(value: MobileLanguage) {
     if (submitting.current) return;
     submitting.current = true;
@@ -49,13 +48,105 @@ export default function ProfileScreen() {
       await client.cancelQueries();
       await logout();
       client.clear();
-      router.replace("/register");
+      router.replace(
+        useAppStore.getState().guestVillage ? "/home" : "/language",
+      );
     } catch (error) {
       setFailure(errorMessage(error, language));
     } finally {
       submitting.current = false;
       setBusy(null);
     }
+  }
+  if (!session) {
+    const villageName = guestVillage
+      ? language === "mr"
+        ? guestVillage.nameMr
+        : guestVillage.name
+      : "";
+    return (
+      <DashboardScreen>
+        <PageSceneHeader
+          title={t.settings}
+          subtitle={t.guestBrowsing}
+          backLabel={t.back}
+          onBack={() => router.replace("/home")}
+        />
+        <View style={s.section}>
+          <Text accessibilityRole="header" style={s.sectionLabel}>
+            {t.accountSettings}
+          </Text>
+          <View style={s.group}>
+            <SettingRow
+              icon="location-outline"
+              title={t.changeVillage}
+              subtitle={villageName}
+              disabled={!!busy}
+              onPress={() => router.push("/language")}
+            />
+            <View style={[s.row, s.last, s.languageStack]}>
+              <View style={s.languageLabel}>
+                <SettingsIcon name="globe-outline" />
+                <Text style={s.rowTitle}>{t.changeLanguage}</Text>
+              </View>
+              <View
+                accessibilityRole="radiogroup"
+                accessibilityLabel={t.changeLanguage}
+                style={s.languages}
+              >
+                {(["mr", "en"] as const).map((value) => (
+                  <Pressable
+                    key={value}
+                    accessibilityRole="radio"
+                    accessibilityState={{
+                      checked: language === value,
+                      disabled: !!busy,
+                    }}
+                    disabled={!!busy}
+                    onPress={() => void selectLanguage(value)}
+                    style={({ pressed }) => [
+                      s.languageButton,
+                      pressed && s.pressed,
+                      !!busy && s.disabled,
+                    ]}
+                  >
+                    <View
+                      accessible={false}
+                      style={[s.radio, language === value && s.radioSelected]}
+                    >
+                      {language === value && <View style={s.radioDot} />}
+                    </View>
+                    <Text style={s.languageText}>
+                      {value === "mr" ? "मराठी" : "English"}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+          </View>
+        </View>
+        {failure && <ErrorMessage message={failure} />}
+        <Button
+          disabled={!!busy}
+          onPress={() => {
+            useAppStore.getState().setAuthMode("login");
+            router.push("/register");
+          }}
+        >
+          {t.loginTitle}
+        </Button>
+        <Button
+          secondary
+          disabled={!!busy}
+          onPress={() => {
+            useAppStore.getState().setAuthMode("register");
+            router.push("/register");
+          }}
+        >
+          {t.registrationTitle}
+        </Button>
+      </DashboardScreen>
+    );
   }
   const village = session.user.village;
   const villageName = village
@@ -81,9 +172,8 @@ export default function ProfileScreen() {
           <SettingRow
             icon="person-outline"
             title={t.updateProfile}
-            subtitle={t.settingsUnavailable}
             disabled={!!busy}
-            onPress={() => unavailable(t.profileEditingPending)}
+            onPress={() => router.push("/my-profile")}
           />
           <SettingRow
             icon="location-outline"

@@ -478,9 +478,6 @@ function ListingFormScreen({
   }
   const locked = busy || !!draft.pending || !!draft.editPending || !ready;
   const form = draft.form;
-  const category = categories.data?.categories.find(
-    (item) => item.id === form.categoryId,
-  );
   return (
     <Screen>
       <View style={s.header}>
@@ -691,13 +688,21 @@ function ListingFormScreen({
             placeholder={t.listingCategoryMissing}
             onChange={(value) => update("categoryId", value)}
             options={
-              categories.data?.categories.map(
-                (item) =>
-                  [
-                    item.id,
-                    `${language === "mr" ? item.nameMr : item.name} (${language === "mr" ? item.defaultShelfLife.replace(/\bdays?\b/gi, "दिवस") : item.defaultShelfLife})`,
-                  ] as const,
-              ) ?? []
+              categories.data?.categories.map((item) => {
+                const name = language === "mr" ? item.nameMr : item.name;
+                const life =
+                  language === "mr"
+                    ? item.defaultShelfLife
+                        .trim()
+                        .replace(/\bdays?\b/gi, t.shelfDaysUnit)
+                        .replace(/\bstanding\b/gi, t.shelfStandingLabel)
+                        .replace(
+                          /[0-9]/g,
+                          (digit) => "०१२३४५६७८९"[Number(digit)],
+                        )
+                    : item.defaultShelfLife.trim();
+                return [item.id, life ? `${name} (${life})` : name] as const;
+              }) ?? []
             }
           />
           <View style={s.quantityRow}>
@@ -752,43 +757,6 @@ function ListingFormScreen({
             maxLength={40}
             onChangeText={(value) => update("price", value)}
           />
-          <Input
-            label={t.listingMinimum}
-            value={form.minimum}
-            editable={!locked}
-            keyboardType="decimal-pad"
-            maxLength={40}
-            onChangeText={(value) => update("minimum", value)}
-          />
-          {category?.code === "RECURRING_SUPPLY" ? (
-            <Text style={d.description}>{t.listingStanding}</Text>
-          ) : (
-            <Input
-              label={t.listingDays}
-              value={form.days}
-              editable={!locked}
-              keyboardType="number-pad"
-              maxLength={3}
-              onChangeText={(value) => update("days", value)}
-            />
-          )}
-          <Text style={s.label}>{t.listingFulfillment}</Text>
-          <View style={s.choices}>
-            <Choice
-              checkbox
-              label={t.farmPickup}
-              selected={form.farmPickup}
-              disabled={locked}
-              onPress={() => update("farmPickup", !form.farmPickup)}
-            />
-            <Choice
-              checkbox
-              label={t.localTransport}
-              selected={form.localTransport}
-              disabled={locked}
-              onPress={() => update("localTransport", !form.localTransport)}
-            />
-          </View>
           <Input
             label={t.listingDescription}
             value={form.description}
@@ -945,50 +913,6 @@ function ListingDropdown<T extends string>({
     </>
   );
 }
-function Choice({
-  label,
-  selected,
-  disabled,
-  onPress,
-  checkbox = false,
-}: {
-  label: string;
-  selected: boolean;
-  disabled: boolean;
-  onPress: () => void;
-  checkbox?: boolean;
-}) {
-  return (
-    <Pressable
-      accessibilityRole={checkbox ? "checkbox" : "radio"}
-      accessibilityState={{ checked: selected, disabled }}
-      disabled={disabled}
-      onPress={onPress}
-      style={({ pressed }) => [
-        s.choice,
-        selected && s.selected,
-        disabled && s.disabled,
-        pressed && s.pressed,
-      ]}
-    >
-      <Ionicons
-        accessible={false}
-        name={
-          checkbox
-            ? selected
-              ? "checkbox"
-              : "square-outline"
-            : selected
-              ? "radio-button-on"
-              : "radio-button-off"
-        }
-        size={20}
-        color={selected ? theme.colors.primary : theme.colors.muted}
-      />
-      <Text style={s.optionText}>{label}</Text>
-    </Pressable>
-  );
-}
 const s = StyleSheet.create({
   header: { flexDirection: "row", alignItems: "center", gap: 8 },
   quantityRow: { flexDirection: "row", alignItems: "flex-end", gap: 12 },
@@ -1025,19 +949,6 @@ const s = StyleSheet.create({
     gap: 8,
   },
   label: { fontSize: 16, fontWeight: "600", color: theme.colors.heading },
-  choices: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
-  choice: {
-    minHeight: theme.layout.touchTarget,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.surface,
-    maxWidth: "100%",
-  },
   selected: {
     backgroundColor: theme.colors.tint,
     borderColor: theme.colors.primary,
@@ -1063,6 +974,5 @@ const s = StyleSheet.create({
     borderRadius: theme.radii.control,
     lineHeight: 23,
   },
-  disabled: { opacity: theme.interaction.disabledOpacity },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

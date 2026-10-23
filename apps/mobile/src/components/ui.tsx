@@ -69,6 +69,7 @@ export function Button({
   disabled = false,
   loading = false,
   secondary = false,
+  outlined = false,
   icon,
 }: {
   children: string;
@@ -76,6 +77,7 @@ export function Button({
   disabled?: boolean;
   loading?: boolean;
   secondary?: boolean;
+  outlined?: boolean;
   icon?: ReactNode;
 }) {
   return (
@@ -87,17 +89,27 @@ export function Button({
       style={({ pressed }) => [
         styles.button,
         secondary && styles.secondary,
+        outlined && styles.outlined,
         (disabled || loading) && styles.disabled,
         pressed && styles.pressed,
       ]}
     >
       {loading && (
         <ActivityIndicator
-          color={secondary ? theme.colors.primary : theme.colors.onPrimary}
+          color={
+            secondary || outlined
+              ? theme.colors.primary
+              : theme.colors.onPrimary
+          }
         />
       )}
       {icon}
-      <Text style={[styles.buttonText, secondary && styles.secondaryText]}>
+      <Text
+        style={[
+          styles.buttonText,
+          (secondary || outlined) && styles.secondaryText,
+        ]}
+      >
         {children}
       </Text>
     </Pressable>
@@ -362,6 +374,11 @@ export const styles = StyleSheet.create({
     borderColor: theme.colors.border,
   },
   secondaryText: { color: theme.colors.primaryDark },
+  outlined: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: theme.colors.softGreen,
+  },
   disabled: { opacity: theme.interaction.disabledOpacity },
   pressed: { opacity: theme.interaction.pressedOpacity },
   card: {

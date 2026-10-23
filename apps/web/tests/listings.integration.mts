@@ -7,6 +7,7 @@ import {
   mobileListingPageSchema,
   mobileListingSchema,
   sellerContactSchema,
+  sellerDetailsSchema,
   sellerContactStateSchema,
   notifySellerResultSchema,
   notificationPageSchema,
@@ -33,6 +34,8 @@ const { ListingInterest } =
   await import("../src/server/models/listing-interest");
 const { POST: interested, GET: savedInterest } =
   await import("../src/app/api/v1/listings/[id]/interested/route");
+const { GET: sellerDetails } =
+  await import("../src/app/api/v1/listings/[id]/contact/route");
 const { POST: notifyFarmer } =
   await import("../src/app/api/v1/listings/[id]/notify-farmer/route");
 const { GET: notifications } =
@@ -62,6 +65,10 @@ const getDetail = (id: string, bearer: string | null = token) =>
   detail(request(`/${id}`, bearer), { params: Promise.resolve({ id }) });
 const readInterest = (id: string, bearer: string | null = token) =>
   savedInterest(request(`/${id}/interested`, bearer), {
+    params: Promise.resolve({ id }),
+  });
+const readContact = (id: string, bearer: string | null = token) =>
+  sellerDetails(request(`/${id}/contact`, bearer), {
     params: Promise.resolve({ id }),
   });
 const notify = (
@@ -229,6 +236,77 @@ try {
   ]);
   assert.equal((await list(request("", null))).status, 401);
   assert.equal((await getDetail(String(rows[0]._id), null)).status, 401);
+  const guestList = await list(
+    request(`?sourceVillageId=${String(village._id)}`, null),
+  );
+  assert.equal(guestList.status, 200);
+  const guestPayload = await guestList.json();
+  const guestPage = mobileListingPageSchema.parse(guestPayload.data);
+  const guestText = JSON.stringify(guestPayload);
+  assert.equal(guestText.includes("9000000002"), false);
+  assert.equal(guestText.includes("Private Seller"), false);
+  assert.equal(guestPage.isSeller, false);
+  assert.equal(
+    guestPage.listings.some((listing) => listing.productName === "Tomato"),
+    true,
+  );
+  const guestDetail = await detail(
+    new Request(
+      `http://localhost/api/v1/listings/${String(rows[0]._id)}?sourceVillageId=${String(village._id)}`,
+    ),
+    { params: Promise.resolve({ id: String(rows[0]._id) }) },
+  );
+  assert.equal(guestDetail.status, 200);
+  const guestDetailPayload = await guestDetail.json();
+  mobileListingSchema.parse(guestDetailPayload.data);
+  const guestDetailText = JSON.stringify(guestDetailPayload);
+  assert.equal(guestDetailText.includes("9000000002"), false);
+  assert.equal(guestDetailText.includes("Private Seller"), false);
+  assert.equal((await readContact(String(rows[0]._id), null)).status, 401);
+  // Signed-in browsing can choose an unrelated active village without changing identity.
+  const browsingResponse = await list(request(`?sourceVillageId=${other._id}`));
+  assert.equal(browsingResponse.status, 200);
+  const browsingPage = mobileListingPageSchema.parse(
+    (await browsingResponse.json()).data,
+  );
+  assert.deepEqual(
+    browsingPage.listings.map((listing) => listing.id),
+    [String(rows[9]._id)],
+  );
+  assert.equal(JSON.stringify(browsingPage).includes("9000000002"), false);
+  const browsingDetail = await detail(
+    request(`/${rows[9]._id}?sourceVillageId=${other._id}`),
+    { params: Promise.resolve({ id: String(rows[9]._id) }) },
+  );
+  assert.equal(browsingDetail.status, 200);
+  assert.equal(
+    mobileListingSchema.parse((await browsingDetail.json()).data).id,
+    String(rows[9]._id),
+  );
+  assert.equal((await getDetail(String(rows[9]._id))).status, 404);
+  assert.equal((await readContact(String(rows[9]._id))).status, 404);
+  const contactWithBrowsingScope = await sellerDetails(
+    request(`/${rows[9]._id}/contact?sourceVillageId=${other._id}`),
+    { params: Promise.resolve({ id: String(rows[9]._id) }) },
+  );
+  assert.equal(contactWithBrowsingScope.status, 404);
+  assert.equal(
+    String((await User.findById(buyer._id))?.village),
+    String(village._id),
+  );
+  assert.equal(
+    (await list(request(`?sourceVillageId=${inactive._id}`))).status,
+    422,
+  );
+  assert.equal((await list(request("?sourceVillageId=invalid"))).status, 422);
+  console.log(
+    "PASS: independent authenticated browsing scope, active-village validation and registered-village contact protection.",
+  );
+  assert.equal(
+    (await list(request(`?sourceVillageId=${String(village._id)}`, "nope")))
+      .status,
+    401,
+  );
   assert.equal(
     (
       await list(
@@ -497,6 +575,51 @@ try {
     { listingId: contactId, interested: false },
   );
   assert.equal((await readInterest(contactId, null)).status, 401);
+  const directContact = await readContact(contactId);
+  assert.equal(directContact.status, 200);
+  assert.equal(directContact.headers.get("cache-control"), "no-store");
+  assert.deepEqual(
+    sellerDetailsSchema.parse((await directContact.json()).data),
+    {
+      listingId: contactId,
+      seller: { name: "Private Seller", mobile: "+919000000002" },
+    },
+  );
+  assert.equal((await readContact(contactId, null)).status, 401);
+  assert.equal((await readContact("bad")).status, 422);
+  const foreignContact = new Request(
+    `http://localhost/api/v1/listings/${contactId}/contact`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Origin: "https://other.example",
+      },
+    },
+  );
+  assert.equal(
+    (
+      await sellerDetails(foreignContact, {
+        params: Promise.resolve({ id: contactId }),
+      })
+    ).status,
+    403,
+  );
+  for (const row of [rows[0], ...rows.slice(2)])
+    assert.equal((await readContact(String(row._id))).status, 404);
+  assert.equal(
+    await Notification.countDocuments(),
+    0,
+    "contact read sends no notification",
+  );
+  const contactReadRateKey = hashToken(
+    `listing-contact-read:${buyer._id}:${Math.floor(Date.now() / 3600_000)}`,
+  );
+  await MobileRateLimit.updateOne(
+    { key: contactReadRateKey },
+    { $set: { count: 120 } },
+  );
+  assert.equal((await readContact(contactId)).status, 429);
+  await MobileRateLimit.deleteOne({ key: contactReadRateKey });
   assert.equal(
     await ListingInterest.countDocuments(),
     0,
@@ -759,6 +882,7 @@ try {
     403,
     "seller cannot create self-interest",
   );
+  assert.equal((await readContact(contactId, sellerToken)).status, 403);
   const ownHidden = mobileListingPageSchema.parse(
     (await (await list(request("?limit=5", sellerToken))).json()).data,
   );
@@ -908,12 +1032,14 @@ try {
   await User.updateOne({ _id: seller._id }, { $unset: { mobile: 1 } });
   assert.equal((await revealContact(contactId)).status, 422);
   assert.equal((await readInterest(contactId)).status, 422);
+  assert.equal((await readContact(contactId)).status, 422);
   await User.updateOne(
     { _id: seller._id },
     { $set: { mobile: "9000000002", status: "blocked" } },
   );
   assert.equal((await revealContact(contactId)).status, 404);
   assert.equal((await readInterest(contactId)).status, 404);
+  assert.equal((await readContact(contactId)).status, 404);
   assert.equal((await notify(contactId, "notify-blocked-seller")).status, 404);
   await User.updateOne({ _id: seller._id }, { $set: { status: "active" } });
   const rateKey = hashToken(

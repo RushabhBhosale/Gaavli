@@ -10,7 +10,7 @@
     "ios": "expo run:ios",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "tsx --test tests/foundation.test.ts tests/onboarding.test.ts tests/dashboard.test.ts tests/coordinator.test.ts tests/productMaster.test.ts tests/voiceSearch.test.ts",
+    "test": "tsx --test tests/foundation.test.ts tests/onboarding.test.ts tests/dashboard.test.ts tests/coordinator.test.ts tests/productMaster.test.ts tests/voiceSearch.test.ts tests/profile.test.ts tests/browsingVillage.test.ts",
     "export:android": "expo export --platform android",
     "check:dependencies": "expo install --check"
   },

@@ -1,5 +1,13 @@
 # Mobile database listing reads — 2026-10-14
 
+Browsing village revision — 2026-10-23: Home and Marketplace now share a
+searchable location dropdown and a persisted browsing center, independent of
+registered village. Feed/detail GETs use an active `sourceVillageId` for guest
+and signed-in reads. Existing village chips narrow that center and its confirmed
+connections. Contact/write/coordinator authorization keeps its registered-account
+scope. This supersedes the older plain-text/no-dropdown header wording below.
+See [BROWSING_VILLAGE.md](BROWSING_VILLAGE.md).
+
 Voice search revision — 2026-10-21: Marketplace microphone now converts speech
 to text using the device recognizer in mr-IN/en-IN. Lightweight Product Master
 matching extracts product names; the same listing API/search input is reused.

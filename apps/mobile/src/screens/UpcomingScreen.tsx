@@ -70,7 +70,7 @@ export default function UpcomingScreen({
   };
   const item = features[feature];
   return (
-    <ProtectedPage>
+    <ProtectedPage allowGuest>
       <Screen>
         <BackButton
           label={t.back}

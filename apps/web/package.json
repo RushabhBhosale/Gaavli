@@ -13,6 +13,8 @@
     "test": "tsx --test tests/security.test.ts tests/mobile-auth.test.ts tests/listing-policy.test.ts",
     "test:listing-crud": "node --conditions=react-server --import tsx tests/listing-crud.integration.mts",
     "test:mobile-integration": "node --conditions=react-server --import tsx tests/mobile.integration.mts",
+    "test:guest-startup": "node --conditions=react-server --import tsx tests/guest-startup.integration.mts",
+    "test:profile-integration": "node --conditions=react-server --import tsx tests/profile.integration.mts",
     "test:listing-integration": "node --conditions=react-server --import tsx tests/listings.integration.mts",
     "test:coordinator-integration": "node --conditions=react-server --import tsx tests/coordinator.integration.mts",
     "test:product-master": "node --conditions=react-server --import tsx tests/product-master.integration.mts",

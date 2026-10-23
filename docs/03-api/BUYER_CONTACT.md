@@ -1,3 +1,53 @@
+# Product return and seller actions - 2026-10-23 (user approved)
+
+Registration from Contact seller returns to the same product after the existing
+guest village is confirmed. Keep the pending product destination while OTP and
+village confirmation are in progress; consume it only when that signed-in product
+screen is focused. OTP does not redirect on the intermediate session update.
+
+The existing Seller Information card loads authorized name/mobile automatically
+using GET /contact. Show the phone as text, then equal-width outlined Call and
+Notify buttons side by side, with phone/bell icons, thin borders, transparent
+backgrounds and the existing corner radius/fonts. Call reuses POST /interested
+and opens the phone dialer; Notify opens the existing quantity/consent request
+confirmation. Loading, offline, authorization and error handling remain intact.
+No changes to the product content, backend contracts or contact persistence.
+
+# Guest contact confirmation - 2026-10-23 (user approved)
+
+For a guest, Contact seller on Product Details opens a native popup saying
+"You need to sign in first", with Sign in and Not now actions (Marathi/English).
+Sign in opens Create your account and saves the product return destination.
+Not now, back or dismissal keeps the product open without changing that
+destination or starting registration. Completed registration still returns to
+the selected product. Signed-in seller-contact behavior is unchanged.
+
+# Direct seller details - 2026-10-21 (user approved)
+
+Product Details shows seller name, phone, the listing village, Call Seller and
+Notify Seller directly below Description. The Report Product button and
+Interested-first reveal step are removed from this screen. The historical
+Interested-first UX below is superseded; reporting APIs and existing routes remain.
+
+GET /api/v1/listings/:id/contact returns
+{listingId,seller:{name,mobile}} for an eligible authenticated mobile user.
+It shares the existing transaction-based active-account/village, confirmed nearby
+scope, listing/seller/category/expiry, demo, self-contact and valid-phone checks.
+It shares the 120/user/hour contact-read limit, is no-store, and creates neither
+interest nor notification. Normal listing/feed DTOs remain contact-free.
+
+Call still records interest through POST /interested, rechecks eligibility and
+opens the dialer. Notify confirmation records interest before submitting the
+existing durable, idempotent quantity/callback-consent request. Viewing details
+or opening/canceling the confirmation sends no notice. Existing GET /interested
+retains its old restore-only contract for compatibility.
+
+Contacts remain only in account/village/product-scoped memory with zero cache
+retention after unmount; no phone is written to SQLite. Cold offline reads show
+reconnect guidance; loading and failure/retry are distinct. Call and notification
+submission require connectivity. Marathi/English labels and large-text wrapping
+use the existing components. No seller photo is fabricated.
+
 # Buyer seller-contact action — 2026-10-15
 
 Product Details now uses a larger contained photo and larger bold seller-name and

@@ -1,3 +1,9 @@
+> Direct seller details revision - 2026-10-21: Product Details displays eligible
+> seller contact without an Interested tap. Confirming Notify Seller records
+> interest through the existing POST before sending the existing durable request.
+> Merely viewing the product or canceling confirmation sends nothing. Quantity,
+> callback consent, idempotency, rate limits and delivery channels are unchanged.
+
 # Notify seller fallback — 2026-10-15
 
 Request revision: My Activity now provides buyer Sent and seller Received cards,

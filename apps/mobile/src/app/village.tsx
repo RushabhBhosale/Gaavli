@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Redirect, useRouter } from "expo-router";
 import {
-  FlatList,
   Image,
-  Modal,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -18,7 +15,11 @@ import {
 import { useInfiniteQuery } from "@tanstack/react-query";
 import * as Location from "expo-location";
 import type { MobileVillage } from "@gaavli/types";
-import { mobileUserSchema, villagePageSchema } from "@gaavli/validation";
+import {
+  mobileUserSchema,
+  personNameSchema,
+  villagePageSchema,
+} from "@gaavli/validation";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import {
@@ -27,14 +28,17 @@ import {
   Button,
   DropdownField,
   ErrorMessage,
-  LoadingState,
+  Input,
   LocationPin,
   OfflineBanner,
   styles,
 } from "../components/ui";
 import { theme } from "../theme";
 import { authenticatedApi, saveSession } from "../session";
+import { postAuthHref, saveGuestVillage } from "../storage/preferences";
+import { preferenceStorage } from "../storage/sqlite";
 import { errorMessage } from "../errors";
+import { VillagePicker, useVillageSearch } from "../components/VillagePicker";
 
 export default function VillageScreen() {
   const router = useRouter();
@@ -43,11 +47,23 @@ export default function VillageScreen() {
   const { height } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const [pickerOpen, setPickerOpen] = useState(false);
+  const { search, setSearch, debouncedSearch, searchPending } =
+    useVillageSearch();
   const [coordinates, setCoordinates] = useState<{
     latitude: number;
     longitude: number;
   } | null>(null);
-  const [selected, setSelected] = useState<MobileVillage | null>(null);
+  const guestVillage = useAppStore((state) => state.guestVillage);
+  const [selected, setSelected] = useState<MobileVillage | null>(
+    session?.user.village ?? guestVillage,
+  );
+  const needsNames = !session?.user.firstName || !session?.user.lastName;
+  const [firstName, setFirstName] = useState(session?.user.firstName || "");
+  const [lastName, setLastName] = useState(session?.user.lastName || "");
+  const [nameErrors, setNameErrors] = useState<{
+    firstName?: string;
+    lastName?: string;
+  }>({});
   const [locating, setLocating] = useState(false);
   const [locationError, setLocationError] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -61,12 +77,18 @@ export default function VillageScreen() {
     [],
   );
   const nearbyQuery = useInfiniteQuery({
-    queryKey: ["mobile-villages", session?.user.id, "", coordinates],
+    queryKey: [
+      "mobile-villages",
+      session?.user.id,
+      debouncedSearch,
+      coordinates,
+    ],
     initialPageParam: 1,
     queryFn: ({ pageParam, signal }) => {
       const params = new URLSearchParams({
         page: String(pageParam),
         limit: "20",
+        search: debouncedSearch,
       });
       if (coordinates) {
         params.set("latitude", String(coordinates.latitude));
@@ -78,38 +100,37 @@ export default function VillageScreen() {
     },
     getNextPageParam: (last) =>
       last.page * last.limit < last.total ? last.page + 1 : undefined,
-    enabled: !!session && !offline && !!coordinates,
+    enabled: pickerOpen && !!session && !offline && !!coordinates,
   });
   // A failed/empty nearby lookup must leave the complete manual dropdown available.
   const nearbyUnavailable =
     !!coordinates &&
-    (nearbyQuery.isError || nearbyQuery.data?.pages[0]?.total === 0);
+    (nearbyQuery.isError ||
+      (!debouncedSearch && nearbyQuery.data?.pages[0]?.total === 0));
   const manualQuery = useInfiniteQuery({
-    queryKey: ["mobile-villages", session?.user.id, "", null],
+    queryKey: ["mobile-villages", session?.user.id, debouncedSearch, null],
     initialPageParam: 1,
     queryFn: ({ pageParam, signal }) =>
       authenticatedApi(
-        `/villages?page=${pageParam}&limit=20`,
+        `/villages?page=${pageParam}&limit=20&search=${encodeURIComponent(debouncedSearch)}`,
         villagePageSchema,
         { signal },
       ),
     getNextPageParam: (last) =>
       last.page * last.limit < last.total ? last.page + 1 : undefined,
-    enabled: !!session && !offline && (!coordinates || nearbyUnavailable),
+    enabled:
+      pickerOpen &&
+      !!session &&
+      !offline &&
+      (!coordinates || nearbyUnavailable),
   });
   const query = coordinates && !nearbyUnavailable ? nearbyQuery : manualQuery;
   const showLocationError = locationError || nearbyUnavailable;
   if (!session) return <Redirect href="/register" />;
-  const villages = [
-    ...new Map(
-      query.data?.pages
-        .flatMap((page) => page.villages)
-        .map((village) => [village.id, village]),
-    ).values(),
-  ];
   const villageName = (village: MobileVillage) =>
     language === "mr" ? village.nameMr : village.name;
   function openPicker() {
+    setSearch("");
     generation.current++;
     setLocating(false);
     setCoordinates(null);
@@ -117,6 +138,7 @@ export default function VillageScreen() {
     setPickerOpen(true);
   }
   async function locate() {
+    setSearch("");
     const current = ++generation.current;
     setLocating(true);
     setLocationError(false);
@@ -156,18 +178,62 @@ export default function VillageScreen() {
   }
   async function confirm() {
     if (!selected || submitting.current) return;
+    const names = needsNames
+      ? {
+          firstName: personNameSchema.safeParse(firstName),
+          lastName: personNameSchema.safeParse(lastName),
+        }
+      : null;
+    if (
+      names &&
+      (!names.firstName.success ||
+        !names.lastName.success ||
+        names.firstName.data.length + names.lastName.data.length + 1 > 100)
+    ) {
+      setNameErrors({
+        firstName: names.firstName.success ? "" : t.nameError,
+        lastName:
+          names.lastName.success &&
+          names.firstName.success &&
+          names.firstName.data.length + names.lastName.data.length + 1 > 100
+            ? t.fullNameError
+            : names.lastName.success
+              ? ""
+              : t.nameError,
+      });
+      return;
+    }
     submitting.current = true;
     setSaving(true);
     setFailure(null);
     try {
       const user = await authenticatedApi("/users/me", mobileUserSchema, {
         method: "PATCH",
-        body: JSON.stringify({ villageId: selected.id }),
+        body: JSON.stringify({
+          villageId: selected.id,
+          ...(names?.firstName.success && names.lastName.success
+            ? {
+                firstName: names.firstName.data,
+                lastName: names.lastName.data,
+              }
+            : {}),
+        }),
       });
       const current = useAppStore.getState().session;
       if (!current) return;
       await saveSession({ ...current, user });
-      router.replace("/home");
+      if (user.village) {
+        try {
+          useAppStore
+            .getState()
+            .restore(await saveGuestVillage(preferenceStorage, user.village));
+        } catch {
+          /* The account village remains available from the secure session. */
+        }
+      }
+      router.replace(
+        postAuthHref(user, useAppStore.getState().contactReturnListingId),
+      );
     } catch (error) {
       setFailure(error);
     } finally {
@@ -188,12 +254,41 @@ export default function VillageScreen() {
             disabled={saving}
             onPress={() => {
               if (router.canGoBack()) router.back();
-              else if (session.user.village) router.replace("/home");
+              else if (session.user.village)
+                router.replace(postAuthHref(session.user));
             }}
           />
           <Text accessibilityRole="header" style={styles.title}>
             {t.villageTitle}
           </Text>
+          {needsNames && (
+            <>
+              <Input
+                label={t.firstName}
+                value={firstName}
+                onChangeText={(value) => {
+                  setFirstName(value);
+                  setNameErrors((previous) => ({ ...previous, firstName: "" }));
+                }}
+                error={nameErrors.firstName}
+                autoComplete="given-name"
+                maxLength={60}
+                editable={!saving}
+              />
+              <Input
+                label={t.lastName}
+                value={lastName}
+                onChangeText={(value) => {
+                  setLastName(value);
+                  setNameErrors((previous) => ({ ...previous, lastName: "" }));
+                }}
+                error={nameErrors.lastName}
+                autoComplete="family-name"
+                maxLength={60}
+                editable={!saving}
+              />
+            </>
+          )}
           <DropdownField
             label={t.villageLabel}
             value={selected ? villageName(selected) : undefined}
@@ -238,107 +333,22 @@ export default function VillageScreen() {
           ]}
         />
       </ScrollView>
-      <Modal
-        visible={pickerOpen}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setPickerOpen(false)}
-      >
-        <View style={s.overlay}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.close}
-            style={StyleSheet.absoluteFill}
-            onPress={() => setPickerOpen(false)}
-          />
-          <SafeAreaView
-            edges={["bottom"]}
-            style={s.sheet}
-            accessibilityViewIsModal
-          >
-            <View style={s.sheetHeader}>
-              <Text accessibilityRole="header" style={s.sheetTitle}>
-                {t.villageTitle}
-              </Text>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={t.close}
-                onPress={() => setPickerOpen(false)}
-                style={s.close}
-              >
-                <Text accessible={false} style={s.closeText}>
-                  ×
-                </Text>
-              </Pressable>
-            </View>
-            {coordinates && !nearbyUnavailable && (
-              <Text style={s.hint}>{t.locationHelp}</Text>
-            )}
-            {showLocationError && <ErrorMessage message={t.locationFailed} />}
-            {offline && <Text style={s.hint}>{t.offlineAction}</Text>}
-            {query.isPending && !offline && <LoadingState label={t.loading} />}
-            {!!query.error && (
-              <View style={s.retry}>
-                <ErrorMessage message={errorMessage(query.error, language)} />
-                <Button disabled={offline} onPress={() => void query.refetch()}>
-                  {t.retry}
-                </Button>
-              </View>
-            )}
-            <FlatList
-              data={villages}
-              keyExtractor={(item) => item.id}
-              contentContainerStyle={s.options}
-              renderItem={({ item }) => (
-                <Pressable
-                  accessibilityRole="radio"
-                  accessibilityState={{ checked: selected?.id === item.id }}
-                  onPress={() => {
-                    setSelected(item);
-                    setFailure(null);
-                    setPickerOpen(false);
-                  }}
-                  style={[
-                    s.option,
-                    selected?.id === item.id && s.optionSelected,
-                  ]}
-                >
-                  <View style={s.optionCopy}>
-                    <Text style={s.optionName}>{villageName(item)}</Text>
-                    <Text style={s.optionDetail}>
-                      {[item.taluka, item.district, item.pinCode]
-                        .filter(Boolean)
-                        .join(" · ")}
-                    </Text>
-                  </View>
-                  {selected?.id === item.id && (
-                    <Text accessibilityLabel={t.selected} style={s.check}>
-                      ✓
-                    </Text>
-                  )}
-                </Pressable>
-              )}
-              ListEmptyComponent={
-                query.isSuccess ? (
-                  <Text style={s.hint}>{t.noVillages}</Text>
-                ) : null
-              }
-              ListFooterComponent={
-                query.hasNextPage ? (
-                  <Button
-                    secondary
-                    loading={query.isFetchingNextPage}
-                    disabled={offline}
-                    onPress={() => void query.fetchNextPage()}
-                  >
-                    {t.loadMore}
-                  </Button>
-                ) : null
-              }
-            />
-          </SafeAreaView>
-        </View>
-      </Modal>
+      <VillagePicker
+        open={pickerOpen}
+        selected={selected}
+        search={search}
+        searchPending={searchPending}
+        query={query}
+        onSearch={setSearch}
+        hint={coordinates && !nearbyUnavailable ? t.locationHelp : undefined}
+        locationError={showLocationError ? t.locationFailed : undefined}
+        onClose={() => setPickerOpen(false)}
+        onSelect={(village) => {
+          setSelected(village);
+          setFailure(null);
+          setPickerOpen(false);
+        }}
+      />
     </SafeAreaView>
   );
 }
@@ -356,69 +366,4 @@ const s = StyleSheet.create({
   },
   spacer: { flexGrow: 1, minHeight: 24 },
   illustration: { marginHorizontal: 10, borderRadius: theme.radii.artwork },
-  overlay: {
-    flex: 1,
-    backgroundColor: theme.colors.overlay,
-    justifyContent: "flex-end",
-  },
-  sheet: {
-    backgroundColor: theme.colors.background,
-    borderTopLeftRadius: theme.radii.sheet,
-    borderTopRightRadius: theme.radii.sheet,
-    height: "72%",
-    paddingHorizontal: theme.spacing,
-    paddingTop: 8,
-  },
-  sheetHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 12,
-  },
-  sheetTitle: {
-    flex: 1,
-    fontSize: 22,
-    lineHeight: 32,
-    fontWeight: "700",
-    color: theme.colors.heading,
-  },
-  close: {
-    minWidth: theme.layout.touchTarget,
-    minHeight: theme.layout.touchTarget,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  closeText: { fontSize: 30, color: theme.colors.muted },
-  hint: {
-    fontSize: 15,
-    lineHeight: 23,
-    color: theme.colors.muted,
-    paddingVertical: 12,
-  },
-  retry: { gap: 12, paddingVertical: 12 },
-  options: { gap: 10, paddingVertical: 16 },
-  option: {
-    minHeight: 72,
-    backgroundColor: theme.colors.surface,
-    borderColor: theme.colors.border,
-    borderWidth: 1,
-    borderRadius: theme.radii.control,
-    padding: 16,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  optionSelected: {
-    borderColor: theme.colors.focusBorder,
-    backgroundColor: theme.colors.tint,
-  },
-  optionCopy: { flex: 1, gap: 4 },
-  optionName: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: theme.colors.text,
-    fontWeight: "600",
-  },
-  optionDetail: { fontSize: 13, lineHeight: 20, color: theme.colors.muted },
-  check: { color: theme.colors.primary, fontSize: 24 },
 });

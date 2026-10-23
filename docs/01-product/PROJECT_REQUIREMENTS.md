@@ -1,3 +1,22 @@
+> Browsing village revision - 2026-10-23 (user approved): Home and Marketplace
+> share a searchable active-village dropdown and persisted global browsing
+> preference. Selection refreshes public product discovery independently of
+> registered village, registration and coordinator mapping. Protected contact
+> scope stays intact. See `../03-api/BROWSING_VILLAGE.md`.
+
+> My Profile revision - 2026-10-23 (user approved): reuse registered first/last
+> names as read-only fields. Address, alternative mobile and occupation are
+> editable; Save cannot update names or primary mobile. Primary number changes
+> require a separate OTP flow. Optional profile photo and existing village
+> changes are available. See `../03-api/MOBILE_PROFILE.md` for scope and gates.
+
+> Direct seller details revision - 2026-10-21 (user approved): below Product
+> Details description, show authorized seller name, phone, listing village,
+> Call Seller and Notify Seller directly. Remove this screen's Report Product
+> button and Interested-first step. Viewing creates no interest or notification;
+> the existing eligibility checks and explicit notify confirmation still apply.
+> See docs/03-api/BUYER_CONTACT.md.
+
 > Product Master revision - 2026-10-21 (user approved): seller/farmer Add and
 > Edit use a searchable Marathi/English reference with existing styling. Save
 > productId and canonical name/group snapshots, default the editable unit, and
@@ -74,6 +93,14 @@ one active village. Backend search capabilities remain available to other client
 -   New **Recommended Technology Stack** section (§22).
 
 ## Current Approved Technical Decisions
+
+User-approved mobile onboarding revision — 2026-10-22: a guest selects a
+language and village, then browses active listings, prices, quantities, images,
+descriptions and villages. Seller contact stays hidden until registration.
+Contact seller opens registration or sign-in and returns to the same product
+after the account is ready. This supersedes the 2026-10-13 no-guest-flow rule
+below. Signed-in buyer, seller and coordinator capabilities stay as already
+approved.
 
 User-approved mobile onboarding revision — 2026-10-13: registration is required
 before browsing; no guest mobile flow. Language selection supports Marathi
