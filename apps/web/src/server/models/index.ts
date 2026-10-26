@@ -101,6 +101,7 @@ const listingSchema = new Schema(
       enum: LISTING_PRODUCT_GROUPS,
     },
     photoObjectKey: { type: String, trim: true },
+    photoImageId: { type: Schema.Types.ObjectId },
     isDemo: { type: Boolean, default: false },
     category: String,
     categoryId: { type: Schema.Types.ObjectId, ref: "Category" },

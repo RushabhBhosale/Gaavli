@@ -650,6 +650,15 @@ function ListingFormScreen({
               >
                 {t.chooseListingGallery}
               </Button>
+              {(form.localPhoto || form.existingPhotoKey || form.photo) && (
+                <Button
+                  secondary
+                  disabled={locked}
+                  onPress={() => update("photo", "")}
+                >
+                  {t.removeListingPhoto}
+                </Button>
+              )}
             </View>
           </View>
           {editId && !form.productId ? (

@@ -94,6 +94,17 @@ export default function MyListingsScreen() {
       ),
   });
   if (!session?.user.isSeller) return <Redirect href="/home" />;
+  const sellerName =
+    [session.user.firstName, session.user.lastName]
+      .map((name) => name?.trim())
+      .filter(Boolean)
+      .join(" ") || session.user.name;
+  const registeredVillage = session.user.village;
+  const sellerVillage = registeredVillage
+    ? language === "mr"
+      ? registeredVillage.nameMr
+      : registeredVillage.name
+    : "";
   const allItems = query.data?.pages.flatMap((page) => page.listings) ?? [];
   const items = allItems.filter(
     (item) =>
@@ -116,6 +127,8 @@ export default function MyListingsScreen() {
     ),
   );
   const ready = !!query.data && !query.isError;
+  const showingFirstProduct =
+    ready && !items.length && !search && (tab === "all" || tab === "active");
   const add = () => router.push("/add-listing");
   const edit = (id: string) =>
     router.push({ pathname: "/add-listing", params: { id } });
@@ -338,7 +351,10 @@ export default function MyListingsScreen() {
             <Text accessibilityRole="header" style={s.headerTitle}>
               {t.myProducts}
             </Text>
-            <Text style={s.headerSubtitle}>{t.manageProductsSubtitle}</Text>
+            <Text style={s.sellerName}>{sellerName}</Text>
+            {!!sellerVillage && (
+              <Text style={s.headerSubtitle}>{sellerVillage}</Text>
+            )}
           </View>
         </View>
       </View>
@@ -422,6 +438,18 @@ export default function MyListingsScreen() {
           ))}
         </ScrollView>
       </View>
+      {!showingFirstProduct && (
+        <View style={s.addActions}>
+          <Pressable
+            accessibilityRole="button"
+            onPress={add}
+            style={s.addButton}
+          >
+            <Ionicons name="add" size={20} color={theme.colors.onPrimary} />
+            <Text style={s.addText}>{t.newProduct}</Text>
+          </Pressable>
+        </View>
+      )}
       {tab === "drafts" ? (
         <ScrollView contentContainerStyle={s.content}>
           {errors}
@@ -587,9 +615,11 @@ export default function MyListingsScreen() {
                       <Ionicons
                         name="cart-outline"
                         size={16}
-                        color={theme.colors.onPrimary}
+                        color={theme.colors.primaryDark}
                       />
-                      <Text style={s.soldText} numberOfLines={1}>{t.markAsSold}</Text>
+                      <Text style={s.soldText} numberOfLines={1}>
+                        {t.markAsSold}
+                      </Text>
                     </Pressable>
                   )}
                 </View>
@@ -611,24 +641,6 @@ export default function MyListingsScreen() {
           onRefresh={() => void query.refetch()}
         />
       )}
-      <View style={s.top}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t.marketplace}
-          onPress={() => router.push("/marketplace")}
-          style={s.iconButton}
-        >
-          <Ionicons
-            name="storefront-outline"
-            size={22}
-            color={theme.colors.heading}
-          />
-        </Pressable>
-        <Pressable accessibilityRole="button" onPress={add} style={s.addButton}>
-          <Ionicons name="add" size={20} color={theme.colors.onPrimary} />
-          <Text style={s.addText}>{t.newProduct}</Text>
-        </Pressable>
-      </View>
       <Modal
         visible={!!menu}
         transparent
@@ -753,6 +765,12 @@ const s = StyleSheet.create({
     lineHeight: 21,
     color: theme.colors.muted,
   },
+  sellerName: {
+    fontSize: 14,
+    lineHeight: 22,
+    fontWeight: "600",
+    color: theme.colors.heading,
+  },
   headerArt: {
     position: "absolute",
     width: 190,
@@ -808,7 +826,7 @@ const s = StyleSheet.create({
   },
   tabsContainer: { flexShrink: 0 },
   selectedText: { color: theme.colors.surface, fontWeight: "600" },
-  top: {
+  addActions: {
     width: "100%",
     maxWidth: theme.layout.contentWidth,
     alignSelf: "center",
@@ -816,9 +834,8 @@ const s = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "flex-end",
     gap: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
   },
   heading: {
     flexShrink: 1,
@@ -828,20 +845,12 @@ const s = StyleSheet.create({
     fontWeight: "700",
     color: theme.colors.heading,
   },
-  iconButton: {
-    marginLeft: "auto",
-    minWidth: theme.layout.touchTarget,
-    minHeight: theme.layout.touchTarget,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: theme.colors.accentBackground,
-    borderRadius: theme.radii.pill,
-  },
   addButton: {
     minHeight: theme.layout.touchTarget,
     flexShrink: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     gap: 4,
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radii.control,
@@ -946,13 +955,15 @@ const s = StyleSheet.create({
     minHeight: 36,
     paddingHorizontal: 10,
     borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.primary,
+    borderWidth: 2,
+    borderColor: theme.colors.primary,
+    backgroundColor: "transparent",
   },
   soldDisabled: { opacity: theme.interaction.disabledOpacity },
   soldPressed: { opacity: theme.interaction.pressedOpacity },
   soldText: {
     flexShrink: 1,
-    color: theme.colors.onPrimary,
+    color: theme.colors.primaryDark,
     fontSize: 13,
     lineHeight: 18,
     fontWeight: "700",

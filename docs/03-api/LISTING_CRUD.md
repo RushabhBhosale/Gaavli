@@ -1,3 +1,8 @@
+> Product photo revision - 2026-10-25 (user approved): new optional listing
+> uploads use Atlas GridFS in all environments, through the existing Node API and
+> Mongo connection. Keep legacy references and originals. Profile photo storage
+> is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
+
 > Product Master revision - 2026-10-21: optional productId links the existing
 > Listing to an active master. Server resolves canonical English/Marathi names
 > and group within the existing transaction. Owner reads return ID/null, edit

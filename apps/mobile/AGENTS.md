@@ -1,3 +1,18 @@
+> Product photo revision - 2026-10-25 (user approved): new optional listing
+> uploads use Atlas GridFS in all environments, through the existing Node API and
+> Mongo connection. Keep legacy references and originals. Profile photo storage
+> is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
+
+> Logout revision - 2026-10-26 (user approved): logout clears secure/session/auth
+> state and local guest/browsing villages, resets navigation to first village
+> selection, and ignores login-history flags for signed-out startup routing.
+> The village screen has Already Registered? Login below Continue with no village
+> prerequisite. This supersedes the 2026-10-25 logout-to-Login rule.
+> Login OTP requires an
+> existing active account; mobile-only verification never creates an account. New
+> devices retain guest village onboarding. See docs/03-api/MOBILE_ONBOARDING.md
+> at repository root. This supersedes older mobile-only auto-registration rules.
+
 > Guest browsing revision — 2026-10-22: Get started saves a language and
 > village locally, then opens Home without an account. Create account asks for
 > first name, last name and mobile number, then OTP, confirms the saved

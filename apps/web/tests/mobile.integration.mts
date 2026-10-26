@@ -143,10 +143,10 @@ try {
   );
   assert.equal(nearby.total, 1, "missing coordinates are not fabricated");
   await rejects(
-    saveMobileVillage(signedIn.user.id, String(villages[2]._id)),
+    saveMobileVillage(signedIn.user.id, { villageId: String(villages[2]._id) }),
     "VILLAGE_UNAVAILABLE",
   );
-  await saveMobileVillage(signedIn.user.id, String(villages[0]._id));
+  await saveMobileVillage(signedIn.user.id, { villageId: String(villages[0]._id) });
   assert.equal(
     (await mobileUserDto(await requireMobile(request(signedIn.accessToken))))
       .village?.id,
@@ -239,36 +239,54 @@ try {
   assert.equal(await User.countDocuments(), 1);
   await logoutMobile(returning.refreshToken);
 
-  const unknownChallenge = await sendOtp(
-    loginSchema.parse({ mobile: "9876543299", language: "mr" }),
-    "returning",
-  );
+  const unknown = loginSchema.parse({ mobile: "9876543299", language: "mr" });
+  for (let attempt = 0; attempt < 5; attempt++)
+    await rejects(sendOtp(unknown, "unknown-login"), "REGISTRATION_REQUIRED");
+  await rejects(sendOtp(unknown, "unknown-login"), "RATE_LIMITED");
   assert.equal(
-    "user" in unknownChallenge,
-    false,
-    "send must not disclose whether an account exists",
-  );
-  await rejects(
-    verifyOtp(
-      { challengeId: unknownChallenge.challengeId, code: "000000" },
-      "returning",
-    ),
-    "OTP_INVALID",
-  );
-  await rejects(
-    verifyOtp(
-      { challengeId: unknownChallenge.challengeId, code: "123456" },
-      "returning",
-    ),
-    "REGISTRATION_REQUIRED",
+    await OtpChallenge.countDocuments({ mobile: unknown.mobile }),
+    0,
   );
   assert.equal(
     await User.countDocuments(),
     1,
-    "mobile-only login cannot create a nameless user",
+    "unknown login cannot create an account",
+  );
+
+  await User.updateOne(
+    { _id: signedIn.user.id },
+    { $set: { status: "blocked" } },
+  );
+  await rejects(sendOtp(loginInput, "blocked-login"), "ACCOUNT_UNAVAILABLE");
+  await User.updateOne(
+    { _id: signedIn.user.id },
+    { $set: { status: "active" } },
+  );
+
+  const transient = await User.create({
+    name: "Transient Buyer",
+    mobile: "9876543298",
+    roles: ["buyer"],
+  });
+  const transientChallenge = await sendOtp(
+    loginSchema.parse({ mobile: transient.mobile, language: "en" }),
+    "deleted-login",
+  );
+  await User.deleteOne({ _id: transient._id });
+  await rejects(
+    verifyOtp(
+      { challengeId: transientChallenge.challengeId, code: "123456" },
+      "deleted-login",
+    ),
+    "REGISTRATION_REQUIRED",
+  );
+  assert.equal(
+    await User.countDocuments({ mobile: transient.mobile }),
+    0,
+    "login never recreates a deleted account",
   );
   console.log(
-    "PASS: logout then mobile-only OTP login restores profile/village/seller; unknown numbers require registration only after valid OTP.",
+    "PASS: existing seller restored; unknown/blocked login rejected before OTP; unknown attempts throttled; deleted login cannot register.",
   );
 
   const attemptInput = { ...input, mobile: "9876543211" };

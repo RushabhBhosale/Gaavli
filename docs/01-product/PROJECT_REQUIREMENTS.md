@@ -1,3 +1,8 @@
+> Product photo revision - 2026-10-25 (user approved): new optional listing
+> uploads use Atlas GridFS in all environments, through the existing Node API and
+> Mongo connection. Keep legacy references and originals. Profile photo storage
+> is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
+
 > Temporary hosted OTP testing - 2026-10-23 (explicit user approval): configured
 > fixed OTP 123456 may authenticate all mobile numbers on the existing hosted
 > API/database for APK testing. Test sessions work in production. This replaces

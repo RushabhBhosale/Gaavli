@@ -1,3 +1,166 @@
+## 2026-10-26 - Logout to first village selection
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Successful shared logout revokes the session, clears secure credentials and
+  legacy tokens, resets authenticated state/drafts/challenge/contact return,
+  clears query cache and dismisses navigation history before replacing it with
+  the existing first village selection screen. SQLite clears only guest/browsing
+  village settings. Database accounts, profiles, listings and local product drafts
+  remain intact. Storage/revocation failures retain the existing retry/error flow.
+- Removed history-flag startup/tab redirects to Login. The first village screen
+  uses Continue and the exact bilingual Already Registered? Login text link below
+  it. Login needs no village selection, uses the existing auth mode and preserves
+  existing unknown-number rejection, OTP and buyer/seller permissions restoration.
+- Added buyer/seller cleanup/relogin, restart-routing and storage-failure coverage.
+  Native Android Back, SecureStore/SQLite restart and visual checks remain pending.
+- Verification: all 68 mobile tests, mobile TypeScript, mobile lint and diff
+  whitespace checks passed. No backend or database changes were needed.
+
+## 2026-10-26 - Buyer/seller My Requests header
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Buyer/seller Activity page title is My Requests / माझ्या विनंत्या. Removed
+  the repeated Requests section title and moved the existing refresh action to
+  an accessible header icon, preserving offline/busy/fetching restrictions and
+  received-notification refresh. Embedded/coordinator request views stay intact.
+- Reused the scene header with an optional action slot; other headers are
+  unchanged. Native layout and refresh interaction remain unverified.
+- Verification: mobile TypeScript, focused ESLint and diff whitespace checks
+  passed.
+
+## 2026-10-26 - My Products seller header and actions
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- My Products derives seller first/last names and localized registered village
+  directly from the reactive session profile; legacy display name is a fallback.
+  No duplicate data, new APIs or database writes were introduced.
+- Moved the existing New Product action below the filter tabs and above both
+  listing/draft views, with the same Add Product navigation. Removed this page's
+  Marketplace shortcut. Mark as Sold now has a 2px theme-green outline,
+  transparent background, existing rounded corners and dark text/icon.
+- Follow-up: hide the upper New Product button whenever the confirmed
+  first-product empty state is visible, retaining its Add first product action.
+- New Product is compact and right-aligned above the listings instead of
+  stretching across the screen (user-requested layout follow-up).
+- Existing product cards, action handlers, confirmation dialogs, menus, filtering,
+  pagination, refresh, offline restrictions and translations are retained.
+- Native small-screen/Marathi layout and profile-update checks remain pending.
+- Verification: mobile TypeScript, focused ESLint on MyListingsScreen and diff
+  whitespace checks passed. Product mutation handlers were unchanged.
+
+## 2026-10-26 - Registered buyer/seller default browsing village
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Login/account switch and app startup default buyers/sellers to their registered
+  village instead of an old device browsing preference. Home and Marketplace
+  retain one shared center and allow manual selection during the launch.
+- Same-account session refresh preserves a manual choice. Guest/coordinator
+  persistence, registered profile data and contact scope remain unchanged.
+- Added coverage for buyer/seller login, startup restoration, manual selection,
+  token refresh, account switching and guest/coordinator defaults.
+- Verification: all 66 mobile tests, mobile TypeScript, focused ESLint and diff
+  whitespace checks passed. Physical-device login/restart/feed checks pending.
+
+## 2026-10-26 - Guest header sign-up prompt
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Guest Home hides the sign-in arrow. Shared guest profile button on Home and
+  Marketplace opens a native localized "Please sign up first" popup with Sign up
+  and Not now. Not now keeps browsing; Sign up clears a stale contact return,
+  explicitly selects registration mode and opens the existing registration form.
+- Signed-in notification/profile actions and browsing-village selection remain.
+  Added English/Marathi copy and documented the approved onboarding entry.
+- Guest Settings now places Create account first as the primary highlighted
+  button, followed by Sign in as a secondary button (user-approved follow-up).
+- Guest Contact seller and Become a seller now reuse the header's localized
+  Sign up / Not now popup. Confirmation opens registration with product return
+  for Contact seller, and login mode for Become a seller as requested. Dismissal
+  leaves auth and navigation state unchanged. Native interaction remains pending.
+- Verification: mobile TypeScript, focused ESLint on the changed mobile files,
+  all 65 existing mobile tests and git diff whitespace checks passed.
+  Physical-device popup, dismissal and registration navigation remain unverified.
+
+## 2026-10-25 - Optional product photos in Atlas GridFS
+
+Status: IMPLEMENTED - DEPLOYED APK/DEVICE VERIFICATION PENDING.
+
+- New product photo uploads use the existing Atlas/Mongoose connection and
+  GridFS, including NODE_ENV=production. New uploads never write server files.
+  Reusable listing-photo-storage service and GridFS adapter retain the existing
+  upload response/key/URL contract; no dependencies or Express server were added.
+- Existing picker/preview/Add/Edit layouts remain. Optional English/Marathi label
+  and Remove photo action reuse existing components; supported picker compression
+  uses quality 0.7, and server resizing/metadata removal/WebP compression applies
+  before storage. PNG selection can remain lossless before network upload.
+- Create without photo remains valid. Omitted edit photos preserve the old key
+  and image ID; replacement attaches the new image, explicit removal clears both.
+  Existing default placeholder and marketplace/owner/detail display remain shared.
+- Listing.photoImageId stores the GridFS ObjectId alongside photoObjectKey. The
+  manifest validates upload owner and preserves immutable operation replay. Upload
+  streams use unique attempt IDs before atomic publication. Attachment/deletion
+  share a manifest transaction lock; unused-image DELETE is owner-only, retryable,
+  and rejects photos referenced by any listing, including inactive/history rows.
+  Replacements/removals do not automatically delete existing image bytes.
+- Legacy asset/CDN references remain. migrate:listing-photos supports dry run and
+  --apply: copies referenced legacy local uploads to GridFS, backfills image IDs,
+  and retains original files and keys. No live application migration was run.
+- Verification: 65 mobile tests, 14 web unit tests, full monorepo typecheck, mobile
+  and web lint passed. Isolated MongoDB CRUD integration passed production-mode
+  upload/read, malformed/oversized/unauthenticated rejection, idempotency/conflict,
+  WebP resizing/metadata stripping, optional create/edit, image-ID persistence,
+  unchanged-photo preservation, removal, in-use/non-owner deletion rejection,
+  explicit deletion replay, no upload filesystem writes, and legacy migration
+  with originals retained. The final expanded integration run also passed
+  simultaneous duplicate uploads (one published file), replacement with a new
+  image ID, preservation of the old upload, and explicit deletion of both files.
+  Test fixtures were updated with existing profile names and the language argument
+  required by the current APIs; no product business rules changed for fixtures.
+- Remaining: deploy backend, run legacy migration on the computer holding source
+  files if needed, rebuild APK for new optional copy/removal control, and verify
+  shared-APK uploads/display across physical devices. No deployment or APK build
+  is claimed. Interrupted pre-publication writes may leave unreferenced GridFS
+  files; no automatic destructive cleanup is enabled. Profile photos are unchanged.
+
+## 2026-10-25 - Separate mobile login and registered-device logout
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Existing send-otp API validates mobile-only login against an active existing
+  account after network/phone throttles. Unknown numbers get REGISTRATION_REQUIRED
+  without issuing a challenge. Verification cannot create an account for login,
+  including account deletion between request and verification. Named registration
+  payload and configured test OTP 123456 are preserved.
+- Existing SQLite settings persist a non-sensitive has-authenticated flag through
+  logout; existing secure sessions migrate it. Logout clears tokens, session, auth
+  drafts/challenge, pending product return and query cache and opens Login. App
+  restart on that device opens Login. First-time/new-device guest onboarding and
+  explicit Sign in remain. Buyer Home / seller My Listings / coordinator Manage
+  routing and requested product return are retained, with existing unfinished
+  village onboarding still enforced after authentication.
+- Reused components, Zustand, SQLite, SecureStore, API schemas, rate limits and
+  Marathi/English errors. No account/listing deletion, dependency install or user
+  schema change. Auth changes are in mobile session/preferences/navigation and
+  server/services/mobile-auth.ts; tests and onboarding/API/security docs updated.
+- Verification: 64 mobile tests, 14 web unit tests and full monorepo typecheck
+  passed. Mobile and web lint and git diff whitespace checks passed.
+  Isolated MongoDB mobile integration passed: named registration, seller
+  profile/permissions restoration, unknown/inactive rejection before OTP, repeated
+  unknown-number throttling with zero challenges, deleted-account login rejection,
+  invalid/expired OTP, concurrency, session rotation/logout and legacy identities.
+  Updated stale integration village-save calls to the current object contract.
+- Not yet verified: physical-device/APK navigation, hardware Back, actual native
+  SQLite/SecureStore across restart and live deployment. No APK built or backend
+  deployed by this change. Existing SMS provider remains unfinished; approved test
+  OTP works only when explicitly configured. The explicit unknown-number response
+  reveals account existence; phone/network limits mitigate rather than eliminate
+  distributed enumeration. Existing logout network failure retains the session
+  and reports an error so server revocation can be retried.
+
 # Temporary hosted fixed-OTP testing — 2026-10-23
 
 - Explicit user-approved exception: removed production-environment blocks on

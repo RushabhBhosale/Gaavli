@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import type { MobileSession, MobileVillage } from "@gaavli/types";
 import {
   browsingVillageFor,
+  initialBrowsingVillage,
   restoreBrowsingVillage,
   selectBrowsingVillage,
   type BrowsingVillageStorage,
@@ -40,6 +41,49 @@ const account: MobileSession = {
   },
 };
 
+test("buyers and sellers default to their registered village on login and restart, while manual choices survive refresh", () => {
+  const previous = useAppStore.getState();
+  try {
+    for (const isSeller of [false, true]) {
+      const session = {
+        ...account,
+        user: {
+          ...account.user,
+          isSeller,
+          isCoordinator: false,
+          coordinatorVillages: [],
+        },
+      };
+      useAppStore.setState({
+        session: null,
+        guestVillage: browse,
+        browsingVillage: browse,
+      });
+      useAppStore.getState().setSession(session);
+      assert.equal(browsingVillageFor(useAppStore.getState()), registered);
+      // Startup must ignore the old device browsing preference too.
+      useAppStore
+        .getState()
+        .setBrowsingVillage(initialBrowsingVillage(browse, session));
+      assert.equal(browsingVillageFor(useAppStore.getState()), registered);
+      useAppStore.getState().setBrowsingVillage(browse);
+      assert.equal(browsingVillageFor(useAppStore.getState()), browse);
+      useAppStore.getState().setSession({ ...session, accessToken: "renewed" });
+      assert.equal(browsingVillageFor(useAppStore.getState()), browse);
+      const differentAccount = {
+        ...session,
+        user: { ...session.user, id: "another-user" },
+      };
+      useAppStore.getState().setSession(differentAccount);
+      assert.equal(browsingVillageFor(useAppStore.getState()), registered);
+    }
+    assert.equal(initialBrowsingVillage(browse, null), browse);
+    assert.equal(initialBrowsingVillage(browse, account), browse);
+  } finally {
+    useAppStore.setState(previous);
+  }
+});
+
 test("browsing selection persists across restart without modifying registration or coordinator assignments", async () => {
   const previous = useAppStore.getState();
   let saved: string | null = null;
@@ -70,9 +114,12 @@ test("browsing selection persists across restart without modifying registration 
       .getState()
       .setBrowsingVillage(await restoreBrowsingVillage(storage));
     assert.equal(browsingVillageFor(useAppStore.getState())?.id, browse.id);
-    useAppStore
-      .getState()
-      .restore({ language: "en", confirmed: true, guestVillage: registered });
+    useAppStore.getState().restore({
+      language: "en",
+      confirmed: true,
+      hasAuthenticated: true,
+      guestVillage: registered,
+    });
     assert.equal(useAppStore.getState().browsingVillage?.id, browse.id);
     // Profile village changes must not overwrite an explicit browsing choice.
     useAppStore.getState().setSession({

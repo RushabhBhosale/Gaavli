@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Alert,
   Linking,
   Modal,
   ScrollView,
@@ -13,6 +12,7 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useAppStore } from "../store";
+import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
 import { formatMessage, messages } from "../i18n";
 import {
   listingIdSchema,
@@ -516,22 +516,11 @@ function ProductDetailsContent({ id }: { id: string }) {
               {!session && (
                 <Button
                   onPress={() => {
-                    Alert.alert(
-                      t.signInRequired,
-                      undefined,
-                      [
-                        { text: t.notNow, style: "cancel" },
-                        {
-                          text: t.loginTitle,
-                          onPress: () => {
-                            useAppStore.getState().setAuthMode("register");
-                            useAppStore.getState().setContactReturn(id);
-                            router.push("/register");
-                          },
-                        },
-                      ],
-                      { cancelable: true },
-                    );
+                    showGuestSignUpPrompt(language, () => {
+                      useAppStore.getState().setAuthMode("register");
+                      useAppStore.getState().setContactReturn(id);
+                      router.push("/register");
+                    });
                   }}
                 >
                   {t.contactSeller}

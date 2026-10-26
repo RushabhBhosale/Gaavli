@@ -14,3 +14,13 @@ export async function persistSession(
   await storage.write(validated);
   commit(validated);
 }
+
+export async function clearSessionForGuest(
+  storage: SessionStorage,
+  clearGuestBrowsing: () => Promise<void>,
+  commit: () => void,
+) {
+  await clearGuestBrowsing();
+  await storage.clear();
+  commit();
+}

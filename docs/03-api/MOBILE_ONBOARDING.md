@@ -1,3 +1,69 @@
+## Logout to first village selection - 2026-10-26 (user approved)
+
+Successful logout resets the existing navigation stack to `/language`, the
+first village selection screen. It revokes the existing session, deletes secure
+credentials (including legacy token keys), clears session/user/auth drafts/OTP,
+pending contact return and authenticated query cache. One SQLite DELETE clears
+only guest-village and browsing-village settings; language, history metadata,
+account-scoped drafts and database profiles/listings remain. Login-history flags
+never force a signed-out device to Login. A restart after logout opens village
+selection; after confirming a village, guest browsing resumes normally.
+
+Below Continue, both new and logged-out users see "Already Registered? Login" /
+"आधीच नोंदणी केली आहे? लॉगिन करा" as a text link with highlighted Login text.
+It confirms the language and selects login mode without requiring or saving a
+village. Existing active-account validation, unknown-number registration message,
+OTP, role restoration and account landing routes are unchanged. Network logout
+or local storage failure remains retryable; successful logout is not claimed
+until server revocation and durable local cleanup finish. Android hardware Back
+and native storage across restart still require device verification.
+
+This revision supersedes all older logout-to-Login/history-routing statements.
+
+## Guest header sign-up prompt - 2026-10-26 (user approved)
+
+Guest Home hides the sign-in arrow. Home and Marketplace expose a profile icon
+that opens a localized "Please sign up first" popup with Sign up and Not now.
+Not now dismisses the popup and keeps browsing; Sign up explicitly selects
+registration mode and opens the existing first-name/last-name/mobile form.
+This voluntary header entry clears any stale product-contact return target.
+Signed-in header actions and village selection remain unchanged.
+
+Guest Contact seller and Become a seller reuse this same popup. Contact seller
+opens registration on confirmation and retains the product return target.
+Become a seller opens the existing auth screen in login mode on confirmation,
+as requested, and clears stale contact return state. Dismissing either popup
+does not navigate or change auth state. The shared popup retains Sign up / Not
+now wording for all guest entry points.
+
+## Login and logout revision - 2026-10-25 (user approved)
+
+Login and registration remain separate modes of the existing mobile auth screen.
+The named registration payload is unchanged. Mobile-only login requests use
+POST /api/v1/auth/send-otp; after format validation and persistent network/phone
+rate limits, only an existing active account receives a challenge. Unknown numbers
+return REGISTRATION_REQUIRED with "This mobile number is not registered. Please
+register first." and no challenge or OTP delivery. Inactive and ambiguous accounts
+are rejected. Verification rechecks the account and cannot create a user from a
+mobile-only login challenge. Existing profile, village and permissions are retained.
+
+A successful login/registration saves only a non-sensitive has-authenticated=true
+flag in the existing local SQLite settings; older saved sessions migrate this flag.
+Logout revokes the session, clears secure credentials, in-memory session/auth drafts,
+OTP challenge, pending product return and query cache. The 2026-10-26 revision
+above supersedes this revision's former history-based Login destination. New devices
+retain language/village selection and guest browsing, with Sign in available for
+existing accounts. Buyers open Home, sellers My Listings and coordinators Manage;
+an explicit pending contact returns to its product. Accounts without a confirmed
+village still complete the existing onboarding requirement after authentication.
+Marathi/English copy and existing styling are reused. Configured test OTP 123456
+remains available under the previously approved hosted testing exception.
+
+The requested explicit unknown-number message discloses account existence; limits
+(5 sends/phone/hour, 30 sends/network/hour, including rejected attempts) reduce
+abuse but cannot eliminate distributed enumeration. No new public lookup endpoint,
+user database fields, roles, listings or provider dependencies were introduced.
+
 # Mobile onboarding — implemented contract (2026-10-13)
 
 ## Temporary hosted OTP testing — 2026-10-23

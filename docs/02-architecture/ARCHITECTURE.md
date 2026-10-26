@@ -1,3 +1,8 @@
+> Product photo revision - 2026-10-25 (user approved): new optional listing
+> uploads use Atlas GridFS in all environments, through the existing Node API and
+> Mongo connection. Keep legacy references and originals. Profile photo storage
+> is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
+
 > Current revision — 2026-10-13, mobile Phases 2–4: welcome language selection
 > with Get started → required first/last name and Indian mobile → OTP →
 > confirmed village. See `docs/03-api/MOBILE_ONBOARDING.md` (repository root)

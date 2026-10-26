@@ -1,10 +1,18 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { MobileSession } from "@gaavli/types";
-import { initialRoute, postAuthHref } from "../src/storage/preferences";
+import {
+  initialRoute,
+  postAuthHref,
+  restorePreferences,
+} from "../src/storage/preferences";
 import { limitIndianMobileInput } from "../src/data/mobileInput";
 import { parseOtpRequest } from "../src/data/otpRequest";
-import { persistSession, type SessionStorage } from "../src/storage/session";
+import {
+  clearSessionForGuest,
+  persistSession,
+  type SessionStorage,
+} from "../src/storage/session";
 import { useAppStore } from "../src/store";
 import { errorMessage } from "../src/errors";
 import { ApiError } from "../src/api/client";
@@ -247,4 +255,181 @@ test("seller capability is securely persisted and restored without changing iden
   await persistSession(storage, session, useAppStore.getState().setSession);
   assert.equal(useAppStore.getState().session?.user.isSeller, false);
   useAppStore.getState().setSession(null);
+});
+
+test("login history never overrides village onboarding or selected guest browsing", async () => {
+  const { restorePreferences, confirmLanguage } =
+    await import("../src/storage/preferences");
+  let flag: string | null = null;
+  const storage = {
+    readHasAuthenticated: async () => flag,
+    writeHasAuthenticated: async () => {
+      flag = "true";
+    },
+    readLanguage: async () => "mr",
+    writeLanguage: async () => undefined,
+    readGuestVillage: async () => null,
+    writeGuestVillage: async () => undefined,
+    clearGuestBrowsing: async () => undefined,
+  };
+  assert.equal((await restorePreferences(storage)).hasAuthenticated, false);
+  assert.equal(initialRoute(false, null, null, false), "/language");
+  await storage.writeHasAuthenticated();
+  const preferences = await confirmLanguage(storage, "mr");
+  assert.equal(preferences.hasAuthenticated, true);
+  assert.equal(
+    initialRoute(true, null, null, preferences.hasAuthenticated),
+    "/language",
+  );
+  useAppStore.getState().restore(preferences);
+  useAppStore.getState().clearRegistration();
+  assert.equal(useAppStore.getState().hasAuthenticated, true);
+  assert.equal(useAppStore.getState().authMode, "login");
+  assert.equal(initialRoute(true, null, { id: "v" } as never, true), "/home");
+  assert.equal(
+    parseOtpRequest(
+      "login",
+      { firstName: "", lastName: "", mobile: "123" },
+      "en",
+    ).success,
+    false,
+  );
+  assert.equal(
+    errorMessage(new ApiError("REGISTRATION_REQUIRED"), "en"),
+    "This mobile number is not registered. Please register first.",
+  );
+});
+
+test("buyer and seller logout clears durable credentials, guest selections and auth state before guest navigation", async () => {
+  const previous = useAppStore.getState();
+  try {
+    for (const isSeller of [false, true]) {
+      const village = {
+        id: "a".repeat(24),
+        name: "Nere",
+        nameMr: "नेरे",
+        taluka: "Panvel",
+        district: "Raigad",
+        pinCode: null,
+      };
+      const registered = {
+        ...session,
+        user: { ...session.user, village, isSeller, coordinatorVillages: [] },
+      };
+      let saved: MobileSession | null = registered;
+      let guest: string | null = JSON.stringify(village);
+      let browse: string | null = guest;
+      const storage: SessionStorage = {
+        read: async () => saved,
+        write: async (value) => {
+          saved = value;
+        },
+        clear: async () => {
+          saved = null;
+        },
+      };
+      useAppStore.setState({
+        session: registered,
+        hasAuthenticated: true,
+        confirmed: true,
+        guestVillage: village,
+        browsingVillage: village,
+        draft: {
+          firstName: "Private",
+          lastName: "Draft",
+          mobile: "9876543210",
+        },
+        challenge: { challengeId: "challenge" } as never,
+        contactReturnListingId: "b".repeat(24),
+      });
+      await clearSessionForGuest(
+        storage,
+        async () => {
+          guest = null;
+          browse = null;
+        },
+        useAppStore.getState().clearAuthenticatedState,
+      );
+      const state = useAppStore.getState();
+      assert.equal(await storage.read(), null);
+      assert.equal(guest, null);
+      assert.equal(browse, null);
+      assert.equal(state.session, null);
+      assert.equal(state.guestVillage, null);
+      assert.equal(state.browsingVillage, null);
+      assert.equal(state.challenge, null);
+      assert.equal(state.contactReturnListingId, null);
+      assert.deepEqual(state.draft, {
+        firstName: "",
+        lastName: "",
+        mobile: "",
+      });
+      assert.equal(
+        initialRoute(state.confirmed, null, state.guestVillage, true),
+        "/language",
+      );
+      assert.equal(
+        initialRoute(true, (await storage.read())?.user, null, true),
+        "/language",
+      );
+      const restarted = await restorePreferences({
+        readHasAuthenticated: async () => "true",
+        writeHasAuthenticated: async () => undefined,
+        readLanguage: async () => "mr",
+        writeLanguage: async () => undefined,
+        readGuestVillage: async () => guest,
+        writeGuestVillage: async (value) => {
+          guest = value;
+        },
+        clearGuestBrowsing: async () => {
+          guest = null;
+          browse = null;
+        },
+      });
+      assert.equal(
+        initialRoute(
+          restarted.confirmed,
+          null,
+          restarted.guestVillage,
+          restarted.hasAuthenticated,
+        ),
+        "/language",
+      );
+      assert.equal(
+        initialRoute(true, null, village, restarted.hasAuthenticated),
+        "/home",
+      );
+      // A later login reuses the same profile and capabilities.
+      await persistSession(storage, registered, state.setSession);
+      assert.deepEqual(useAppStore.getState().session?.user, registered.user);
+      assert.equal(
+        initialRoute(true, registered.user),
+        isSeller ? "/my-listings" : "/home",
+      );
+      assert.equal(registered.user.village, village);
+    }
+  } finally {
+    useAppStore.setState(previous);
+  }
+});
+
+test("logout storage failures do not claim that credentials were cleared", async () => {
+  let committed = false;
+  const storage: SessionStorage = {
+    read: async () => session,
+    write: async () => undefined,
+    clear: async () => {
+      throw new Error("secure storage unavailable");
+    },
+  };
+  await assert.rejects(
+    clearSessionForGuest(
+      storage,
+      async () => undefined,
+      () => {
+        committed = true;
+      },
+    ),
+  );
+  assert.equal(committed, false);
 });

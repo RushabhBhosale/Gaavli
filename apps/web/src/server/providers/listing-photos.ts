@@ -2,9 +2,12 @@ import "server-only";
 import { LISTING_ASSET_PHOTOS } from "@gaavli/constants";
 
 // Object keys are data; they can never choose an origin or traverse directories.
-export function listingPhotoUrl(key?: string | null): string | null {
+export function listingPhotoUrl(
+  key?: string | null,
+  legacy = false,
+): string | null {
   if (
-    process.env.NODE_ENV === "development" &&
+    !legacy &&
     key &&
     /^listings\/[a-f0-9]{24}\/uploads\/[a-f0-9]{64}\.webp$/.test(key)
   )

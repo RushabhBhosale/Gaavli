@@ -8,6 +8,7 @@ import { messages } from "../../i18n";
 import { accountHeaderIdentity } from "../../data/accountHeader";
 import { theme } from "../../theme";
 import { d } from "./primitives";
+import { GuestProfileButton } from "./GuestProfileButton";
 
 export function AccountHeader({
   language,
@@ -78,50 +79,56 @@ export function AccountHeader({
           </Text>
           <Text style={s.role}>{role}</Text>
         </View>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={session ? t.notificationSettings : t.loginTitle}
-          accessibilityState={{ disabled }}
-          disabled={disabled}
-          onPress={() => router.push(session ? "/notifications" : "/register")}
-          style={({ pressed }) => [
-            s.control,
-            pressed && d.pressed,
-            disabled && s.disabled,
-          ]}
-        >
-          <Ionicons
-            accessible={false}
-            name={session ? "notifications-outline" : "log-in-outline"}
-            size={24}
-            color={theme.colors.heading}
-          />
-        </Pressable>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t.settings}
-          accessibilityState={{ disabled }}
-          disabled={disabled}
-          onPress={() => router.push("/profile")}
-          style={({ pressed }) => [
-            s.control,
-            pressed && d.pressed,
-            disabled && s.disabled,
-          ]}
-        >
-          <View style={s.avatar}>
-            {identity.initials ? (
-              <Text style={s.initials}>{identity.initials}</Text>
-            ) : (
-              <Ionicons
-                accessible={false}
-                name="person-outline"
-                size={20}
-                color={theme.colors.heading}
-              />
-            )}
-          </View>
-        </Pressable>
+        {session && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.notificationSettings}
+            accessibilityState={{ disabled }}
+            disabled={disabled}
+            onPress={() => router.push("/notifications")}
+            style={({ pressed }) => [
+              s.control,
+              pressed && d.pressed,
+              disabled && s.disabled,
+            ]}
+          >
+            <Ionicons
+              accessible={false}
+              name="notifications-outline"
+              size={24}
+              color={theme.colors.heading}
+            />
+          </Pressable>
+        )}
+        {!session ? (
+          <GuestProfileButton language={language} disabled={disabled} />
+        ) : (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.settings}
+            accessibilityState={{ disabled }}
+            disabled={disabled}
+            onPress={() => router.push("/profile")}
+            style={({ pressed }) => [
+              s.control,
+              pressed && d.pressed,
+              disabled && s.disabled,
+            ]}
+          >
+            <View style={s.avatar}>
+              {identity.initials ? (
+                <Text style={s.initials}>{identity.initials}</Text>
+              ) : (
+                <Ionicons
+                  accessible={false}
+                  name="person-outline"
+                  size={20}
+                  color={theme.colors.heading}
+                />
+              )}
+            </View>
+          </Pressable>
+        )}
       </View>
       {browsingVillageControl ||
         (!!identity.location && (

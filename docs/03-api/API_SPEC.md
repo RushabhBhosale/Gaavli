@@ -1,3 +1,36 @@
+> Product photo revision - 2026-10-25 (user approved): new optional listing
+> uploads use Atlas GridFS in all environments, through the existing Node API and
+> Mongo connection. Keep legacy references and originals. Profile photo storage
+> is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
+
+## Login and logout revision - 2026-10-25 (user approved)
+
+Login and registration remain separate modes of the existing mobile auth screen.
+The named registration payload is unchanged. Mobile-only login requests use
+POST /api/v1/auth/send-otp; after format validation and persistent network/phone
+rate limits, only an existing active account receives a challenge. Unknown numbers
+return REGISTRATION_REQUIRED with "This mobile number is not registered. Please
+register first." and no challenge or OTP delivery. Inactive and ambiguous accounts
+are rejected. Verification rechecks the account and cannot create a user from a
+mobile-only login challenge. Existing profile, village and permissions are retained.
+
+A successful login/registration saves only a non-sensitive has-authenticated=true
+flag in the existing local SQLite settings; older saved sessions migrate this flag.
+Logout revokes the session, clears secure credentials, in-memory session/auth drafts,
+OTP challenge, pending product return and query cache, retains the flag, and opens
+Login. Subsequent unauthenticated launches on that device open Login. New devices
+retain language/village selection and guest browsing, with Sign in available for
+existing accounts. Buyers open Home, sellers My Listings and coordinators Manage;
+an explicit pending contact returns to its product. Accounts without a confirmed
+village still complete the existing onboarding requirement after authentication.
+Marathi/English copy and existing styling are reused. Configured test OTP 123456
+remains available under the previously approved hosted testing exception.
+
+The requested explicit unknown-number message discloses account existence; limits
+(5 sends/phone/hour, 30 sends/network/hour, including rejected attempts) reduce
+abuse but cannot eliminate distributed enumeration. No new public lookup endpoint,
+user database fields, roles, listings or provider dependencies were introduced.
+
 > Temporary hosted OTP testing - 2026-10-23 (explicit user approval):
 > configured test OTP and mobile sessions now work in production for APK testing.
 > Set OTP_PROVIDER=test and OTP_TEST_CODE=123456 on the server, with a valid

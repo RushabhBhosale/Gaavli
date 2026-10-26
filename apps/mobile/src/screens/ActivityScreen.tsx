@@ -203,23 +203,54 @@ function ActivityContent({
     <DashboardScreen>
       {!onBack && (
         <PageSceneHeader
-          title={t.myActivity}
+          title={t.myRequests}
           subtitle={t.activitySubtitle}
           backLabel={t.back}
           onBack={() => router.replace("/home")}
+          action={
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t.refreshRequests}
+              accessibilityState={{
+                disabled: offline || !!busy || query.isFetching,
+                busy: query.isFetching,
+              }}
+              disabled={offline || !!busy || query.isFetching}
+              onPress={() => {
+                void query.refetch();
+                if (direction === "received") void notices.refetch();
+              }}
+              style={({ pressed }) => [
+                s.refresh,
+                (offline || !!busy || query.isFetching) && s.refreshDisabled,
+                pressed && s.refreshPressed,
+              ]}
+            >
+              <Ionicons
+                accessible={false}
+                name="refresh-outline"
+                size={22}
+                color={theme.colors.primaryDark}
+              />
+            </Pressable>
+          }
         />
       )}
       {onBack && <BackButton label={t.back} onPress={onBack} />}
-      <SectionHeader
-        title={onBack ? t.myActivity : t.activityRequests}
-        action={
-          !offline && !busy && !query.isFetching ? t.refreshRequests : undefined
-        }
-        onPress={() => {
-          void query.refetch();
-          if (direction === "received") void notices.refetch();
-        }}
-      />
+      {onBack && (
+        <SectionHeader
+          title={t.myActivity}
+          action={
+            !offline && !busy && !query.isFetching
+              ? t.refreshRequests
+              : undefined
+          }
+          onPress={() => {
+            void query.refetch();
+            if (direction === "received") void notices.refetch();
+          }}
+        />
+      )}
       <View style={s.tabs}>
         {(
           [
@@ -422,6 +453,16 @@ function ActivityContent({
   );
 }
 const s = StyleSheet.create({
+  refresh: {
+    minWidth: theme.layout.touchTarget,
+    minHeight: theme.layout.touchTarget,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: theme.radii.control,
+    backgroundColor: theme.colors.tint,
+  },
+  refreshDisabled: { opacity: theme.interaction.disabledOpacity },
+  refreshPressed: { opacity: theme.interaction.pressedOpacity },
   tabs: {
     flexDirection: "row",
     gap: 6,

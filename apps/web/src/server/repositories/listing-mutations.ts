@@ -13,6 +13,7 @@ import {
   ListingSettings,
 } from "../models/listing-operations";
 import { connectDb } from "../db/connect";
+import { ListingPhoto } from "../models/listing-photo";
 import { listingPhotoUrl } from "../providers/listing-photos";
 import { mobileVillageDto } from "./mobile";
 import { AppError } from "../utils/errors";
@@ -206,6 +207,7 @@ export async function listingOperation(
   await connectDb();
   await Promise.all([
     Listing.init(),
+    ListingPhoto.init(),
     ListingOperation.init(),
     ListingEvent.init(),
     ListingSettings.init(),

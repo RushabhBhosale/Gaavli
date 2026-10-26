@@ -795,3 +795,58 @@ test("translated dashboard templates preserve literal user input during substitu
     "आज नेरे येथे काय उपलब्ध आहे ते पाहा",
   );
 });
+
+test("optional product photos can be omitted, preserved, replaced and explicitly removed", () => {
+  const now = Date.now();
+  const row = ownedProduct(now);
+  const initial = formFromListing(row, "en", now);
+  assert.deepEqual(
+    prepareListingEdit(
+      { ...initial, price: "35" },
+      row,
+      initial,
+      "en",
+      "PERISHABLE",
+      now,
+    ),
+    { version: row.version, price: 35 },
+  );
+  const newKey = `listings/${"a".repeat(24)}/uploads/${"f".repeat(64)}.webp`;
+  const replacement = {
+    ...initial,
+    existingPhotoKey: null,
+    localPhoto: {
+      fileName: "replacement.jpg",
+      mimeType: "image/jpeg" as const,
+      operationKey: "replacement-photo-operation",
+      uploadedKey: newKey,
+    },
+  };
+  assert.deepEqual(
+    prepareListingEdit(replacement, row, initial, "en", "PERISHABLE", now),
+    { version: row.version, photoObjectKey: newKey },
+  );
+  assert.deepEqual(
+    prepareListingEdit(
+      { ...initial, existingPhotoKey: null },
+      row,
+      initial,
+      "en",
+      "PERISHABLE",
+      now,
+    ),
+    { version: row.version, photoObjectKey: null },
+  );
+  const withoutPhoto = prepareListing(
+    { ...initial, existingPhotoKey: null },
+    row.villageId,
+    "en",
+    "PERISHABLE",
+    now,
+  );
+  assert.equal(withoutPhoto.photoObjectKey, null);
+  assert.equal(
+    toHomeListing({ ...databaseListing, photoUrl: null }).photoUrl,
+    null,
+  );
+});

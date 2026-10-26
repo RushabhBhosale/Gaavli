@@ -2,10 +2,9 @@ import "server-only";
 import sharp from "sharp";
 import { User } from "../models";
 import { limitRequests } from "../repositories/mobile";
-import {
-  uploadPhotoKey,
-  storeLocalListingPhoto,
-} from "../providers/local-listing-photos";
+import { uploadPhotoKey } from "../providers/local-listing-photos";
+import { listingPhotoStorage } from "./listing-photo-storage";
+import { connectDb } from "../db/connect";
 import { AppError } from "../utils/errors";
 
 export const MAX_PHOTO_BYTES = 5 * 1024 * 1024;
@@ -14,12 +13,7 @@ export async function uploadListingPhoto(
   operation: string,
   file: Blob,
 ) {
-  if (process.env.NODE_ENV !== "development")
-    throw new AppError(
-      503,
-      "PHOTO_STORAGE_UNAVAILABLE",
-      "Configure a production photo provider.",
-    );
+  await connectDb();
   if (!file.size || file.size > MAX_PHOTO_BYTES)
     throw new AppError(413, "PHOTO_TOO_LARGE", "Choose a photo up to 5 MB.");
   if (!["image/jpeg", "image/png", "image/webp"].includes(file.type))
@@ -58,6 +52,6 @@ export async function uploadListingPhoto(
   if (!(await User.exists({ _id: userId, status: "active" })))
     throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
   const key = uploadPhotoKey(userId, operation);
-  await storeLocalListingPhoto(key, result);
+  await listingPhotoStorage.store(key, userId, result);
   return { photoObjectKey: key, photoUrl: `/listing-photos/${key}` };
 }

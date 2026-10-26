@@ -29,6 +29,11 @@ test("first launch is Marathi; a saved language still opens village selection", 
   let saved: string | null = null;
   let village: string | null = null;
   const storage: PreferenceStorage = {
+    readHasAuthenticated: async () => null,
+    writeHasAuthenticated: async () => undefined,
+    clearGuestBrowsing: async () => {
+      village = null;
+    },
     readLanguage: async () => saved,
     writeLanguage: async (value) => {
       saved = value;
@@ -42,6 +47,7 @@ test("first launch is Marathi; a saved language still opens village selection", 
     language: "mr",
     confirmed: false,
     guestVillage: null,
+    hasAuthenticated: false,
   });
   assert.equal(initialRoute(false), "/language");
   await confirmLanguage(storage, "en");
@@ -53,12 +59,16 @@ test("first launch is Marathi; a saved language still opens village selection", 
     language: "mr",
     confirmed: false,
     guestVillage: null,
+    hasAuthenticated: false,
   });
 });
 test("storage failures do not report confirmation and recovery can be retried", async () => {
   let broken = true;
   let saved: string | null = null;
   const storage: PreferenceStorage = {
+    readHasAuthenticated: async () => null,
+    writeHasAuthenticated: async () => undefined,
+    clearGuestBrowsing: async () => undefined,
     readLanguage: async () => {
       if (broken) throw new Error("unavailable");
       return saved;
@@ -79,6 +89,7 @@ test("storage failures do not report confirmation and recovery can be retried", 
     language: "mr",
     confirmed: true,
     guestVillage: null,
+    hasAuthenticated: false,
   });
 });
 const baseUrl = "https://example.test/api/v1";

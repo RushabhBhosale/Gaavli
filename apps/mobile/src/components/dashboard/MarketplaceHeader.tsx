@@ -5,6 +5,8 @@ import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { d } from "./primitives";
 import { BrowsingVillageSelector } from "../BrowsingVillageSelector";
+import { GuestProfileButton } from "./GuestProfileButton";
+import { useAppStore } from "../../store";
 
 export function MarketplaceHeader({
   language,
@@ -14,6 +16,7 @@ export function MarketplaceHeader({
   children: ReactNode;
 }) {
   const t = messages(language);
+  const session = useAppStore((state) => state.session);
   return (
     <View style={s.banner}>
       <View
@@ -58,6 +61,7 @@ export function MarketplaceHeader({
         <View style={s.village}>
           <BrowsingVillageSelector />
         </View>
+        {!session && <GuestProfileButton language={language} />}
       </View>
       {children}
     </View>

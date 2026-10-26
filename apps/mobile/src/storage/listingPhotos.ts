@@ -42,7 +42,7 @@ export async function pickListingPhoto(
   const options: ImagePicker.ImagePickerOptions = {
     mediaTypes: ["images"],
     allowsEditing: true,
-    quality: 0.8,
+    quality: 0.7,
     exif: false,
     preferredAssetRepresentationMode:
       ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible,

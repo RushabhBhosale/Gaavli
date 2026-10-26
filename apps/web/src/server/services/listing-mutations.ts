@@ -1,5 +1,5 @@
 import "server-only";
-import { requireLocalListingPhoto } from "../providers/local-listing-photos";
+import { listingPhotoStorage } from "./listing-photo-storage";
 import { LISTING_ASSET_PHOTOS } from "@gaavli/constants";
 import type { ClientSession } from "mongoose";
 import type { z } from "zod";
@@ -83,15 +83,21 @@ function minimumValid(minimum: number | null | undefined, quantity: number) {
       "Minimum purchase must not exceed availability.",
     );
 }
-async function photoOwned(key: string | null | undefined, userId: string) {
-  if (LISTING_ASSET_PHOTOS.some((photo) => photo.key === key)) return;
+async function photoOwned(
+  key: string | null | undefined,
+  userId: string,
+  session: ClientSession,
+) {
+  if (LISTING_ASSET_PHOTOS.some((photo) => photo.key === key)) return null;
   if (key && !key.startsWith(`listings/${userId}/`))
     throw new AppError(
       422,
       "PHOTO_FORBIDDEN",
       "Use an image object belonging to your account.",
     );
-  if (key?.includes("/uploads/")) await requireLocalListingPhoto(key);
+  if (key?.includes("/uploads/"))
+    return listingPhotoStorage.require(key, userId, session);
+  return null;
 }
 function versionMatches(row: ListingDocument, version: number) {
   if ((row.version || 1) !== version)
@@ -176,7 +182,11 @@ export function createOwnedListing(
       await lockVillage(user, input.villageId, session);
       const category = await activeCategory(input.categoryId, null, session);
       expiryValid(input.expiresAt, category.code);
-      await photoOwned(input.photoObjectKey, userId);
+      const photoImageId = await photoOwned(
+        input.photoObjectKey,
+        userId,
+        session,
+      );
       await duplicateCheck(
         userId,
         selected.productName,
@@ -189,6 +199,7 @@ export function createOwnedListing(
         [
           {
             ...fields,
+            photoImageId,
             village: villageId,
             seller: userId,
             category: category.code,
@@ -263,8 +274,16 @@ export function updateOwnedListing(
       const expiry =
         input.expiresAt === undefined ? row.expiresAt : input.expiresAt;
       expiryValid(expiry, category.code);
-      if (input.photoObjectKey !== undefined)
-        await photoOwned(input.photoObjectKey, userId);
+      const photoFields =
+        input.photoObjectKey !== undefined
+          ? {
+              photoImageId: await photoOwned(
+                input.photoObjectKey,
+                userId,
+                session,
+              ),
+            }
+          : {};
       minimumValid(
         input.minimumPurchaseQuantity === undefined
           ? row.minimumPurchaseQuantity
@@ -283,6 +302,7 @@ export function updateOwnedListing(
       const { version, ...fields } = selected;
       row.set({
         ...fields,
+        ...photoFields,
         categoryId: category._id,
         category: category.code,
         version: version + 1,

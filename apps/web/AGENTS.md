@@ -1,3 +1,8 @@
+> Product photo revision - 2026-10-25 (user approved): new optional listing
+> uploads use Atlas GridFS in all environments, through the existing Node API and
+> Mongo connection. Keep legacy references and originals. Profile photo storage
+> is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
+
 # Gaavli Web — Codex Instructions
 
 Applies to `apps/web`, which contains the Next.js Admin UI and the REST API/backend. Read root `/AGENTS.md` and the relevant architecture, API, database, security, and implementation status documents before changes.

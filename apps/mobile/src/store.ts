@@ -8,6 +8,7 @@ import type {
   MobileVillage,
 } from "@gaavli/types";
 import type { OnboardingPreferences } from "./storage/preferences";
+import { initialBrowsingVillage } from "./storage/browsingVillage";
 
 type AppState = OnboardingPreferences & {
   browsingVillage: MobileVillage | null;
@@ -25,6 +26,7 @@ type AppState = OnboardingPreferences & {
   setDraft: (draft: RegistrationDraft) => void;
   setChallenge: (challenge: OtpChallenge | null) => void;
   clearRegistration: () => void;
+  clearAuthenticatedState: () => void;
   setLanguage: (language: MobileLanguage) => void;
   restore: (preferences: OnboardingPreferences) => void;
   setOffline: (offline: boolean) => void;
@@ -32,6 +34,7 @@ type AppState = OnboardingPreferences & {
 export const useAppStore = create<AppState>((set) => ({
   language: DEFAULT_MOBILE_LANGUAGE,
   confirmed: false,
+  hasAuthenticated: false,
   guestVillage: null,
   browsingVillage: null,
   setBrowsingVillage: (browsingVillage) => set({ browsingVillage }),
@@ -44,7 +47,14 @@ export const useAppStore = create<AppState>((set) => ({
   contactReturnListingId: null,
   setAuthMode: (authMode) => set({ authMode, challenge: null }),
   setContactReturn: (contactReturnListingId) => set({ contactReturnListingId }),
-  setSession: (session) => set({ session }),
+  setSession: (session) =>
+    set((state) => ({
+      session,
+      browsingVillage:
+        session?.user.id !== state.session?.user.id
+          ? initialBrowsingVillage(state.browsingVillage, session)
+          : state.browsingVillage,
+    })),
   setDraft: (draft) => set({ draft }),
   setChallenge: (challenge) => set({ challenge }),
   clearRegistration: () =>
@@ -52,6 +62,16 @@ export const useAppStore = create<AppState>((set) => ({
       draft: { firstName: "", lastName: "", mobile: "" },
       challenge: null,
       authMode: "login",
+    }),
+  clearAuthenticatedState: () =>
+    set({
+      session: null,
+      guestVillage: null,
+      browsingVillage: null,
+      draft: { firstName: "", lastName: "", mobile: "" },
+      challenge: null,
+      authMode: "login",
+      contactReturnListingId: null,
     }),
   setLanguage: (language) => set({ language }),
   restore: (preferences) => set({ ...preferences, hydrated: true }),

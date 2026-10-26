@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, rm, readdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import sharp from "sharp";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { randomBytes } from "node:crypto";
 import nextEnv from "@next/env";
 import mongoose from "mongoose";
@@ -69,7 +71,12 @@ try {
   ]);
   const [buyer, other] = await User.create([
     { name: "Buyer", village: village._id, roles: ["buyer", "coordinator"] },
-    { name: "Other", village: village._id },
+    {
+      name: "Other",
+      firstName: "Other",
+      lastName: "Seller",
+      village: village._id,
+    },
   ]);
   const [perishable, recurring, inactive] = await Category.create([
     {
@@ -875,7 +882,14 @@ try {
     422,
     "PHOTO_INVALID",
   );
-  const uploaded = await check(await photos.POST(photoRequest()), 201);
+  // The same upload/read works in a deployed production Node runtime.
+  process.env.NODE_ENV = "production";
+  const simultaneousUploads = await Promise.all([
+    photos.POST(photoRequest()),
+    photos.POST(photoRequest()),
+  ]);
+  const uploaded = await check(simultaneousUploads[0], 201);
+  assert.deepEqual(await check(simultaneousUploads[1], 201), uploaded);
   assert.deepEqual(
     await check(await photos.POST(photoRequest()), 201),
     uploaded,
@@ -907,6 +921,21 @@ try {
   assert.equal(output.format, "webp");
   assert.ok(Math.max(output.width!, output.height!) <= 1600);
   assert.equal(output.exif, undefined);
+  const { ListingPhoto } = await import("../src/server/models/listing-photo");
+  const manifest = await ListingPhoto.findById(uploaded.photoObjectKey).lean();
+  assert.ok(manifest?.fileId);
+  assert.equal(
+    await mongoose.connection
+      .db!.collection("listingPhotos.files")
+      .countDocuments(),
+    1,
+  );
+  assert.deepEqual(
+    await readdir(photoDirectory),
+    [],
+    "uploads must never write server files",
+  );
+  process.env.NODE_ENV = "development";
   await check(
     await photoRead.GET(new Request("http://localhost/invalid"), {
       params: Promise.resolve({ owner: "..", file: "bad" }),
@@ -927,6 +956,38 @@ try {
     200,
   );
   assert.equal(withPhonePhoto.photoObjectKey, uploaded.photoObjectKey);
+  assert.equal(
+    String((await Listing.findById(mobileCreated.id))?.photoImageId),
+    String(manifest!.fileId),
+  );
+  const photoDeletion =
+    await import("../src/app/api/v1/listings/photos/[imageId]/route");
+  const imageContext = {
+    params: Promise.resolve({ imageId: String(manifest!.fileId) }),
+  };
+  await check(
+    await photoDeletion.DELETE(
+      request(
+        "/listings/photos/image",
+        "DELETE",
+        undefined,
+        undefined,
+        refreshed.accessToken,
+      ),
+      imageContext,
+    ),
+    409,
+    "PHOTO_IN_USE",
+  );
+  await User.updateOne({ _id: buyer._id }, { $set: { status: "active" } });
+  await check(
+    await photoDeletion.DELETE(
+      request("/listings/photos/image", "DELETE"),
+      imageContext,
+    ),
+    404,
+  );
+  await User.updateOne({ _id: buyer._id }, { $set: { status: "blocked" } });
   const buyerPhoto = await check(
     await detail.GET(
       request(
@@ -993,6 +1054,39 @@ try {
     409,
     "STALE_VERSION",
   );
+  const newPhoto = await check(
+    await photos.POST(
+      photoRequest(different, { key: "replace-phone-photo-operation" }),
+    ),
+    201,
+  );
+  const replacementProduct = await check(
+    await detail.PATCH(
+      request(
+        `/listings/${mobileCreated.id}`,
+        "PATCH",
+        {
+          version: editedProduct.version,
+          photoObjectKey: newPhoto.photoObjectKey,
+        },
+        "replace-product-photo",
+        refreshed.accessToken,
+      ),
+      ctx(mobileCreated.id),
+    ),
+    200,
+  );
+  assert.equal(replacementProduct.photoObjectKey, newPhoto.photoObjectKey);
+  const replacementManifest = await ListingPhoto.findById(
+    newPhoto.photoObjectKey,
+  ).lean();
+  assert.equal(
+    String((await Listing.findById(mobileCreated.id))?.photoImageId),
+    String(replacementManifest!.fileId),
+  );
+  assert.ok(
+    await ListingPhoto.exists({ _id: uploaded.photoObjectKey, state: "ready" }),
+  );
   const { pendingListingDeleteSchema } =
     await import("../../mobile/src/data/ownedListings");
   const cleared = await check(
@@ -1000,7 +1094,11 @@ try {
       request(
         `/listings/${mobileCreated.id}`,
         "PATCH",
-        { version: editedProduct.version, description: null },
+        {
+          version: replacementProduct.version,
+          description: null,
+          photoObjectKey: null,
+        },
         "clear-product-description",
         refreshed.accessToken,
       ),
@@ -1108,7 +1206,7 @@ try {
     200,
   );
   assert.equal(homemadeOwned.productGroup, "homemade");
-  assert.equal(formFromListing(homemadeOwned).group, "homemade");
+  assert.equal(formFromListing(homemadeOwned, "en").group, "homemade");
   const homemadeEdited = await check(
     await detail.PATCH(
       request(
@@ -1123,6 +1221,115 @@ try {
     200,
   );
   assert.equal(homemadeEdited.productGroup, "fruits");
+  assert.equal(homemadeOwned.photoObjectKey, null);
+  assert.equal(homemadeEdited.photoObjectKey, null);
+  const afterRemoval = await Listing.findById(mobileCreated.id);
+  assert.equal(afterRemoval?.photoImageId, null);
+  // Removing a reference does not erase the old upload; deletion is explicit.
+  assert.ok(
+    await ListingPhoto.exists({ _id: uploaded.photoObjectKey, state: "ready" }),
+  );
+  await check(
+    await photoDeletion.DELETE(
+      request(
+        "/listings/photos/image",
+        "DELETE",
+        undefined,
+        undefined,
+        refreshed.accessToken,
+      ),
+      imageContext,
+    ),
+    200,
+  );
+  await check(
+    await photoDeletion.DELETE(
+      request(
+        "/listings/photos/image",
+        "DELETE",
+        undefined,
+        undefined,
+        refreshed.accessToken,
+      ),
+      imageContext,
+    ),
+    200,
+  );
+  await check(
+    await photoRead.GET(new Request("http://localhost/removed"), {
+      params: Promise.resolve({ owner: String(other._id), file: fileName }),
+    }),
+    404,
+  );
+  await check(
+    await photoDeletion.DELETE(
+      request(
+        "/listings/photos/image",
+        "DELETE",
+        undefined,
+        undefined,
+        refreshed.accessToken,
+      ),
+      {
+        params: Promise.resolve({
+          imageId: String(replacementManifest!.fileId),
+        }),
+      },
+    ),
+    200,
+  );
+  assert.equal(
+    await mongoose.connection
+      .db!.collection("listingPhotos.files")
+      .countDocuments(),
+    0,
+  );
+  const { storeLocalListingPhoto, readLocalListingPhoto } =
+    await import("../src/server/providers/local-listing-photos");
+  const legacyKey = `listings/${other._id}/uploads/${"e".repeat(64)}.webp`;
+  const legacyBytes = await sharp(source).webp().toBuffer();
+  await storeLocalListingPhoto(legacyKey, legacyBytes); // Legacy fixture, not an application upload.
+  await Listing.updateOne(
+    { _id: homemadeCreated.id },
+    { $set: { photoObjectKey: legacyKey } },
+  );
+  const migrated = await promisify(execFile)(
+    process.execPath,
+    [
+      "--conditions=react-server",
+      "--import",
+      "tsx",
+      "scripts/migrate-listing-photos.mts",
+      "--apply",
+    ],
+    { env: process.env, timeout: 60000 },
+  );
+  assert.ok(migrated.stdout.includes('"copied":1'));
+  assert.deepEqual(
+    await readLocalListingPhoto(legacyKey),
+    legacyBytes,
+    "migration must retain originals",
+  );
+  const legacyProduct = await Listing.findById(homemadeCreated.id);
+  assert.equal(legacyProduct?.photoObjectKey, legacyKey);
+  assert.ok(legacyProduct?.photoImageId);
+  process.env.NODE_ENV = "production";
+  const migratedImage = await photoRead.GET(
+    new Request("https://example.test/legacy"),
+    {
+      params: Promise.resolve({
+        owner: String(other._id),
+        file: legacyKey.split("/").at(-1)!,
+      }),
+    },
+  );
+  assert.equal(migratedImage.status, 200);
+  assert.deepEqual(Buffer.from(await migratedImage.arrayBuffer()), legacyBytes);
+  process.env.NODE_ENV = "development";
+  console.log(
+    "PASS: GridFS production upload/read, image IDs, optional photos, removal, owner-only unused deletion, no filesystem writes, and non-destructive legacy migration.",
+  );
+
   console.log(
     "PASS: authenticated bounded phone upload, malformed/oversized/injected rejection, immutable replay/conflict, WebP resize/metadata stripping, file serving and buyer photo attachment.",
   );

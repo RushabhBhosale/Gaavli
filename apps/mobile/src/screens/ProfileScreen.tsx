@@ -48,9 +48,8 @@ export default function ProfileScreen() {
       await client.cancelQueries();
       await logout();
       client.clear();
-      router.replace(
-        useAppStore.getState().guestVillage ? "/home" : "/language",
-      );
+      router.dismissAll();
+      router.replace("/language");
     } catch (error) {
       setFailure(errorMessage(error, language));
     } finally {
@@ -129,21 +128,21 @@ export default function ProfileScreen() {
         <Button
           disabled={!!busy}
           onPress={() => {
-            useAppStore.getState().setAuthMode("login");
-            router.push("/register");
-          }}
-        >
-          {t.loginTitle}
-        </Button>
-        <Button
-          secondary
-          disabled={!!busy}
-          onPress={() => {
             useAppStore.getState().setAuthMode("register");
             router.push("/register");
           }}
         >
           {t.registrationTitle}
+        </Button>
+        <Button
+          secondary
+          disabled={!!busy}
+          onPress={() => {
+            useAppStore.getState().setAuthMode("login");
+            router.push("/register");
+          }}
+        >
+          {t.loginTitle}
         </Button>
       </DashboardScreen>
     );

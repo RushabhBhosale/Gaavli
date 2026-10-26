@@ -3,10 +3,18 @@ import { useAppStore } from "../store";
 import { initialRoute } from "../storage/preferences";
 
 export default function Index() {
+  const hasAuthenticated = useAppStore((state) => state.hasAuthenticated);
   const confirmed = useAppStore((state) => state.confirmed);
   const session = useAppStore((state) => state.session);
   const guestVillage = useAppStore((state) => state.guestVillage);
   return (
-    <Redirect href={initialRoute(confirmed, session?.user, guestVillage)} />
+    <Redirect
+      href={initialRoute(
+        confirmed,
+        session?.user,
+        guestVillage,
+        hasAuthenticated,
+      )}
+    />
   );
 }

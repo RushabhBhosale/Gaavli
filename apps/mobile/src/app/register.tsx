@@ -24,6 +24,7 @@ export default function RegistrationScreen() {
   const {
     language,
     confirmed,
+    hasAuthenticated,
     session,
     draft,
     offline,
@@ -41,7 +42,7 @@ export default function RegistrationScreen() {
     return (
       <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
     );
-  if (!confirmed) return <Redirect href="/language" />;
+  if (!confirmed && !hasAuthenticated) return <Redirect href="/language" />;
   function change(key: keyof typeof draft, value: string) {
     useAppStore.getState().setDraft({ ...draft, [key]: value });
     setErrors((previous) => ({ ...previous, [key]: "" }));
@@ -103,9 +104,7 @@ export default function RegistrationScreen() {
       <BackButton
         label={t.back}
         disabled={busy}
-        onPress={() =>
-          router.replace(guestVillage ? "/home" : "/language")
-        }
+        onPress={() => router.replace(guestVillage ? "/home" : "/language")}
       />
       <Brand compact />
       <Text style={styles.title}>
@@ -143,7 +142,9 @@ export default function RegistrationScreen() {
       <Input
         label={t.mobile}
         value={draft.mobile}
-        onChangeText={(value) => change("mobile", limitIndianMobileInput(value))}
+        onChangeText={(value) =>
+          change("mobile", limitIndianMobileInput(value))
+        }
         error={errors.mobile}
         keyboardType="number-pad"
         autoComplete="tel"
@@ -153,7 +154,7 @@ export default function RegistrationScreen() {
       {!!failure && <ErrorMessage message={errorMessage(failure, language)} />}
       {offline && <Text style={styles.body}>{t.offlineAction}</Text>}
       <Button loading={busy} disabled={offline} onPress={() => void send()}>
-        {failure ? t.retry : t.sendOtp}
+        {failure ? t.retry : registering ? t.sendOtp : t.continue}
       </Button>
       <Button
         secondary

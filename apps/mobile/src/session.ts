@@ -9,9 +9,14 @@ import { api } from "./api";
 import { ApiError } from "./api/client";
 import { credentials } from "./storage/credentials";
 import { useAppStore } from "./store";
-import { persistSession } from "./storage/session";
+import { clearSessionForGuest, persistSession } from "./storage/session";
+import { preferenceStorage } from "./storage/sqlite";
 
 export async function saveSession(session: MobileSession) {
+  if (!useAppStore.getState().hasAuthenticated) {
+    await preferenceStorage.writeHasAuthenticated();
+    useAppStore.setState({ hasAuthenticated: true });
+  }
   await persistSession(credentials, session, useAppStore.getState().setSession);
 }
 let renewing: Promise<MobileSession> | undefined;
@@ -73,6 +78,9 @@ export async function restoreSession() {
   const saved = await credentials.read();
   useAppStore.getState().setSession(saved);
   if (!saved) return;
+  // Migrate existing sessions on devices predating the local flag.
+  await preferenceStorage.writeHasAuthenticated();
+  useAppStore.setState({ hasAuthenticated: true });
   try {
     const user = await authenticatedApi("/users/me", mobileUserSchema);
     const current = useAppStore.getState().session;
@@ -106,9 +114,11 @@ export async function logout() {
         method: "POST",
         body: JSON.stringify({ refreshToken: session.refreshToken }),
       });
-    await credentials.clear();
-    useAppStore.getState().setSession(null);
-    useAppStore.getState().clearRegistration();
+    await clearSessionForGuest(
+      credentials,
+      preferenceStorage.clearGuestBrowsing,
+      useAppStore.getState().clearAuthenticatedState,
+    );
   } finally {
     signingOut = false;
   }

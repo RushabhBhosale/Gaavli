@@ -1,3 +1,8 @@
+> Product photo revision - 2026-10-25 (user approved): new optional listing
+> uploads use Atlas GridFS in all environments, through the existing Node API and
+> Mongo connection. Keep legacy references and originals. Profile photo storage
+> is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
+
 > My Profile - 2026-10-23: existing User gains optional address,
 > alternativeMobile, occupation and profilePhotoObjectKey; existing firstName,
 > lastName, name and mobile are reused. User.__v protects conditional profile

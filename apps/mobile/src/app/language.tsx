@@ -58,10 +58,9 @@ export default function LanguageScreen() {
     setBusy(true);
     setFailed(false);
     try {
-      await confirmLanguage(preferenceStorage, language);
-      const preferences = selected
-        ? await saveGuestVillage(preferenceStorage, selected)
-        : await confirmLanguage(preferenceStorage, language);
+      let preferences = await confirmLanguage(preferenceStorage, language);
+      if (destination === "/home" && selected)
+        preferences = await saveGuestVillage(preferenceStorage, selected);
       useAppStore.getState().restore(preferences);
       if (destination === "/register")
         useAppStore.getState().setAuthMode("login");
@@ -144,15 +143,25 @@ export default function LanguageScreen() {
             disabled={!selected}
             onPress={() => void next("/home")}
           >
-            {t.getStarted}
+            {t.continue}
           </Button>
-          <Button
-            secondary
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel={`${t.alreadyRegisteredPrompt} ${t.villageLoginLink}`}
+            accessibilityState={{ disabled: busy }}
             disabled={busy}
             onPress={() => void next("/register")}
+            style={({ pressed }) => [
+              s.loginLink,
+              busy && s.loginDisabled,
+              pressed && s.loginPressed,
+            ]}
           >
-            {t.switchToLogin}
-          </Button>
+            <Text style={s.loginText}>
+              {t.alreadyRegisteredPrompt}{" "}
+              <Text style={s.loginHighlight}>{t.villageLoginLink}</Text>
+            </Text>
+          </Pressable>
         </View>
         <View style={[s.illustration, { height: illustrationHeight }]}>
           <Image
@@ -168,6 +177,24 @@ export default function LanguageScreen() {
 }
 
 const s = StyleSheet.create({
+  loginLink: {
+    minHeight: theme.layout.touchTarget,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  loginText: {
+    fontSize: 14,
+    lineHeight: 22,
+    textAlign: "center",
+    color: theme.colors.text,
+  },
+  loginHighlight: {
+    color: theme.illustration.tree,
+    fontWeight: "700",
+    textDecorationLine: "underline",
+  },
+  loginDisabled: { opacity: theme.interaction.disabledOpacity },
+  loginPressed: { opacity: theme.interaction.pressedOpacity },
   screen: { flex: 1, backgroundColor: theme.colors.background },
   languages: {
     flexDirection: "row",

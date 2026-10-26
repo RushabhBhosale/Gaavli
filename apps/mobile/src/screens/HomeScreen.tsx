@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { BecomeSellerDialog } from "../components/BecomeSellerDialog";
+import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
 import { useRouter } from "expo-router";
 import type { MobileLanguage } from "@gaavli/types";
 import { useAppStore } from "../store";
@@ -173,8 +174,11 @@ export default function HomeScreen() {
           if (route === "/become-seller") {
             if (session) setSellerDialog(true);
             else {
-              useAppStore.getState().setAuthMode("register");
-              router.push("/register");
+              showGuestSignUpPrompt(language, () => {
+                useAppStore.getState().setContactReturn(null);
+                useAppStore.getState().setAuthMode("login");
+                router.push("/register");
+              });
             }
             return;
           }

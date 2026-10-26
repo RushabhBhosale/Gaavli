@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "tsx --test tests/security.test.ts tests/mobile-auth.test.ts tests/listing-policy.test.ts",
+    "migrate:listing-photos": "node --conditions=react-server --import tsx scripts/migrate-listing-photos.mts",
     "test:listing-crud": "node --conditions=react-server --import tsx tests/listing-crud.integration.mts",
     "test:mobile-integration": "node --conditions=react-server --import tsx tests/mobile.integration.mts",
     "test:guest-startup": "node --conditions=react-server --import tsx tests/guest-startup.integration.mts",

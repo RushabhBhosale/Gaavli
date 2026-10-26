@@ -7,7 +7,10 @@ import { AppProviders } from "../providers";
 import { useAppStore } from "../store";
 import { preferenceStorage } from "../storage/sqlite";
 import { restorePreferences } from "../storage/preferences";
-import { restoreBrowsingVillage } from "../storage/browsingVillage";
+import {
+  initialBrowsingVillage,
+  restoreBrowsingVillage,
+} from "../storage/browsingVillage";
 import { messages } from "../i18n";
 import { Screen, Brand, Button, ErrorMessage } from "../components/ui";
 import { theme } from "../theme";
@@ -28,11 +31,27 @@ function Startup() {
       .then(async ([preferences, browsingVillage]) => {
         await restoreSession();
         if (active) {
-          useAppStore.getState().setBrowsingVillage(browsingVillage);
           useAppStore
             .getState()
-            .setAuthMode(preferences.confirmed ? "login" : "register");
-          useAppStore.getState().restore(preferences);
+            .setBrowsingVillage(
+              initialBrowsingVillage(
+                browsingVillage,
+                useAppStore.getState().session,
+              ),
+            );
+          useAppStore
+            .getState()
+            .setAuthMode(
+              preferences.hasAuthenticated || preferences.confirmed
+                ? "login"
+                : "register",
+            );
+          useAppStore.getState().restore({
+            ...preferences,
+            hasAuthenticated:
+              preferences.hasAuthenticated ||
+              useAppStore.getState().hasAuthenticated,
+          });
         }
       })
       .catch(() => {

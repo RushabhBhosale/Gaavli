@@ -40,6 +40,35 @@ export async function sendOtp(
   await connectDb();
   await limitRequests("send-network", network, 30, 3600_000);
   await limitRequests("send-phone", input.mobile, 5, 3600_000);
+  // Rate limit every attempt before looking up the account, including unknown numbers.
+  // The existing named payload registers; mobile-only payloads log in.
+  if (!("firstName" in input)) {
+    const accounts = await User.find({
+      mobile: {
+        $in: [input.mobile, `+91${input.mobile}`, `91${input.mobile}`],
+      },
+    })
+      .select("status")
+      .lean();
+    if (!accounts.length)
+      throw new AppError(
+        404,
+        "REGISTRATION_REQUIRED",
+        "This mobile number is not registered. Please register first.",
+      );
+    if (accounts.length > 1)
+      throw new AppError(
+        409,
+        "ACCOUNT_CONFLICT",
+        "Contact support to resolve this account.",
+      );
+    if (accounts[0].status !== "active")
+      throw new AppError(
+        403,
+        "ACCOUNT_UNAVAILABLE",
+        "This account is not active.",
+      );
+  }
   const now = Date.now();
   const expiresAt = new Date(now + OTP_LIFETIME_MS);
   const resendAt = new Date(now + RESEND_MS);
@@ -168,14 +197,21 @@ export async function verifyOtp(
     let account = matches[0];
     if (!account) {
       const named = challenge.firstName && challenge.lastName;
+      // An account removed after login OTP issuance must never be recreated.
+      if (!named)
+        throw new AppError(
+          404,
+          "REGISTRATION_REQUIRED",
+          "This mobile number is not registered. Please register first.",
+        );
       [account] = await User.create(
         [
           {
             name: named
               ? `${challenge.firstName} ${challenge.lastName}`
               : challenge.mobile,
-              firstName: named ? challenge.firstName : undefined,
-              lastName: named ? challenge.lastName : undefined,
+            firstName: named ? challenge.firstName : undefined,
+            lastName: named ? challenge.lastName : undefined,
             mobile: challenge.mobile,
             mobileVerified: true,
             registeredAt: new Date(),

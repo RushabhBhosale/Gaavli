@@ -1,3 +1,8 @@
+> Product photo revision - 2026-10-25 (user approved): new optional listing
+> uploads use Atlas GridFS in all environments, through the existing Node API and
+> Mongo connection. Keep legacy references and originals. Profile photo storage
+> is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
+
 > Browsing village - 2026-10-23: public village metadata persists separately in
 > SQLite settings. Serialize cross-tab writes and update global state only after
 > persistence; failed writes keep the last selection. Startup restores it before

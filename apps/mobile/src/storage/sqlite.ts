@@ -53,10 +53,20 @@ async function writeSetting(key: string, value: string) {
   );
 }
 export const preferenceStorage: PreferenceStorage & BrowsingVillageStorage = {
+  readHasAuthenticated: () => readSetting("has-authenticated"),
+  writeHasAuthenticated: () => writeSetting("has-authenticated", "true"),
   readLanguage: () => readSetting("language"),
   writeLanguage: (language) => writeSetting("language", language),
   readGuestVillage: () => readSetting("guest-village"),
   writeGuestVillage: (value) => writeSetting("guest-village", value),
+  async clearGuestBrowsing() {
+    const db = await database();
+    await db.runAsync(
+      "DELETE FROM settings WHERE key IN (?, ?)",
+      "guest-village",
+      "browsing-village",
+    );
+  },
   readBrowsingVillage: () => readSetting("browsing-village"),
   writeBrowsingVillage: (value) => writeSetting("browsing-village", value),
 };

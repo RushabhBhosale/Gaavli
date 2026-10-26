@@ -1,4 +1,5 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+import type { ReactNode } from "react";
 import { BackButton } from "../ui";
 import { theme } from "../../theme";
 
@@ -7,6 +8,7 @@ export function PageSceneHeader({
   subtitle,
   backLabel,
   onBack,
+  action,
   edgeInset = 20,
   topInset = 14,
 }: {
@@ -14,6 +16,7 @@ export function PageSceneHeader({
   subtitle: string;
   backLabel: string;
   onBack: () => void;
+  action?: ReactNode;
   edgeInset?: number;
   topInset?: number;
 }) {
@@ -34,6 +37,7 @@ export function PageSceneHeader({
           style={s.landscape}
         />
       </View>
+      {action && <View style={s.action}>{action}</View>}
       <View style={s.row}>
         <BackButton label={backLabel} onPress={onBack} />
         <View style={s.copy}>
@@ -48,6 +52,7 @@ export function PageSceneHeader({
 }
 
 const s = StyleSheet.create({
+  action: { position: "absolute", right: 12, top: 12 },
   header: {
     backgroundColor: theme.colors.background,
     minHeight: 84,

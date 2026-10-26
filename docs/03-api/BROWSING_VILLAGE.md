@@ -1,5 +1,16 @@
 # Independent browsing village — 2026-10-23
 
+## Registered buyer/seller default - 2026-10-26 (user approved)
+
+On login/account switch and each app launch, signed-in buyers and sellers start
+with their registered village as the browsing center, ignoring an older saved
+browsing choice. Home and Marketplace keep sharing the same center. They may
+select another village during the launch; session refresh and profile updates
+preserve that explicit choice. Guest and coordinator persistence is unchanged.
+The device preference is retained in SQLite; this revision supersedes restoring
+it as the initial buyer/seller center. Discovery connections and protected
+contact scope remain unchanged.
+
 User-approved Home and Marketplace revision: their headers show the current
 browsing village with a location icon and dropdown chevron. Both reuse one
 searchable picker, existing theme/components and Marathi/English text.
@@ -19,7 +30,8 @@ searchable picker, existing theme/components and Marathi/English text.
   prior selection active and show a picker error; corrupt saved data falls back.
 - Startup restores this choice before either feed renders. Language changes,
   registration and profile-village updates preserve an explicit browsing choice.
-  It is a device-wide public preference retained across sign-in/logout.
+  It is a device-wide public preference. The 2026-10-26 logout revision clears
+  this setting together with the guest village to restart first village selection.
 - Home, Marketplace and product-detail query keys include source village and
   viewer identity. Selection refreshes both feeds; existing Marketplace chip and
   voice-search scope changes with it. Old chip IDs cannot narrow a new source.

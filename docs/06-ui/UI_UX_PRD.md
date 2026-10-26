@@ -1,3 +1,11 @@
+> My Products - 2026-10-26 (user approved): compact header shows the seller's
+> first + last names (legacy display-name fallback) and localized registered
+> village from the existing reactive session profile. Place + New Product after
+> the filters and before listings, reusing Add Product navigation. Remove only
+> this page's Marketplace shortcut. Mark as Sold uses a thicker theme-green
+> outline, transparent background and dark text/icon with existing rounded
+> corners. Preserve cards, menus, search/filter behavior and all product writes.
+
 > Browsing village - 2026-10-23 (user approved): Home and Marketplace headers
 > show one synchronized browsing village with location/dropdown icons. Search
 > active villages in the existing picker. Preserve shared theme, typography,
