@@ -1,3 +1,25 @@
+> Direct login/contact revision - 2026-10-27 (user approved): first Village
+> Selection's Login clears prior browsing/product context, then uses the existing
+> registered village and opens Home. Contact Seller auth preserves browsing and
+> returns to the product. Authenticated seller contact/Call/Notify and consented
+> request callbacks are listing-based, without buyer-village/connection gates.
+> Listing availability, authentication, privacy, consent and rate checks remain;
+> reporting/coordinator scopes are unchanged. See docs/03-api/BUYER_CONTACT.md.
+
+> Single browsing village - 2026-10-26 (user approved): use one persisted mobile
+> browsingVillage for guest/signed-in discovery, preserving it through login/OTP.
+> Initialize from the registered profile only when no choice exists. Home and
+> Marketplace filter to that village using existing APIs. Logout clears it and
+> pending product context. This supersedes the earlier registered-village reset
+> on login/restart and separate guest-village state; see BROWSING_VILLAGE.md.
+
+> Temporary OTP request-limit bypass - 2026-10-26 (user approved): login and
+> registration OTP issuance temporarily bypass phone/network request quotas and
+> resend cooldown through OTP_REQUEST_LIMITS_ENABLED=false in server auth policy.
+> Verification network/attempt limits, expiry, single use and account checks stay
+> enabled. Restore the constant to true after testing. This supersedes older
+> request-throttle requirements only; see docs/03-api/MOBILE_ONBOARDING.md.
+
 > Product photo revision - 2026-10-25 (user approved): new optional listing
 > uploads use Atlas GridFS in all environments, through the existing Node API and
 > Mongo connection. Keep legacy references and originals. Profile photo storage

@@ -1,4 +1,5 @@
 import { test } from "node:test";
+import { requestTabs, availableRequestTab } from "../src/data/requestTabs";
 import { orderedDraftStorage } from "../src/storage/orderedDrafts";
 import {
   sendSellerNotification,
@@ -37,6 +38,18 @@ import {
 } from "@gaavli/validation";
 import { dashboardForAccount, findMockListing } from "../src/data/mockHomeData";
 import { formatMessage, messages } from "../src/i18n";
+
+test("My Requests exposes buyer and seller tabs and guards a stale received selection", () => {
+  assert.deepEqual(requestTabs(false), ["sent", "notifications"]);
+  assert.deepEqual(requestTabs(true), ["sent", "received", "notifications"]);
+  assert.equal(availableRequestTab(false, "received"), "sent");
+  assert.equal(availableRequestTab(true, "sent"), "sent");
+  assert.equal(availableRequestTab(false, "notifications"), "notifications");
+  for (const language of ["mr", "en"] as const) {
+    const t = messages(language);
+    assert.ok(t.sentRequests && t.receivedRequests && t.requestNotifications);
+  }
+});
 
 const account: MobileUser = {
   id: "real-user",
@@ -222,6 +235,21 @@ test("request quantity accepts Marathi decimals and enforces minimum/current ava
   assert.throws(() => prepareSellerRequest("10", null, null));
 });
 
+test("seller request messages are optional, trimmed and bounded", () => {
+  assert.deepEqual(prepareSellerRequest("2", 10, null, "  "), {
+    quantity: 2,
+    callbackConsent: true,
+  });
+  assert.equal(
+    prepareSellerRequest("2", 10, null, "  उद्या येतो\nThank you  ").message,
+    "उद्या येतो\nThank you",
+  );
+  assert.throws(
+    () => prepareSellerRequest("2", 10, null, "a".repeat(501)),
+    /REQUEST_MESSAGE_INVALID/,
+  );
+});
+
 test("request retries preserve exact quantity/permission snapshots and keep legacy no-consent retries intact", async () => {
   const rows = new Map<string, string>();
   const storage = {
@@ -241,7 +269,7 @@ test("request retries preserve exact quantity/permission snapshots and keep lega
     channel: "in_app" as const,
     createdAt: "2026-10-15T00:00:00.000Z",
   };
-  const body = prepareSellerRequest("10", 40, 5);
+  const body = prepareSellerRequest("10", 40, 5, "Please keep it ready.");
   const sent: { key: string; body: unknown }[] = [];
   let lost = true;
   const send = async (key: string, staged: unknown) => {
@@ -271,6 +299,13 @@ test("request retries preserve exact quantity/permission snapshots and keep lega
     /REQUEST_PENDING_CHANGED/,
   );
   assert.equal(sent.length, 1);
+  await assert.rejects(
+    sendSellerNotification({
+      ...input,
+      body: prepareSellerRequest("10", 40, 5, "Changed message"),
+    }),
+    /REQUEST_PENDING_CHANGED/,
+  );
   assert.deepEqual(await sendSellerNotification({ ...input }), result);
   assert.deepEqual(
     sent[0],

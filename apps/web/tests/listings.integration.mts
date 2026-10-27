@@ -264,7 +264,9 @@ try {
   assert.equal(guestDetailText.includes("Private Seller"), false);
   assert.equal((await readContact(String(rows[0]._id), null)).status, 401);
   // Signed-in browsing can choose an unrelated active village without changing identity.
-  const browsingResponse = await list(request(`?sourceVillageId=${other._id}`));
+  const browsingResponse = await list(
+    request(`?sourceVillageId=${other._id}&villageId=${other._id}`),
+  );
   assert.equal(browsingResponse.status, 200);
   const browsingPage = mobileListingPageSchema.parse(
     (await browsingResponse.json()).data,
@@ -274,6 +276,22 @@ try {
     [String(rows[9]._id)],
   );
   assert.equal(JSON.stringify(browsingPage).includes("9000000002"), false);
+  const selectedGuestResponse = await list(
+    request(`?sourceVillageId=${other._id}&villageId=${other._id}`, null),
+  );
+  assert.equal(selectedGuestResponse.status, 200);
+  const selectedGuestPage = mobileListingPageSchema.parse(
+    (await selectedGuestResponse.json()).data,
+  );
+  assert.deepEqual(
+    selectedGuestPage.listings.map((listing) => listing.id),
+    browsingPage.listings.map((listing) => listing.id),
+  );
+  assert.ok(
+    selectedGuestPage.listings.every(
+      (listing) => listing.village.id === String(other._id),
+    ),
+  );
   const browsingDetail = await detail(
     request(`/${rows[9]._id}?sourceVillageId=${other._id}`),
     { params: Promise.resolve({ id: String(rows[9]._id) }) },
@@ -284,12 +302,12 @@ try {
     String(rows[9]._id),
   );
   assert.equal((await getDetail(String(rows[9]._id))).status, 404);
-  assert.equal((await readContact(String(rows[9]._id))).status, 404);
+  assert.equal((await readContact(String(rows[9]._id))).status, 200);
   const contactWithBrowsingScope = await sellerDetails(
     request(`/${rows[9]._id}/contact?sourceVillageId=${other._id}`),
     { params: Promise.resolve({ id: String(rows[9]._id) }) },
   );
-  assert.equal(contactWithBrowsingScope.status, 404);
+  assert.equal(contactWithBrowsingScope.status, 200);
   assert.equal(
     String((await User.findById(buyer._id))?.village),
     String(village._id),
@@ -300,7 +318,7 @@ try {
   );
   assert.equal((await list(request("?sourceVillageId=invalid"))).status, 422);
   console.log(
-    "PASS: independent authenticated browsing scope, active-village validation and registered-village contact protection.",
+    "PASS: independent browsing scope, active-village validation and cross-village authenticated seller contact.",
   );
   assert.equal(
     (await list(request(`?sourceVillageId=${String(village._id)}`, "nope")))
@@ -604,7 +622,10 @@ try {
     ).status,
     403,
   );
-  for (const row of [rows[0], ...rows.slice(2)])
+  const unavailableContactRows = [rows[0], ...rows.slice(2)].filter(
+    (row) => String(row._id) !== String(rows[9]._id),
+  );
+  for (const row of unavailableContactRows)
     assert.equal((await readContact(String(row._id))).status, 404);
   assert.equal(
     await Notification.countDocuments(),
@@ -641,7 +662,7 @@ try {
     404,
     "demo rows never reveal contacts",
   );
-  for (const row of rows.slice(2))
+  for (const row of unavailableContactRows)
     assert.equal((await revealContact(String(row._id))).status, 404);
   const responses = await Promise.all([
     revealContact(contactId),
@@ -1308,8 +1329,8 @@ try {
   await User.updateOne({ _id: buyer._id }, { $set: { village: other._id } });
   assert.equal(
     (await callback(createdRequest.notificationId, sellerToken)).status,
-    422,
-    "callback rechecks the buyer's current village",
+    200,
+    "authorized callback remains available after the buyer changes registered village",
   );
   await User.updateOne({ _id: buyer._id }, { $set: { village: village._id } });
   await Listing.updateOne(

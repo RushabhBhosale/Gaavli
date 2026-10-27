@@ -210,6 +210,7 @@ const notificationSchema = new Schema(
       buyerId: { type: Schema.Types.ObjectId, ref: "User" },
       quantity: { type: Number, min: 0, max: 1e9 },
       callbackConsent: Boolean,
+      message: { type: String, trim: true, maxlength: 500 },
       productName: String,
       productNameMr: String,
       photoObjectKey: String,

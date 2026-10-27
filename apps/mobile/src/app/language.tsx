@@ -18,25 +18,27 @@ import { MOBILE_LANGUAGES } from "@gaavli/constants";
 import type { MobileVillage } from "@gaavli/types";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
-import {
-  confirmLanguage,
-  postAuthHref,
-  saveGuestVillage,
-} from "../storage/preferences";
+import { confirmLanguage, postAuthHref } from "../storage/preferences";
 import { preferenceStorage } from "../storage/sqlite";
 import { Button, ErrorMessage } from "../components/ui";
 import { VillageSelectField } from "../components/VillageSelectField";
+import {
+  clearBrowsingVillage,
+  selectBrowsingVillage,
+} from "../storage/browsingVillage";
 
 export default function LanguageScreen() {
   const router = useRouter();
   const language = useAppStore((state) => state.language);
   const session = useAppStore((state) => state.session);
-  const guestVillage = useAppStore((state) => state.guestVillage);
+  const browsingVillage = useAppStore((state) => state.browsingVillage);
   const contactReturnListingId = useAppStore(
     (state) => state.contactReturnListingId,
   );
   const t = messages(language);
-  const [selected, setSelected] = useState<MobileVillage | null>(guestVillage);
+  const [selected, setSelected] = useState<MobileVillage | null>(
+    browsingVillage,
+  );
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
   const submitting = useRef(false);
@@ -58,12 +60,22 @@ export default function LanguageScreen() {
     setBusy(true);
     setFailed(false);
     try {
-      let preferences = await confirmLanguage(preferenceStorage, language);
-      if (destination === "/home" && selected)
-        preferences = await saveGuestVillage(preferenceStorage, selected);
-      useAppStore.getState().restore(preferences);
-      if (destination === "/register")
-        useAppStore.getState().setAuthMode("login");
+      const preferences = await confirmLanguage(preferenceStorage, language);
+      if (destination === "/register") {
+        await clearBrowsingVillage(preferenceStorage);
+        useAppStore.getState().clearAuthenticatedState();
+        useAppStore
+          .getState()
+          .restore({ ...preferences, browsingVillage: null });
+      } else {
+        if (selected)
+          await selectBrowsingVillage(
+            preferenceStorage,
+            selected,
+            useAppStore.getState().setBrowsingVillage,
+          );
+        useAppStore.getState().restore(preferences);
+      }
       router.replace(destination);
     } catch {
       setFailed(true);

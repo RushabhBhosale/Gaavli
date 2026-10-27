@@ -9,7 +9,10 @@ import { api } from "./api";
 import { authenticatedApi } from "./session";
 import { useAppStore } from "./store";
 import { ApiError } from "./api/client";
-import { browsingVillageFor } from "./storage/browsingVillage";
+import {
+  browsingListingsQuery,
+  browsingVillageFor,
+} from "./storage/browsingVillage";
 
 const retry = (count: number, error: unknown) =>
   count < 1 &&
@@ -39,37 +42,31 @@ export function useOwnListings(
 }
 export function useHomeListings() {
   const session = useAppStore((state) => state.session);
-  const guestVillage = useAppStore((state) => state.guestVillage);
   const browsingVillage = useAppStore(browsingVillageFor);
   const sourceId = browsingVillage?.id;
   return useQuery({
     queryKey: ["home-listings", session?.user.id ?? "guest", sourceId],
-    enabled: session ? !!session.user.village : !!guestVillage,
+    enabled: !!sourceId && (!session || !!session.user.village),
     refetchOnMount: "always",
     queryFn: ({ signal }) =>
       session
         ? authenticatedApi(
-            `/listings?limit=5&sourceVillageId=${sourceId}`,
+            `/listings?${browsingListingsQuery(sourceId!, { limit: "5" })}`,
             mobileListingPageSchema,
             {
               signal,
             },
           )
         : api(
-            `/listings?limit=5&sourceVillageId=${sourceId}`,
+            `/listings?${browsingListingsQuery(sourceId!, { limit: "5" })}`,
             mobileListingPageSchema,
             { signal },
           ),
     retry,
   });
 }
-export function useMarketplaceListings(
-  search: string,
-  category: string,
-  villageId?: string,
-) {
+export function useMarketplaceListings(search: string, category: string) {
   const session = useAppStore((state) => state.session);
-  const guestVillage = useAppStore((state) => state.guestVillage);
   const browsingVillage = useAppStore(browsingVillageFor);
   const sourceId = browsingVillage?.id;
   return useInfiniteQuery({
@@ -79,22 +76,20 @@ export function useMarketplaceListings(
       sourceId,
       search,
       category,
-      villageId,
     ],
-    enabled: session ? !!session.user.village : !!guestVillage,
+    enabled: !!sourceId && (!session || !!session.user.village),
     refetchOnMount: "always",
     initialPageParam: 1,
     queryFn: ({ pageParam, signal }) => {
-      const query = new URLSearchParams({
+      const params: Record<string, string> = {
         search,
+        includeProductGroupCounts: "true",
         page: String(pageParam),
         limit: "20",
-      });
-      if (category !== "all") query.set("productGroup", category);
-      if (villageId) query.set("villageId", villageId);
-      if (sourceId) query.set("sourceVillageId", sourceId);
+      };
+      if (category !== "all") params.productGroup = category;
       return (session ? authenticatedApi : api)(
-        `/listings?${query}`,
+        `/listings?${browsingListingsQuery(sourceId!, params)}`,
         mobileListingPageSchema,
         { signal },
       );
@@ -106,7 +101,6 @@ export function useMarketplaceListings(
 }
 export function useListing(id: unknown) {
   const session = useAppStore((state) => state.session);
-  const guestVillage = useAppStore((state) => state.guestVillage);
   const browsingVillage = useAppStore(browsingVillageFor);
   const sourceId = browsingVillage?.id;
   const parsed = listingIdSchema.safeParse(id);
@@ -118,7 +112,7 @@ export function useListing(id: unknown) {
       typeof id === "string" ? id : null,
     ],
     enabled:
-      parsed.success && (session ? !!session.user.village : !!guestVillage),
+      parsed.success && !!sourceId && (!session || !!session.user.village),
     refetchOnMount: "always",
     queryFn: ({ signal }) => {
       const listingId = parsed.success ? parsed.data : "";

@@ -331,17 +331,10 @@ function MyProfileContent() {
                 </Pressable>
                 <Text style={s.caption}>{t.profilePhotoHelp}</Text>
               </View>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={t.changeVillage}
-                disabled={locked}
-                onPress={() => router.push("/village")}
-                style={s.village}
-              >
+              <View style={s.village}>
                 <Text style={s.caption}>{t.registeredVillage}</Text>
                 <Text style={s.villageName}>{villageName}</Text>
-                <Text style={s.link}>{t.changeVillage}</Text>
-              </Pressable>
+              </View>
             </View>
             {pendingPhoto && (
               <Button

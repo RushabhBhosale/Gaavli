@@ -3,6 +3,19 @@
 > Mongo connection. Keep legacy references and originals. Profile photo storage
 > is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
 
+> Optional Notify Seller message - 2026-10-27: the bounded optional note is part
+> of the existing account/listing-scoped durable pending request alongside quantity
+> and callback consent. Stage before sending, retry exact payload/key and restore
+> note read-only for pending requests. Blank/legacy notes stay absent. No public
+> cache or new queue is added; existing cleanup and account isolation remain.
+
+> Single browsing village - 2026-10-26: one public browsing-village setting is
+> shared by guests and authenticated users. Preserve it through OTP/login/restart;
+> use the registered profile only as an initial fallback. Legacy guest-village is
+> read only for migration. Logout clears both keys after pending selection writes.
+> Home/Marketplace use the existing exact village filter and village-keyed queries;
+> no profile or offline product-draft mutation is introduced. See BROWSING_VILLAGE.md.
+
 > Browsing village - 2026-10-23: public village metadata persists separately in
 > SQLite settings. Serialize cross-tab writes and update global state only after
 > persistence; failed writes keep the last selection. Startup restores it before

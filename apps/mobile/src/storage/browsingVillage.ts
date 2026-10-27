@@ -1,6 +1,5 @@
 import type { MobileSession, MobileVillage } from "@gaavli/types";
 import { listingIdSchema, mobileVillageSchema } from "@gaavli/validation";
-import { hasCoordinatorRole } from "../data/accountAccess";
 const browsingVillageSchema = mobileVillageSchema.extend({
   id: listingIdSchema,
 });
@@ -13,18 +12,22 @@ export function initialBrowsingVillage(
   saved: MobileVillage | null,
   session: MobileSession | null,
 ) {
-  // Buyers and sellers start at their registered village; explicit selections
-  // during this launch can still override it without changing their profile.
-  return session && !hasCoordinatorRole(session.user) ? null : saved;
+  return saved ?? session?.user.village ?? null;
 }
 export function browsingVillageFor(state: {
   browsingVillage: MobileVillage | null;
-  session: MobileSession | null;
-  guestVillage: MobileVillage | null;
 }) {
-  return (
-    state.browsingVillage ?? state.session?.user.village ?? state.guestVillage
-  );
+  return state.browsingVillage;
+}
+export function browsingListingsQuery(
+  browsingVillageId: string,
+  params: Record<string, string>,
+) {
+  return new URLSearchParams({
+    ...params,
+    sourceVillageId: browsingVillageId,
+    villageId: browsingVillageId,
+  }).toString();
 }
 export async function restoreBrowsingVillage(storage: BrowsingVillageStorage) {
   const saved = await storage.readBrowsingVillage();
@@ -37,6 +40,21 @@ export async function restoreBrowsingVillage(storage: BrowsingVillageStorage) {
   }
 }
 let writes: Promise<void> = Promise.resolve();
+function serializeVillageWrite<T>(work: () => Promise<T>) {
+  const operation = writes.then(work);
+  writes = operation.then(
+    () => undefined,
+    () => undefined,
+  );
+  return operation;
+}
+export function clearBrowsingVillage(storage: {
+  clearGuestBrowsing(): Promise<void>;
+}) {
+  // Logout follows pending selections so their late writes cannot restore a
+  // cleared village on the next launch.
+  return serializeVillageWrite(() => storage.clearGuestBrowsing());
+}
 export function selectBrowsingVillage(
   storage: BrowsingVillageStorage,
   village: MobileVillage,
@@ -44,14 +62,9 @@ export function selectBrowsingVillage(
 ) {
   const validated = browsingVillageSchema.parse(village);
   // Serialize writes from both mounted tabs; publish only durable selections.
-  const operation = writes.then(async () => {
+  return serializeVillageWrite(async () => {
     await storage.writeBrowsingVillage(JSON.stringify(validated));
     commit(validated);
     return validated;
   });
-  writes = operation.then(
-    () => undefined,
-    () => undefined,
-  );
-  return operation;
 }

@@ -10,6 +10,27 @@ export async function visibleSellerContact(
   villageId: string,
   session: ClientSession,
 ) {
+  return sellerContactRow(
+    id,
+    await discoveryVillageIds(villageId, session),
+    session,
+  );
+}
+
+// Seller contact is listing-based. Scoped reporting/discovery callers keep
+// using visibleSellerContact; this entry point never uses the buyer's village.
+export async function accessibleSellerContact(
+  id: string,
+  session: ClientSession,
+) {
+  return sellerContactRow(id, null, session);
+}
+
+async function sellerContactRow(
+  id: string,
+  villageIds: string[] | null,
+  session: ClientSession,
+) {
   const [row] = await Listing.aggregate<{
     sellerId: string;
     name: string;
@@ -22,10 +43,7 @@ export async function visibleSellerContact(
     photoObjectKey: string | null;
   }>([
     { $match: { _id: new Types.ObjectId(id), isDemo: { $ne: true } } },
-    ...visiblePipeline(
-      await discoveryVillageIds(villageId, session),
-      new Date(),
-    ),
+    ...visiblePipeline(villageIds, new Date()),
     {
       $project: {
         _id: 0,

@@ -11,7 +11,6 @@ import type { OnboardingPreferences } from "./storage/preferences";
 import { initialBrowsingVillage } from "./storage/browsingVillage";
 
 type AppState = OnboardingPreferences & {
-  browsingVillage: MobileVillage | null;
   setBrowsingVillage: (village: MobileVillage | null) => void;
   hydrated: boolean;
   offline: boolean;
@@ -35,7 +34,6 @@ export const useAppStore = create<AppState>((set) => ({
   language: DEFAULT_MOBILE_LANGUAGE,
   confirmed: false,
   hasAuthenticated: false,
-  guestVillage: null,
   browsingVillage: null,
   setBrowsingVillage: (browsingVillage) => set({ browsingVillage }),
   hydrated: false,
@@ -50,10 +48,7 @@ export const useAppStore = create<AppState>((set) => ({
   setSession: (session) =>
     set((state) => ({
       session,
-      browsingVillage:
-        session?.user.id !== state.session?.user.id
-          ? initialBrowsingVillage(state.browsingVillage, session)
-          : state.browsingVillage,
+      browsingVillage: initialBrowsingVillage(state.browsingVillage, session),
     })),
   setDraft: (draft) => set({ draft }),
   setChallenge: (challenge) => set({ challenge }),
@@ -66,7 +61,6 @@ export const useAppStore = create<AppState>((set) => ({
   clearAuthenticatedState: () =>
     set({
       session: null,
-      guestVillage: null,
       browsingVillage: null,
       draft: { firstName: "", lastName: "", mobile: "" },
       challenge: null,
@@ -74,6 +68,14 @@ export const useAppStore = create<AppState>((set) => ({
       contactReturnListingId: null,
     }),
   setLanguage: (language) => set({ language }),
-  restore: (preferences) => set({ ...preferences, hydrated: true }),
+  restore: (preferences) =>
+    set((state) => ({
+      ...preferences,
+      browsingVillage: initialBrowsingVillage(
+        state.browsingVillage ?? preferences.browsingVillage,
+        state.session,
+      ),
+      hydrated: true,
+    })),
   setOffline: (offline) => set({ offline }),
 }));

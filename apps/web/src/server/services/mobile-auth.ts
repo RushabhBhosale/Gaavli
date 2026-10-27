@@ -14,6 +14,7 @@ import {
   SESSION_MS,
   OTP_LIFETIME_MS,
   RESEND_MS,
+  OTP_REQUEST_LIMITS_ENABLED,
   MAX_OTP_ATTEMPTS,
   otpProvider,
   otpDigest,
@@ -38,9 +39,10 @@ export async function sendOtp(
   const code = provider.code();
   const codeHash = otpDigest(id, code);
   await connectDb();
-  await limitRequests("send-network", network, 30, 3600_000);
-  await limitRequests("send-phone", input.mobile, 5, 3600_000);
-  // Rate limit every attempt before looking up the account, including unknown numbers.
+  if (OTP_REQUEST_LIMITS_ENABLED) {
+    await limitRequests("send-network", network, 30, 3600_000);
+    await limitRequests("send-phone", input.mobile, 5, 3600_000);
+  }
   // The existing named payload registers; mobile-only payloads log in.
   if (!("firstName" in input)) {
     const accounts = await User.find({
@@ -71,10 +73,15 @@ export async function sendOtp(
   }
   const now = Date.now();
   const expiresAt = new Date(now + OTP_LIFETIME_MS);
-  const resendAt = new Date(now + RESEND_MS);
+  const resendAt = new Date(now + (OTP_REQUEST_LIMITS_ENABLED ? RESEND_MS : 0));
   try {
     await OtpChallenge.findOneAndUpdate(
-      { mobile: input.mobile, resendAt: { $lte: new Date(now) } },
+      {
+        mobile: input.mobile,
+        ...(OTP_REQUEST_LIMITS_ENABLED
+          ? { resendAt: { $lte: new Date(now) } }
+          : {}),
+      },
       {
         $set: {
           ...input,

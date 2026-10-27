@@ -38,15 +38,16 @@ test("first launch is Marathi; a saved language still opens village selection", 
     writeLanguage: async (value) => {
       saved = value;
     },
-    readGuestVillage: async () => village,
-    writeGuestVillage: async (value) => {
+    readGuestVillage: async () => null,
+    readBrowsingVillage: async () => village,
+    writeBrowsingVillage: async (value) => {
       village = value;
     },
   };
   assert.deepEqual(await restorePreferences(storage), {
     language: "mr",
     confirmed: false,
-    guestVillage: null,
+    browsingVillage: null,
     hasAuthenticated: false,
   });
   assert.equal(initialRoute(false), "/language");
@@ -58,7 +59,7 @@ test("first launch is Marathi; a saved language still opens village selection", 
   assert.deepEqual(await restorePreferences(storage), {
     language: "mr",
     confirmed: false,
-    guestVillage: null,
+    browsingVillage: null,
     hasAuthenticated: false,
   });
 });
@@ -78,7 +79,8 @@ test("storage failures do not report confirmation and recovery can be retried", 
       saved = value;
     },
     readGuestVillage: async () => null,
-    writeGuestVillage: async () => undefined,
+    readBrowsingVillage: async () => null,
+    writeBrowsingVillage: async () => undefined,
   };
   await assert.rejects(restorePreferences(storage));
   await assert.rejects(confirmLanguage(storage, "en"));
@@ -88,7 +90,7 @@ test("storage failures do not report confirmation and recovery can be retried", 
   assert.deepEqual(await restorePreferences(storage), {
     language: "mr",
     confirmed: true,
-    guestVillage: null,
+    browsingVillage: null,
     hasAuthenticated: false,
   });
 });

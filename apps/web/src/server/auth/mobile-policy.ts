@@ -3,6 +3,9 @@ import { AppError } from "../utils/errors";
 
 export const OTP_LIFETIME_MS = 5 * 60_000;
 export const RESEND_MS = 60_000;
+// TEMPORARY: user-approved unrestricted login/registration OTP requests for testing.
+// Restore to true after testing; verification limits and OTP expiry stay enabled.
+export const OTP_REQUEST_LIMITS_ENABLED = false;
 export const MAX_OTP_ATTEMPTS = 5;
 export const ACCESS_MS = 15 * 60_000;
 export const SESSION_MS = 90 * 24 * 60 * 60_000;

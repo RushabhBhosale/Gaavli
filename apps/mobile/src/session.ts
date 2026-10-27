@@ -11,6 +11,7 @@ import { credentials } from "./storage/credentials";
 import { useAppStore } from "./store";
 import { clearSessionForGuest, persistSession } from "./storage/session";
 import { preferenceStorage } from "./storage/sqlite";
+import { clearBrowsingVillage } from "./storage/browsingVillage";
 
 export async function saveSession(session: MobileSession) {
   if (!useAppStore.getState().hasAuthenticated) {
@@ -116,7 +117,7 @@ export async function logout() {
       });
     await clearSessionForGuest(
       credentials,
-      preferenceStorage.clearGuestBrowsing,
+      () => clearBrowsingVillage(preferenceStorage),
       useAppStore.getState().clearAuthenticatedState,
     );
   } finally {

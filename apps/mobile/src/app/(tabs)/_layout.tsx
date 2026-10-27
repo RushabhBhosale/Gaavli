@@ -9,14 +9,14 @@ import { coordinatorMessages } from "../../coordinator/i18n";
 import { hasCoordinatorRole } from "../../data/accountAccess";
 
 export default function BuyerTabs() {
-  const { session, language, guestVillage } = useAppStore();
+  const { session, language, browsingVillage } = useAppStore();
   const t = messages(language);
   const coordinator = hasCoordinatorRole(session?.user);
   const c = coordinatorMessages(language);
   const { fontScale } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   if (session && !session.user.village) return <Redirect href="/village" />;
-  if (!session && !guestVillage) return <Redirect href="/language" />;
+  if (!session && !browsingVillage) return <Redirect href="/language" />;
   return (
     <Tabs
       screenOptions={{

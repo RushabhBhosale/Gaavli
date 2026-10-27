@@ -35,10 +35,11 @@ import {
 } from "../components/ui";
 import { theme } from "../theme";
 import { authenticatedApi, saveSession } from "../session";
-import { postAuthHref, saveGuestVillage } from "../storage/preferences";
-import { preferenceStorage } from "../storage/sqlite";
+import { postAuthHref } from "../storage/preferences";
 import { errorMessage } from "../errors";
 import { VillagePicker, useVillageSearch } from "../components/VillagePicker";
+import { selectBrowsingVillage } from "../storage/browsingVillage";
+import { preferenceStorage } from "../storage/sqlite";
 
 export default function VillageScreen() {
   const router = useRouter();
@@ -53,9 +54,9 @@ export default function VillageScreen() {
     latitude: number;
     longitude: number;
   } | null>(null);
-  const guestVillage = useAppStore((state) => state.guestVillage);
+  const browsingVillage = useAppStore((state) => state.browsingVillage);
   const [selected, setSelected] = useState<MobileVillage | null>(
-    session?.user.village ?? guestVillage,
+    session?.user.village ?? browsingVillage,
   );
   const needsNames = !session?.user.firstName || !session?.user.lastName;
   const [firstName, setFirstName] = useState(session?.user.firstName || "");
@@ -177,7 +178,7 @@ export default function VillageScreen() {
     }
   }
   async function confirm() {
-    if (!selected || submitting.current) return;
+    if (!session || !selected || submitting.current) return;
     const names = needsNames
       ? {
           firstName: personNameSchema.safeParse(firstName),
@@ -220,19 +221,23 @@ export default function VillageScreen() {
         }),
       });
       const current = useAppStore.getState().session;
-      if (!current) return;
+      if (!current || current.user.id !== session.user.id) return;
       await saveSession({ ...current, user });
-      if (user.village) {
-        try {
-          useAppStore
-            .getState()
-            .restore(await saveGuestVillage(preferenceStorage, user.village));
-        } catch {
-          /* The account village remains available from the secure session. */
-        }
+      // An explicit Settings change selects the same village for discovery.
+      // Initial registration keeps any existing guest browsing choice.
+      if (session.user.village && user.village) {
+        await selectBrowsingVillage(
+          preferenceStorage,
+          user.village,
+          useAppStore.getState().setBrowsingVillage,
+        );
       }
       router.replace(
-        postAuthHref(user, useAppStore.getState().contactReturnListingId),
+        postAuthHref(
+          user,
+          useAppStore.getState().contactReturnListingId,
+          useAppStore.getState().authMode === "login",
+        ),
       );
     } catch (error) {
       setFailure(error);

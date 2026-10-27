@@ -1,3 +1,154 @@
+## 2026-10-27 - Settings village change updates product feeds
+
+- Existing registered-user village confirmation now also persists the confirmed
+  village through shared selectBrowsingVillage after saving the profile/session.
+  Home and Marketplace react to that browsing selection using their existing
+  query keys. Screen/UI and initial-registration browsing preservation unchanged.
+- Verification: 74 mobile tests, mobile typecheck, targeted ESLint and whitespace
+  checks passed. Native interaction verification remains pending.
+
+## 2026-10-27 - Reusable read-only My Requests
+
+Status: IMPLEMENTED - DEPLOYED/DEVICE VERIFICATION PENDING.
+
+- ActivityScreen provides Sent/Notifications for buyers and Sent/Received/
+  Notifications for sellers, using existing isSeller capability, APIs, pagination,
+  theme and translations. The notification route opens Notifications. Header
+  refresh, empty/loading/offline/error/retry and placeholder images are retained.
+- Request cards are read-only; removed Call/Seen/Responded controls and status
+  management. Quantity and optional message remain visible. Creation and server
+  mutation APIs, coordinator screens and bottom navigation are unchanged.
+- Existing request API optionally returns consented received buyer mobile with
+  interest/availability/participant checks. Notifications optionally expose stored
+  readAt, without marking records read. Older strict clients retain response shape.
+  Existing collections are reused, without duplicate requests or a migration.
+- Verification passed: 74 mobile tests, monorepo typecheck, targeted mobile/server
+  ESLint, and isolated Atlas integration covering request ownership, seller sent
+  history, consented/withheld phone, unavailable listing, notification ownership,
+  read state and old response shape. Native small-screen/large-font visual checks
+  and deployment remain pending. Deploy backend before updating mobile.
+
+## 2026-10-27 - Optional Notify Seller message
+
+Status: IMPLEMENTED - DEPLOYED/DEVICE VERIFICATION PENDING.
+
+- Existing Notify Seller confirmation adds optional multiline Message / संदेश
+  input, max 500 characters, using current Input styling. Empty notes are omitted.
+  Notes restore and remain locked alongside quantity in pending request retries.
+- Existing API validation, notification model/body, deduplication/idempotency and
+  private request list support the note. My Requests displays it when returned;
+  includeMessages=true preserves older clients' strict request-response shape.
+  No new endpoint/channel/collection/index or real SMS feature was added.
+- Quantity, consent, privacy, auth, availability and notification limits remain.
+  Added message normalization/limit/retry and isolated persistence/read/conflict
+  coverage. Deployment, updated mobile app and native keyboard/layout checks pending.
+- Verification: full monorepo typecheck, mobile tests (73), web tests (14), isolated
+  contact-access integration tests, targeted mobile/server ESLint and git diff
+  whitespace checks passed. Deploy the backend before updating the mobile app.
+
+## 2026-10-27 - Marketplace category filter counts
+
+Status: IMPLEMENTED - DEPLOYED/DEVICE VERIFICATION PENDING.
+
+- Existing Marketplace category labels/accessibility labels show English/Marathi
+  formatted counts, preserving category icons/styles/actions. Missing/loading
+  metadata shows a dash instead of a false zero.
+- Listings aggregation adds product-group counts before productGroup/pagination
+  filtering, honoring current search/category/village and visibility/own-offer
+  rules. Marketplace opts in with includeProductGroupCounts=true; existing clients
+  receive their original strict response shape. Shared optional schema/type updated.
+- Added isolated real-route coverage for village, search, cross-category totals,
+  pagination, zero groups, expiry/stock, own-offer exclusion and legacy responses.
+- Backend deployment and mobile update/device visual checks remain pending.
+- Verification: 72 mobile tests, full monorepo TypeScript, focused mobile/web
+  ESLint and whitespace checks passed. Isolated real-route counts integration
+  passed all scenarios above; the random test database was cleaned up. No app
+  data was modified. Deploy backend first, then update the mobile client.
+
+## 2026-10-27 - Direct-login browsing default and cross-village seller contact
+
+Status: IMPLEMENTED - DEPLOYED/DEVICE VERIFICATION PENDING.
+
+- First Village Selection Login clears saved browsing/product context before
+  existing auth. OTP initializes from the registered profile and buyer/seller
+  login without a product return opens Home. Product-return auth preserves
+  browsing and returns to the same detail. No extra login-source flag or screen.
+  Guest Contact Seller offers Login/Create account/Not now in the existing native
+  popup, reusing current translated labels and form modes.
+- Contact, Call/interested, Notify and authorized consented request callbacks
+  use a listing-based eligibility helper without buyer-village/connection gates.
+  Request canCall uses the listing's active village. Scoped reporting and all
+  coordinator/connection operations retain their original helper/authorization.
+- Availability, demo/self/active account/seller/listing village/category, stock,
+  expiry, phone checks, quotas, no-store, quantity/consent, participant privacy and
+  idempotency remain. Database profiles/products/registration data are unchanged.
+- Added targeted isolated real-route cross-village contact tests and mobile
+  direct-login/return-context coverage. Updated old contact-scope expectations.
+- Deployment and native OTP/navigation/Call/Notify/Android Back checks pending.
+- Verification: 72 mobile tests, 14 web unit tests, full monorepo TypeScript,
+  mobile/web lint and whitespace checks passed. Focused real-route MongoDB
+  integration passed unrelated Narayangaon/Kalamb guest browsing and authenticated
+  contact/Call/Notify, both request callback directions, canCall, participant-only
+  access, consent rejection/legacy callback privacy, self/demo/stock/status/expiry,
+  active seller/listing village/category checks, blocked accounts and missing
+  registered village contact. It also verified scoped reporting still rejects
+  unrelated village reports and profile/connection data is unchanged.
+- Tests used only random isolated contact databases, guarded and cleaned up.
+  The broader listing integration's old village-denial assertions were updated
+  but that full suite was not rerun for this change. No hosted deployment claimed.
+
+## 2026-10-26 - Single browsing village through auth
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Removed separate guestVillage state/writes. Guest selection and header dropdown
+  share browsingVillage and its existing SQLite key; legacy guest metadata is a
+  read-only startup fallback. Registered village stays in the authenticated profile.
+- Central session publication preserves browsing selection and initializes it
+  from the registered village only when absent. Startup hydrates the choice before
+  restoring auth. Login/OTP and the existing pending-product return preserve it.
+  Profile village confirmation no longer writes a second browsing/guest setting.
+- Home/Marketplace use existing sourceVillageId plus exact villageId filtering.
+  Removed the independent connected-village chips in favor of the existing header
+  dropdown. Search/category/voice/card/pagination UI remains. Village-keyed queries
+  refresh on manual changes; registered village and protected-contact scope stay.
+- Logout clears canonical/legacy browsing settings after pending writes and clears
+  auth/context before returning to the existing first village screen.
+- Updated coverage for fallback/direct login, guest product-return login with a
+  different registered village, token refresh, restart/legacy metadata, exact feed
+  parameters, profile isolation, logout cleanup and outstanding selection writes.
+- Native Android flow, hardware Back and storage across device restart pending.
+- Verification: all 71 mobile tests, mobile/web TypeScript, mobile lint, focused
+  lint on the final helper/session/store/test changes and whitespace checks passed.
+- Isolated real-route MongoDB checks passed selected-village guest/authenticated
+  reads, registered-profile isolation and contact protection, plus existing request
+  privacy/idempotency checks. The broader listing suite stalled in its remaining
+  checks and was stopped after more than 10 minutes; no full-suite pass is claimed.
+  Its exact random test database was verified and removed; app data was untouched.
+
+## 2026-10-26 - Temporary login/registration OTP request-limit bypass
+
+Status: IMPLEMENTED - HOSTED/DEVICE VERIFICATION PENDING.
+
+- User-approved temporary OTP_REQUEST_LIMITS_ENABLED=false source constant skips
+  send-phone/send-network quota calls and resendAt matching; response resendAt is
+  immediate so the existing mobile resend control follows it. Restore the single
+  constant to true to re-enable the original checks. No environment flag, package,
+  SMS implementation, production-counter deletion or unrelated auth change.
+- Provider generation/sending, OTP hashing/expiry/consumption, wrong-attempt and
+  verification-network limits, account validation, registration and sessions stay.
+- Extended isolated auth integration to cover >30 immediate registration sends
+  despite pre-existing full counters, repeated login sends, latest-challenge
+  verification and preservation of verification/account security checks.
+- Hosted deployment and physical-device login/registration remain pending.
+- Verification: 14 web unit tests, web TypeScript, focused ESLint and whitespace
+  checks passed. Isolated MongoDB auth integration passed registration and village
+  confirmation, >30 immediate issuance requests with exhausted counters, repeated
+  existing-account login, preserved profiles/roles, session refresh/logout,
+  concurrency/single-use, invalid/expired OTP, attempt/network verification limits,
+  unknown/blocked/deleted account rejection and configured production test sessions.
+  Only the random test database was created and cleaned up; app data was untouched.
+
 ## 2026-10-26 - Logout to first village selection
 
 Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.

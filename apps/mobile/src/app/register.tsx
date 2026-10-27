@@ -30,7 +30,7 @@ export default function RegistrationScreen() {
     offline,
     authMode,
     contactReturnListingId,
-    guestVillage,
+    browsingVillage,
   } = useAppStore();
   const registering = authMode === "register";
   const t = messages(language);
@@ -40,7 +40,13 @@ export default function RegistrationScreen() {
   const submitting = useRef(false);
   if (session)
     return (
-      <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
+      <Redirect
+        href={postAuthHref(
+          session.user,
+          contactReturnListingId,
+          authMode === "login",
+        )}
+      />
     );
   if (!confirmed && !hasAuthenticated) return <Redirect href="/language" />;
   function change(key: keyof typeof draft, value: string) {
@@ -104,7 +110,7 @@ export default function RegistrationScreen() {
       <BackButton
         label={t.back}
         disabled={busy}
-        onPress={() => router.replace(guestVillage ? "/home" : "/language")}
+        onPress={() => router.replace(browsingVillage ? "/home" : "/language")}
       />
       <Brand compact />
       <Text style={styles.title}>

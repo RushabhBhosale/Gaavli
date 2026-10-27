@@ -11,7 +11,7 @@ import { connectMobileDb } from "../db/mobile";
 import { Notification, User } from "../models";
 import { ListingInterest } from "../models/listing-interest";
 import { findActivityRequests, requestState } from "../repositories/requests";
-import { visibleSellerContact } from "../repositories/listing-contact";
+import { accessibleSellerContact } from "../repositories/listing-contact";
 import { limitRequests } from "../repositories/mobile";
 import { AppError } from "../utils/errors";
 
@@ -76,16 +76,15 @@ export async function getRequestContact(userId: string, id: string) {
       status: "active",
     }).session(session);
     if (
-      !buyer?.village ||
+      !buyer ||
       !(await ListingInterest.exists({
         userId: buyer._id,
         listingId: row.data.listingId,
       }).session(session))
     )
       throw new AppError(422, "CONTACT_UNAVAILABLE", "Contact unavailable.");
-    const seller = await visibleSellerContact(
+    const seller = await accessibleSellerContact(
       String(row.data.listingId),
-      String(buyer.village),
       session,
     );
     if (!seller || seller.sellerId !== String(row.userId))

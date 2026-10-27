@@ -1,6 +1,57 @@
 # Independent browsing village — 2026-10-23
 
-## Registered buyer/seller default - 2026-10-26 (user approved)
+## Direct login and contact - 2026-10-27 (latest user-approved revision)
+
+Settings Change Village follow-up (2026-10-27, user approved): retain the existing
+registered-user village screen and profile update. After successful confirmation
+for an already registered village, persist the server-confirmed village as the
+shared browsing village too, so Home and Marketplace immediately use that village.
+Initial registration confirmation still preserves an existing guest browsing
+choice; Home's browsing dropdown still does not change the registered village.
+
+The first Village Selection Login entry clears previous browsing and product
+context before auth; successful login initializes from the registered profile
+and opens buyer/seller Home. Contact Seller login/registration keeps browsing
+and the pending product instead. This is distinguished at the existing entry
+point, with the current auth mode/product return context, without extra flags.
+Manual browsing, exact filters and logout cleanup remain unchanged.
+
+Seller contact access is now listing-based for authenticated active users,
+independent of registered/browsing village and connections. Listing availability,
+privacy and consent remain enforced. Reporting, coordinator connections and
+other administrative scopes are unchanged. See [BUYER_CONTACT.md](BUYER_CONTACT.md).
+
+## Single browsing state - 2026-10-26
+
+- Registered village ID remains `session.user.village.id` from the authenticated
+  profile. Browsing village ID is `browsingVillage.id`, with public metadata kept
+  in the existing Zustand store and SQLite `browsing-village` setting. No duplicate
+  profile IDs, database fields or login-source flags are introduced.
+- First village selection writes the browsing setting through the same serialized
+  selection helper as the existing Home/Marketplace dropdown. Login/registration,
+  OTP, token refresh and restart preserve this choice. With no choice, session
+  publication initializes it from the registered village. A profile village change
+  does not overwrite an explicit browsing choice.
+- No separate guest village is held in app state or written going forward. The
+  old `guest-village` setting is read only as a migration fallback when the current
+  setting is absent/corrupt; logout deletes both settings.
+- Home and Marketplace use the browsing ID for both `sourceVillageId` and the
+  existing exact `villageId` query filter. Only that village's listings appear.
+  The existing header dropdown is the single village control; removed independent
+  connected-village filter chips. Search, categories, voice search, pagination,
+  listing cards, localized styling and query invalidation by village remain.
+- Contact Seller retains the existing `contactReturnListingId` through auth and
+  returns to the same Product Details screen with the browsing choice intact.
+  Missing registered-village onboarding and new-account village confirmation
+  retain their existing rules. Browsing never updates an existing account village.
+- Logout serializes village cleanup after pending selection writes, clears auth
+  and pending product context, and resets navigation to first village selection.
+
+This supersedes the reset-on-login/restart rule and older guest-village/chip
+statements below. API discovery connections and protected-contact checks remain
+unchanged; the mobile client simply uses the existing exact village filter.
+
+## Registered buyer/seller default - 2026-10-26 (superseded)
 
 On login/account switch and each app launch, signed-in buyers and sellers start
 with their registered village as the browsing center, ignoring an older saved

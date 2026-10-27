@@ -3,6 +3,7 @@ import { Types, type PipelineStage } from "mongoose";
 import type { z } from "zod";
 import type { MobileListing, MobileListingPage } from "@gaavli/types";
 import type { mobileListingsQuerySchema } from "@gaavli/validation";
+import { LISTING_PRODUCT_GROUPS } from "@gaavli/constants";
 import { Listing, User, Village, Category } from "../models";
 import { activeStockFilter } from "./listing-mutations";
 import { discoveryVillageIds } from "./village-discovery";
@@ -10,16 +11,20 @@ import { masterSearchMappings } from "./product-master";
 
 // Read only: no seller name, phone, address, credentials or raw Mongo documents.
 export const visiblePipeline = (
-  villageId: string | string[],
+  villageId: string | string[] | null,
   now: Date,
 ): PipelineStage[] => [
   {
     $match: {
-      village: {
-        $in: (Array.isArray(villageId) ? villageId : [villageId]).map(
-          (id) => new Types.ObjectId(id),
-        ),
-      },
+      ...(villageId === null
+        ? {}
+        : {
+            village: {
+              $in: (Array.isArray(villageId) ? villageId : [villageId]).map(
+                (id) => new Types.ObjectId(id),
+              ),
+            },
+          }),
       ...activeStockFilter(now),
       ...(process.env.NODE_ENV === "production"
         ? { isDemo: { $ne: true } }
@@ -138,10 +143,10 @@ export async function findMobileListings(
         ]
       : []),
     ...(query.category ? [{ $match: { category: query.category } }] : []),
-    ...(query.productGroup
-      ? [{ $match: { productGroup: query.productGroup } }]
-      : []),
   ];
+  const productGroupFilter: PipelineStage.Match[] = query.productGroup
+    ? [{ $match: { productGroup: query.productGroup } }]
+    : [];
   const selectedVillage: PipelineStage.Match[] = query.villageId
     ? [{ $match: { village: new Types.ObjectId(query.villageId) } }]
     : [];
@@ -153,6 +158,7 @@ export async function findMobileListings(
       count: { total: number }[];
       categories: MobileListingPage["categories"];
       villageCounts: { id: string; count: number }[];
+      productGroupCounts: { productGroup: string; count: number }[];
     }>([
       ...(viewerId
         ? [{ $match: { seller: { $ne: new Types.ObjectId(viewerId) } } }]
@@ -162,17 +168,31 @@ export async function findMobileListings(
         $facet: {
           listings: [
             ...filters,
+            ...productGroupFilter,
             ...selectedVillage,
             { $sort: { createdAt: -1, _id: -1 } },
             { $skip: (query.page - 1) * query.limit },
             { $limit: query.limit },
             { $project: dtoProjection },
           ],
-          count: [...filters, ...selectedVillage, { $count: "total" }],
+          count: [
+            ...filters,
+            ...productGroupFilter,
+            ...selectedVillage,
+            { $count: "total" },
+          ],
           villageCounts: [
             ...filters,
+            ...productGroupFilter,
             { $group: { _id: "$village", count: { $sum: 1 } } },
             { $project: { _id: 0, id: { $toString: "$_id" }, count: 1 } },
+          ],
+          productGroupCounts: [
+            ...filters,
+            ...selectedVillage,
+            { $match: { productGroup: { $in: LISTING_PRODUCT_GROUPS } } },
+            { $group: { _id: "$productGroup", count: { $sum: 1 } } },
+            { $project: { _id: 0, productGroup: "$_id", count: 1 } },
           ],
           categories: [
             { $match: { category: { $type: "string", $ne: "" } } },
@@ -220,6 +240,17 @@ export async function findMobileListings(
     listings: result?.listings || [],
     total: result?.count[0]?.total || 0,
     categories: result?.categories || [],
+    ...(query.includeProductGroupCounts
+      ? {
+          productGroupCounts: LISTING_PRODUCT_GROUPS.map((productGroup) => ({
+            productGroup,
+            count:
+              result?.productGroupCounts.find(
+                (row) => row.productGroup === productGroup,
+              )?.count || 0,
+          })),
+        }
+      : {}),
     villageCounts: orderedVillages.map((row) => ({
       id: String(row._id),
       name: row.nameEn || "",

@@ -31,7 +31,8 @@ const { OtpChallenge, MobileSession, MobileRateLimit } =
   await import("../src/server/models/mobile-auth");
 const { searchMobileVillages, saveMobileVillage, mobileUserDto } =
   await import("../src/server/repositories/mobile");
-const { hashToken } = await import("../src/server/auth/mobile-policy");
+const { hashToken, OTP_REQUEST_LIMITS_ENABLED } =
+  await import("../src/server/auth/mobile-policy");
 const { AppError } = await import("../src/server/utils/errors");
 const input = registrationSchema.parse({
   firstName: "Riya",
@@ -49,7 +50,7 @@ const request = (token: string) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 try {
-  const challenge = await sendOtp(input, "integration");
+  let challenge = await sendOtp(input, "integration");
   assert.equal(
     await User.countDocuments(),
     0,
@@ -60,7 +61,40 @@ try {
     challengeId: challenge.challengeId,
   });
   assert.ok(stored?.codeHash && stored.codeHash !== process.env.OTP_TEST_CODE);
-  await rejects(sendOtp(input, "integration"), "OTP_THROTTLED");
+  if (OTP_REQUEST_LIMITS_ENABLED) {
+    await rejects(sendOtp(input, "integration"), "OTP_THROTTLED");
+  } else {
+    const originalChallengeId = challenge.challengeId;
+    // Exceed both hourly request limits and resend immediately, using the same
+    // phone/network. Existing counters must not prevent testing either.
+    const bucket = Math.floor(Date.now() / 3600_000);
+    await MobileRateLimit.create(
+      [
+        `send-network:integration:${bucket}`,
+        `send-phone:${input.mobile}:${bucket}`,
+      ].map((identity) => ({
+        key: hashToken(identity),
+        count: 1000,
+        expiresAt: new Date((bucket + 2) * 3600_000),
+      })),
+    );
+    for (let attempt = 0; attempt < 35; attempt++) {
+      challenge = await sendOtp(input, "integration");
+      assert.ok(Date.parse(challenge.resendAt) <= Date.now());
+      assert.ok(Date.parse(challenge.expiresAt) > Date.now());
+    }
+    await rejects(
+      verifyOtp(
+        { challengeId: originalChallengeId, code: "123456" },
+        "integration",
+      ),
+      "OTP_EXPIRED",
+    );
+    assert.equal(await User.countDocuments(), 0);
+    console.log(
+      "PASS: repeated registration requests bypass phone/network/cooldown restrictions; superseded OTP is rejected.",
+    );
+  }
   await rejects(
     verifyOtp(
       { challengeId: challenge.challengeId, code: "000000" },
@@ -146,7 +180,9 @@ try {
     saveMobileVillage(signedIn.user.id, { villageId: String(villages[2]._id) }),
     "VILLAGE_UNAVAILABLE",
   );
-  await saveMobileVillage(signedIn.user.id, { villageId: String(villages[0]._id) });
+  await saveMobileVillage(signedIn.user.id, {
+    villageId: String(villages[0]._id),
+  });
   assert.equal(
     (await mobileUserDto(await requireMobile(request(signedIn.accessToken))))
       .village?.id,
@@ -217,7 +253,12 @@ try {
     mobile: input.mobile,
     language: "mr",
   });
-  const returningChallenge = await sendOtp(loginInput, "returning");
+  let returningChallenge = await sendOtp(loginInput, "returning");
+  if (!OTP_REQUEST_LIMITS_ENABLED) {
+    for (let attempt = 0; attempt < 6; attempt++)
+      returningChallenge = await sendOtp(loginInput, "returning");
+    assert.ok(Date.parse(returningChallenge.resendAt) <= Date.now());
+  }
   const returningStored = await OtpChallenge.findOne({
     challengeId: returningChallenge.challengeId,
   });
@@ -242,7 +283,10 @@ try {
   const unknown = loginSchema.parse({ mobile: "9876543299", language: "mr" });
   for (let attempt = 0; attempt < 5; attempt++)
     await rejects(sendOtp(unknown, "unknown-login"), "REGISTRATION_REQUIRED");
-  await rejects(sendOtp(unknown, "unknown-login"), "RATE_LIMITED");
+  await rejects(
+    sendOtp(unknown, "unknown-login"),
+    OTP_REQUEST_LIMITS_ENABLED ? "RATE_LIMITED" : "REGISTRATION_REQUIRED",
+  );
   assert.equal(
     await OtpChallenge.countDocuments({ mobile: unknown.mobile }),
     0,
@@ -286,7 +330,7 @@ try {
     "login never recreates a deleted account",
   );
   console.log(
-    "PASS: existing seller restored; unknown/blocked login rejected before OTP; unknown attempts throttled; deleted login cannot register.",
+    "PASS: existing seller restored; unknown/blocked login rejected before OTP; deleted login cannot register.",
   );
 
   const attemptInput = { ...input, mobile: "9876543211" };
@@ -351,6 +395,19 @@ try {
     "coordinator",
   ]);
   assert.equal(await User.countDocuments(), 2);
+  const verifyBucket = Math.floor(Date.now() / 3600_000);
+  await MobileRateLimit.create({
+    key: hashToken(`verify-network:verification-limit:${verifyBucket}`),
+    count: 100,
+    expiresAt: new Date((verifyBucket + 2) * 3600_000),
+  });
+  await rejects(
+    verifyOtp(
+      { challengeId: legacyChallenge.challengeId, code: "123456" },
+      "verification-limit",
+    ),
+    "RATE_LIMITED",
+  );
   assert.ok((await MobileRateLimit.countDocuments()) > 0);
   console.log(
     "PASS: isolated MongoDB onboarding integration (OTP, concurrency, sessions, legacy accounts, village search and confirmation, production test sessions).",

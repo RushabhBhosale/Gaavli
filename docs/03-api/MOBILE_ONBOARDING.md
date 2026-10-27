@@ -1,3 +1,60 @@
+## Direct login vs product-return auth - 2026-10-27 (user approved)
+
+First Village Selection's Already Registered? Login clears previous persisted
+browsing and pending product context before opening Login, even when a guest
+village had been selected. OTP's current user profile initializes browsing from
+the registered village. Login without pending product opens buyer/seller Home;
+coordinator landing remains unchanged. Existing missing-village onboarding still
+applies. Direct Login does not require a village selection.
+
+Contact Seller uses the existing login/registration options and pending product
+ID. OTP preserves the browsing village and returns to that product. Contact is
+available across villages to authenticated active accounts, subject to listing
+availability and privacy checks. See [BUYER_CONTACT.md](BUYER_CONTACT.md).
+
+This supersedes unconditional preservation of guest browsing for the direct Login
+entry. No new login-source flag, screen, user database field or OTP change is added.
+Manual village browsing and logout-to-village-selection behavior remain intact.
+
+## Single browsing village through authentication - 2026-10-26 (user approved)
+
+First village selection and later browsing use one `browsingVillage` state/SQLite
+setting. Preserve it when publishing/restoring a session; initialize from the
+profile's registered village only when it is absent. Existing Contact Seller
+pending-product navigation survives OTP and returns to that product without
+changing the browsing village. A direct login with no selected village uses the
+registered village. Home/Marketplace filter only to the browsing village through
+the existing source/filter query parameters. Manual browsing changes never PATCH
+the registered village. See [BROWSING_VILLAGE.md](BROWSING_VILLAGE.md).
+
+Legacy guest-village metadata is only a startup migration fallback, with no
+separate guest village in state. New-account village confirmation may still save
+the selected village to an account without a registered village; existing account
+profiles remain unchanged. Logout clears browsing plus legacy metadata, auth and
+pending product context before returning to first village selection. These rules
+supersede separate guest-state and login/restart browsing-reset wording below.
+
+## Temporary OTP request-limit bypass - 2026-10-26 (user approved)
+
+For complete login/registration testing, `OTP_REQUEST_LIMITS_ENABLED` is temporarily
+`false` in `apps/web/src/server/auth/mobile-policy.ts` (a source constant, not an
+environment variable). Send OTP skips only the 30/network/hour and 5/phone/hour
+quotas and the 60-second resend gate. Existing accumulated request counters do not
+block issuance. `resendAt` is the issuance time so the existing mobile client can
+resend immediately without a UI change. Each new issuance replaces the previous
+challenge as before; use the latest challenge/code.
+
+OTP generation/provider sending, hashing, 5-minute expiry, one-time consumption,
+5 wrong-attempt cutoff, 100/network/hour verification limit, active-account and
+registration validation, session issuance/refresh and all other limits remain.
+Mobile-only login still cannot register an unknown number. No real SMS provider
+was added. This exception supersedes older issuance-throttle requirements only.
+
+Revert by setting the single constant back to `true`, then restart/redeploy the
+backend. Existing original quota/cooldown checks remain in place behind it. No
+database counters were cleared in the application database. Hosted behavior only
+changes after deploying this backend code; no APK or environment update is needed.
+
 ## Logout to first village selection - 2026-10-26 (user approved)
 
 Successful logout resets the existing navigation stack to `/language`, the

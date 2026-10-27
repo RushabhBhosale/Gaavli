@@ -37,7 +37,7 @@ import { browsingVillageFor } from "../storage/browsingVillage";
 export default function MarketplaceScreen() {
   const router = useRouter();
   const { width: windowWidth } = useWindowDimensions();
-  const { language, offline, session, guestVillage } = useAppStore();
+  const { language, offline, session } = useAppStore();
   const cardWidth =
     (Math.min(windowWidth, theme.layout.contentWidth) - 20 * 2 - 12) / 2;
   const t = messages(language);
@@ -45,23 +45,17 @@ export default function MarketplaceScreen() {
   const [category, setCategory] = useState("vegetables");
   const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState("");
-  const [villageFilter, setVillageFilter] = useState<{
-    scope: string;
-    id: string;
-  } | null>(null);
   const browsingVillage = useAppStore(browsingVillageFor);
   const sourceId = browsingVillage?.id;
   const scope = `${session?.user.id ?? "guest"}:${sourceId}`;
-  const selectedVillageId =
-    villageFilter?.scope === scope ? villageFilter.id : undefined;
   useEffect(() => {
     const timer = setTimeout(() => setSearch(query.trim()), 300);
     return () => clearTimeout(timer);
   }, [query]);
-  const result = useMarketplaceListings(search, category, selectedVillageId);
+  const result = useMarketplaceListings(search, category);
   const products = useQuery({
     queryKey: ["product-master", session?.user.id ?? "guest", offline],
-    enabled: session ? !!session.user.village : !!guestVillage,
+    enabled: !!sourceId && (!session || !!session.user.village),
     queryFn: () =>
       loadMasterProducts({
         storage: productMasterCache,
@@ -116,15 +110,15 @@ export default function MarketplaceScreen() {
     : null;
   const now = useListingClock();
   const page = result.data?.pages[0];
-  const villageCounts = page?.villageCounts || [];
-  const allVillageCount = page
-    ? villageCounts.length
-      ? villageCounts.reduce((sum, village) => sum + village.count, 0)
-      : page.total
-    : undefined;
   const number = new Intl.NumberFormat(
     language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
   );
+  function categoryLabel(item: { id: string; label: string }) {
+    const count = page?.productGroupCounts?.find(
+      (row) => row.productGroup === item.id,
+    )?.count;
+    return `${item.label} (${count === undefined ? "—" : number.format(count)})`;
+  }
   const categories = [
     {
       id: "vegetables",
@@ -277,6 +271,7 @@ export default function MarketplaceScreen() {
                 <Pressable
                   key={item.id}
                   accessibilityRole="button"
+                  accessibilityLabel={categoryLabel(item)}
                   accessibilityState={{ selected: category === item.id }}
                   onPress={() => setCategory(item.id)}
                   style={({ pressed }) => [s.category, pressed && d.pressed]}
@@ -298,57 +293,10 @@ export default function MarketplaceScreen() {
                       category === item.id && s.selectedCategoryText,
                     ]}
                   >
-                    {item.label}
+                    {categoryLabel(item)}
                   </Text>
                 </Pressable>
               ))}
-            </ScrollView>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={s.villageFilters}
-            >
-              {[
-                {
-                  id: "all",
-                  name: t.allCategories,
-                  nameMr: t.allCategories,
-                  count: allVillageCount,
-                },
-                ...villageCounts,
-              ].map((village) => {
-                const selected =
-                  village.id === "all"
-                    ? !selectedVillageId
-                    : village.id === selectedVillageId;
-                const label = language === "mr" ? village.nameMr : village.name;
-                return (
-                  <Pressable
-                    key={village.id}
-                    accessibilityRole="button"
-                    accessibilityLabel={`${label} (${village.count === undefined ? "—" : number.format(village.count)})`}
-                    accessibilityState={{ selected }}
-                    onPress={() =>
-                      setVillageFilter(
-                        village.id === "all" ? null : { scope, id: village.id },
-                      )
-                    }
-                    style={({ pressed }) => [
-                      s.villageFilter,
-                      selected && s.selectedVillageFilter,
-                      pressed && d.pressed,
-                    ]}
-                  >
-                    <Text style={s.villageFilterText}>
-                      {label} (
-                      {village.count === undefined
-                        ? "—"
-                        : number.format(village.count)}
-                      )
-                    </Text>
-                  </Pressable>
-                );
-              })}
             </ScrollView>
             {result.isError && !offline && (
               <>
@@ -435,27 +383,6 @@ const s = StyleSheet.create({
     fontSize: 16,
   },
   categories: { gap: 8, paddingVertical: 4 },
-  villageFilters: { gap: 8, paddingVertical: 2 },
-  villageFilter: {
-    minHeight: theme.layout.touchTarget,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.radii.control,
-  },
-  selectedVillageFilter: {
-    backgroundColor: theme.colors.tint,
-    borderColor: theme.colors.primary,
-  },
-  villageFilterText: {
-    ...d.description,
-    color: theme.colors.text,
-    fontWeight: "600",
-  },
   voiceSearch: {
     minHeight: theme.layout.touchTarget,
     minWidth: theme.layout.touchTarget,

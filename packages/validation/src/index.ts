@@ -113,6 +113,12 @@ export const notifySellerInputSchema = z
   .object({
     quantity: z.number().positive().max(1e9).optional(),
     callbackConsent: z.literal(true).optional(),
+    message: z
+      .string()
+      .trim()
+      .max(500)
+      .transform((value) => value || undefined)
+      .optional(),
   })
   .strict()
   .refine(
@@ -122,6 +128,7 @@ export const notifySellerInputSchema = z
   );
 export const notificationsQuerySchema = z
   .object({
+    includeReadState: z.literal("true").optional(),
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(20),
     language: mobileLanguageSchema.default("mr"),
@@ -142,6 +149,7 @@ export const notificationPageSchema = z
           ]),
           title: z.string(),
           body: z.string(),
+          readAt: z.string().datetime().nullable().optional(),
           createdAt: z.string().datetime(),
         })
         .strict(),
@@ -237,6 +245,8 @@ export const listingIdSchema = z
 export const requestsQuerySchema = z
   .object({
     direction: z.enum(["sent", "received"]),
+    includeMessages: z.literal("true").optional(),
+    includeBuyerMobile: z.literal("true").optional(),
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(20),
   })
@@ -266,6 +276,7 @@ export const activityRequestSchema = requestStateSchema
     person: z
       .object({
         name: z.string().nullable(),
+        mobile: indianMobileSchema.nullable().optional(),
         village: z
           .object({ name: z.string(), nameMr: z.string() })
           .strict()
@@ -273,6 +284,7 @@ export const activityRequestSchema = requestStateSchema
       })
       .strict(),
     quantity: z.number().positive().nullable(),
+    message: z.string().max(500).optional(),
     createdAt: z.string().datetime(),
     canCall: z.boolean(),
   })
@@ -308,6 +320,7 @@ export const mobileListingsQuerySchema = z
     search: z.string().trim().max(100).default(""),
     category: z.string().trim().min(1).max(100).optional(),
     productGroup: productGroupSchema.optional(),
+    includeProductGroupCounts: z.literal("true").optional(),
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(20),
   })
@@ -359,6 +372,16 @@ export const mobileListingSchema = z
   .strict();
 export const mobileListingPageSchema = z
   .object({
+    productGroupCounts: z
+      .array(
+        z
+          .object({
+            productGroup: productGroupSchema,
+            count: z.number().int().nonnegative(),
+          })
+          .strict(),
+      )
+      .optional(),
     villageCounts: z
       .array(
         z

@@ -5,10 +5,10 @@ import {
   sellerDetailsSchema,
 } from "@gaavli/validation";
 import { connectMobileDb } from "../db/mobile";
-import { User, Village } from "../models";
+import { User } from "../models";
 import { ListingInterest } from "../models/listing-interest";
 import {
-  visibleSellerContact,
+  accessibleSellerContact,
   recordListingInterest,
 } from "../repositories/listing-contact";
 import { limitRequests } from "../repositories/mobile";
@@ -35,22 +35,7 @@ export async function revealListingContact(
           status: "active",
         }).session(session);
         if (!user) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
-        if (
-          !user.village ||
-          !(await Village.exists({ _id: user.village, isActive: true }).session(
-            session,
-          ))
-        )
-          throw new AppError(
-            422,
-            "VILLAGE_UNAVAILABLE",
-            "Select an active village.",
-          );
-        const row = await visibleSellerContact(
-          id,
-          String(user.village),
-          session,
-        );
+        const row = await accessibleSellerContact(id, session);
         if (!row)
           throw new AppError(
             404,

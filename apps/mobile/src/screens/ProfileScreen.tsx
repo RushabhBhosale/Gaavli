@@ -18,7 +18,7 @@ import { PageSceneHeader } from "../components/dashboard/PageSceneHeader";
 export default function ProfileScreen() {
   const router = useRouter();
   const client = useQueryClient();
-  const { session, language, offline, guestVillage } = useAppStore();
+  const { session, language, offline, browsingVillage } = useAppStore();
   const t = messages(language);
   const [busy, setBusy] = useState<"language" | "logout" | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
@@ -58,10 +58,10 @@ export default function ProfileScreen() {
     }
   }
   if (!session) {
-    const villageName = guestVillage
+    const villageName = browsingVillage
       ? language === "mr"
-        ? guestVillage.nameMr
-        : guestVillage.name
+        ? browsingVillage.nameMr
+        : browsingVillage.name
       : "";
     return (
       <DashboardScreen>

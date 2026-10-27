@@ -142,7 +142,8 @@ const en = {
   saveProfile: "Save",
   basicProfileInformation: "Basic information",
   additionalProfileInformation: "Additional information",
-  registeredFieldsReadOnly: "Registered names are read-only. Your primary number changes only after OTP verification.",
+  registeredFieldsReadOnly:
+    "Registered names are read-only. Your primary number changes only after OTP verification.",
   profileAddress: "Address / locality",
   alternativeMobile: "Alternative mobile number (optional)",
   profileOccupation: "Occupation / service",
@@ -151,15 +152,19 @@ const en = {
   profilePhotoSaved: "Profile photo updated",
   profilePhotoHelp: "Optional · JPEG, PNG or WebP · up to 5 MB",
   retryProfilePhoto: "Retry photo upload",
-  profileValidationError: "Check the alternative mobile number and keep address within 300 characters and occupation within 100.",
-  profileConflict: "Your profile changed. Reload before saving again. Your edits are still shown.",
+  profileValidationError:
+    "Check the alternative mobile number and keep address within 300 characters and occupation within 100.",
+  profileConflict:
+    "Your profile changed. Reload before saving again. Your edits are still shown.",
   reloadProfile: "Reload profile (discards unsaved edits)",
   changeWithOtp: "Change (OTP)",
   changePrimaryMobile: "Change mobile number",
   newMobile: "New mobile number (+91)",
-  mobileChangeHelp: "Verify an OTP sent to your new number. Your registered names stay unchanged. Other signed-in devices will be signed out.",
+  mobileChangeHelp:
+    "Verify an OTP sent to your new number. Your registered names stay unchanged. Other signed-in devices will be signed out.",
   mobileChanged: "Mobile number verified and updated",
-  mobileUnavailable: "Choose another mobile number. This number cannot be used.",
+  mobileUnavailable:
+    "Choose another mobile number. This number cannot be used.",
   favouritesPending: "Favourite sellers and crops are not connected yet.",
   notificationsPending: "Crop notifications are not connected yet.",
   settingsUnavailable: "Not available yet",
@@ -308,6 +313,8 @@ const en = {
   notifyLegacyExplanation:
     "Retry your previous in-app notification to {seller} about {product}. It includes your name, without sharing your phone number.",
   requestQuantityLabel: "Requested quantity",
+  requestMessageLabel: "Message (optional)",
+  requestMessageError: "Keep your message within 500 characters.",
   requestQuantityError:
     "Enter a positive quantity within available stock and the minimum purchase amount.",
   requestUnitUnavailable:
@@ -318,8 +325,11 @@ const en = {
     "Retrying your earlier request. No quantity or callback permission was recorded.",
   requestAlreadySent:
     "You already sent a request for this product in the last 24 hours. View it in My Activity.",
-  sentRequests: "Sent",
-  receivedRequests: "Received",
+  sentRequests: "Sent Requests",
+  receivedRequests: "Received Requests",
+  requestNotifications: "Notifications",
+  notificationRead: "Read",
+  notificationUnread: "Unread",
   noSentRequests: "You haven't sent any requests yet.",
   noReceivedRequests: "No product requests received yet.",
   requestsFailed: "Could not load requests.",
@@ -410,7 +420,8 @@ const en = {
   villageLabel: "Village",
   browsingVillage: "Browsing village",
   chooseBrowsingVillage: "Choose a village to browse",
-  browsingVillageOffline: "Offline. Reconnect to load villages and fresh listings.",
+  browsingVillageOffline:
+    "Offline. Reconnect to load villages and fresh listings.",
   detectVillage: "Detect your village automatically",
   close: "Close",
   villageDescription: "Search, select your village, then confirm to continue.",
@@ -611,7 +622,8 @@ const mr: Messages = {
   saveProfile: "सेव्ह करा",
   basicProfileInformation: "मूळ माहिती",
   additionalProfileInformation: "अतिरिक्त माहिती",
-  registeredFieldsReadOnly: "नोंदणीकृत नाव आणि आडनाव बदलता येत नाही. मुख्य मोबाइल क्रमांक फक्त OTP पडताळणीनंतर बदलता येतो.",
+  registeredFieldsReadOnly:
+    "नोंदणीकृत नाव आणि आडनाव बदलता येत नाही. मुख्य मोबाइल क्रमांक फक्त OTP पडताळणीनंतर बदलता येतो.",
   profileAddress: "पत्ता / वाडी / खुणा",
   alternativeMobile: "पर्यायी मोबाइल क्रमांक (ऐच्छिक)",
   profileOccupation: "व्यवसाय / सेवा",
@@ -620,15 +632,19 @@ const mr: Messages = {
   profilePhotoSaved: "प्रोफाइल फोटो बदलला",
   profilePhotoHelp: "ऐच्छिक · JPEG, PNG किंवा WebP · कमाल ५ MB",
   retryProfilePhoto: "फोटो पुन्हा अपलोड करा",
-  profileValidationError: "पर्यायी मोबाइल क्रमांक तपासा. पत्ता ३०० आणि व्यवसाय १०० अक्षरांत ठेवा.",
-  profileConflict: "प्रोफाइल बदलले आहे. सेव्ह करण्यापूर्वी पुन्हा लोड करा. तुमचे बदल अजून दिसत आहेत.",
+  profileValidationError:
+    "पर्यायी मोबाइल क्रमांक तपासा. पत्ता ३०० आणि व्यवसाय १०० अक्षरांत ठेवा.",
+  profileConflict:
+    "प्रोफाइल बदलले आहे. सेव्ह करण्यापूर्वी पुन्हा लोड करा. तुमचे बदल अजून दिसत आहेत.",
   reloadProfile: "प्रोफाइल पुन्हा लोड करा (न सेव्ह केलेले बदल जातील)",
   changeWithOtp: "बदला (OTP)",
   changePrimaryMobile: "मोबाइल क्रमांक बदला",
   newMobile: "नवीन मोबाइल क्रमांक (+91)",
-  mobileChangeHelp: "नवीन क्रमांकावर पाठवलेला OTP पडताळा. नोंदणीकृत नाव बदलणार नाही. इतर उपकरणांवरील लॉग इन बंद केले जाईल.",
+  mobileChangeHelp:
+    "नवीन क्रमांकावर पाठवलेला OTP पडताळा. नोंदणीकृत नाव बदलणार नाही. इतर उपकरणांवरील लॉग इन बंद केले जाईल.",
   mobileChanged: "मोबाइल क्रमांक पडताळून बदलला",
-  mobileUnavailable: "दुसरा मोबाइल क्रमांक निवडा. हा क्रमांक वापरता येणार नाही.",
+  mobileUnavailable:
+    "दुसरा मोबाइल क्रमांक निवडा. हा क्रमांक वापरता येणार नाही.",
   favouritesPending:
     "आवडते विक्रेते व पिके जतन करण्याची सुविधा अद्याप जोडलेली नाही.",
   notificationsPending: "नवीन पिकांच्या सूचनांची सुविधा अद्याप जोडलेली नाही.",
@@ -779,6 +795,8 @@ const mr: Messages = {
   notifyLegacyExplanation:
     "{product} बद्दल {seller} यांना आधीची सूचना पुन्हा पाठवण्याचा प्रयत्न करा. त्यात तुमचे नाव असेल, मोबाईल क्रमांक दिला जाणार नाही.",
   requestQuantityLabel: "हवे असलेले प्रमाण",
+  requestMessageLabel: "संदेश (ऐच्छिक)",
+  requestMessageError: "संदेश ५०० अक्षरांच्या आत ठेवा.",
   requestQuantityError:
     "उपलब्ध साठा आणि किमान खरेदीच्या मर्यादेत शून्यापेक्षा जास्त प्रमाण भरा.",
   requestUnitUnavailable:
@@ -789,8 +807,11 @@ const mr: Messages = {
     "आधीच्या मागणीसाठी पुन्हा प्रयत्न करत आहोत. प्रमाण किंवा पुन्हा फोन करण्याची परवानगी नोंदलेली नव्हती.",
   requestAlreadySent:
     "गेल्या २४ तासांत या उत्पादनासाठी मागणी पाठवली आहे. ती माझी माहितीमध्ये पाहा.",
-  sentRequests: "मी पाठवलेल्या",
-  receivedRequests: "मला आलेल्या",
+  sentRequests: "पाठवलेल्या विनंत्या",
+  receivedRequests: "प्राप्त झालेल्या विनंत्या",
+  requestNotifications: "सूचना",
+  notificationRead: "वाचलेली",
+  notificationUnread: "न वाचलेली",
   noSentRequests: "तुम्ही अद्याप कोणतीही मागणी पाठवलेली नाही.",
   noReceivedRequests: "अद्याप उत्पादनासाठी कोणतीही मागणी आलेली नाही.",
   requestsFailed: "मागण्या लोड झाल्या नाहीत.",
@@ -879,7 +900,8 @@ const mr: Messages = {
   villageLabel: "गाव",
   browsingVillage: "पाहत असलेले गाव",
   chooseBrowsingVillage: "उत्पादने पाहण्यासाठी गाव निवडा",
-  browsingVillageOffline: "इंटरनेट बंद आहे. गावे आणि नवीन उत्पादने पाहण्यासाठी पुन्हा जोडा.",
+  browsingVillageOffline:
+    "इंटरनेट बंद आहे. गावे आणि नवीन उत्पादने पाहण्यासाठी पुन्हा जोडा.",
   detectVillage: "तुमच्या स्थानावरून गाव शोधा",
   close: "बंद करा",
   villageDescription: "गाव शोधा, निवडा आणि पुढे जाण्यासाठी खात्री करा.",

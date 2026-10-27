@@ -1,9 +1,10 @@
 import "server-only";
 import type { z } from "zod";
 import type { requestsQuerySchema } from "@gaavli/validation";
+import { indianMobileSchema } from "@gaavli/validation";
+import { ListingInterest } from "../models/listing-interest";
 import { Notification, User, Village, Listing, Category } from "../models";
 import { listingPhotoUrl } from "../providers/listing-photos";
-import { discoveryVillageIds } from "./village-discovery";
 
 export function requestState(row: {
   _id: unknown;
@@ -44,7 +45,7 @@ export async function findActivityRequests(
     User.find({
       _id: { $in: rows.flatMap((row) => [row.userId, row.data!.buyerId!]) },
     })
-      .select("name village status")
+      .select("name village status mobile")
       .lean(),
     Listing.find({ _id: { $in: rows.map((row) => row.data!.listingId!) } })
       .select(
@@ -54,7 +55,10 @@ export async function findActivityRequests(
   ]);
   const villages = await Village.find({
     _id: {
-      $in: people.flatMap((person) => (person.village ? [person.village] : [])),
+      $in: [
+        ...people.flatMap((person) => (person.village ? [person.village] : [])),
+        ...listings.map((listing) => listing.village),
+      ],
     },
   })
     .select("nameEn nameMr isActive")
@@ -63,23 +67,26 @@ export async function findActivityRequests(
     .select("code")
     .lean();
   const inactive = new Set(categories.map((category) => category.code));
-  const discovery = new Map(
-    await Promise.all(
-      [
-        ...new Set(
-          people.flatMap((person) =>
-            person.village ? [String(person.village)] : [],
-          ),
-        ),
-      ].map(async (id) => [id, await discoveryVillageIds(id)] as const),
-    ),
-  );
   const userMap = new Map(people.map((person) => [String(person._id), person]));
   const villageMap = new Map(
     villages.map((village) => [String(village._id), village]),
   );
   const listingMap = new Map(
     listings.map((listing) => [String(listing._id), listing]),
+  );
+  const interests =
+    query.includeBuyerMobile && query.direction === "received" && rows.length
+      ? await ListingInterest.find({
+          $or: rows.map((row) => ({
+            userId: row.data!.buyerId,
+            listingId: row.data!.listingId,
+          })),
+        })
+          .select("userId listingId")
+          .lean()
+      : [];
+  const interestKeys = new Set(
+    interests.map((row) => `${row.userId}:${row.listingId}`),
   );
   return {
     total,
@@ -114,11 +121,7 @@ export async function findActivityRequests(
         buyer?.status === "active" &&
         seller?.status === "active" &&
         String(listing.seller) === String(row.userId) &&
-        buyer.village &&
-        discovery
-          .get(String(buyer.village))
-          ?.includes(String(listing.village)) &&
-        villageMap.get(String(buyer.village))?.isActive
+        villageMap.get(String(listing.village))?.isActive
       );
       return {
         ...requestState(row),
@@ -143,6 +146,17 @@ export async function findActivityRequests(
               : listing?.unit || null,
         },
         person: {
+          ...(query.includeBuyerMobile && query.direction === "received"
+            ? {
+                mobile:
+                  eligible &&
+                  data.callbackConsent === true &&
+                  interestKeys.has(`${data.buyerId}:${data.listingId}`) &&
+                  indianMobileSchema.safeParse(buyer?.mobile).success
+                    ? indianMobileSchema.parse(buyer!.mobile)
+                    : null,
+              }
+            : {}),
           name:
             (query.direction === "sent" ? data.sellerName : data.buyerName) ||
             person?.name ||
@@ -155,6 +169,9 @@ export async function findActivityRequests(
                 : null,
         },
         quantity: data.quantity ?? null,
+        ...(query.includeMessages && data.message
+          ? { message: data.message }
+          : {}),
         createdAt: row.createdAt.toISOString(),
         canCall:
           eligible &&

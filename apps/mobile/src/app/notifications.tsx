@@ -9,7 +9,7 @@ export default function Notifications() {
   if (!session.user.village) return <Redirect href="/village" />;
   return (
     <ActivityScreen
-      initialDirection="received"
+      initialDirection="notifications"
       onBack={() =>
         router.canGoBack() ? router.back() : router.replace("/home")
       }

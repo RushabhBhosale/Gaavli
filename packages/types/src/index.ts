@@ -81,6 +81,7 @@ export type MobileListingPage = {
   categories: { code: string; name: string; nameMr: string | null }[];
   isSeller: boolean;
   villageCounts?: { id: string; name: string; nameMr: string; count: number }[];
+  productGroupCounts?: { productGroup: ListingProductGroup; count: number }[];
 };
 export type ListingProductGroup =
   | "vegetables"

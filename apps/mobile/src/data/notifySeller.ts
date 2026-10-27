@@ -31,6 +31,7 @@ export function prepareSellerRequest(
   value: string,
   available: number | null,
   minimum: number | null,
+  message = "",
 ) {
   const normalized = value
     .trim()
@@ -41,7 +42,13 @@ export function prepareSellerRequest(
   const parsed = notifySellerInputSchema.safeParse({
     quantity,
     callbackConsent: true,
+    ...(message.trim() ? { message } : {}),
   });
+  if (
+    !parsed.success &&
+    parsed.error.issues.some((issue) => issue.path[0] === "message")
+  )
+    throw new Error("REQUEST_MESSAGE_INVALID");
   if (
     !parsed.success ||
     available === null ||

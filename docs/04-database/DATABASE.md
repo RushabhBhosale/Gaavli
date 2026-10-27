@@ -1,3 +1,11 @@
+# Optional seller-request message - 2026-10-27 (user approved)
+
+The existing Notification.data subdocument adds optional `message` (trimmed plain
+String, max 500). Notify Seller notes are also appended to existing localized
+notification bodies. Missing notes on old records remain valid; no collection,
+index, duplicate user data or data migration is introduced. Idempotency and
+deduplication preserve the original note rather than overwrite it.
+
 > Product photo revision - 2026-10-25 (user approved): new optional listing
 > uploads use Atlas GridFS in all environments, through the existing Node API and
 > Mongo connection. Keep legacy references and originals. Profile photo storage

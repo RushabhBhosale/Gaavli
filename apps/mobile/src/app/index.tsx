@@ -6,13 +6,13 @@ export default function Index() {
   const hasAuthenticated = useAppStore((state) => state.hasAuthenticated);
   const confirmed = useAppStore((state) => state.confirmed);
   const session = useAppStore((state) => state.session);
-  const guestVillage = useAppStore((state) => state.guestVillage);
+  const browsingVillage = useAppStore((state) => state.browsingVillage);
   return (
     <Redirect
       href={initialRoute(
         confirmed,
         session?.user,
-        guestVillage,
+        browsingVillage,
         hasAuthenticated,
       )}
     />

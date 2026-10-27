@@ -3,6 +3,27 @@
 > Mongo connection. Keep legacy references and originals. Profile photo storage
 > is unchanged. See docs/03-api/PRODUCT_PHOTO_STORAGE.md at repository root.
 
+## Cross-village seller contact - 2026-10-27 (user approved)
+
+Contact/interest/Notify and participant-consented request callbacks are authorized
+by authenticated active account and active accessible listing ID. Buyer registered
+village, browsing village and connections no longer restrict seller contact.
+Preserve listing stock/status/expiry/category, active seller/listing village,
+non-demo/self exclusion, valid phones, no-store/guest contact privacy, participant
+access, callback consent, quantity validation, rate limits and idempotency.
+Scoped reporting/coordinator/admin logic is unchanged. This supersedes older
+registered-village contact-boundary wording; see `03-api/BUYER_CONTACT.md`.
+
+## Temporary OTP request-limit bypass - 2026-10-26 (user approved)
+
+For login/registration testing only, OTP_REQUEST_LIMITS_ENABLED=false in server
+auth policy bypasses issuance phone/network quotas and resend cooldown, including
+existing quota records. Restore true after testing and redeploy. Verification
+network and wrong-attempt limits, expiry, one-time consumption, hashing, active
+account validation and all non-issuance security checks remain. No database
+records are cleared to bypass limits. This supersedes issuance-throttle rules
+below; it does not disable OTP verification or implement real SMS delivery.
+
 ## Logout revision - 2026-10-26 (user approved)
 
 Successful mobile logout revokes the session, deletes SecureStore credentials

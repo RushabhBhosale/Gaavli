@@ -21,8 +21,7 @@ import { api } from "../api";
 import { errorMessage } from "../errors";
 import { ApiError } from "../api/client";
 import { saveSession, authenticatedApi } from "../session";
-import { postAuthHref, saveGuestVillage } from "../storage/preferences";
-import { preferenceStorage } from "../storage/sqlite";
+import { postAuthHref } from "../storage/preferences";
 import { parseOtpRequest } from "../data/otpRequest";
 
 export default function OtpScreen() {
@@ -34,6 +33,7 @@ export default function OtpScreen() {
     draft,
     offline,
     contactReturnListingId,
+    authMode,
   } = useAppStore();
   const t = messages(language);
   const [code, setCode] = useState("");
@@ -52,7 +52,13 @@ export default function OtpScreen() {
   // has been confirmed and the final product return destination is resolved.
   if (session && (busy !== "verify" || !challenge))
     return (
-      <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
+      <Redirect
+        href={postAuthHref(
+          session.user,
+          contactReturnListingId,
+          authMode === "login",
+        )}
+      />
     );
   if (!challenge) return <Redirect href="/register" />;
   const seconds = Math.max(
@@ -81,19 +87,16 @@ export default function OtpScreen() {
       setHasPendingSession(true);
       await saveSession(pendingSession.current);
       let user = pendingSession.current.user;
-      const guestVillage = useAppStore.getState().guestVillage;
-      if (!user.village && guestVillage && user.firstName && user.lastName) {
+      const browsingVillage = useAppStore.getState().browsingVillage;
+      if (!user.village && browsingVillage && user.firstName && user.lastName) {
         try {
           user = await authenticatedApi("/users/me", mobileUserSchema, {
             method: "PATCH",
-            body: JSON.stringify({ villageId: guestVillage.id }),
+            body: JSON.stringify({ villageId: browsingVillage.id }),
           });
           const current = useAppStore.getState().session;
           if (current?.user.id === user.id)
             await saveSession({ ...current, user });
-          useAppStore
-            .getState()
-            .restore(await saveGuestVillage(preferenceStorage, guestVillage));
         } catch {
           /* Village selection remains available when the saved village cannot be confirmed. */
         }
@@ -101,7 +104,7 @@ export default function OtpScreen() {
       const listingId = useAppStore.getState().contactReturnListingId;
       pendingSession.current = null;
       useAppStore.getState().clearRegistration();
-      router.replace(postAuthHref(user, listingId));
+      router.replace(postAuthHref(user, listingId, authMode === "login"));
     } catch (failure) {
       setNeedsRegistration(
         failure instanceof ApiError && failure.code === "REGISTRATION_REQUIRED",

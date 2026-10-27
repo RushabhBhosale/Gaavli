@@ -1,3 +1,15 @@
+> Seller contact revision - 2026-10-27 (user approved): seller contact, Call,
+> Notify and consented request callbacks use listing ID and availability without
+> buyer registered-village/connection restrictions. Authentication, self/demo,
+> active listing/seller/listing-village/category/stock/expiry, valid-phone, consent,
+> participant, rate and idempotency checks remain. Report/coordinator scope stays.
+> See docs/03-api/BUYER_CONTACT.md at repository root.
+
+> Temporary OTP request-limit bypass - 2026-10-26 (user approved): login and
+> registration issuance bypass phone/network quotas and resend cooldown via
+> OTP_REQUEST_LIMITS_ENABLED=false in server auth policy. Verification limits,
+> expiry and account checks remain. Restore true after testing; see onboarding docs.
+
 > Product photo revision - 2026-10-25 (user approved): new optional listing
 > uploads use Atlas GridFS in all environments, through the existing Node API and
 > Mongo connection. Keep legacy references and originals. Profile photo storage

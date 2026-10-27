@@ -10,7 +10,7 @@ import { connectMobileDb } from "../db/mobile";
 import { Notification, User, Village } from "../models";
 import { ListingInterest } from "../models/listing-interest";
 import { listingOperation } from "../repositories/listing-mutations";
-import { visibleSellerContact } from "../repositories/listing-contact";
+import { accessibleSellerContact } from "../repositories/listing-contact";
 import {
   saveSellerContactNotice,
   findUserNotifications,
@@ -33,18 +33,7 @@ export async function notifyListingSeller(
     `notify-seller:${id}`,
     input,
     async (session, user) => {
-      if (
-        !user.village ||
-        !(await Village.exists({ _id: user.village, isActive: true }).session(
-          session,
-        ))
-      )
-        throw new AppError(
-          422,
-          "VILLAGE_UNAVAILABLE",
-          "Select an active village.",
-        );
-      const row = await visibleSellerContact(id, String(user.village), session);
+      const row = await accessibleSellerContact(id, session);
       if (!row)
         throw new AppError(
           404,
@@ -79,9 +68,9 @@ export async function notifyListingSeller(
           "Reveal seller contact first.",
         );
       const buyer = await User.findById(userId).select("name").session(session);
-      const buyerVillage = await Village.findById(user.village).session(
-        session,
-      );
+      const buyerVillage = user.village
+        ? await Village.findById(user.village).session(session)
+        : null;
       const seller = await User.findById(row.sellerId)
         .select("village")
         .session(session);
@@ -132,6 +121,7 @@ export async function getUserNotifications(
       query.page,
       query.limit,
       query.language,
+      query.includeReadState === "true",
     ),
   );
 }

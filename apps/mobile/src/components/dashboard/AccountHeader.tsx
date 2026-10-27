@@ -26,9 +26,9 @@ export function AccountHeader({
   topInset?: number;
 }) {
   const session = useAppStore((state) => state.session);
-  const guestVillage = useAppStore((state) => state.guestVillage);
+  const browsingVillage = useAppStore((state) => state.browsingVillage);
   const router = useRouter();
-  const village = session?.user.village ?? guestVillage;
+  const village = session?.user.village ?? browsingVillage;
   if (!session && !village) return null;
   const t = messages(language);
   const identity = session
@@ -79,84 +79,90 @@ export function AccountHeader({
           </Text>
           <Text style={s.role}>{role}</Text>
         </View>
-        {session && (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.notificationSettings}
-            accessibilityState={{ disabled }}
-            disabled={disabled}
-            onPress={() => router.push("/notifications")}
-            style={({ pressed }) => [
-              s.control,
-              pressed && d.pressed,
-              disabled && s.disabled,
-            ]}
-          >
-            <Ionicons
-              accessible={false}
-              name="notifications-outline"
-              size={24}
-              color={theme.colors.heading}
-            />
-          </Pressable>
-        )}
-        {!session ? (
-          <GuestProfileButton language={language} disabled={disabled} />
-        ) : (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.settings}
-            accessibilityState={{ disabled }}
-            disabled={disabled}
-            onPress={() => router.push("/profile")}
-            style={({ pressed }) => [
-              s.control,
-              pressed && d.pressed,
-              disabled && s.disabled,
-            ]}
-          >
-            <View style={s.avatar}>
-              {identity.initials ? (
-                <Text style={s.initials}>{identity.initials}</Text>
-              ) : (
+        <View style={s.headerControls}>
+          <View style={s.iconRow}>
+            {session && (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={t.notificationSettings}
+                accessibilityState={{ disabled }}
+                disabled={disabled}
+                onPress={() => router.push("/notifications")}
+                style={({ pressed }) => [
+                  s.control,
+                  pressed && d.pressed,
+                  disabled && s.disabled,
+                ]}
+              >
                 <Ionicons
                   accessible={false}
-                  name="person-outline"
-                  size={20}
+                  name="notifications-outline"
+                  size={24}
                   color={theme.colors.heading}
                 />
-              )}
-            </View>
-          </Pressable>
-        )}
+              </Pressable>
+            )}
+            {!session ? (
+              <GuestProfileButton language={language} disabled={disabled} />
+            ) : (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={t.settings}
+                accessibilityState={{ disabled }}
+                disabled={disabled}
+                onPress={() => router.push("/profile")}
+                style={({ pressed }) => [
+                  s.control,
+                  pressed && d.pressed,
+                  disabled && s.disabled,
+                ]}
+              >
+                <View style={s.avatar}>
+                  {identity.initials ? (
+                    <Text style={s.initials}>{identity.initials}</Text>
+                  ) : (
+                    <Ionicons
+                      accessible={false}
+                      name="person-outline"
+                      size={20}
+                      color={theme.colors.heading}
+                    />
+                  )}
+                </View>
+              </Pressable>
+            )}
+          </View>
+          {!!browsingVillageControl && (
+            <View style={s.browsingVillage}>{browsingVillageControl}</View>
+          )}
+        </View>
       </View>
-      {browsingVillageControl ||
-        (!!identity.location && (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`${identity.location}. ${t.changeVillage}`}
-            hitSlop={{ top: 8, bottom: 8 }}
-            accessibilityState={{ disabled }}
-            disabled={disabled}
-            onPress={
-              onVillagePress ||
-              (() => router.push(session ? "/village" : "/language"))
-            }
-            style={({ pressed }) => [
-              s.location,
-              pressed && d.pressed,
-              disabled && s.disabled,
-            ]}
-          >
-            <Ionicons
-              accessible={false}
-              name="location"
-              size={18}
-              color={theme.colors.primaryDark}
-            />
-            <Text style={s.locationText}>{identity.location}</Text>
-          </Pressable>
-        ))}
+      {!browsingVillageControl && !!identity.location && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`${identity.location}. ${t.changeVillage}`}
+          hitSlop={{ top: 8, bottom: 8 }}
+          accessibilityState={{ disabled }}
+          disabled={disabled}
+          onPress={
+            onVillagePress ||
+            (() => router.push(session ? "/village" : "/language"))
+          }
+          style={({ pressed }) => [
+            s.location,
+            pressed && d.pressed,
+            disabled && s.disabled,
+          ]}
+        >
+          <Ionicons
+            accessible={false}
+            name="location"
+            size={18}
+            color={theme.colors.primaryDark}
+          />
+          <Text style={s.locationText}>{identity.location}</Text>
+        </Pressable>
+      )}
     </View>
   );
 }
@@ -173,6 +179,9 @@ const s = StyleSheet.create({
     gap: 3,
   },
   row: { flexDirection: "row", alignItems: "flex-start", gap: 4 },
+  headerControls: { alignItems: "flex-end", maxWidth: "60%", flexShrink: 1 },
+  iconRow: { flexDirection: "row", gap: 4 },
+  browsingVillage: { alignSelf: "flex-end", maxWidth: "100%" },
   identity: { flex: 1, gap: 0 },
   greeting: { fontSize: 13, lineHeight: 20, color: theme.colors.text },
   name: {

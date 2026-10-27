@@ -1,3 +1,17 @@
+> My Requests - 2026-10-27 (user approved): reuse ActivityScreen with Sent Requests
+> and Notifications tabs for buyers, and Sent/Received Requests/Notifications for
+> sellers. Preserve Marathi/English labels and existing mobile theme. Compact,
+> read-only cards show product placeholder/image, participant, village and date;
+> received cards show consented buyer phone if available. Notification cards show
+> icon, title, short body, date and existing read-state indicator. No management
+> actions or state changes on viewing. Notification header icon opens that tab.
+
+> Marketplace category counts - 2026-10-27 (user approved): existing Vegetables,
+> Fruits, Grains, Dairy and Homemade filters show localized server counts in
+> parentheses. Preserve icons, cards, typography and category selection. Counts
+> cover all matching listings in the browsing village/search, independent of the
+> selected category and pagination; unavailable count metadata shows a dash.
+
 > My Products - 2026-10-26 (user approved): compact header shows the seller's
 > first + last names (legacy display-name fallback) and localized registered
 > village from the existing reactive session profile. Place + New Product after

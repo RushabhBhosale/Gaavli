@@ -48,7 +48,7 @@ test("a restored verified session resumes village selection, then saved home", (
     "/home",
   );
   assert.equal(initialRoute(false, null), "/language");
-  const guestVillage = {
+  const browsingVillage = {
     id: "village",
     name: "Palaspe",
     nameMr: "पळस्पे",
@@ -56,24 +56,30 @@ test("a restored verified session resumes village selection, then saved home", (
     district: "Raigad",
     pinCode: null,
   };
-  assert.equal(initialRoute(true, null, guestVillage), "/home");
+  assert.equal(initialRoute(true, null, browsingVillage), "/home");
   assert.equal(postAuthHref(session.user, "a".repeat(24)), "/village");
   assert.equal(
-    postAuthHref({ ...session.user, village: guestVillage }, "ab".repeat(12)),
+    postAuthHref(
+      { ...session.user, village: browsingVillage },
+      "ab".repeat(12),
+    ),
     `/product/${"ab".repeat(12)}`,
   );
   assert.equal(
-    postAuthHref({ ...session.user, village: guestVillage }, "not-a-listing"),
+    postAuthHref(
+      { ...session.user, village: browsingVillage },
+      "not-a-listing",
+    ),
     "/home",
   );
   assert.equal(
-    postAuthHref({ ...session.user, village: guestVillage, isSeller: true }),
+    postAuthHref({ ...session.user, village: browsingVillage, isSeller: true }),
     "/my-listings",
   );
   assert.equal(
     initialRoute(true, {
       ...session.user,
-      village: guestVillage,
+      village: browsingVillage,
       isCoordinator: true,
     }),
     "/manage",
@@ -96,7 +102,7 @@ test("registration preserves the selected product through session publication an
     clear: async () => undefined,
   };
   try {
-    useAppStore.setState({ session: null, guestVillage: village });
+    useAppStore.setState({ session: null, browsingVillage: village });
     useAppStore.getState().setAuthMode("register");
     useAppStore.getState().setContactReturn(listingId);
     await persistSession(storage, session, useAppStore.getState().setSession);
@@ -269,7 +275,8 @@ test("login history never overrides village onboarding or selected guest browsin
     readLanguage: async () => "mr",
     writeLanguage: async () => undefined,
     readGuestVillage: async () => null,
-    writeGuestVillage: async () => undefined,
+    readBrowsingVillage: async () => null,
+    writeBrowsingVillage: async () => undefined,
     clearGuestBrowsing: async () => undefined,
   };
   assert.equal((await restorePreferences(storage)).hasAuthenticated, false);
@@ -332,7 +339,6 @@ test("buyer and seller logout clears durable credentials, guest selections and a
         session: registered,
         hasAuthenticated: true,
         confirmed: true,
-        guestVillage: village,
         browsingVillage: village,
         draft: {
           firstName: "Private",
@@ -355,7 +361,6 @@ test("buyer and seller logout clears durable credentials, guest selections and a
       assert.equal(guest, null);
       assert.equal(browse, null);
       assert.equal(state.session, null);
-      assert.equal(state.guestVillage, null);
       assert.equal(state.browsingVillage, null);
       assert.equal(state.challenge, null);
       assert.equal(state.contactReturnListingId, null);
@@ -365,7 +370,7 @@ test("buyer and seller logout clears durable credentials, guest selections and a
         mobile: "",
       });
       assert.equal(
-        initialRoute(state.confirmed, null, state.guestVillage, true),
+        initialRoute(state.confirmed, null, state.browsingVillage, true),
         "/language",
       );
       assert.equal(
@@ -377,8 +382,9 @@ test("buyer and seller logout clears durable credentials, guest selections and a
         writeHasAuthenticated: async () => undefined,
         readLanguage: async () => "mr",
         writeLanguage: async () => undefined,
-        readGuestVillage: async () => guest,
-        writeGuestVillage: async (value) => {
+        readGuestVillage: async () => null,
+        readBrowsingVillage: async () => guest,
+        writeBrowsingVillage: async (value) => {
           guest = value;
         },
         clearGuestBrowsing: async () => {
@@ -390,7 +396,7 @@ test("buyer and seller logout clears durable credentials, guest selections and a
         initialRoute(
           restarted.confirmed,
           null,
-          restarted.guestVillage,
+          restarted.browsingVillage,
           restarted.hasAuthenticated,
         ),
         "/language",

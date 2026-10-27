@@ -1,3 +1,16 @@
+> Direct login/contact revision - 2026-10-27 (user approved): first Village
+> Selection Login discards previous browsing/product context before auth and
+> defaults to the registered village/Home. Contact Seller auth preserves the
+> selected browsing village and product return. Seller contact/Call/Notify are
+> available across villages to eligible authenticated users. See BUYER_CONTACT.md.
+
+> Single browsing village - 2026-10-26 (user approved): guest and authenticated
+> feeds share one persisted browsingVillage. Login preserves it; absent a choice,
+> initialize from the registered profile. Filter Home/Marketplace to the selected
+> village. Existing product-return context survives OTP; logout clears both.
+> This supersedes guestVillage state and the earlier login/restart reset rule.
+> See docs/03-api/BROWSING_VILLAGE.md at repository root.
+
 > Product photo revision - 2026-10-25 (user approved): new optional listing
 > uploads use Atlas GridFS in all environments, through the existing Node API and
 > Mongo connection. Keep legacy references and originals. Profile photo storage

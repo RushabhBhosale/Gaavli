@@ -1,53 +1,55 @@
 import { DEFAULT_MOBILE_LANGUAGE } from "@gaavli/constants";
 import type { MobileLanguage, MobileUser, MobileVillage } from "@gaavli/types";
-import { mobileLanguageSchema, mobileVillageSchema } from "@gaavli/validation";
+import { mobileLanguageSchema } from "@gaavli/validation";
 import { hasCoordinatorRole } from "../data/accountAccess";
+import {
+  restoreBrowsingVillage,
+  type BrowsingVillageStorage,
+} from "./browsingVillage";
 
-export interface PreferenceStorage {
+export interface PreferenceStorage extends BrowsingVillageStorage {
   readHasAuthenticated(): Promise<string | null>;
   writeHasAuthenticated(): Promise<void>;
   readLanguage(): Promise<string | null>;
   writeLanguage(language: MobileLanguage): Promise<void>;
   readGuestVillage(): Promise<string | null>;
-  writeGuestVillage(value: string): Promise<void>;
   clearGuestBrowsing(): Promise<void>;
 }
 export type OnboardingPreferences = {
   language: MobileLanguage;
   confirmed: boolean;
   hasAuthenticated: boolean;
-  guestVillage: MobileVillage | null;
+  browsingVillage: MobileVillage | null;
 };
-function parseGuestVillage(saved: string | null) {
-  if (!saved) return null;
-  try {
-    const parsed = mobileVillageSchema.safeParse(JSON.parse(saved));
-    return parsed.success ? parsed.data : null;
-  } catch {
-    return null;
-  }
-}
 export async function restorePreferences(
   storage: PreferenceStorage,
 ): Promise<OnboardingPreferences> {
   const [saved, village, authenticated] = await Promise.all([
     storage.readLanguage(),
-    storage.readGuestVillage(),
+    restoreBrowsingVillage(storage).then(async (saved) => {
+      if (saved) return saved;
+      // Read the legacy guest setting only for migration; all new writes use
+      // the single browsing-village setting.
+      return restoreBrowsingVillage({
+        readBrowsingVillage: () => storage.readGuestVillage(),
+        writeBrowsingVillage: (value) => storage.writeBrowsingVillage(value),
+      });
+    }),
     storage.readHasAuthenticated(),
   ]);
   const parsed = mobileLanguageSchema.safeParse(saved);
-  const guestVillage = parseGuestVillage(village);
+  const browsingVillage = village;
   return parsed.success
     ? {
         language: parsed.data,
         confirmed: true,
-        guestVillage,
+        browsingVillage,
         hasAuthenticated: authenticated === "true",
       }
     : {
         language: DEFAULT_MOBILE_LANGUAGE,
         confirmed: false,
-        guestVillage,
+        browsingVillage,
         hasAuthenticated: authenticated === "true",
       };
 }
@@ -57,15 +59,6 @@ export async function confirmLanguage(
 ): Promise<OnboardingPreferences> {
   const value = mobileLanguageSchema.parse(language);
   await storage.writeLanguage(value);
-  return restorePreferences(storage);
-}
-export async function saveGuestVillage(
-  storage: PreferenceStorage,
-  village: MobileVillage,
-): Promise<OnboardingPreferences> {
-  await storage.writeGuestVillage(
-    JSON.stringify(mobileVillageSchema.parse(village)),
-  );
   return restorePreferences(storage);
 }
 export function accountHome(
@@ -78,7 +71,7 @@ export function accountHome(
 export function initialRoute(
   _confirmed: boolean,
   user?: MobileUser | null,
-  guestVillage?: MobileVillage | null,
+  browsingVillage?: MobileVillage | null,
   _hasAuthenticated = false,
 ):
   | "/register"
@@ -88,14 +81,16 @@ export function initialRoute(
   | "/my-listings"
   | "/manage" {
   if (user) return user.village ? accountHome(user) : "/village";
-  return guestVillage ? "/home" : "/language";
+  return browsingVillage ? "/home" : "/language";
 }
 export function postAuthHref(
   user: MobileUser,
   listingId?: string | null,
+  login = false,
 ): "/home" | "/village" | "/my-listings" | "/manage" | `/product/${string}` {
   if (!user.village) return "/village";
   if (listingId && /^[a-f0-9]{24}$/i.test(listingId))
     return `/product/${listingId}`;
+  if (login && !hasCoordinatorRole(user)) return "/home";
   return accountHome(user);
 }

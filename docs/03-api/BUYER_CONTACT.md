@@ -1,3 +1,82 @@
+# Reusable My Requests - 2026-10-27 (user approved)
+
+One mobile screen shows Sent Requests and Notifications for buyers, plus Received
+Requests for sellers. Sellers retain Sent Requests as buyers. The notification
+header icon opens the Notifications tab. Requests are read-only: no Call, Seen,
+Responded or other management controls. Existing request-creation logic and server
+mutation endpoints are unchanged. Coordinator management screens are unchanged.
+
+Request cards show product image/placeholder, product, participant, village,
+timestamp, quantity and optional message. GET /requests accepts optional
+includeBuyerMobile=true: only received requests include person.mobile (10-digit
+Indian number or null). Phone release requires callback consent, existing listing
+interest, active buyer/seller and accessible non-demo listing, matching seller,
+active listing village/category, stock, expiry and valid buyer phone. Sent lists
+never return this field. Missing permission/availability displays contact
+unavailable. Participant/recipient scoping and newest-first pagination remain.
+
+GET /notifications accepts includeReadState=true to return existing readAt as an
+ISO timestamp or null. Show title, short body, timestamp, notification icon and
+read/unread styling without changing stored state on viewing. All recipient
+notifications are included, including contact notices backed by the same request
+record; no duplicate records are created. Both extensions are opt-in so older
+strict clients retain their response shape. No collection or migration is added.
+Deploy backend before updating mobile. Phone data stays in account-scoped memory
+queries, never public/offline listing caches. Existing logout clears the queries.
+
+# Optional seller-request message - 2026-10-27 (user approved)
+
+Notify Seller confirmation includes an optional multiline Message / संदेश field
+using the existing Input style. Messages are plain text, trimmed, limited to 500
+characters and omitted when blank. Quantity and callback consent retain their
+current rules. The note is stored in the existing notification data/body and shown
+in My Requests; no new conversation, channel or messaging endpoint is introduced.
+
+The message is part of the durable pending request and idempotency payload.
+Retries preserve the exact staged note; pending fields remain read-only. An
+existing request with a different message conflicts instead of silently replacing
+the earlier notification. Old requests without messages remain valid.
+
+Updated request-list clients use includeMessages=true to receive optional message
+fields; older clients retain their strict response shape. Notes are only exposed
+through existing authenticated recipient notification/participant request APIs,
+never public listings. Deploy backend before updating the mobile app.
+
+# Cross-village seller contact and direct login - 2026-10-27 (user approved)
+
+This revision supersedes older buyer registered-village/connection requirements
+for seller contact only. Authenticated active accounts may view contact details
+and contact sellers of any active, accessible listing by its ID, regardless of
+the buyer's registered village. No browsing village or village connection is
+required by contact APIs. The listing's own village must still be active.
+
+- GET `/listings/:id/contact`, GET/POST `/listings/:id/interested`, and POST
+  `/listings/:id/notify-farmer` share listing-based contact eligibility. Call
+  reuses interested; existing contact consumers use the same phone DTO.
+- Preserve listing stock/status/expiry/category, seller active status, demo
+  exclusion, self-contact rejection, valid phone, auth, no-store, read/write
+  quotas, quantity validation, explicit interest/consent and notification
+  idempotency. Viewing contact sends no notification and records no interest.
+- Request histories/callbacks retain participant-only access and callback consent.
+  `canCall` and callback authorization no longer depend on the buyer's registered
+  village or its connections. Inactive listings/sellers/listing villages still
+  disable contact. Changing buyer village does not revoke an otherwise valid call.
+- The scoped report helper and coordinator/admin discovery, mapping, reporting
+  and mutation authorization remain unchanged. Guest feed/detail DTOs remain
+  contact-free and guests cannot call the protected contact APIs.
+
+First Village Selection's Already Registered? Login discards previous browsing
+and product-return context before login; existing auth mode opens Login and OTP
+publishes the current registered village as the initial browsing choice. Buyers
+and sellers open Home with exact registered-village listings; coordinators keep
+their existing landing. Contact Seller auth instead retains the browsing choice
+and `contactReturnListingId`, which takes precedence over the normal landing.
+No additional login-source flag or auth screen is introduced. Subsequent manual
+browsing remains synchronized without updating the registered village. Logout
+still clears auth, browsing and navigation context and opens first village selection.
+Guest Contact Seller uses the existing native popup with Login, Create account
+and Not now actions, using existing Marathi/English labels and auth form modes.
+
 # Product return and seller actions - 2026-10-23 (user approved)
 
 Registration from Contact seller returns to the same product after the existing

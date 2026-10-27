@@ -17,3 +17,20 @@ export function showGuestSignUpPrompt(
     { cancelable: true },
   );
 }
+
+export function showGuestAuthPrompt(
+  language: MobileLanguage,
+  onContinue: (mode: "login" | "register") => void,
+) {
+  const t = messages(language);
+  Alert.alert(
+    t.signInRequired,
+    undefined,
+    [
+      { text: t.notNow, style: "cancel" },
+      { text: t.registrationTitle, onPress: () => onContinue("register") },
+      { text: t.loginTitle, onPress: () => onContinue("login") },
+    ],
+    { cancelable: true },
+  );
+}

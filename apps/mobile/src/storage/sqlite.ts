@@ -58,7 +58,6 @@ export const preferenceStorage: PreferenceStorage & BrowsingVillageStorage = {
   readLanguage: () => readSetting("language"),
   writeLanguage: (language) => writeSetting("language", language),
   readGuestVillage: () => readSetting("guest-village"),
-  writeGuestVillage: (value) => writeSetting("guest-village", value),
   async clearGuestBrowsing() {
     const db = await database();
     await db.runAsync(

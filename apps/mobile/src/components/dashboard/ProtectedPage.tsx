@@ -10,10 +10,10 @@ export function ProtectedPage({
   allowGuest?: boolean;
 }) {
   const session = useAppStore((state) => state.session);
-  const guestVillage = useAppStore((state) => state.guestVillage);
+  const browsingVillage = useAppStore((state) => state.browsingVillage);
   if (session && !session.user.village) return <Redirect href="/village" />;
   if (!session) {
-    if (allowGuest && guestVillage) return children;
+    if (allowGuest && browsingVillage) return children;
     return <Redirect href={allowGuest ? "/language" : "/register"} />;
   }
   return children;

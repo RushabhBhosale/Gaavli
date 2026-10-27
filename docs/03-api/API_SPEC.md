@@ -1,3 +1,48 @@
+# Optional Notify Seller message - 2026-10-27 (user approved)
+
+My Requests read-only tabs (2026-10-27): GET `/api/v1/requests` also accepts
+`includeBuyerMobile=true`. Only received rows add `person.mobile` (10-digit Indian
+number or null), subject to existing callback consent, interest and availability
+checks. Sent responses never expose this field. GET `/api/v1/notifications`
+accepts `includeReadState=true` and then includes `readAt` (ISO string or null)
+from existing records. Both fields are omitted without opt-in for old clients.
+Both feeds remain authenticated, owner scoped, newest first and paginated.
+Viewing the mobile tabs does not mutate request/read state. See BUYER_CONTACT.md.
+
+POST `/api/v1/listings/:id/notify-farmer` accepts optional `message`, a trimmed
+plain string up to 500 characters. Blank is treated as absent. The message is
+included in operation idempotency and 24-hour deduplication equality. Quantity,
+callback consent, contact availability and all auth/notification limits remain.
+Existing empty/legacy bodies remain valid; response shape is unchanged.
+
+GET `/api/v1/requests` accepts optional `includeMessages=true` and adds `message`
+only to rows that contain a note. Without the option, the old response shape is
+preserved. Recipient notification bodies include the note in their existing
+localized text fields. Only existing authorized participants/recipients can read it.
+
+# Marketplace category counts - 2026-10-27 (user approved)
+
+GET `/api/v1/listings` accepts optional `includeProductGroupCounts=true`. Opted-in
+responses add `productGroupCounts: [{productGroup,count}]` for the existing product
+groups, including zeros. Counts honor public visibility/availability, search,
+legacy category and selected village, and authenticated own-offer exclusion.
+They ignore the selected productGroup and pagination so all filter totals remain
+visible while browsing a category. No seller contact data is included.
+
+Responses without this query option omit the added field to preserve existing
+strict-schema clients. The updated Marketplace opts in and shows localized counts
+beside its existing category labels. Deploy the backend before updating clients.
+
+# Seller contact access revision - 2026-10-27 (user approved)
+
+Existing authenticated listing contact/interested/notify routes retain their
+schemas and response DTOs, but no longer authorize using the buyer's registered
+village or village connections. They use listing ID plus existing availability,
+privacy, consent and security checks. Participant request callbacks use the same
+listing-based eligibility. Reporting/coordinator scopes and public feed filtering
+are unchanged. This supersedes older village-based contact rules below; see
+`BUYER_CONTACT.md` for the current contract.
+
 > Product photo revision - 2026-10-25 (user approved): new optional listing
 > uploads use Atlas GridFS in all environments, through the existing Node API and
 > Mongo connection. Keep legacy references and originals. Profile photo storage
