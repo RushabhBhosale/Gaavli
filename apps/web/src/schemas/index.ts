@@ -97,6 +97,11 @@ export const villagesQuerySchema = z
   .strict();
 export const villageSchema = z
   .object({
+    publicCoordinatorPhone: z
+      .string()
+      .trim()
+      .regex(/^$|^\+91[6-9]\d{9}$/, "Use +91 followed by a valid mobile number")
+      .optional(),
     name: z.string().trim().min(2, "Enter at least 2 characters").max(100),
     nameMr: z.string().trim().min(2, "Enter the Marathi village name").max(100),
     taluka: z.string().trim().min(1, "Enter the taluka").max(100),

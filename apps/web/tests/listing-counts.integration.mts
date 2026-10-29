@@ -172,6 +172,73 @@ try {
     "existing clients keep their strict response contract",
   );
   mobileListingPageSchema.omit({ productGroupCounts: true }).parse(legacyData);
+  // Unavailable discovery is listing-based, paginated and uses the same privacy scope.
+  const initialUnavailable = await page({
+    availability: "unavailable",
+    limit: "5",
+  });
+  assert.equal(initialUnavailable.total, 2);
+  const added = await Listing.create([
+    ...Array.from({ length: 6 }, (_, index) => ({
+      ...base,
+      productName: `Unavailable ${index}`,
+      status: "sold_out",
+      quantity: 0,
+    })),
+    { ...base, productName: "Zero stock", quantity: 0 },
+    { ...base, productName: "Expired status", status: "expired" },
+    { ...base, status: "deactivated" },
+    { ...base, status: "reported" },
+    { ...base, status: "pending" },
+    { ...base, status: "sold_out", village: other._id },
+    { ...base, status: "sold_out", seller: viewer._id },
+  ]);
+  const unavailablePages = await Promise.all(
+    [1, 2].map((index) =>
+      page(
+        {
+          availability: "unavailable",
+          page: String(index),
+          limit: "5",
+        },
+        true,
+      ),
+    ),
+  );
+  assert.equal(unavailablePages[0].total, 10);
+  assert.deepEqual(
+    unavailablePages.map((data) => data.listings.length),
+    [5, 5],
+  );
+  const unavailableRows = unavailablePages.flatMap((data) => data.listings);
+  const unavailableIds = new Set(unavailableRows.map((row) => row.id));
+  assert.equal(unavailableIds.size, 10, "pages have no duplicates");
+  for (const row of added.slice(8))
+    assert.equal(unavailableIds.has(String(row._id)), false);
+  for (const row of unavailableRows) {
+    assert.equal(row.village.id, String(village._id));
+    assert.equal("seller" in row || "mobile" in row, false);
+  }
+  const available = await page({ limit: "50" }, true);
+  assert.ok(available.listings.every((row) => !unavailableIds.has(row.id)));
+  assert.equal(
+    (
+      await page(
+        { availability: "unavailable", search: "Unavailable", limit: "5" },
+        true,
+      )
+    ).total,
+    6,
+  );
+  assert.equal(
+    (await page({ availability: "unavailable", productGroup: "fruits" }, true))
+      .total,
+    0,
+  );
+  assert.equal(
+    (await page({ availability: "unavailable", search: "never-listed" })).total,
+    0,
+  );
   console.log(
     "PASS: exact-village category totals, cross-category counts, pagination, search, zero counts, expiry/stock, own-offer exclusion and legacy response compatibility.",
   );

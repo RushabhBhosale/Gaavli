@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Linking,
-  FlatList,
+  SectionList,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
-  useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -36,13 +35,10 @@ import { browsingVillageFor } from "../storage/browsingVillage";
 
 export default function MarketplaceScreen() {
   const router = useRouter();
-  const { width: windowWidth } = useWindowDimensions();
   const { language, offline, session } = useAppStore();
-  const cardWidth =
-    (Math.min(windowWidth, theme.layout.contentWidth) - 20 * 2 - 12) / 2;
   const t = messages(language);
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("vegetables");
+  const [category, setCategory] = useState("all");
   const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState("");
   const browsingVillage = useAppStore(browsingVillageFor);
@@ -53,6 +49,43 @@ export default function MarketplaceScreen() {
     return () => clearTimeout(timer);
   }, [query]);
   const result = useMarketplaceListings(search, category);
+  const unavailableResult = useMarketplaceListings(
+    search,
+    category,
+    "unavailable",
+  );
+  const filterKey = JSON.stringify([scope, search, category]);
+  const [pagination, setPagination] = useState({
+    key: filterKey,
+    active: 5,
+    unavailable: 5,
+  });
+  const counts =
+    pagination.key === filterKey
+      ? pagination
+      : { key: filterKey, active: 5, unavailable: 5 };
+  if (pagination.key !== filterKey) setPagination(counts);
+  async function showMore(unavailable: boolean) {
+    const feed = unavailable ? unavailableResult : result;
+    const key = unavailable ? "unavailable" : "active";
+    const next = counts[key] + 5;
+    const loaded =
+      feed.data?.pages.reduce((sum, page) => sum + page.listings.length, 0) ??
+      0;
+    if (loaded < next && feed.hasNextPage) {
+      const response = await feed.fetchNextPage();
+      if (response.isError) return;
+    }
+    setPagination((current) =>
+      current.key === filterKey ? { ...current, [key]: next } : current,
+    );
+  }
+  function refresh() {
+    if (!offline) {
+      void result.refetch();
+      void unavailableResult.refetch();
+    }
+  }
   const products = useQuery({
     queryKey: ["product-master", session?.user.id ?? "guest", offline],
     enabled: !!sourceId && (!session || !!session.user.village),
@@ -139,7 +172,7 @@ export default function MarketplaceScreen() {
     { id: "dairy", label: t.dairy, icon: "🥛", background: "#EAF2FF" },
     { id: "homemade", label: t.homemade, icon: "🍯", background: "#FFF1D8" },
   ];
-  const listings = Array.from(
+  const activeListings = Array.from(
     new Map(
       (result.data?.pages.flatMap((item) => item.listings) || [])
         .filter(
@@ -149,33 +182,64 @@ export default function MarketplaceScreen() {
         .map((listing) => [listing.id, toHomeListing(listing, now)]),
     ).values(),
   );
+  const activeIds = new Set(activeListings.map((listing) => listing.id));
+  const unavailableListings = Array.from(
+    new Map(
+      (unavailableResult.data?.pages.flatMap((item) => item.listings) || [])
+        .filter((listing) => !activeIds.has(listing.id))
+        .map((listing) => [listing.id, toHomeListing(listing, now)]),
+    ).values(),
+  );
+  const sections = [
+    {
+      key: "active",
+      title: t.marketplaceActiveListings,
+      data: activeListings.slice(0, counts.active),
+      feed: result,
+      unavailable: false,
+      visible: counts.active,
+    },
+    {
+      key: "unavailable",
+      title: t.marketplaceUnavailableListings,
+      data: unavailableListings.slice(0, counts.unavailable),
+      feed: unavailableResult,
+      unavailable: true,
+      visible: counts.unavailable,
+    },
+  ];
   function submitSearch() {
     voice.cancel();
     const value = query.trim();
     setSearch(value);
-    if (value === search && !offline) void result.refetch();
+    if (value === search) refresh();
   }
 
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={s.safe}>
       {offline && (
         <OfflineBanner
-          message={page ? t.listingsOffline : t.listingsOfflineEmpty}
+          message={
+            page || unavailableResult.data
+              ? t.listingsOffline
+              : t.listingsOfflineEmpty
+          }
         />
       )}
-      <FlatList
-        data={listings}
+      <SectionList
+        sections={sections}
+        stickySectionHeadersEnabled={false}
         keyExtractor={(item) => item.id}
-        numColumns={2}
-        columnWrapperStyle={listings.length ? s.gridRow : undefined}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag"
-        refreshing={result.isRefetching}
-        onRefresh={() => {
-          if (!offline) void result.refetch();
-        }}
+        refreshing={
+          (result.isRefetching && !result.isFetchingNextPage) ||
+          (unavailableResult.isRefetching &&
+            !unavailableResult.isFetchingNextPage)
+        }
+        onRefresh={refresh}
         ListHeaderComponent={
           <View style={s.header}>
             <MarketplaceHeader language={language}>
@@ -307,48 +371,61 @@ export default function MarketplaceScreen() {
                 </Pressable>
               ))}
             </ScrollView>
-            {result.isError && !offline && (
-              <>
-                <ErrorMessage message={t.listingsFailed} />
-                <Button secondary onPress={() => void result.refetch()}>
-                  {t.retry}
-                </Button>
-              </>
-            )}
           </View>
         }
-        ListEmptyComponent={
-          <Text accessibilityLiveRegion="polite" style={s.empty}>
-            {offline
-              ? t.listingsOfflineEmpty
-              : result.isPending
-                ? t.listingsLoading
-                : result.isError
-                  ? ""
-                  : search || category !== "all"
-                    ? t.noListingMatches
-                    : t.noListings}
+        renderSectionHeader={({ section }) => (
+          <Text accessibilityRole="header" style={s.sectionTitle}>
+            {section.title}
           </Text>
-        }
-        ListFooterComponent={
-          result.hasNextPage && !result.isError ? (
-            <View style={{ paddingTop: 14 }}>
-              <Button
-                secondary
-                disabled={offline || result.isFetchingNextPage}
-                loading={result.isFetchingNextPage}
-                onPress={() => void result.fetchNextPage()}
-              >
-                {t.loadMore}
-              </Button>
+        )}
+        renderSectionFooter={({ section }) => {
+          const feed = section.feed;
+          const loaded = section.unavailable
+            ? unavailableListings.length
+            : activeListings.length;
+          return (
+            <View style={s.sectionFooter}>
+              {feed.isError && !offline && (
+                <>
+                  <ErrorMessage message={t.listingsFailed} />
+                  <Button secondary onPress={() => void feed.refetch()}>
+                    {t.retry}
+                  </Button>
+                </>
+              )}
+              {!section.data.length && (
+                <Text accessibilityLiveRegion="polite" style={s.empty}>
+                  {offline
+                    ? t.listingsOfflineEmpty
+                    : feed.isPending
+                      ? t.listingsLoading
+                      : feed.isError
+                        ? ""
+                        : section.unavailable
+                          ? t.marketplaceNoUnavailable
+                          : search || category !== "all"
+                            ? t.noListingMatches
+                            : t.noListings}
+                </Text>
+              )}
+              {(loaded > section.visible || feed.hasNextPage) && (
+                <Button
+                  secondary
+                  disabled={offline || feed.isFetching}
+                  loading={feed.isFetchingNextPage}
+                  onPress={() => void showMore(section.unavailable)}
+                >
+                  {t.marketplaceShowMore}
+                </Button>
+              )}
             </View>
-          ) : null
-        }
-        renderItem={({ item }) => (
+          );
+        }}
+        renderItem={({ item, section }) => (
           <MarketplaceListingCard
             listing={item}
             language={language}
-            width={cardWidth}
+            unavailable={section.unavailable}
             onPress={() =>
               router.push({
                 pathname: "/product/[id]",
@@ -364,7 +441,15 @@ export default function MarketplaceScreen() {
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
   content: { ...d.content, gap: 12 },
-  gridRow: { gap: 12, alignItems: "flex-start" },
+  sectionTitle: {
+    color: theme.colors.heading,
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: "700",
+    paddingTop: 16,
+    paddingBottom: 4,
+  },
+  sectionFooter: { gap: 10, paddingBottom: 12 },
   header: { gap: 14, paddingBottom: 4 },
   search: {
     flexDirection: "row",

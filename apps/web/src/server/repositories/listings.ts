@@ -13,6 +13,7 @@ import { masterSearchMappings } from "./product-master";
 export const visiblePipeline = (
   villageId: string | string[] | null,
   now: Date,
+  availability: "available" | "unavailable" = "available",
 ): PipelineStage[] => [
   {
     $match: {
@@ -25,7 +26,15 @@ export const visiblePipeline = (
               ),
             },
           }),
-      ...activeStockFilter(now),
+      ...(availability === "unavailable"
+        ? {
+            $or: [
+              { status: { $in: ["sold_out", "expired"] } },
+              { status: "active", quantity: { $lte: 0 } },
+              { status: "active", expiresAt: { $lte: now, $type: "date" } },
+            ],
+          }
+        : activeStockFilter(now)),
       ...(process.env.NODE_ENV === "production"
         ? { isDemo: { $ne: true } }
         : {}),
@@ -164,7 +173,7 @@ export async function findMobileListings(
       ...(viewerId
         ? [{ $match: { seller: { $ne: new Types.ObjectId(viewerId) } } }]
         : []),
-      ...visiblePipeline(allowedVillageIds, new Date()),
+      ...visiblePipeline(allowedVillageIds, new Date(), query.availability),
       {
         $facet: {
           listings: [

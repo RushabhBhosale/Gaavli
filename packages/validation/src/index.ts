@@ -1,5 +1,11 @@
 import { z } from "zod";
 export {
+  directoryQuerySchema,
+  directoryEntrySchema,
+  directoryPageSchema,
+  dashboardDirectorySchema,
+} from "./directory";
+export {
   mobileProfileSchema,
   updateMobileProfileSchema,
   profilePhotoSchema,
@@ -343,6 +349,7 @@ export const mobileListingsQuerySchema = z
     search: z.string().trim().max(100).default(""),
     category: z.string().trim().min(1).max(100).optional(),
     productGroup: productGroupSchema.optional(),
+    availability: z.enum(["available", "unavailable"]).optional(),
     includeProductGroupCounts: z.literal("true").optional(),
     includeAllProductCount: z.literal("true").optional(),
     page: z.coerce.number().int().min(1).max(10000).default(1),

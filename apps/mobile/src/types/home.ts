@@ -2,6 +2,7 @@ import type { MobileLanguage } from "@gaavli/types";
 
 export type ProductImageKey = "tomato" | "onion" | "potato" | "rice" | "mango";
 export type HomeListing = {
+  module?: "marketplace" | "services" | "transport";
   id: string;
   name: string;
   nameMr: string;
@@ -36,7 +37,10 @@ export type HomeUser = {
 export type HomeCoordinator = {
   name: string;
   nameMr: string;
-  phone: string;
+  phone: string | null;
+  publicContactable?: boolean;
+  village?: string;
+  villageMr?: string;
   verified: boolean;
 };
 export type HomeDashboardData = {
@@ -44,6 +48,8 @@ export type HomeDashboardData = {
   coordinator: HomeCoordinator | null;
   listings: HomeListing[];
   listingCount: number;
+  serviceCount?: number;
+  transportCount?: number;
   isPreview: boolean;
 };
 export type HomeDestination =

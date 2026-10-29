@@ -1,3 +1,184 @@
+## 2026-10-29 - Home price units and category count wording
+
+- Guest Kalamb follow-up: the configured public API returns Potato at price 80
+  with unit kg. The existing release APK predated the UI fix. Rebuilt
+  apps/mobile/android/app/build/outputs/apk/release/app-release.apk successfully
+  and verified its release source map includes the separate unit rendering.
+  The initial build hit a shared Metro-cache conflict; the successful retry used
+  a process-local temporary cache under .gradle/apk-build-temp. No build settings
+  or API data were changed. Installing and visually checking the rebuilt APK on
+  the user's phone remains pending.
+- Compact Home price badges now render amount and localized unit as separate,
+  wrapping text items, with enough line height for Marathi. Shared unit labels
+  trim surrounding whitespace and recognize canonical unit codes regardless of
+  case; missing units never produce a dangling slash, and custom units stay as
+  entered. Real listing prices/units remain unchanged.
+- Commented out the Services and Transport count badge props for future reuse;
+  category navigation, descriptions and underlying data remain. Marketplace
+  uses proper singular/plural labels: १ नोंद / २ नोंदी and 1 Listing / 2 Listings.
+- Passed: all 80 mobile tests, mobile TypeScript, targeted ESLint and whitespace
+  checks. Tests cover localized rate units, whitespace/case normalization, custom
+  unit preservation and Marathi/English zero/singular/plural count labels.
+  Android visual/large-font acceptance remains pending.
+
+## 2026-10-29 - Temporary Home visibility changes
+
+- Commented out the Home coordinator banner and its import for future reuse;
+  the component, backend data and public-contact protection remain intact.
+  Become a Seller now requires a signed-in buyer without seller capability,
+  hiding it during guest browsing while preserving buyer activation behavior.
+- Mobile TypeScript, targeted Home ESLint and whitespace checks passed. Device
+  visibility checks remain pending.
+
+## 2026-10-29 - Coordinator registered contact and live-preview badges
+
+- Kept the selected-village light green coordinator banner, localized name/village
+  and right-side phone Contact action for guest and registered users. The dialer
+  still uses Linking/tel. Explicit public contact configuration must now match
+  the coordinator's current registered number; different numbers are rejected on
+  admin save and hidden on public reads. A registered-number change never inherits
+  consent from the old number. No alternative/private details are published.
+- Replaced Today's Live Availability View All action with a green actual-preview
+  count (५ ताज्या नोंदी / 5 fresh listings). Preview prices use compact rounded
+  badges: Marketplace yellow, Services blue, Transport green; absent rates muted.
+- Passed: 80 mobile tests, mobile/web TypeScript, targeted ESLint, and the isolated
+  real-route/database integration, including rejection of mismatched public numbers,
+  registered-number opt-in, revocation and phone-change permission isolation. Test
+  setup now initializes transactional collections before use and bounds socket
+  waits. A stalled diagnostic run and its exact isolated database were cleaned up;
+  the subsequent clean integration run passed and removed its database normally.
+  Android visual/dialer acceptance remains pending.
+
+## 2026-10-29 - Shared Home dashboard and directory discovery
+
+Status: IMPLEMENTED - DEVICE/HOSTED VERIFICATION PENDING.
+
+- User approved the reference dashboard layout for guest/buyer/seller/coordinator
+  Home, then explicitly approved the missing backend features. Reused Home,
+  ProductCard, CoordinatorInfo, NavigationCard and village selection. Live previews
+  have actual source-module badges and relevant rate/quantity/availability/village
+  fields. Marketplace/Services/Transport cards show selected-language-only titles,
+  descriptions and actual localized availability totals, with existing yellow,
+  blue and green backgrounds. Existing role actions and village information remain.
+- Existing Marketplace Home data stays on its five-row API. New dashboard and
+  directory GET routes provide bounded service/transport previews, paginated lists
+  and safe details. Both formerly upcoming module routes now open searchable real
+  directories. Reads enforce exact active browsing village, active provider/status/
+  availability and owner exclusion, with private provider data omitted. Services
+  are self-declared; Medical details carry a stronger disclaimer. Transport is a
+  static directory only, without dispatch/booking/tracking. No fake data was seeded.
+- The existing documented services collection gains a Mongoose read model and
+  optional module/rate/availability fields; historical missing module stays services.
+  VillageCoordinator gains nullable publicContactPhone with an explicit admin
+  village-form setting, existing version/transaction/audit protection, and clearing
+  on reassignment in the UI. Only that dedicated public number is published; no
+  fallback to private user mobiles. Guest and signed-in Home show the active
+  assigned coordinator name/village; Contact appears only for a valid public phone
+  and opens Linking's dialer. Missing/blocked/revoked coordinators hide the banner.
+- Query caches are viewer/village scoped, preserve in-memory offline data and
+  distinguish loading/errors/empty responses. Cold offline directory discovery,
+  persistent SQLite caching, and provider publishing/editing/contact workflows are
+  not implemented by this dashboard read feature. Backend deployment is required
+  before the updated APK; service/transport counts are zero until real entries
+  exist, and coordinator Contact is hidden until explicitly configured.
+- Passed: 80 mobile tests, 14 web tests, mobile/web TypeScript, targeted ESLint,
+  Android bundle export, and isolated real-route MongoDB dashboard/directory tests
+  (zero/real counts, previews, five-row pagination, literal/bilingual search,
+  village/owner/inactive exclusion, DTO privacy, public phone opt-in/revocation,
+  coordinator role/status, auth/origin/validation and no-store). Random test DBs
+  are cleaned up. Device layout/large-font, dialer, offline transitions and hosted
+  deployment acceptance remain pending. Contracts/limits are documented in
+  docs/03-api/DASHBOARD_DIRECTORY.md.
+
+## 2026-10-29 - Buyer tabs and request label
+
+- Temporarily hid the Marketplace tab for signed-in buyers, matching existing
+  seller/coordinator tab visibility. Marketplace remains reachable from Home;
+  guest Marketplace tab visibility is preserved. Renamed the non-coordinator
+  My Activity tab label to Requests / चौकशी using the existing translation key,
+  including notification copy referring to that tab. Routes and request behavior
+  are unchanged; coordinator Activity keeps its existing label.
+- Mobile TypeScript, targeted ESLint and whitespace checks passed. Device
+  navigation verification remains pending.
+
+## 2026-10-29 - Product Details image and metadata spacing
+
+- Reduced the existing product image to a 2:1 frame capped at 200px height.
+  Available quantity, village and posted labels now have 16px green outline
+  package, location and clock icons, with 8px icon/text spacing and 14px between
+  rows. The existing narrow-screen/large-font stacked layout is preserved with
+  additional label/value spacing. Translations, values and contact flows remain.
+- Mobile TypeScript and targeted ESLint passed. Device visual checks remain
+  pending.
+
+## 2026-10-29 - Active Marketplace card styling follow-up
+
+- Compactness follow-up: active-only padding is 10px, content gaps are smaller,
+  and the image minimum height is reduced from 150px to 120px. The right-side
+  View Details button is text-only and keeps its vertically centered position
+  and minimum touch target. Narrower action width leaves more room for product
+  information; text remains free to wrap. Unavailable card spacing is unchanged.
+- Existing active cards now place a larger proportional image beside the bold
+  product name, compact dynamic price/unit badge in theme accentBackground, and
+  separate village/quantity/posting rows with 15px green outline icons and muted
+  text. Localized View Details occupies a separate extreme-right column, centered
+  vertically beside the middle product information (latest user-requested
+  alignment follow-up). Proportional image/action widths reserve middle content
+  space, and the button retains the existing minimum touch
+  target; both the card and button use the existing detail navigation callback.
+  Text wraps within the available width. Unavailable cards retain their layout
+  and availability badge, with metadata icons using the same existing theme green.
+  No API, filtering, pagination or listing logic changes.
+- Mobile TypeScript, targeted card ESLint and whitespace checks passed. Android
+  screen-size, large-font and touch/navigation visual checks remain pending.
+
+## 2026-10-29 - Unavailable card metadata icons
+
+- Compact unavailable cards use existing Expo Vector Icons at 14px in the theme's
+  muted color: rupee before price, map pin before village on one metadata row,
+  and clock before the bottom-right posting age. Text can wrap within each item
+  on narrow screens. Localized price/village accessibility labels remain; product
+  names, status badges, API and listing behavior are unchanged.
+- Mobile TypeScript, targeted ESLint and whitespace checks passed. Android visual
+  and large-font verification remains pending.
+
+## 2026-10-29 - Previous product card reference follow-up
+
+- User-requested Marathi unavailable heading is now मागील उत्पादने. Compact
+  cards show the saved previous rate/unit and village beneath the name, plus a
+  subtle सध्या संपले badge with the existing localized listing age below it.
+  Age uses listing creation time, not an inferred sold-out date. Missing rates
+  retain the existing not-provided message. English labels remain localized.
+- Mobile TypeScript, targeted ESLint and whitespace checks passed. Device visual
+  verification remains pending.
+
+## 2026-10-29 - Marketplace available and unavailable sections
+
+Status: IMPLEMENTED - DEVICE/HOSTED VERIFICATION PENDING.
+
+- Updated the existing Marketplace screen/card to full-width active cards and
+  compact muted unavailable rows using the existing theme, images and typography.
+  Available listings retain Product Details navigation. Unavailable rows show no
+  Call/Notify actions. Marathi/English section labels, empty/error/loading states,
+  voice/search/filters and refresh remain. All is the initial category.
+- Separate availability-scoped queries request five rows per backend page; each
+  Show More expands independently. Village/account/search/category changes reset
+  visible counts, including cached filter returns. Previously loaded in-memory
+  data remains usable with offline warnings; persistent SQLite listing caching
+  remains outside this change.
+- Optional availability query extends the existing endpoint; default behavior and
+  response DTOs remain compatible. Only actual seller listings that are sold out,
+  expired or active with zero stock/elapsed expiry appear as unavailable. Hidden,
+  deactivated, reported, pending and otherwise ineligible records remain excluded.
+  No Product Master inventory synthesis or database changes.
+- Passed: mobile/web TypeScript, all 79 mobile tests and isolated real MongoDB/
+  route integration for existing counts plus unavailable status separation,
+  five-row pagination, duplicate prevention, village/owner exclusion, search,
+  group filtering, privacy DTOs and legacy compatibility. Test DB cleaned up.
+  Targeted mobile/server ESLint and git whitespace checks also passed.
+  Android screen-size, Marathi/large-font, touch/navigation, offline transitions
+  and hosted checks remain pending. Deploy backend before the updated APK.
+
 ## 2026-10-29 - Marketplace All label and total
 
 Status: IMPLEMENTED - DEVICE/HOSTED VERIFICATION PENDING.

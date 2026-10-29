@@ -38,6 +38,9 @@ export function VillageForm({
   const [selected, setSelected] = useState(
     village?.coordinators?.map((coordinator) => coordinator.id) ?? [],
   );
+  const [publicCoordinatorPhone, setPublicCoordinatorPhone] = useState(
+    village?.coordinators?.[0]?.publicContactPhone ?? "",
+  );
   const [validation, setValidation] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -80,6 +83,7 @@ export function VillageForm({
         pinCode,
         ...parsed,
         coordinatorIds: selected,
+        publicCoordinatorPhone,
       });
       return api(
         village ? `/v1/admin/villages/${village.id}` : "/v1/admin/villages",
@@ -152,6 +156,7 @@ export function VillageForm({
               pinCode,
               ...parsed,
               coordinatorIds: selected,
+              publicCoordinatorPhone,
             });
             if (village && coordinates.trim() && !parsed) {
               setValidation(
@@ -267,9 +272,10 @@ export function VillageForm({
                   id="assigned-coordinator"
                   value={selected[0] ?? ""}
                   aria-describedby="coordinator-help"
-                  onChange={(event) =>
-                    setSelected(event.target.value ? [event.target.value] : [])
-                  }
+                  onChange={(event) => {
+                    setSelected(event.target.value ? [event.target.value] : []);
+                    setPublicCoordinatorPhone("");
+                  }}
                 >
                   <option value="">Select coordinator (unassigned)</option>
                   {options.data.map((coordinator) => (
@@ -294,6 +300,29 @@ export function VillageForm({
                 listing.
               </p>
             </div>
+            {!!selected.length && (
+              <div className="field">
+                <label htmlFor="public-coordinator-phone">
+                  Public registered coordinator contact (optional)
+                </label>
+                <input
+                  id="public-coordinator-phone"
+                  type="tel"
+                  value={publicCoordinatorPhone}
+                  maxLength={13}
+                  placeholder="+919876543210"
+                  onChange={(event) =>
+                    setPublicCoordinatorPhone(event.target.value)
+                  }
+                />
+                <p className="text-xs text-slate-400">
+                  Enter the coordinator&apos;s registered mobile number only
+                  when authorized for public contact by guests and registered
+                  users. Leave blank to hide contact. A different number will
+                  not be published.
+                </p>
+              </div>
+            )}
           </fieldset>
           {(validation || save.error) && (
             <p role="alert" className="field-error">

@@ -37,7 +37,8 @@ export type AdminVillageDto = VillageDto & {
   longitude: number | null;
   version: number;
   // Nearby mappings remain unavailable until authoritative proximity is implemented.
-  coordinators: { id: string; name: string }[] | null;
+  coordinators:
+    { id: string; name: string; publicContactPhone?: string | null }[] | null;
   nearbyMapped: number | null;
 };
 export type CoordinatorOption = { id: string; name: string; status: Status };

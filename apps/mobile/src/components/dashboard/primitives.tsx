@@ -32,12 +32,20 @@ export function IconTile({
 export function Badge({
   children,
   yellow = false,
+  tone,
 }: {
   children: string;
   yellow?: boolean;
+  tone?: "yellow" | "blue" | "green";
 }) {
   return (
-    <View style={[d.badge, yellow && d.yellow]}>
+    <View
+      style={[
+        d.badge,
+        (yellow || tone === "yellow") && d.yellow,
+        tone === "blue" && d.blue,
+      ]}
+    >
       <Text style={d.badgeText}>{children}</Text>
     </View>
   );
@@ -46,16 +54,19 @@ export function SectionHeader({
   title,
   action,
   onPress,
+  badge,
 }: {
   title: string;
   action?: string;
   onPress?: () => void;
+  badge?: string;
 }) {
   return (
     <View style={d.sectionHeader}>
       <Text accessibilityRole="header" style={d.sectionTitle}>
         {title}
       </Text>
+      {badge && <Badge tone="green">{badge}</Badge>}
       {action && onPress && (
         <Pressable
           accessibilityRole="button"
@@ -84,28 +95,47 @@ export function NavigationCard({
   title,
   subtitle,
   badge,
+  badgeTone,
+  dashboard = false,
   onPress,
 }: {
   icon: IconName;
   title: string;
   subtitle: string;
   badge?: string;
+  badgeTone?: "yellow" | "blue" | "green";
+  dashboard?: boolean;
   onPress: () => void;
 }) {
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`${title}. ${subtitle}`}
+      accessibilityLabel={[title, subtitle, badge].filter(Boolean).join(". ")}
       onPress={onPress}
-      style={({ pressed }) => [d.navCard, pressed && d.pressed]}
+      style={({ pressed }) => [
+        d.navCard,
+        dashboard && d.dashboardNavCard,
+        pressed && d.pressed,
+      ]}
     >
       <IconTile name={icon} />
       <View style={d.navCopy}>
-        <Text style={d.cardTitle}>{title}</Text>
+        {dashboard ? (
+          <View style={d.navTitleRow}>
+            <Text style={[d.cardTitle, d.navTitle]}>{title}</Text>
+            {badge && (
+              <View style={d.navStatus}>
+                <Badge tone={badgeTone}>{badge}</Badge>
+              </View>
+            )}
+          </View>
+        ) : (
+          <Text style={d.cardTitle}>{title}</Text>
+        )}
         <Text style={d.description}>{subtitle}</Text>
-        {badge && (
+        {badge && !dashboard && (
           <View style={d.badgeRow}>
-            <Badge>{badge}</Badge>
+            <Badge tone={badgeTone}>{badge}</Badge>
           </View>
         )}
       </View>
@@ -208,6 +238,10 @@ export const d = StyleSheet.create({
     elevation: 1,
   },
   navCopy: { flex: 1, gap: 5 },
+  dashboardNavCard: { padding: 12, gap: 10 },
+  navTitleRow: { flexDirection: "row", alignItems: "flex-start", gap: 6 },
+  navTitle: { flex: 1 },
+  navStatus: { maxWidth: "48%", flexShrink: 1 },
   cardTitle: {
     fontSize: 16,
     lineHeight: 23,
@@ -238,6 +272,7 @@ export const d = StyleSheet.create({
   },
   badgeRow: { paddingTop: 5 },
   yellow: { backgroundColor: theme.colors.accentBackground },
+  blue: { backgroundColor: theme.colors.softBlue },
   pressed: { opacity: theme.interaction.pressedOpacity },
   preview: { flexDirection: "row", alignItems: "center", gap: 8 },
   previewText: {

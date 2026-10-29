@@ -1,4 +1,4 @@
-import UpcomingScreen from "../screens/UpcomingScreen";
+import DirectoryScreen from "../screens/DirectoryScreen";
 export default function ServicesScreen() {
-  return <UpcomingScreen feature="services" />;
+  return <DirectoryScreen module="services" />;
 }

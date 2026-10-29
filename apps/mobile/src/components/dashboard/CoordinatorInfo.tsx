@@ -1,10 +1,16 @@
-import { Pressable, Text, View, StyleSheet } from "react-native";
+import {
+  Alert,
+  Linking,
+  Pressable,
+  Text,
+  View,
+  StyleSheet,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
 import type { HomeCoordinator } from "../../types/home";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
-import { dialSampleContact } from "./sampleContacts";
 
 export function CoordinatorInfo({
   coordinator,
@@ -31,23 +37,49 @@ export function CoordinatorInfo({
             />
           )}
         </View>
+        {!!coordinator.village && (
+          <Text style={s.label}>
+            {language === "mr"
+              ? coordinator.villageMr || coordinator.village
+              : coordinator.village}
+          </Text>
+        )}
       </View>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${t.call}: ${name}`}
-        onPress={() => dialSampleContact(coordinator.phone, language)}
-        style={({ pressed }) => [s.callTarget, pressed && s.pressed]}
-      >
-        <View style={s.callPill}>
-          <Ionicons name="call-outline" size={14} color={theme.colors.text} />
-          <Text style={s.callText}>{t.call}</Text>
-        </View>
-      </Pressable>
+      {coordinator.publicContactable && coordinator.phone && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`${t.dashboardContact}: ${name}`}
+          onPress={() => {
+            if (
+              coordinator.publicContactable &&
+              /^\+91[6-9]\d{9}$/.test(coordinator.phone ?? "")
+            )
+              void Linking.openURL(`tel:${coordinator.phone}`).catch(() =>
+                Alert.alert(t.callError),
+              );
+          }}
+          style={({ pressed }) => [s.callTarget, pressed && s.pressed]}
+        >
+          <View style={s.callPill}>
+            <Ionicons name="call-outline" size={14} color={theme.colors.text} />
+            <Text style={s.callText}>{t.dashboardContact}</Text>
+          </View>
+        </Pressable>
+      )}
     </View>
   );
 }
 const s = StyleSheet.create({
-  row: { flexDirection: "row", gap: 12, alignItems: "center" },
+  row: {
+    flexDirection: "row",
+    gap: 12,
+    alignItems: "center",
+    backgroundColor: theme.colors.tint,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.radii.card,
+    padding: 12,
+  },
   copy: { flex: 1, gap: 2 },
   label: { fontSize: 11, lineHeight: 17, color: theme.colors.muted },
   nameRow: { flexDirection: "row", alignItems: "center", gap: 5 },

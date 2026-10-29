@@ -2499,3 +2499,19 @@ their network services. Only normalized product search text reaches the existing
 authenticated listing API; scope and contact protections remain unchanged. See
 `docs/03-api/VOICE_SEARCH.md` for implementation and device limitations.
 
+# Dashboard public contact and directory discovery — 2026-10-29
+
+User-approved coordinator contact publication uses only an explicit nullable
+VillageCoordinator.publicContactPhone, configured by an authenticated admin in
+the existing versioned/audited village form. Existing assignments publish no
+phone by default. Registered/alternative user mobiles are never public fallback
+values. Guest and bearer dashboard reads expose only active assigned coordinator
+name/village and the explicitly public phone. Blocked/revoked assignments hide.
+Registered-number follow-up: public phone permission must match the current
+registered coordinator mobile after normalization. Admin saves reject a different
+number; reads hide mismatches, including after a registered-number change. This
+does not grant publication permission to an alternative or newly changed number.
+Directory discovery DTOs omit provider identities, private contact and addresses.
+Services are self-declared, with Medical disclaimers and no verified credentials.
+See [DASHBOARD_DIRECTORY.md](03-api/DASHBOARD_DIRECTORY.md).
+

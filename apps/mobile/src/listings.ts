@@ -65,13 +65,18 @@ export function useHomeListings() {
     retry,
   });
 }
-export function useMarketplaceListings(search: string, category: string) {
+export function useMarketplaceListings(
+  search: string,
+  category: string,
+  availability: "available" | "unavailable" = "available",
+) {
   const session = useAppStore((state) => state.session);
   const browsingVillage = useAppStore(browsingVillageFor);
   const sourceId = browsingVillage?.id;
   return useInfiniteQuery({
     queryKey: [
       "marketplace-listings",
+      availability,
       session?.user.id ?? "guest",
       sourceId,
       search,
@@ -86,7 +91,8 @@ export function useMarketplaceListings(search: string, category: string) {
         includeProductGroupCounts: "true",
         includeAllProductCount: "true",
         page: String(pageParam),
-        limit: "20",
+        limit: "5",
+        availability,
       };
       if (category !== "all") params.productGroup = category;
       return (session ? authenticatedApi : api)(

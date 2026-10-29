@@ -1,3 +1,30 @@
+# Shared dashboard/directory - 2026-10-29 (user approved)
+
+Added public/bearer `GET /api/v1/dashboard`, `/api/v1/directory` and
+`/api/v1/directory/:id`, scoped to an active `sourceVillageId`. Existing admin
+village create/edit accepts optional `publicCoordinatorPhone` for explicit public
+contact configuration. See [DASHBOARD_DIRECTORY.md](DASHBOARD_DIRECTORY.md) for
+DTOs, pagination, visibility, privacy, storage and deployment requirements.
+
+# Marketplace availability sections - 2026-10-29 (user approved)
+
+GET `/api/v1/listings` accepts optional `availability=available|unavailable`.
+Omitting it preserves the available-only behavior. Unavailable reads select actual
+seller listings with `sold_out`/`expired` status, or active listings with zero stock
+or elapsed expiry. They never generate rows from Product Master. Deactivated,
+reported and pending listings remain excluded, as do inactive sellers/villages/
+categories and production demo listings. Existing village scope, owner exclusion,
+bilingual search, product-group/category filters, newest-first sorting, DTO privacy
+and pagination apply independently to either availability selection. Detail and
+contact routes remain available-only. No database or response DTO migration.
+
+Mobile Marketplace starts on All, displays available listings first and compact
+unavailable listings second, and requests `limit=5` independently for both. Each
+section has its own Show More / आणखी पहा button; village, account, search or filter
+changes reset both visible counts to five, including when returning to cached
+filters. Existing in-memory cached listing data and offline warnings are retained;
+no persistent listing cache is introduced. Deploy the API before this mobile build.
+
 # Marketplace All count - 2026-10-29 (user approved)
 
 GET `/api/v1/listings?includeAllProductCount=true` adds optional `allProductCount`

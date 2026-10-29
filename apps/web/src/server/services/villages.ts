@@ -1,4 +1,5 @@
 import "server-only";
+import { indianMobileSchema } from "@gaavli/validation";
 import type { z } from "zod";
 import type { villagesQuerySchema, VillageInput } from "@/schemas";
 import { connectDb } from "../db/connect";
@@ -35,6 +36,12 @@ export async function saveVillage(
   id?: string,
 ) {
   await connectDb();
+  if (input.publicCoordinatorPhone && !input.coordinatorIds.length)
+    throw new AppError(
+      422,
+      "VALIDATION_ERROR",
+      "Assign a coordinator before publishing a contact number.",
+    );
   if (input.coordinatorIds.length > 1)
     throw new AppError(
       422,
@@ -70,6 +77,20 @@ export async function saveVillage(
             "VALIDATION_ERROR",
             "Choose an active coordinator. Refresh if their role changed.",
           );
+        if (input.publicCoordinatorPhone) {
+          const registeredPhone = indianMobileSchema.safeParse(
+            coordinator.mobile,
+          );
+          if (
+            !registeredPhone.success ||
+            `+91${registeredPhone.data}` !== input.publicCoordinatorPhone
+          )
+            throw new AppError(
+              422,
+              "VALIDATION_ERROR",
+              "Public contact must match the assigned coordinator's registered mobile number.",
+            );
+        }
       }
       const fields = {
         nameEn: input.name,
@@ -117,6 +138,14 @@ export async function saveVillage(
         await VillageCoordinator.create(
           added.map((userId) => ({ villageId: village._id, userId })),
           { session, ordered: true },
+        );
+      if (input.publicCoordinatorPhone !== undefined && after.size)
+        await VillageCoordinator.updateOne(
+          { villageId: village._id, userId: [...after][0] },
+          {
+            $set: { publicContactPhone: input.publicCoordinatorPhone || null },
+          },
+          { session, runValidators: true },
         );
       await AuditLog.create(
         [

@@ -1,4 +1,4 @@
-import UpcomingScreen from "../screens/UpcomingScreen";
+import DirectoryScreen from "../screens/DirectoryScreen";
 export default function TransportScreen() {
-  return <UpcomingScreen feature="transport" />;
+  return <DirectoryScreen module="transport" />;
 }

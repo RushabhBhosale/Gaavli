@@ -1,6 +1,14 @@
 import type { MobileLanguage } from "@gaavli/types";
 import type { HomeListing } from "../../types/home";
 import { formatMessage, messages } from "../../i18n";
+export function listingCountLabel(count: number, language: MobileLanguage) {
+  const t = messages(language);
+  return formatMessage(count === 1 ? t.listingCountOne : t.listingsCount, {
+    count: new Intl.NumberFormat(
+      language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
+    ).format(count),
+  });
+}
 export function listingUnit(unit: string | null, language: MobileLanguage) {
   const t = messages(language);
   const labels: Record<string, string> = {
@@ -10,7 +18,8 @@ export function listingUnit(unit: string | null, language: MobileLanguage) {
     bunch: t.unitBunch,
     pieces: t.unitPieces,
   };
-  return unit ? labels[unit] || unit : "";
+  const value = unit?.trim();
+  return value ? labels[value.toLowerCase()] || value : "";
 }
 export function listingRate(listing: HomeListing, language: MobileLanguage) {
   const t = messages(language);
@@ -28,16 +37,10 @@ export function listingPosted(
   const count = new Intl.NumberFormat(
     language === "mr" ? "mr-IN" : "en-IN",
   ).format(
-    minutes < 60
-      ? minutes
-      : Math.floor(minutes / (minutes < 1440 ? 60 : 1440)),
+    minutes < 60 ? minutes : Math.floor(minutes / (minutes < 1440 ? 60 : 1440)),
   );
   return formatMessage(
-    minutes < 60
-      ? t.minutesAgo
-      : minutes < 1440
-        ? t.hoursAgo
-        : t.daysAgo,
+    minutes < 60 ? t.minutesAgo : minutes < 1440 ? t.hoursAgo : t.daysAgo,
     { count },
   );
 }

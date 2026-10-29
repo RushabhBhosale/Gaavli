@@ -134,7 +134,15 @@ export async function findVillages(
           const user = coordinators.find(
             (u) => String(u._id) === String(a.userId),
           );
-          return user ? [{ id: String(user._id), name: user.name }] : [];
+          return user
+            ? [
+                {
+                  id: String(user._id),
+                  name: user.name,
+                  publicContactPhone: a.publicContactPhone ?? null,
+                },
+              ]
+            : [];
         }),
       nearbyMapped: null,
     })),

@@ -868,6 +868,22 @@ If server version differs:
 
 ---
 
+# Dashboard directory implementation — 2026-10-29
+
+The documented `services` collection now has a server-only Mongoose read model.
+It retains userId/villageId/profession/status and adds optional professionMr,
+module (services or transport), serviceCategory, price/unit and available fields
+for the user-approved dashboard directory discovery. Historical missing module
+means services; no old records are rewritten. Transport is a static directory,
+without dispatch or tracking. Active available entries with active providers and
+villages drive previews/counts. Indexes: villageId/module/status/createdAt/_id,
+and userId. No professional verification claim is stored.
+
+VillageCoordinator has nullable publicContactPhone, default null, explicitly
+configured through the existing admin village form. Private User mobiles never
+fall back into public dashboard data. See
+[DASHBOARD_DIRECTORY.md](../03-api/DASHBOARD_DIRECTORY.md).
+
 # 33. Services Collection
 
 Collection:

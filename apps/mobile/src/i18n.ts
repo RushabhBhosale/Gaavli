@@ -1,6 +1,33 @@
 import type { MobileLanguage } from "@gaavli/types";
 
 const en = {
+  dashboardLiveAvailability: "Today's Live Availability",
+  dashboardFreshCount: "{count} fresh listings",
+  dashboardCategories: "Village services and marketplace",
+  dashboardMarketplace: "Marketplace",
+  dashboardServices: "Services",
+  dashboardTransport: "Transport",
+  dashboardMarketplaceDescription:
+    "Fresh vegetables, fruits, grains and other agricultural products",
+  dashboardServicesDescription:
+    "Electricians, plumbers, motor repairs, tractor and other local services",
+  dashboardTransportDescription:
+    "Goods transport, pickup vehicles and passenger transport",
+  dashboardAvailableCount: "{count} Available",
+  dashboardProviderCount: "{count} Providers",
+  dashboardVehicleCount: "{count} Vehicles",
+  dashboardCountUnavailable: "Count unavailable",
+  dashboardContact: "Contact",
+  dashboardDirectoryFailed:
+    "Could not load village services and coordinator. Please retry.",
+  dashboardDirectoryEmpty: "No available listings in this village yet.",
+  directoryDisclaimer:
+    "Self-declared service. Gaavli does not verify professional credentials.",
+  directorySelfDeclared: "Self-declared service",
+  directoryAvailable: "Available",
+  directoryMedicalDisclaimer:
+    "Medical services are self-declared. Check the provider's professional registration and credentials before using the service.",
+  directorySearch: "Search services or transport",
   headerGreeting: "Namaskar,",
   myProducts: "My products",
   manageProductsSubtitle: "Manage your product listings and stock",
@@ -247,6 +274,7 @@ const en = {
   marketplaceDescription:
     "Buy fresh products directly from sellers in your village",
   listingsCount: "{count} Listings",
+  listingCountOne: "{count} Listing",
   quantityAvailable: "{quantity} {unit} available",
   sellerLabel: "Seller: {name}",
   minutesAgo: "{count} min ago",
@@ -279,7 +307,7 @@ const en = {
   transportDescription: "Goods vehicle and local transport options",
   villageInformation: "Village Information",
   villageInformationDescription: "Important information and local updates",
-  myActivity: "My Activity",
+  myActivity: "Requests",
   myRequests: "My Requests",
   activitySubtitle: "View your requests and notifications",
   activityRequests: "Requests",
@@ -443,6 +471,13 @@ const en = {
   villageUnavailable:
     "This village is no longer available. Please choose another.",
   confirmVillage: "Confirm village",
+  marketplaceActiveListings: "Active Listings",
+  marketplaceUnavailableListings: "Currently Not Available",
+  marketplaceNotAvailable: "Not Available",
+  marketplacePreviousRate: "Previous rate",
+  marketplaceVillage: "Village",
+  marketplaceNoUnavailable: "No unavailable listings in this village.",
+  marketplaceShowMore: "Show More",
   loadMore: "Load more",
   selected: "Selected",
   villageSaved: "Your village is saved",
@@ -488,6 +523,32 @@ const en = {
 };
 type Messages = { [Key in keyof typeof en]: string };
 const mr: Messages = {
+  dashboardLiveAvailability: "आजची थेट उपलब्धता",
+  dashboardFreshCount: "{count} ताज्या नोंदी",
+  dashboardCategories: "गाव सुविधा व बाजार",
+  dashboardMarketplace: "बाजारपेठ",
+  dashboardServices: "ग्रामसेवा",
+  dashboardTransport: "वाहतूक",
+  dashboardMarketplaceDescription: "ताज्या भाज्या, फळे, धान्य आणि इतर शेतमाल",
+  dashboardServicesDescription:
+    "इलेक्ट्रिशियन, प्लंबर, मोटर दुरुस्ती, ट्रॅक्टर आणि इतर स्थानिक सेवा",
+  dashboardTransportDescription:
+    "मालवाहतूक, पिकअप वाहने आणि प्रवासी वाहतूक सेवा",
+  dashboardAvailableCount: "{count} उपलब्ध",
+  dashboardProviderCount: "{count} कारागीर",
+  dashboardVehicleCount: "{count} वाहने",
+  dashboardCountUnavailable: "संख्या उपलब्ध नाही",
+  dashboardContact: "संपर्क",
+  dashboardDirectoryFailed:
+    "गावातील सेवा आणि समन्वयकाची माहिती मिळाली नाही. पुन्हा प्रयत्न करा.",
+  dashboardDirectoryEmpty: "या गावात सध्या उपलब्ध नोंदी नाहीत.",
+  directoryDisclaimer:
+    "ही सेवा स्वयंघोषित आहे. गावली व्यावसायिक पात्रता पडताळत नाही.",
+  directorySelfDeclared: "स्वयंघोषित सेवा",
+  directoryAvailable: "उपलब्ध",
+  directoryMedicalDisclaimer:
+    "वैद्यकीय सेवा स्वयंघोषित आहेत. सेवा घेण्यापूर्वी संबंधित व्यक्तीची व्यावसायिक नोंदणी आणि पात्रता तपासा.",
+  directorySearch: "सेवा किंवा वाहतूक शोधा",
   myProducts: "माझी उत्पादने",
   manageProductsSubtitle: "तुमच्या उत्पादनांची यादी आणि साठा व्यवस्थापित करा",
   totalProducts: "एकूण उत्पादने",
@@ -726,6 +787,7 @@ const mr: Messages = {
   marketplaceDescription:
     "तुमच्या गावातील विक्रेत्यांकडून थेट ताजा शेतमाल घ्या",
   listingsCount: "{count} नोंदी",
+  listingCountOne: "{count} नोंद",
   quantityAvailable: "{quantity} {unit} उपलब्ध",
   sellerLabel: "विक्रेता: {name}",
   minutesAgo: "{count} मिनिटांपूर्वी",
@@ -767,7 +829,7 @@ const mr: Messages = {
   transportDescription: "मालवाहू वाहन आणि स्थानिक वाहतुकीचे पर्याय",
   villageInformation: "गावाची माहिती",
   villageInformationDescription: "महत्त्वाची माहिती आणि स्थानिक घडामोडी",
-  myActivity: "माझी माहिती",
+  myActivity: "चौकशी",
   myRequests: "माझ्या विनंत्या",
   activitySubtitle: "तुमच्या विनंत्या आणि सूचना पहा",
   activityRequests: "विनंत्या",
@@ -927,6 +989,13 @@ const mr: Messages = {
   noVillages: "सध्या गावे उपलब्ध नाहीत. कृपया नंतर पुन्हा प्रयत्न करा.",
   villageUnavailable: "हे गाव आता उपलब्ध नाही. कृपया दुसरे गाव निवडा.",
   confirmVillage: "गाव निश्चित करा",
+  marketplaceActiveListings: "सक्रिय नोंदी",
+  marketplaceUnavailableListings: "मागील उत्पादने",
+  marketplaceNotAvailable: "सध्या संपले",
+  marketplacePreviousRate: "मागील दर",
+  marketplaceVillage: "गाव",
+  marketplaceNoUnavailable: "या गावात अनुपलब्ध नोंदी नाहीत.",
+  marketplaceShowMore: "आणखी पहा",
   loadMore: "आणखी दाखवा",
   selected: "निवडलेले",
   villageSaved: "तुमचे गाव जतन झाले",

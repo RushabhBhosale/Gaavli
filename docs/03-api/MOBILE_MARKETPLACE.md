@@ -1,3 +1,15 @@
+# Marketplace availability layout — 2026-10-29
+
+Marketplace reuses its existing header/search/voice/categories and listing card,
+with full-width available cards followed by muted compact unavailable rows. Both
+sections fetch five actual seller listings per page through the existing endpoint
+with optional `availability`; see [API_SPEC.md](API_SPEC.md). The default category
+is All. Each section expands on the same screen independently; filter/village/
+account changes reset visible counts even when cached pages exist. Unavailable
+rows contain image/name/village/status only, with no detail/contact actions.
+Product Master remains only a voice/search reference, never unavailable inventory.
+Active detail navigation, registered contact flows and backend sorting remain.
+
 # Mobile database listing reads — 2026-10-14
 
 Browsing village revision — 2026-10-23: Home and Marketplace now share a

@@ -19,6 +19,7 @@
     "test:listing-integration": "node --conditions=react-server --import tsx tests/listings.integration.mts",
     "test:contact-access": "node --conditions=react-server --import tsx tests/contact-access.integration.mts",
     "test:listing-counts": "node --conditions=react-server --import tsx tests/listing-counts.integration.mts",
+    "test:dashboard-directory": "node --conditions=react-server --import tsx tests/dashboard-directory.integration.mts",
     "test:coordinator-integration": "node --conditions=react-server --import tsx tests/coordinator.integration.mts",
     "test:product-master": "node --conditions=react-server --import tsx tests/product-master.integration.mts",
     "setup:mobile-auth": "node scripts/setup-mobile-auth.mjs",

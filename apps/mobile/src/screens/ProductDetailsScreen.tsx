@@ -379,23 +379,39 @@ function ProductDetailsContent({ id }: { id: string }) {
                 </>
               )}
               <View style={s.details}>
-                {[
+                {(
                   [
-                    t.availableQuantityLabel,
-                    listing.availableQuantity === null
-                      ? t.detailsNotProvided
-                      : quantityValue(listing.availableQuantity),
-                  ],
-                  [
-                    t.villageLabel,
-                    language === "mr" ? listing.villageMr : listing.village,
-                  ],
-                  [t.postedLabel, listingPosted(listing, language)],
-                ].map(([label, value]) => (
+                    [
+                      t.availableQuantityLabel,
+                      listing.availableQuantity === null
+                        ? t.detailsNotProvided
+                        : quantityValue(listing.availableQuantity),
+                      "cube-outline",
+                    ],
+                    [
+                      t.villageLabel,
+                      language === "mr" ? listing.villageMr : listing.village,
+                      "location-outline",
+                    ],
+                    [
+                      t.postedLabel,
+                      listingPosted(listing, language),
+                      "time-outline",
+                    ],
+                  ] as const
+                ).map(([label, value, icon]) => (
                   <View key={label} style={[s.detailRow, stacked && s.stacked]}>
-                    <Text style={[s.detailLabel, stacked && s.stackedColumn]}>
-                      {label}
-                    </Text>
+                    <View
+                      style={[s.detailLabelRow, stacked && s.stackedColumn]}
+                    >
+                      <Ionicons
+                        accessible={false}
+                        name={icon}
+                        size={16}
+                        color={theme.colors.icon}
+                      />
+                      <Text style={s.detailLabel}>{label}</Text>
+                    </View>
                     <Text style={[s.detailValue, stacked && s.stackedColumn]}>
                       {value}
                     </Text>
@@ -714,11 +730,12 @@ const s = StyleSheet.create({
     fontWeight: "700",
   },
   productSection: { gap: 12 },
-  stacked: { flexDirection: "column", gap: 4 },
+  stacked: { flexDirection: "column", gap: 8 },
   stackedColumn: { flex: 0, width: "100%" },
   image: {
     width: "100%",
-    aspectRatio: 4 / 3,
+    aspectRatio: 2,
+    maxHeight: 200,
     backgroundColor: theme.colors.tint,
     borderRadius: theme.radii.card,
   },
@@ -741,8 +758,14 @@ const s = StyleSheet.create({
     lineHeight: 31,
     fontWeight: "700",
   },
-  details: { gap: 10, paddingTop: 4 },
+  details: { gap: 14, paddingTop: 4 },
   detailRow: { flexDirection: "row", alignItems: "flex-start", gap: 16 },
+  detailLabelRow: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
   detailLabel: {
     flex: 1,
     color: theme.colors.muted,

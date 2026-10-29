@@ -246,6 +246,11 @@ const villageCoordinatorSchema = new Schema(
   {
     villageId: { type: Schema.Types.ObjectId, ref: "Village", required: true },
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    publicContactPhone: {
+      type: String,
+      match: /^\+91[6-9]\d{9}$/,
+      default: null,
+    },
   },
   { timestamps: true },
 );

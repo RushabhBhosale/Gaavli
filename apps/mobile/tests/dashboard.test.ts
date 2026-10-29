@@ -32,6 +32,7 @@ import {
   listingRate,
   listingQuantity,
   listingUnit,
+  listingCountLabel,
 } from "../src/components/dashboard/listingText";
 import {
   mobileListingSchema,
@@ -40,9 +41,69 @@ import {
   notificationPageSchema,
   requestPageSchema,
   notificationReadInputSchema,
+  directoryEntrySchema,
+  dashboardDirectorySchema,
 } from "@gaavli/validation";
 import { dashboardForAccount, findMockListing } from "../src/data/mockHomeData";
 import { formatMessage, messages } from "../src/i18n";
+import { directoryPreview } from "../src/data/directory";
+
+test("directory previews preserve real module identity, names, rates and missing fields", () => {
+  const entry = directoryEntrySchema.parse({
+    id: "a".repeat(24),
+    module: "transport",
+    name: "Pickup",
+    nameMr: null,
+    description: null,
+    category: "Other",
+    price: null,
+    unit: null,
+    village: { id: "b".repeat(24), name: "Village", nameMr: "गाव" },
+    createdAt: "2026-10-29T10:00:00.000Z",
+  });
+  const preview = directoryPreview(
+    entry,
+    Date.parse("2026-10-29T10:05:00.000Z"),
+  );
+  assert.equal(preview.module, "transport");
+  assert.equal(preview.nameMr, "Pickup");
+  assert.equal(preview.postedMinutesAgo, 5);
+  assert.equal(preview.price, null);
+  assert.equal(preview.availableQuantity, null);
+  assert.equal(preview.photoUrl, undefined);
+  assert.equal(preview.sellerName, "");
+  assert.equal(messages("mr").dashboardMarketplace, "बाजारपेठ");
+  assert.equal(messages("mr").dashboardServices, "ग्रामसेवा");
+  assert.equal(messages("en").dashboardContact, "Contact");
+  assert.equal(
+    formatMessage(messages("mr").dashboardFreshCount, {
+      count: new Intl.NumberFormat("mr-IN-u-nu-deva").format(5),
+    }),
+    "५ ताज्या नोंदी",
+  );
+  assert.equal(
+    formatMessage(messages("en").dashboardFreshCount, { count: 0 }),
+    "0 fresh listings",
+  );
+  assert.equal(
+    formatMessage(messages("mr").dashboardAvailableCount, {
+      count: new Intl.NumberFormat("mr-IN-u-nu-deva").format(42),
+    }),
+    "४२ उपलब्ध",
+  );
+  assert.equal(
+    dashboardDirectorySchema.safeParse({
+      coordinator: {
+        name: "Coordinator",
+        village: entry.village,
+        publicContactPhone: "invalid",
+      },
+      services: { entries: [], total: 0, page: 1, limit: 3 },
+      transport: { entries: [], total: 0, page: 1, limit: 3 },
+    }).success,
+    false,
+  );
+});
 
 test("confirmed notification reads update all recipient caches without leaking across accounts", () => {
   const client = new QueryClient({
@@ -512,6 +573,22 @@ test("database adapter preserves actual fields without sample prices, names, pho
   assert.equal(listingRate(listing, "en"), "Rate not provided");
   assert.equal(listingQuantity(listing, "en"), "7 litre available");
   assert.equal(listingRate({ ...listing, price: 55 }, "en"), "₹55 / litre");
+  assert.equal(
+    listingRate({ ...listing, price: 80, unit: " kg " }, "mr"),
+    "₹80 / किलो",
+  );
+  assert.equal(listingRate({ ...listing, price: 80, unit: " " }, "mr"), "₹80");
+  assert.equal(listingUnit("KG", "en"), "kg");
+  assert.equal(
+    listingUnit("crate", "mr"),
+    "crate",
+    "unknown seller units remain unchanged",
+  );
+  assert.equal(listingCountLabel(1, "mr"), "१ नोंद");
+  assert.equal(listingCountLabel(2, "mr"), "२ नोंदी");
+  assert.equal(listingCountLabel(0, "mr"), "० नोंदी");
+  assert.equal(listingCountLabel(1, "en"), "1 Listing");
+  assert.equal(listingCountLabel(2, "en"), "2 Listings");
   const home = liveDashboard(account, "mr", [databaseListing], 12, true);
   assert.equal(home.isPreview, false);
   assert.equal(home.coordinator, null);

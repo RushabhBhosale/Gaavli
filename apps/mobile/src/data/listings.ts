@@ -6,6 +6,7 @@ export function toHomeListing(
   now = Date.now(),
 ): HomeListing {
   return {
+    module: "marketplace",
     id: listing.id,
     name: listing.productName,
     // Preserve original DB name if no Marathi name exists; never invent one.

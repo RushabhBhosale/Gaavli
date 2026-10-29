@@ -1713,3 +1713,13 @@ The v1.2 technical architecture is intentionally optimized for:
 The core principle is:
 
 > **Build the smallest reliable system that can support the real village pilot; add infrastructure only when measured usage requires it.**
+# Shared dashboard revision — 2026-10-29 (user approved)
+
+Guest, buyer, seller and coordinator Home share selected-language-only category
+cards and live module previews with real village-scoped counts. Assigned
+coordinators have a name/village banner and Contact only for an explicitly public
+number. User approved the missing backend discovery/contact implementation.
+Services and Transport now have read-only directory lists/details; Transport is
+a static available-listing directory, superseding its older Coming soon wording
+for this limited scope. No dispatch, booking, tracking or provider verification.
+See [DASHBOARD_DIRECTORY.md](../03-api/DASHBOARD_DIRECTORY.md).

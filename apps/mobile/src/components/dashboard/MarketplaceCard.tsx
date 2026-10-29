@@ -1,6 +1,7 @@
 import type { MobileLanguage } from "@gaavli/types";
-import { formatMessage, messages } from "../../i18n";
+import { messages } from "../../i18n";
 import { NavigationCard } from "./primitives";
+import { listingCountLabel } from "./listingText";
 
 export function MarketplaceCard({
   count,
@@ -15,12 +16,14 @@ export function MarketplaceCard({
   return (
     <NavigationCard
       icon="storefront-outline"
-      title={t.marketplace}
-      subtitle={t.marketplaceDescription}
+      title={t.dashboardMarketplace}
+      subtitle={t.dashboardMarketplaceDescription}
+      dashboard
+      badgeTone="yellow"
       badge={
         count === undefined
-          ? undefined
-          : formatMessage(t.listingsCount, { count })
+          ? t.dashboardCountUnavailable
+          : listingCountLabel(count, language)
       }
       onPress={onPress}
     />

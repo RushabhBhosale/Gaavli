@@ -65,7 +65,7 @@ export default function BuyerTabs() {
       <Tabs.Screen
         name="marketplace"
         options={{
-          href: coordinator || session?.user.isSeller ? null : undefined,
+          href: session ? null : undefined,
           title: t.marketplace,
           tabBarLabel: ({ color }) => (
             <Text

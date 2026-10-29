@@ -17,6 +17,8 @@ export const theme = {
     brand: "#8BC34A",
     accent: "#F6C94C",
     accentBackground: "#FFF8D8",
+    // Existing Marketplace dairy category background, reused for service badges.
+    softBlue: "#EAF2FF",
     inactive: "#9AA39A",
     overlay: "#00000040",
     error: "#A52B28",

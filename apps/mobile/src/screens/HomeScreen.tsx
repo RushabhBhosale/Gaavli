@@ -5,9 +5,11 @@ import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
 import { useRouter } from "expo-router";
 import type { MobileLanguage } from "@gaavli/types";
 import { useAppStore } from "../store";
-import { messages } from "../i18n";
+import { formatMessage, messages } from "../i18n";
 import { liveDashboard } from "../data/listings";
 import { useHomeListings } from "../listings";
+import { useDashboardDirectory } from "../directory";
+import { directoryPreview } from "../data/directory";
 import { useListingClock } from "../hooks/useListingClock";
 import { Button, ErrorMessage } from "../components/ui";
 import type {
@@ -20,6 +22,8 @@ import { BrowsingVillageSelector } from "../components/BrowsingVillageSelector";
 import { browsingVillageFor } from "../storage/browsingVillage";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { MarketplaceCard } from "../components/dashboard/MarketplaceCard";
+// Restore with the coordinator banner when it is enabled again.
+// import { CoordinatorInfo } from "../components/dashboard/CoordinatorInfo";
 import { BecomeSellerCard } from "../components/dashboard/SellerCards";
 import { VillageActionCard } from "../components/dashboard/VillageActionCard";
 import {
@@ -45,6 +49,10 @@ export function HomeDashboard({
   listingsReady?: boolean;
 }) {
   const t = messages(language);
+  const signedIn = useAppStore((state) => !!state.session);
+  const number = new Intl.NumberFormat(
+    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
+  );
   return (
     <DashboardScreen>
       <AccountHeader
@@ -52,45 +60,70 @@ export function HomeDashboard({
         browsingVillageControl={<BrowsingVillageSelector />}
       />
       {data.isPreview && <PreviewBanner />}
+      {/* Temporarily hidden; retained for future use.
+      <CoordinatorInfo coordinator={data.coordinator} language={language} />
+      */}
       <View style={d.section}>
         <SectionHeader
-          title={t.freshInVillage}
-          action={t.viewAll}
-          onPress={() => onNavigate("/marketplace")}
+          title={t.dashboardLiveAvailability}
+          badge={formatMessage(t.dashboardFreshCount, {
+            count: number.format(data.listings.length),
+          })}
         />
         {listingStatus}
         <FlatList
           horizontal
           data={data.listings}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => `${item.module ?? "marketplace"}:${item.id}`}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
           renderItem={({ item }) => (
             <ProductCard
               listing={item}
               language={language}
+              compact
               onPress={() => onProductPress(item)}
             />
           )}
         />
       </View>
       <View style={d.section}>
-        <SectionHeader title={t.marketplaceAndServices} />
+        <SectionHeader title={t.dashboardCategories} />
         <MarketplaceCard
           count={listingsReady ? data.listingCount : undefined}
           language={language}
           onPress={() => onNavigate("/marketplace")}
         />
+        {/* Services count badge temporarily hidden; retain for future use:
+          badge={
+            data.serviceCount === undefined
+              ? t.dashboardCountUnavailable
+              : formatMessage(t.dashboardProviderCount, {
+                  count: number.format(data.serviceCount),
+                })
+          }
+          badgeTone="blue"
+        */}
         <VillageActionCard
           icon="build-outline"
-          title={t.services}
-          subtitle={t.servicesDescription}
+          title={t.dashboardServices}
+          subtitle={t.dashboardServicesDescription}
           onPress={() => onNavigate("/services")}
         />
+        {/* Transport count badge temporarily hidden; retain for future use:
+          badge={
+            data.transportCount === undefined
+              ? t.dashboardCountUnavailable
+              : formatMessage(t.dashboardVehicleCount, {
+                  count: number.format(data.transportCount),
+                })
+          }
+          badgeTone="green"
+        */}
         <VillageActionCard
           icon="car-outline"
-          title={t.transport}
-          subtitle={t.transportDescription}
+          title={t.dashboardTransport}
+          subtitle={t.dashboardTransportDescription}
           onPress={() => onNavigate("/transport")}
         />
         <VillageActionCard
@@ -100,7 +133,7 @@ export function HomeDashboard({
           onPress={() => onNavigate("/village-information")}
         />
       </View>
-      {!data.user.isSeller && (
+      {signedIn && data.user.isBuyer && !data.user.isSeller && (
         <BecomeSellerCard
           language={language}
           onPress={() => onNavigate("/become-seller")}
@@ -115,6 +148,7 @@ export default function HomeScreen() {
   const { session, language, offline } = useAppStore();
   const village = useAppStore(browsingVillageFor);
   const query = useHomeListings();
+  const directory = useDashboardDirectory();
   const now = useListingClock();
   const t = messages(language);
   if (!village || (session && !session.user.village)) return null;
@@ -140,11 +174,37 @@ export default function HomeScreen() {
     account.isSeller ?? page?.isSeller ?? false,
     now,
   );
+  data.serviceCount = directory.data?.services.total;
+  data.transportCount = directory.data?.transport.total;
+  data.listings = [
+    ...data.listings,
+    ...(directory.data?.services.entries ?? []).map((entry) =>
+      directoryPreview(entry, now),
+    ),
+    ...(directory.data?.transport.entries ?? []).map((entry) =>
+      directoryPreview(entry, now),
+    ),
+  ].sort(
+    (a, b) =>
+      a.postedMinutesAgo - b.postedMinutesAgo || b.id.localeCompare(a.id),
+  );
+  const coordinator = directory.data?.coordinator;
+  data.coordinator = coordinator
+    ? {
+        name: coordinator.name,
+        nameMr: coordinator.name,
+        village: coordinator.village.name,
+        villageMr: coordinator.village.nameMr,
+        phone: coordinator.publicContactPhone,
+        publicContactable: !!coordinator.publicContactPhone,
+        verified: false,
+      }
+    : null;
   const listingStatus = (
     <>
       {offline && (
         <Text style={d.description}>
-          {page ? t.listingsOffline : t.listingsOfflineEmpty}
+          {page || directory.data ? t.listingsOffline : t.listingsOfflineEmpty}
         </Text>
       )}
       {!offline && query.isPending && (
@@ -158,9 +218,24 @@ export default function HomeScreen() {
           </Button>
         </>
       )}
-      {page && !query.isError && !listings.length && (
-        <Text style={d.description}>{t.noListings}</Text>
+      {directory.isError && !offline && (
+        <>
+          <ErrorMessage message={t.dashboardDirectoryFailed} />
+          <Button secondary onPress={() => void directory.refetch()}>
+            {t.retry}
+          </Button>
+        </>
       )}
+      {!offline && directory.isPending && !query.isPending && (
+        <Text style={d.description}>{t.listingsLoading}</Text>
+      )}
+      {page &&
+        directory.data &&
+        !query.isError &&
+        !directory.isError &&
+        !data.listings.length && (
+          <Text style={d.description}>{t.dashboardDirectoryEmpty}</Text>
+        )}
     </>
   );
   return (
@@ -185,7 +260,13 @@ export default function HomeScreen() {
           router.push(route);
         }}
         onProductPress={(listing) =>
-          router.push({ pathname: "/product/[id]", params: { id: listing.id } })
+          router.push({
+            pathname:
+              listing.module === "services" || listing.module === "transport"
+                ? "/directory/[id]"
+                : "/product/[id]",
+            params: { id: listing.id },
+          })
         }
       />
       <BecomeSellerDialog
