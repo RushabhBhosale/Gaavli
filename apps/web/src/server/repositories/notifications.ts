@@ -74,9 +74,10 @@ export async function findUserNotifications(
   limit: number,
   language: "mr" | "en",
   includeReadState = false,
+  includeUnreadCount = false,
 ) {
   const filter = { userId };
-  const [rows, total] = await Promise.all([
+  const [rows, total, unreadCount] = await Promise.all([
     Notification.find(filter)
       .select("type title body titleMr bodyMr createdAt readAt")
       .sort({ createdAt: -1, _id: -1 })
@@ -84,6 +85,9 @@ export async function findUserNotifications(
       .limit(limit)
       .lean(),
     Notification.countDocuments(filter),
+    includeUnreadCount
+      ? Notification.countDocuments({ userId, readAt: null })
+      : undefined,
   ]);
   return {
     notifications: rows.map((row) => ({
@@ -97,7 +101,42 @@ export async function findUserNotifications(
         : {}),
     })),
     total,
+    ...(includeUnreadCount ? { unreadCount } : {}),
     page,
     limit,
+  };
+}
+
+export async function readUserNotifications(
+  userId: string,
+  ids: string[],
+  session: ClientSession,
+) {
+  const filter = { userId, _id: { $in: ids } };
+  const rows = await Notification.find(filter)
+    .select("readAt")
+    .session(session);
+  if (rows.length !== ids.length)
+    throw new AppError(
+      404,
+      "NOTIFICATION_UNAVAILABLE",
+      "Notification unavailable.",
+    );
+  const now = new Date();
+  await Notification.updateMany(
+    { ...filter, readAt: null },
+    { $set: { readAt: now } },
+    { session },
+  );
+  const unreadCount = await Notification.countDocuments({
+    userId,
+    readAt: null,
+  }).session(session);
+  return {
+    notifications: rows.map((row) => ({
+      id: String(row._id),
+      readAt: (row.readAt || now).toISOString(),
+    })),
+    unreadCount,
   };
 }

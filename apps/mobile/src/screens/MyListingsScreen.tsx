@@ -27,7 +27,6 @@ import {
   ErrorMessage,
   OfflineBanner,
 } from "../components/ui";
-import { matchesProductSearch } from "../data/productMaster";
 import { ListingImage } from "../components/dashboard/ListingImage";
 import { listingUnit } from "../components/dashboard/listingText";
 import { listingDraftStorage } from "../storage/sqlite";
@@ -35,7 +34,6 @@ import { listingOperationId, listingDraftSchema } from "../data/listingForm";
 import { removeDraftPhoto } from "../storage/listingPhotos";
 import {
   pendingListingDeleteSchema,
-  savedProductDrafts,
   type PendingListingDelete,
 } from "../data/ownedListings";
 import { authenticatedApi } from "../session";
@@ -49,9 +47,9 @@ export default function MyListingsScreen() {
   const client = useQueryClient();
   const { session, language, offline } = useAppStore();
   const t = messages(language);
-  const [tab, setTab] = useState<
-    "all" | "active" | "sold_out" | "drafts" | "expired"
-  >("all");
+  const [tab, setTab] = useState<"all" | "active" | "sold_out" | "expired">(
+    "all",
+  );
   const [searchText, setSearchText] = useState("");
   const [search, setSearch] = useState("");
   useEffect(() => {
@@ -66,7 +64,7 @@ export default function MyListingsScreen() {
   const [deletedIds, setDeletedIds] = useState<string[]>([]);
   const [failure, setFailure] = useState<string | null>(null);
   const now = useListingClock();
-  const query = useOwnListings(tab === "drafts" ? "all" : tab, true, search);
+  const query = useOwnListings(tab, true, search);
   const accountId = session?.user.id;
   const villageId = session?.user.village?.id;
   const deleteKey = `delete:${accountId}`;
@@ -79,19 +77,6 @@ export default function MyListingsScreen() {
       return raw ? pendingListingDeleteSchema.parse(JSON.parse(raw)) : null;
     },
     retry: false,
-  });
-  const drafts = useQuery({
-    queryKey: ["saved-product-drafts", accountId, villageId],
-    networkMode: "always",
-    enabled: !!accountId && !!villageId,
-    refetchOnMount: "always",
-    retry: false,
-    queryFn: async () =>
-      savedProductDrafts(
-        await listingDraftStorage.list(`${accountId}:${villageId}`),
-        accountId!,
-        villageId!,
-      ),
   });
   if (!session?.user.isSeller) return <Redirect href="/home" />;
   const sellerName =
@@ -120,12 +105,6 @@ export default function MyListingsScreen() {
   );
   const count = (value: number | undefined) =>
     value === undefined ? "—" : number.format(value);
-  const matchingDrafts = drafts.data?.filter(({ draft }) =>
-    matchesProductSearch(
-      `${draft.form.name} ${draft.form.productNameEn || ""} ${draft.form.productNameMr || ""}`,
-      search,
-    ),
-  );
   const ready = !!query.data && !query.isError;
   const showingFirstProduct =
     ready && !items.length && !search && (tab === "all" || tab === "active");
@@ -285,7 +264,7 @@ export default function MyListingsScreen() {
           </Button>
         </View>
       )}
-      {tab !== "drafts" && query.isError && (
+      {query.isError && (
         <>
           <ErrorMessage message={t.ownListingsFailed} />
           <Button secondary onPress={() => void query.refetch()}>
@@ -415,7 +394,6 @@ export default function MyListingsScreen() {
             [
               ["all", t.allProducts, summary?.total],
               ["active", t.activeProducts, summary?.active],
-              ["drafts", t.savedProducts, drafts.data?.length],
               ["expired", t.expiredProducts, summary?.expired],
               ["sold_out", t.soldProducts, summary?.soldOut],
             ] as const
@@ -427,7 +405,6 @@ export default function MyListingsScreen() {
               onPress={() => {
                 setTab(value);
                 setFailure(null);
-                if (value === "drafts") void drafts.refetch();
               }}
               style={[s.tab, tab === value && s.selected]}
             >
@@ -450,197 +427,152 @@ export default function MyListingsScreen() {
           </Pressable>
         </View>
       )}
-      {tab === "drafts" ? (
-        <ScrollView contentContainerStyle={s.content}>
-          {errors}
-          {drafts.isPending && (
-            <Text style={s.muted}>{t.listingDraftLoading}</Text>
-          )}
-          {drafts.isError && (
-            <>
-              <ErrorMessage message={t.listingDraftFailed} />
-              <Button secondary onPress={() => void drafts.refetch()}>
-                {t.retry}
-              </Button>
-            </>
-          )}
-          {matchingDrafts?.map(({ key, draft }) => (
-            <Pressable
-              key={key}
-              accessibilityRole="button"
-              accessibilityLabel={`${t.openDraft}: ${draft.form.name || t.untitledDraft}`}
-              onPress={() => (draft.editBase ? edit(draft.editBase.id) : add())}
-              style={s.card}
-            >
+      <FlatList
+        data={items}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={s.content}
+        ListHeaderComponent={errors}
+        ListEmptyComponent={empty}
+        renderItem={({ item }) => {
+          const expired =
+            item.status === "expired" ||
+            (item.status === "active" &&
+              !!item.expiresAt &&
+              Date.parse(item.expiresAt) <= now);
+          const statusLabel = expired
+            ? t.expiredProducts
+            : item.status === "sold_out"
+              ? t.soldProducts
+              : item.status === "active"
+                ? t.activeProducts
+                : null;
+          const canMarkSold = item.status === "active" && !expired;
+          const name =
+            language === "mr"
+              ? item.productNameMr || item.productName
+              : item.productName;
+          return (
+            <View style={s.card}>
+              <ListingImage
+                listing={{ photoUrl: item.photoUrl, image: null }}
+                style={s.image}
+              />
               <View style={s.info}>
-                <Text style={s.productTitle}>
-                  {draft.form.name || t.untitledDraft}
+                <Text style={s.productTitle} numberOfLines={2}>
+                  {name}
                 </Text>
-                <Text style={s.muted}>
-                  {draft.editBase ? t.editListing : t.openDraft}
+                <Text style={s.rate} numberOfLines={1}>
+                  {item.price === null
+                    ? t.rateNotProvided
+                    : `₹${new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(item.price)} / ${listingUnit(item.unit, language)}`}
                 </Text>
               </View>
-              <Ionicons
-                name="chevron-forward"
-                size={22}
-                color={theme.colors.muted}
-              />
-            </Pressable>
-          ))}
-          {matchingDrafts && !drafts.isError && !matchingDrafts.length && (
-            <Text style={s.muted}>
-              {search ? t.noListingMatches : t.noSavedProducts}
-            </Text>
-          )}
-        </ScrollView>
-      ) : (
-        <FlatList
-          data={items}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={s.content}
-          ListHeaderComponent={errors}
-          ListEmptyComponent={empty}
-          renderItem={({ item }) => {
-            const expired =
-              item.status === "expired" ||
-              (item.status === "active" &&
-                !!item.expiresAt &&
-                Date.parse(item.expiresAt) <= now);
-            const statusLabel = expired
-              ? t.expiredProducts
-              : item.status === "sold_out"
-                ? t.soldProducts
-                : item.status === "active"
-                  ? t.activeProducts
-                  : null;
-            const canMarkSold = item.status === "active" && !expired;
-            const name =
-              language === "mr"
-                ? item.productNameMr || item.productName
-                : item.productName;
-            return (
-              <View style={s.card}>
-                <ListingImage
-                  listing={{ photoUrl: item.photoUrl, image: null }}
-                  style={s.image}
-                />
-                <View style={s.info}>
-                  <Text style={s.productTitle} numberOfLines={2}>
-                    {name}
-                  </Text>
-                  <Text style={s.rate} numberOfLines={1}>
-                    {item.price === null
-                      ? t.rateNotProvided
-                      : `₹${new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(item.price)} / ${listingUnit(item.unit, language)}`}
-                  </Text>
-                </View>
-                <View style={s.actions}>
-                  <View style={s.actionRow}>
-                    {statusLabel && (
-                      <View
-                        style={[
-                          s.statusPill,
-                          expired
-                            ? s.statusExpired
-                            : item.status === "sold_out"
-                              ? s.statusSold
-                              : s.statusActive,
-                        ]}
-                      >
-                        <View
-                          style={[
-                            s.statusDot,
-                            expired
-                              ? s.dotExpired
-                              : item.status === "sold_out"
-                                ? s.dotSold
-                                : s.dotActive,
-                          ]}
-                        />
-                        <Text
-                          numberOfLines={1}
-                          style={[
-                            s.statusText,
-                            expired
-                              ? s.statusTextExpired
-                              : item.status === "sold_out"
-                                ? s.statusTextSold
-                                : s.statusTextActive,
-                          ]}
-                        >
-                          {statusLabel}
-                        </Text>
-                      </View>
-                    )}
-                    <Pressable
-                      accessibilityRole="button"
-                      accessibilityLabel={`${t.listingActions}: ${name}`}
-                      disabled={busy || sellingId === item.id}
-                      onPress={() => {
-                        setFailure(null);
-                        setMenu(item);
-                      }}
-                      style={s.more}
-                    >
-                      <Ionicons
-                        name="ellipsis-vertical"
-                        size={21}
-                        color={theme.colors.muted}
-                      />
-                    </Pressable>
-                  </View>
-                  {canMarkSold && (
-                    <Pressable
-                      accessibilityRole="button"
-                      accessibilityState={{
-                        disabled: offline || busy || !!sellingId,
-                        busy: sellingId === item.id,
-                      }}
-                      disabled={offline || busy || !!sellingId}
-                      onPress={() =>
-                        Alert.alert(t.markAsSold, t.markAsSoldQuestion, [
-                          { text: t.cancel, style: "cancel" },
-                          {
-                            text: t.markAsSold,
-                            onPress: () => void markSold(item),
-                          },
-                        ])
-                      }
-                      style={({ pressed }) => [
-                        s.soldButton,
-                        (offline || busy || !!sellingId) && s.soldDisabled,
-                        pressed && s.soldPressed,
+              <View style={s.actions}>
+                <View style={s.actionRow}>
+                  {statusLabel && (
+                    <View
+                      style={[
+                        s.statusPill,
+                        expired
+                          ? s.statusExpired
+                          : item.status === "sold_out"
+                            ? s.statusSold
+                            : s.statusActive,
                       ]}
                     >
-                      <Ionicons
-                        name="cart-outline"
-                        size={16}
-                        color={theme.colors.primaryDark}
+                      <View
+                        style={[
+                          s.statusDot,
+                          expired
+                            ? s.dotExpired
+                            : item.status === "sold_out"
+                              ? s.dotSold
+                              : s.dotActive,
+                        ]}
                       />
-                      <Text style={s.soldText} numberOfLines={1}>
-                        {t.markAsSold}
+                      <Text
+                        numberOfLines={1}
+                        style={[
+                          s.statusText,
+                          expired
+                            ? s.statusTextExpired
+                            : item.status === "sold_out"
+                              ? s.statusTextSold
+                              : s.statusTextActive,
+                        ]}
+                      >
+                        {statusLabel}
                       </Text>
-                    </Pressable>
+                    </View>
                   )}
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={`${t.listingActions}: ${name}`}
+                    disabled={busy || sellingId === item.id}
+                    onPress={() => {
+                      setFailure(null);
+                      setMenu(item);
+                    }}
+                    style={s.more}
+                  >
+                    <Ionicons
+                      name="ellipsis-vertical"
+                      size={21}
+                      color={theme.colors.muted}
+                    />
+                  </Pressable>
                 </View>
+                {canMarkSold && (
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityState={{
+                      disabled: offline || busy || !!sellingId,
+                      busy: sellingId === item.id,
+                    }}
+                    disabled={offline || busy || !!sellingId}
+                    onPress={() =>
+                      Alert.alert(t.markAsSold, t.markAsSoldQuestion, [
+                        { text: t.cancel, style: "cancel" },
+                        {
+                          text: t.markAsSold,
+                          onPress: () => void markSold(item),
+                        },
+                      ])
+                    }
+                    style={({ pressed }) => [
+                      s.soldButton,
+                      (offline || busy || !!sellingId) && s.soldDisabled,
+                      pressed && s.soldPressed,
+                    ]}
+                  >
+                    <Ionicons
+                      name="cart-outline"
+                      size={16}
+                      color={theme.colors.primaryDark}
+                    />
+                    <Text style={s.soldText} numberOfLines={1}>
+                      {t.markAsSold}
+                    </Text>
+                  </Pressable>
+                )}
               </View>
-            );
-          }}
-          ListFooterComponent={
-            query.hasNextPage ? (
-              <Button
-                secondary
-                loading={query.isFetchingNextPage}
-                onPress={() => void query.fetchNextPage()}
-              >
-                {t.loadMore}
-              </Button>
-            ) : null
-          }
-          refreshing={query.isRefetching && !query.isFetchingNextPage}
-          onRefresh={() => void query.refetch()}
-        />
-      )}
+            </View>
+          );
+        }}
+        ListFooterComponent={
+          query.hasNextPage ? (
+            <Button
+              secondary
+              loading={query.isFetchingNextPage}
+              onPress={() => void query.fetchNextPage()}
+            >
+              {t.loadMore}
+            </Button>
+          ) : null
+        }
+        refreshing={query.isRefetching && !query.isFetchingNextPage}
+        onRefresh={() => void query.refetch()}
+      />
       <Modal
         visible={!!menu}
         transparent

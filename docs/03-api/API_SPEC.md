@@ -1,3 +1,35 @@
+# Marketplace All count - 2026-10-29 (user approved)
+
+GET `/api/v1/listings?includeAllProductCount=true` adds optional `allProductCount`
+for all visible matching listings before productGroup filtering and pagination.
+Search, shelf-life category, selected browsing village, availability and owner
+exclusion still apply. Unclassified legacy products are included. The field is
+omitted without this separate opt-in, including for older productGroupCounts
+clients. Mobile shows localized All (count) / सर्व (count) beside the group filters.
+Unavailable count metadata shows a dash. Deploy backend before updating mobile.
+
+# Notification badges and read state - 2026-10-28 (user approved)
+
+GET `/api/v1/notifications?includeUnreadCount=true` adds recipient-scoped
+`unreadCount`, independent of page/limit. Mobile polls with limit=1 every 15 seconds
+while active/online and refreshes on foreground, reconnect and bell-screen focus.
+`includeReadState=true` continues to expose each record's existing readAt. Without
+opt-ins, legacy response shapes remain unchanged. All responses are no-store.
+
+PATCH `/api/v1/notifications` accepts `{ids: string[]}` (1–50 Mongo IDs). The server
+derives the recipient exclusively from the active bearer session. It atomically
+rejects missing/foreign IDs with 404 NOTIFICATION_UNAVAILABLE, or sets only null
+readAt values and returns `{notifications:[{id,readAt}],unreadCount}`. Repeated
+reads retain the original timestamp; duplicate IDs are normalized/deduplicated.
+Writes are rate limited to 240 batches/hour/account and validate bounded JSON.
+
+Notify Seller continues to create one BUYER_TRIED_CONTACT notification, which is
+also the existing request record. Received Requests and Notifications now mark
+only cards actually viewed as read; Sent Requests never marks the seller's copy.
+The bell opens Received Requests for sellers and Notifications for buyers.
+Read-only means no Accept/Reject/Complete/Responded actions. This supersedes the
+earlier no-read-mutation-on-view mobile requirement below. Deploy backend first.
+
 # Optional Notify Seller message - 2026-10-27 (user approved)
 
 My Requests read-only tabs (2026-10-27): GET `/api/v1/requests` also accepts

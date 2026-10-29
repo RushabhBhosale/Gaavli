@@ -55,8 +55,17 @@ try {
     if (!npmCli) throw new Error("Use npm run dev:mobile:usb to start Metro.");
     const child = spawn(
       process.execPath,
-      [npmCli, "run", "start:go", "--workspace=@gaavli/mobile"],
-      { stdio: "inherit" },
+      [npmCli, "run", "start", "--workspace=@gaavli/mobile", "--", "--lan"],
+      {
+        stdio: "inherit",
+        env: {
+          ...process.env,
+          EXPO_PUBLIC_API_BASE_URL: "http://localhost:3000/api/v1",
+          // Bind both IP families; Windows localhost may resolve to IPv6 only,
+          // while adb reverse connects to Metro over IPv4.
+          REACT_NATIVE_PACKAGER_HOSTNAME: "127.0.0.1",
+        },
+      },
     );
     child.on("error", () => {
       console.error("Could not start Metro.");

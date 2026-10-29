@@ -91,7 +91,13 @@ For an Android phone connected by USB, use
 `EXPO_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1`. Keep the backend running
 with root `npm run dev:web`. Run `npm run mobile:usb` after reconnecting/restarting
 the phone or adb: it restores API port 3000 and Metro port 8081 and checks API
-health. `npm run dev:mobile:usb` performs those checks and starts Expo Go Metro.
+health. `npm run dev:mobile:usb` performs those checks and starts Metro for the
+native development client on localhost. It sets the local API URL for that Metro
+process without modifying `.env.local`. Install the debug development build first;
+open Gaavli rather than Expo Go. This supports native speech recognition and
+React Native debugging. Shake the phone to open the developer menu and choose
+Open DevTools for JavaScript breakpoints/console; Android Studio Logcat shows
+native speech events. The Metro terminal's `j` shortcut also opens DevTools.
 USB debugging must be accepted on the phone. If several devices are connected,
 set `ANDROID_SERIAL` to the intended device. A port-8081 mapping alone allows the
 bundle to load but cannot connect the app to the API on port 3000.
@@ -117,7 +123,23 @@ client (requires Android SDK locally, or a separately configured EAS cloud build
 npm run android --workspace=@gaavli/mobile -- --device
 ```
 
-After installation, root `npm run dev:mobile` starts Metro. Rebuild native clients
+On this Windows workspace, use Java 17 and the existing E: Gradle cache when
+building (the machine's older JAVA_HOME may otherwise select Java 15):
+
+```powershell
+$env:JAVA_HOME = 'C:\Program Files\Java\jdk-17'
+$env:GRADLE_USER_HOME = 'E:\Gaavli\.gradle'
+cd E:\Gaavli\apps\mobile\android
+.\gradlew.bat app:assembleDebug -PreactNativeArchitectures=arm64-v8a
+adb install -r app\build\outputs\apk\debug\app-debug.apk
+cd E:\Gaavli
+npm run dev:mobile:usb
+```
+
+The architecture above targets the connected arm64 phone. Keep the backend on
+port 3000 running. After installation, root `npm run mobile` starts the regular
+development-client Metro server; `npm run dev:mobile:usb` also configures USB.
+Rebuild native clients
 after adding Expo Location or changing permission configuration. No EAS project,
 publishing, SMS subscription or paid service was configured by this work.
 

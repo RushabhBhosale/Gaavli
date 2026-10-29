@@ -84,6 +84,7 @@ export function useMarketplaceListings(search: string, category: string) {
       const params: Record<string, string> = {
         search,
         includeProductGroupCounts: "true",
+        includeAllProductCount: "true",
         page: String(pageParam),
         limit: "20",
       };

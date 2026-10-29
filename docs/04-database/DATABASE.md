@@ -1,3 +1,12 @@
+# Notification unread badges - 2026-10-28 (user approved)
+
+Reuse the existing Notification collection, recipient userId and nullable readAt.
+Add compound index `{userId:1,readAt:1}` for scoped unread counts. Null or missing
+readAt means unread; read operations preserve the original non-null timestamp.
+BUYER_TRIED_CONTACT remains the single shared request/notification record; there
+is no new collection, duplicated request, counter field or data migration. Ensure
+the new index is present when deploying through the existing model/index process.
+
 # Optional seller-request message - 2026-10-27 (user approved)
 
 The existing Notification.data subdocument adds optional `message` (trimmed plain

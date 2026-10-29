@@ -1,4 +1,6 @@
 import { test } from "node:test";
+import { QueryClient } from "@tanstack/react-query";
+import { applyNotificationReads } from "../src/data/notificationReadState";
 import { requestTabs, availableRequestTab } from "../src/data/requestTabs";
 import { orderedDraftStorage } from "../src/storage/orderedDrafts";
 import {
@@ -35,9 +37,145 @@ import {
   mobileListingSchema,
   mobileListingsQuerySchema,
   sellerContactSchema,
+  notificationPageSchema,
+  requestPageSchema,
+  notificationReadInputSchema,
 } from "@gaavli/validation";
 import { dashboardForAccount, findMockListing } from "../src/data/mockHomeData";
 import { formatMessage, messages } from "../src/i18n";
+
+test("confirmed notification reads update all recipient caches without leaking across accounts", () => {
+  const client = new QueryClient({
+    defaultOptions: { queries: { gcTime: Infinity } },
+  });
+  const id = "a".repeat(24),
+    untouched = "b".repeat(24);
+  const createdAt = "2026-10-28T10:00:00.000Z",
+    readAt = "2026-10-28T11:00:00.000Z";
+  const noticePage = notificationPageSchema.parse({
+    notifications: [id, untouched].map((id) => ({
+      id,
+      type: "BUYER_TRIED_CONTACT",
+      title: "Request",
+      body: "Test",
+      readAt: null,
+      createdAt,
+    })),
+    total: 2,
+    page: 1,
+    limit: 20,
+  });
+  const requestPage = requestPageSchema.parse({
+    requests: [
+      {
+        id,
+        listingId: untouched,
+        status: "new",
+        seenAt: null,
+        respondedAt: null,
+        product: { name: "Tomato", nameMr: null, photoUrl: null, unit: "kg" },
+        person: { name: "Buyer", village: null },
+        quantity: 1,
+        createdAt,
+        canCall: true,
+      },
+    ],
+    total: 1,
+    page: 1,
+    limit: 20,
+  });
+  const notices = { pages: [noticePage], pageParams: [1] };
+  const requests = { pages: [requestPage], pageParams: [1] };
+  const account = "recipient",
+    other = "other";
+  for (const user of [account, other]) {
+    client.setQueryData(["notifications", user, "en", "read-state"], notices);
+    client.setQueryData(["notifications", user, "mr", "read-state"], notices);
+    client.setQueryData(
+      ["activity-requests", user, "received", "read-only"],
+      requests,
+    );
+    client.setQueryData(["notification-unread", user], {
+      ...noticePage,
+      unreadCount: 2,
+    });
+  }
+  applyNotificationReads(client, account, {
+    notifications: [{ id, readAt }],
+    unreadCount: 1,
+  });
+  for (const language of ["en", "mr"]) {
+    const updated = client.getQueryData<typeof notices>([
+      "notifications",
+      account,
+      language,
+      "read-state",
+    ])!;
+    assert.equal(updated.pages[0].notifications[0].readAt, readAt);
+    assert.equal(
+      updated.pages[0].notifications[1].readAt,
+      null,
+      "unviewed record stays unread",
+    );
+  }
+  const updated = client.getQueryData<typeof requests>([
+    "activity-requests",
+    account,
+    "received",
+    "read-only",
+  ])!;
+  assert.equal(updated.pages[0].requests[0].seenAt, readAt);
+  assert.equal(updated.pages[0].requests[0].status, "seen");
+  assert.equal(
+    client.getQueryData<{ unreadCount: number }>([
+      "notification-unread",
+      account,
+    ])?.unreadCount,
+    1,
+  );
+  assert.equal(
+    client.getQueryData(["notifications", other, "en", "read-state"]),
+    notices,
+  );
+  assert.equal(
+    client.getQueryData(["activity-requests", other, "received", "read-only"]),
+    requests,
+  );
+  assert.equal(
+    client.getQueryData<{ unreadCount: number }>(["notification-unread", other])
+      ?.unreadCount,
+    2,
+  );
+  applyNotificationReads(client, account, {
+    notifications: [{ id: untouched, readAt }],
+    unreadCount: 0,
+  });
+  assert.equal(
+    client.getQueryData<{ unreadCount: number }>([
+      "notification-unread",
+      account,
+    ])?.unreadCount,
+    0,
+  );
+  client.clear();
+});
+
+test("read batches reject empty, oversized and owner-injected input", () => {
+  const id = "a".repeat(24);
+  assert.equal(
+    notificationReadInputSchema.safeParse({ ids: [] }).success,
+    false,
+  );
+  assert.equal(
+    notificationReadInputSchema.safeParse({ ids: Array(51).fill(id) }).success,
+    false,
+  );
+  assert.equal(
+    notificationReadInputSchema.safeParse({ ids: [id], userId: "another-user" })
+      .success,
+    false,
+  );
+});
 
 test("My Requests exposes buyer and seller tabs and guards a stale received selection", () => {
   assert.deepEqual(requestTabs(false), ["sent", "notifications"]);

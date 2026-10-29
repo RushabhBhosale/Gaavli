@@ -807,6 +807,11 @@ function ListingFormScreen({
                 ? t.saveListingChanges
                 : t.listingPublish}
           </Button>
+          {editId && (
+            <Button secondary disabled={busy} onPress={() => void leave()}>
+              {t.cancel}
+            </Button>
+          )}
         </>
       )}
     </Screen>

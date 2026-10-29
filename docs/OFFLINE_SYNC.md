@@ -1,3 +1,10 @@
+> Notification badge/read revision - 2026-10-28 (user approved): counts and read
+> state use account-scoped memory queries, never public SQLite listing caches.
+> Pause count/list polling while inactive, offline or signed out; refresh on
+> foreground/reconnect/focus. Visible-card read writes require online server
+> confirmation; failures retain unread state and offer Retry. Do not enqueue
+> speculative read writes or clear all unread records on opening the bell.
+
 > Product photo revision - 2026-10-25 (user approved): new optional listing
 > uploads use Atlas GridFS in all environments, through the existing Node API and
 > Mongo connection. Keep legacy references and originals. Profile photo storage

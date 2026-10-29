@@ -19,7 +19,10 @@ export function listingRate(listing: HomeListing, language: MobileLanguage) {
     ? t.rateNotProvided
     : `₹${listing.price}${unit ? ` / ${unit}` : ""}`;
 }
-export function listingPosted(listing: HomeListing, language: MobileLanguage) {
+export function listingPosted(
+  listing: Pick<HomeListing, "postedMinutesAgo">,
+  language: MobileLanguage,
+) {
   const t = messages(language);
   const minutes = listing.postedMinutesAgo;
   const count = new Intl.NumberFormat(

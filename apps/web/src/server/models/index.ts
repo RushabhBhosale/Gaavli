@@ -228,6 +228,7 @@ const notificationSchema = new Schema(
   { timestamps: true },
 );
 notificationSchema.index({ userId: 1, createdAt: -1 });
+notificationSchema.index({ userId: 1, readAt: 1 });
 notificationSchema.index({
   "data.buyerId": 1,
   type: 1,

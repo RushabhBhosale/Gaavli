@@ -21,7 +21,10 @@ function speechDriver(): SpeechDriver | null {
   return {
     ready: () => nativeShutdown,
     available: () => native.isRecognitionAvailable(),
-    requestPermissions: () => native.requestPermissionsAsync(),
+    requestPermissions: async () => {
+      const permission = await native.getPermissionsAsync();
+      return permission.granted ? permission : native.requestPermissionsAsync();
+    },
     subscribe: (handlers) => {
       const subscriptions = [
         native.addListener("result", (event) =>
@@ -107,9 +110,10 @@ export function useVoiceSearch({
       controller.current = session;
       setStatus("idle");
       setError(null);
+      session.setForeground(AppState.currentState === "active");
       const subscription = AppState.addEventListener("change", (state) => {
-        // "inactive" may be the permission prompt on iOS; background always cancels.
-        if (state === "background") session.cancel();
+        if (state === "active") session.setForeground(true);
+        else if (state === "background") session.setForeground(false);
       });
       return () => {
         active = false;

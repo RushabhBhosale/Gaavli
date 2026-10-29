@@ -1,3 +1,140 @@
+## 2026-10-29 - Marketplace All label and total
+
+Status: IMPLEMENTED - DEVICE/HOSTED VERIFICATION PENDING.
+
+- Marketplace shortens All Products to All / सर्व and adds its localized count,
+  with the existing single-line filter layout. New includeAllProductCount opt-in
+  returns allProductCount from the existing listing aggregation, before group
+  filtering/pagination but after search/village/visibility/owner constraints.
+  Unclassified legacy listings count toward All; missing metadata shows a dash.
+  Older responses, including existing category-count clients, remain unchanged.
+- Isolated real-route integration passed for group/page independence, guest and
+  signed-in owner exclusion, search, village changes, legacy products, zero and
+  old response shapes. Monorepo TypeScript, targeted mobile/server ESLint and
+  whitespace checks passed. Device visual checks and hosted deployment remain
+  pending; deploy backend before the updated standalone APK.
+
+## 2026-10-28 - Notification badges and persisted read status
+
+Status: IMPLEMENTED - HOSTED DEPLOYMENT/EXTENDED DEVICE VERIFICATION PENDING.
+
+- Reused Notify Seller's existing BUYER_TRIED_CONTACT record for requests and
+  notifications. Existing /notifications GET gains opt-in unreadCount; PATCH on
+  the same endpoint reads bounded recipient-owned batches atomically. Read times
+  persist in existing readAt, retain their first timestamp on retries and share
+  the request's seenAt state. Added recipient/readAt index; no new collection.
+- Shared NotificationBell replaces the account-header bell and is reused in
+  Marketplace. Red count hides at zero and caps at 99+ with accessible full count.
+  Buyer bell opens Notifications; seller bell opens Received Requests using the
+  existing My Requests page. Guest controls and coordinator management remain.
+- Account-keyed count query refreshes every 15 seconds only active/online, plus
+  focus/foreground/reconnect. Visible request/notification feeds refresh similarly.
+  A FlatList marks cards read only after 60% visibility for 800ms; sent request
+  viewing does not mutate recipient state. Unread cards use soft green. Confirmed
+  reads update both caches and the badge; failures retain unread state with Retry.
+  Screens remain read-only; no Accept/Reject/Complete/Responded controls were added.
+- Verification passed: 79 mobile tests, 14 web tests, monorepo TypeScript, targeted
+  mobile/server ESLint, Android bundle export and whitespace checks. Isolated Atlas
+  real-route integration covers Notify creation/deduplication, recipient counts,
+  pagination-independent totals, foreign/mixed-owner batch rejection, input bounds,
+  persistent/idempotent read timestamps, buyer/system notices and legacy DTOs. The
+  random test database was removed. Native buyer smoke check confirmed zero badge
+  hidden and bell navigation to the Notifications empty state in Marathi.
+- Local API was restarted and development server remains running. Hosted backend
+  deployment and updated standalone APK are still required; ensure the added
+  existing-collection index through normal deployment. Seller/buyer end-to-end
+  multi-device receipt/read, nonzero badge visual and large-font checks remain.
+
+## 2026-10-28 - Fix voice permission handoff on Android
+
+- Confirmed the connected Vivo backgrounded during permission acquisition,
+  triggering cancellation before recording. The adapter now checks existing
+  permission first; sessions preserve permission handoffs and wait for foreground
+  before recording (five-second bounded wait after permission resolves).
+- Actual recording backgrounding, navigation/manual cancellation, stale scope and
+  late results remain guarded. Added regression tests for foreground recovery,
+  explicit cancellation/timeout and backgrounding during recording.
+- Verification: all 77 mobile tests, mobile TypeScript, targeted ESLint and
+  whitespace checks passed. On the connected Vivo native development build,
+  Android speech logs returned final transcript tomato; UI inspection confirmed
+  Tomato in the search input, Vegetables selected and the Tomato product visible.
+  Marathi speech, fresh permission denial/grant and other-device checks remain
+  pending. Standalone APK redistribution requires rebuilding with this JS fix.
+
+## 2026-10-28 - Native USB development and debugging
+
+- dev:mobile:usb now starts the native development-client Metro server, forwards
+  API/Metro ports and supplies the local API URL to that process without editing
+  .env.local. It advertises IPv4 loopback while binding both IP families to avoid
+  Windows IPv6-only localhost breaking adb reverse. Expo Go remains a separate
+  explicit preview command. Updated mobile README with build/debug instructions.
+- Verification: script syntax, whitespace, API health and both USB mappings passed.
+  Java 17/arm64 Gradle debug build succeeded and installed on the connected Vivo
+  V2439. Package is DEBUGGABLE; latest Marketplace rendered, and Metro /json/list
+  exposed the phone's React Native debugger target. Development server left running.
+- This verifies native development setup; microphone recognition and full feature
+  acceptance are still separate device checks.
+
+## 2026-10-28 - Relative request times
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Sent/received request cards show localized elapsed time (minutes, hours or days)
+  beside their existing timestamp, reusing listing time labels. The existing clock
+  refreshes elapsed time every 30 seconds and when returning from background.
+- Verification: mobile TypeScript, targeted ESLint and git diff whitespace checks
+  passed. Native layout checks remain pending.
+
+## 2026-10-28 - Remove mobile seller-request message field
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Notify Seller no longer renders/restores message input or includes a message
+  in newly prepared requests. My Requests hides sent/received notes and no longer
+  requests includeMessages. Quantity, callback consent and notification cards stay.
+- Existing staged payloads, including historical messages, retain their exact
+  idempotency payload for safe retries; server compatibility/data are unchanged.
+- Verification: 74 mobile tests, mobile TypeScript, targeted ESLint and git diff
+  whitespace checks passed. Native popup and request-card checks remain pending.
+
+## 2026-10-28 - Marketplace All Products and Product Details tabs
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Marketplace adds localized All Products using the existing unfiltered listing
+  query. Existing product-group filters/counts remain; All Products has a plain
+  label, avoiding an inaccurate sum that excludes unclassified legacy products.
+  Content-sized filter items, 13px labels and single-line text keep English counts
+  alongside labels in the horizontal scroll row.
+- Product Details now lives in the existing tabs route group as a hidden route,
+  retaining /product/[id] URLs and the existing role-aware tab buttons. Tab history
+  supports returning to the previously visited tab. Contact/auth flows are retained.
+- Verification: 74 mobile tests, mobile TypeScript, targeted ESLint, Android bundle
+  export and git diff whitespace checks passed.
+  Native back/tab navigation, contact-registration return and small-screen/font
+  scaling checks remain pending.
+
+## 2026-10-28 - Remove seller Draft filter
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- My Products now offers All, Active, Expired and Sold filters. Removed the
+  Draft filter, its draft-only view and local draft-list query from this screen.
+  Add/Edit draft persistence and pending-operation recovery remain intact.
+- Verification: mobile TypeScript, targeted ESLint and git diff whitespace checks
+  passed. Native interaction checks remain pending.
+
+## 2026-10-28 - Edit product Cancel button
+
+Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
+
+- Edit product now shows the existing localized secondary Cancel button below
+  Save. It reuses Back navigation (previous screen, or My Listings fallback),
+  preserving the local draft without submitting product changes. Disabled while
+  saving or selecting a photo, consistent with the existing Back button.
+- Verification: mobile TypeScript, targeted ESLint and git diff whitespace checks
+  passed. Native interaction checks remain pending.
+
 ## 2026-10-27 - Settings village change updates product feeds
 
 - Existing registered-user village confirmation now also persists the confirmed

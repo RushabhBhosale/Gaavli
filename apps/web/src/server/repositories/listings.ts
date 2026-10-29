@@ -159,6 +159,7 @@ export async function findMobileListings(
       categories: MobileListingPage["categories"];
       villageCounts: { id: string; count: number }[];
       productGroupCounts: { productGroup: string; count: number }[];
+      allProductCount: { total: number }[];
     }>([
       ...(viewerId
         ? [{ $match: { seller: { $ne: new Types.ObjectId(viewerId) } } }]
@@ -194,6 +195,15 @@ export async function findMobileListings(
             { $group: { _id: "$productGroup", count: { $sum: 1 } } },
             { $project: { _id: 0, productGroup: "$_id", count: 1 } },
           ],
+          ...(query.includeAllProductCount
+            ? {
+                allProductCount: [
+                  ...filters,
+                  ...selectedVillage,
+                  { $count: "total" },
+                ],
+              }
+            : {}),
           categories: [
             { $match: { category: { $type: "string", $ne: "" } } },
             {
@@ -239,6 +249,9 @@ export async function findMobileListings(
   return {
     listings: result?.listings || [],
     total: result?.count[0]?.total || 0,
+    ...(query.includeAllProductCount
+      ? { allProductCount: result?.allProductCount[0]?.total || 0 }
+      : {}),
     categories: result?.categories || [],
     ...(query.includeProductGroupCounts
       ? {

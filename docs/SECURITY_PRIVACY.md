@@ -1,3 +1,14 @@
+## Notification badge/read privacy - 2026-10-28 (user approved)
+
+Unread counts and read updates use the authenticated active recipient exclusively;
+no client-supplied user ID or sender identity grants access. Mixed foreign/missing
+read batches fail atomically with the same unavailable response. Sender request
+history never marks the recipient's notification read. Private account-keyed
+query caches are cleared on logout; count polling stops signed-out/offline/inactive.
+Read state is server-authoritative and persisted in existing MongoDB readAt fields.
+Visible-card read updates do not authorize contact, change consent or mark a
+request responded. Existing coordinator scopes and notification creation remain.
+
 > Product photo revision - 2026-10-25 (user approved): new optional listing
 > uploads use Atlas GridFS in all environments, through the existing Node API and
 > Mongo connection. Keep legacy references and originals. Profile photo storage

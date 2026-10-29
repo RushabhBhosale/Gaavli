@@ -10,6 +10,7 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useAppStore } from "./store";
 import { CoordinatorAccessSync } from "./coordinator/access";
+import { NotificationSync } from "./notifications";
 
 export function AppProviders({ children }: { children: ReactNode }) {
   const [client] = useState(
@@ -41,6 +42,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     <SafeAreaProvider>
       <QueryClientProvider client={client}>
         <CoordinatorAccessSync />
+        <NotificationSync />
         {children}
       </QueryClientProvider>
     </SafeAreaProvider>

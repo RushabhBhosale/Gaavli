@@ -141,6 +141,10 @@ export class VoiceSearchSession {
   private unsubscribe?: () => void;
   private timer?: ReturnType<typeof setTimeout>;
   private drain = Promise.resolve();
+  private foreground = true;
+  private requestingPermission = false;
+  private resume?: (foreground: boolean) => void;
+  private resumeTimer?: ReturnType<typeof setTimeout>;
   constructor(
     private driver: SpeechDriver | null,
     private callbacks: {
@@ -149,8 +153,19 @@ export class VoiceSearchSession {
       error: (error: VoiceFailure) => void;
     },
   ) {}
+  setForeground(foreground: boolean) {
+    this.foreground = foreground;
+    if (foreground) this.resume?.(true);
+    // Android permission activities can temporarily background the app. No
+    // recording exists yet; wait for permission and foreground before starting.
+    else if (!this.requestingPermission) this.cancel();
+  }
   cancel() {
     ++this.generation;
+    this.requestingPermission = false;
+    this.resume?.(false);
+    this.resume = undefined;
+    clearTimeout(this.resumeTimer);
     this.unsubscribe?.();
     this.unsubscribe = undefined;
     clearTimeout(this.timer);
@@ -178,9 +193,25 @@ export class VoiceSearchSession {
       await driver.ready?.();
       if (!current()) return;
       if (!driver.available()) return fail("unavailable");
-      const permission = await driver.requestPermissions();
+      this.requestingPermission = true;
+      let permission: { granted: boolean };
+      try {
+        permission = await driver.requestPermissions();
+      } finally {
+        if (current()) this.requestingPermission = false;
+      }
       if (!current()) return;
       if (!permission.granted) return fail("permission");
+      if (!this.foreground) {
+        const resumed = await new Promise<boolean>((resolve) => {
+          this.resume = resolve;
+          this.resumeTimer = setTimeout(() => resolve(false), 5000);
+        });
+        if (!current()) return;
+        this.resume = undefined;
+        clearTimeout(this.resumeTimer);
+        if (!resumed) return this.cancel();
+      }
       this.unsubscribe = driver.subscribe({
         result: (text, final) => {
           if (!current() || !final) return;

@@ -34,6 +34,8 @@ const { getRequestContact, getActivityRequests } =
   await import("../src/server/services/requests");
 const { getUserNotifications } =
   await import("../src/server/services/notifications");
+const { GET: notificationInbox, PATCH: readNotifications } =
+  await import("../src/app/api/v1/notifications/route");
 const { visibleSellerContact } =
   await import("../src/server/repositories/listing-contact");
 
@@ -430,7 +432,114 @@ try {
       (row) => row.id !== String(sellerSentNotice._id),
     ),
   );
-  await Notification.deleteOne({ _id: sellerSentNotice._id });
+  // Badge/read updates reuse the same Notify Seller records and recipient IDs.
+  await Notification.updateOne({ _id: noticeId }, { $set: { readAt: null } });
+  const inbox = async (
+    token: string | null,
+    query = "includeUnreadCount=true&includeReadState=true&limit=1",
+  ) => notificationInbox(request(`notifications?${query}`, token));
+  const mark = (token: string | null, ids: string[], extra = {}) =>
+    readNotifications(
+      request("notifications", token, "PATCH", { ids, ...extra }),
+    );
+  assert.equal((await inbox(null)).status, 401);
+  assert.equal((await mark(null, [noticeId])).status, 401);
+  const sellerBefore = await (await inbox(sellerToken)).json();
+  assert.equal(
+    sellerBefore.data.unreadCount,
+    2,
+    "unread count is independent of pagination",
+  );
+  assert.equal((await (await inbox(buyerToken)).json()).data.unreadCount, 1);
+  const oldInbox = await (await inbox(sellerToken, "")).json();
+  assert.equal(
+    "unreadCount" in oldInbox.data,
+    false,
+    "legacy strict response remains unchanged",
+  );
+  assert.equal(
+    oldInbox.data.notifications.some(
+      (row: { readAt?: unknown }) => "readAt" in row,
+    ),
+    false,
+  );
+  assert.equal(
+    (await mark(buyerToken, [noticeId])).status,
+    404,
+    "sender cannot read-mark the recipient's record",
+  );
+  assert.equal(
+    (await mark(sellerToken, [String(sellerSentNotice._id)])).status,
+    404,
+  );
+  assert.equal(
+    (await mark(sellerToken, [noticeId, String(sellerSentNotice._id)])).status,
+    404,
+  );
+  assert.equal(
+    (await Notification.findById(noticeId))?.readAt,
+    null,
+    "mixed ownership batch rolls back",
+  );
+  assert.equal((await mark(sellerToken, [])).status, 422);
+  assert.equal((await mark(sellerToken, ["invalid"])).status, 422);
+  assert.equal(
+    (await mark(sellerToken, [noticeId], { userId: String(buyer._id) })).status,
+    422,
+  );
+  const marked = await mark(sellerToken, [noticeId, noticeId.toUpperCase()]);
+  assert.equal(marked.status, 200);
+  assert.equal(marked.headers.get("cache-control"), "no-store");
+  const markedData = (await marked.json()).data;
+  assert.equal(markedData.notifications.length, 1);
+  assert.equal(markedData.unreadCount, 1);
+  const again = await (await mark(sellerToken, [noticeId])).json();
+  assert.equal(
+    again.data.notifications[0].readAt,
+    markedData.notifications[0].readAt,
+    "retry preserves original read timestamp",
+  );
+  const persistedSession = await tokenFor(seller._id);
+  assert.equal(
+    (await (await inbox(persistedSession)).json()).data.unreadCount,
+    1,
+    "read state persists across sessions",
+  );
+  const receivedAfterRead = await getActivityRequests(String(seller._id), {
+    direction: "received",
+    page: 1,
+    limit: 20,
+  });
+  assert.equal(
+    receivedAfterRead.requests.find((row) => row.id === noticeId)?.status,
+    "seen",
+  );
+  assert.equal((await mark(sellerToken, [noCallbackNotice])).status, 200);
+  assert.equal((await (await inbox(sellerToken)).json()).data.unreadCount, 0);
+  assert.equal(
+    (await mark(buyerToken, [String(sellerSentNotice._id)])).status,
+    200,
+    "buyer recipients can mark their own notifications read",
+  );
+  assert.equal((await (await inbox(buyerToken)).json()).data.unreadCount, 0);
+  const systemNotice = await Notification.create({
+    userId: buyer._id,
+    type: "COORDINATOR_GRANTED",
+    title: "Role changed",
+    body: "Role notification",
+  });
+  assert.equal((await (await inbox(buyerToken)).json()).data.unreadCount, 1);
+  assert.equal(
+    (await mark(buyerToken, [String(systemNotice._id)])).status,
+    200,
+  );
+  assert.equal((await (await inbox(buyerToken)).json()).data.unreadCount, 0);
+  await Notification.deleteMany({
+    _id: { $in: [sellerSentNotice._id, systemNotice._id] },
+  });
+  console.log(
+    "PASS: recipient-scoped badge counts, atomic read batches, persisted/idempotent timestamps, buyer/system notices and legacy responses.",
+  );
   console.log(
     "PASS: role-compatible sent/received ownership, consented buyer mobile, unavailable-listing privacy, isolated notifications/read state and legacy DTO compatibility.",
   );

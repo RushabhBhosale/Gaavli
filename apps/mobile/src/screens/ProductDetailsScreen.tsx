@@ -79,7 +79,6 @@ function ProductDetailsContent({ id }: { id: string }) {
   const [notifyBusy, setNotifyBusy] = useState(false);
   const [notifyError, setNotifyError] = useState<string | null>(null);
   const [requestQuantity, setRequestQuantity] = useState("");
-  const [requestMessage, setRequestMessage] = useState("");
   const [notifyPending, setNotifyPending] =
     useState<PendingSellerNotification | null>(null);
   const [notifyReady, setNotifyReady] = useState(false);
@@ -204,7 +203,6 @@ function ProductDetailsContent({ id }: { id: string }) {
         return;
       const pending = raw ? parseSavedSellerNotification(raw) : null;
       setNotifyPending(pending);
-      setRequestMessage(pending?.body.message || "");
       setRequestQuantity(
         pending?.body.quantity !== undefined
           ? String(pending.body.quantity)
@@ -235,14 +233,9 @@ function ProductDetailsContent({ id }: { id: string }) {
           requestQuantity,
           query.data?.quantity ?? null,
           listing.minimumPurchaseQuantity ?? null,
-          requestMessage,
         );
-    } catch (error) {
-      setNotifyError(
-        error instanceof Error && error.message === "REQUEST_MESSAGE_INVALID"
-          ? t.requestMessageError
-          : t.requestQuantityError,
-      );
+    } catch {
+      setNotifyError(t.requestQuantityError);
       return;
     }
     notifying.current = true;
@@ -289,6 +282,7 @@ function ProductDetailsContent({ id }: { id: string }) {
       setNotifyModal("success");
       setNotifyPending(null);
       void client.invalidateQueries({ queryKey: ["notifications"] });
+      void client.invalidateQueries({ queryKey: ["notification-unread"] });
       void client.invalidateQueries({ queryKey: ["activity-requests"] });
     } catch (error) {
       if (isCurrent()) {
@@ -617,19 +611,6 @@ function ProductDetailsContent({ id }: { id: string }) {
                         }}
                       />
                     )}
-                    <Input
-                      label={t.requestMessageLabel}
-                      value={requestMessage}
-                      multiline
-                      maxLength={500}
-                      textAlignVertical="top"
-                      style={{ minHeight: 96 }}
-                      editable={notifyReady && !notifyBusy && !notifyPending}
-                      onChangeText={(value) => {
-                        setRequestMessage(value);
-                        setNotifyError(null);
-                      }}
-                    />
                     {listing && (
                       <Text style={s.modalDescription}>
                         {listingQuantity(listing, language)}

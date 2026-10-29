@@ -1,3 +1,29 @@
+> Marketplace All filter - 2026-10-29 (user approved): shorten All Products to
+> All / सर्व and show its localized count on the same line, like Vegetables/Fruits.
+> Count covers all matching visible products in the browsing village, including
+> unclassified products, independent of the currently selected group/pagination.
+
+> Notification badges - 2026-10-28 (user approved): authenticated header bells
+> show a small red unread-count circle, hidden at zero (99+ cap), shared by buyers
+> and sellers. Bell opens Received Requests for sellers and Notifications for
+> buyers. Use light-green unread cards/indicators; visible cards persist read state
+> automatically. Keep pages read-only, with loading/empty/error and read retry states.
+> Refresh every 15 seconds while active and on focus; no push infrastructure.
+> This supersedes the older no-state-change-on-view instruction below.
+
+> Request times - 2026-10-28 (user approved): Sent/Received cards add localized
+> elapsed time, such as 3 hr ago, beside the existing date/time.
+
+> Request message removal - 2026-10-28 (user approved): remove the optional
+> message input from Notify Seller and message text from My Requests cards.
+> Quantity, consent and the remaining request/notification presentation stay intact.
+
+> Marketplace/Product Details - 2026-10-28 (user approved): Marketplace adds
+> All Products alongside the existing product groups. Category labels and counts
+> stay on one line, using content-sized items and 13px text in the horizontal row.
+> Product Details shares the existing role-aware bottom tab navigator without
+> adding a Product Details tab button. Existing product URLs remain unchanged.
+
 > My Requests - 2026-10-27 (user approved): reuse ActivityScreen with Sent Requests
 > and Notifications tabs for buyers, and Sent/Received Requests/Notifications for
 > sellers. Preserve Marathi/English labels and existing mobile theme. Compact,

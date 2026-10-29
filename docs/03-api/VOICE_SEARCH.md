@@ -50,6 +50,20 @@ stock, seller, village, category, productGroup, selected-village and own-offer
 exclusion rules apply to all alternatives. Inactive catalog mappings do not
 expand searches. No private contact/owner fields are added to results.
 
+## Permission handoff fix - 2026-10-28
+
+The native permission adapter checks existing access before requesting it again.
+Some Android phones report background/active transitions while handling that
+request. A session preserves this pre-recording permission handoff and starts
+recognition only after foreground returns, with a five-second foreground wait
+limit after permission resolves. Recording still cancels on real backgrounding;
+manual cancellation, navigation and scope/language changes invalidate pending
+permission results. No recording starts while backgrounded. Regression tests
+cover foreground recovery, cancellation, timeout and recording-time backgrounding.
+
+This supersedes unconditional background cancellation during permission requests
+in the historical lifecycle notes below.
+
 ## Native setup and lifecycle
 
 `apps/mobile/app.json` configures the speech plugin's microphone/speech purpose

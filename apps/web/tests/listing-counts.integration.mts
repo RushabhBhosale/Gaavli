@@ -80,6 +80,7 @@ try {
       sourceVillageId: source,
       villageId: source,
       includeProductGroupCounts: "true",
+      includeAllProductCount: "true",
       limit: "1",
       ...params,
     });
@@ -100,6 +101,11 @@ try {
   assert.equal(count(guest, "fruits"), 2);
   assert.equal(count(guest, "dairy"), 1);
   assert.equal(count(guest, "grain"), 0);
+  assert.equal(
+    guest.allProductCount,
+    7,
+    "All ignores the selected group and page limit",
+  );
   const signedIn = await page({ productGroup: "fruits", page: "2" }, true);
   assert.equal(
     count(signedIn, "vegetables"),
@@ -112,13 +118,46 @@ try {
     "counts are independent of page/category selection",
   );
   assert.equal(signedIn.listings.length, 1);
+  assert.equal(
+    signedIn.allProductCount,
+    6,
+    "All excludes the viewer's own products",
+  );
   const search = await page({ search: "Apple", productGroup: "vegetables" });
   assert.equal(search.total, 0);
   assert.equal(count(search, "fruits"), 2);
   assert.equal(count(search, "vegetables"), 0);
+  assert.equal(
+    search.allProductCount,
+    2,
+    "All respects the search even when the selected group is empty",
+  );
   const changed = await page({}, false, String(other._id));
   assert.equal(count(changed, "vegetables"), 7);
   assert.equal(count(changed, "fruits"), 0);
+  assert.equal(changed.allProductCount, 7, "All uses the selected village");
+  await Listing.create({
+    ...base,
+    productName: "Legacy product",
+    productGroup: null,
+  });
+  assert.equal(
+    (await page({ productGroup: "fruits" })).allProductCount,
+    8,
+    "All includes unclassified legacy listings",
+  );
+  assert.equal((await page({ search: "no-match" })).allProductCount, 0);
+  const groupOnly = await GET(
+    new Request(
+      `http://localhost/api/v1/listings?sourceVillageId=${village._id}&includeProductGroupCounts=true`,
+    ),
+  );
+  assert.equal(groupOnly.status, 200);
+  assert.equal(
+    "allProductCount" in (await groupOnly.json()).data,
+    false,
+    "old category-count clients keep their response shape",
+  );
   const legacy = await GET(
     new Request(
       `http://localhost/api/v1/listings?sourceVillageId=${village._id}`,
@@ -126,6 +165,7 @@ try {
   );
   assert.equal(legacy.status, 200);
   const legacyData = (await legacy.json()).data;
+  assert.equal("allProductCount" in legacyData, false);
   assert.equal(
     "productGroupCounts" in legacyData,
     false,

@@ -7,6 +7,7 @@ import { d } from "./primitives";
 import { BrowsingVillageSelector } from "../BrowsingVillageSelector";
 import { GuestProfileButton } from "./GuestProfileButton";
 import { useAppStore } from "../../store";
+import { NotificationBell } from "./NotificationBell";
 
 export function MarketplaceHeader({
   language,
@@ -62,6 +63,7 @@ export function MarketplaceHeader({
           <BrowsingVillageSelector />
         </View>
         {!session && <GuestProfileButton language={language} />}
+        {session && <NotificationBell language={language} />}
       </View>
       {children}
     </View>

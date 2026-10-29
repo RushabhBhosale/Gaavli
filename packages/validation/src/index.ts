@@ -129,6 +129,7 @@ export const notifySellerInputSchema = z
 export const notificationsQuerySchema = z
   .object({
     includeReadState: z.literal("true").optional(),
+    includeUnreadCount: z.literal("true").optional(),
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(20),
     language: mobileLanguageSchema.default("mr"),
@@ -155,8 +156,30 @@ export const notificationPageSchema = z
         .strict(),
     ),
     total: z.number().int().nonnegative(),
+    unreadCount: z.number().int().nonnegative().optional(),
     page: z.number().int().positive(),
     limit: z.number().int().positive(),
+  })
+  .strict();
+export const notificationReadInputSchema = z
+  .object({
+    ids: z
+      .array(z.string().regex(/^[a-f0-9]{24}$/i))
+      .min(1)
+      .max(50),
+  })
+  .strict();
+export const notificationReadResultSchema = z
+  .object({
+    notifications: z.array(
+      z
+        .object({
+          id: z.string().regex(/^[a-f0-9]{24}$/i),
+          readAt: z.string().datetime(),
+        })
+        .strict(),
+    ),
+    unreadCount: z.number().int().nonnegative(),
   })
   .strict();
 export const refreshSchema = z
@@ -321,6 +344,7 @@ export const mobileListingsQuerySchema = z
     category: z.string().trim().min(1).max(100).optional(),
     productGroup: productGroupSchema.optional(),
     includeProductGroupCounts: z.literal("true").optional(),
+    includeAllProductCount: z.literal("true").optional(),
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(20),
   })
@@ -372,6 +396,7 @@ export const mobileListingSchema = z
   .strict();
 export const mobileListingPageSchema = z
   .object({
+    allProductCount: z.number().int().nonnegative().optional(),
     productGroupCounts: z
       .array(
         z

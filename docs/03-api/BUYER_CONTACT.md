@@ -1,3 +1,26 @@
+# Notification badge revision - 2026-10-28 (user approved)
+
+Reuse Notification.userId/readAt and the existing Notify Seller/request record.
+Authenticated headers share a red unread-count badge (hidden at zero, 99+ cap).
+The existing bell route opens My Requests → Received Requests for sellers and
+Notifications for buyers; role-specific request tabs remain read-only. Counts poll
+every 15 seconds while active/online and refresh on focus/foreground/reconnect.
+Received/notification cards use light-green unread styling. Cards at least 60%
+visible for 800ms are read via the existing notifications endpoint's PATCH method;
+only the recipient may mark them read. Failed updates show Retry and retain
+unread styling. Fetching a page, viewing Sent Requests or opening the bell alone
+does not mark all records read. Read timestamps persist across accounts/devices
+in MongoDB. See API_SPEC.md for count/read contracts. This supersedes the older
+no-read-mutation-on-view instructions below; coordinator management is unchanged.
+
+# Remove mobile request message field - 2026-10-28 (user approved)
+
+Notify Seller no longer offers a message input; new mobile requests send quantity
+and callback consent only. My Requests no longer opts into message fields or
+renders notes. Existing saved pending requests retain their exact payload for safe
+idempotent retries. Server message compatibility and historical data are retained.
+This supersedes the mobile message input/display requirements below.
+
 # Reusable My Requests - 2026-10-27 (user approved)
 
 One mobile screen shows Sent Requests and Notifications for buyers, plus Received

@@ -19,6 +19,7 @@ export default function BuyerTabs() {
   if (!session && !browsingVillage) return <Redirect href="/language" />;
   return (
     <Tabs
+      backBehavior="history"
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: theme.colors.primary,
@@ -195,6 +196,7 @@ export default function BuyerTabs() {
           ),
         }}
       />
+      <Tabs.Screen name="product/[id]" options={{ href: null }} />
     </Tabs>
   );
 }

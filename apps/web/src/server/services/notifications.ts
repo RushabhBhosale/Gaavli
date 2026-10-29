@@ -5,6 +5,7 @@ import {
   notifySellerResultSchema,
   type notificationsQuerySchema,
   notifySellerInputSchema,
+  notificationReadResultSchema,
 } from "@gaavli/validation";
 import { connectMobileDb } from "../db/mobile";
 import { Notification, User, Village } from "../models";
@@ -14,6 +15,7 @@ import { accessibleSellerContact } from "../repositories/listing-contact";
 import {
   saveSellerContactNotice,
   findUserNotifications,
+  readUserNotifications,
 } from "../repositories/notifications";
 import { limitRequests } from "../repositories/mobile";
 import { AppError } from "../utils/errors";
@@ -122,6 +124,27 @@ export async function getUserNotifications(
       query.limit,
       query.language,
       query.includeReadState === "true",
+      query.includeUnreadCount === "true",
     ),
   );
+}
+
+export async function markUserNotificationsRead(userId: string, ids: string[]) {
+  await connectMobileDb();
+  await limitRequests("notification-read", userId, 240, 3600_000);
+  return User.db.transaction(async (session) => {
+    const actor = await User.findOneAndUpdate(
+      { _id: userId, status: "active" },
+      { $inc: { __v: 1 } },
+      { session, new: true },
+    );
+    if (!actor) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
+    return notificationReadResultSchema.parse(
+      await readUserNotifications(
+        userId,
+        [...new Set(ids.map((id) => id.toLowerCase()))],
+        session,
+      ),
+    );
+  });
 }

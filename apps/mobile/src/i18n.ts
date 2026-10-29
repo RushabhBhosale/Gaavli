@@ -6,6 +6,11 @@ const en = {
   manageProductsSubtitle: "Manage your product listings and stock",
   totalProducts: "Total products",
   allProducts: "All",
+  unreadNotificationCount: "Notifications, {count} unread",
+  notificationCountFailed:
+    "Could not refresh unread notifications. Please try again.",
+  notificationReadFailed: "Could not save read status. Please try again.",
+  marketplaceAllProducts: "All",
   lowStockProducts: "Low stock",
   expiredProducts: "Expired",
   sellerProductSearch: "Search products…",
@@ -487,6 +492,12 @@ const mr: Messages = {
   manageProductsSubtitle: "तुमच्या उत्पादनांची यादी आणि साठा व्यवस्थापित करा",
   totalProducts: "एकूण उत्पादने",
   allProducts: "सर्व",
+  unreadNotificationCount: "सूचना, {count} न वाचलेल्या",
+  notificationCountFailed:
+    "न वाचलेल्या सूचना अद्ययावत करता आल्या नाहीत. पुन्हा प्रयत्न करा.",
+  notificationReadFailed:
+    "वाचल्याची नोंद जतन करता आली नाही. पुन्हा प्रयत्न करा.",
+  marketplaceAllProducts: "सर्व",
   lowStockProducts: "कमी साठा",
   expiredProducts: "मुदत संपलेली",
   sellerProductSearch: "उत्पादने शोधा…",

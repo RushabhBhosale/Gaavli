@@ -114,12 +114,20 @@ export default function MarketplaceScreen() {
     language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
   );
   function categoryLabel(item: { id: string; label: string }) {
-    const count = page?.productGroupCounts?.find(
-      (row) => row.productGroup === item.id,
-    )?.count;
+    const count =
+      item.id === "all"
+        ? page?.allProductCount
+        : page?.productGroupCounts?.find((row) => row.productGroup === item.id)
+            ?.count;
     return `${item.label} (${count === undefined ? "—" : number.format(count)})`;
   }
   const categories = [
+    {
+      id: "all",
+      label: t.marketplaceAllProducts,
+      icon: "🛍️",
+      background: "#E9F4E7",
+    },
     {
       id: "vegetables",
       label: t.vegetables,
@@ -288,6 +296,7 @@ export default function MarketplaceScreen() {
                     </Text>
                   </View>
                   <Text
+                    numberOfLines={1}
                     style={[
                       s.categoryText,
                       category === item.id && s.selectedCategoryText,
@@ -391,7 +400,9 @@ const s = StyleSheet.create({
   },
   category: {
     minHeight: theme.layout.touchTarget,
-    width: 88,
+    minWidth: 88,
+    flexShrink: 0,
+    paddingHorizontal: 4,
     alignItems: "center",
     gap: 6,
   },
@@ -408,8 +419,8 @@ const s = StyleSheet.create({
   categoryEmoji: { fontSize: 26, lineHeight: 34 },
   categoryText: {
     color: theme.colors.muted,
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 13,
+    lineHeight: 20,
     textAlign: "center",
   },
   selectedCategoryText: { color: theme.colors.text, fontWeight: "600" },

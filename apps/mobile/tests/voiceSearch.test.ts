@@ -181,6 +181,77 @@ test("recording and finalization timeouts stop the microphone and clean up a sil
   assert.equal(f.removed(), 1);
 });
 
+test("Android permission backgrounding waits for foreground before recording", async () => {
+  let grant!: (permission: { granted: boolean }) => void;
+  let requested!: () => void;
+  const requesting = new Promise<void>((resolve) => {
+    requested = resolve;
+  });
+  const f = fixture({
+    requestPermissions: () =>
+      new Promise((resolve) => {
+        grant = resolve;
+        requested();
+      }),
+  });
+  const start = f.session.start("en");
+  await requesting;
+  f.session.setForeground(false);
+  grant({ granted: true });
+  await Promise.resolve();
+  await Promise.resolve();
+  assert.deepEqual(f.starts, []);
+  assert.equal(f.statuses.at(-1), "requesting");
+  f.session.setForeground(true);
+  await start;
+  assert.deepEqual(f.starts, ["en-IN"]);
+  f.events().result("onion", true);
+  assert.deepEqual(f.results, ["onion"]);
+  assert.deepEqual(f.errors, []);
+});
+
+test("permission handoff never starts after cancellation or prolonged backgrounding", async (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] });
+  for (const cancel of [true, false]) {
+    let grant!: (permission: { granted: boolean }) => void;
+    let requested!: () => void;
+    const requesting = new Promise<void>((resolve) => {
+      requested = resolve;
+    });
+    const f = fixture({
+      requestPermissions: () =>
+        new Promise((resolve) => {
+          grant = resolve;
+          requested();
+        }),
+    });
+    const start = f.session.start("mr");
+    await requesting;
+    f.session.setForeground(false);
+    grant({ granted: true });
+    await Promise.resolve();
+    await Promise.resolve();
+    if (cancel) f.session.cancel();
+    else t.mock.timers.tick(5000);
+    await start;
+    f.session.setForeground(true);
+    assert.deepEqual(f.starts, []);
+    assert.equal(f.statuses.at(-1), "idle");
+  }
+});
+
+test("backgrounding during recording still aborts and rejects late recognition", async () => {
+  const f = fixture();
+  await f.session.start("en");
+  const events = f.events();
+  f.session.setForeground(false);
+  events.result("onion", true);
+  f.session.setForeground(true);
+  assert.equal(f.aborted(), 1);
+  assert.equal(f.statuses.at(-1), "idle");
+  assert.deepEqual(f.results, []);
+});
+
 test("blur, background or manual cancellation ignores late speech events and removes listeners", async () => {
   const f = fixture();
   await f.session.start("en");

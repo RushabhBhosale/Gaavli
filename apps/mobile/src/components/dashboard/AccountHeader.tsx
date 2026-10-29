@@ -9,6 +9,7 @@ import { accountHeaderIdentity } from "../../data/accountHeader";
 import { theme } from "../../theme";
 import { d } from "./primitives";
 import { GuestProfileButton } from "./GuestProfileButton";
+import { NotificationBell } from "./NotificationBell";
 
 export function AccountHeader({
   language,
@@ -82,25 +83,7 @@ export function AccountHeader({
         <View style={s.headerControls}>
           <View style={s.iconRow}>
             {session && (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={t.notificationSettings}
-                accessibilityState={{ disabled }}
-                disabled={disabled}
-                onPress={() => router.push("/notifications")}
-                style={({ pressed }) => [
-                  s.control,
-                  pressed && d.pressed,
-                  disabled && s.disabled,
-                ]}
-              >
-                <Ionicons
-                  accessible={false}
-                  name="notifications-outline"
-                  size={24}
-                  color={theme.colors.heading}
-                />
-              </Pressable>
+              <NotificationBell language={language} disabled={disabled} />
             )}
             {!session ? (
               <GuestProfileButton language={language} disabled={disabled} />
