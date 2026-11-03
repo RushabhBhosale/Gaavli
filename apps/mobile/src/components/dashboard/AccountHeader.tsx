@@ -40,7 +40,7 @@ export function AccountHeader({
         role: "guest" as const,
         location: village
           ? [
-              language === "mr" ? village.nameMr : village.name,
+              language !== "en" ? village.nameMr : village.name,
               village.taluka,
               village.district,
             ]

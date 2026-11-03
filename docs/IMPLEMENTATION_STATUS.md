@@ -1,3 +1,99 @@
+## 2026-11-02 - Next.js security patch
+
+- Upgraded the web workspace from Next.js 16.4.0 to 16.4.1 and explicitly set
+  the existing security upgrade policy in `apps/web/next.config.ts`.
+- Passed web TypeScript checking. The development server remains running and
+  `/api/v1/health` returned HTTP 200 after the upgrade. npm reported 17
+  advisories across the remaining dependency tree; no broad dependency fixes
+  were applied.
+
+## 2026-11-03 - Catalog search: typos, any word order, did-you-mean
+
+- Search now matches each word of a name in any order (`pickle mango`), words
+  inside names, romanized and Devanagari spelling variants by sound
+  (`kothambir`, `टोमाटो`), swapped letters and up to two typos in longer words,
+  and a typo while still typing (`tomt`). Close matches (at least half the
+  words, including the most distinctive) follow full matches. The API returns a
+  `didYouMean` spelling when the best result needed a guess; Add Product shows
+  it as a tappable "Did you mean ...?" line in all three languages and the
+  offline fallback tolerates typos and word order too.
+- `catalogSearchTerms` gained `word` terms and indexed `key`/`skel` fields;
+  the production index was rebuilt (46,730 terms for 5,031 products). The
+  response has a new `didYouMean` field the mobile app tolerates being absent,
+  but the picker hint needs the new build.
+- Checked with unit tests, an isolated-database integration test (including
+  index-plan checks) and live searches. No load test yet.
+
+## 2026-11-02 - Hindi as a third app language
+
+- Mobile: Hindi added to language choices; all app and coordinator messages
+  translated (machine-authored, not yet reviewed by a native speaker).
+  Product names follow the selected language with an English fallback;
+  village, category and person names use Marathi Devanagari in Hindi.
+- Server: optional `ProductMaster.nameHi`; listings, owned listings, contact
+  notifications and activity return Hindi names joined from the master
+  product. Buyer-contact notifications now also store Hindi text. Stored user
+  language `hi` is returned instead of being collapsed to Marathi.
+- The catalog import fills `nameHi` for new products and backfills existing
+  products that lack one, without overwriting stored values.
+- Breaking for installed APKs (new strict DTO fields): ship a new build.
+
+## 2026-11-02 - 5,031-product multilingual catalog source (not yet imported)
+
+- Added `apps/web/data/catalog/`: hand-curated English/Hindi/Marathi source
+  files for 5,031 unbranded products (43 categories, 1,131 linked varieties),
+  plus `npm run build:catalog` to validate them and generate the catalog JSON,
+  a Product Master import file and the search alias file. See its `README.md`.
+- All 151 existing Product Master codes are kept with their stored values
+  instead of being retired, so listings and offline writes stay linked.
+- 485 rows with uncertain native names are emitted as pending review/INACTIVE.
+  No native-speaker review has been done yet.
+- 3,363 products use new product groups that are not in
+  `LISTING_PRODUCT_GROUPS` yet. Adding them needs an APK rebuild, so it is
+  pending a decision. Nothing has been imported into any database.
+- Update (user approved): added the 10 groups (`groceries`, `meat_fish`,
+  `plants_garden`, `farm_inputs`, `livestock`, `puja`, `household`,
+  `personal_care`, `clothing`, `handicrafts`). Imported all 5,031 products
+  into the configured Atlas database (4,880 inserted, 151 existing given Hindi
+  names; 485 pending-review rows are INACTIVE) and rebuilt `catalogSearchTerms`
+  (19,711 terms). Live searches (tamatar, कोथिंबीर, hapus, kukar) return the
+  catalog in about 35 ms server-side. Installed APKs need the new build.
+
+## 2026-11-02 - Replacement product catalog candidates (incomplete)
+
+- User requested at least 5,000 products and confirmed all 151 existing master
+  records should be retired and recreated. No active master records have been
+  changed; preserving historical listing links and offline writes needs a safe
+  replacement migration.
+- Prepared a first review list of 216 generic items: 151 recreation candidates
+  from the existing user-supplied master and 65 unbranded homemade-food
+  candidates with recipe-source links. All remain pending; new candidates lack
+  verified Hindi/Marathi names and units. See
+  `apps/web/data/catalog-review/PRODUCT_LIST.md` and its companion JSON. This is
+  not an importable replacement or the requested 5,000-product catalog.
+- User clarified that the directory is for farm produce, farm goods and homemade
+  products, not branded packaged products. Removed the previously staged barcode
+  candidate file and its preparation script; neither was ever imported. The
+  requested 5,000-product catalog and migration remain unfinished.
+
+## 2026-11-02 - Master product directory search foundation (incomplete)
+
+- Added a separate indexed search-term collection, a repeatable dry-run/apply
+  backfill, bounded multilingual exact/prefix/one-edit matching, and an
+  authenticated, rate-limited `/api/v1/catalog/search` endpoint. The Add Listing
+  picker now uses it with a 300 ms debounce and up to 20 results. Successful
+  results merge into the mobile reference cache (bounded to 1,000 products) for
+  offline literal search; this is not a full catalog sync or paginated picker.
+  Existing Product Master records and seller listings remain intact.
+- The three example alias groups are from the user's request, not a reviewed
+  comprehensive catalog. Search indexes must be rebuilt after catalog changes;
+  this stage is not a complete or production-ready directory. See
+  `docs/03-api/CATALOG_SEARCH_STAGE.md` for setup, limits and remaining work.
+- Isolated MongoDB search examples and index-plan tests, web TypeScript, focused
+  lint and normalization unit tests were checked for the search foundation.
+  Mobile checks were not run for the picker connection. Load tests, incremental
+  catalog sync, pagination and the other directory workflows remain unfinished.
+
 ## 2026-10-29 - Home price units and category count wording
 
 - Guest Kalamb follow-up: the configured public API returns Potato at price 80

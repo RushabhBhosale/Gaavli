@@ -1,3 +1,4 @@
+import { productDisplayName, numberLocale } from "../locale";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -107,7 +108,11 @@ export default function MarketplaceScreen() {
     scope,
     hints:
       products.data?.products.map((product) =>
-        language === "mr" ? product.nameMr : product.nameEn,
+        productDisplayName(language, {
+          en: product.nameEn,
+          mr: product.nameMr,
+          hi: product.nameHi,
+        }),
       ) || [],
     onResult: (transcript) => {
       const normalized = voiceProductSearch(
@@ -143,9 +148,7 @@ export default function MarketplaceScreen() {
     : null;
   const now = useListingClock();
   const page = result.data?.pages[0];
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-  );
+  const number = new Intl.NumberFormat(numberLocale(language));
   function categoryLabel(item: { id: string; label: string }) {
     const count =
       item.id === "all"

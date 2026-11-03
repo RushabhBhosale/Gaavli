@@ -1,4 +1,5 @@
 import type { MobileLanguage } from "@gaavli/types";
+import { hi } from "./i18n-hi";
 
 const en = {
   dashboardLiveAvailability: "Today's Live Availability",
@@ -102,12 +103,14 @@ const en = {
   photoStorageUnavailable:
     "Photo storage is unavailable. Please try again later.",
   listingProductName: "Product name *",
-  productMasterSearch: "Search Marathi or English product name",
+  productMasterSearch: "Search Hindi, Marathi or English product name",
+  productMasterSearchHint: "Type a product name to search the catalog.",
   productMasterLoading: "Loading products…",
   productMasterUnavailable:
     "Products could not be loaded. Retry to choose a product.",
   productMasterEmpty: "No active products are available yet.",
   productMasterNoMatches: "No matching products.",
+  productMasterDidYouMean: "Did you mean “{term}”?",
   productMasterCached:
     "Using saved products. Availability is checked when publishing.",
   productMasterLegacy:
@@ -242,7 +245,7 @@ const en = {
   voiceService:
     "Speech recognition is unavailable. Enable a speech recognition service on your phone or type your search.",
   voiceLanguage:
-    "Your phone's speech service does not support the selected language. Enable Marathi or English (India) in the speech service, or type your search.",
+    "Your phone's speech service does not support the selected language. Enable Hindi, Marathi or English (India) in the speech service, or type your search.",
   voiceFailed: "Could not recognize speech. Try again or type your search.",
   voiceBuild:
     "Voice search is unavailable in this version of Gaavli. Update the app or type your search.",
@@ -521,7 +524,7 @@ const en = {
   connectionError:
     "Couldn’t reach the backend. Check your API address and connection.",
 };
-type Messages = { [Key in keyof typeof en]: string };
+export type Messages = { [Key in keyof typeof en]: string };
 const mr: Messages = {
   dashboardLiveAvailability: "आजची थेट उपलब्धता",
   dashboardFreshCount: "{count} ताज्या नोंदी",
@@ -621,12 +624,14 @@ const mr: Messages = {
   photoStorageUnavailable:
     "फोटो साठवण्याची सुविधा सध्या उपलब्ध नाही. नंतर पुन्हा प्रयत्न करा.",
   listingProductName: "उत्पादनाचे नाव *",
-  productMasterSearch: "मराठी किंवा इंग्रजी नावाने उत्पादन शोधा",
+  productMasterSearch: "मराठी, हिंदी किंवा इंग्रजी नावाने उत्पादन शोधा",
+  productMasterSearchHint: "कॅटलॉगमध्ये शोधण्यासाठी उत्पादनाचे नाव टाइप करा.",
   productMasterLoading: "उत्पादने लोड होत आहेत…",
   productMasterUnavailable:
     "उत्पादने लोड झाली नाहीत. उत्पादन निवडण्यासाठी पुन्हा प्रयत्न करा.",
   productMasterEmpty: "अद्याप कोणतीही सक्रिय उत्पादने उपलब्ध नाहीत.",
   productMasterNoMatches: "जुळणारे उत्पादन सापडले नाही.",
+  productMasterDidYouMean: "तुम्हाला “{term}” म्हणायचे आहे का?",
   productMasterCached:
     "जतन केलेली उत्पादने वापरत आहोत. प्रकाशित करताना उपलब्धता तपासली जाईल.",
   productMasterLegacy:
@@ -753,7 +758,7 @@ const mr: Messages = {
   voiceService:
     "आवाज ओळखण्याची सेवा उपलब्ध नाही. फोनमध्ये ही सेवा सुरू करा किंवा शोधासाठी टाइप करा.",
   voiceLanguage:
-    "फोनच्या आवाज सेवेत निवडलेली भाषा उपलब्ध नाही. मराठी किंवा इंग्रजी (भारत) सुरू करा किंवा शोधासाठी टाइप करा.",
+    "फोनच्या आवाज सेवेत निवडलेली भाषा उपलब्ध नाही. मराठी, हिंदी किंवा इंग्रजी (भारत) सुरू करा किंवा शोधासाठी टाइप करा.",
   voiceFailed:
     "आवाज ओळखता आला नाही. पुन्हा प्रयत्न करा किंवा शोधासाठी टाइप करा.",
   voiceBuild:
@@ -1038,7 +1043,7 @@ const mr: Messages = {
   connected: "सर्व्हरशी जोडणी झाली.",
   connectionError: "सर्व्हरशी जोडणी झाली नाही. API पत्ता आणि इंटरनेट तपासा.",
 };
-export const translations: Record<MobileLanguage, Messages> = { mr, en };
+export const translations: Record<MobileLanguage, Messages> = { mr, en, hi };
 export function messages(language: MobileLanguage): Messages {
   return translations[language];
 }

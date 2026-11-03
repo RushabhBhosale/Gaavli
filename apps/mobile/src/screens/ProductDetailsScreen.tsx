@@ -1,3 +1,4 @@
+import { dateLocale } from "../locale";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Linking,
@@ -112,7 +113,7 @@ function ProductDetailsContent({ id }: { id: string }) {
   const listing =
     query.data && !unavailable ? toHomeListing(query.data, now) : null;
   const quantityValue = (quantity: number) =>
-    `${new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(quantity)} ${listingUnit(listing?.unit ?? null, language)}`.trim();
+    `${new Intl.NumberFormat(dateLocale(language)).format(quantity)} ${listingUnit(listing?.unit ?? null, language)}`.trim();
   const contactKey = [
     "seller-contact",
     session?.user.id,
@@ -390,7 +391,7 @@ function ProductDetailsContent({ id }: { id: string }) {
                     ],
                     [
                       t.villageLabel,
-                      language === "mr" ? listing.villageMr : listing.village,
+                      language !== "en" ? listing.villageMr : listing.village,
                       "location-outline",
                     ],
                     [
@@ -451,7 +452,7 @@ function ProductDetailsContent({ id }: { id: string }) {
                     />
                     <Text style={s.villageText}>
                       {[
-                        language === "mr" ? listing.villageMr : listing.village,
+                        language !== "en" ? listing.villageMr : listing.village,
                         query.data?.village.district,
                       ]
                         .filter(Boolean)

@@ -56,7 +56,7 @@ test("registration requires both names and rejects role injection", () => {
     { ...valid, lastName: "" },
     { ...valid, firstName: "<script>" },
     { ...valid, roles: ["coordinator"] },
-    { ...valid, language: "hi" },
+    { ...valid, language: "gu" },
   ])
     assert.equal(registrationSchema.safeParse(invalid).success, false);
   assert.equal(

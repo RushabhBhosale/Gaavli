@@ -1,0 +1,203 @@
+# Additional everyday household, kitchen, hardware, electrical, personal care, clothing and stationery items.
+@category|kitchen
+@sub|kitchen-tools
+Puri Press|पूरी प्रेस|पुरी प्रेस|puri maker
+Idli Mould|इडली साँचा|इडली साचा|idli plates
+Modak Mould|मोदक साँचा|मोदक साचा|modak sancha
+Karanji Mould|गुझिया साँचा|करंजी साचा|gujiya mould
+Sev Sancha|सेव साँचा|शेव साचा|sev press||^CHAKLI_MAKER
+Kulfi Mould|कुल्फ़ी साँचा|कुल्फी साचा|kulfi moulds|piece,set
+Ice Tray|बर्फ़ ट्रे|बर्फाचा ट्रे|ice cube tray
+Oil Dispenser|तेल की बोतल|तेलाची बाटली|oil pourer
+Tadka Pan|तड़का पैन|फोडणी पळी|fodni pali,tadka ladle
+Pressure Pan|प्रेशर पैन|प्रेशर पॅन|pressure pan||^PRESSURE_COOKER
+Hand Juicer|हाथ जूसर|हात ज्यूसर|manual juicer
+Egg Beater|अंडा फेंटने वाला|अंडा फेटणी|egg whisk||^WHISK
+Steel Basket|स्टील टोकरी|स्टील टोपली|vegetable basket,colander
+Kitchen Apron|रसोई एप्रन|किचन अ‍ॅप्रन|apron
+Oven Gloves|ओवन दस्ताने|ओव्हन हातमोजे|||?
+Pot Holder|बर्तन पकड़|भांडे पकड|pakad,pot holder
+Kitchen Weighing Scale|रसोई तराजू|किचन वजनकाटा|||?
+@sub|cookware
+Aluminium Patila|एल्युमिनियम पतीला|अॅल्युमिनियम पातेले|||^PATILA
+Brass Patila|पीतल पतीला|पितळी पातेले|||^PATILA
+Copper Bottom Patila|तांबे तले पतीला|तांबे तळ पातेले|||^PATILA
+Clay Cooking Pot|मिट्टी का बर्तन|मातीचे भांडे|clay pot,mitti handi||^HANDI
+Clay Tawa|मिट्टी का तवा|मातीचा तवा|khapar tava||^TAVA
+Grill Pan|ग्रिल पैन|ग्रिल पॅन
+Kettle Steel|स्टील केतली|स्टील किटली|kitli,kettle||?
+Pressure Cooker Steel|स्टील प्रेशर कुकर|स्टील प्रेशर कुकर|||^PRESSURE_COOKER
+Pressure Cooker Aluminium|एल्युमिनियम प्रेशर कुकर|अॅल्युमिनियम प्रेशर कुकर|||^PRESSURE_COOKER
+@sub|tableware
+Steel Plate Small|छोटी थाली|लहान ताट|quarter plate,dish||^STEEL_THALI
+Partition Plate|खानेदार थाली|कप्प्यांचे ताट|compartment plate||^STEEL_THALI
+Bhojan Thali Set|भोजन थाली सेट|जेवण ताट संच|thali set|set|^STEEL_THALI
+Brass Glass|पीतल गिलास|पितळी पेला|||^STEEL_GLASS
+Brass Bowl|पीतल कटोरी|पितळी वाटी|||^STEEL_BOWL
+Copper Lota|तांबे का लोटा|तांब्याचा तांब्या|||^TAMBYA
+Steel Jug|स्टील जग|स्टील जग|||^WATER_JUG
+Plastic Jug|प्लास्टिक जग|प्लास्टिक जग|||^WATER_JUG
+Coffee Mug|कॉफ़ी मग|कॉफी मग|mug
+Tray|ट्रे|ट्रे|serving tray
+Fork|काँटा|काटा|fork,kata
+
+@category|household-cleaning
+@sub|home-essentials
+Iron Box Coal|कोयले की इस्त्री|कोळशाची इस्त्री|||?
+Sewing Basket|सिलाई टोकरी|शिवण टोपली|||?
+Plastic Tub|प्लास्टिक टब|प्लास्टिक टब|tub,ghamela
+Plastic Basket|प्लास्टिक टोकरी|प्लास्टिक टोपली|basket
+Bamboo Sup|बांस का सूप|बांबूचे सूप|||^WINNOWING_FAN
+Floor Mat|फ़र्श चटाई|फरशी चटई|plastic mat||?
+Rubber Mat|रबर मैट|रबरी चटई
+Bathroom Slippers|बाथरूम चप्पल|बाथरूम चप्पल|||?
+Bathroom Stool|बाथरूम स्टूल|बाथरूम स्टूल|patla
+Soap Dish|साबुनदानी|साबणाची डबी|soap case
+Toothbrush Holder|टूथब्रश होल्डर|टूथब्रश स्टँड|||?
+Towel Rod|तौलिया रॉड|टॉवेल रॉड|towel hanger
+Bathroom Mirror|बाथरूम आईना|बाथरूम आरसा|||^MIRROR
+Key Holder|चाबी होल्डर|किल्ली स्टँड|||?
+Wall Shelf|दीवार शेल्फ़|भिंतीवरील शेल्फ|||?
+Fly Swatter|मक्खी मार|माशी मारणी|||?
+Water Purifier Candle|फ़िल्टर कैंडल|फिल्टर कँडल|filter candle
+Plastic Bucket Big|बड़ी बाल्टी|मोठी बादली|||^BUCKET
+Steel Bucket|स्टील बाल्टी|स्टील बादली|||^BUCKET
+Brass Bucket|पीतल बाल्टी|पितळी बादली|||^BUCKET
+Copper Bathing Pot|तांबे का बंब|तांब्याचा बंब|bamb,water heater pot
+Sun Shade Curtain|धूप परदा|ऊन पडदा|chik,bamboo blinds|piece
+Bamboo Chik|बांस की चिक|बांबूची चिक|chik,blinds|piece
+Room Heater|रूम हीटर|रूम हीटर|heater
+Tiffin Bag|टिफ़िन बैग|डबा पिशवी|||?
+Water Bottle Steel|स्टील बोतल|स्टील बाटली|||^WATER_BOTTLE
+Insulated Bottle|थर्मो बोतल|थर्मो बाटली|||^WATER_BOTTLE
+
+@category|personal-care
+@sub|skin-cosmetics
+Eyeliner|आईलाइनर|आयलायनर|eye liner
+Mascara|मस्कारा|मस्कारा
+Foundation|फ़ाउंडेशन|फाउंडेशन|||?
+Compact Powder|कॉम्पैक्ट पाउडर|कॉम्पॅक्ट पावडर|compact
+Face Pack|फ़ेस पैक|फेस पॅक|face mask pack
+Face Scrub|फ़ेस स्क्रब|फेस स्क्रब
+Moisturiser Cream|मॉइस्चराइज़र|मॉइश्चरायझर|||?
+Hair Removal Cream|बाल हटाने की क्रीम|केस काढण्याचे क्रीम|||?
+Wax Strips|वैक्स स्ट्रिप्स|वॅक्स स्ट्रिप्स|waxing
+Nail Polish Remover|नेल पॉलिश रिमूवर|नेलपेंट रिमूव्हर|||?
+Makeup Brush Set|मेकअप ब्रश|मेकअप ब्रश
+Hair Straightener|हेयर स्ट्रेटनर|हेअर स्ट्रेटनर
+Hair Dryer|हेयर ड्रायर|हेअर ड्रायर
+Rose Water Bottle|गुलाब जल बोतल|गुलाबपाणी बाटली|||^ROSE_WATER
+Herbal Kajal|हर्बल काजल|हर्बल काजळ|||^KAJAL
+@sub|bath-body
+Bathing Bar Ayurvedic|आयुर्वेदिक साबुन|आयुर्वेदिक साबण|||^BATH_SOAP
+Glycerine Soap|ग्लिसरीन साबुन|ग्लिसरीन साबण|||^BATH_SOAP
+Charcoal Soap|चारकोल साबुन|चारकोल साबण|||^BATH_SOAP
+Turmeric Soap|हल्दी साबुन|हळद साबण|||^BATH_SOAP
+Aloe Vera Soap|एलोवेरा साबुन|कोरफड साबण|||^BATH_SOAP
+Glycerine|ग्लिसरीन|ग्लिसरीन|glycerin|ml,bottle
+Massage Oil|मालिश तेल|मालिश तेल|malish tel|ml,bottle
+Til Massage Oil|तिल मालिश तेल|तिळाचे मालिश तेल|||^MASSAGE_OIL
+Bath Scrubber|नहाने की जाली|अंघोळीची जाळी|scrubber||?
+
+@category|clothing
+@sub|womens-wear
+Palazzo|पलाज़ो|पलाझो|palazzo pants
+Skirt|स्कर्ट|स्कर्ट|ghagra skirt
+Ladies Top|लेडीज़ टॉप|लेडीज टॉप|top
+Saree Shapewear|साड़ी शेपवियर|साडी शेपवेअर
+Ladies Jeans|लेडीज़ जींस|लेडीज जीन्स|||^JEANS
+Maternity Wear|मैटरनिटी ड्रेस|मॅटर्निटी ड्रेस
+Anarkali Suit|अनारकली सूट|अनारकली ड्रेस|anarkali
+Churidar|चूड़ीदार|चुडीदार|churidar
+Ladies Sweater|लेडीज़ स्वेटर|लेडीज स्वेटर|||^SWEATER
+@sub|mens-wear
+Sweatshirt|स्वेटशर्ट|स्वेटशर्ट
+Hoodie|हुडी|हुडी|||?
+Formal Shirt|फ़ॉर्मल शर्ट|फॉर्मल शर्ट|||^SHIRT
+Casual Shirt|कैज़ुअल शर्ट|कॅज्युअल शर्ट|||^SHIRT
+Cotton Shirt|सूती शर्ट|सुती शर्ट|||^SHIRT
+Polo T-Shirt|पोलो टी-शर्ट|पोलो टी-शर्ट|||^T_SHIRT
+Cargo Pants|कार्गो पैंट|कार्गो पँट|||^TROUSERS
+Night Suit|नाइट सूट|नाईट सूट|pajama set|set
+Sports Wear|स्पोर्ट्स वियर|स्पोर्ट्स वेअर
+Pathani Suit|पठानी सूट|पठाणी सूट|pathani
+Dhoti Kurta Set|धोती कुर्ता|धोतर कुडता|||^KURTA
+Towel Napkin|गमछा|पंचा|gamcha,pancha|piece
+@sub|kids-wear
+School Uniform Shirt|स्कूल यूनिफ़ॉर्म शर्ट|शाळेचा गणवेश शर्ट|||^UNIFORM
+Kids Jacket|बच्चों की जैकेट|मुलांचे जॅकेट|||^JACKET
+Kids Raincoat|बच्चों का रेनकोट|मुलांचा रेनकोट|||^RAINCOAT
+Baby Cap|बच्चों की टोपी|बाळाची टोपी|||?
+Baby Socks|बच्चों के मोज़े|बाळाचे मोजे|||^SOCKS
+Baby Mittens|बच्चों के दस्ताने|बाळाचे हातमोजे|||?
+@sub|footwear
+Rubber Chappal|रबर चप्पल|रबरी चप्पल|||^CHAPPAL
+Leather Chappal|चमड़े की चप्पल|चामड्याची चप्पल|||^CHAPPAL
+Ladies Chappal|लेडीज़ चप्पल|लेडीज चप्पल|||^CHAPPAL
+Sports Slippers|स्पोर्ट्स स्लीपर|स्पोर्ट्स स्लिपर
+Canvas Shoes|कैनवास शूज़|कॅनव्हास शूज|||^SHOES
+Farm Boots|खेत के जूते|शेतीचे बूट|||^GUMBOOTS
+Bellies|बेलीज़|बेलीज|ladies shoes||?
+Shoe Polish|जूता पॉलिश|बूट पॉलिश|shoe polish|piece
+Shoe Laces|जूते के फीते|बुटांच्या लेस|laces|pair,packet
+
+@category|hardware
+@sub|electrical
+Copper Wire|तांबे का तार|तांब्याची तार|||^ELECTRIC_WIRE
+Aluminium Wire|एल्युमिनियम तार|अॅल्युमिनियम तार|||^ELECTRIC_WIRE
+Coaxial Cable|कोएक्सियल केबल|कोएक्सियल केबल|tv cable|metre,roll
+LAN Cable|लैन केबल|लॅन केबल|ethernet cable|metre,roll
+Submersible Cable|सबमर्सिबल केबल|सबमर्सिबल केबल|flat cable|metre,roll
+Conduit Pipe|कंड्यूट पाइप|कंड्युट पाईप|wiring pipe|piece,metre
+Casing Capping|केसिंग कैपिंग|केसिंग कॅपिंग
+Junction Box|जंक्शन बॉक्स|जंक्शन बॉक्स
+Changeover Switch|चेंजओवर स्विच|चेंजओव्हर स्विच|||?
+Timer Switch|टाइमर स्विच|टायमर स्विच
+LED Strip Light|एलईडी स्ट्रिप|एलईडी स्ट्रिप|strip light|metre,roll
+LED Panel Light|एलईडी पैनल|एलईडी पॅनल|panel light
+Flood Light|फ्लड लाइट|फ्लड लाईट|focus light
+Bulb Battery Operated|बैटरी बल्ब|बॅटरी बल्ब|rechargeable bulb,inverter bulb
+Night Lamp|नाइट लैंप|नाईट लॅम्प|||?
+Immersion Rod|इमर्शन रॉड|इमर्शन रॉड|water heater rod
+Mixer Jar|मिक्सर जार|मिक्सर भांडे|||?
+Gas Burner|गैस बर्नर|गॅस बर्नर
+Electric Meter|बिजली मीटर|वीज मीटर|||?
+Earthing Kit|अर्थिंग किट|अर्थिंग किट
+Doorbell Wireless|वायरलेस घंटी|वायरलेस बेल|||^DOORBELL
+Solar Inverter|सोलर इन्वर्टर|सोलर इन्व्हर्टर
+Solar Battery|सोलर बैटरी|सोलर बॅटरी
+@sub|hand-tools
+Mason Thread|सूत की डोरी|ओळंबा दोरी|line dori||?
+Sledge Hammer|घन|घण|ghan,sledge
+Wire Cutter|तार कटर|तार कटर|cutting plier
+Pipe Wrench|पाइप रिंच|पाईप पाना|||?
+Bench Vice|बेंच वाइस|बेंच व्हाईस|||?
+Grease Gun|ग्रीस गन|ग्रीस गन
+Soldering Iron|सोल्डरिंग आयरन|सोल्डरिंग आयर्न
+Measuring Wheel|मापने का पहिया|मापनाचे चाक|||?
+Tile Cutter|टाइल कटर|टाईल कटर
+Hand Saw Blade|आरी ब्लेड|करवत पाते|||?
+Air Compressor|एयर कंप्रेसर|एअर कॉम्प्रेसर
+Pressure Washer|प्रेशर वॉशर|प्रेशर वॉशर
+Chain Saw|चेन सॉ|चेन सॉ|wood cutter machine
+Lawn Mower|लॉन मोवर|लॉन मोवर
+Generator|जनरेटर|जनरेटर|genset
+Fire Extinguisher|अग्निशामक|अग्निशामक यंत्र|||?
+
+@category|stationery
+@sub|school-supplies
+Pen Stand|पेन स्टैंड|पेन स्टँड
+Water Colour Palette|रंग प्लेट|रंगाची प्लेट|||?
+Oil Pastels|ऑयल पेस्टल|ऑईल पेस्टल|pastels
+Poster Colours|पोस्टर कलर|पोस्टर रंग|||?
+Canvas Board|कैनवास बोर्ड|कॅनव्हास बोर्ड
+Drawing Pencils Set|ड्राइंग पेंसिल सेट|ड्रॉइंग पेन्सिल संच|||?
+Stencil Set|स्टेंसिल सेट|स्टेन्सिल संच|||?
+Origami Paper|ओरिगेमी पेपर|ओरिगामी कागद|||?
+Sticky Notes|स्टिकी नोट्स|स्टिकी नोट्स|post it
+Correction Pen|करेक्शन पेन|करेक्शन पेन|whitener
+Punch Machine|पंच मशीन|पंच मशीन|hole punch
+Paper Cutter Board|पेपर कटर|पेपर कटर|||?
+Lamination Pouch|लैमिनेशन पाउच|लॅमिनेशन पाऊच
+Ink Cartridge|इंक कार्ट्रिज|इंक कार्ट्रिज|||?
+Printer|प्रिंटर|प्रिंटर

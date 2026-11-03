@@ -1,3 +1,4 @@
+import { numberLocale } from "../locale";
 import { useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import { BecomeSellerDialog } from "../components/BecomeSellerDialog";
@@ -50,9 +51,7 @@ export function HomeDashboard({
 }) {
   const t = messages(language);
   const signedIn = useAppStore((state) => !!state.session);
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-  );
+  const number = new Intl.NumberFormat(numberLocale(language));
   return (
     <DashboardScreen>
       <AccountHeader

@@ -1,12 +1,11 @@
+import { numberLocale, dateLocale } from "../../locale";
 import type { MobileLanguage } from "@gaavli/types";
 import type { HomeListing } from "../../types/home";
 import { formatMessage, messages } from "../../i18n";
 export function listingCountLabel(count: number, language: MobileLanguage) {
   const t = messages(language);
   return formatMessage(count === 1 ? t.listingCountOne : t.listingsCount, {
-    count: new Intl.NumberFormat(
-      language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-    ).format(count),
+    count: new Intl.NumberFormat(numberLocale(language)).format(count),
   });
 }
 export function listingUnit(unit: string | null, language: MobileLanguage) {
@@ -34,9 +33,7 @@ export function listingPosted(
 ) {
   const t = messages(language);
   const minutes = listing.postedMinutesAgo;
-  const count = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN" : "en-IN",
-  ).format(
+  const count = new Intl.NumberFormat(dateLocale(language)).format(
     minutes < 60 ? minutes : Math.floor(minutes / (minutes < 1440 ? 60 : 1440)),
   );
   return formatMessage(

@@ -164,7 +164,7 @@ export function CoordinatorPage({
                 <Text
                   style={{ color: "#FFFFFF", fontWeight: "700", fontSize: 16 }}
                 >
-                  {language === "mr" ? "सं" : "VC"}
+                  {language !== "en" ? "सं" : "VC"}
                 </Text>
               </View>
               <View style={{ flex: 1, gap: 2 }}>
@@ -178,7 +178,7 @@ export function CoordinatorPage({
               </View>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel={`${coordinatorMessages(language).assignedVillage}: ${language === "mr" ? village.nameMr : village.name}`}
+                accessibilityLabel={`${coordinatorMessages(language).assignedVillage}: ${language !== "en" ? village.nameMr : village.name}`}
                 accessibilityState={{
                   expanded,
                   disabled: offline || villages.length < 2,
@@ -222,7 +222,7 @@ export function CoordinatorPage({
                       },
                     ]}
                   >
-                    {language === "mr" ? village.nameMr : village.name}
+                    {language !== "en" ? village.nameMr : village.name}
                   </Text>
                   {villages.length > 1 && (
                     <Ionicons
@@ -246,7 +246,7 @@ export function CoordinatorPage({
                     setExpanded(false);
                   }}
                 >
-                  {language === "mr" ? item.nameMr : item.name}
+                  {language !== "en" ? item.nameMr : item.name}
                 </Button>
               ))}
           </View>
@@ -268,7 +268,7 @@ export function CoordinatorPage({
                 disabled={offline}
                 onPress={() => select(item.id)}
               >
-                {language === "mr" ? item.nameMr : item.name}
+                {language !== "en" ? item.nameMr : item.name}
               </Button>
             ))}
           </View>

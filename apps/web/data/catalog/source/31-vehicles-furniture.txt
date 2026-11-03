@@ -1,0 +1,108 @@
+# Vehicles, bicycle and two-wheeler accessories, spares, furniture and tailoring supplies.
+@category|vehicles|household|Vehicles and Accessories|वाहन और एक्सेसरीज़|वाहने आणि अॅक्सेसरीज|
+
+@sub|vehicles|Vehicles|वाहन|वाहने|piece
+Motorcycle|मोटरसाइकिल|मोटारसायकल|bike,gadi,motorcycle
+Scooter|स्कूटर|स्कूटर|scooty,scooter
+Electric Scooter|इलेक्ट्रिक स्कूटर|इलेक्ट्रिक स्कूटर|ev scooter
+Moped|मोपेड|मोपेड|luna,moped
+Auto Rickshaw|ऑटो रिक्शा|रिक्षा|rickshaw,auto
+Car|कार|कार|car,four wheeler
+Pickup Van|पिकअप गाड़ी|पिकअप गाडी|tempo,pickup
+Hand Cart|ठेला|हातगाडी|hatgadi,thela,handcart
+Cycle Rickshaw|साइकिल रिक्शा|सायकल रिक्षा
+Electric Bicycle|इलेक्ट्रिक साइकिल|इलेक्ट्रिक सायकल|e cycle
+Gear Bicycle|गियर साइकिल|गियर सायकल|||^BICYCLE
+Ladies Bicycle|लेडीज़ साइकिल|लेडीज सायकल|||^BICYCLE
+
+@sub|vehicle-accessories|Vehicle Accessories and Spares|वाहन एक्सेसरीज़ और पुर्ज़े|वाहन अॅक्सेसरीज आणि सुटे भाग|piece,set
+Helmet|हेलमेट|हेल्मेट|helmet
+Engine Oil|इंजन ऑयल|इंजिन ऑईल|mobil oil,engine oil|litre,bottle
+Grease|ग्रीस|ग्रीस|grease|kg,g,piece
+Two Wheeler Tyre|दोपहिया टायर|दुचाकी टायर|bike tyre
+Bicycle Tyre|साइकिल टायर|सायकल टायर|cycle tyre
+Inner Tube|ट्यूब|ट्यूब|tube,inner tube
+Tractor Tyre|ट्रैक्टर टायर|ट्रॅक्टर टायर
+Puncture Kit|पंक्चर किट|पंक्चर किट|puncture repair
+Air Pump|हवा भरने का पंप|हवा भरण्याचा पंप|cycle pump,foot pump
+Bike Cover|बाइक कवर|गाडी कव्हर|vehicle cover
+Seat Cover|सीट कवर|सीट कव्हर|bike seat cover
+Bike Battery|बाइक बैटरी|गाडीची बॅटरी|vehicle battery
+Spark Plug|स्पार्क प्लग|स्पार्क प्लग|plug
+Clutch Cable|क्लच वायर|क्लच केबल|cable
+Brake Shoe|ब्रेक शू|ब्रेक शू|brake pad
+Chain Sprocket Kit|चेन स्प्रोकेट|चेन स्प्रॉकेट|chain set
+Headlight Bulb|हेडलाइट बल्ब|हेडलाईट बल्ब
+Mirror for Bike|बाइक मिरर|गाडीचा आरसा|side mirror
+Bicycle Chain|साइकिल चेन|सायकल चेन
+Bicycle Bell|साइकिल घंटी|सायकल घंटी|cycle bell
+Bicycle Carrier|साइकिल कैरियर|सायकल कॅरिअर|carrier
+Bicycle Seat|साइकिल सीट|सायकल सीट
+Bicycle Lock|साइकिल ताला|सायकल कुलूप|||?
+Number Plate|नंबर प्लेट|नंबर प्लेट
+Coolant|कूलेंट|कूलंट
+Bullock Cart Wheel|बैलगाड़ी पहिया|बैलगाडीचे चाक|||?
+Tractor Spare Parts|ट्रैक्टर पुर्ज़े|ट्रॅक्टरचे सुटे भाग|tractor parts
+Sprayer Pump Spare Parts|स्प्रे पंप पुर्ज़े|फवारणी पंपाचे सुटे भाग|nozzle,lance
+Motor Pump Spare Parts|मोटर पंप पुर्ज़े|मोटर पंपाचे सुटे भाग|impeller,bearing||?
+Bearing|बेयरिंग|बेअरिंग|bearing
+V Belt|वी बेल्ट|व्ही बेल्ट|fan belt,v belt
+
+@category|furniture|household|Furniture|फ़र्नीचर|फर्निचर
+@sub|furniture|Furniture|फ़र्नीचर|फर्निचर|piece,set
+Cot|खाट|खाट|khat,charpai,cot
+Bed|पलंग|पलंग|palang,bed
+Sofa|सोफ़ा|सोफा|sofa set
+Dining Table|डाइनिंग टेबल|डायनिंग टेबल
+Table|मेज़|टेबल|mez,table
+Study Table|स्टडी टेबल|अभ्यासाचे टेबल|||^TABLE
+Chair|कुर्सी|खुर्ची|khurchi,chair
+Wooden Chair|लकड़ी की कुर्सी|लाकडी खुर्ची|||^CHAIR
+Steel Cupboard|स्टील अलमारी|स्टील कपाट|kapat,almari
+Wooden Cupboard|लकड़ी की अलमारी|लाकडी कपाट|||^STEEL_CUPBOARD
+Wardrobe|वॉर्डरोब|वॉर्डरोब
+Swing|झूला|झोपाळा|zopala,jhula,swing
+Wooden Swing|लकड़ी का झूला|लाकडी झोपाळा|||^SWING
+Bench|बेंच|बाक|bak,bench
+Rack|रैक|रॅक|shelf,rack
+TV Unit|टीवी यूनिट|टीव्ही युनिट
+Shoe Cabinet|जूता अलमारी|चप्पल कपाट|||?
+Office Chair|ऑफ़िस कुर्सी|ऑफिस खुर्ची|revolving chair
+Folding Chair|फोल्डिंग कुर्सी|फोल्डिंग खुर्ची|||^CHAIR
+Folding Bed|फोल्डिंग पलंग|फोल्डिंग पलंग|||^BED
+Diwan|दीवान|दिवाण|diwan,divan
+Teapoy|टीपॉय|टीपॉय|center table
+Dressing Table|ड्रेसिंग टेबल|ड्रेसिंग टेबल
+Bookshelf|किताबों की अलमारी|पुस्तकांचे कपाट|||?
+Iron Trunk|लोहे की पेटी|लोखंडी पेटी|peti,trunk
+Wooden Pat|लकड़ी का पाट|लाकडी पाट|pat,low stool
+
+@category|tailoring|clothing|Tailoring and Craft Supplies|सिलाई और शिल्प सामग्री|शिलाई आणि हस्तकला साहित्य
+@sub|tailoring-supplies|Tailoring Supplies|सिलाई सामग्री|शिलाई साहित्य|piece,packet,metre
+Buttons|बटन|बटणे|button|packet,dozen
+Zipper|ज़िप|चेन (कपड्यांची)|zip,chain|piece,metre
+Hooks and Eyes|हुक|हुक|blouse hooks|packet
+Elastic|इलास्टिक|इलॅस्टिक|elastic|metre,roll
+Lace|लेस|लेस|lace,border|metre,roll
+Saree Fall|साड़ी फॉल|साडी फॉल|fall|piece
+Embroidery Thread|कढ़ाई का धागा|भरतकामाचा दोरा|resham,embroidery|piece,packet
+Knitting Wool|ऊन|लोकर|lokar,oon,wool|g,piece,kg
+Knitting Needles|सलाई|सुया (विणकाम)|salai|pair,set
+Crochet Hook|क्रोशिया सुई|क्रोशाची सुई|||?
+Measuring Tape Tailor|दर्ज़ी फ़ीता|शिंप्याची टेप|tailor tape|piece
+Tailor Chalk|दर्ज़ी चॉक|शिंप्याचा खडू|||?
+Sewing Machine Needle|सिलाई मशीन सुई|शिलाई मशीनची सुई|||?
+Sewing Machine Oil|सिलाई मशीन तेल|शिलाई मशीन तेल|||?
+Beads|मोती|मणी|mani,moti,beads|packet,g
+Sequins|सितारे|टिकल्या (सजावट)|sitara,sequins|packet
+Fabric Paint|फ़ैब्रिक पेंट|कापडी रंग|||?
+Gota Patti|गोटा पट्टी|गोटा पट्टी|gota|metre,roll
+Zari Border|ज़री बॉर्डर|जरी काठ|zari|metre,roll
+Tassels|लटकन|लटकन|latkan,tassel|piece,packet
+Velcro|वेल्क्रो|वेल्क्रो
+Interlining|बकरम|बकरम|buckram|metre
+Thread Reel|धागे की रील|दोऱ्याची रीळ|reel|piece,dozen
+Fabric Dye|कपड़ा रंग|कपड्यांचा रंग|dye,rang|packet,g
+Clay Modelling|मॉडलिंग क्ले|मॉडेलिंग माती|||?
+Shadu Clay|शाडू मिट्टी|शाडू माती|shadu mati|kg,bag
+Plaster of Paris|प्लास्टर ऑफ़ पेरिस|प्लास्टर ऑफ पॅरिस|pop|kg,bag

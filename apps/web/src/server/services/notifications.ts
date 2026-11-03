@@ -86,6 +86,7 @@ export async function notifyListingSeller(
         buyer!.name,
         row.productName,
         row.productNameMr,
+        row.productNameHi,
         session,
         {
           ...input,

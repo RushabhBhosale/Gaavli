@@ -12,6 +12,7 @@ export const productMasterImportRowSchema = z
       .regex(/^[A-Z][A-Z0-9_]*$/),
     nameMr: z.string().trim().min(1).max(120),
     nameEn: z.string().trim().min(1).max(120),
+    nameHi: z.string().trim().min(1).max(120).optional(),
     productGroup: productGroupSchema,
     defaultUnit: z
       .string()
@@ -39,7 +40,10 @@ export const productMasterImportSchema = z
     });
   });
 export const productMasterSchema = productMasterImportRowSchema
-  .extend({ productId: z.string().regex(/^[a-f0-9]{24}$/i) })
+  .extend({
+    productId: z.string().regex(/^[a-f0-9]{24}$/i),
+    nameHi: z.string().nullable(),
+  })
   .strict();
 export const productMasterPageSchema = z
   .object({
@@ -48,6 +52,13 @@ export const productMasterPageSchema = z
         message: "Only active products are available for selection.",
       }),
     ),
+  })
+  .strict();
+// Catalog search adds an optional corrected spelling for the typed text.
+export const catalogSearchPageSchema = z
+  .object({
+    products: productMasterPageSchema.shape.products,
+    didYouMean: z.string().min(1).max(120).nullable(),
   })
   .strict();
 export const productMasterQuerySchema = z

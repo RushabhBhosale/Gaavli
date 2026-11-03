@@ -1,0 +1,53 @@
+# Cash crops, sweeteners, honey and bulk farm produce.
+@category|cash-crops|cash_crops|Cash Crops|नकदी फसलें|नगदी पिके
+
+@sub|cash-crops|Cash Crops|नकदी फसलें|नगदी पिके|quintal,ton,kg
+Sugarcane|गन्ना|ऊस|ganna,us,oos,sugarcane|ton,quintal,piece,bundle
+Chewing Sugarcane|चूसने वाला गन्ना|खाण्याचा ऊस|kala ganna,khanyacha us|piece,bundle,kg|^SUGARCANE
+Cotton|कपास|कापूस|kapas,kapus,cotton
+Tobacco|तंबाकू|तंबाखू|tambaku,tambakhu
+Coffee Beans|कॉफ़ी बीन्स|कॉफी बिया|coffee beej,coffee seeds|kg,g
+Tea Leaves|चाय की पत्ती|चहाची पाने|chai patti,chaha pane,green tea leaves|kg,g
+Jute|जूट|ताग|taag,pat,jute
+Areca Nut|सुपारी|सुपारी|supari,betel nut,areca|kg,g
+Cashew Nut (Raw)|कच्चे काजू|काजू बी|kaju bi,raw cashew|kg,quintal
+Mulberry Leaves|शहतूत के पत्ते|तुतीची पाने|tuti pane,silkworm leaves|kg,bundle
+Silk Cocoons|रेशम कोकून|रेशीम कोष|reshim kosh,cocoon|kg
+Vanilla Beans|वनीला|व्हॅनिला|vanilla pods|g,piece
+
+@category|farm-products|farm_products|Farm Products|कृषि उत्पाद|शेती उत्पादने
+@sub|sweeteners|Jaggery, Sugar and Honey|गुड़, चीनी और शहद|गूळ, साखर आणि मध|kg,g
+Jaggery|गुड़|गूळ|gud,gul,goor,jaggery
+Kolhapuri Jaggery|कोल्हापुरी गुड़|कोल्हापुरी गूळ|kolhapuri gul||^JAGGERY
+Organic Jaggery|जैविक गुड़|सेंद्रिय गूळ|sendriya gul,chemical free gul||^JAGGERY
+Jaggery Powder|गुड़ पाउडर|गूळ पावडर|gul powder,gud powder||^JAGGERY
+Chikki Jaggery|चिक्की गुड़|चिक्की गूळ|chikki gul||^JAGGERY
+Liquid Jaggery|तरल गुड़|काकवी|kakvi,kakavi,liquid gul|kg,litre,bottle
+Palm Jaggery|ताड़ का गुड़|ताडगूळ|tad gul,karupatti,palm gur
+Date Palm Jaggery|खजूर गुड़|खजुराचा गूळ|nolen gur,khajur gud||?
+Sugar|चीनी|साखर|chini,sakhar,shakkar,sugar
+Khadi Sakhar|मिश्री|खडीसाखर|mishri,khadi sakhar,rock sugar
+Brown Sugar|ब्राउन शुगर|ब्राऊन साखर|brown sugar
+Sugar Cubes|शुगर क्यूब्स|साखरेचे खडे|||?
+Powdered Sugar|पिसी चीनी|पिठीसाखर|pithi sakhar,icing sugar
+Batasha|बताशा|बत्तासे|batashe,battase,batasa
+Honey|शहद|मध|shahad,madh,honey
+Forest Honey|जंगली शहद|जंगली मध|jungli madh,wild honey,sahyadri honey||^HONEY
+Jamun Honey|जामुन शहद|जांभूळ मध|jambhul madh||^HONEY
+Ajwain Honey|अजवाइन शहद|ओवा मध|||^HONEY
+Mustard Honey|सरसों शहद|मोहरी मध|||^HONEY
+Beeswax|मधुमक्खी मोम|मेण|mom,men,beeswax|kg,g
+
+@sub|farm-staples|Farm Staples|कृषि मुख्य उत्पाद|शेतीमाल|kg,g
+Peanuts|मूंगफली दाना|शेंगदाणे|shengdane,mungfali dana,peanuts,groundnut kernels
+Roasted Peanuts|भुनी मूंगफली|भाजलेले शेंगदाणे|bhuni mungfali,bhajlele shengdane||^PEANUTS
+Salted Peanuts|नमकीन मूंगफली|खारे शेंगदाणे|khare shengdane,khara shengdana||^PEANUTS
+Dried Coconut|सूखा नारियल|सुके खोबरे|khopra,khobra,sukha nariyal,copra,dry coconut
+Desiccated Coconut|नारियल बुरादा|खोबऱ्याचा कीस|nariyal burada,coconut powder,kis
+Coconut Halves|गोला|खोबरे वाटी|gola,khobra vati||^DRIED_COCONUT
+Grated Coconut|कसा हुआ नारियल|खवलेला नारळ|kisa nariyal,khavlela naral|kg,g,packet
+Salt|नमक|मीठ|namak,meeth,salt
+Crystal Salt|खड़ा नमक|खडे मीठ|khada namak,khade meeth,sea salt||^SALT
+Iodised Salt|आयोडीन नमक|आयोडीनयुक्त मीठ|iodized salt||^SALT
+Tamarind Seeds|इमली के बीज|चिंचोके|chinchoke,imli beej
+Mahua Flowers|महुआ फूल|मोहाची फुले|mahua,moha|kg,g

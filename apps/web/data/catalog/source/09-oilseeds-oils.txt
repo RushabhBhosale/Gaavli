@@ -1,0 +1,48 @@
+# Oilseeds and edible oils (generic; wood-pressed and refined).
+@category|oilseeds|oilseeds|Oilseeds|तिलहन|तेलबिया
+
+@sub|oilseeds|Oilseeds|तिलहन|तेलबिया|kg,quintal,bag
+Groundnut|मूंगफली|भुईमूग|mungfali,moongphali,bhuimug,shenga,groundnut pods
+Soybean|सोयाबीन|सोयाबीन|soyabean,soya,soybean
+Sunflower Seeds|सूरजमुखी के बीज|सूर्यफूल बिया|surajmukhi beej
+Sesame Seeds|तिल|तीळ|til,teel,sesame
+Safflower|कुसुम|करडई|kardai,kusum
+Flaxseed|अलसी|जवस|alsi,javas,jawas,linseed
+Castor Seeds|अरंडी|एरंडी|arandi,erandi,castor
+Niger Seeds|रामतिल|कारळे|karale,karla,ramtil,khurasani
+Mustard Oilseed|सरसों|मोहरी (तेलबिया)|sarson,mustard for oil||?
+Coconut Copra|खोपरा|खोबरे (कोपरा)|copra,khopra,milling copra
+Cottonseed|बिनौला|सरकी|sarki,binola,cotton seed|kg,quintal,bag
+Neem Seeds|नीम के बीज|लिंबोळी|nimboli,limboli,neem beej
+Karanj Seeds|करंज के बीज|करंज बिया|karanj,pongamia
+Mahua Seeds|महुआ के बीज|मोहाच्या बिया|mahua beej,moha bia|kg,quintal|?
+
+@category|oils-ghee|farm_products|Cooking Oils and Ghee|खाद्य तेल और घी|खाद्यतेल आणि तूप
+@sub|edible-oils|Edible Oils|खाद्य तेल|खाद्यतेल|litre,ml,kg,bottle
+Groundnut Oil|मूंगफली का तेल|शेंगदाणा तेल|shengdana tel,mungfali tel,peanut oil
+Wood Pressed Groundnut Oil|कच्ची घानी मूंगफली तेल|लाकडी घाण्याचे शेंगदाणा तेल|ghani tel,kachi ghani,cold pressed groundnut oil||^GROUNDNUT_OIL
+Sunflower Oil|सूरजमुखी तेल|सूर्यफूल तेल|suryaphul tel,sunflower oil
+Soybean Oil|सोयाबीन तेल|सोयाबीन तेल|soya oil,soyabean tel
+Mustard Oil|सरसों का तेल|मोहरीचे तेल|sarson tel,mohri tel,kachi ghani mustard
+Coconut Oil|नारियल तेल|खोबरेल तेल|nariyal tel,khobrel tel,coconut oil
+Wood Pressed Coconut Oil|कच्ची घानी नारियल तेल|लाकडी घाण्याचे खोबरेल तेल|cold pressed coconut oil||^COCONUT_OIL
+Sesame Oil|तिल का तेल|तिळाचे तेल|til tel,gingelly oil,tilache tel
+Wood Pressed Sesame Oil|कच्ची घानी तिल तेल|लाकडी घाण्याचे तिळाचे तेल|cold pressed til oil||^SESAME_OIL
+Safflower Oil|कुसुम तेल|करडई तेल|kardai tel,kusum tel
+Wood Pressed Safflower Oil|कच्ची घानी कुसुम तेल|लाकडी घाण्याचे करडई तेल|ghani kardai tel||^SAFFLOWER_OIL
+Cottonseed Oil|बिनौला तेल|सरकी तेल|sarki tel,binola tel
+Rice Bran Oil|राइस ब्रान तेल|राईस ब्रान तेल|rice bran
+Palm Oil|पाम तेल|पाम तेल|palmolein
+Olive Oil|जैतून का तेल|ऑलिव्ह तेल|jaitun tel,olive oil
+Flaxseed Oil|अलसी का तेल|जवस तेल|alsi tel,javas tel
+Niger Seed Oil|रामतिल तेल|कारळे तेल|karale tel||?
+Vanaspati|वनस्पति घी|वनस्पती तूप|vanaspati,hydrogenated oil|kg,litre,packet
+Blended Edible Oil|मिश्रित खाद्य तेल|मिश्र खाद्यतेल|blended oil||?
+
+@sub|non-edible-oils|Non-edible and Massage Oils|अखाद्य तेल|अखाद्य तेल|litre,ml,bottle
+Castor Oil|अरंडी का तेल|एरंडेल तेल|arandi tel,erandel,castor oil
+Neem Oil|नीम का तेल|कडुलिंबाचे तेल|neem tel
+Karanj Oil|करंज तेल|करंज तेल|pongamia oil
+Almond Oil|बादाम तेल|बदाम तेल|badam tel
+Lamp Oil|दीया तेल|दिव्याचे तेल|diya tel,deepam oil,puja oil
+Mahua Oil|महुआ तेल|मोहाचे तेल|||?

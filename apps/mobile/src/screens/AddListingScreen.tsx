@@ -1,3 +1,4 @@
+import { productDisplayName } from "../locale";
 import { useEffect, useRef, useState } from "react";
 import {
   Image,
@@ -31,7 +32,7 @@ import { showToast } from "../toast";
 import { authenticatedApi, saveSession } from "../session";
 import { ApiError } from "../api/client";
 import { errorMessage } from "../errors";
-import { messages } from "../i18n";
+import { formatMessage, messages } from "../i18n";
 import { theme } from "../theme";
 import {
   BackButton,
@@ -45,8 +46,8 @@ import { d } from "../components/dashboard/primitives";
 import { ListingImage } from "../components/dashboard/ListingImage";
 import { listingDraftStorage, productMasterCache } from "../storage/sqlite";
 import {
-  loadMasterProducts,
   matchesProductSearch,
+  searchMasterProducts,
 } from "../data/productMaster";
 import {
   emptyListingDraft,
@@ -115,6 +116,8 @@ function ListingFormScreen({
   const [busy, setBusy] = useState(false);
   const [failure, setFailure] = useState<string | null>(null);
   const [conflict, setConflict] = useState(false);
+  const [productSearch, setProductSearch] = useState("");
+  const [debouncedProductSearch, setDebouncedProductSearch] = useState("");
   const key = `${accountId}:${villageId}${editId ? `:edit:${editId}` : ""}`;
   const categories = useQuery({
     queryKey: ["listing-categories", accountId],
@@ -122,19 +125,48 @@ function ListingFormScreen({
       authenticatedApi("/categories", mobileCategoriesSchema, { signal }),
     retry: 1,
   });
+  useEffect(() => {
+    const timeout = setTimeout(
+      () => setDebouncedProductSearch(productSearch.trim()),
+      300,
+    );
+    return () => clearTimeout(timeout);
+  }, [productSearch]);
   const products = useQuery({
-    queryKey: ["product-master", accountId, offline],
-    queryFn: () =>
-      loadMasterProducts({
+    queryKey: ["catalog-search", accountId, debouncedProductSearch, offline],
+    queryFn: ({ signal }) =>
+      searchMasterProducts({
         storage: productMasterCache,
         offline,
-        fetch: () =>
-          authenticatedApi("/product-master", productMasterPageSchema),
+        search: debouncedProductSearch,
+        signal,
+        fetch: (search, signal) =>
+          authenticatedApi(
+            `/catalog/search?q=${encodeURIComponent(search)}&limit=20`,
+            productMasterPageSchema,
+            { signal },
+          ),
       }),
+    enabled: debouncedProductSearch.length > 0,
     networkMode: "always",
     retry: false,
-    refetchOnMount: "always",
+    staleTime: 30_000,
   });
+  const productSearchWaiting =
+    productSearch.trim() !== debouncedProductSearch ||
+    (debouncedProductSearch.length > 0 &&
+      (products.isPending || products.isFetching));
+  const productSearchMessage = !productSearch.trim()
+    ? t.productMasterSearchHint
+    : productSearchWaiting
+      ? t.productMasterLoading
+      : products.isError
+        ? t.productMasterUnavailable
+        : products.data?.cached
+          ? t.productMasterCached
+          : products.data && products.data.products.length === 0
+            ? t.productMasterNoMatches
+            : undefined;
   function loadDraft(replace = false) {
     const version = ++loadVersion.current;
     return listingDraftStorage
@@ -493,7 +525,7 @@ function ListingFormScreen({
       <View style={s.panel}>
         <Text style={d.cardTitle}>
           {session?.user.village
-            ? language === "mr"
+            ? language !== "en"
               ? session.user.village.nameMr
               : session.user.village.name
             : ""}
@@ -537,24 +569,48 @@ function ListingFormScreen({
             disabled={locked}
             selectedLabel={
               form.productId
-                ? (language === "mr"
-                    ? form.productNameMr
-                    : form.productNameEn) || form.name
+                ? productDisplayName(language, {
+                    en: form.productNameEn,
+                    mr: form.productNameMr,
+                    hi: form.productNameHi,
+                  }) || form.name
                 : form.name
             }
             searchable
+            remoteSearch
             searchPlaceholder={t.productMasterSearch}
+            searchValue={productSearch}
+            onSearchChange={setProductSearch}
+            searchMessage={productSearchMessage}
+            searchSuggestion={
+              productSearchWaiting ? undefined : products.data?.didYouMean
+            }
+            searchError={
+              !productSearchWaiting &&
+              !!productSearch.trim() &&
+              products.isError
+            }
+            onSearchRetry={() => void products.refetch()}
             searchTexts={Object.fromEntries(
               (products.data?.products || []).map((product) => [
                 product.productId,
-                `${product.nameMr} ${product.nameEn}`,
+                [product.nameMr, product.nameEn, product.nameHi]
+                  .filter(Boolean)
+                  .join(" "),
               ]),
             )}
-            options={(products.data?.products || []).map(
+            options={(productSearchWaiting
+              ? []
+              : products.data?.products || []
+            ).map(
               (product) =>
                 [
                   product.productId,
-                  language === "mr" ? product.nameMr : product.nameEn,
+                  productDisplayName(language, {
+                    en: product.nameEn,
+                    mr: product.nameMr,
+                    hi: product.nameHi,
+                  }),
                 ] as const,
             )}
             onChange={(id) => {
@@ -582,23 +638,6 @@ function ListingFormScreen({
               void persist(next).catch(() => undefined);
             }}
           />
-          {products.isPending && (
-            <Text style={d.description}>{t.productMasterLoading}</Text>
-          )}
-          {products.isError && (
-            <>
-              <ErrorMessage message={t.productMasterUnavailable} />
-              <Button secondary onPress={() => void products.refetch()}>
-                {t.retry}
-              </Button>
-            </>
-          )}
-          {products.data?.cached && (
-            <Text style={d.description}>{t.productMasterCached}</Text>
-          )}
-          {products.data && !products.data.products.length && (
-            <Text style={d.description}>{t.productMasterEmpty}</Text>
-          )}
           {editId && !form.productId && (
             <Text style={d.description}>{t.productMasterLegacy}</Text>
           )}
@@ -698,9 +737,9 @@ function ListingFormScreen({
             onChange={(value) => update("categoryId", value)}
             options={
               categories.data?.categories.map((item) => {
-                const name = language === "mr" ? item.nameMr : item.name;
+                const name = language !== "en" ? item.nameMr : item.name;
                 const life =
-                  language === "mr"
+                  language !== "en"
                     ? item.defaultShelfLife
                         .trim()
                         .replace(/\bdays?\b/gi, t.shelfDaysUnit)
@@ -825,8 +864,15 @@ function ListingDropdown<T extends string>({
   disabled,
   placeholder,
   searchable = false,
+  remoteSearch = false,
   searchTexts = {},
   searchPlaceholder,
+  searchValue,
+  onSearchChange,
+  searchMessage,
+  searchSuggestion,
+  searchError = false,
+  onSearchRetry,
   selectedLabel,
 }: {
   label: string;
@@ -836,8 +882,15 @@ function ListingDropdown<T extends string>({
   disabled: boolean;
   placeholder?: string;
   searchable?: boolean;
+  remoteSearch?: boolean;
   searchTexts?: Record<string, string>;
   searchPlaceholder?: string;
+  searchValue?: string;
+  onSearchChange?: (value: string) => void;
+  searchMessage?: string;
+  searchSuggestion?: string | null;
+  searchError?: boolean;
+  onSearchRetry?: () => void;
   selectedLabel?: string | null;
 }) {
   const [open, setOpen] = useState(false);
@@ -846,10 +899,20 @@ function ListingDropdown<T extends string>({
   const t = messages(language);
   const selected =
     selectedLabel || options.find(([id]) => id === value)?.[1] || undefined;
-  const visibleOptions = options.filter(([id, text]) =>
-    matchesProductSearch(`${text} ${searchTexts[id] || ""}`, search),
-  );
-  const unavailable = disabled || !options.length;
+  const currentSearch = searchValue ?? search;
+  const visibleOptions = remoteSearch
+    ? options
+    : options.filter(([id, text]) =>
+        matchesProductSearch(`${text} ${searchTexts[id] || ""}`, search),
+      );
+  const unavailable = disabled || (!searchable && !options.length);
+  function close() {
+    setOpen(false);
+    if (searchable) {
+      setSearch("");
+      onSearchChange?.("");
+    }
+  }
   return (
     <>
       <DropdownField
@@ -860,6 +923,7 @@ function ListingDropdown<T extends string>({
         expanded={open}
         onPress={() => {
           setSearch("");
+          onSearchChange?.("");
           setOpen(true);
         }}
       />
@@ -867,7 +931,7 @@ function ListingDropdown<T extends string>({
         visible={open}
         transparent
         animationType="fade"
-        onRequestClose={() => setOpen(false)}
+        onRequestClose={close}
       >
         <View style={s.dropdownOverlay}>
           <View accessibilityViewIsModal style={s.dropdownSheet}>
@@ -877,14 +941,41 @@ function ListingDropdown<T extends string>({
             {searchable && (
               <Input
                 label={searchPlaceholder || label}
-                value={search}
-                onChangeText={setSearch}
-                maxLength={100}
+                value={currentSearch}
+                onChangeText={(value) => {
+                  setSearch(value);
+                  onSearchChange?.(value);
+                }}
+                maxLength={80}
                 autoCapitalize="none"
               />
             )}
             <ScrollView keyboardShouldPersistTaps="handled">
-              {!visibleOptions.length && (
+              {searchMessage &&
+                (searchError ? (
+                  <ErrorMessage message={searchMessage} />
+                ) : (
+                  <Text style={d.description}>{searchMessage}</Text>
+                ))}
+              {searchSuggestion ? (
+                <Button
+                  secondary
+                  onPress={() => {
+                    setSearch(searchSuggestion);
+                    onSearchChange?.(searchSuggestion);
+                  }}
+                >
+                  {formatMessage(t.productMasterDidYouMean, {
+                    term: searchSuggestion,
+                  })}
+                </Button>
+              ) : null}
+              {searchError && onSearchRetry && (
+                <Button secondary onPress={onSearchRetry}>
+                  {t.retry}
+                </Button>
+              )}
+              {!remoteSearch && !visibleOptions.length && (
                 <Text style={d.description}>{t.productMasterNoMatches}</Text>
               )}
               {visibleOptions.map(([id, text]) => (
@@ -918,7 +1009,7 @@ function ListingDropdown<T extends string>({
                 </Pressable>
               ))}
             </ScrollView>
-            <Button secondary onPress={() => setOpen(false)}>
+            <Button secondary onPress={close}>
               {t.cancel}
             </Button>
           </View>

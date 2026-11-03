@@ -1,0 +1,168 @@
+# Seed and planting material of named public crop varieties (agricultural university / ICAR releases).
+# Names are variety designations, not brands. Varieties with uncertain release details are marked "?".
+@category|crop-varieties|farm_inputs|Crop Variety Seeds|फसल किस्मों के बीज|पीक वाणांचे बियाणे
+
+@sub|cereal-varieties|Cereal Variety Seeds|अनाज किस्म बीज|तृणधान्य वाण बियाणे|kg,bag,packet
+Trimbak Wheat Seeds|त्र्यंबक गेहूं बीज|त्र्यंबक गहू बियाणे|niaw 301,trimbak gahu||^WHEAT_SEEDS
+Tapovan Wheat Seeds|तपोवन गेहूं बीज|तपोवन गहू बियाणे|niaw 917,tapovan gahu||^WHEAT_SEEDS
+Godavari Wheat Seeds|गोदावरी गेहूं बीज|गोदावरी गहू बियाणे|niaw 295||^WHEAT_SEEDS
+Phule Samadhan Wheat Seeds|फुले समाधान गेहूं बीज|फुले समाधान गहू बियाणे|niaw 1994||^WHEAT_SEEDS
+Netravati Wheat Seeds|नेत्रावती गेहूं बीज|नेत्रावती गहू बियाणे|niaw 1415||^WHEAT_SEEDS
+MACS 6222 Wheat Seeds|एमएसीएस 6222 गेहूं बीज|एमएसीएस 6222 गहू बियाणे|macs 6222||^WHEAT_SEEDS
+MACS 6478 Wheat Seeds|एमएसीएस 6478 गेहूं बीज|एमएसीएस 6478 गहू बियाणे|macs 6478||^WHEAT_SEEDS
+Lok 1 Wheat Seeds|लोक 1 गेहूं बीज|लोक 1 गहू बियाणे|lokwan seeds||^WHEAT_SEEDS
+GW 496 Wheat Seeds|जीडब्ल्यू 496 गेहूं बीज|जीडब्ल्यू 496 गहू बियाणे|gw 496||^WHEAT_SEEDS
+HD 2189 Wheat Seeds|एचडी 2189 गेहूं बीज|एचडी 2189 गहू बियाणे|hd 2189||^WHEAT_SEEDS
+Maldandi 35-1 Jowar Seeds|मालदांडी 35-1 ज्वार बीज|मालदांडी 35-1 ज्वारी बियाणे|m 35-1,maldandi||^SORGHUM_SEEDS
+Phule Vasudha Jowar Seeds|फुले वसुधा ज्वार बीज|फुले वसुधा ज्वारी बियाणे|phule vasudha||^SORGHUM_SEEDS
+Phule Suchitra Jowar Seeds|फुले सुचित्रा ज्वार बीज|फुले सुचित्रा ज्वारी बियाणे|phule suchitra||^SORGHUM_SEEDS
+Phule Revati Jowar Seeds|फुले रेवती ज्वार बीज|फुले रेवती ज्वारी बियाणे|phule revati||^SORGHUM_SEEDS
+Phule Anuradha Jowar Seeds|फुले अनुराधा ज्वार बीज|फुले अनुराधा ज्वारी बियाणे|phule anuradha||^SORGHUM_SEEDS
+Parbhani Moti Jowar Seeds|परभणी मोती ज्वार बीज|परभणी मोती ज्वारी बियाणे|parbhani moti||^SORGHUM_SEEDS
+Phule Yashoda Jowar Seeds|फुले यशोदा ज्वार बीज|फुले यशोदा ज्वारी बियाणे|phule yashoda||^SORGHUM_SEEDS
+Dhanshakti Bajra Seeds|धनशक्ति बाजरा बीज|धनशक्ती बाजरी बियाणे|dhanshakti,iron rich bajra||^PEARL_MILLET_SEEDS
+Phule Adishakti Bajra Seeds|फुले आदिशक्ति बाजरा बीज|फुले आदिशक्ती बाजरी बियाणे|phule adishakti||^PEARL_MILLET_SEEDS
+Indrayani Paddy Seeds|इंद्रायणी धान बीज|इंद्रायणी भात बियाणे|indrayani bhat||^PADDY_SEEDS
+Phule Samruddhi Paddy Seeds|फुले समृद्धि धान बीज|फुले समृद्धी भात बियाणे|phule samruddhi||^PADDY_SEEDS
+Karjat 3 Paddy Seeds|कर्जत 3 धान बीज|कर्जत 3 भात बियाणे|karjat 3||^PADDY_SEEDS
+Karjat 7 Paddy Seeds|कर्जत 7 धान बीज|कर्जत 7 भात बियाणे|karjat 7||^PADDY_SEEDS
+Ratnagiri 1 Paddy Seeds|रत्नागिरी 1 धान बीज|रत्नागिरी 1 भात बियाणे|ratnagiri 1||^PADDY_SEEDS
+Ratnagiri 24 Paddy Seeds|रत्नागिरी 24 धान बीज|रत्नागिरी 24 भात बियाणे|ratnagiri 24||^PADDY_SEEDS
+Jaya Paddy Seeds|जया धान बीज|जया भात बियाणे|jaya||^PADDY_SEEDS
+Ratna Paddy Seeds|रत्ना धान बीज|रत्ना भात बियाणे|ratna||^PADDY_SEEDS
+Bhogavati Paddy Seeds|भोगावती धान बीज|भोगावती भात बियाणे|bhogavati||^PADDY_SEEDS
+Pawana Paddy Seeds|पवना धान बीज|पवना भात बियाणे|pawana||^PADDY_SEEDS
+Phule Radha Paddy Seeds|फुले राधा धान बीज|फुले राधा भात बियाणे|phule radha||^PADDY_SEEDS
+Ambemohar 157 Paddy Seeds|आंबेमोहर 157 धान बीज|आंबेमोहोर 157 भात बियाणे|ambemohar 157||^PADDY_SEEDS
+Sahyadri Hybrid Paddy Seeds|सह्याद्रि संकर धान बीज|सह्याद्री संकरित भात बियाणे|sahyadri||^PADDY_SEEDS
+Dapoli 1 Nachni Seeds|दापोली 1 रागी बीज|दापोली 1 नाचणी बियाणे|dapoli 1 ragi||^FINGER_MILLET_SEEDS
+African Tall Maize Seeds|अफ़्रीकन टॉल मक्का बीज|आफ्रिकन टॉल मका बियाणे|african tall,fodder maize||^MAIZE_SEEDS
+
+@sub|pulse-oilseed-varieties|Pulse and Oilseed Variety Seeds|दलहन और तिलहन किस्म बीज|कडधान्य व तेलबिया वाण बियाणे|kg,bag,packet
+JS 335 Soybean Seeds|जेएस 335 सोयाबीन बीज|जेएस 335 सोयाबीन बियाणे|js 335||^SOYBEAN_SEEDS
+JS 93-05 Soybean Seeds|जेएस 93-05 सोयाबीन बीज|जेएस 93-05 सोयाबीन बियाणे|js 9305||^SOYBEAN_SEEDS
+JS 95-60 Soybean Seeds|जेएस 95-60 सोयाबीन बीज|जेएस 95-60 सोयाबीन बियाणे|js 9560||^SOYBEAN_SEEDS
+MAUS 71 Soybean Seeds|एमएयूएस 71 सोयाबीन बीज|एमएयूएस 71 सोयाबीन बियाणे|maus 71,samrudhi||^SOYBEAN_SEEDS
+MAUS 158 Soybean Seeds|एमएयूएस 158 सोयाबीन बीज|एमएयूएस 158 सोयाबीन बियाणे|maus 158||^SOYBEAN_SEEDS
+MAUS 162 Soybean Seeds|एमएयूएस 162 सोयाबीन बीज|एमएयूएस 162 सोयाबीन बियाणे|maus 162||^SOYBEAN_SEEDS
+MAUS 612 Soybean Seeds|एमएयूएस 612 सोयाबीन बीज|एमएयूएस 612 सोयाबीन बियाणे|maus 612||^SOYBEAN_SEEDS
+Phule Sangam Soybean Seeds|फुले संगम सोयाबीन बीज|फुले संगम सोयाबीन बियाणे|kds 726||^SOYBEAN_SEEDS
+Phule Kimaya Soybean Seeds|फुले किमया सोयाबीन बीज|फुले किमया सोयाबीन बियाणे|kds 753||^SOYBEAN_SEEDS
+Phule Kalyani Soybean Seeds|फुले कल्याणी सोयाबीन बीज|फुले कल्याणी सोयाबीन बियाणे|ds 228||^SOYBEAN_SEEDS
+MACS 1188 Soybean Seeds|एमएसीएस 1188 सोयाबीन बीज|एमएसीएस 1188 सोयाबीन बियाणे|macs 1188||^SOYBEAN_SEEDS
+MACS 1281 Soybean Seeds|एमएसीएस 1281 सोयाबीन बीज|एमएसीएस 1281 सोयाबीन बियाणे|macs 1281||^SOYBEAN_SEEDS
+BDN 711 Tur Seeds|बीडीएन 711 तुअर बीज|बीडीएन 711 तूर बियाणे|bdn 711||^PIGEON_PEA_SEEDS
+BDN 716 Tur Seeds|बीडीएन 716 तुअर बीज|बीडीएन 716 तूर बियाणे|bdn 716||^PIGEON_PEA_SEEDS
+Vipula Tur Seeds|विपुला तुअर बीज|विपुला तूर बियाणे|vipula||^PIGEON_PEA_SEEDS
+Godavari Tur Seeds|गोदावरी तुअर बीज|गोदावरी तूर बियाणे|bdn 2013-41||^PIGEON_PEA_SEEDS
+Rajeshwari Tur Seeds|राजेश्वरी तुअर बीज|राजेश्वरी तूर बियाणे|rajeshwari||^PIGEON_PEA_SEEDS
+Asha Tur Seeds|आशा तुअर बीज|आशा तूर बियाणे|icpl 87119||^PIGEON_PEA_SEEDS
+PKV Tara Tur Seeds|पीकेवी तारा तुअर बीज|पीकेव्ही तारा तूर बियाणे|pkv tara||^PIGEON_PEA_SEEDS
+Phule Trupti Tur Seeds|फुले तृप्ति तुअर बीज|फुले तृप्ती तूर बियाणे|phule trupti||^PIGEON_PEA_SEEDS
+Vijay Gram Seeds|विजय चना बीज|विजय हरभरा बियाणे|vijay harbhara||^CHICKPEA_SEEDS
+Digvijay Gram Seeds|दिग्विजय चना बीज|दिग्विजय हरभरा बियाणे|digvijay||^CHICKPEA_SEEDS
+Vishal Gram Seeds|विशाल चना बीज|विशाल हरभरा बियाणे|vishal||^CHICKPEA_SEEDS
+Phule Vikram Gram Seeds|फुले विक्रम चना बीज|फुले विक्रम हरभरा बियाणे|phule vikram||^CHICKPEA_SEEDS
+Phule Vikrant Gram Seeds|फुले विक्रांत चना बीज|फुले विक्रांत हरभरा बियाणे|phule vikrant||^CHICKPEA_SEEDS
+Jaki 9218 Gram Seeds|जाकी 9218 चना बीज|जाकी 9218 हरभरा बियाणे|jaki 9218||^CHICKPEA_SEEDS
+JG 11 Gram Seeds|जेजी 11 चना बीज|जेजी 11 हरभरा बियाणे|jg 11||^CHICKPEA_SEEDS
+Kripa Kabuli Gram Seeds|कृपा काबुली चना बीज|कृपा काबुली हरभरा बियाणे|pkv kabuli 4,kripa||^CHICKPEA_SEEDS
+Virat Kabuli Gram Seeds|विराट काबुली चना बीज|विराट काबुली हरभरा बियाणे|virat||^CHICKPEA_SEEDS
+BM 2003-2 Moong Seeds|बीएम 2003-2 मूंग बीज|बीएम 2003-2 मूग बियाणे|bm 2003-2||^GREEN_GRAM_SEEDS
+Vaibhav Moong Seeds|वैभव मूंग बीज|वैभव मूग बियाणे|vaibhav||^GREEN_GRAM_SEEDS
+TAU 1 Udid Seeds|टीएयू 1 उड़द बीज|टीएयू 1 उडीद बियाणे|tau 1||^BLACK_GRAM_SEEDS
+SB 11 Groundnut Seeds|एसबी 11 मूंगफली बीज|एसबी 11 भुईमूग बियाणे|sb 11||^GROUNDNUT_SEEDS
+Phule Pragati Groundnut Seeds|फुले प्रगति मूंगफली बीज|फुले प्रगती भुईमूग बियाणे|jl 24||^GROUNDNUT_SEEDS
+TAG 24 Groundnut Seeds|टीएजी 24 मूंगफली बीज|टीएजी 24 भुईमूग बियाणे|tag 24||^GROUNDNUT_SEEDS
+Phule Unnati Groundnut Seeds|फुले उन्नति मूंगफली बीज|फुले उन्नती भुईमूग बियाणे|phule unnati||^GROUNDNUT_SEEDS
+Phule Bharati Groundnut Seeds|फुले भारती मूंगफली बीज|फुले भारती भुईमूग बियाणे|phule bharati||^GROUNDNUT_SEEDS
+TG 26 Groundnut Seeds|टीजी 26 मूंगफली बीज|टीजी 26 भुईमूग बियाणे|tg 26||^GROUNDNUT_SEEDS
+Bhima Safflower Seeds|भीमा कुसुम बीज|भीमा करडई बियाणे|bhima kardai||^SAFFLOWER_SEEDS
+Phule Kusuma Safflower Seeds|फुले कुसुमा कुसुम बीज|फुले कुसुमा करडई बियाणे|phule kusuma||^SAFFLOWER_SEEDS
+
+@sub|vegetable-varieties|Vegetable Variety Seeds|सब्ज़ी किस्म बीज|भाजीपाला वाण बियाणे|packet,g,kg
+N-53 Onion Seeds|एन-53 प्याज बीज|एन-53 कांदा बियाणे|n 53,kharif onion||^ONION_SEEDS
+Agrifound Dark Red Onion Seeds|एग्रीफाउंड डार्क रेड प्याज बीज|अॅग्रीफाउंड डार्क रेड कांदा बियाणे|adr onion||^ONION_SEEDS
+Bhima Super Onion Seeds|भीमा सुपर प्याज बीज|भीमा सुपर कांदा बियाणे|bhima super||^ONION_SEEDS
+Bhima Red Onion Seeds|भीमा रेड प्याज बीज|भीमा रेड कांदा बियाणे|bhima red||^ONION_SEEDS
+Bhima Raj Onion Seeds|भीमा राज प्याज बीज|भीमा राज कांदा बियाणे|bhima raj||^ONION_SEEDS
+Bhima Shakti Onion Seeds|भीमा शक्ति प्याज बीज|भीमा शक्ती कांदा बियाणे|bhima shakti||^ONION_SEEDS
+Bhima Kiran Onion Seeds|भीमा किरण प्याज बीज|भीमा किरण कांदा बियाणे|bhima kiran||^ONION_SEEDS
+Bhima Shweta Onion Seeds|भीमा श्वेता प्याज बीज|भीमा श्वेता कांदा बियाणे|bhima shweta,white onion seeds||^ONION_SEEDS
+Phule Samarth Onion Seeds|फुले समर्थ प्याज बीज|फुले समर्थ कांदा बियाणे|phule samarth||^ONION_SEEDS
+Phule Suvarna Onion Seeds|फुले सुवर्णा प्याज बीज|फुले सुवर्णा कांदा बियाणे|phule suvarna||^ONION_SEEDS
+Baswant 780 Onion Seeds|बसवंत 780 प्याज बीज|बसवंत 780 कांदा बियाणे|baswant 780||^ONION_SEEDS
+N-2-4-1 Onion Seeds|एन-2-4-1 प्याज बीज|एन-2-4-1 कांदा बियाणे|n 241,rabi onion||^ONION_SEEDS
+Pusa Ruby Tomato Seeds|पूसा रूबी टमाटर बीज|पुसा रुबी टोमॅटो बियाणे|pusa ruby||^TOMATO_SEEDS
+Arka Vikas Tomato Seeds|अर्का विकास टमाटर बीज|अर्का विकास टोमॅटो बियाणे|arka vikas||^TOMATO_SEEDS
+Arka Rakshak Tomato Seeds|अर्का रक्षक टमाटर बीज|अर्का रक्षक टोमॅटो बियाणे|arka rakshak||^TOMATO_SEEDS
+Phule Raja Tomato Seeds|फुले राजा टमाटर बीज|फुले राजा टोमॅटो बियाणे|phule raja||^TOMATO_SEEDS
+Dhanashree Tomato Seeds|धनश्री टमाटर बीज|धनश्री टोमॅटो बियाणे|dhanashree||^TOMATO_SEEDS
+Manjari Gota Brinjal Seeds|मांजरी गोटा बैंगन बीज|मांजरी गोटा वांगी बियाणे|manjari gota||^BRINJAL_SEEDS
+Krishna Brinjal Seeds|कृष्णा बैंगन बीज|कृष्णा वांगी बियाणे|krishna vangi||^BRINJAL_SEEDS
+Phule Arjun Brinjal Seeds|फुले अर्जुन बैंगन बीज|फुले अर्जुन वांगी बियाणे|phule arjun||^BRINJAL_SEEDS
+Vaishali Brinjal Seeds|वैशाली बैंगन बीज|वैशाली वांगी बियाणे|vaishali||^BRINJAL_SEEDS
+Phule Jyoti Chilli Seeds|फुले ज्योति मिर्च बीज|फुले ज्योती मिरची बियाणे|phule jyoti||^GREEN_CHILLI_SEEDS
+Phule Sai Chilli Seeds|फुले साई मिर्च बीज|फुले साई मिरची बियाणे|phule sai||^GREEN_CHILLI_SEEDS
+Pusa Jwala Chilli Seeds|पूसा ज्वाला मिर्च बीज|पुसा ज्वाला मिरची बियाणे|pusa jwala,jwala||^GREEN_CHILLI_SEEDS
+G-4 Chilli Seeds|जी-4 मिर्च बीज|जी-4 मिरची बियाणे|g4 chilli||^GREEN_CHILLI_SEEDS
+Parbhani Kranti Okra Seeds|परभणी क्रांति भिंडी बीज|परभणी क्रांती भेंडी बियाणे|parbhani kranti||^OKRA_SEEDS
+Arka Anamika Okra Seeds|अर्का अनामिका भिंडी बीज|अर्का अनामिका भेंडी बियाणे|arka anamika||^OKRA_SEEDS
+Phule Utkarsha Okra Seeds|फुले उत्कर्ष भिंडी बीज|फुले उत्कर्षा भेंडी बियाणे|phule utkarsha||^OKRA_SEEDS
+Phule Prachi Bitter Gourd Seeds|फुले प्राची करेला बीज|फुले प्राची कारले बियाणे|phule prachi||^BITTER_GOURD_SEEDS
+Phule Green Gold Bitter Gourd Seeds|फुले ग्रीन गोल्ड करेला बीज|फुले ग्रीन गोल्ड कारले बियाणे|||?
+Samrat Bottle Gourd Seeds|सम्राट लौकी बीज|सम्राट दुधी भोपळा बियाणे|samrat dudhi||?
+Pusa Kesar Carrot Seeds|पूसा केसर गाजर बीज|पुसा केसर गाजर बियाणे|pusa kesar||^CARROT_SEEDS
+Pusa Chetki Radish Seeds|पूसा चेतकी मूली बीज|पुसा चेतकी मुळा बियाणे|pusa chetki||^RADISH_SEEDS
+Pusa Snowball Cauliflower Seeds|पूसा स्नोबॉल फूलगोभी बीज|पुसा स्नोबॉल फ्लॉवर बियाणे|snowball||^CAULIFLOWER_SEEDS
+Golden Acre Cabbage Seeds|गोल्डन एकर पत्ता गोभी बीज|गोल्डन एकर कोबी बियाणे|golden acre||^CABBAGE_SEEDS
+Arka Komal French Bean Seeds|अर्का कोमल बीन्स बीज|अर्का कोमल फरसबी बियाणे|arka komal||^FRENCH_BEANS_SEEDS
+Pusa Navbahar Cluster Bean Seeds|पूसा नवबहार ग्वार बीज|पुसा नवबहार गवार बियाणे|pusa navbahar||^CLUSTER_BEANS_SEEDS
+Arkel Pea Seeds|आर्केल मटर बीज|आर्केल वाटाणा बियाणे|arkel||^GREEN_PEAS_SEEDS
+PKM 1 Drumstick Seeds|पीकेएम 1 सहजन बीज|पीकेएम 1 शेवगा बियाणे|pkm 1 moringa||^DRUMSTICK_SEEDS
+Bhagya Drumstick Seeds|भाग्य सहजन बीज|भाग्या शेवगा बियाणे|bhagya kdm 01||?
+Pusa Jyoti Spinach Seeds|पूसा ज्योति पालक बीज|पुसा ज्योती पालक बियाणे|pusa jyoti||^SPINACH_SEEDS
+Kasuri Methi Seeds|कसूरी मेथी बीज|कसुरी मेथी बियाणे|kasuri methi sowing||^METHI_SOWING_SEEDS
+Sugar Baby Watermelon Seeds|शुगर बेबी तरबूज बीज|शुगर बेबी कलिंगड बियाणे|sugar baby||^WATERMELON_SOWING_SEEDS
+Pusa Sharbati Muskmelon Seeds|पूसा शरबती खरबूजा बीज|पुसा शरबती खरबूज बियाणे|pusa sharbati||^MUSKMELON_SEEDS
+Red Lady Papaya Seeds|रेड लेडी पपीता बीज|रेड लेडी पपई बियाणे|taiwan 786||^PAPAYA_SEEDS
+
+@sub|planting-material-varieties|Planting Material Varieties|रोपण सामग्री किस्में|लागवड साहित्य वाण|piece,kg,ton,quintal
+Co 86032 Sugarcane Setts|को 86032 गन्ना बीज|को 86032 ऊस बेणे|co 86032,nira||^SUGARCANE_SETTS
+CoM 0265 Sugarcane Setts|कोएम 0265 गन्ना बीज|कोएम 0265 ऊस बेणे|com 265,phule 265||^SUGARCANE_SETTS
+Co 92005 Sugarcane Setts|को 92005 गन्ना बीज|को 92005 ऊस बेणे|co 92005||^SUGARCANE_SETTS
+VSI 8005 Sugarcane Setts|वीएसआई 8005 गन्ना बीज|व्हीएसआय 8005 ऊस बेणे|vsi 8005||^SUGARCANE_SETTS
+Phule 10001 Sugarcane Setts|फुले 10001 गन्ना बीज|फुले 10001 ऊस बेणे|ms 10001||^SUGARCANE_SETTS
+CoM 11082 Sugarcane Setts|कोएम 11082 गन्ना बीज|कोएम 11082 ऊस बेणे|com 11082||?
+Kufri Jyoti Seed Potato|कुफरी ज्योति आलू बीज|कुफरी ज्योती बटाटा बेणे|kufri jyoti||^POTATO_SEED_TUBERS
+Kufri Pukhraj Seed Potato|कुफरी पुखराज आलू बीज|कुफरी पुखराज बटाटा बेणे|kufri pukhraj||^POTATO_SEED_TUBERS
+Kufri Chipsona Seed Potato|कुफरी चिपसोना आलू बीज|कुफरी चिपसोना बटाटा बेणे|chipsona||^POTATO_SEED_TUBERS
+Kufri Lauvkar Seed Potato|कुफरी लवकर आलू बीज|कुफरी लवकर बटाटा बेणे|kufri lauvkar||^POTATO_SEED_TUBERS
+Salem Turmeric Seed|सेलम हल्दी बीज|सेलम हळद बेणे|salem halad||^TURMERIC_SEED_RHIZOMES
+Rajapuri Turmeric Seed|राजापुरी हल्दी बीज|राजापुरी हळद बेणे|rajapuri bene||^TURMERIC_SEED_RHIZOMES
+Waigaon Turmeric Seed|वायगांव हल्दी बीज|वायगाव हळद बेणे|waigaon halad||^TURMERIC_SEED_RHIZOMES
+Grand Naine Banana Tissue Culture|ग्रैंड नैन केला टिश्यू कल्चर|ग्रँड नैन केळी टिश्यू कल्चर|g9 tissue culture,grand naine plant||^ROBUSTA_BANANA_PLANT
+Shrimanti Banana Plant|श्रीमंती केला पौधा|श्रीमंती केळी रोप|shrimanti||^BANANA_PLANT
+Phule Bhagwa Super Pomegranate Plant|फुले भगवा सुपर अनार पौधा|फुले भगवा सुपर डाळिंब रोप|bhagwa super||^POMEGRANATE_PLANT
+Solapur Lal Pomegranate Plant|सोलापुर लाल अनार पौधा|सोलापूर लाल डाळिंब रोप|solapur lal||^POMEGRANATE_PLANT
+Mridula Pomegranate Plant|मृदुला अनार पौधा|मृदुला डाळिंब रोप|mridula||^POMEGRANATE_PLANT
+Phule Purandar Custard Apple Plant|फुले पुरंदर शरीफा पौधा|फुले पुरंदर सीताफळ रोप|phule purandar||^CUSTARD_APPLE_PLANT
+NMK-1 Golden Custard Apple Plant|एनएमके-1 गोल्डन शरीफा पौधा|एनएमके-1 गोल्डन सीताफळ रोप|nmk 1,golden sitaphal||^CUSTARD_APPLE_PLANT
+Lalit Guava Plant|ललित अमरूद पौधा|ललित पेरू रोप|lalit||^GUAVA_PLANT
+Arka Kiran Guava Plant|अर्का किरण अमरूद पौधा|अर्का किरण पेरू रोप|arka kiran||^GUAVA_PLANT
+Taiwan Pink Guava Plant|ताइवान पिंक अमरूद पौधा|तैवान पिंक पेरू रोप|taiwan pink||^GUAVA_PLANT
+Vengurla 4 Cashew Graft|वेंगुर्ला 4 काजू कलम|वेंगुर्ला 4 काजू कलम|vengurla 4||^CASHEW_GRAFTS
+Vengurla 7 Cashew Graft|वेंगुर्ला 7 काजू कलम|वेंगुर्ला 7 काजू कलम|vengurla 7||^CASHEW_GRAFTS
+Vengurla 9 Cashew Graft|वेंगुर्ला 9 काजू कलम|वेंगुर्ला 9 काजू कलम|vengurla 9||?
+Konkan Amruta Kokum Plant|कोंकण अमृता कोकम पौधा|कोकण अमृता कोकम रोप|konkan amruta||^KOKUM_FRUIT_PLANT
+Pratap Coconut Seedling|प्रताप नारियल पौधा|प्रताप नारळ रोप|pratap||^COCONUT_SEEDLING
+Banavali Coconut Seedling|बाणावली नारियल पौधा|बाणावली नारळ रोप|banavali,west coast tall||^COCONUT_SEEDLING
+Dinkar Fig Plant|दिनकर अंजीर पौधा|दिनकर अंजीर रोप|dinkar||^FIG_PLANT
+Cricket Ball Sapota Plant|क्रिकेट बॉल चीकू पौधा|क्रिकेट बॉल चिकू रोप|cricket ball||^SAPOTA_PLANT
+Thompson Seedless Grape Cuttings|थॉम्पसन अंगूर कलम|थॉमसन द्राक्ष काड्या|grape cuttings,draksha kadya||^GRAPES_PLANT
+Manjari Medika Grape Cuttings|मांजरी मेडिका अंगूर कलम|मांजरी मेडिका द्राक्ष काड्या|manjari medika||?
+Dogridge Grape Rootstock|डॉगरिज रूटस्टॉक|डॉगरिज खुंट|dogridge||?
+Kesar Mango Graft|केसर आम कलम|केशर आंबा कलम|kesar kalam,mango graft||^KESAR_MANGO_PLANT
+Alphonso Mango Graft|हापुस आम कलम|हापूस आंबा कलम|hapus kalam||^ALPHONSO_MANGO_PLANT
+Sai Sharbati Lemon Plant|साई शरबती नींबू पौधा|साई सरबती लिंबू रोप|sai sharbati||^LEMON_PLANT
+Phule Sharbati Lemon Plant|फुले शरबती नींबू पौधा|फुले सरबती लिंबू रोप|phule sharbati||?

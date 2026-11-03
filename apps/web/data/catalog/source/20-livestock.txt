@@ -1,0 +1,127 @@
+# Livestock, fodder, cattle feed and animal care supplies.
+@category|livestock|livestock|Livestock and Animal Feed|पशुधन और पशु आहार|पशुधन आणि पशुखाद्य
+
+@sub|livestock-animals|Livestock|पशुधन|जनावरे|piece
+Cow|गाय|गाय|gai,gay,cow
+Gir Cow|गिर गाय|गीर गाय|gir||^COW
+Sahiwal Cow|साहीवाल गाय|साहिवाल गाय|sahiwal||^COW
+Red Sindhi Cow|लाल सिंधी गाय|लाल सिंधी गाय|red sindhi||^COW
+Khillar Cow|खिल्लार गाय|खिलार गाय|khillar,khilar||^COW
+Deoni Cow|देवनी गाय|देवणी गाय|deoni||^COW
+Dangi Cow|डांगी गाय|डांगी गाय|dangi||^COW
+Gaolao Cow|गवलाऊ गाय|गवळाऊ गाय|gaolao,gavlav||^COW
+Lal Kandhari Cow|लाल कंधारी गाय|लाल कंधारी गाय|lal kandhari||^COW
+HF Cow|एचएफ गाय|एचएफ गाय|holstein friesian,hf cross,jarshi||^COW
+Jersey Cow|जर्सी गाय|जर्सी गाय|jersey,jarshi gai||^COW
+Desi Cow|देसी गाय|गावठी गाय|gavthi gai,desi gay||^COW
+Heifer|बछिया|कालवड|kalvad,bachhiya,heifer
+Calf|बछड़ा|वासरू|vasru,bachhda,calf
+Bull|सांड|वळू|valu,saand,bull
+Bullock|बैल|बैल|bail,ox,bullock
+Khillar Bullock Pair|खिल्लार बैल जोड़ी|खिलार बैलजोडी|khillar bail jodi,bail jodi|pair
+Buffalo|भैंस|म्हैस|mhais,bhains,buffalo
+Murrah Buffalo|मुर्रा भैंस|मुऱ्हा म्हैस|murrah||^BUFFALO
+Pandharpuri Buffalo|पंढरपुरी भैंस|पंढरपुरी म्हैस|pandharpuri||^BUFFALO
+Jafarabadi Buffalo|जाफराबादी भैंस|जाफराबादी म्हैस|jafarabadi||^BUFFALO
+Mehsana Buffalo|मेहसाणा भैंस|मेहसाणा म्हैस|mehsana||^BUFFALO
+Nagpuri Buffalo|नागपुरी भैंस|नागपुरी म्हैस|nagpuri,berari||^BUFFALO
+Buffalo Calf|पाड़ा|रेडकू|redku,pada,buffalo calf
+Goat|बकरी|शेळी|sheli,bakri,goat
+Osmanabadi Goat|उस्मानाबादी बकरी|उस्मानाबादी शेळी|osmanabadi||^GOAT
+Sangamneri Goat|संगमनेरी बकरी|संगमनेरी शेळी|sangamneri||^GOAT
+Boer Goat|बोअर बकरी|बोअर शेळी|boer||^GOAT
+Sirohi Goat|सिरोही बकरी|सिरोही शेळी|sirohi||^GOAT
+Jamunapari Goat|जमुनापारी बकरी|जमुनापारी शेळी|jamunapari||^GOAT
+Beetal Goat|बीटल बकरी|बीटल शेळी|beetal||^GOAT
+Konkan Kanyal Goat|कोंकण कन्याल बकरी|कोकण कन्याळ शेळी|kanyal||^GOAT
+Billy Goat|बकरा|बोकड|bokad,bakra,he goat
+Goat Kid|मेमना|करडू|kardu,memna,goat kid
+Sheep|भेड़|मेंढी|mendhi,bhed,sheep
+Deccani Sheep|दक्कनी भेड़|दख्खनी मेंढी|deccani||^SHEEP
+Madgyal Sheep|माडग्याल भेड़|माडग्याळ मेंढी|madgyal||^SHEEP
+Ram|मेढ़ा|मेंढा|mendha,ram
+Pig|सूअर|डुक्कर|dukkar,suar,pig,piglet
+Rabbit|खरगोश|ससा|sasa,khargosh,rabbit
+Horse|घोड़ा|घोडा|ghoda,horse
+Donkey|गधा|गाढव|gadhav,gadha,donkey
+Dog Puppy|कुत्ते का पिल्ला|कुत्र्याचे पिल्लू|pilla,puppy,dog
+Cat Kitten|बिल्ली का बच्चा|मांजरीचे पिल्लू|kitten,manjar
+Pet Birds|पालतू पक्षी|पाळीव पक्षी|budgie,lovebirds,parakeet
+Ornamental Fish|सजावटी मछली|शोभेचे मासे|aquarium fish,goldfish|piece,pair
+Fish Seed|मछली बीज|मत्स्यबीज|fish fingerlings,matsya beej,fish seed|piece,kg
+Honey Bee Box|मधुमक्खी पेटी|मधमाशी पेटी|bee box,bee colony|piece
+
+@sub|fodder|Fodder|चारा|चारा|kg,quintal,ton,bundle
+Green Fodder|हरा चारा|हिरवा चारा|hirva chara,hara chara,green grass
+Dry Fodder|सूखा चारा|कडबा|kadba,karbi,jowar kadba,dry stalks
+Straw|भूसा|पेंढा|pendha,bhusa,wheat straw,paddy straw|bundle,kg,ton
+Paddy Straw|पुआल|भाताचा पेंढा|bhatacha pendha,parali,paddy straw||^STRAW
+Wheat Bhusa|गेहूं का भूसा|गव्हाचे भुसकट|bhuskat,wheat bhusa||^STRAW
+Soybean Straw|सोयाबीन भूसा|सोयाबीन भुसा|soybean bhusa||^STRAW
+Napier Grass|नेपियर घास|नेपियर गवत|napier,hathi ghas,elephant grass
+Lucerne|रिजका|लसूण घास|lasun ghas,rijka,alfalfa
+Berseem|बरसीम|बरसीम|berseem
+Maize Fodder|मक्का चारा|मका चारा|makka chara,green maize
+Sugarcane Tops|गन्ने का अगोला|उसाचे वाडे|vade,usache vade,sugarcane tops
+Silage|साइलेज|मुरघास|murghas,silage,maize silage|kg,ton,bag
+Hay|सूखी घास|वाळलेले गवत|gavat,dry grass,hay
+Groundnut Haulms|मूंगफली का भूसा|भुईमुगाचा पाला|shenga pala,groundnut fodder
+Tur Bhusa|अरहर भूसा|तुरीचे भुसकट|tur kutar||?
+Hydroponic Fodder|हाइड्रोपोनिक चारा|हायड्रोपोनिक चारा|hydroponic fodder
+Azolla|अजोला|अझोला|azolla|kg
+
+@sub|cattle-feed|Cattle Feed and Supplements|पशु आहार|पशुखाद्य|kg,bag
+Cattle Feed|पशु आहार|पशुखाद्य|pashukhadya,cattle feed,dairy feed
+Pellet Cattle Feed|पेलेट पशु आहार|पेलेट पशुखाद्य|pellet feed||^CATTLE_FEED
+Cotton Seed Cake|बिनौला खली|सरकी पेंड|sarki pend,binola khal,cotton cake
+Groundnut Oil Cake|मूंगफली खली (पशु)|शेंगदाणा पेंड (पशुखाद्य)|shengdana pend,groundnut khal
+Soybean Meal|सोया खली|सोयाबीन पेंड|soya doc,soybean khal
+Mustard Oil Cake|सरसों खली (पशु)|मोहरी पेंड (पशुखाद्य)|sarson khal
+Wheat Bran Feed|गेहूं का चोकर|गव्हाचा भुसा (पशुखाद्य)|chokar,wheat bran,gavhacha bhusa
+Rice Bran Feed|चावल का चोकर|तांदळाचा कोंडा|rice polish,kanda
+Chuni|चूनी|चुनी|chuni,dal chuni,tur chuni
+Mineral Mixture|खनिज मिश्रण|खनिज मिश्रण|mineral mix,khanij mishran|kg,packet,bag
+Calcium Supplement|कैल्शियम सप्लीमेंट|कॅल्शियम टॉनिक|calcium liquid,cal tonic|litre,bottle
+Bypass Fat|बायपास फैट|बायपास फॅट
+Cattle Salt Lick|चाटने वाली ईंट|चाटण वीट|salt lick,uroos brick|piece
+Goat Feed|बकरी आहार|शेळी खाद्य|goat pellet
+Poultry Feed|मुर्गी दाना|कोंबडी खाद्य|poultry feed,kombdi khadya,chicken feed
+Broiler Starter Feed|ब्रॉयलर स्टार्टर फीड|ब्रॉयलर स्टार्टर खाद्य|||^POULTRY_FEED
+Layer Feed|लेयर फीड|लेयर खाद्य|||^POULTRY_FEED
+Fish Feed|मछली दाना|मत्स्य खाद्य|fish feed|kg,bag,packet
+Dog Food|कुत्ते का खाना|कुत्र्याचे खाद्य|dog food,pet food|kg,packet
+Cat Food|बिल्ली का खाना|मांजरीचे खाद्य|cat food|kg,packet
+Bird Seed|पक्षियों का दाना|पक्ष्यांचे दाणे|bird food,chidiya dana|kg,packet
+Calf Starter|बछड़ा आहार|वासरू खाद्य|calf feed||?
+Maize Crushed|मक्का दलिया (पशु)|मका भरडा|maka bharda,crushed maize
+Jowar Crushed|ज्वार दलिया (पशु)|ज्वारी भरडा|bharda||?
+
+@sub|animal-care|Animal Care Supplies|पशु देखभाल सामग्री|जनावरांची निगा साहित्य|piece
+Cattle Rope|पशु रस्सी|जनावरांची दोरी|kasra,dave,cattle rope
+Nose Rope|नकेल|वेसण|vesan,nakel|piece
+Cow Bell|गाय की घंटी|गळ्यातील घंटा|ghanti,bail ghungru|piece
+Cattle Mat|पशु मैट|जनावरांची रबर मॅट|cow mat,rubber mat|piece
+Milk Can|दूध की केन|दुधाची किटली|dudh kitli,milk can|piece
+Milking Bucket|दूध की बाल्टी|दूध बादली|milking pail|piece
+Feeding Trough|नांद|गव्हाण|gavhan,nand|piece
+Water Trough|पानी की हौदी|पाण्याचा हौद|haud|piece
+Poultry Feeder|मुर्गी फीडर|कोंबडी फीडर|feeder|piece
+Poultry Drinker|मुर्गी ड्रिंकर|कोंबडी ड्रिंकर|drinker|piece
+Poultry Cage|मुर्गी पिंजरा|कोंबडीचे पिंजरे|kombdi pinjra|piece
+Goat Cage|बकरी का बाड़ा|शेळी पिंजरा|||?
+Animal Shed Sheet|पशु शेड शीट|गोठा पत्रा|gotha patra|sheet
+Bullock Decoration|बैल सजावट|बैलांचा साज|bail saj,shingadi,pola decoration|set,piece
+Horn Caps|सींग कवर|शिंगांची टोपी|shingadi|pair
+Ghungroo for Bullock|बैल घुंघरू|बैलांचे घुंगरू|ghungru,bail ghungroo|set,piece
+Zool|झूल|झूल|jhool,bail jhool,cattle blanket|piece
+Hoof Trimming Tool|खुर काटने का औज़ार|खूर कापणी हत्यार|||?
+Teat Dip|थन डिप|सडे बुडवण|||?
+Dewormer|कृमिनाशक|जंतनाशक|deworming,jantnashak|bottle,packet
+Tick Spray|किलनी स्प्रे|गोचीड फवारणी|gochid,tick killer|bottle,litre
+Fly Repellent|मक्खी भगाने वाला|माशी प्रतिबंधक|||?
+Wound Spray|घाव स्प्रे|जखम स्प्रे|wound healing spray|bottle
+Dog Collar|कुत्ते का पट्टा|कुत्र्याचा पट्टा|dog belt,collar|piece
+Dog Leash|कुत्ते की चेन|कुत्र्याची साखळी|dog chain|piece
+Pet Bowl|पालतू कटोरा|पाळीव प्राण्यांचे भांडे|||?
+Bird Cage|पक्षी पिंजरा|पक्ष्यांचा पिंजरा|pinjra,cage|piece
+Aquarium|एक्वेरियम|मत्स्यालय|fish tank|piece

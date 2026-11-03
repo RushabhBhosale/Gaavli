@@ -1,0 +1,43 @@
+# Flours, bhajani and stone-ground mixes.
+@category|flours|grains|Flours and Atta|आटा|पीठ
+
+@sub|flours|Flours|आटा|पीठ|kg,g,packet
+Wheat Flour|गेहूं का आटा|गव्हाचे पीठ|atta,gehu atta,kanik,gavhache pith,chapati atta
+Whole Wheat Chakki Atta|चक्की आटा|चक्की पीठ|chakki atta,chakki fresh atta||^WHEAT_FLOUR
+Khapli Wheat Flour|खपली गेहूं का आटा|खपली गव्हाचे पीठ|khapli atta,emmer flour||^WHEAT_FLOUR
+Refined Flour|मैदा|मैदा|maida,all purpose flour
+Jowar Flour|ज्वार का आटा|ज्वारीचे पीठ|jowar atta,jwariche pith,bhakri pith
+Bajra Flour|बाजरे का आटा|बाजरीचे पीठ|bajra atta,bajriche pith
+Ragi Flour|रागी का आटा|नाचणीचे पीठ|ragi atta,nachni pith,nachniche pith
+Rice Flour|चावल का आटा|तांदळाचे पीठ|chawal atta,tandalache pith,ukad pith
+Modak Rice Flour|मोदक के लिए चावल का आटा|मोदकाचे पीठ|ukadiche modak pith,ambemohar pith||^RICE_FLOUR
+Gram Flour|बेसन|बेसन|besan,chana atta,harbhara pith
+Coarse Besan|मोटा बेसन|जाड बेसन|ladoo besan,mota besan||^GRAM_FLOUR
+Maize Flour|मक्के का आटा|मक्याचे पीठ|makki atta,makai atta,corn flour
+Cornflour|कॉर्नफ्लोर|कॉर्नफ्लोअर|corn starch,arrowroot substitute|kg,g,packet
+Urad Flour|उड़द का आटा|उडदाचे पीठ|urad atta,papad pith
+Moong Flour|मूंग का आटा|मुगाचे पीठ|moong atta
+Rajgira Flour|राजगीरा आटा|राजगिऱ्याचे पीठ|ramdana atta,amaranth flour,upvas pith
+Singhara Flour|सिंघाड़े का आटा|शिंगाड्याचे पीठ|singhara atta,shingada pith,water chestnut flour
+Kuttu Flour|कुट्टू का आटा|कुट्टूचे पीठ|buckwheat flour,kuttu atta
+Bhagar Flour|सांवा का आटा|भगरीचे पीठ|varai pith,bhagar pith,samak flour
+Sabudana Flour|साबूदाना आटा|साबुदाण्याचे पीठ|sago flour,sabudana pith
+Barley Flour|जौ का आटा|जवाचे पीठ|jau atta
+Multigrain Atta|मल्टीग्रेन आटा|मल्टीग्रेन पीठ|multi grain atta,mix atta
+Oats Flour|ओट्स आटा|ओट्स पीठ|oat flour
+Soya Flour|सोया आटा|सोयाबीन पीठ|soy flour
+Arrowroot Powder|अरारोट|आरारूट|ararot,arrowroot
+Thalipeeth Bhajani|थालीपीठ भाजणी|थालीपीठ भाजणी|bhajani,thalipeeth pith
+Chakli Bhajani|चकली भाजणी|चकली भाजणी|chakli pith
+Upvas Bhajani|व्रत भाजणी|उपवास भाजणी|upvas thalipeeth bhajani,fasting flour
+Nachni Satva|रागी सत्व|नाचणी सत्व|ragi satva,nachni satva,ragi malt
+Ambil Pith|अम्बिल आटा|आंबील पीठ|ambil
+Dhirde Pith|धिरडे आटा|धिरड्याचे पीठ|dhirde mix|kg,g,packet
+Kulith Pith|कुलथी का आटा|कुळीथ पीठ|kulith pith,kulthi atta,pithla pith
+Dhokla Flour|ढोकला आटा|ढोकळा पीठ|dhokla atta
+Idli Batter|इडली घोल|इडलीचे पीठ (ओले)|idli batter,idli dosa batter|kg,g,packet
+Dosa Batter|डोसा घोल|डोशाचे पीठ (ओले)|dosa batter|kg,g,packet
+Appe Batter|अप्पे घोल|आप्प्यांचे पीठ|appe batter,paniyaram batter|kg,g,packet|?
+Ghavan Pith|घावन आटा|घावनचे पीठ|ghavan,neer dosa flour
+Wheat Bran|चोकर|कोंडा|chokar,konda,wheat bran
+Sattu|सत्तू|सत्तू|sattu,chana sattu

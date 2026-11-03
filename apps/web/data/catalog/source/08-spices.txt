@@ -1,0 +1,135 @@
+# Whole spices, ground spices and masala blends (generic, unbranded).
+@category|spices|spices|Spices and Masalas|मसाले|मसाले
+
+@sub|whole-spices|Whole Spices|साबुत मसाले|खडे मसाले|kg,g,packet
+Turmeric|हल्दी|हळद|haldi,halad,turmeric
+Turmeric Fingers|हल्दी की गांठ|हळकुंड|halkund,haldi gaanth,dry turmeric||^TURMERIC
+Rajapuri Turmeric|राजापुरी हल्दी|राजापुरी हळद|rajapuri halad,sangli halad||^TURMERIC
+Dry Red Chilli|सूखी लाल मिर्च|लाल मिरची (सुकी)|sukhi lal mirch,lal mirchi,dry chilli
+Byadgi Chilli|ब्याडगी मिर्च|ब्याडगी मिरची|byadgi,bedgi||^DRY_RED_CHILLI
+Kashmiri Chilli|कश्मीरी मिर्च|काश्मिरी मिरची|kashmiri mirch||^DRY_RED_CHILLI
+Guntur Chilli|गुंटूर मिर्च|गुंटूर मिरची|guntur,teja chilli||^DRY_RED_CHILLI
+Sankeshwari Chilli|संकेश्वरी मिर्च|संकेश्वरी मिरची|sankeshwari||^DRY_RED_CHILLI
+Pandi Chilli|पांडी मिर्च|पांडी मिरची|pandi mirchi||?
+Coriander Seeds|धनिया|धणे|dhaniya,dhane,dhana,sabut dhaniya
+Cumin Seeds|जीरा|जिरे|jeera,jira,jire,zeera,cumin
+Shahi Jeera|शाही जीरा|शहाजिरे|shahjeera,black cumin,kala jeera
+Mustard Seeds|राई|मोहरी|rai,mohri,sarson,mustard
+Yellow Mustard Seeds|पीली सरसों|पिवळी मोहरी|peeli sarson||^MUSTARD_SEEDS
+Fenugreek Seeds|मेथी दाना|मेथी दाणे|methi dana,methi seeds
+Fennel Seeds|सौंफ|बडीशेप|saunf,saunf,badishep,variyali
+Lucknowi Fennel|लखनवी सौंफ|लखनवी बडीशेप|lucknowi saunf,barik saunf||^FENNEL_SEEDS
+Carom Seeds|अजवाइन|ओवा|ajwain,ajwain,ova,owa
+Black Pepper|काली मिर्च|काळी मिरी|kali mirch,kali miri,miri,pepper
+White Pepper|सफ़ेद मिर्च|पांढरी मिरी|safed mirch||^BLACK_PEPPER
+Clove|लौंग|लवंग|laung,lavang,cloves
+Cinnamon|दालचीनी|दालचिनी|dalchini,cinnamon
+Cardamom|इलायची|वेलची|elaichi,ilaychi,velchi,veldode,green cardamom
+Black Cardamom|बड़ी इलायची|मसाला वेलची|badi elaichi,masala velchi,mothi velchi
+Bay Leaf|तेज पत्ता|तमालपत्र|tej patta,tamalpatra,bay leaves
+Star Anise|चक्र फूल|चक्री फूल|chakri phool,badiyan,star anise
+Mace|जावित्री|जायपत्री|javitri,jaipatri
+Nutmeg|जायफल|जायफळ|jaiphal,jayphal
+Dagad Phool|पत्थर फूल|दगडफूल|dagad phool,kalpasi,stone flower
+Nagkesar|नागकेसर|नागकेशर|nagkesar,cobra saffron
+Marathi Moggu|मराठी मोग्गु|मरठी मोग्गू|kapok buds
+Asafoetida|हींग|हिंग|hing,heeng,asafoetida|g,packet,box
+Saffron|केसर|केशर|kesar,keshar,saffron|g,box
+Dry Ginger|सोंठ|सुंठ|sonth,sunth,dry ginger
+Kokum|कोकम|कोकम|kokam,kokum,amsul,amsol
+Tamarind Pulp Block|इमली गूदा|चिंचेचा गोळा|imli,chinch gola,seedless tamarind|kg,g,packet
+Poppy Seeds|खसखस|खसखस|khaskhas,khus khus,posto
+Nigella Seeds|कलौंजी|कलौंजी|kalonji,kalaunji
+Dill Seeds|सोआ बीज|शेपू बी|suva seeds,shepu bi
+Garcinia|कोकम सूखा|आमसूल|amsul,amsol,dry kokum||^KOKUM
+Anardana|अनारदाना|अनारदाणा|anardana,dried pomegranate seeds
+Kasuri Methi|कसूरी मेथी|कसुरी मेथी|kasoori methi,dried fenugreek leaves|g,packet
+Dried Curry Leaves|सूखे करी पत्ते|सुका कढीपत्ता|sukha kadipatta||?
+Long Pepper|पीपली|पिंपळी|pippali,pimpli,long pepper
+Cubeb|कबाब चीनी|कंकोळ|kankol,kabab chini,tailed pepper
+Black Salt|काला नमक|पादेलोण|kala namak,padelon,sanchal
+Rock Salt|सेंधा नमक|सैंधव मीठ|sendha namak,saindhav,upvas meeth
+Alum|फिटकरी|तुरटी|phitkari,turti|kg,g
+Mustard Split|राई दाल|मोहरीची डाळ|rai kuria,mustard dal|kg,g|?
+Fenugreek Split|मेथी दाल|मेथी डाळ|methi kuria|kg,g|?
+Sesame (Black)|काले तिल|काळे तीळ|kale til,black til|kg,g
+White Sesame|सफ़ेद तिल|पांढरे तीळ|safed til,white til|kg,g
+
+@sub|spice-powders|Spice Powders|पिसे मसाले|मसाला पावडर|kg,g,packet
+Turmeric Powder|हल्दी पाउडर|हळद पावडर|haldi powder,halad powder,turmeric powder
+Red Chilli Powder|लाल मिर्च पाउडर|लाल तिखट|mirchi powder,lal tikhat,tikhat,chilli powder
+Kashmiri Chilli Powder|कश्मीरी मिर्च पाउडर|काश्मिरी मिरची पावडर|kashmiri mirchi powder||^RED_CHILLI_POWDER
+Byadgi Chilli Powder|ब्याडगी मिर्च पाउडर|ब्याडगी मिरची पावडर|byadgi powder||^RED_CHILLI_POWDER
+Coriander Powder|धनिया पाउडर|धणे पावडर|dhaniya powder,dhane powder
+Cumin Powder|जीरा पाउडर|जिरे पावडर|jeera powder
+Roasted Cumin Powder|भुना जीरा पाउडर|भाजलेली जिरे पावडर|bhuna jeera||^CUMIN_POWDER
+Coriander Cumin Powder|धनिया जीरा पाउडर|धणे-जिरे पावडर|dhane jire powder,dhana jeeru
+Black Pepper Powder|काली मिर्च पाउडर|काळी मिरी पावडर|kali mirch powder,miri powder
+Dry Ginger Powder|सोंठ पाउडर|सुंठ पावडर|sonth powder,sunth powder
+Dry Mango Powder|अमचूर पाउडर|आमचूर पावडर|amchur,amchoor
+Cinnamon Powder|दालचीनी पाउडर|दालचिनी पावडर|dalchini powder
+Cardamom Powder|इलायची पाउडर|वेलची पावडर|elaichi powder,velchi powder
+Nutmeg Powder|जायफल पाउडर|जायफळ पावडर|jaiphal powder
+Fennel Powder|सौंफ पाउडर|बडीशेप पावडर|saunf powder
+Fenugreek Powder|मेथी पाउडर|मेथी पावडर|methi powder
+Mustard Powder|राई पाउडर|मोहरी पावडर|rai powder
+Garlic Powder|लहसुन पाउडर|लसूण पावडर|lahsun powder
+Ginger Powder|अदरक पाउडर|आले पावडर|adrak powder||?
+Onion Powder|प्याज पाउडर|कांदा पावडर|pyaz powder
+Kokum Powder|कोकम पाउडर|कोकम पावडर|amsul powder
+Tamarind Powder|इमली पाउडर|चिंच पावडर|imli powder||?
+Asafoetida Powder|हींग पाउडर|हिंग पावडर|hing powder|g,packet,box|^ASAFOETIDA
+Black Salt Powder|काला नमक पाउडर|पादेलोण पावडर|kala namak powder||^BLACK_SALT
+Ajwain Powder|अजवाइन पाउडर|ओवा पावडर|ova powder
+
+@sub|masala-blends|Masala Blends|मसाला मिश्रण|मसाले (मिश्रण)|kg,g,packet
+Goda Masala|गोडा मसाला|गोडा मसाला|goda masala,maharashtrian masala
+Kala Masala|काला मसाला|काळा मसाला|kala masala,khandeshi kala masala
+Kanda Lasun Masala|प्याज लहसुन मसाला|कांदा लसूण मसाला|kanda lasun
+Kolhapuri Masala|कोल्हापुरी मसाला|कोल्हापुरी मसाला|kolhapuri chutney masala
+Malvani Masala|मालवणी मसाला|मालवणी मसाला|malvani,malwani masala
+Garam Masala|गरम मसाला|गरम मसाला|garam masala
+Kitchen King Masala|किचन किंग मसाला|किचन किंग मसाला|kitchen king
+Chhole Masala|छोले मसाला|छोले मसाला|chole masala,chana masala
+Pav Bhaji Masala|पाव भाजी मसाला|पावभाजी मसाला|pavbhaji masala
+Sambar Masala|सांभर मसाला|सांबार मसाला|sambar powder
+Rasam Powder|रसम पाउडर|रस्सम पावडर|rasam masala
+Biryani Masala|बिरयानी मसाला|बिर्याणी मसाला|biryani masala
+Pulao Masala|पुलाव मसाला|पुलाव मसाला|pulao masala
+Chicken Masala|चिकन मसाला|चिकन मसाला|chicken masala
+Mutton Masala|मटन मसाला|मटण मसाला|mutton masala
+Fish Masala|फ़िश मसाला|मासळी मसाला|fish masala,fish fry masala
+Egg Curry Masala|अंडा करी मसाला|अंडा करी मसाला|egg masala
+Chaat Masala|चाट मसाला|चाट मसाला|chat masala
+Tea Masala|चाय मसाला|चहा मसाला|chai masala
+Pani Puri Masala|पानी पूरी मसाला|पाणीपुरी मसाला|pani puri masala,golgappa masala
+Jaljeera Powder|जलजीरा|जलजीरा|jaljeera
+Misal Masala|मिसल मसाला|मिसळ मसाला|misal masala,kat masala
+Usal Masala|उसल मसाला|उसळ मसाला|usal masala
+Bhaji Masala|सब्ज़ी मसाला|भाजी मसाला|sabzi masala,bhaji masala
+Paneer Masala|पनीर मसाला|पनीर मसाला|paneer masala
+Dal Tadka Masala|दाल तड़का मसाला|डाळ तडका मसाला|dal masala
+Rajma Masala|राजमा मसाला|राजमा मसाला|rajma masala
+Meat Masala|मीट मसाला|मीट मसाला|meat masala
+Methkut|मेतकूट|मेतकूट|metkut,methkut
+Saoji Masala|सावजी मसाला|सावजी मसाला|saoji,saoji masala
+Varhadi Masala|वरहाडी मसाला|वऱ्हाडी मसाला|varhadi masala
+Agri Masala|आगरी मसाला|आगरी मसाला|agri koli masala
+Koli Masala|कोली मसाला|कोळी मसाला|koli masala
+East Indian Bottle Masala|ईस्ट इंडियन बॉटल मसाला|ईस्ट इंडियन बाटली मसाला|bottle masala
+CKP Masala|सीकेपी मसाला|सीकेपी मसाला|ckp masala
+Kashmiri Garam Masala|कश्मीरी गरम मसाला|काश्मिरी गरम मसाला|||^GARAM_MASALA
+Tandoori Masala|तंदूरी मसाला|तंदुरी मसाला|tandoori masala
+Shahi Paneer Masala|शाही पनीर मसाला|शाही पनीर मसाला|||^PANEER_MASALA
+Upvas Masala|व्रत मसाला|उपवास मसाला|fasting masala||?
+Pickle Masala|अचार मसाला|लोणचे मसाला|achar masala,lonche masala
+Panch Phoron|पंच फोरन|पंच फोडण|panch phoron,five spice
+Curry Powder|करी पाउडर|करी पावडर|curry powder
+Chinese Masala|चाइनीज़ मसाला|चायनीज मसाला|schezwan masala
+Peri Peri Masala|पेरी पेरी मसाला|पेरी पेरी मसाला|peri peri
+Oregano Seasoning|ओरेगैनो सीज़निंग|ओरेगॅनो सिझनिंग|pizza seasoning,oregano
+Chilli Flakes|चिली फ्लेक्स|चिली फ्लेक्स|red chilli flakes
+Dabeli Masala|दाबेली मसाला|दाबेली मसाला|dabeli masala
+Bhel Masala|भेल मसाला|भेळ मसाला|bhel masala
+Buttermilk Masala|छाछ मसाला|ताक मसाला|chaas masala,taak masala
+Fruit Chaat Masala|फ्रूट चाट मसाला|फ्रूट चाट मसाला

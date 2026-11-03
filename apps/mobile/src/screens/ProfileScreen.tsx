@@ -1,3 +1,5 @@
+import { MOBILE_LANGUAGES } from "@gaavli/constants";
+import { LANGUAGE_LABELS } from "../locale";
 import { useRef, useState } from "react";
 import { Alert, Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -59,7 +61,7 @@ export default function ProfileScreen() {
   }
   if (!session) {
     const villageName = browsingVillage
-      ? language === "mr"
+      ? language !== "en"
         ? browsingVillage.nameMr
         : browsingVillage.name
       : "";
@@ -93,7 +95,7 @@ export default function ProfileScreen() {
                 accessibilityLabel={t.changeLanguage}
                 style={s.languages}
               >
-                {(["mr", "en"] as const).map((value) => (
+                {MOBILE_LANGUAGES.map((value) => (
                   <Pressable
                     key={value}
                     accessibilityRole="radio"
@@ -115,9 +117,7 @@ export default function ProfileScreen() {
                     >
                       {language === value && <View style={s.radioDot} />}
                     </View>
-                    <Text style={s.languageText}>
-                      {value === "mr" ? "मराठी" : "English"}
-                    </Text>
+                    <Text style={s.languageText}>{LANGUAGE_LABELS[value]}</Text>
                   </Pressable>
                 ))}
               </View>
@@ -149,7 +149,7 @@ export default function ProfileScreen() {
   }
   const village = session.user.village;
   const villageName = village
-    ? language === "mr"
+    ? language !== "en"
       ? village.nameMr
       : village.name
     : "";
@@ -191,7 +191,7 @@ export default function ProfileScreen() {
               accessibilityLabel={t.changeLanguage}
               style={s.languages}
             >
-              {(["mr", "en"] as const).map((value) => (
+              {MOBILE_LANGUAGES.map((value) => (
                 <Pressable
                   key={value}
                   accessibilityRole="radio"
@@ -213,9 +213,7 @@ export default function ProfileScreen() {
                   >
                     {language === value && <View style={s.radioDot} />}
                   </View>
-                  <Text style={s.languageText}>
-                    {value === "mr" ? "मराठी" : "English"}
-                  </Text>
+                  <Text style={s.languageText}>{LANGUAGE_LABELS[value]}</Text>
                 </Pressable>
               ))}
             </View>

@@ -21,7 +21,7 @@ export function CoordinatorInfo({
 }) {
   const t = messages(language);
   if (!coordinator) return null;
-  const name = language === "mr" ? coordinator.nameMr : coordinator.name;
+  const name = language !== "en" ? coordinator.nameMr : coordinator.name;
   return (
     <View style={s.row}>
       <View style={s.copy}>
@@ -39,7 +39,7 @@ export function CoordinatorInfo({
         </View>
         {!!coordinator.village && (
           <Text style={s.label}>
-            {language === "mr"
+            {language !== "en"
               ? coordinator.villageMr || coordinator.village
               : coordinator.village}
           </Text>

@@ -1,0 +1,51 @@
+# Whole pulses, split dals, sprouts and legume products.
+@category|pulses|pulses|Pulses and Legumes|दालें और दलहन|डाळी आणि कडधान्ये
+
+@sub|whole-pulses|Whole Pulses|साबुत दालें|कडधान्ये|kg,quintal,bag
+Pigeon Pea|अरहर|तूर|arhar,tur,toor,tuvar,tuar
+Green Gram|मूंग|मूग|moong,mung,mug,sabut moong
+Black Gram|उड़द|उडीद|urad,udid,sabut urad
+Chickpea|चना|हरभरा|chana,harbhara,kala chana,gram,chickpeas
+Kabuli Chana|काबुली चना|काबुली चणे|chole,kabuli chana,safed chana,garbanzo||^CHICKPEA
+Black Chickpea|काला चना|काळा हरभरा|kala chana,desi chana||^CHICKPEA
+Green Chickpea (Dry)|हरा चना (सूखा)|हिरवा हरभरा|hara chana dry,green chana||^CHICKPEA
+Moth Bean|मोठ|मटकी|matki,moth,math,muth
+Cowpea|लोबिया|चवळी|lobia,chavli,chawli,rongi,black eyed peas
+Red Cowpea|लाल लोबिया|लाल चवळी|lal chavli||^COWPEA
+Field Bean|वाल|वाल|val,vaal,kadve val,dry field beans
+Lentil|मसूर|मसूर|masoor,masur,sabut masoor
+Horse Gram|कुलथी|हुलगा|kulthi,kulith,hulga,kuleeth
+Dry Peas|सूखी मटर|वाटाणा (सुका)|sukha vatana,sookhi matar,dry peas
+White Peas|सफ़ेद मटर|पांढरा वाटाणा|safed vatana,white peas,ragda vatana||^DRY_PEAS
+Green Peas (Dry)|हरी मटर (सूखी)|हिरवा वाटाणा (सुका)|hirva vatana,dried green peas||^DRY_PEAS
+Kidney Beans|राजमा|राजमा|rajma,rajmah,red kidney beans
+Jammu Rajma|जम्मू राजमा|जम्मू राजमा|chitra rajma,jammu rajma||^KIDNEY_BEANS
+Kashmiri Rajma|कश्मीरी राजमा|काश्मिरी राजमा|kashmiri rajma||^KIDNEY_BEANS
+White Kidney Beans|सफ़ेद राजमा|पांढरा राजमा|white rajma,safed rajma||^KIDNEY_BEANS
+Soybean Chunks|सोया बड़ी|सोया चंक्स|soya chunks,soya badi|kg,g,packet
+Soya Granules|सोया दाना|सोया ग्रॅन्युल्स|soya keema|kg,g,packet
+Pavta (Dry)|सूखा पावटा|पावटा (सुका)|dry pavta,pavte||?
+Ghevda Beans (Dry)|सूखी सेम|घेवडा (सुका)|dry ghevda,kaali ghevda||?
+Double Beans (Dry)|सूखी डबल बीन्स|डबल बी (सुकी)|dry double bee,lima beans dry|kg,g
+Moong Sprouts|अंकुरित मूंग|मोड आलेले मूग|sprouted moong,mod aalele mug|kg,g,packet
+Matki Sprouts|अंकुरित मोठ|मोड आलेली मटकी|sprouted matki,matki usal|kg,g,packet
+Mixed Sprouts|मिश्रित अंकुरित दालें|मिश्र मोड आलेली कडधान्ये|mix sprouts,mod|kg,g,packet
+Chana Sprouts|अंकुरित चना|मोड आलेले हरभरे|sprouted chana|kg,g,packet
+
+@sub|split-dals|Split Dals|दालें|डाळी|kg,quintal,bag
+Toor Dal|अरहर दाल|तूर डाळ|toor dal,tur dal,arhar dal,tuvar dal,tuar dal
+Oily Toor Dal|तेलिया अरहर दाल|तेलकट तूर डाळ|oily toor dal||^TOOR_DAL
+Moong Dal|मूंग दाल|मूग डाळ|moong dal,mug dal,yellow moong dal
+Green Moong Dal|छिलका मूंग दाल|सालीची मूग डाळ|chilka moong,green moong dal||^MOONG_DAL
+Urad Dal|उड़द दाल|उडीद डाळ|urad dal,udid dal,white urad dal
+Black Urad Dal|छिलका उड़द दाल|सालीची उडीद डाळ|chilka urad,black urad dal||^URAD_DAL
+Chana Dal|चना दाल|हरभरा डाळ|chana dal,harbhara dal,bengal gram dal
+Masoor Dal|मसूर दाल|मसूर डाळ|masoor dal,red lentils,lal masoor
+Moth Dal|मोठ दाल|मटकी डाळ|matki dal|kg,g
+Val Dal|वाल दाल|वालाची डाळ|val dal,dalimbi,dalimbya|kg,g
+Kulthi Dal|कुलथी दाल|हुलग्याची डाळ|kulith dal,hulga dal|kg,g
+Peas Dal|मटर दाल|वाटाणा डाळ|matar dal,split peas|kg,g
+Roasted Chana|भुना चना|फुटाणे|bhuna chana,phutane,futane,roasted gram|kg,g,packet
+Roasted Chana Dal|दालिया (भुनी चना दाल)|डाळे|dale,daliya chana,pottukadalai|kg,g,packet
+Lakhi Dal|खेसारी दाल|लाखी डाळ|lakh dal,khesari|kg,g|?
+Mixed Dal|मिश्रित दाल|मिक्स डाळ|panchmel dal,mix dal|kg,g,packet

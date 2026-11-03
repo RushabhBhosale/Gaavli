@@ -1,0 +1,90 @@
+# Farsan, namkeen and Diwali faral snacks (homemade or local).
+@category|farsan-snacks|homemade|Farsan and Snacks|नमकीन और स्नैक्स|फराळ आणि फरसाण
+
+@sub|diwali-faral|Diwali Faral|दिवाली फराल|दिवाळी फराळ|kg,g,packet
+Chakli|चकली|चकली|chakli,chakri,murukku
+Bhajani Chakli|भाजनी चकली|भाजणीची चकली|bhajani chakli||^CHAKLI
+Rice Chakli|चावल चकली|तांदळाची चकली|rice murukku||^CHAKLI
+Butter Chakli|बटर चकली|बटर चकली|butter murukku||^CHAKLI
+Poha Chivda|पोहा चिवड़ा|पोह्यांचा चिवडा|chivda,chiwda,poha chiwda
+Bhajke Pohe Chivda|भुने पोहे का चिवड़ा|भाजक्या पोह्यांचा चिवडा|bhajke pohe chivda||^POHA_CHIVDA
+Makka Chivda|मक्का चिवड़ा|मक्याचा चिवडा|corn chivda,makai chivda
+Kurmura Chivda|मुरमुरा चिवड़ा|चुरमुऱ्याचा चिवडा|murmura chivda,bhadang
+Nashik Chivda|नासिक चिवड़ा|नाशिक चिवडा|nashik chivda||^POHA_CHIVDA
+Upvas Chivda|व्रत चिवड़ा|उपवासाचा चिवडा|farali chivda,sabudana chivda,potato chivda
+Shev|सेव|शेव|sev,shev,besan sev
+Barik Shev|बारीक सेव|बारीक शेव|nylon sev,fine sev||^SHEV
+Tikhat Shev|तीखा सेव|तिखट शेव|tikhi sev,masala sev||^SHEV
+Lasun Shev|लहसुन सेव|लसूण शेव|garlic sev||^SHEV
+Palak Shev|पालक सेव|पालक शेव|||^SHEV
+Ratlami Sev|रतलामी सेव|रतलामी शेव|ratlami sev||^SHEV
+Khari Boondi|नमकीन बूंदी|खारी बुंदी|khara boondi,masala boondi
+Shankarpali (Salted)|नमकीन शक्करपारे|खारे शंकरपाळे|namak pare,khare shankarpale
+Kadboli|कडबोली|कडबोळी|kadboli,kodubale
+Methi Puri|मेथी पूरी|मेथीच्या पुऱ्या|methi puri,khari puri
+Bhakarwadi|भाकरवड़ी|भाकरवडी|bakarwadi,bhakarwadi
+Mathri|मठरी|मठरी|mathri,mathiya
+Farsan Mix|मिक्स नमकीन|फरसाण मिक्स|farsan,mixture,namkeen mix
+Gathiya|गाठिया|गाठी|gathiya,bhavnagri gathiya
+Fafda|फाफड़ा|फाफडा|fafda
+Chana Jor Garam|चना जोर गरम|चणा जोर गरम|chana jor garam
+Masala Chana Dal|मसाला चना दाल|मसाला चणा डाळ|chana dal namkeen,fried chana dal
+Moong Dal Namkeen|मूंग दाल नमकीन|मूग डाळ नमकीन|fried moong dal
+Masala Peanuts|मसाला मूंगफली|मसाला शेंगदाणे|masala shengdane,peanut masala
+Corn Flakes Chivda|कॉर्नफ्लेक्स चिवड़ा|कॉर्नफ्लेक्स चिवडा|cornflakes mixture
+Banana Chips|केले के चिप्स|केळी वेफर्स|kele chips,banana wafers,keli wafers
+Potato Chips|आलू चिप्स|बटाटा वेफर्स|aloo chips,batata wafers,potato wafers
+Upvas Potato Chips|व्रत आलू चिप्स|उपवासाचे बटाटा वेफर्स|||^POTATO_CHIPS
+Jackfruit Chips|कटहल चिप्स|फणस वेफर्स|phanas chips,jackfruit wafers
+Khakhra|खाखरा|खाकरा|khakhra,khakra|packet,piece
+Methi Khakhra|मेथी खाखरा|मेथी खाकरा|||^KHAKHRA
+Kachori|कचौरी|कचोरी|kachori,khasta kachori|piece,kg,packet
+Dry Kachori|सूखी कचौरी|सुकी कचोरी|mini kachori||^KACHORI
+Samosa|समोसा|सामोसा|samosa,samose|piece,plate
+Patti Samosa|पट्टी समोसा|पट्टी सामोसा|irani samosa||^SAMOSA
+Khari Biscuits|खारी|खारी|khari,puff khari|kg,packet
+Bhel Mix|भेल मिक्स|भेळ मिक्स|bhel,bhel puri mix
+Pani Puri Puris|पानी पूरी की पूरियाँ|पाणीपुरीच्या पुऱ्या|golgappa,puchka,pani puri puri|packet,piece,kg
+Papdi Chaat Papdi|चाट पापड़ी|चाट पापडी|sev puri papdi,flat papdi|packet,kg
+
+@sub|ready-snacks|Fresh Snacks|ताज़े नाश्ते|ताजा नाश्ता|piece,plate,kg
+Vada Pav|वड़ा पाव|वडापाव|vada pav,wada pav
+Batata Vada|आलू बोंडा|बटाटा वडा|aloo bonda,batata wada
+Misal Pav|मिसल पाव|मिसळ पाव|misal,kolhapuri misal,puneri misal
+Usal Pav|उसल पाव|उसळ पाव|usal
+Pav Bhaji|पाव भाजी|पावभाजी|pavbhaji
+Kanda Bhaji|प्याज पकोड़ा|कांदा भजी|onion pakoda,kanda bhaji,bhajiya
+Mirchi Bhaji|मिर्ची पकोड़ा|मिरची भजी|mirchi pakoda,mirchi vada
+Sabudana Vada|साबूदाना वड़ा|साबुदाणा वडा|sabudana wada
+Sabudana Khichdi|साबूदाना खिचड़ी|साबुदाणा खिचडी|sabudana khichadi
+Poha (Kanda Pohe)|पोहा नाश्ता|कांदेपोहे|kanda pohe,poha breakfast
+Upma|उपमा|उपीट|upma,upit
+Thalipeeth|थालीपीठ|थालीपीठ|thalipith,thalipeeth
+Dabeli|दाबेली|दाबेली|kutchi dabeli
+Sandwich|सैंडविच|सँडविच|bombay sandwich,veg sandwich
+Idli|इडली|इडली|idli,idly
+Medu Vada|मेदु वड़ा|मेदूवडा|medu vada,wada sambar
+Dosa|डोसा|डोसा|dosa,masala dosa
+Uttapam|उत्तपम|उत्तप्पा|uttapa,uthappam
+Appe|अप्पे|आप्पे|appe,paniyaram
+Dhokla|ढोकला|ढोकळा|khaman,dhokla
+Khandvi|खांडवी|सुरळीच्या वड्या|suralichi vadi,khandvi
+Kothimbir Vadi|कोथिंबीर वड़ी|कोथिंबीर वडी|kothimbir wadi,coriander vadi
+Alu Vadi|अरबी पत्ता वड़ी|अळूवडी|aluvadi,patra,patrode
+Sabudana Thalipeeth|साबूदाना थालीपीठ|साबुदाणा थालीपीठ
+Pakoda|पकोड़ा|भजी|pakora,bhajji,bhaji
+Moong Bhaji|मूंग पकोड़ा|मूग भजी|moong dal pakoda
+Bread Pakoda|ब्रेड पकोड़ा|ब्रेड पकोडा|bread bhaji
+Pani Puri|पानी पूरी|पाणीपुरी|golgappa,puchka,panipuri|plate
+Sev Puri|सेव पूरी|शेवपुरी|sev puri|plate
+Bhel Puri|भेल पूरी|भेळ|bhel,bhelpuri|plate
+Ragda Pattice|रगड़ा पैटीस|रगडा पॅटिस|ragda pattice|plate
+Dahi Puri|दही पूरी|दहीपुरी|dahi puri|plate
+Frankie|फ्रैंकी|फ्रँकी|kathi roll,veg roll
+Momos|मोमोज़|मोमोज|momo,dimsum|plate,piece
+Spring Roll|स्प्रिंग रोल|स्प्रिंग रोल|veg spring roll
+Masala Corn|मसाला कॉर्न|मसाला कॉर्न|butter corn,corn cup|plate
+Shegaon Kachori|शेगांव कचौरी|शेगाव कचोरी|shegaon kachori||^KACHORI
+Puneri Misal|पुणेरी मिसल|पुणेरी मिसळ|||^MISAL_PAV
+Kolhapuri Misal|कोल्हापुरी मिसल|कोल्हापुरी मिसळ|||^MISAL_PAV
+Tarri Poha|तर्री पोहा|तर्री पोहे|nagpuri tarri poha

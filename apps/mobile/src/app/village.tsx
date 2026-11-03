@@ -129,7 +129,7 @@ export default function VillageScreen() {
   const showLocationError = locationError || nearbyUnavailable;
   if (!session) return <Redirect href="/register" />;
   const villageName = (village: MobileVillage) =>
-    language === "mr" ? village.nameMr : village.name;
+    language !== "en" ? village.nameMr : village.name;
   function openPicker() {
     setSearch("");
     generation.current++;

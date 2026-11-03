@@ -1,0 +1,134 @@
+# Kitchen utensils, cookware, traditional tools, storage and appliances.
+@category|kitchen|household|Kitchen Supplies|रसोई का सामान|स्वयंपाकघरातील वस्तू
+
+@sub|cookware|Cookware|खाना पकाने के बर्तन|स्वयंपाकाची भांडी|piece,set
+Pressure Cooker|प्रेशर कुकर|प्रेशर कुकर|cooker,kukar
+Tava|तवा|तवा|tawa,tava,griddle
+Iron Tava|लोहे का तवा|लोखंडी तवा|lokhandi tava||^TAVA
+Non Stick Tava|नॉन स्टिक तवा|नॉनस्टिक तवा|nonstick tawa||^TAVA
+Bhakri Tava|भाकरी तवा|भाकरीचा तवा|clay tava,khapar||^TAVA
+Kadhai|कड़ाही|कढई|kadai,kadhai,wok
+Iron Kadhai|लोहे की कड़ाही|लोखंडी कढई|lokhandi kadhai||^KADHAI
+Steel Kadhai|स्टील की कड़ाही|स्टील कढई|||^KADHAI
+Non Stick Kadhai|नॉन स्टिक कड़ाही|नॉनस्टिक कढई|||^KADHAI
+Patila|पतीला|पातेले|patila,patele,cooking vessel
+Tope|भगोना|टोप|tope,top,bhagona
+Handi|हांडी|हंडी|handi,cooking pot
+Clay Handi|मिट्टी की हांडी|मातीची हंडी|matichi handi||^HANDI
+Frying Pan|फ्राइंग पैन|फ्रायपॅन|fry pan,pan
+Appe Pan|अप्पे पात्र|आप्पे पात्र|paniyaram pan,appe patra
+Idli Cooker|इडली कुकर|इडली पात्र|idli stand,idli patra
+Steamer|स्टीमर|मोदक पात्र|modak patra,steamer
+Milk Boiler|दूध उबालने का बर्तन|दूध तापवण्याचे भांडे|milk cooker|piece
+Tea Pan|चाय का बर्तन|चहाचे भांडे|chai pan,tea pot|piece
+Sauce Pan|सॉस पैन|सॉस पॅन
+Cooker Gasket|कुकर गैस्केट|कुकर रिंग|cooker rubber,gasket
+Cooker Whistle|कुकर सीटी|कुकरची शिट्टी|whistle|piece
+Dosa Tava|डोसा तवा|डोसा तवा|||^TAVA
+Biryani Handi|बिरयानी हांडी|बिर्याणी हंडी|||^HANDI
+Copper Handi|तांबे की हांडी|तांब्याची हंडी|||^HANDI
+Brass Pot|पीतल का बर्तन|पितळी भांडे|pital bhande,brass vessel
+
+@sub|tableware|Plates, Bowls and Glasses|थाली, कटोरी और गिलास|ताट, वाटी आणि पेले|piece,set,dozen
+Steel Thali|स्टील थाली|स्टील ताट|thali,tat,plate
+Steel Bowl|स्टील कटोरी|स्टील वाटी|katori,vati,bowl
+Steel Glass|स्टील गिलास|स्टील पेला|glass,pela,tumbler
+Steel Spoon|स्टील चम्मच|स्टील चमचा|chammach,chamcha,spoon
+Dinner Set|डिनर सेट|डिनर सेट|dinner set,crockery set|set
+Brass Thali|पीतल की थाली|पितळी ताट|||^STEEL_THALI
+Copper Glass|तांबे का गिलास|तांब्याचा पेला|tamba glass||^STEEL_GLASS
+Copper Water Bottle|तांबे की बोतल|तांब्याची बाटली|copper bottle
+Copper Jug|तांबे का जग|तांब्याचा जग|||?
+Tambya|लोटा|तांब्या|lota,tambya
+Ceramic Plate|चीनी मिट्टी की प्लेट|चिनीमातीची प्लेट|crockery plate
+Melamine Plate|मेलामाइन प्लेट|मेलामाईन प्लेट
+Glass Tumbler|कांच का गिलास|काचेचा ग्लास|glass tumbler
+Tea Cup Set|चाय के कप|चहाचे कप|cup saucer,cup set|set,piece,dozen
+Kulhad|कुल्हड़|कुल्हड|kulhad,clay cup|piece,dozen
+Paper Plates|कागज़ की प्लेट|कागदी प्लेट|disposable plate|packet,dozen
+Leaf Plates|पत्तल|पत्रावळी|patravali,pattal,leaf plate|packet,dozen,piece
+Areca Leaf Plates|सुपारी पत्ते की प्लेट|सुपारीच्या पानाच्या प्लेट|areca plates|packet,dozen
+Leaf Bowls|दोना|द्रोण|dona,dron|packet,dozen
+Paper Cups|कागज़ के कप|कागदी कप|disposable cups|packet
+Disposable Spoons|डिस्पोज़ेबल चम्मच|डिस्पोजेबल चमचे|||?
+Serving Bowl|सर्विंग बाउल|सर्व्हिंग बाऊल
+Water Jug|पानी का जग|पाण्याचा जग|jug|piece
+Ladle|करछी|पळी|kadchhi,pali,daav,ladle
+Spatula|पलटा|उलथणे|ulthane,palta,spatula
+Serving Spoon|बड़ा चम्मच|मोठा चमचा|||?
+Tongs|चिमटा|चिमटा|chimta,sandasi,tongs
+
+@sub|kitchen-tools|Kitchen Tools|रसोई के औज़ार|स्वयंपाकघरातील साधने|piece,set
+Kitchen Knife|चाकू|सुरी|chaku,suri,knife
+Vili|बोटी|विळी|vili,boti,traditional cutter
+Vegetable Peeler|छिलका उतारने वाला|पीलर|peeler
+Grater|कद्दूकस|किसणी|kisni,kaddukas,grater
+Coconut Scraper|नारियल कद्दूकस|नारळ खवणी|khavni,coconut grater
+Chopping Board|चॉपिंग बोर्ड|चॉपिंग बोर्ड|cutting board
+Rolling Pin|बेलन|लाटणे|belan,latne,rolling pin
+Chakla|चकला|पोळपाट|polpat,chakla,rolling board
+Mortar and Pestle|ओखली मूसल|खलबत्ता|khalbatta,okhli,mortar pestle
+Grinding Stone|सिल बट्टा|पाटा वरवंटा|pata varvanta,sil batta
+Hand Mill|चक्की|जाते|jate,hand chakki,grinding mill
+Chakli Maker|चकली मेकर|सोऱ्या|sorya,chakli press,murukku maker
+Puran Yantra|पूरन यंत्र|पुरण यंत्र|puran yantra,food mill
+Sieve|छलनी|चाळणी|chalni,chalan,sieve
+Tea Strainer|चाय छलनी|चहाची गाळणी|galni,tea strainer
+Flour Sieve|आटा छलनी|पिठाची चाळणी|||^SIEVE
+Masala Box|मसाला डिब्बा|मसाल्याचा डबा|masala dabba,spice box
+Can Opener|कैन ओपनर|कॅन ओपनर
+Bottle Opener|बोतल ओपनर|बाटली ओपनर
+Lemon Squeezer|नींबू निचोड़ने वाला|लिंबू पिळणी|lemon press
+Whisk|फेंटनी|फेटणी|whisk,ravi
+Wooden Churner|मथनी|रवी|ravi,mathani,butter churner
+Measuring Cups|मापने के कप|मापाचे कप|||?
+Kitchen Scissors|रसोई कैंची|किचन कात्री|||?
+Garlic Crusher|लहसुन कूटने वाला|लसूण ठेचणी|||?
+Vegetable Chopper|सब्ज़ी कटर|भाजी चॉपर|chopper
+Roti Box|रोटी डिब्बा|पोळ्यांचा डबा|chapati box,hot case
+Casserole|कैसरोल|कॅसरोल|hot pot,insulated casserole
+Kitchen Rack|किचन रैक|किचन रॅक|dish rack,stand
+Plate Stand|प्लेट स्टैंड|ताटांचा स्टँड|||?
+Spoon Stand|चम्मच स्टैंड|चमचा स्टँड|||?
+
+@sub|storage|Storage Containers|भंडारण के डिब्बे|साठवणीचे डबे|piece,set
+Steel Dabba|स्टील डिब्बा|स्टील डबा|steel container,dabba
+Plastic Container|प्लास्टिक डिब्बा|प्लास्टिक डबा|plastic dabba
+Glass Jar|कांच का जार|काचेची बरणी|barni,jar
+Pickle Jar|अचार की बरनी|लोणच्याची बरणी|chini barni,ceramic jar
+Rice Drum|चावल का ड्रम|धान्याची कोठी|kothi,grain drum,koti
+Grain Storage Bin|अनाज भंडार|धान्य कोठी|||^RICE_DRUM
+Oil Can|तेल का डिब्बा|तेलाचा डबा|oil container
+Water Matka|मटका|माठ|math,matka,clay pot,ghada
+Water Pot|घड़ा|घागर|ghagar,ghada,kalshi
+Brass Handa|पीतल का हंडा|पितळी हंडा|handa,brass pot||?
+Copper Handa|तांबे का हंडा|तांब्याचा हंडा|||?
+Steel Drum|स्टील ड्रम|स्टील पिंप|pimp,drum
+Plastic Drum|प्लास्टिक ड्रम|प्लास्टिक पिंप|||^STEEL_DRUM
+Water Filter|पानी का फ़िल्टर|पाण्याचा फिल्टर|filter,purifier
+Bread Box|ब्रेड बॉक्स|ब्रेड डबा
+
+@sub|appliances|Kitchen Appliances|रसोई उपकरण|स्वयंपाकघरातील उपकरणे|piece
+Mixer Grinder|मिक्सर ग्राइंडर|मिक्सर|mixer,mixie
+Wet Grinder|वेट ग्राइंडर|वेट ग्राइंडर|grinder
+Juicer|जूसर|ज्यूसर|juicer mixer
+Hand Blender|हैंड ब्लेंडर|हँड ब्लेंडर|blender
+Gas Stove|गैस चूल्हा|गॅस शेगडी|gas shegdi,stove,chulha
+Induction Cooktop|इंडक्शन चूल्हा|इंडक्शन शेगडी|induction
+Electric Kettle|इलेक्ट्रिक केतली|इलेक्ट्रिक किटली|kettle
+Rice Cooker|राइस कुकर|राईस कुकर|electric cooker
+Toaster|टोस्टर|टोस्टर|sandwich toaster
+Microwave Oven|माइक्रोवेव|मायक्रोवेव्ह|oven
+OTG Oven|ओटीजी ओवन|ओटीजी ओव्हन|||?
+Refrigerator|फ्रिज|फ्रिज|fridge
+Chimney|चिमनी|चिमणी|kitchen chimney
+Water Heater|गीज़र|गिझर|geyser
+Gas Cylinder Trolley|सिलेंडर ट्रॉली|सिलिंडर ट्रॉली
+Gas Pipe|गैस पाइप|गॅस पाईप|lpg hose|piece,metre
+Gas Regulator|गैस रेगुलेटर|गॅस रेग्युलेटर|regulator
+Kerosene Stove|मिट्टी तेल का स्टोव|रॉकेलचा स्टोव्ह|stove,primus
+Chulha|चूल्हा|चूल|chul,chulha,mud stove
+Smokeless Chulha|धुआं रहित चूल्हा|निर्धूर चूल|||^CHULHA
+Sigdi|अंगीठी|शेगडी|shegdi,angithi,coal stove
+Solar Cooker|सोलर कुकर|सौर कुकर|solar cooker
+Roti Maker|रोटी मेकर|रोटी मेकर

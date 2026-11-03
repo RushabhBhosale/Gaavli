@@ -1,0 +1,63 @@
+# Loose flowers, cut flowers, garlands and floral puja items.
+@category|flowers|flowers|Flowers and Garlands|फूल और मालाएँ|फुले आणि हार
+
+@sub|loose-flowers|Loose Flowers|खुले फूल|सुटी फुले|kg,g,piece
+Marigold|गेंदा|झेंडू|genda,zendu,jhendu,gainda
+Orange Marigold|नारंगी गेंदा|केशरी झेंडू|keshari zendu||^MARIGOLD
+Yellow Marigold|पीला गेंदा|पिवळा झेंडू|pivla zendu||^MARIGOLD
+Rose|गुलाब|गुलाब|gulab,roses|piece,dozen,bunch,kg
+Desi Rose|देसी गुलाब|गावठी गुलाब|gavthi gulab,desi gulab,paneer rose|kg,piece,dozen|^ROSE
+Rose Petals|गुलाब की पंखुड़ियाँ|गुलाबाच्या पाकळ्या|gulab pankhudi,rose petal|kg,g,packet
+Arabian Jasmine|मोगरा|मोगरा|mogra,mogara,jasmine,bela
+Jai Jasmine|जाई|जाई|jai,chameli
+Jui Jasmine|जूही|जुई|jui,juhi
+Chrysanthemum|गुलदाउदी|शेवंती|shevanti,guldaudi,sevanti
+White Chrysanthemum|सफ़ेद गुलदाउदी|पांढरी शेवंती|pandhri shevanti||^CHRYSANTHEMUM
+Yellow Chrysanthemum|पीली गुलदाउदी|पिवळी शेवंती|pivli shevanti||^CHRYSANTHEMUM
+Tuberose|रजनीगंधा|निशिगंध|rajnigandha,nishigandh,gulchhadi
+Gerbera|जरबेरा|जरबेरा|gerbera daisy|piece,bunch
+Gladiolus|ग्लेडियोलस|ग्लॅडिओलस|gladiolus|bunch,piece
+Lotus|कमल|कमळ|kamal,kamal phool|piece,dozen
+Aster|एस्टर|अॅस्टर|aster|kg,bunch
+Crossandra|अबोली|अबोली|aboli,kanakambaram|kg,g
+Hibiscus|गुड़हल|जास्वंद|jaswand,jasvand,gudhal,japa|piece,dozen,kg
+Champa|चंपा|चाफा|chafa,champa,champak|piece,dozen
+Sonchafa|सोन चंपा|सोनचाफा|sonchafa,golden champa|piece,dozen
+Frangipani|गुलचीन|खुरचाफा|khurchafa,plumeria,temple flower|piece,dozen
+Parijat|हरसिंगार|पारिजातक|parijat,parijatak,harsingar,night jasmine|g,packet
+Kevda|केवड़ा|केवडा|kevda,kewda,screwpine|piece
+Bakul|मौलश्री|बकुळ|bakul,maulshree|g,packet
+Kanher|कनेर|कण्हेर|kanher,kaner,oleander|kg,g
+Tagar|तगर|तगर|tagar,crape jasmine|kg,g
+Calotropis Flowers|आक के फूल|रुईची फुले|rui phule,aak,madar|piece,bunch
+Blue Butterfly Pea|अपराजिता|गोकर्ण|gokarna,aparajita,shankhpushpi|g,packet
+Daisy|डेज़ी|डेझी|daisy|bunch,kg
+Carnation|कार्नेशन|कार्नेशन|carnation|bunch,piece
+Orchid|ऑर्किड|ऑर्किड|orchids|piece,bunch
+Lily|लिली|लिली|lilium,lily|bunch,piece
+Anthurium|एंथुरियम|अँथुरियम|anthurium|piece
+Bird of Paradise|बर्ड ऑफ़ पैराडाइज़|बर्ड ऑफ पॅराडाईज|strelitzia|piece
+Gypsophila|जिप्सोफिला|जिप्सोफिला|baby's breath|bunch
+Golden Rod|गोल्डन रॉड|गोल्डन रॉड|solidago|bunch
+Dahlia|डहेलिया|डेलिया|dahlia|piece,bunch
+Sunflower|सूरजमुखी|सूर्यफूल|surajmukhi,suryaphul|piece,bunch
+Water Lily|कुमुदिनी|कुमुदिनी|nymphaea,kumud|piece
+Brahma Kamal|ब्रह्म कमल|ब्रह्मकमळ|brahmakamal|piece
+
+@sub|garlands-veni|Garlands, Gajra and Veni|माला, गजरा और वेणी|हार, गजरे आणि वेणी|piece,dozen
+Marigold Garland|गेंदे की माला|झेंडूचा हार|genda mala,zendu har,marigold mala
+Rose Garland|गुलाब की माला|गुलाबाचा हार|gulab mala,gulab har
+Mogra Gajra|मोगरे का गजरा|मोगऱ्याचा गजरा|mogra gajra,gajra
+Mogra Veni|मोगरे की वेणी|मोगऱ्याची वेणी|veni,mogra veni
+Aboli Gajra|अबोली गजरा|अबोलीचा गजरा|aboli gajra
+Wedding Garland|वरमाला|वरमाला|varmala,jaimala|piece,pair
+Tulsi Garland|तुलसी की माला|तुळशीचा हार|tulsi mala|piece
+Durva Garland|दूर्वा की माला|दुर्वांचा हार|durva har|piece
+Shevanti Garland|गुलदाउदी माला|शेवंतीचा हार|shevanti har|piece
+Lotus Garland|कमल की माला|कमळाचा हार|kamal har|piece
+Mixed Flower Garland|मिश्रित फूलों की माला|मिश्र फुलांचा हार|phool mala,har|piece,dozen
+Rui Flower Garland|आक के फूलों की माला|रुईच्या फुलांचा हार|rui har,hanuman har|piece
+Hibiscus Garland|गुड़हल की माला|जास्वंदीचा हार|jaswand har,ganpati har|piece
+Toran Garland|तोरण माला|फुलांचे तोरण|phool toran,flower toran|piece,metre
+Flower Bouquet|गुलदस्ता|पुष्पगुच्छ|bouquet,guldasta,pushpaguchha|piece
+Flower Basket|फूलों की टोकरी|फुलांची टोपली|flower basket|piece

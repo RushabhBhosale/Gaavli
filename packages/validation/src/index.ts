@@ -16,6 +16,7 @@ export {
   productGroupSchema,
   productMasterSchema,
   productMasterPageSchema,
+  catalogSearchPageSchema,
   productMasterQuerySchema,
   productMasterImportRowSchema,
   productMasterImportSchema,
@@ -298,6 +299,7 @@ export const activityRequestSchema = requestStateSchema
       .object({
         name: z.string().nullable(),
         nameMr: z.string().nullable(),
+        nameHi: z.string().nullable(),
         photoUrl: z.string().nullable(),
         unit: z.string().nullable(),
       })
@@ -361,6 +363,7 @@ export const mobileListingSchema = z
     id: listingIdSchema,
     productName: z.string().min(1),
     productNameMr: z.string().nullable(),
+    productNameHi: z.string().nullable(),
     photoUrl: z
       .string()
       .refine((value) => {
@@ -551,6 +554,7 @@ export const ownedListingSchema = z
     productId: listingIdSchema.nullable().default(null),
     productName: z.string(),
     productNameMr: z.string().nullable(),
+    productNameHi: z.string().nullable(),
     description: z.string().nullable().default(null),
     categoryId: listingIdSchema.nullable(),
     category: z.string().nullable(),

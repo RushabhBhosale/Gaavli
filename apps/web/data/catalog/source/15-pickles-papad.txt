@@ -1,0 +1,108 @@
+# Homemade pickles, chutneys, papad, sandge, vadi and preserves.
+@category|pickles-papad|homemade|Pickles, Chutneys and Papad|अचार, चटनी और पापड़|लोणची, चटण्या आणि पापड
+
+@sub|pickles|Pickles|अचार|लोणची|kg,g,jar,bottle
+Mango Pickle|आम का अचार|कैरीचे लोणचे|aam ka achar,kairiche lonche,amba lonche,mango achar
+Sweet Mango Pickle|मीठा आम का अचार|गोड कैरीचे लोणचे|god lonche,meetha achar||^MANGO_PICKLE
+Stuffed Mango Pickle|भरवां आम का अचार|भरलेल्या कैरीचे लोणचे|||^MANGO_PICKLE
+Avakaya Pickle|आवकाय अचार|आवकाय लोणचे|avakaya,andhra mango pickle||^MANGO_PICKLE
+Tender Mango Pickle|कैरी का अचार (छोटा)|बाळकैरीचे लोणचे|vadu mangai,kadu manga||^MANGO_PICKLE
+Mango Chunda|आम का छूंदा|छुंदा|chunda,chhundo,god chunda
+Mango Murabba|आम का मुरब्बा|कैरीचा मुरंबा|moramba,murabba,kairi muramba
+Methamba|मेथंबा|मेथांबा|methamba,kairi methamba
+Lemon Pickle|नींबू का अचार|लिंबाचे लोणचे|nimbu achar,limbu lonche,lime pickle
+Sweet Lemon Pickle|मीठा नींबू अचार|गोड लिंबाचे लोणचे|god limbu lonche||^LEMON_PICKLE
+Green Chilli Pickle|हरी मिर्च का अचार|हिरव्या मिरचीचे लोणचे|mirchi achar,mirchi lonche,chilli pickle
+Stuffed Red Chilli Pickle|भरवां लाल मिर्च अचार|भरलेल्या लाल मिरचीचे लोणचे|bharwa mirch||?
+Amla Pickle|आंवले का अचार|आवळ्याचे लोणचे|amla achar,avla lonche
+Amla Murabba|आंवले का मुरब्बा|आवळ्याचा मुरंबा|amla murabba,avla moramba
+Amla Supari|आंवला सुपारी|आवळा सुपारी|amla mukhwas
+Garlic Pickle|लहसुन का अचार|लसणाचे लोणचे|lahsun achar,lasun lonche
+Ginger Pickle|अदरक का अचार|आल्याचे लोणचे|adrak achar,ale lonche
+Mixed Vegetable Pickle|मिक्स अचार|मिश्र भाज्यांचे लोणचे|mix achar,mix pickle
+Carrot Pickle|गाजर का अचार|गाजराचे लोणचे|gajar achar
+Karonda Pickle|करौंदे का अचार|करवंदाचे लोणचे|karvand lonche
+Fresh Turmeric Pickle|कच्ची हल्दी का अचार|ओल्या हळदीचे लोणचे|haldi achar,oli halad lonche
+Mango Ginger Pickle|आमा हल्दी अचार|आंबेहळदीचे लोणचे|ambe halad lonche
+Bamboo Shoot Pickle|बांस का अचार|बांबूचे लोणचे|kalak lonche||?
+Jackfruit Pickle|कटहल का अचार|फणसाचे लोणचे|kathal achar
+Tendli Pickle|कुंदरू का अचार|तोंडलीचे लोणचे|tondli lonche||?
+Bitter Gourd Pickle|करेले का अचार|कारल्याचे लोणचे|karela achar
+Kokum Pickle|कोकम अचार|कोकम लोणचे|||?
+Fish Pickle|मछली का अचार|माशाचे लोणचे|fish achar
+Prawn Pickle|झींगा अचार|कोळंबीचे लोणचे|kolambi lonche,prawns pickle
+Chicken Pickle|चिकन अचार|चिकन लोणचे|chicken achar
+Mutton Pickle|मटन अचार|मटण लोणचे|mutton achar
+Gongura Pickle|गोंगुरा अचार|अंबाडीचे लोणचे|gongura pachadi
+Tomato Pickle|टमाटर का अचार|टोमॅटोचे लोणचे|tamatar achar
+Cauliflower Pickle|गोभी का अचार|फ्लॉवरचे लोणचे|gobhi achar
+Radish Pickle|मूली का अचार|मुळ्याचे लोणचे|mooli achar
+Dates Pickle|खजूर का अचार|खजुराचे लोणचे|khajur achar
+Tamarind Pickle|इमली का अचार|चिंचेचे लोणचे|imli achar,puli inji||?
+Kairi Takku|कैरी टक्कू|कैरीचा तक्कू|takku,kairi takku
+Ker Sangri Pickle|केर सांगरी अचार|केर सांगरी लोणचे|ker sangri
+
+@sub|chutneys|Chutneys and Chutney Powders|चटनी|चटण्या|kg,g,jar,packet
+Peanut Chutney Powder|मूंगफली चटनी|शेंगदाणा चटणी|shengdana chutney,dry peanut chutney
+Garlic Chutney|लहसुन की चटनी|लसूण चटणी|lasun chutney,vada pav chutney,dry garlic chutney
+Flaxseed Chutney|अलसी की चटनी|जवसाची चटणी|javas chutney,alsi chutney
+Niger Seed Chutney|रामतिल चटनी|कारळ्याची चटणी|karale chutney,karla chutney
+Sesame Chutney|तिल की चटनी|तिळाची चटणी|til chutney
+Coconut Chutney Powder|नारियल चटनी पाउडर|खोबऱ्याची चटणी|khobra chutney,dry coconut chutney
+Curry Leaves Chutney|करी पत्ता चटनी|कढीपत्त्याची चटणी|kadipatta chutney
+Red Chilli Thecha|लाल मिर्च ठेचा|लाल मिरचीचा ठेचा|lal thecha
+Green Chilli Thecha|हरी मिर्च ठेचा|हिरव्या मिरचीचा ठेचा|thecha,hirvi mirchi thecha,kharda
+Coriander Chutney|हरी चटनी|कोथिंबीर चटणी|green chutney,hari chutney,kothimbir chutney|kg,g,jar,bottle
+Mint Chutney|पुदीना चटनी|पुदिना चटणी|pudina chutney|kg,g,jar,bottle
+Tamarind Chutney|इमली की चटनी|चिंचेची चटणी|imli chutney,meethi chutney,chinch gul chutney|kg,g,jar,bottle
+Dates Tamarind Chutney|खजूर इमली चटनी|खजूर चिंच चटणी|khajur imli chutney|kg,g,jar,bottle|^TAMARIND_CHUTNEY
+Tomato Chutney|टमाटर की चटनी|टोमॅटोची चटणी|tamatar chutney|kg,g,jar,bottle
+Raw Mango Chutney|कच्चे आम की चटनी|कैरीची चटणी|kairi chutney|kg,g,jar,bottle
+Gul Amba|गुड़ आम|गूळ आंबा|gulamba,gul amba
+Coconut Chutney|नारियल चटनी|नारळाची चटणी|nariyal chutney|kg,g,jar,bottle
+Tilache Kut|तिल कूट|तिळाचे कूट|til kut
+Shengdana Kut|मूंगफली कूट|शेंगदाण्याचे कूट|peanut powder,danyache kut|kg,g,packet
+Idli Chutney Powder|इडली पोडी|इडली चटणी पावडर|gunpowder,idli podi,milagai podi
+Ambadi Chutney|अम्बाड़ी चटनी|अंबाडीची चटणी
+Dry Fish Chutney|सूखी मछली चटनी|सुक्या मासळीची चटणी|sukat chutney,bombil chutney
+Kharda|खरड़ा|खर्डा|kharda,thecha kharda||^GREEN_CHILLI_THECHA
+Mixed Fruit Jam|मिक्स फ्रूट जैम|मिक्स फ्रूट जॅम|jam|g,jar,bottle
+Mango Jam|आम का जैम|आंबा जॅम|aam jam|g,jar,bottle
+Strawberry Jam|स्ट्रॉबेरी जैम|स्ट्रॉबेरी जॅम
+Karvanda Jam|करौंदा जैम|करवंद जॅम
+Fig Jam|अंजीर जैम|अंजीर जॅम|||?
+Jamun Jam|जामुन जैम|जांभूळ जॅम|||?
+Pineapple Jam|अनानास जैम|अननस जॅम|||?
+Orange Marmalade|संतरा मार्मलेड|संत्रा मार्मलेड|marmalade|g,jar,bottle
+Mango Pulp|आम का गूदा|आंब्याचा पल्प|aam ras,mango pulp tin|kg,litre,box
+Tamarind Paste|इमली पेस्ट|चिंच पेस्ट|||?
+Ginger Garlic Paste|अदरक लहसुन पेस्ट|आले लसूण पेस्ट|adrak lahsun paste,ale lasun paste|g,kg,jar,bottle
+
+@sub|papad-sandge|Papad, Sandge and Vadi|पापड़, बड़ी और वड़ी|पापड, सांडगे आणि वड्या|kg,g,packet,piece
+Udid Papad|उड़द पापड़|उडदाचे पापड|urad papad,udid papad
+Moong Papad|मूंग पापड़|मुगाचे पापड|moong papad
+Rice Papad|चावल पापड़|तांदळाचे पापड|chawal papad,tandul papad
+Nachni Papad|रागी पापड़|नाचणीचे पापड|ragi papad
+Jowar Papad|ज्वार पापड़|ज्वारीचे पापड|jowar papad
+Bajra Papad|बाजरा पापड़|बाजरीचे पापड
+Potato Papad|आलू पापड़|बटाट्याचे पापड|aloo papad,batata papad
+Sabudana Papad|साबूदाना पापड़|साबुदाण्याचे पापड|sabudana papad
+Pohe Papad|पोहा पापड़|पोह्यांचे पापड|pohe papad
+Nagli Papad|नागली पापड़|नागलीचे पापड|nagli papad
+Masala Papad|मसाला पापड़|मसाला पापड|masala papad
+Garlic Papad|लहसुन पापड़|लसूण पापड|lasun papad
+Black Pepper Papad|काली मिर्च पापड़|मिरी पापड|miri papad
+Jackfruit Papad|कटहल पापड़|फणसाचे पापड|phanas papad
+Mango Papad|आम पापड़|आंबा पोळी|aam papad,amba poli,mango leather
+Fanas Poli|कटहल पापड़ (मीठा)|फणस पोळी|phanas poli||?
+Papdi|पापड़ी|पापडी|papdi,papadi|kg,g,packet
+Sandge|बड़ी|सांडगे|sandge,sandage,vadi
+Moong Vadi|मूंग बड़ी|मुगाच्या वड्या|moong badi,moong wadi
+Urad Vadi|उड़द बड़ी|उडदाच्या वड्या|urad badi
+Mirgunda|मिरगुंडा|मिरगुंडे|mirgunde,khichiya|kg,g,packet
+Kharodi|खारोड़ी|खारोड्या|kharodya
+Sabudana Sandge|साबूदाना संडगे|साबुदाणा सांडगे|sabudana vadi,sabudana sandge
+Potato Sali|आलू की सल्ली|बटाट्याचा कीस|batatyacha kis,potato sali,aloo lachha|kg,g,packet
+Dahi Mirchi|दही मिर्च|दही मिरची|dahi mirchi,khara mirchi,sandgi mirchi
+Khichiya Papad|खीचिया पापड़|खिचिया पापड|khichiya
+Rice Fryums|चावल के फ्रायम्स|तांदळाचे फ्रायम्स|fryums,fryams|kg,g,packet

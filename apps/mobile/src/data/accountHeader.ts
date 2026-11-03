@@ -1,3 +1,4 @@
+import { dateLocale } from "../locale";
 import type { MobileLanguage, MobileUser } from "@gaavli/types";
 import { hasCoordinatorRole } from "./accountAccess";
 
@@ -13,7 +14,7 @@ export function accountHeaderIdentity(
       (word) => word.match(/^\p{L}\p{M}*/u)?.[0] || Array.from(word)[0] || "",
     )
     .join("")
-    .toLocaleUpperCase(language === "mr" ? "mr-IN" : "en-IN");
+    .toLocaleUpperCase(dateLocale(language));
   const village = account.village;
   return {
     name: account.name,
@@ -25,7 +26,7 @@ export function accountHeaderIdentity(
         : ("buyer" as const),
     location: village
       ? [
-          language === "mr" ? village.nameMr : village.name,
+          language !== "en" ? village.nameMr : village.name,
           village.taluka,
           village.district,
         ]

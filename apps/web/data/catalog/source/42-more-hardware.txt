@@ -1,0 +1,93 @@
+# Additional hardware, electrical, plumbing, building and vehicle items (generic).
+@category|hardware
+@sub|fasteners
+Hook Bolt|हुक बोल्ट|हुक बोल्ट|j bolt|piece,packet
+U Clamp|यू क्लैंप|यू क्लॅम्प|pipe clamp|piece,packet
+Hose Clamp|होज़ क्लैंप|होज क्लॅम्प|jubilee clip|piece,packet
+Gate Hinge|गेट कब्ज़ा|गेट बिजागरी|||^HINGES
+Wire Clip|वायर क्लिप|वायर क्लिप|cable clip|packet
+Door Kadi|दरवाज़े की कुंडी|दाराची कडी|kadi,kundi|piece
+Mortise Lock|मोर्टिस ताला|मॉर्टिस कुलूप|||^DOOR_LOCK
+Cupboard Lock|अलमारी ताला|कपाट कुलूप|||^PADLOCK
+Shutter Lock|शटर ताला|शटर कुलूप|||^PADLOCK
+Digital Door Lock|डिजिटल डोर लॉक|डिजिटल डोअर लॉक
+@sub|hand-tools
+Shovel|बेलचा|फावडे (मोठे)|belcha||^SPADE
+Mattock|गैंती (कुदाल)|कुदळ (टिकाव)|||?
+Hand Drill|हैंड ड्रिल|हात ड्रिल|||^DRILL_MACHINE
+Hammer Drill|हैमर ड्रिल|हॅमर ड्रिल|||^DRILL_MACHINE
+Marble Cutter|मार्बल कटर|मार्बल कटर
+Wood Planer|रंदा|रंधा|randa,planer
+Wood Router|राउटर मशीन|राऊटर मशीन|||?
+Jigsaw Machine|जिगसॉ|जिगसॉ|||?
+Nail Puller|कील निकालने वाला|खिळे काढणी|||?
+Anvil|निहाई|ऐरण|airan,anvil|piece
+Carpenter Square|गुनिया|गुण्या|gunya,try square
+Pipe Cutter|पाइप कटर|पाईप कटर
+Crimping Tool|क्रिम्पिंग टूल|क्रिम्पिंग टूल
+Safety Goggles|सुरक्षा चश्मा|सुरक्षा गॉगल|||?
+Safety Gloves|सुरक्षा दस्ताने|सुरक्षा हातमोजे|leather gloves||?
+Reflective Jacket|रिफ़्लेक्टिव जैकेट|रिफ्लेक्टिव्ह जॅकेट|safety jacket
+@sub|electrical
+Smart Bulb|स्मार्ट बल्ब|स्मार्ट बल्ब|||^LED_BULB
+Pendant Light|लटकती लाइट|लटकणारा दिवा|hanging light||?
+Gate Light|गेट लाइट|गेट दिवा|||?
+Bulb Garland Lights|बल्ब झालर|बल्बची माळ|jhalar,tora||^DIWALI_LIGHTS
+Mosquito Killer Lamp|मच्छर मारने वाला लैंप|डास मारणारा दिवा|||?
+Battery Charger|बैटरी चार्जर|बॅटरी चार्जर
+Solar Charge Controller|सोलर चार्ज कंट्रोलर|सोलर चार्ज कंट्रोलर
+Solar Home Light Kit|सोलर होम लाइट किट|सौर गृह दिवा संच|||?
+Solar Fan|सोलर पंखा|सौर पंखा|||?
+Pedestal Fan|पेडस्टल पंखा|पेडेस्टल पंखा|stand fan||^CEILING_FAN
+Rechargeable Fan|रिचार्जेबल पंखा|रिचार्जेबल पंखा|||^CEILING_FAN
+Water Pump Controller|पंप कंट्रोलर|पंप कंट्रोलर|mobile starter,gsm starter||^STARTER
+Motor Capacitor|मोटर कैपेसिटर|मोटर कॅपॅसिटर|||^FAN_CAPACITOR
+Cable Tie|केबल टाई|केबल टाय|zip tie|packet
+
+@category|plumbing-building
+@sub|plumbing
+Plastic Tap|प्लास्टिक नल|प्लास्टिक नळ|||^WATER_TAP
+Brass Tap|पीतल का नल|पितळी नळ|||^WATER_TAP
+Pillar Cock|पिलर कॉक|पिलर कॉक|||^WATER_TAP
+Angle Valve|एंगल वाल्व|अँगल व्हॉल्व्ह|||?
+Gate Valve|गेट वाल्व|गेट व्हॉल्व्ह
+Non Return Valve|नॉन रिटर्न वाल्व|नॉन रिटर्न व्हॉल्व्ह|nrv
+Loft Tank|लॉफ़्ट टैंक|लॉफ्ट टाकी|||^WATER_TANK
+Overhead Tank|ओवरहेड टैंक|ओव्हरहेड टाकी|||^WATER_TANK
+Water Storage Drum|पानी भंडारण ड्रम|पाणी साठवण पिंप|||^PLASTIC_DRUM
+Connection Pipe|कनेक्शन पाइप|कनेक्शन पाईप|flexible connector|piece
+Sink Coupling|सिंक कपलिंग|सिंक कपलिंग|waste coupling|piece
+Urinal|यूरिनल|मुतारी भांडे|||?
+@sub|building-materials
+Red Bricks|लाल ईंट|लाल वीट|lal vit||^BRICKS
+Hollow Blocks|होलो ब्लॉक|होलो ब्लॉक|||^CEMENT_BLOCKS
+Jali Blocks|जाली ब्लॉक|जाळी ब्लॉक|ventilation blocks
+Vitrified Tiles|विट्रिफ़ाइड टाइल्स|व्हिट्रिफाईड टाईल्स|||^FLOOR_TILES
+Parking Tiles|पार्किंग टाइल्स|पार्किंग टाईल्स|||^FLOOR_TILES
+Roof Tiles Clay|मिट्टी की खपरैल|मातीची कौले|||^ROOF_TILES
+Polycarbonate Sheet|पॉलीकार्बोनेट शीट|पॉलीकार्बोनेट पत्रा
+Fibre Roof Sheet|फ़ाइबर छत शीट|फायबर पत्रा|||^GI_ROOFING_SHEET
+Teak Wood|सागौन लकड़ी|सागवानी लाकूड|sagwan lakdi|piece,kg
+Flush Door|फ़्लश डोर|फ्लश डोअर|||^DOOR
+Laminate Sheet|लैमिनेट शीट|लॅमिनेट शीट|sunmica|sheet
+Gypsum Board|जिप्सम बोर्ड|जिप्सम बोर्ड|false ceiling
+Cement Bricks|सीमेंट ईंट|सिमेंट वीट|||^CEMENT_BLOCKS
+Lime Stone|चूना पत्थर|चुनखडी|chunkhadi|kg,ton
+River Sand|नदी की रेत|नदीची वाळू|||^SAND
+Plaster Sand|प्लास्टर रेत|गिलावा वाळू|||?
+Coarse Aggregate 20mm|20 मिमी गिट्टी|20 मिमी खडी|||^AGGREGATE
+Fine Aggregate 10mm|10 मिमी गिट्टी|10 मिमी खडी|||^AGGREGATE
+Stone Dust|पत्थर का चूरा|डस्ट (खडी)|crusher dust||?
+
+@category|vehicles
+@sub|vehicle-accessories
+Bike Silencer|बाइक साइलेंसर|गाडी सायलेन्सर|||?
+Bike Mudguard|मडगार्ड|मडगार्ड
+Car Battery|कार बैटरी|कार बॅटरी|||^BIKE_BATTERY
+Tractor Battery|ट्रैक्टर बैटरी|ट्रॅक्टर बॅटरी|||^BIKE_BATTERY
+Hydraulic Oil|हाइड्रोलिक ऑयल|हायड्रॉलिक ऑईल|tractor oil|litre
+Gear Oil|गियर ऑयल|गिअर ऑईल
+Diesel Filter|डीज़ल फ़िल्टर|डिझेल फिल्टर
+Air Filter|एयर फ़िल्टर|एअर फिल्टर
+Oil Filter|ऑयल फ़िल्टर|ऑईल फिल्टर
+Tractor Trolley Tyre|ट्रॉली टायर|ट्रॉली टायर|||?

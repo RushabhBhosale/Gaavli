@@ -58,13 +58,13 @@ export default function DirectoryDetailsScreen() {
           <>
             <Panel>
               <Text accessibilityRole="header" style={d.cardTitle}>
-                {language === "mr" ? entry.nameMr || entry.name : entry.name}
+                {language !== "en" ? entry.nameMr || entry.name : entry.name}
               </Text>
               <Text style={d.cardTitle}>
                 {listingRate(directoryPreview(entry), language)}
               </Text>
               <Text style={d.description}>
-                {language === "mr"
+                {language !== "en"
                   ? entry.village.nameMr || entry.village.name
                   : entry.village.name}
               </Text>

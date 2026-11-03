@@ -2,7 +2,7 @@ import "server-only";
 import { Types, type ClientSession } from "mongoose";
 import { Listing } from "../models";
 import { ListingInterest } from "../models/listing-interest";
-import { visiblePipeline } from "./listings";
+import { productNameStage, visiblePipeline } from "./listings";
 import { discoveryVillageIds } from "./village-discovery";
 
 export async function visibleSellerContact(
@@ -37,6 +37,7 @@ async function sellerContactRow(
     mobile: string | null;
     productName: string;
     productNameMr: string | null;
+    productNameHi: string | null;
     quantity: number;
     minimumPurchaseQuantity: number | null;
     unit: string | null;
@@ -44,12 +45,16 @@ async function sellerContactRow(
   }>([
     { $match: { _id: new Types.ObjectId(id), isDemo: { $ne: true } } },
     ...visiblePipeline(villageIds, new Date()),
+    productNameStage,
     {
       $project: {
         _id: 0,
         sellerId: { $toString: "$seller" },
         productName: 1,
         productNameMr: { $ifNull: ["$productNameMr", null] },
+        productNameHi: {
+          $ifNull: [{ $arrayElemAt: ["$productRecord.nameHi", 0] }, null],
+        },
         quantity: 1,
         minimumPurchaseQuantity: {
           $ifNull: ["$minimumPurchaseQuantity", null],

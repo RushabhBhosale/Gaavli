@@ -1,0 +1,143 @@
+# Final top-up: common stall menu variants, regional spice powders, agri combinations, fodder varieties and everyday variants.
+@category|homemade-food
+@sub|indian-dishes
+Chicken Fried Rice|चिकन फ्राइड राइस|चिकन फ्राईड राईस|||^FRIED_RICE
+Egg Fried Rice|अंडा फ्राइड राइस|अंडा फ्राईड राईस|||^FRIED_RICE
+Paneer Fried Rice|पनीर फ्राइड राइस|पनीर फ्राईड राईस|||^FRIED_RICE
+Chicken Noodles|चिकन नूडल्स|चिकन नूडल्स|||^HAKKA_NOODLES
+Egg Noodles|अंडा नूडल्स|अंडा नूडल्स|||^HAKKA_NOODLES
+Chicken Manchurian|चिकन मंचूरियन|चिकन मंचुरियन|||^MANCHURIAN
+Paneer Manchurian|पनीर मंचूरियन|पनीर मंचुरियन|||^MANCHURIAN
+Veg Momos|वेज मोमोज़|व्हेज मोमोज|||^MOMOS
+Chicken Momos|चिकन मोमोज़|चिकन मोमोज|||^MOMOS
+Paneer Momos|पनीर मोमोज़|पनीर मोमोज|||^MOMOS
+Veg Pizza|वेज पिज़्ज़ा|व्हेज पिझ्झा|||^PIZZA
+Chicken Pizza|चिकन पिज़्ज़ा|चिकन पिझ्झा|||^PIZZA
+Aloo Tikki Burger|आलू टिक्की बर्गर|आलू टिक्की बर्गर|||^BURGER
+Chicken Burger|चिकन बर्गर|चिकन बर्गर|||^BURGER
+Cheese Sandwich|चीज़ सैंडविच|चीज सँडविच|||^SANDWICH
+Grill Sandwich|ग्रिल सैंडविच|ग्रिल सँडविच|||^SANDWICH
+Paneer Frankie|पनीर फ्रैंकी|पनीर फ्रँकी|||^FRANKIE
+Chicken Frankie|चिकन फ्रैंकी|चिकन फ्रँकी|||^FRANKIE
+Cheese Dosa|चीज़ डोसा|चीज डोसा|||^DOSA
+Paper Dosa|पेपर डोसा|पेपर डोसा|||^DOSA
+Butter Masala Dosa|बटर मसाला डोसा|बटर मसाला डोसा|||^DOSA
+Onion Uttapam|प्याज उत्तपम|कांदा उत्तप्पा|||^UTTAPAM
+
+@category|spices
+@sub|masala-blends
+Puliyogare Powder|पुलियोगरे पाउडर|पुळियोगरे पावडर|tamarind rice mix
+Bisi Bele Bath Powder|बिसी बेले बाथ पाउडर|बिसी बेळे भात पावडर|bisibele bath
+Vangi Bath Powder|वांगी बाथ पाउडर|वांगी भात मसाला|vangibath masala
+Kulambu Powder|कुलम्बु पाउडर|कुळंबू पावडर
+Chicken Tikka Masala|चिकन टिक्का मसाला|चिकन टिक्का मसाला|||^CHICKEN_MASALA
+
+@category|herbs-forest
+@sub|jadibuti
+Shankhpushpi Powder|शंखपुष्पी पाउडर|शंखपुष्पी पावडर
+Nagarmotha Powder|नागरमोथा पाउडर|नागरमोथा पावडर
+Jatamansi Powder|जटामांसी पाउडर|जटामांसी पावडर
+Bhumi Amla Powder|भुई आंवला पाउडर|भुई आवळी पावडर|||?
+Neem Bark Powder|नीम छाल पाउडर|कडुलिंब साल पावडर|||?
+Kirayat Powder|चिरायता पाउडर|किराईत पावडर
+Snan Churna|स्नान चूर्ण|स्नानचूर्ण|herbal bath powder|g,packet
+
+@category|farm-inputs
+@sub|crop-protection
+Thiodicarb|थायोडिकार्ब|थायोडिकार्ब|thiodicarb
+Cartap Hydrochloride|कारटैप हाइड्रोक्लोराइड|कारटॅप हायड्रोक्लोराईड|cartap
+Chlorpyrifos Cypermethrin|क्लोरपायरीफॉस साइपरमेथ्रिन|क्लोरपायरीफॉस सायपरमेथ्रीन|50 5 combo
+Profenofos Cypermethrin|प्रोफेनोफॉस साइपरमेथ्रिन|प्रोफेनोफॉस सायपरमेथ्रीन|44 4 combo
+Thiamethoxam Lambda Cyhalothrin|थायमेथोक्साम लैम्ब्डा|थायामेथोक्झाम लॅम्बडा|||?
+Carboxin Thiram|कार्बोक्सिन थायरम|कार्बोक्सिन थायरम|seed treatment fungicide
+Hydrogen Cyanamide|हाइड्रोजन साइनामाइड|हायड्रोजन सायनामाईड|grape bud breaker
+CPPU|सीपीपीयू|सीपीपीयू|forchlorfenuron,grape berry size||?
+Cytokinin|साइटोकाइनिन|सायटोकायनिन|||?
+
+@category|livestock
+@sub|fodder
+Super Napier|सुपर नेपियर|सुपर नेपियर|pakchong,pakchong 1||^NAPIER_GRASS
+Red Napier|लाल नेपियर|लाल नेपियर|||^NAPIER_GRASS
+CO-5 Grass|सीओ-5 घास|सीओ-5 गवत|co 5 napier||^NAPIER_GRASS
+Hedge Lucerne|दशरथ घास|दशरथ घास|dashrath ghas,desmanthus
+Shevri Fodder|सेसबानिया चारा|शेवरी चारा|shevri,sesbania fodder
+Subabul Fodder|सुबबूल चारा|सुबाभूळ चारा|subabul leaves
+
+@category|plants
+@sub|medicinal-plants
+Ram Tulsi Plant|राम तुलसी पौधा|राम तुळस रोप|||^TULSI_PLANT
+Vana Tulsi Plant|वन तुलसी पौधा|रान तुळस रोप|||^TULSI_PLANT
+Kapur Tulsi Plant|कपूर तुलसी पौधा|कापूर तुळस रोप|camphor basil||^TULSI_PLANT
+@sub|flowering-plants
+Desi Rose Plant|देसी गुलाब पौधा|गावठी गुलाब रोप|gavthi gulab rop||^ROSE_PLANT
+
+@category|personal-care
+@sub|bath-body
+Prickly Heat Powder|घमौरी पाउडर|घामोळ्यांची पावडर|ghamori powder|g,packet,box
+@sub|oral-care
+Lal Dant Manjan|लाल दंत मंजन|लाल दंतमंजन|red tooth powder||^TOOTH_POWDER
+@sub|hair-care
+Neem Comb|नीम कंघी|कडुलिंबाचा कंगवा|neem wood comb||^COMB
+
+@category|toys-sports
+@sub|toys
+Shadu Ganpati Making Kit|शाडू गणपति बनाने की किट|शाडू गणपती बनवण्याचा संच|eco ganpati kit|set
+Kids Umbrella|बच्चों का छाता|मुलांची छत्री|||^UMBRELLA
+Kids Water Bottle|बच्चों की बोतल|मुलांची बाटली|||^WATER_BOTTLE
+Kids Lunch Box|बच्चों का टिफ़िन|मुलांचा डबा|||^LUNCH_BOX
+
+@category|stationery
+@sub|school-supplies
+Pen Refill|पेन रिफ़िल|पेन रिफिल|refill|packet,piece
+Pencil Lead|पेंसिल लेड|पेन्सिल शिसे|leads|packet
+Mechanical Pencil|मैकेनिकल पेंसिल|मेकॅनिकल पेन्सिल|||^PENCIL
+
+@category|hardware
+@sub|electrical
+Ceiling Light|सीलिंग लाइट|सीलिंग लाईट|||?
+Wall Light|वॉल लाइट|भिंतीवरील दिवा|wall lamp
+Fridge Stand|फ्रिज स्टैंड|फ्रिज स्टँड|||?
+
+@category|plumbing-building
+@sub|paint
+Waterproof Paint|वाटरप्रूफ़ पेंट|वॉटरप्रूफ रंग|||^WALL_PAINT
+
+@category|clothing
+@sub|sarees
+Peshwai Nauvari Saree|पेशवाई नौवारी साड़ी|पेशवाई नऊवारी साडी|||^NAUVARI_SAREE
+Brahmani Nauvari Saree|ब्राह्मणी नौवारी साड़ी|ब्राह्मणी नऊवारी साडी|||^NAUVARI_SAREE
+Silk Kurta Pyjama|सिल्क कुर्ता पायजामा|सिल्क कुर्ता पायजमा|||^KURTA_PYJAMA
+@sub|footwear
+Ladies Kolhapuri Chappal|लेडीज़ कोल्हापुरी चप्पल|लेडीज कोल्हापुरी चप्पल|||^KOLHAPURI_CHAPPAL
+Kids Kolhapuri Chappal|बच्चों की कोल्हापुरी चप्पल|मुलांची कोल्हापुरी चप्पल|||^KOLHAPURI_CHAPPAL
+
+@category|dairy
+@sub|curd-buttermilk
+Desi Cow Curd|देसी गाय का दही|गावठी गायीचे दही|||^CURD
+@sub|milk-products
+Danedar Khoya|दानेदार खोया|रवाळ खवा|||^KHOYA
+
+@category|pickles-papad
+@sub|pickles
+@pattern|{en} Pickle|{hi} का अचार|{mr} लोणचे
++RAW_PAPAYA
++CLUSTER_BEANS
++TURNIP
+
+@category|farsan-snacks
+@sub|diwali-faral
+Puneri Bhakarwadi|पुणेरी भाकरवड़ी|पुणेरी भाकरवडी|||^BHAKARWADI
+Sweet Potato Chips|शकरकंद चिप्स|रताळे वेफर्स|ratale chips|kg,g,packet
+Beetroot Chips|चुकंदर चिप्स|बीट चिप्स|||?
+
+@category|flours
+@sub|flours
+Kodo Millet Flour|कोदो आटा|कोद्रा पीठ|||?
+Foxtail Millet Flour|कंगनी आटा|राळा पीठ|rala pith
+Little Millet Flour|कुटकी आटा|सावा पीठ|||?
+
+@category|beverages
+@sub|fresh-juices
+@pattern|{en} Juice|{hi} का जूस|{mr} ज्यूस
++BOTTLE_GOURD
+Wheatgrass Juice|गेहूं घास जूस|गव्हांकुर ज्यूस|wheatgrass shot

@@ -1,0 +1,60 @@
+# Maharashtra and Konkan regional items that are sold locally under their own names.
+@category|vegetables
+@sub|seasonal-vegetables
+Breadfruit|बड़हल (ब्रेडफ्रूट)|नीरफणस|neerphanas,breadfruit|kg,piece
+Air Potato|गेठी|करांदे|karande,air potato|kg
+Lesser Yam|कंद (लघु रतालू)|कणगी|kanagi,lesser yam|kg|?
+@category|leafy-vegetables
+@sub|wild-greens
+Pokla|पोकला|पोकळा|pokla,green amaranth konkan|bunch
+@category|spices
+@sub|whole-spices
+Teppal|तिरफल|तिरफळ|tirphal,teppal,triphal fish spice|g,kg,packet
+@category|meat-fish
+@sub|fish
+Wolf Herring|करली|करली|karli,wolf herring|kg,piece
+Red Snapper|लाल स्नैपर|तांबोशी|tamboshi,red snapper|kg,piece
+Small Crabs|छोटे केकड़े|चिंबोऱ्या|chimborya,chimbori|kg,dozen
+Small Shark|छोटी शार्क|मोरी|mori,baby shark|kg|?
+@category|sweets
+@sub|syrup-sweets
+Patoli|पतोली|पातोळ्या|patolya,patoli,haldi leaf sweet|piece,dozen
+Sandan|संदन|सांदण|sandan,steamed rice cake|piece,kg
+Tavsali|तवसाली|तवसाळी|tavsali,cucumber cake|piece,kg
+@category|homemade-food
+@sub|maharashtrian-dishes
+Gola Bhat|गोला भात|गोळा भात|gola bhat|plate
+Varan Phal|वरण फल|वरणफळ|varanphal,chakolya,dal dhokli|plate
+Dhapate|धपाटे|धपाटे|dhapate,thalipeeth marathwada|piece,plate
+Undhiyu|उंधियू|उंधियो|undhiyu|kg,plate
+Handvo|हांडवो|हांडवो|handvo|piece,kg
+@category|household-cleaning
+@sub|home-essentials
+Niwar Tape|निवार|नवार|niwar,cot tape|metre,roll
+@category|kitchen
+@sub|storage
+Ghangal|घंगाल|घंगाळ|ghangal,big water vessel|piece
+Rovali|बांस की टोकरी (चावल धोने की)|रोवळी|rovli,rovali,rice washing basket|piece
+@category|clothing
+@sub|mens-wear
+Kopri|कोपरी|कोपरी|kopri,farmer vest|piece
+Tuman|तुमान|तुमान|tuman,loose pyjama|piece
+Mundase|मुंडासा|मुंडासे|mundase,head cloth|piece
+@sub|footwear
+Vahana|वहाना|वहाणा|vahana,leather sandals|pair
+@category|toys-sports
+@sub|toys
+Lagori Set|लगोरी|लगोरी|lagori,seven stones|set
+Sagargote|सागरगोटे|सागरगोटे|sagargote|packet,set
+Kavadya|कौड़ी|कवड्या|kavdya,cowrie shells|packet,dozen
+@category|puja
+@sub|puja-samagri
+Otibharan Kit|गोद भराई सामग्री|ओटी भरण साहित्य|oti bharan|set
+Haldi Kunku Vaan|हल्दी कुमकुम उपहार|हळदीकुंकवाचे वाण|vaan,haldi kunku gift|piece,dozen
+@category|handicrafts
+@sub|handicrafts
+Chitrakathi Painting|चित्रकथी चित्रकला|चित्रकथी चित्र|pinguli chitrakathi|piece
+Killa Mavle Set|किला और मावले सेट|किल्ल्याचे मावळे संच|killa,mavle,diwali fort figures|set
+@category|puja
+@sub|puja-samagri
+Bamboo Kandil|बांस का कंदील|बांबूचा आकाशकंदील|bamboo akash kandil|piece

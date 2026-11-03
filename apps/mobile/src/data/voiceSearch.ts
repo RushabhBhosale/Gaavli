@@ -1,30 +1,40 @@
+import { productDisplayName, speechLocale } from "../locale";
 import type { MasterProduct, MobileLanguage } from "@gaavli/types";
 
 type ProductName = Pick<
   MasterProduct,
   "code" | "nameEn" | "nameMr" | "productGroup"
->;
+> & { nameHi?: string | null };
 // Small fallback vocabulary when the existing reference cache is unavailable.
 const basics: ProductName[] = [
   {
     code: "TOMATO",
     nameEn: "Tomato",
     nameMr: "टोमॅटो",
+    nameHi: "टमाटर",
     productGroup: "vegetables",
   },
   {
     code: "ONION",
     nameEn: "Onion",
     nameMr: "कांदा",
+    nameHi: "प्याज",
     productGroup: "vegetables",
   },
   {
     code: "POTATO",
     nameEn: "Potato",
     nameMr: "बटाटा",
+    nameHi: "आलू",
     productGroup: "vegetables",
   },
-  { code: "MANGO", nameEn: "Mango", nameMr: "आंबा", productGroup: "fruits" },
+  {
+    code: "MANGO",
+    nameEn: "Mango",
+    nameMr: "आंबा",
+    nameHi: "आम",
+    productGroup: "fruits",
+  },
 ];
 function words(value: string) {
   return value
@@ -36,7 +46,13 @@ function words(value: string) {
 }
 function aliases(product: ProductName) {
   const en = words(product.nameEn);
-  return [en, `${en}s`, `${en}es`, words(product.nameMr)];
+  return [
+    en,
+    `${en}s`,
+    `${en}es`,
+    words(product.nameMr),
+    ...(product.nameHi ? [words(product.nameHi)] : []),
+  ];
 }
 const fillers = new Set([
   "show",
@@ -61,6 +77,10 @@ const fillers = new Set([
   "आहेत",
   "शोधा",
   "कृपया",
+  "दिखाओ",
+  "चाहिए",
+  "ढूंढो",
+  "है",
 ]);
 export function voiceProductSearch(
   transcript: string,
@@ -82,10 +102,11 @@ export function voiceProductSearch(
   const match = matches[0];
   if (match)
     return {
-      text: (language === "mr"
-        ? match.product.nameMr
-        : match.product.nameEn
-      ).slice(0, 100),
+      text: productDisplayName(language, {
+        en: match.product.nameEn,
+        mr: match.product.nameMr,
+        hi: match.product.nameHi,
+      }).slice(0, 100),
       productGroup: match.product.productGroup,
     };
   return {
@@ -229,7 +250,7 @@ export class VoiceSearchSession {
       });
       this.running = true;
       this.callbacks.status("listening");
-      driver.start(language === "mr" ? "mr-IN" : "en-IN", hints.slice(0, 100));
+      driver.start(speechLocale(language), hints.slice(0, 100));
       // Bound recording and finalization, including devices that never emit end.
       if (!current()) return;
       this.timer = setTimeout(() => {

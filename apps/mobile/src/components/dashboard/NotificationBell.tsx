@@ -1,3 +1,4 @@
+import { numberLocale } from "../../locale";
 import {
   ActivityIndicator,
   Pressable,
@@ -36,9 +37,7 @@ export function NotificationBell({
   );
   if (!session) return null;
   const count = unread.data?.unreadCount;
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-  );
+  const number = new Intl.NumberFormat(numberLocale(language));
   return (
     <Pressable
       accessibilityRole="button"

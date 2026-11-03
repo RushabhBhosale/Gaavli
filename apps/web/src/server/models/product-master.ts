@@ -14,6 +14,8 @@ const schema = new Schema(
     },
     nameMr: { type: String, required: true, trim: true, maxlength: 120 },
     nameEn: { type: String, required: true, trim: true, maxlength: 120 },
+    // Optional: legacy rows are backfilled by the catalog import.
+    nameHi: { type: String, trim: true, maxlength: 120 },
     productGroup: {
       type: String,
       required: true,

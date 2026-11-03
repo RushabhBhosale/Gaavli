@@ -1,3 +1,15 @@
+> Hindi language revision - 2026-11-02 (user approved): Hindi (`hi`) is a full
+> third mobile language alongside Marathi and English, including all UI text.
+> Product names show in the selected language with an English fallback
+> (`ProductMaster.nameHi`, read-time `productNameHi` on listings, never copied
+> onto listings). Villages, categories and people have no Hindi names, so Hindi
+> shows their Marathi Devanagari spelling. The API always returns the new
+> Hindi fields; already-installed APKs must update (accepted by the user).
+> Same day (user approved): `LISTING_PRODUCT_GROUPS` gained `groceries`,
+> `meat_fish`, `plants_garden`, `farm_inputs`, `livestock`, `puja`,
+> `household`, `personal_care`, `clothing` and `handicrafts` for the 5,031-product
+> catalog, which is imported into the configured database.
+
 > Direct login/contact revision - 2026-10-27 (user approved): first Village
 > Selection's Login clears prior browsing/product context, then uses the existing
 > registered village and opens Home. Contact Seller auth preserves browsing and

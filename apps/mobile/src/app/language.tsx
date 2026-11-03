@@ -1,3 +1,4 @@
+import { LANGUAGE_LABELS } from "../locale";
 import { theme } from "../theme";
 import { useRef, useState } from "react";
 import { Redirect, useRouter } from "expo-router";
@@ -96,7 +97,7 @@ export default function LanguageScreen() {
           <Pressable
             key={value}
             accessibilityRole="radio"
-            accessibilityLabel={value === "mr" ? "मराठी" : "English"}
+            accessibilityLabel={LANGUAGE_LABELS[value]}
             accessibilityState={{ checked: language === value, disabled: busy }}
             disabled={busy}
             onPress={() => useAppStore.getState().setLanguage(value)}
@@ -109,7 +110,7 @@ export default function LanguageScreen() {
                   language === value && s.languageSelected,
                 ]}
               >
-                {value === "mr" ? "मराठी" : "English"}
+                {LANGUAGE_LABELS[value]}
               </Text>
             </View>
           </Pressable>

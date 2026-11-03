@@ -1,3 +1,4 @@
+import { productDisplayName } from "../locale";
 import { z } from "zod";
 import {
   LISTING_ASSET_PHOTOS,
@@ -9,6 +10,7 @@ import {
   listingPhotoKeySchema,
   updateListingSchema,
   ownedListingSchema,
+  mobileLanguageSchema,
 } from "@gaavli/validation";
 import type {
   MobileLanguage,
@@ -31,6 +33,8 @@ export const listingFormSchema = z.object({
     .optional(),
   productNameEn: z.string().max(120).nullable().optional(),
   productNameMr: z.string().max(120).nullable().optional(),
+  // Display only; Hindi is never written to a listing.
+  productNameHi: z.string().max(120).nullable().optional(),
   name: z.string().max(120),
   description: z.string().max(2000).default(""),
   categoryId: z.string(),
@@ -56,7 +60,7 @@ export const listingDraftSchema = z.object({
   pending: pendingListingSchema.nullable(),
   editBase: ownedListingSchema.nullable().default(null),
   editInitialForm: listingFormSchema.nullable().default(null),
-  editLanguage: z.enum(["mr", "en"]).nullable().default(null),
+  editLanguage: mobileLanguageSchema.nullable().default(null),
   editPending: z
     .object({ key: listingOperationKeySchema, body: updateListingSchema })
     .nullable()
@@ -170,8 +174,14 @@ export function formFromListing(
     productId: row.productId || null,
     productNameEn: row.productId ? row.productName : null,
     productNameMr: row.productId ? row.productNameMr : null,
-    name:
-      language === "mr"
+    productNameHi: row.productId ? row.productNameHi : null,
+    name: row.productId
+      ? productDisplayName(language, {
+          en: row.productName,
+          mr: row.productNameMr,
+          hi: row.productNameHi,
+        })
+      : language === "mr"
         ? row.productNameMr || row.productName
         : row.productName,
     categoryId: row.categoryId || "",
@@ -212,7 +222,8 @@ export function prepareListingEdit(
   const originalName = initialForm.name.trim();
   if (!form.productId) {
     candidate.productName =
-      form.name.trim() !== originalName && language === "en"
+      // Free-text names: Hindi edits update the base (English) name.
+      form.name.trim() !== originalName && language !== "mr"
         ? form.name.trim()
         : row.productName;
     candidate.productNameMr =
@@ -250,7 +261,12 @@ export function selectMasterProduct(
     productId: product.productId,
     productNameEn: product.nameEn,
     productNameMr: product.nameMr,
-    name: language === "mr" ? product.nameMr : product.nameEn,
+    productNameHi: product.nameHi,
+    name: productDisplayName(language, {
+      en: product.nameEn,
+      mr: product.nameMr,
+      hi: product.nameHi,
+    }),
     group: product.productGroup,
     unit: product.defaultUnit,
   };

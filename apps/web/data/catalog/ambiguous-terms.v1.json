@@ -1,0 +1,1121 @@
+{
+  "kanda": [
+    "ONION",
+    "RICE_BRAN_FEED"
+  ],
+  "kande": [
+    "ONION",
+    "COW_DUNG_CAKES"
+  ],
+  "alu": [
+    "POTATO",
+    "TARO_LEAVES"
+  ],
+  "bharli vangi": [
+    "SMALL_BRINJAL",
+    "BHARLI_VANGI"
+  ],
+  "kakdi": [
+    "CUCUMBER",
+    "KAKDI_LONG"
+  ],
+  "kathal": [
+    "RAW_JACKFRUIT",
+    "JACKFRUIT"
+  ],
+  "karli": [
+    "BITTER_GOURD",
+    "WOLF_HERRING"
+  ],
+  "petha": [
+    "ASH_GOURD",
+    "AGRA_PETHA"
+  ],
+  "kartoli": [
+    "SPINY_GOURD",
+    "KARTOLI"
+  ],
+  "papdi": [
+    "FIELD_BEAN_PODS",
+    "PAPDI"
+  ],
+  "pavte": [
+    "PAVTA_BEANS",
+    "PAVTA_DRY"
+  ],
+  "hirva vatana": [
+    "GREEN_PEAS",
+    "GREEN_PEAS_DRY"
+  ],
+  "makka": [
+    "CORN_COB",
+    "SWEET_CORN",
+    "MAIZE"
+  ],
+  "iceberg lettuce": [
+    "LETTUCE",
+    "ICEBERG_LETTUCE"
+  ],
+  "dhaniya": [
+    "CORIANDER_LEAVES",
+    "CORIANDER_SEEDS"
+  ],
+  "math": [
+    "GREEN_AMARANTH",
+    "MOTH_BEAN",
+    "WATER_MATKA"
+  ],
+  "gongura": [
+    "SORREL_LEAVES",
+    "GONGURA"
+  ],
+  "ambadi bhaji": [
+    "SORREL_LEAVES",
+    "AMBADI_BHAJI"
+  ],
+  "sarson": [
+    "MUSTARD_GREENS",
+    "MUSTARD_SEEDS",
+    "MUSTARD_OILSEED"
+  ],
+  "patrode": [
+    "COLOCASIA_LEAVES_FOR_VADI",
+    "ALU_VADI"
+  ],
+  "घोळ": [
+    "PURSLANE",
+    "GHOL_FISH"
+  ],
+  "ghol": [
+    "PURSLANE",
+    "GHOL_FISH"
+  ],
+  "sabja": [
+    "SWEET_BASIL",
+    "SABJA_SEEDS"
+  ],
+  "karpuravalli": [
+    "AJWAIN_LEAVES",
+    "AJWAIN_PLANT"
+  ],
+  "paan": [
+    "BETEL_LEAVES",
+    "MEETHA_PAAN"
+  ],
+  "pan": [
+    "BETEL_LEAVES",
+    "FRYING_PAN"
+  ],
+  "nagvel": [
+    "BETEL_LEAVES",
+    "BETEL_VINE"
+  ],
+  "oregano": [
+    "OREGANO",
+    "OREGANO_SEASONING"
+  ],
+  "kachnar": [
+    "KANCHAN_FLOWERS",
+    "KANCHAN_SAPLING"
+  ],
+  "shrifal": [
+    "COCONUT",
+    "SHRIFAL"
+  ],
+  "nariyal pani": [
+    "TENDER_COCONUT",
+    "TENDER_COCONUT_WATER"
+  ],
+  "lime": [
+    "LEMON",
+    "AGRICULTURAL_LIME",
+    "LIME_PLASTER"
+  ],
+  "imli": [
+    "TAMARIND",
+    "TAMARIND_PULP_BLOCK"
+  ],
+  "chakotra": [
+    "POMELO",
+    "GRAPEFRUIT"
+  ],
+  "कोकम": [
+    "KOKUM_FRUIT",
+    "KOKUM"
+  ],
+  "kokam": [
+    "KOKUM_FRUIT",
+    "KOKUM"
+  ],
+  "taal": [
+    "ICE_APPLE",
+    "TAAL"
+  ],
+  "khajur": [
+    "FRESH_DATES",
+    "DATES"
+  ],
+  "रसभरी": [
+    "RASPBERRY",
+    "CAPE_GOOSEBERRY"
+  ],
+  "khubani": [
+    "APRICOT",
+    "DRIED_APRICOTS"
+  ],
+  "jardalu": [
+    "APRICOT",
+    "DRIED_APRICOTS"
+  ],
+  "kesar": [
+    "KESAR_MANGO",
+    "SAFFRON"
+  ],
+  "keshar": [
+    "KESAR_MANGO",
+    "SAFFRON"
+  ],
+  "ratna": [
+    "RATNA_MANGO",
+    "RATNA_PADDY_SEEDS"
+  ],
+  "velchi": [
+    "ELAICHI_BANANA",
+    "CARDAMOM"
+  ],
+  "jalgaon banana": [
+    "ROBUSTA_BANANA",
+    "JALGAON_BANANA"
+  ],
+  "rajeli": [
+    "RAJELI_BANANA",
+    "VASAI_BANANA"
+  ],
+  "black grapes": [
+    "SHARAD_SEEDLESS_GRAPES",
+    "BLACK_GRAPES"
+  ],
+  "तोरण": [
+    "TORAN_FRUIT",
+    "TORAN"
+  ],
+  "toran": [
+    "TORAN_FRUIT",
+    "TORAN"
+  ],
+  "bela": [
+    "ARABIAN_JASMINE",
+    "JASMINE_SAMBAC_PLANT"
+  ],
+  "jai": [
+    "JAI_JASMINE",
+    "OATS"
+  ],
+  "aak": [
+    "CALOTROPIS_FLOWERS",
+    "CALOTROPIS_PLANT"
+  ],
+  "shankhpushpi": [
+    "BLUE_BUTTERFLY_PEA",
+    "SHANKHPUSHPI"
+  ],
+  "tulsi mala": [
+    "TULSI_GARLAND",
+    "TULSI_MALA"
+  ],
+  "har": [
+    "MIXED_FLOWER_GARLAND",
+    "NECKLACE"
+  ],
+  "maka": [
+    "MAIZE",
+    "BHRINGRAJ_DRY"
+  ],
+  "कुटकी": [
+    "LITTLE_MILLET",
+    "KUTKI"
+  ],
+  "kutki": [
+    "LITTLE_MILLET",
+    "KUTKI"
+  ],
+  "chena": [
+    "PROSO_MILLET",
+    "CHHENA"
+  ],
+  "maldandi": [
+    "DAGADI_JOWAR",
+    "MALDANDI_35_1_JOWAR_SEEDS"
+  ],
+  "wada kolam": [
+    "KOLAM_RICE",
+    "WADA_KOLAM_RICE"
+  ],
+  "chivda": [
+    "POHA",
+    "POHA_CHIVDA"
+  ],
+  "bhadang": [
+    "BHADANG_MURMURE",
+    "KURMURA_CHIVDA"
+  ],
+  "jowar lahya": [
+    "LAJA_LAHYA",
+    "PUFFED_JOWAR"
+  ],
+  "chowmein": [
+    "NOODLES",
+    "HAKKA_NOODLES"
+  ],
+  "mug": [
+    "GREEN_GRAM",
+    "MUG",
+    "COFFEE_MUG"
+  ],
+  "kala chana": [
+    "CHICKPEA",
+    "BLACK_CHICKPEA"
+  ],
+  "chole": [
+    "KABULI_CHANA",
+    "CHOLE"
+  ],
+  "matki usal": [
+    "MATKI_SPROUTS",
+    "MATKI_USAL"
+  ],
+  "ghavan": [
+    "GHAVAN_PITH",
+    "GHAVAN"
+  ],
+  "wheat bran": [
+    "WHEAT_BRAN",
+    "WHEAT_BRAN_FEED"
+  ],
+  "chokar": [
+    "WHEAT_BRAN",
+    "WHEAT_BRAN_FEED"
+  ],
+  "mace": [
+    "MACE",
+    "GADA"
+  ],
+  "amsul": [
+    "KOKUM",
+    "GARCINIA"
+  ],
+  "amsol": [
+    "KOKUM",
+    "GARCINIA"
+  ],
+  "chana masala": [
+    "CHHOLE_MASALA",
+    "CHOLE"
+  ],
+  "copra": [
+    "COCONUT_COPRA",
+    "DRIED_COCONUT"
+  ],
+  "khopra": [
+    "COCONUT_COPRA",
+    "DRIED_COCONUT"
+  ],
+  "pongamia": [
+    "KARANJ_SEEDS",
+    "KARANJ_SAPLING"
+  ],
+  "kesar shrikhand": [
+    "SHRIKHAND",
+    "KESAR_SHRIKHAND"
+  ],
+  "elaichi shrikhand": [
+    "SHRIKHAND",
+    "ELAICHI_SHRIKHAND"
+  ],
+  "malai kulfi": [
+    "KULFI",
+    "MALAI_KULFI"
+  ],
+  "kandi pedha": [
+    "PEDHA",
+    "KANDI_PEDHA"
+  ],
+  "quail": [
+    "QUAIL_EGGS",
+    "QUAIL"
+  ],
+  "kombda": [
+    "ROOSTER",
+    "CELOSIA"
+  ],
+  "cock": [
+    "ROOSTER",
+    "SHUTTLECOCK"
+  ],
+  "murgi": [
+    "CHICKEN",
+    "HEN"
+  ],
+  "kombdi": [
+    "CHICKEN",
+    "HEN"
+  ],
+  "kaleji": [
+    "CHICKEN_LIVER",
+    "MUTTON_LIVER"
+  ],
+  "bakra": [
+    "MUTTON",
+    "BILLY_GOAT"
+  ],
+  "बोटी": [
+    "MUTTON_BOTI",
+    "VILI"
+  ],
+  "boti": [
+    "MUTTON_BOTI",
+    "VILI"
+  ],
+  "silver pomfret": [
+    "POMFRET",
+    "SILVER_POMFRET"
+  ],
+  "javla": [
+    "SMALL_PRAWNS",
+    "DRIED_SHRIMP"
+  ],
+  "sukat": [
+    "DRIED_SHRIMP",
+    "DRIED_FISH"
+  ],
+  "chai patti": [
+    "TEA_LEAVES",
+    "TEA_POWDER"
+  ],
+  "pat": [
+    "JUTE",
+    "PUJA_CHOWKI",
+    "WOODEN_PAT",
+    "PATLA"
+  ],
+  "मिश्री": [
+    "KHADI_SAKHAR",
+    "MISHRI_TOOTH_POWDER"
+  ],
+  "mishri": [
+    "KHADI_SAKHAR",
+    "MISHRI_TOOTH_POWDER"
+  ],
+  "dink": [
+    "GOND",
+    "GUM"
+  ],
+  "manuka": [
+    "RAISINS",
+    "MUNAKKA"
+  ],
+  "khajur ladoo": [
+    "DRY_FRUIT_LADOO",
+    "DATES_LADOO"
+  ],
+  "kaju barfi": [
+    "KAJU_KATLI",
+    "KAJU_BARFI"
+  ],
+  "kaju pista roll": [
+    "KAJU_ROLL",
+    "KAJU_PISTA_ROLL"
+  ],
+  "sweet box": [
+    "MITHAI_ASSORTED_BOX",
+    "SWEET_BOX"
+  ],
+  "mithai box": [
+    "MITHAI_ASSORTED_BOX",
+    "SWEET_BOX"
+  ],
+  "mango pulp": [
+    "AAMRAS",
+    "MANGO_PULP"
+  ],
+  "chakri": [
+    "CHAKLI",
+    "CHAKRI_CRACKERS"
+  ],
+  "bhel": [
+    "BHEL_MIX",
+    "BHEL_PURI"
+  ],
+  "golgappa": [
+    "PANI_PURI_PURIS",
+    "PANI_PURI"
+  ],
+  "puchka": [
+    "PANI_PURI_PURIS",
+    "PANI_PURI"
+  ],
+  "kolhapuri misal": [
+    "MISAL_PAV",
+    "KOLHAPURI_MISAL"
+  ],
+  "puneri misal": [
+    "MISAL_PAV",
+    "PUNERI_MISAL"
+  ],
+  "patra": [
+    "ALU_VADI",
+    "GI_ROOFING_SHEET"
+  ],
+  "kharda": [
+    "GREEN_CHILLI_THECHA",
+    "KHARDA"
+  ],
+  "khichiya": [
+    "MIRGUNDA",
+    "KHICHIYA_PAPAD"
+  ],
+  "dabba": [
+    "TIFFIN_MEAL",
+    "LUNCH_BOX",
+    "STEEL_DABBA"
+  ],
+  "tiffin": [
+    "TIFFIN_MEAL",
+    "LUNCH_BOX"
+  ],
+  "zunka bhakar": [
+    "PITHLA_BHAKRI",
+    "ZUNKA_BHAKAR"
+  ],
+  "veg biryani": [
+    "BIRYANI",
+    "VEG_BIRYANI"
+  ],
+  "surmai fry": [
+    "FISH_FRY",
+    "SURMAI_FRY"
+  ],
+  "ladi pav": [
+    "PAV",
+    "LADI_PAV"
+  ],
+  "cake rusk": [
+    "RUSK",
+    "CAKE_RUSK"
+  ],
+  "jeera butter": [
+    "JEERA_BISCUITS",
+    "JEERA_BUTTER"
+  ],
+  "tea dust": [
+    "TEA_POWDER",
+    "TEA_DUST"
+  ],
+  "kokum syrup": [
+    "KOKUM_SHARBAT",
+    "KOKUM_SYRUP"
+  ],
+  "rose syrup": [
+    "ROSE_SHARBAT",
+    "ROSE_SYRUP"
+  ],
+  "soda": [
+    "SODA",
+    "WASHING_SODA"
+  ],
+  "क्रिसमस ट्री": [
+    "CHRISTMAS_TREE_PLANT",
+    "CHRISTMAS_TREE"
+  ],
+  "ख्रिसमस ट्री": [
+    "CHRISTMAS_TREE_PLANT",
+    "CHRISTMAS_TREE"
+  ],
+  "thuja": [
+    "CHRISTMAS_TREE_PLANT",
+    "THUJA"
+  ],
+  "kalak": [
+    "BAMBOO_PLANT",
+    "BAMBOO_POLES"
+  ],
+  "duranta": [
+    "HEDGE_PLANT",
+    "DURANTA"
+  ],
+  "gulvel": [
+    "GILOY_PLANT",
+    "GILOY_STEM"
+  ],
+  "giloy": [
+    "GILOY_PLANT",
+    "GILOY_JUICE",
+    "GILOY_STEM"
+  ],
+  "brahmi": [
+    "BRAHMI_PLANT",
+    "BRAHMI_DRY"
+  ],
+  "adulsa": [
+    "ADULSA_PLANT",
+    "ADULSA_LEAVES"
+  ],
+  "hirda": [
+    "HARDA_SAPLING",
+    "HARITAKI"
+  ],
+  "kundi": [
+    "FLOWER_POT",
+    "DOOR_KADI"
+  ],
+  "pot": [
+    "FLOWER_POT",
+    "BLACK_BEAD_NECKLACE"
+  ],
+  "clay pot": [
+    "CLAY_POT",
+    "WATER_MATKA",
+    "CLAY_COOKING_POT"
+  ],
+  "zari": [
+    "WATERING_CAN",
+    "ZARI_BORDER"
+  ],
+  "shengdana pend": [
+    "GROUNDNUT_CAKE",
+    "GROUNDNUT_OIL_CAKE"
+  ],
+  "napier": [
+    "NAPIER_GRASS_SLIPS",
+    "NAPIER_GRASS"
+  ],
+  "elephant grass": [
+    "NAPIER_GRASS_SLIPS",
+    "NAPIER_GRASS"
+  ],
+  "lucerne": [
+    "LUCERNE_SEEDS",
+    "LUCERNE"
+  ],
+  "alfalfa": [
+    "LUCERNE_SEEDS",
+    "LUCERNE"
+  ],
+  "lasun ghas": [
+    "LUCERNE_SEEDS",
+    "LUCERNE"
+  ],
+  "berseem": [
+    "BERSEEM_SEEDS",
+    "BERSEEM"
+  ],
+  "african tall": [
+    "FODDER_MAIZE_SEEDS",
+    "AFRICAN_TALL_MAIZE_SEEDS"
+  ],
+  "mop": [
+    "MURIATE_OF_POTASH",
+    "MOP"
+  ],
+  "chuna": [
+    "AGRICULTURAL_LIME",
+    "LIME_PLASTER",
+    "PAAN_CHUNA"
+  ],
+  "azotobacter": [
+    "BIO_FERTILIZER",
+    "AZOTOBACTER_CULTURE"
+  ],
+  "rhizobium": [
+    "BIO_FERTILIZER",
+    "RHIZOBIUM_CULTURE"
+  ],
+  "shovel": [
+    "SPADE",
+    "SHOVEL"
+  ],
+  "kudal": [
+    "PICKAXE",
+    "HOE"
+  ],
+  "ghamela": [
+    "IRON_PAN",
+    "PLASTIC_TUB"
+  ],
+  "jute bag": [
+    "GUNNY_BAG",
+    "CLOTH_BAG"
+  ],
+  "dori": [
+    "ROPE",
+    "CLOTHES_LINE_ROPE"
+  ],
+  "wire mesh": [
+    "CHAIN_LINK_FENCING",
+    "WIRE_MESH"
+  ],
+  "elbow": [
+    "PIPE_FITTINGS",
+    "PIPE_ELBOW"
+  ],
+  "tee": [
+    "PIPE_FITTINGS",
+    "PIPE_TEE"
+  ],
+  "coupler": [
+    "PIPE_FITTINGS",
+    "PIPE_COUPLER"
+  ],
+  "valu": [
+    "BULL",
+    "SAND"
+  ],
+  "paddy straw": [
+    "STRAW",
+    "PADDY_STRAW"
+  ],
+  "ghanti": [
+    "COW_BELL",
+    "PUJA_GHANTI"
+  ],
+  "rubber mat": [
+    "CATTLE_MAT",
+    "RUBBER_MAT"
+  ],
+  "feeder": [
+    "POULTRY_FEEDER",
+    "FEEDING_BOTTLE"
+  ],
+  "shingadi": [
+    "BULLOCK_DECORATION",
+    "HORN_CAPS"
+  ],
+  "ghungru": [
+    "GHUNGROO_FOR_BULLOCK",
+    "GHUNGROO"
+  ],
+  "loban": [
+    "SAMBRANI",
+    "LOBAN"
+  ],
+  "sindoor": [
+    "KUMKUM",
+    "SINDOOR"
+  ],
+  "vati": [
+    "COTTON_WICKS",
+    "STEEL_BOWL"
+  ],
+  "bell": [
+    "PUJA_GHANTI",
+    "DOORBELL"
+  ],
+  "ganpati decoration": [
+    "GANPATI_MAKHAR",
+    "GANPATI_DECORATION"
+  ],
+  "jhula": [
+    "BAL_GOPAL_JHULA",
+    "BABY_CRADLE",
+    "SWING"
+  ],
+  "kandil": [
+    "DIWALI_KANDIL",
+    "KEROSENE_LANTERN"
+  ],
+  "crackers": [
+    "FIRECRACKERS",
+    "CREAM_CRACKERS"
+  ],
+  "whitener": [
+    "FABRIC_WHITENER",
+    "CORRECTION_PEN"
+  ],
+  "scrubber": [
+    "SCRUBBER",
+    "BATH_SCRUBBER"
+  ],
+  "jali": [
+    "STEEL_SCRUBBER",
+    "WIRE_MESH"
+  ],
+  "phenyl": [
+    "FLOOR_CLEANER",
+    "PHENYL"
+  ],
+  "kharata": [
+    "BROOM",
+    "COCONUT_BROOM"
+  ],
+  "tambya": [
+    "MUG",
+    "TAMBYA"
+  ],
+  "napkin": [
+    "TISSUE_PAPER",
+    "SANITARY_PADS"
+  ],
+  "racket": [
+    "MOSQUITO_BAT",
+    "BADMINTON_RACKET"
+  ],
+  "khurchi": [
+    "PLASTIC_CHAIR",
+    "CHAIR"
+  ],
+  "chair": [
+    "PLASTIC_CHAIR",
+    "CHAIR"
+  ],
+  "towel": [
+    "BATH_TOWEL",
+    "TOWEL"
+  ],
+  "toliya": [
+    "BATH_TOWEL",
+    "TOWEL"
+  ],
+  "bhringraj": [
+    "BHRINGRAJ_OIL",
+    "BHRINGRAJ_DRY"
+  ],
+  "rubber band": [
+    "HAIR_BAND",
+    "RUBBER_BANDS"
+  ],
+  "manjan": [
+    "TOOTHPASTE",
+    "TOOTH_POWDER"
+  ],
+  "brush": [
+    "TOOTHBRUSH",
+    "PAINT_BRUSH"
+  ],
+  "compact": [
+    "FACE_POWDER",
+    "COMPACT_POWDER"
+  ],
+  "deo": [
+    "PERFUME",
+    "DEODORANT"
+  ],
+  "patti": [
+    "RAZOR_BLADES",
+    "PUTTY_KNIFE",
+    "SCALE"
+  ],
+  "malish tel": [
+    "BABY_MASSAGE_OIL",
+    "MASSAGE_OIL"
+  ],
+  "jabla": [
+    "BABY_CLOTHES",
+    "JABLA"
+  ],
+  "zabla": [
+    "BABY_CLOTHES",
+    "JABLA"
+  ],
+  "पट्टी": [
+    "BANDAGE",
+    "SCALE"
+  ],
+  "steamer": [
+    "STEAM_VAPORIZER",
+    "STEAMER"
+  ],
+  "ashwagandha": [
+    "ASHWAGANDHA_POWDER",
+    "ASHWAGANDHA_ROOT"
+  ],
+  "shatavari": [
+    "SHATAVARI_POWDER",
+    "SHATAVARI_ROOT"
+  ],
+  "kadhai": [
+    "KADHAI",
+    "HAND_EMBROIDERY_WORK"
+  ],
+  "top": [
+    "TOPE",
+    "KURTI",
+    "SPINNING_TOP",
+    "LADIES_TOP"
+  ],
+  "brass pot": [
+    "BRASS_POT",
+    "BRASS_HANDA"
+  ],
+  "glass": [
+    "STEEL_GLASS",
+    "GLASS_SHEET"
+  ],
+  "ravi": [
+    "WHISK",
+    "WOODEN_CHURNER"
+  ],
+  "koti": [
+    "RICE_DRUM",
+    "BANDI"
+  ],
+  "ghada": [
+    "WATER_MATKA",
+    "WATER_POT"
+  ],
+  "stove": [
+    "GAS_STOVE",
+    "KEROSENE_STOVE"
+  ],
+  "chulha": [
+    "GAS_STOVE",
+    "CHULHA"
+  ],
+  "kettle": [
+    "ELECTRIC_KETTLE",
+    "KETTLE_STEEL"
+  ],
+  "sandwich toaster": [
+    "TOASTER",
+    "SANDWICH_MAKER"
+  ],
+  "regulator": [
+    "GAS_REGULATOR",
+    "FAN_REGULATOR"
+  ],
+  "scarf": [
+    "STOLE",
+    "MUFFLER"
+  ],
+  "kurta": [
+    "KURTA_PYJAMA",
+    "KURTA"
+  ],
+  "pajama": [
+    "KURTA_PYJAMA",
+    "PYJAMA"
+  ],
+  "chaddi": [
+    "MEN_S_INNERWEAR",
+    "SHORTS"
+  ],
+  "bandi": [
+    "NEHRU_JACKET",
+    "BANDI"
+  ],
+  "monkey cap": [
+    "WOOLLEN_CAP",
+    "KANTOPI"
+  ],
+  "kantopi": [
+    "WOOLLEN_CAP",
+    "KANTOPI"
+  ],
+  "woollen blanket": [
+    "GONGADI",
+    "WOOLLEN_BLANKET"
+  ],
+  "gadi": [
+    "MATTRESS",
+    "MOTORCYCLE"
+  ],
+  "pancha": [
+    "TOWEL",
+    "TOWEL_NAPKIN"
+  ],
+  "khadi": [
+    "KHADI_FABRIC",
+    "AGGREGATE"
+  ],
+  "slipper": [
+    "CHAPPAL",
+    "HAWAI_CHAPPAL"
+  ],
+  "sandal": [
+    "CHAPPAL",
+    "SANDALS"
+  ],
+  "purse": [
+    "HANDBAG",
+    "PURSE"
+  ],
+  "wallet": [
+    "PURSE",
+    "WALLET"
+  ],
+  "पाकीट": [
+    "WALLET",
+    "ENVELOPE"
+  ],
+  "gitti": [
+    "WALL_PLUGS",
+    "AGGREGATE"
+  ],
+  "kadi": [
+    "TOWER_BOLT",
+    "DOOR_KADI"
+  ],
+  "mortise lock": [
+    "DOOR_LOCK",
+    "MORTISE_LOCK"
+  ],
+  "chain": [
+    "CHAIN",
+    "ZIPPER"
+  ],
+  "pipe wrench": [
+    "ADJUSTABLE_WRENCH",
+    "PIPE_WRENCH"
+  ],
+  "karvat": [
+    "HACKSAW",
+    "WOOD_SAW"
+  ],
+  "file": [
+    "FILE_TOOL",
+    "FILE_FOLDER"
+  ],
+  "socket": [
+    "SOCKET",
+    "PIPE_COUPLER"
+  ],
+  "cable": [
+    "ELECTRIC_WIRE",
+    "CLUTCH_CABLE"
+  ],
+  "tape": [
+    "INSULATION_TAPE",
+    "CELLO_TAPE"
+  ],
+  "ups": [
+    "INVERTER",
+    "UPS"
+  ],
+  "chandelier": [
+    "DECORATIVE_LIGHT",
+    "JHUMAR"
+  ],
+  "dish": [
+    "DISH_ANTENNA",
+    "STEEL_PLATE_SMALL"
+  ],
+  "blocks": [
+    "CEMENT_BLOCKS",
+    "BUILDING_BLOCKS"
+  ],
+  "salai": [
+    "STEEL_TMT_BARS",
+    "KNITTING_NEEDLES"
+  ],
+  "vase": [
+    "WOODEN_BEAM",
+    "FLOWER_VASE"
+  ],
+  "rang": [
+    "WALL_PAINT",
+    "FABRIC_DYE"
+  ],
+  "cricket ball": [
+    "CRICKET_BALL",
+    "CRICKET_BALL_SAPOTA_PLANT"
+  ],
+  "peti": [
+    "HARMONIUM",
+    "IRON_TRUNK"
+  ],
+  "pakhawaj": [
+    "MRIDANG",
+    "PAKHAWAJ"
+  ],
+  "embroidery": [
+    "HAND_EMBROIDERY_WORK",
+    "EMBROIDERY_THREAD"
+  ],
+  "dahi handi pot": [
+    "DAHI_HANDI_MATKI",
+    "DAHI_MATKA"
+  ],
+  "earrings": [
+    "ZUMKA",
+    "EARRINGS"
+  ],
+  "kada": [
+    "TODE",
+    "KADA"
+  ],
+  "tikka": [
+    "MAANG_TIKKA",
+    "CHICKEN_TIKKA"
+  ],
+  "ambada pin": [
+    "HAIR_ORNAMENTS",
+    "HAIR_JUDA_PIN"
+  ],
+  "lollipop": [
+    "LOLLIPOP",
+    "CHICKEN_LOLLIPOP"
+  ],
+  "nuggets": [
+    "FROZEN_SNACKS",
+    "CHICKEN_NUGGETS"
+  ],
+  "palash": [
+    "PALASH_FLOWERS",
+    "PALASH_SAPLING"
+  ],
+  "nozzle": [
+    "SPRAYER_PUMP_SPARE_PARTS",
+    "SPRINKLER_NOZZLE"
+  ],
+  "bearing": [
+    "MOTOR_PUMP_SPARE_PARTS",
+    "BEARING"
+  ],
+  "charpai": [
+    "COT",
+    "ROPE_COT"
+  ],
+  "swing": [
+    "SWING",
+    "KIDS_SWING"
+  ],
+  "white onion seeds": [
+    "BHIMA_SHWETA_ONION_SEEDS",
+    "WHITE_ONION_SEEDS"
+  ],
+  "morpankhi": [
+    "THUJA",
+    "MORPANKHI"
+  ],
+  "dhoma": [
+    "CROAKER",
+    "DHOMA"
+  ],
+  "birde": [
+    "VALACHE_BIRDE",
+    "VAL_SPROUTS"
+  ],
+  "curd rice": [
+    "TAAK_BHAT",
+    "DAHI_BHAT"
+  ],
+  "dahi bhat": [
+    "TAAK_BHAT",
+    "DAHI_BHAT"
+  ],
+  "patla": [
+    "BATHROOM_STOOL",
+    "PATLA"
+  ],
+  "chik": [
+    "SUN_SHADE_CURTAIN",
+    "BAMBOO_CHIK"
+  ],
+  "kashmiri garlic": [
+    "SINGLE_CLOVE_GARLIC",
+    "KASHMIRI_GARLIC"
+  ],
+  "ragi cookies": [
+    "MILLET_COOKIES",
+    "RAGI_COOKIES"
+  ]
+}

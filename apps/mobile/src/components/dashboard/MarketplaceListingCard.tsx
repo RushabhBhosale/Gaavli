@@ -22,7 +22,7 @@ export function MarketplaceListingCard({
 }) {
   const t = messages(language);
   const name = listingName(listing, language);
-  const village = language === "mr" ? listing.villageMr : listing.village;
+  const village = language !== "en" ? listing.villageMr : listing.village;
   if (!unavailable) {
     return (
       <Pressable

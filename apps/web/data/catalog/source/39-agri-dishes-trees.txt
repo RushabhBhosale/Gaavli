@@ -1,0 +1,174 @@
+# Additional generic agri inputs, livestock breeds, farm by-products, dishes, sweets and tree saplings.
+@category|farm-inputs
+@sub|crop-protection
+Dimethoate|डाइमेथोएट|डायमिथोएट|
+Quinalphos|क्विनालफॉस|क्विनॉलफॉस|
+Malathion|मैलाथियान|मॅलेथिऑन|malathion
+Deltamethrin|डेल्टामेथ्रिन|डेल्टामेथ्रीन|
+Flubendiamide|फ्लूबेंडियामाइड|फ्लुबेंडियामाईड|
+Indoxacarb|इंडोक्साकार्ब|इंडोक्झाकार्ब|
+Diafenthiuron|डायफेंथियूरॉन|डायफेन्थियुरॉन|
+Buprofezin|बुप्रोफेज़िन|बुप्रोफेझिन|
+Pyriproxyfen|पाइरीप्रोक्सीफेन|पायरीप्रॉक्सिफेन
+Abamectin|एबामेक्टिन|अबामेक्टिन|
+Thiophanate Methyl|थायोफेनेट मिथाइल|थायोफेनेट मिथाईल|
+Propiconazole|प्रोपिकोनाज़ोल|प्रोपिकोनाझोल|
+Difenoconazole|डाइफेनोकोनाज़ोल|डायफेनोकोनाझोल|
+Captan|कैप्टान|कॅप्टन|
+Kasugamycin|कासुगामाइसिन|कासुगामायसिन|
+Validamycin|वैलिडामाइसिन|व्हॅलिडामायसिन|
+Fosetyl Aluminium|फोसेटाइल एल्युमिनियम|फोसेटिल अॅल्युमिनियम|
+Cymoxanil Mancozeb|साइमोक्सानिल मैनकोज़ेब|सायमोक्सॅनिल मॅन्कोझेब|
+Dimethomorph|डाइमेथोमॉर्फ|डायमेथोमॉर्फ|
+Oxyfluorfen|ऑक्सीफ्लोरफेन|ऑक्सिफ्लुरोफेन|
+Butachlor|ब्यूटाक्लोर|ब्युटाक्लोर|
+Metribuzin|मेट्रिब्यूज़िन|मेट्रीब्युझिन|
+Topramezone|टोप्रामेज़ोन|टोप्रामेझोन|
+Triacontanol|ट्राईकॉन्टानॉल|ट्रायकॉन्टॅनॉल|
+NAA Plant Hormone|एनएए हार्मोन|एनएए संजीवक|
+Chlormequat Chloride|क्लोरमेक्वाट क्लोराइड|क्लोरमेक्वाट क्लोराईड|
+Beauveria Bassiana|ब्यूवेरिया बेसियाना|ब्युव्हेरिया बॅसियाना|beauveria
+Metarhizium|मेटाराइज़ियम|मेटारायझियम|metarhizium
+Verticillium Lecanii|वर्टिसिलियम लेकानी|व्हर्टिसिलियम लेकानी|verticillium
+NPV Virus Spray|एनपीवी|एचएनपीव्ही|ha npv,helicoverpa npv
+Neem Seed Kernel Extract|नीम बीज अर्क|निंबोळी अर्क|nske,nimboli ark|litre,bottle
+Dashparni Ark|दशपर्णी अर्क|दशपर्णी अर्क|dashparni|litre,bottle
+@sub|fertilizers
+Calcium Ammonium Nitrate|कैल्शियम अमोनियम नाइट्रेट|कॅल्शियम अमोनियम नायट्रेट|can fertilizer
+NPK 24:24:0|एनपीके 24:24:0|एनपीके 24:24:0|24 24 0
+NPK 16:16:16|एनपीके 16:16:16|एनपीके 16:16:16|16 16 16
+Chelated Zinc|चिलेटेड जिंक|चिलेटेड झिंक|zinc edta|kg,packet
+Chelated Iron|चिलेटेड आयरन|चिलेटेड लोह|fe edta|kg,packet
+Calcium Boron|कैल्शियम बोरॉन|कॅल्शियम बोरॉन|cal boron|kg,litre,packet
+Rhizobium Culture|राइज़ोबियम कल्चर|रायझोबियम जिवाणू संवर्धक|rhizobium|packet,litre
+Azotobacter Culture|एज़ोटोबैक्टर कल्चर|अॅझोटोबॅक्टर जिवाणू संवर्धक|azotobacter|packet,litre
+PSB Culture|पीएसबी कल्चर|पीएसबी जिवाणू संवर्धक|phosphate solubilizing bacteria|packet,litre
+KMB Culture|केएमबी कल्चर|केएमबी जिवाणू संवर्धक|potash mobilizing bacteria|packet,litre
+Azospirillum Culture|एज़ोस्पिरिलम कल्चर|अॅझोस्पिरिलम जिवाणू संवर्धक|azospirillum|packet,litre
+Waste Decomposer|वेस्ट डीकंपोज़र|वेस्ट डिकंपोजर|decomposer culture|bottle,packet
+Rock Phosphate|रॉक फॉस्फेट|रॉक फॉस्फेट|rock phosphate
+@sub|farm-machinery
+Agricultural Drone|कृषि ड्रोन|शेती ड्रोन|spray drone,kisan drone
+Laser Land Leveller|लेज़र लैंड लेवलर|लेझर लँड लेव्हलर
+Boom Sprayer|बूम स्प्रेयर|बूम स्प्रेयर|tractor sprayer
+Groundnut Digger|मूंगफली खुदाई यंत्र|भुईमूग काढणी यंत्र|||?
+Cotton Picker Machine|कपास चुनने की मशीन|कापूस वेचणी यंत्र|||?
+Sugarcane Cutter|गन्ना काटने की मशीन|ऊस तोडणी यंत्र|||?
+Mini Dal Mill|मिनी दाल मिल|मिनी डाळ मिल|dal mill
+Pulverizer|पल्वराइज़र|पल्व्हरायझर|masala grinder machine
+Solar Dryer|सोलर ड्रायर|सौर वाळवणी यंत्र|solar food dryer
+
+@category|livestock
+@sub|livestock-animals
+Tharparkar Cow|थारपारकर गाय|थारपारकर गाय|tharparkar||^COW
+Kankrej Cow|कांकरेज गाय|कांकरेज गाय|kankrej||^COW
+Rathi Cow|राठी गाय|राठी गाय|rathi||^COW
+Hallikar Bullock|हल्लीकर बैल|हल्लीकर बैल|hallikar||^BULLOCK
+Surti Buffalo|सुरती भैंस|सुरती म्हैस|surti||^BUFFALO
+Barbari Goat|बरबरी बकरी|बरबरी शेळी|barbari||^GOAT
+Black Bengal Goat|ब्लैक बंगाल बकरी|ब्लॅक बेंगाल शेळी|black bengal||^GOAT
+Aseel Chicken|असील मुर्गा|असील कोंबडा|aseel,fighter cock||^COUNTRY_CHICKEN
+Gramapriya Chicken|ग्रामप्रिया मुर्गी|ग्रामप्रिया कोंबडी|gramapriya||^COUNTRY_CHICKEN
+Black Australorp Chicken|ब्लैक ऑस्ट्रेलॉर्प मुर्गी|ब्लॅक ऑस्ट्रेलॉर्प कोंबडी|australorp||^COUNTRY_CHICKEN
+Bhimthadi Horse|भीमथड़ी घोड़ा|भीमथडी घोडा|bhimthadi,deccani horse||^HORSE
+Marwari Horse|मारवाड़ी घोड़ा|मारवाडी घोडा|marwari||^HORSE
+Mudhol Hound|मुधोल हाउंड|मुधोळ हाउंड|mudhol,caravan hound||^DOG_PUPPY
+Labrador Puppy|लैब्राडोर पिल्ला|लॅब्राडोर पिल्लू|labrador||^DOG_PUPPY
+German Shepherd Puppy|जर्मन शेफ़र्ड पिल्ला|जर्मन शेफर्ड पिल्लू|gsd||^DOG_PUPPY
+Indie Dog Puppy|देसी कुत्ते का पिल्ला|गावठी कुत्र्याचे पिल्लू|desi dog,indie||^DOG_PUPPY
+Emu|एमु|इमू|emu bird||?
+@sub|fodder
+Bajra Kadba|बाजरा कड़बी|बाजरीचा कडबा|bajra karbi||^DRY_FODDER
+Maize Stover|मक्का कड़बी|मक्याचा कडबा|maka kadba||^DRY_FODDER
+Sugarcane Bagasse|गन्ने की खोई|उसाची चिपाडे|chipade,bagasse
+Groundnut Shells|मूंगफली के छिलके|शेंगांची टरफले|terfale,peanut shells
+Paddy Husk|धान की भूसी|भाताचे तूस|tus,rice husk
+Cotton Stalks|कपास की लकड़ी|पऱ्हाटी|parhati,cotton sticks|bundle,ton
+
+@category|meat-fish
+@sub|fish
+Dried Shark|सूखी शार्क|सुकी मुशी|sukhi mushi||^DRIED_FISH
+Dried Ribbon Fish|सूखी रिबन मछली|सुका बळा|sukha bala||^DRIED_FISH
+Dried Surmai|सूखी सुरमई|सुकी सुरमई|||^DRIED_FISH
+@sub|meat
+Mutton Raan|मटन रान|मटण रान|raan,leg of goat||^MUTTON
+Chicken Thigh|चिकन थाई|चिकन थाय|||^CHICKEN
+
+@category|homemade-food
+@sub|indian-dishes
+Paneer Tikka|पनीर टिक्का|पनीर टिक्का|paneer tikka
+Veg Kolhapuri|वेज कोल्हापुरी|व्हेज कोल्हापुरी|veg kolhapuri
+Aloo Gobi|आलू गोभी|आलू गोबी|aloo gobi
+Bhindi Masala|भिंडी मसाला|भेंडी मसाला
+Jeera Rice|जीरा राइस|जिरा राईस|jeera rice
+Lemon Rice|नींबू चावल|लिंबू भात|lemon rice,chitranna
+Tamarind Rice|इमली चावल|चिंच भात|puliyogare
+Pongal|पोंगल|पोंगल|ven pongal
+Rava Dosa|रवा डोसा|रवा डोसा|rava dosa||^DOSA
+Mysore Masala Dosa|मैसूर मसाला डोसा|म्हैसूर मसाला डोसा|||^DOSA
+Set Dosa|सेट डोसा|सेट डोसा|||^DOSA
+Schezwan Fried Rice|शेज़वान फ्राइड राइस|शेजवान फ्राईड राईस|||^FRIED_RICE
+Triple Schezwan Rice|ट्रिपल शेज़वान|ट्रिपल शेजवान|triple rice||^FRIED_RICE
+Chilli Chicken|चिली चिकन|चिली चिकन|chilli chicken
+Chilli Paneer|चिली पनीर|चिली पनीर|chilli paneer
+Manchow Soup|मनचाऊ सूप|मनचाऊ सूप|manchow
+Hot and Sour Soup|हॉट एंड सॉर सूप|हॉट अँड सॉर सूप
+Chicken 65|चिकन 65|चिकन 65|chicken 65
+Prawns Curry|झींगा करी|कोळंबी करी|kolambi curry
+Egg Biryani|अंडा बिरयानी|अंडा बिर्याणी|||^BIRYANI
+Veg Biryani|वेज बिरयानी|व्हेज बिर्याणी|||^BIRYANI
+Chicken Handi|चिकन हांडी|चिकन हंडी
+Kheema Pav|कीमा पाव|खिमा पाव|keema pav
+
+@category|sweets
+@sub|ladoo
+Jawas Ladoo|अलसी के लड्डू|जवसाचे लाडू|alsi ladoo,flaxseed ladoo
+Atta Ladoo|आटे के लड्डू|गव्हाच्या पिठाचे लाडू|wheat ladoo,gavhache ladoo
+Bajra Ladoo|बाजरे के लड्डू|बाजरीचे लाडू
+Kaju Ladoo|काजू लड्डू|काजू लाडू
+@sub|barfi-halwa
+Atta Halwa|आटे का हलवा|कणकेचा शिरा|kada prasad,atta sheera
+Badam Halwa|बादाम हलवा|बदाम हलवा|badam sheera
+Beetroot Halwa|चुकंदर हलवा|बीट हलवा|||?
+Kozhukattai|कोझुकट्टई|कोळुकट्टई|||?
+Ghari|घारी|घारी|surti ghari
+Pantua|पंतुआ|पंतुआ
+Chhena Poda|छेना पोड़ा|छेना पोडा
+Adhirasam|अधिरसम|अधिरसम
+Khajur Roll|खजूर रोल|खजूर रोल|dates roll,khajur pak
+Gond Pak|गोंद पाक|डिंक पाक|dink pak
+Malai Ghevar|मलाई घेवर|मलई घेवर|||^GHEVAR
+Khurchan|खुरचन|खुरचन
+Cream Roll|क्रीम रोल|क्रीम रोल|cream roll|piece,dozen
+
+@category|plants
+@sub|trees-saplings
+Tabebuia Sapling|टेबेबुइया पौधा|टॅबेबुया रोप|pink trumpet tree
+Jacaranda Sapling|जकरंडा पौधा|जॅकरांडा रोप|jacaranda
+Mast Tree Sapling|अशोक (आसुपालव) पौधा|आसुपालव रोप|polyalthia,asupalav
+Copper Pod Sapling|पीला गुलमोहर पौधा|पीतमोहर रोप|peltophorum,pitmohar
+Indian Coral Tree Sapling|पांगरा पौधा|पांगारा रोप|pangara,erythrina
+Palash Sapling|पलाश पौधा|पळस रोप|palash,flame of forest
+Mahua Sapling|महुआ पौधा|मोहाचे रोप|mahua tree
+Wild Almond Sapling|देसी बादाम पौधा|देशी बदाम रोप|desi badam,terminalia catappa
+Undi Sapling|उंडी पौधा|उंडी रोप|undi,alexandrian laurel
+Behada Sapling|बहेड़ा पौधा|बेहडा रोप|baheda tree
+Shisham Sapling|शीशम पौधा|शिसम रोप|rosewood,shisham
+Ain Sapling|ऐन पौधा|ऐन रोप|ain,terminalia elliptica
+Bija Sapling|बीजा पौधा|बिबळा रोप|bibla,vijaysar
+Agarwood Sapling|अगर पौधा|अगरवूड रोप|agar tree||?
+Kusum Sapling|कुसुम पौधा|कुसुम रोप|kusum tree||?
+Hadga Sapling|अगस्त्य पौधा|हादगा रोप|agasti tree,sesbania
+Gulmohar Sapling|गुलमोहर पौधा|गुलमोहर रोप|||^GULMOHAR
+@sub|flowering-plants
+Barleria|कोरांटी|कोरांटी|korantee,barleria
+Clerodendrum|क्लेरोडेंड्रम|क्लेरोडेंड्रम|bleeding heart vine
+Petrea Vine|पेट्रिया बेल|पेट्रिया वेल|purple wreath
+Pyrostegia Vine|पायरोस्टेजिया बेल|पायरोस्टेजिया वेल|golden shower creeper||?
+Brunfelsia|ब्रूनफेल्सिया|ब्रुनफेल्सिया|yesterday today tomorrow
+Russelia|रसेलिया|रसेलिया|firecracker plant
+Ruellia|रुएलिया|रुएलिया|mexican petunia
+Impatiens|इम्पेशियंस|इम्पेशियन्स|busy lizzie
+Torenia|टोरेनिया|टोरेनिया|wishbone flower
+Crinum Lily|क्रिनम लिली|क्रिनम लिली|sudarshan
+Abutilon|एब्यूटिलॉन|अबुटिलॉन|indian mallow

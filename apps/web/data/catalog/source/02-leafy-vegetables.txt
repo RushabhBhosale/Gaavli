@@ -1,0 +1,65 @@
+# Leafy vegetables, herbs and Maharashtra monsoon wild greens (ranbhaji).
+@category|leafy-vegetables|leafy_vegetables|Leafy Vegetables|पत्तेदार सब्ज़ियाँ|पालेभाज्या
+
+@sub|leafy-greens|Leafy Greens|हरी पत्तेदार सब्ज़ियाँ|पालेभाज्या|bunch,kg
+Spinach|पालक|पालक|palak,spinach
+Fenugreek Leaves|मेथी|मेथी|methi,methi bhaji,fenugreek
+Small Fenugreek Leaves|छोटी मेथी|लहान मेथी|choti methi,samudra methi||^FENUGREEK_LEAVES
+Coriander Leaves|हरा धनिया|कोथिंबीर|kothimbir,kothambir,dhaniya,dhania,hara dhaniya,cilantro,coriander
+Dill Leaves|सोआ|शेपू|shepu,sheppu,soa,suva,dill
+Red Amaranth|लाल चौलाई|लाल माठ|lal math,lal chaulai,red math
+Green Amaranth|हरी चौलाई|हिरवा माठ|hirva math,chaulai,math
+Bathua|बथुआ|चाकवत|bathua,chakvat,chakwat
+Sorrel Leaves|अम्बाड़ी|अंबाडी|ambadi,gongura,ambadi bhaji
+Mint|पुदीना|पुदिना|pudina,pudeena,mint leaves
+Curry Leaves|करी पत्ता|कढीपत्ता|kadipatta,kadhipatta,curry patta,meetha neem
+Taro Leaves|अरबी के पत्ते|अळूची पाने|alu,aloo vadi leaves,alu pane,arbi patta,colocasia leaves
+Mustard Greens|सरसों का साग|मोहरीची पाने|sarson,sarson saag,mohri pane
+Radish Leaves|मूली के पत्ते|मुळ्याची पाने|mooli patta,mulyachi pane,mula bhaji
+Drumstick Leaves|सहजन के पत्ते|शेवग्याची पाने|moringa leaves,shevga pane,sahjan patta
+Colocasia Leaves for Vadi|अरबी के पत्ते (पत्रा)|अळूवडीची पाने|alu vadi pane,patra leaves,patrode|bunch,piece|^TARO_LEAVES
+Chuka|चूका|चुका|chuka,chuka bhaji,green sorrel
+Gongura|गोंगुरा|लाल अंबाडी|gongura,red sorrel||^SORREL_LEAVES
+Purslane|कुलफा|घोळ|ghol,kulfa,luni bhaji
+Malabar Spinach|पोई साग|मायाळू|mayalu,poi,basella
+Water Spinach|कलमी साग|नाळीची भाजी|kalmi,nalichi bhaji||?
+Chakramuni Leaves|चक्रमुनि|चक्रमुनी|multivitamin plant,sauropus||?
+Pumpkin Leaves|कद्दू के पत्ते|भोपळ्याची पाने|bhoplyachi pane||?
+Chana Leaves|चने का साग|हरभऱ्याची भाजी|chane ka saag,harbharyachi bhaji,harbhara pala
+
+@sub|herbs|Fresh Herbs|ताज़ी जड़ी-बूटियाँ|ताज्या औषधी वनस्पती|bunch,kg,g
+Basil|तुलसी|तुळस|tulsi,tulas,holy basil|bunch,g
+Sweet Basil|मीठी तुलसी|सब्जा तुळस|sabja,italian basil|bunch,g
+Parsley|पार्सले|पार्सली|parsley|bunch,g
+Spearmint|पहाड़ी पुदीना|पहाडी पुदिना|spearmint||^MINT
+Ajwain Leaves|अजवाइन के पत्ते|ओव्याची पाने|ova pane,karpuravalli,indian borage
+Lemon Leaves|नींबू के पत्ते|लिंबाची पाने|limbachi pane||?
+Neem Leaves|नीम के पत्ते|कडुलिंबाची पाने|neem patta,kadulimb,kadulimbachi pane|bunch,kg
+Betel Leaves|पान|विड्याची पाने|paan,pan,nagvel,vidyache pan|piece,bunch,dozen
+Banana Leaves|केले के पत्ते|केळीची पाने|kele ka patta,kelichi pane|piece,bunch,dozen
+Turmeric Leaves|हल्दी के पत्ते|हळदीची पाने|haldi patta,haldichi pane|piece,bunch
+Mango Leaves|आम के पत्ते|आंब्याची पाने|aam patta,ambyachi pane,toran leaves|bunch
+Bel Leaves|बेलपत्र|बेलाची पाने|belpatra,bel patra,bilva|bunch,piece
+Durva Grass|दूर्वा|दूर्वा|durva,doob,doob ghas,durva judi|bunch
+Shami Leaves|शमी पत्र|शमीची पाने|shami patra,shami||?
+Apta Leaves|आपटा पत्ते|आपट्याची पाने|apta,sona,apatyachi pane|bunch
+Stevia Leaves|स्टीविया|स्टीव्हिया|meethi tulsi|bunch,g
+Rosemary|रोज़मेरी|रोझमेरी||bunch,g
+Thyme|थाइम|थाईम||bunch,g
+Oregano|ओरेगैनो|ओरेगॅनो||bunch,g
+Microgreens|माइक्रोग्रीन्स|मायक्रोग्रीन्स|micro greens|box,g
+
+@sub|wild-greens|Monsoon Wild Greens (Ranbhaji)|जंगली साग (रानभाजी)|रानभाज्या|bunch,kg
+Tarota Leaves|चकवड़|टाकळा|takla,takala,chakwad,tarota
+Kurdu|सिलवारी|कुरडू|kurdu,kurdu bhaji,silver cock's comb||?
+Shevla|शेवला|शेवळा|shevla,shevali,dragon stalk yam
+Kartoli|ककोड़ा (जंगली)|रानकरटोली|wild kantola,kartule||?
+Kawla|कावळा|कवळा|kawla,kavla bhaji
+Bharangi|भारंगी|भारंगी|bharangi||?
+Fodshi|फोडशी|फोडशी|fodshi,kuli
+Ambat Chuka|अम्बट चूका|आंबट चुका|ambat chuka,wild sorrel||^CHUKA
+Alu Wild Leaves|जंगली अरबी पत्ते|रानअळू|ran alu,wild colocasia||?
+Pathri|पथरी|पाथरी|pathri,pathari
+Kena|केना|केना|kena,kena bhaji||?
+Kanchan Flowers|कचनार के फूल|कांचनची फुले|kachnar,kanchan|bunch,kg|?
+Hadga Flowers|अगस्त्य के फूल|हादग्याची फुले|hadga,agasti,agathi flowers|bunch,kg

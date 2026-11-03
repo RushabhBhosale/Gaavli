@@ -19,10 +19,24 @@ export async function importMasterProducts(input: unknown) {
     })),
     { ordered: false },
   );
+  // Add Hindi names to existing rows that lack one; never overwrite a value
+  // an admin has already stored.
+  const hindi = await ProductMaster.bulkWrite(
+    rows
+      .filter((row) => row.nameHi)
+      .map((row) => ({
+        updateOne: {
+          filter: { code: row.code, nameHi: { $exists: false } },
+          update: { $set: { nameHi: row.nameHi } },
+        },
+      })),
+    { ordered: false },
+  );
   return {
     source: rows.length,
     inserted: result.upsertedCount,
     existing: result.matchedCount,
+    hindiNamesAdded: hindi.modifiedCount,
   };
 }
 export async function findActiveMasterProducts(search: string) {
@@ -32,7 +46,7 @@ export async function findActiveMasterProducts(search: string) {
     ...(terms.length
       ? {
           $and: terms.map((term) => ({
-            $or: ["nameMr", "nameEn"].map((key) => ({
+            $or: ["nameMr", "nameEn", "nameHi"].map((key) => ({
               [key]: {
                 $regex: term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
                 $options: "i",
@@ -50,6 +64,7 @@ export async function findActiveMasterProducts(search: string) {
       code: row.code,
       nameMr: row.nameMr,
       nameEn: row.nameEn,
+      nameHi: row.nameHi || null,
       productGroup: row.productGroup,
       defaultUnit: row.defaultUnit,
       status: row.status,
@@ -63,11 +78,11 @@ export async function masterSearchMappings(search: string) {
   const literal = search.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return ProductMaster.find({
     status: "ACTIVE",
-    $or: ["nameMr", "nameEn"].map((key) => ({
+    $or: ["nameMr", "nameEn", "nameHi"].map((key) => ({
       [key]: { $regex: `^${literal}$`, $options: "i" },
     })),
   })
-    .select("nameEn nameMr")
+    .select("nameEn nameMr nameHi")
     .lean();
 }
 export function activeMasterProduct(id: string, session: ClientSession) {

@@ -1,0 +1,153 @@
+# Stationery, school supplies, books, toys, sports and musical instruments.
+@category|stationery|household|Stationery and Books|स्टेशनरी और किताबें|लेखन साहित्य आणि पुस्तके
+
+@sub|school-supplies|School Supplies|स्कूल का सामान|शालेय साहित्य|piece,packet
+Notebook|कॉपी|वही|vahi,copy,notebook|piece,dozen
+Long Notebook|लंबी कॉपी|लांब वही|long book||^NOTEBOOK
+Drawing Book|ड्राइंग बुक|चित्रकला वही|drawing copy
+Graph Book|ग्राफ़ बुक|आलेख वही|graph paper book
+Ball Pen|बॉल पेन|बॉलपेन|pen,ball pen|piece,packet,box
+Gel Pen|जेल पेन|जेल पेन|||^BALL_PEN
+Fountain Pen|फ़ाउंटेन पेन|शाईचे पेन|ink pen
+Ink Bottle|स्याही|शाई|shai,syahi,ink
+Pencil|पेंसिल|पेन्सिल|pencil|piece,packet,box
+Eraser|रबर|खोडरबर|rubber,khodrabar,eraser
+Sharpener|शार्पनर|टोकयंत्र|tokyantra,sharpener
+Scale|स्केल|पट्टी|patti,ruler,scale
+Geometry Box|ज्योमेट्री बॉक्स|कंपास पेटी|compass box,instrument box
+Crayons|क्रेयॉन|मेणाचे रंग|crayon,wax colours|box,packet
+Sketch Pens|स्केच पेन|स्केच पेन|colour pens|packet,box
+Water Colours|वॉटर कलर|जलरंग|paint box|box
+Colour Pencils|रंगीन पेंसिल|रंगीत पेन्सिली|colour pencil|box
+Slate|स्लेट|पाटी|pati,slate
+Slate Pencil|स्लेट पेंसिल|पेन्सिल (पाटीची)|chalk pencil|packet,box
+Chalk|चॉक|खडू|khadu,chalk|box,packet
+Pencil Box|पेंसिल बॉक्स|कंपास|pencil case
+Exam Pad|परीक्षा पैड|परीक्षा पॅड|writing pad,clip board
+Book Cover|किताब कवर|पुस्तक कव्हर|brown paper,cover roll|roll,packet
+Name Labels|नाम स्टिकर|नावाचे स्टिकर|labels|packet
+Abacus|अबेकस|अबॅकस|abacus
+Globe|ग्लोब|पृथ्वीचा गोल|||?
+Charts|चार्ट|चार्ट|educational chart|piece
+Chart Paper|चार्ट पेपर|चार्ट पेपर|chart paper|sheet,packet
+Craft Paper|क्राफ्ट पेपर|रंगीत कागद|colour paper|packet,sheet
+Glitter|चमकी|चमकी|glitter|packet
+Clay Dough|खेलने की मिट्टी|मातीचा गोळा (खेळण्याचा)|play dough,clay|packet,box
+
+@sub|office-supplies|Office Supplies|कार्यालय सामग्री|कार्यालयीन साहित्य|piece,packet
+A4 Paper|ए4 पेपर|ए4 कागद|a4,copier paper|packet,box
+Register|रजिस्टर|रजिस्टर|register book,khata vahi
+Account Book|बही खाता|खतावणी|khatavani,bahi khata,lal vahi|piece
+Receipt Book|रसीद बुक|पावती पुस्तक|pavti book,bill book
+File Folder|फ़ाइल|फाईल|file,folder
+Envelope|लिफ़ाफ़ा|पाकीट|lifafa,envelope|packet,piece
+Stapler|स्टेपलर|स्टेपलर|stapler
+Stapler Pins|स्टेपलर पिन|स्टेपलर पिना|pins|box
+Gum|गम (चिपकाने वाला)|डिंक (कागदी)|gum,glue stick,dink
+Cello Tape|सेलो टेप|सेलोटेप|tape,cellotape
+Brown Tape|ब्राउन टेप|ब्राऊन टेप|packing tape
+Scissors|कैंची|कात्री|kainchi,katri,scissors
+Paper Clips|पेपर क्लिप|पेपर क्लिप|clip|box
+Rubber Bands|रबर बैंड|रबर बँड|rubber band|packet
+Marker Pen|मार्कर|मार्कर|permanent marker,whiteboard marker
+Highlighter|हाइलाइटर|हायलायटर|||?
+Stamp Pad|स्टैम्प पैड|शिक्का पॅड|ink pad
+Rubber Stamp|रबर स्टैंप|शिक्का|shikka,stamp
+Visiting Cards|विज़िटिंग कार्ड|व्हिजिटिंग कार्ड|business card|packet,box
+Wedding Cards|शादी के कार्ड|लग्नपत्रिका|lagna patrika,invitation card|piece,dozen,packet
+Greeting Cards|ग्रीटिंग कार्ड|शुभेच्छा पत्र|greeting card|piece
+Calendar|कैलेंडर|दिनदर्शिका|dindarshika,calendar|piece
+Diary|डायरी|डायरी|||?
+Gift Wrapping Paper|गिफ्ट रैपिंग पेपर|भेट वेष्टन कागद|wrapping paper|sheet,roll
+Carbon Paper|कार्बन पेपर|कार्बन पेपर
+Whiteboard|व्हाइटबोर्ड|व्हाईटबोर्ड
+Notice Board|नोटिस बोर्ड|सूचना फलक|soft board
+
+@sub|books|Books|किताबें|पुस्तके|piece
+Panchang|पंचांग|पंचांग|panchang,almanac
+Haripath Book|हरिपाठ पुस्तक|हरिपाठ पोथी|haripath
+Dnyaneshwari|ज्ञानेश्वरी|ज्ञानेश्वरी|dnyaneshwari,jnaneshwari
+Tukaram Gatha|तुकाराम गाथा|तुकाराम गाथा|gatha
+Bhagavad Gita|भगवद गीता|भगवद्गीता|gita
+Pothi|पोथी|पोथी|religious book,pothi
+Aarti Sangrah|आरती संग्रह|आरती संग्रह|aarti book
+School Textbooks|पाठ्यपुस्तक|पाठ्यपुस्तके|textbook,school books
+Guide Books|गाइड|मार्गदर्शक पुस्तक|guide,question bank
+Story Books|कहानी की किताबें|गोष्टींची पुस्तके|kids books,goshti
+Competitive Exam Books|प्रतियोगी परीक्षा पुस्तकें|स्पर्धा परीक्षा पुस्तके|mpsc books,police bharti books
+Dictionary|शब्दकोश|शब्दकोश|dictionary
+Second Hand Books|पुरानी किताबें|जुनी पुस्तके|old books,used books
+Newspaper Scrap|रद्दी|रद्दी|raddi,old newspaper|kg
+
+@category|toys-sports|household|Toys, Sports and Music|खिलौने, खेल और संगीत|खेळणी, क्रीडा आणि संगीत
+@sub|toys|Toys|खिलौने|खेळणी|piece,set
+Soft Toy|सॉफ्ट टॉय|मऊ खेळणे|teddy bear,soft toys
+Doll|गुड़िया|बाहुली|bahuli,gudiya,doll
+Toy Car|खिलौना कार|खेळण्यातील गाडी|car toy
+Remote Control Car|रिमोट कंट्रोल कार|रिमोट कार|rc car||?
+Wooden Toys|लकड़ी के खिलौने|लाकडी खेळणी|wooden toy
+Sawantwadi Toys|सावंतवाडी खिलौने|सावंतवाडीची खेळणी|sawantwadi lacquer toys||^WOODEN_TOYS
+Kitchen Set Toy|किचन सेट खिलौना|भातुकली|bhatukli,kitchen set
+Spinning Top|लट्टू|भोवरा|bhovra,lattu,top
+Marbles|कंचे|गोट्या|gotya,kanche,marbles|packet,piece
+Kite|पतंग|पतंग|patang,kite|piece,dozen
+Manja|मांझा|मांजा|manja,kite thread|piece,roll
+Firki|चरखी|फिरकी|firki,charkhi|piece
+Balloons|गुब्बारे|फुगे|fuge,gubbare,balloons|packet,piece
+Puzzle|पहेली|कोडे|jigsaw puzzle
+Building Blocks|बिल्डिंग ब्लॉक्स|ठोकळे|blocks,lego type
+Ludo|लूडो|लुडो|ludo
+Snakes and Ladders|सांप सीढ़ी|सापशिडी|saap shidi
+Carrom Board|कैरम बोर्ड|कॅरम बोर्ड|carrom
+Chess|शतरंज|बुद्धिबळ|buddhibal,shatranj,chess
+Playing Cards|ताश|पत्ते|patte,taash,cards|packet
+Rattle|झुनझुना|खुळखुळा|khulkhula,rattle
+Tricycle|तिपहिया साइकिल|तीनचाकी सायकल|kids cycle
+Kids Bicycle|बच्चों की साइकिल|मुलांची सायकल|||?
+Toy Gun|खिलौना बंदूक|खेळण्यातील बंदूक|cap gun
+Gilli Danda|गिल्ली डंडा|विटी दांडू|viti dandu,gilli danda|set
+Rubber Ball|रबर की गेंद|रबरी चेंडू|ball,chendu
+Slime|स्लाइम|स्लाईम
+Bubble Maker|बबल मेकर|बुडबुडे यंत्र|bubbles
+
+@sub|sports|Sports Goods|खेल सामग्री|क्रीडा साहित्य|piece,set
+Cricket Bat|क्रिकेट बैट|क्रिकेट बॅट|bat
+Cricket Ball|क्रिकेट बॉल|क्रिकेट चेंडू|leather ball,tennis ball cricket
+Tennis Ball|टेनिस बॉल|टेनिस बॉल
+Stumps|स्टंप|स्टंप|wicket|set
+Football|फ़ुटबॉल|फुटबॉल|football
+Volleyball|वॉलीबॉल|व्हॉलीबॉल|volleyball
+Badminton Racket|बैडमिंटन रैकेट|बॅडमिंटन रॅकेट|racket
+Shuttlecock|शटलकॉक|फूल (बॅडमिंटन)|shuttle,cock|piece,box
+Skipping Rope|रस्सी कूद|दोरीउड्या दोरी|jump rope
+Carrom Coins|कैरम गोटियाँ|कॅरम सोंगट्या|carrom coins|set
+Yoga Mat|योगा मैट|योगा मॅट|yoga mat
+Dumbbells|डंबल|डंबेल्स|dumbbell|pair,piece
+Mallakhamb|मलखंब|मल्लखांब|mallakhamb
+Lathi|लाठी|लाठी|lathi,stick|piece
+Lezim|लेज़िम|लेझीम|lezim,lezhim
+Bicycle|साइकिल|सायकल|cycle,bicycle|piece
+
+@sub|musical-instruments|Musical Instruments|वाद्य यंत्र|वाद्ये|piece,set
+Dhol|ढोल|ढोल|dhol
+Tasha|ताशा|ताशा|tasha
+Tabla|तबला|तबला|tabla|set,piece
+Harmonium|हारमोनियम|पेटी|peti,harmonium
+Mridang|मृदंग|मृदंग|pakhawaj,mridang
+Pakhawaj|पखावज|पखवाज|pakhawaj
+Taal|झांझ|टाळ|tal,taal,manjira,cymbals|pair
+Chiplya|चिपली|चिपळ्या|chiplya,chipli|pair
+Ektara|इकतारा|एकतारी|ektari,ektara
+Dholki|ढोलकी|ढोलकी|dholki
+Sambal|संबल|संबळ|sambal
+Halgi|हलगी|हलगी|halgi
+Flute|बांसुरी|बासरी|basri,bansuri,flute
+Tuntuna|तुनतुना|तुणतुणे|tuntune
+Daf|डफ|डफ|daf,duff
+Shehnai|शहनाई|सनई|sanai,shehnai
+Guitar|गिटार|गिटार|guitar
+Keyboard Instrument|कीबोर्ड वाद्य|कीबोर्ड (वाद्य)|casio,keyboard piano
+Ghungroo|घुंघरू|घुंगरू|ghungru,ghungroo|pair,set
+Damru|डमरू|डमरू|damru
+Bell Ghanta|घंटा|घंटा|temple bell|piece
+Trumpet|तुरही|तुतारी|tutari,turahi

@@ -1,0 +1,145 @@
+# Completion batch: generic agri actives, natural farming inputs, medicinal plants, dishes, festival wear, jewellery and puja.
+@category|farm-inputs
+@sub|crop-protection
+Thiram|थायरम|थायरम|seed treatment thiram
+Ziram|ज़ीराम|झिरम|ziram
+Zineb|ज़िनेब|झिनेब|zineb
+Propineb|प्रोपिनेब|प्रोपिनेब|propineb
+Tricyclazole|ट्राइसाइक्लाज़ोल|ट्रायसायक्लाझोल|tricyclazole
+Isoprothiolane|आइसोप्रोथियोलेन|आयसोप्रोथिओलेन
+Carbosulfan|कार्बोसल्फ़ान|कार्बोसल्फान|carbosulfan
+Chlorfenapyr|क्लोरफेनापायर|क्लोरफेनापायर|chlorfenapyr
+Spiromesifen|स्पाइरोमेसिफेन|स्पायरोमेसिफेन|spiromesifen
+Fenpyroximate|फेनपाइरोक्सीमेट|फेनपायरॉक्झिमेट|fenpyroximate
+Hexythiazox|हेक्सीथियाज़ॉक्स|हेक्सिथायझॉक्स|hexythiazox
+Propargite|प्रोपार्जाइट|प्रोपरगाईट|propargite
+Sulfoxaflor|सल्फ़ोक्साफ़्लोर|सल्फोक्झाफ्लोर|sulfoxaflor
+Novaluron|नोवालूरॉन|नोव्हालुरॉन|novaluron
+Lufenuron|ल्यूफ़ेनूरॉन|ल्युफेन्युरॉन|lufenuron
+Thiacloprid|थायक्लोप्रिड|थायक्लोप्रिड|thiacloprid
+Acetamiprid|एसिटामिप्रिड|अॅसिटामिप्रिड|acetamiprid
+Clothianidin|क्लोथियानिडिन|क्लोथियानिडीन|clothianidin
+Dinotefuran|डाइनोटेफ्यूरान|डायनोटेफ्युरान|dinotefuran
+Bifenthrin|बाइफेन्थ्रिन|बायफेन्थ्रीन|bifenthrin
+Fenvalerate|फेनवेलरेट|फेनव्हलरेट|fenvalerate dust
+Ethion|इथियॉन|इथिऑन|ethion
+Chlorothalonil|क्लोरोथालोनिल|क्लोरोथॅलोनिल|chlorothalonil
+Kresoxim Methyl|क्रेसोक्सिम मिथाइल|क्रेसॉक्झिम मिथाईल|kresoxim
+Pyraclostrobin|पाइराक्लोस्ट्रोबिन|पायराक्लोस्ट्रोबिन|pyraclostrobin
+Trifloxystrobin|ट्राइफ्लॉक्सीस्ट्रोबिन|ट्रायफ्लॉक्सिस्ट्रोबिन|trifloxystrobin
+Mandipropamid|मैंडिप्रोपामिड|मँडिप्रोपामिड|mandipropamid
+Copper Hydroxide|कॉपर हाइड्रॉक्साइड|कॉपर हायड्रॉक्साईड|copper hydroxide
+Sulphur Dust|गंधक पाउडर|गंधक भुकटी|sulphur dust
+Bispyribac Sodium|बिस्पायरिबैक सोडियम|बिस्पायरिबॅक सोडियम|bispyribac
+Pretilachlor|प्रेटिलाक्लोर|प्रेटिलाक्लोर|pretilachlor
+Fenoxaprop|फेनोक्साप्रॉप|फेनॉक्झाप्रॉप|fenoxaprop
+Clodinafop|क्लोडिनाफ़ॉप|क्लोडिनाफॉप|clodinafop
+Glufosinate Ammonium|ग्लूफ़ोसिनेट अमोनियम|ग्लुफोसिनेट अमोनियम|glufosinate
+Halosulfuron|हैलोसल्फ़्यूरॉन|हॅलोसल्फ्युरॉन|halosulfuron
+Tembotrione|टेम्बोट्रियोन|टेम्बोट्रायोन|tembotrione
+Mepiquat Chloride|मेपिक्वाट क्लोराइड|मेपिक्वाट क्लोराईड|mepiquat
+Brassinolide|ब्रासिनोलाइड|ब्रासिनोलाईड
+Salicylic Acid Spray|सैलिसिलिक एसिड|सॅलिसिलिक अॅसिड|||?
+@sub|fertilizers
+Manganese Sulphate|मैंगनीज़ सल्फेट|मँगनीज सल्फेट|manganese sulphate|kg,packet
+Calcium Nitrate Boron|कैल्शियम नाइट्रेट बोरॉन|कॅल्शियम नायट्रेट बोरॉन|||^CALCIUM_NITRATE
+Magnesium Nitrate|मैग्नीशियम नाइट्रेट|मॅग्नेशियम नायट्रेट
+Bio NPK Consortium|बायो एनपीके|जैविक एनपीके|bio npk|litre,packet
+Organic Manure Pellets|जैविक खाद गोलियाँ|सेंद्रिय खत गोळ्या|pellet manure|kg,bag
+PROM Manure|प्रोम खाद|प्रोम खत|phosphate rich organic manure|kg,bag
+Fermented Organic Manure|किण्वित जैविक खाद|आंबवलेले सेंद्रिय खत|fom|kg,bag
+Ghana Jeevamrut|घन जीवामृत|घनजीवामृत|ghanjivamrut,solid jeevamrut|kg,bag
+Beejamrut|बीजामृत|बीजामृत|bijamrut,seed treatment cow|litre
+
+@category|plants
+@sub|medicinal-plants
+Nirgudi Plant|निर्गुंडी पौधा|निर्गुडी रोप|nirgudi rop
+Kalmegh Plant|कालमेघ पौधा|कालमेघ रोप|||?
+Bhringraj Plant|भृंगराज पौधा|माका रोप|maka plant
+Punarnava Plant|पुनर्नवा पौधा|पुनर्नवा रोप|||?
+Pippali Plant|पीपली पौधा|पिंपळी रोप|long pepper plant
+Vekhand Plant|वच पौधा|वेखंड रोप|sweet flag plant
+Hadjod Plant|हड़जोड़ पौधा|हाडजोड रोप|hadjod,cissus
+Chitrak Plant|चित्रक पौधा|चित्रक रोप|||?
+Bhui Amla Plant|भुई आंवला पौधा|भुई आवळी रोप|bhui avli,phyllanthus
+Touch Me Not Plant|लाजवंती पौधा|लाजाळू रोप|lajalu,lajwanti,mimosa
+Castor Plant|अरंडी पौधा|एरंडाचे रोप|erand plant
+Calotropis Plant|आक का पौधा|रुईचे रोप|rui plant,aak
+Kokilaksha Plant|कोकिलाक्ष पौधा|तालीमखाना रोप|talimkhana||?
+Gulvel Cutting|गिलोय कलम|गुळवेल कलम|||^GILOY_PLANT
+Moringa Dwarf Plant|बौना सहजन पौधा|बुटका शेवगा रोप|||^MORINGA_SAPLING
+
+@category|homemade-food
+@sub|maharashtrian-dishes
+Vangi Bhat|वांगी भात|वांगी भात|brinjal rice,vangibath
+Tondli Bhat|तोंडली भात|तोंडली भात|ivy gourd rice
+Kulith Pithla|कुलथी पिठला|कुळीथ पिठलं|kulith pithla
+Matki Bhel|मोठ भेल|मटकी भेळ|matki bhel
+Bread Vada|ब्रेड वड़ा|ब्रेड वडा
+Fish Koliwada|फ़िश कोलीवाड़ा|फिश कोळीवाडा|fish koliwada
+Prawns Koliwada|झींगा कोलीवाड़ा|कोळंबी कोळीवाडा|prawns koliwada
+Surmai Thali|सुरमई थाली|सुरमई थाळी|||^FISH_THALI
+Pomfret Thali|पॉम्फ्रेट थाली|पापलेट थाळी|||^FISH_THALI
+Bombil Thali|बोंबिल थाली|बोंबील थाळी|||^FISH_THALI
+@sub|indian-dishes
+Dum Aloo|दम आलू|दम आलू|dum aloo
+Malai Kofta|मलाई कोफ़्ता|मलई कोफ्ता|malai kofta
+Veg Handi|वेज हांडी|व्हेज हंडी|||?
+Paneer Biryani|पनीर बिरयानी|पनीर बिर्याणी|||^BIRYANI
+Fruit Salad|फ्रूट सलाद|फ्रूट सॅलड|fruit chaat|plate,kg
+Cut Fruits Box|कटे फल डिब्बा|चिरलेली फळे डबा|cut fruits|box,plate
+Sprouts Salad|अंकुरित सलाद|मोड आलेल्या कडधान्यांचे सॅलड|sprouts chaat|plate
+Ribbon Pakoda|रिबन पकोड़ा|रिबन पकोडा|ribbon murukku|kg,g,packet
+Thattai|थट्टई|थट्टई|||?
+
+@category|sweets
+@sub|syrup-sweets
+Sitaphal Rabdi|सीताफल रबड़ी|सीताफळ रबडी|||^RABDI
+Rava Karanji|रवा गुझिया|रव्याची करंजी|||^KARANJI
+Khava Karanji|खोया गुझिया|खव्याची करंजी|||^KARANJI
+Ole Naral Karanji|ताज़े नारियल की गुझिया|ओल्या नारळाची करंजी|||^KARANJI
+Puran Modak|पूरन मोदक|पुरणाचे मोदक|||^FRIED_MODAK
+
+@category|clothing
+@sub|sarees
+Kids Nauvari Saree|बच्चों की नौवारी साड़ी|मुलींची नऊवारी साडी|||^NAUVARI_SAREE
+Paithani Dupatta|पैठणी दुपट्टा|पैठणी ओढणी|||^DUPATTA
+Paithani Blouse Piece|पैठणी ब्लाउज़ पीस|पैठणी ब्लाऊज पीस|||^BLOUSE_PIECE
+Khun Blouse|खण ब्लाउज़|खणाचा ब्लाऊज|khan blouse||^READYMADE_BLOUSE
+Ilkal Blouse|इलकल ब्लाउज़|इरकल ब्लाऊज|||^READYMADE_BLOUSE
+Kids Pheta|बच्चों का फेटा|मुलांचा फेटा|||^PHETA
+@sub|mens-wear
+Kids Dhoti Kurta|बच्चों का धोती कुर्ता|मुलांचा धोतर कुडता|||^DHOTI
+Short Kurta|छोटा कुर्ता|शॉर्ट कुडता|||^KURTA
+Readymade Dhoti|रेडीमेड धोती|रेडिमेड धोतर|||^DHOTI
+Silk Dhoti|रेशमी धोती|सोवळे|sovale,pitambar||^DHOTI
+
+@category|jewellery
+@sub|traditional-jewellery
+Short Mangalsutra|छोटा मंगलसूत्र|छोटे मंगळसूत्र|||^MANGALSUTRA
+Long Mangalsutra|लंबा मंगलसूत्र|लांब मंगळसूत्र|||^MANGALSUTRA
+Vati Mangalsutra|वाटी मंगलसूत्र|वाटी मंगळसूत्र|||^MANGALSUTRA
+Ear Chain|कान की चेन|कानातील वेल|vel,ear chain|pair
+Artificial Mangalsutra|आर्टिफ़िशियल मंगलसूत्र|इमिटेशन मंगळसूत्र|||^MANGALSUTRA
+
+@category|puja
+@sub|puja-samagri
+Gopichandan|गोपीचंदन|गोपीचंदन|gopi chandan|piece,g
+Red Sandalwood Powder|लाल चंदन पाउडर|रक्तचंदन पावडर|rakta chandan|g,packet
+Abhishek Patra|अभिषेक पात्र|अभिषेक पात्र|jaladhari|piece
+Artificial Garland for God|देव की कृत्रिम माला|देवाचा कृत्रिम हार|||?
+Pearl Garland for God|मोती की माला (भगवान)|देवाचा मोत्यांचा हार|moti har dev||?
+Ganpati Mukut|गणपति मुकुट|गणपती मुकुट|||^MUKUT
+
+@category|hardware
+@sub|mobile-electronics
+TV Wall Mount|टीवी वॉल माउंट|टीव्ही वॉल माउंट|||?
+HDMI Cable|एचडीएमआई केबल|एचडीएमआय केबल
+TV Remote|टीवी रिमोट|टीव्ही रिमोट|remote control
+Button Cell|बटन सेल|बटण सेल|watch battery|piece,packet
+Electric Rickshaw|ई-रिक्शा|ई-रिक्षा|e rickshaw,toto|piece
+
+@category|household-cleaning
+@sub|home-essentials
+Ironing Board|इस्त्री बोर्ड|इस्त्री बोर्ड|||?
+Onion Storage Structure|प्याज भंडारण ढांचा|कांदा चाळ|kanda chal,onion storage|piece

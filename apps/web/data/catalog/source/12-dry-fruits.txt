@@ -1,0 +1,65 @@
+# Dry fruits, nuts, edible seeds and dried fruit.
+@category|dry-fruits|groceries|Dry Fruits and Seeds|सूखे मेवे और बीज|सुकामेवा आणि बिया
+
+@sub|nuts|Nuts|मेवे|सुकामेवा|kg,g,packet,box
+Cashew Nuts|काजू|काजू|kaju,cashew,cashews
+Whole Cashew W240|काजू डब्ल्यू240|काजू डब्ल्यू240|w240 kaju||^CASHEW_NUTS
+Whole Cashew W320|काजू डब्ल्यू320|काजू डब्ल्यू320|w320 kaju||^CASHEW_NUTS
+Broken Cashew|टूटे काजू|काजू तुकडा|kaju tukda,broken kaju||^CASHEW_NUTS
+Roasted Cashew|भुने काजू|भाजलेले काजू|roasted kaju||^CASHEW_NUTS
+Masala Cashew|मसाला काजू|मसाला काजू|masala kaju||^CASHEW_NUTS
+Almonds|बादाम|बदाम|badam,almond
+Mamra Almonds|मामरा बादाम|मामरा बदाम|mamra badam||^ALMONDS
+Pistachios|पिस्ता|पिस्ता|pista,pistachio
+Salted Pistachios|नमकीन पिस्ता|खारे पिस्ते|khare piste||^PISTACHIOS
+Walnuts|अखरोट|अक्रोड|akhrot,akrod,walnut
+Walnut Kernels|अखरोट गिरी|अक्रोड गर|akhrot giri||^WALNUTS
+Hazelnuts|हेज़लनट|हेझलनट|hazelnut
+Pine Nuts|चिलगोज़ा|चिलगोजा|chilgoza
+Macadamia Nuts|मैकाडामिया|मॅकाडेमिया|macadamia
+Brazil Nuts|ब्राज़ील नट|ब्राझील नट|brazil nut
+Charoli|चिरौंजी|चारोळी|charoli,chironji,chirongi
+Fox Nuts|मखाना|मखाणा|makhana,phool makhana,lotus seeds
+Roasted Makhana|भुना मखाना|भाजलेला मखाणा|flavoured makhana||^FOX_NUTS
+Gond|गोंद|डिंक|gond,dink,edible gum
+Gond Katira|गोंद कतीरा|गोंद कतिरा|gond katira,tragacanth|kg,g
+
+@sub|dried-fruits|Dried Fruits|सूखे फल|सुकी फळे|kg,g,packet,box
+Raisins|किशमिश|बेदाणे|kishmish,bedane,manuka,raisins
+Black Raisins|काली किशमिश|काळे मनुके|kali kishmish,kale manuke||^RAISINS
+Golden Raisins|सुनहरी किशमिश|पिवळे बेदाणे|golden kishmish||^RAISINS
+Sangli Raisins|सांगली किशमिश|सांगली बेदाणे|sangli bedane,tasgaon bedane||^RAISINS
+Munakka|मुनक्का|मनुका|munakka,manuka,big raisins||^RAISINS
+Dates|खजूर|खजूर|khajur,khajoor,dates
+Dry Dates|छुहारा|खारीक|kharik,chhuhara,dry dates
+Seedless Dates|बीज रहित खजूर|बिया नसलेला खजूर|seedless khajur||^DATES
+Medjool Dates|मेडजूल खजूर|मेडजूल खजूर|medjool||^DATES
+Dried Figs|सूखे अंजीर|सुके अंजीर|sukha anjeer,dry anjeer,dry figs
+Dried Apricots|सूखी खुबानी|सुके जर्दाळू|khubani,jardalu,dry apricot
+Prunes|आलूबुखारा सूखा|सुके आलुबुखार|prunes
+Dried Cranberries|सूखी क्रैनबेरी|सुक्या क्रॅनबेरी|cranberry
+Dried Blueberries|सूखी ब्लूबेरी|सुक्या ब्लूबेरी|||?
+Dried Kiwi|सूखी कीवी|सुकी किवी|dry kiwi
+Dried Mango Slices|सूखे आम के टुकड़े|आंब्याच्या सुक्या फोडी|dry mango slices
+Amla Candy|आंवला कैंडी|आवळा कँडी|amla candy,awla supari
+Ginger Candy|अदरक कैंडी|आले कँडी|ginger candy,ale vadi
+Tutti Frutti|टूटी फ्रूटी|टूटी फ्रूटी|tutti fruity,papaya candy
+Dried Pineapple|सूखा अनानास|सुके अननस|||?
+Mixed Dry Fruits|मिश्रित मेवे|मिश्र सुकामेवा|mix dry fruits,mixed nuts
+Dry Fruit Gift Box|मेवे का गिफ्ट बॉक्स|सुकामेवा भेट पेटी|dry fruit box|box
+
+@sub|edible-seeds|Edible Seeds|खाद्य बीज|खाद्य बिया|kg,g,packet
+Pumpkin Seeds|कद्दू के बीज|भोपळ्याच्या बिया|kaddu beej,pumpkin seeds
+Watermelon Seeds|तरबूज के बीज|कलिंगडाच्या बिया|magaj,tarbuj beej
+Chia Seeds|चिया बीज|चिया बिया|chia
+Sabja Seeds|सब्जा बीज|सब्जा|sabja,tukmaria
+Roasted Flaxseeds|भुनी अलसी|भाजलेले जवस|roasted alsi,javas mukhwas
+Roasted Sunflower Seeds|भुने सूरजमुखी बीज|भाजलेल्या सूर्यफूल बिया|||?
+Melon Seeds|ख़रबूज़े के बीज|खरबुजाच्या बिया|char magaz,magaz
+Lotus Seeds (Kamal Gatta)|कमल गट्टा|कमळ बी|kamal gatta||?
+Halim Seeds|हलीम|अळीव|aliv,halim,garden cress seeds
+Mukhwas|मुखवास|मुखवास|mukhwas,mouth freshener
+Sweet Saunf Mukhwas|मीठी सौंफ|गोड बडीशेप|sweet saunf,dhana dal mukhwas||^MUKHWAS
+Dhana Dal|धना दाल|धना डाळ|roasted coriander split||^MUKHWAS
+Supari Pieces|सुपारी कतरन|कातरलेली सुपारी|chikni supari,katri supari
+Mixed Seeds|मिश्रित बीज|मिश्र बिया|seed mix,trail mix

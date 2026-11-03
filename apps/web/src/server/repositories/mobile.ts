@@ -1,7 +1,10 @@
 import "server-only";
 import { Types } from "mongoose";
 import type { z } from "zod";
-import type { villageSearchSchema } from "@gaavli/validation";
+import {
+  mobileLanguageSchema,
+  type villageSearchSchema,
+} from "@gaavli/validation";
 import { Village, User, VillageCoordinator, type UserRecord } from "../models";
 import { MobileRateLimit } from "../models/mobile-auth";
 import { hashToken } from "../auth/mobile-policy";
@@ -84,15 +87,15 @@ export async function mobileUserDto(user: UserRecord) {
     ? await Village.findOne({ _id: user.village, isActive: true }).lean()
     : null;
   return {
-    isCoordinator: user.roles.includes("coordinator") && user.status === "active",
+    isCoordinator:
+      user.roles.includes("coordinator") && user.status === "active",
     coordinatorVillages: coordinatorVillages.map(mobileVillageDto),
     isSeller: user.roles.includes("seller"),
     id: String(user._id),
     name: user.name,
     firstName: user.firstName || null,
     lastName: user.lastName || null,
-    language:
-      user.preferredLanguage === "en" ? ("en" as const) : ("mr" as const),
+    language: mobileLanguageSchema.catch("mr").parse(user.preferredLanguage),
     village: village ? mobileVillageDto(village) : null,
   };
 }

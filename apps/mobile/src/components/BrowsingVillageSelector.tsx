@@ -59,7 +59,7 @@ export function BrowsingVillageSelector() {
     }
   }
   const name = selected
-    ? language === "mr"
+    ? language !== "en"
       ? selected.nameMr
       : selected.name
     : t.villageTitle;

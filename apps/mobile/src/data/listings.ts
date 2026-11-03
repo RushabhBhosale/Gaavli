@@ -11,6 +11,7 @@ export function toHomeListing(
     name: listing.productName,
     // Preserve original DB name if no Marathi name exists; never invent one.
     nameMr: listing.productNameMr || listing.productName,
+    nameHi: listing.productNameHi,
     description: listing.description,
     category: listing.categoryName || listing.category || "",
     categoryMr:
@@ -47,7 +48,7 @@ export function liveDashboard(
       firstName: account.firstName || account.name,
       lastName: account.lastName || "",
       village: account.village
-        ? language === "mr"
+        ? language !== "en"
           ? account.village.nameMr
           : account.village.name
         : "",

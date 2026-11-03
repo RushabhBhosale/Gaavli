@@ -50,7 +50,7 @@ export function ProductCard({
                   : t.dashboardMarketplace,
               name,
               rate,
-              language === "mr" ? listing.villageMr : listing.village,
+              language !== "en" ? listing.villageMr : listing.village,
             ].join(", ")
           : `${name}, ${rate}`
       }
@@ -111,7 +111,7 @@ export function ProductCard({
                 : t.directoryAvailable}
             </Text>
             <Text style={s.meta}>
-              {language === "mr" ? listing.villageMr : listing.village}
+              {language !== "en" ? listing.villageMr : listing.village}
             </Text>
             {listing.module === "services" && (
               <Text style={s.meta}>{t.directorySelfDeclared}</Text>

@@ -1,0 +1,95 @@
+# Bakery items, packaged snacks, beverages and drinks.
+@category|bakery|groceries|Bakery|बेकरी|बेकरी
+
+@sub|breads|Bread and Pav|ब्रेड और पाव|ब्रेड आणि पाव|piece,packet,dozen
+Pav|पाव|पाव|pav,ladi pav,bun pav
+Ladi Pav|लादी पाव|लादी पाव|ladi pao||^PAV
+Brun Pav|ब्रुन पाव|ब्रून पाव|brun maska,hard pav||^PAV
+White Bread|सफ़ेद ब्रेड|पांढरा ब्रेड|bread,sandwich bread
+Brown Bread|ब्राउन ब्रेड|ब्राऊन ब्रेड|wheat bread
+Multigrain Bread|मल्टीग्रेन ब्रेड|मल्टीग्रेन ब्रेड
+Milk Bread|मिल्क ब्रेड|मिल्क ब्रेड
+Sweet Bun|मीठा बन|गोड बन|bun,maska bun
+Burger Bun|बर्गर बन|बर्गर बन
+Pizza Base|पिज़्ज़ा बेस|पिझ्झा बेस|pizza bread
+Garlic Bread|गार्लिक ब्रेड|गार्लिक ब्रेड
+
+@sub|bakery-snacks|Rusk, Khari and Biscuits|रस्क, खारी और बिस्किट|टोस्ट, खारी आणि बिस्किटे|kg,g,packet
+Rusk|रस्क|टोस्ट|toast,rusk,cake rusk
+Cake Rusk|केक रस्क|केक टोस्ट|||^RUSK
+Elaichi Rusk|इलायची रस्क|वेलची टोस्ट|||^RUSK
+Nankhatai|नानखटाई|नानकटाई|nankhatai,nan khatai
+Butter Biscuits|बटर बिस्किट|बटर बिस्किटे|osmania biscuits
+Jeera Biscuits|जीरा बिस्किट|जिरे बिस्किटे|jeera butter
+Atta Biscuits|आटा बिस्किट|गव्हाची बिस्किटे|wheat biscuits
+Coconut Biscuits|नारियल बिस्किट|नारळ बिस्किटे|||?
+Cream Biscuits|क्रीम बिस्किट|क्रीम बिस्किटे
+Glucose Biscuits|ग्लूकोज़ बिस्किट|ग्लुकोज बिस्किटे|glucose biscuit
+Salt Biscuits|नमकीन बिस्किट|खारी बिस्किटे|salted crackers
+Cookies|कुकीज़|कुकीज|cookie
+Puff|पफ|पफ|veg puff,patties
+Egg Puff|अंडा पफ|अंडा पफ|||^PUFF
+Chicken Puff|चिकन पफ|चिकन पफ|||^PUFF
+
+@sub|cakes|Cakes and Desserts|केक और मिठाई|केक आणि डेझर्ट|piece,kg,box
+Cake|केक|केक|birthday cake,cake
+Cup Cake|कप केक|कप केक|cupcake
+Pastry|पेस्ट्री|पेस्ट्री
+Plum Cake|प्लम केक|प्लम केक|christmas cake
+Banana Cake|केला केक|बनाना केक|||?
+Eggless Cake|अंडा रहित केक|एगलेस केक|||^CAKE
+Brownie|ब्राउनी|ब्राउनी
+Doughnut|डोनट|डोनट|donut
+Muffin|मफिन|मफिन
+Swiss Roll|स्विस रोल|स्विस रोल
+
+@category|beverages|groceries|Beverages|पेय पदार्थ|पेये
+@sub|tea-coffee|Tea and Coffee|चाय और कॉफ़ी|चहा आणि कॉफी|g,kg,packet
+Tea Powder|चाय पत्ती|चहा पावडर|chai patti,chaha powder,tea dust,ctc tea
+Loose Leaf Tea|पत्ती चाय|पानांचा चहा|leaf tea||^TEA_POWDER
+Masala Tea Powder|मसाला चाय पत्ती|मसाला चहा पावडर|||^TEA_POWDER
+Green Tea|ग्रीन टी|ग्रीन टी|green tea bags
+Herbal Tea|हर्बल चाय|हर्बल चहा|||?
+Tea Bags|टी बैग|टी बॅग|tea bags|box,packet
+Coffee Powder|कॉफ़ी पाउडर|कॉफी पावडर|coffee,filter coffee
+Instant Coffee|इंस्टेंट कॉफ़ी|इन्स्टंट कॉफी|||^COFFEE_POWDER
+Filter Coffee Powder|फ़िल्टर कॉफ़ी|फिल्टर कॉफी|south indian coffee||^COFFEE_POWDER
+Chicory|चिकोरी|चिकोरी|||?
+Malt Drink Powder|माल्ट पेय पाउडर|माल्ट पेय पावडर|health drink,malt powder
+
+@sub|juices-drinks|Juices and Drinks|जूस और पेय|ज्यूस आणि पेये|litre,ml,bottle
+Sugarcane Juice|गन्ने का रस|उसाचा रस|ganne ka ras,us ras,ganna juice|litre,ml,bottle
+Kokum Sharbat|कोकम शरबत|कोकम सरबत|kokum syrup,amsul sarbat
+Rose Sharbat|गुलाब शरबत|गुलाब सरबत|rose syrup,gulab sharbat
+Khus Sharbat|खस शरबत|वाळा सरबत|khus syrup,vala sarbat
+Lemon Sharbat|नींबू शरबत|लिंबू सरबत|nimbu pani,limbu sarbat
+Kala Khatta|काला खट्टा|काला खट्टा|kala khatta syrup
+Mango Juice|आम का जूस|आंबा ज्यूस|aam juice,mango drink
+Orange Juice|संतरे का जूस|संत्रा ज्यूस|santra juice
+Sweet Lime Juice|मौसमी जूस|मोसंबी ज्यूस|mosambi juice
+Pomegranate Juice|अनार का जूस|डाळिंब ज्यूस|anar juice
+Amla Juice|आंवला जूस|आवळा ज्यूस|amla ras
+Aloe Vera Juice|एलोवेरा जूस|कोरफड ज्यूस|korphad juice
+Karela Juice|करेले का जूस|कारले ज्यूस|||?
+Jamun Juice|जामुन का रस|जांभूळ ज्यूस|||?
+Watermelon Juice|तरबूज का जूस|कलिंगड ज्यूस|||?
+Tender Coconut Water|नारियल पानी|शहाळ्याचे पाणी|nariyal pani,coconut water|bottle,litre,piece
+Neera|नीरा|नीरा|neera,palm sap
+Soda|सोडा|सोडा|soda water
+Goli Soda|गोली सोडा|गोटी सोडा|banta,goti soda
+Cold Drink|कोल्ड ड्रिंक|कोल्ड्रिंक|soft drink,thanda
+Packaged Drinking Water|पीने का पानी|पिण्याचे पाणी|mineral water,pani bottle|bottle,litre
+Water Can|पानी का कैन|पाण्याचा कॅन|20 litre jar,water jar|piece
+Mattha|मट्ठा|मठ्ठा|mattha,spiced buttermilk|litre,bottle,ml
+Thandai|ठंडाई|थंडाई|thandai powder
+Badam Milk|बादाम दूध|बदाम दूध|badam doodh
+Milkshake|मिल्कशेक|मिल्कशेक|shake
+Cold Coffee|कोल्ड कॉफ़ी|कोल्ड कॉफी
+Energy Drink|एनर्जी ड्रिंक|एनर्जी ड्रिंक|||?
+Mango Squash|आम स्क्वैश|आंबा स्क्वॅश|||?
+Lemon Squash|नींबू स्क्वैश|लिंबू स्क्वॅश|||?
+Orange Squash|संतरा स्क्वैश|संत्रा स्क्वॅश|||?
+Pineapple Squash|अनानास स्क्वैश|अननस स्क्वॅश|||?
+Karvanda Sharbat|करौंदा शरबत|करवंद सरबत
+Panha|पना|पन्हे|aam panna,kairi panha,panhe
+Kairi Panha Concentrate|आम पना सिरप|कैरी पन्हे सिरप|||^PANHA
