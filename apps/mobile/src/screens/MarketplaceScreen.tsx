@@ -20,7 +20,13 @@ import { toHomeListing } from "../data/listings";
 import { useMarketplaceListings } from "../listings";
 import { useListingClock } from "../hooks/useListingClock";
 import { theme } from "../theme";
-import { Button, ErrorMessage, OfflineBanner } from "../components/ui";
+import {
+  Button,
+  Chip,
+  ErrorMessage,
+  OfflineBanner,
+  StateMessage,
+} from "../components/ui";
 import { MarketplaceListingCard } from "../components/dashboard/MarketplaceListingCard";
 import { MarketplaceHeader } from "../components/dashboard/MarketplaceHeader";
 import { d } from "../components/dashboard/primitives";
@@ -149,31 +155,27 @@ export default function MarketplaceScreen() {
   const now = useListingClock();
   const page = result.data?.pages[0];
   const number = new Intl.NumberFormat(numberLocale(language));
-  function categoryLabel(item: { id: string; label: string }) {
+  function categoryCount(item: { id: string }) {
     const count =
       item.id === "all"
         ? page?.allProductCount
         : page?.productGroupCounts?.find((row) => row.productGroup === item.id)
             ?.count;
-    return `${item.label} (${count === undefined ? "—" : number.format(count)})`;
+    return count === undefined ? "—" : number.format(count);
   }
   const categories = [
     {
       id: "all",
       label: t.marketplaceAllProducts,
-      icon: "🛍️",
-      background: "#E9F4E7",
     },
     {
       id: "vegetables",
       label: t.vegetables,
-      icon: "🍅",
-      background: "#E9F4E7",
     },
-    { id: "fruits", label: t.fruits, icon: "🍎", background: "#FFF3DF" },
-    { id: "grain", label: t.grains, icon: "🌾", background: "#FFF5DD" },
-    { id: "dairy", label: t.dairy, icon: "🥛", background: "#EAF2FF" },
-    { id: "homemade", label: t.homemade, icon: "🍯", background: "#FFF1D8" },
+    { id: "fruits", label: t.fruits },
+    { id: "grain", label: t.grains },
+    { id: "dairy", label: t.dairy },
+    { id: "homemade", label: t.homemade },
   ];
   const activeListings = Array.from(
     new Map(
@@ -343,35 +345,13 @@ export default function MarketplaceScreen() {
               contentContainerStyle={s.categories}
             >
               {categories.map((item) => (
-                <Pressable
+                <Chip
                   key={item.id}
-                  accessibilityRole="button"
-                  accessibilityLabel={categoryLabel(item)}
-                  accessibilityState={{ selected: category === item.id }}
+                  label={item.label}
+                  count={categoryCount(item)}
+                  selected={category === item.id}
                   onPress={() => setCategory(item.id)}
-                  style={({ pressed }) => [s.category, pressed && d.pressed]}
-                >
-                  <View
-                    style={[
-                      s.categoryIcon,
-                      { backgroundColor: item.background },
-                      category === item.id && s.selectedCategory,
-                    ]}
-                  >
-                    <Text accessible={false} style={s.categoryEmoji}>
-                      {item.icon}
-                    </Text>
-                  </View>
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      s.categoryText,
-                      category === item.id && s.selectedCategoryText,
-                    ]}
-                  >
-                    {categoryLabel(item)}
-                  </Text>
-                </Pressable>
+                />
               ))}
             </ScrollView>
           </View>
@@ -396,20 +376,29 @@ export default function MarketplaceScreen() {
                   </Button>
                 </>
               )}
-              {!section.data.length && (
-                <Text accessibilityLiveRegion="polite" style={s.empty}>
-                  {offline
-                    ? t.listingsOfflineEmpty
-                    : feed.isPending
-                      ? t.listingsLoading
-                      : feed.isError
-                        ? ""
-                        : section.unavailable
-                          ? t.marketplaceNoUnavailable
-                          : search || category !== "all"
-                            ? t.noListingMatches
-                            : t.noListings}
-                </Text>
+              {!section.data.length && !(feed.isError && !offline) && (
+                <View accessibilityLiveRegion="polite" style={s.empty}>
+                  <StateMessage
+                    icon={
+                      offline
+                        ? "cloud-offline-outline"
+                        : feed.isPending
+                          ? "hourglass-outline"
+                          : "basket-outline"
+                    }
+                    title={
+                      offline
+                        ? t.listingsOfflineEmpty
+                        : feed.isPending
+                          ? t.listingsLoading
+                          : section.unavailable
+                            ? t.marketplaceNoUnavailable
+                            : search || category !== "all"
+                              ? t.noListingMatches
+                              : t.noListings
+                    }
+                  />
+                </View>
               )}
               {(loaded > section.visible || feed.hasNextPage) && (
                 <Button
@@ -486,37 +475,5 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  category: {
-    minHeight: theme.layout.touchTarget,
-    minWidth: 88,
-    flexShrink: 0,
-    paddingHorizontal: 4,
-    alignItems: "center",
-    gap: 6,
-  },
-  categoryIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: "transparent",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  selectedCategory: { borderColor: theme.colors.primaryDark },
-  categoryEmoji: { fontSize: 26, lineHeight: 34 },
-  categoryText: {
-    color: theme.colors.muted,
-    fontSize: 13,
-    lineHeight: 20,
-    textAlign: "center",
-  },
-  selectedCategoryText: { color: theme.colors.text, fontWeight: "600" },
-  empty: {
-    color: theme.colors.muted,
-    fontSize: 14,
-    lineHeight: 22,
-    textAlign: "center",
-    paddingVertical: 24,
-  },
+  empty: { paddingVertical: 8 },
 });

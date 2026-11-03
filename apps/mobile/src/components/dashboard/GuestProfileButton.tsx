@@ -42,7 +42,7 @@ export function GuestProfileButton({
           accessible={false}
           name="person-outline"
           size={20}
-          color={theme.colors.heading}
+          color={theme.colors.primaryDark}
         />
       </View>
     </Pressable>
@@ -57,10 +57,12 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   avatar: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: theme.colors.softGreen,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: theme.colors.tint,
+    borderWidth: 1,
+    borderColor: theme.colors.softGreen,
     alignItems: "center",
     justifyContent: "center",
   },

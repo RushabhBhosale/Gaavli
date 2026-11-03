@@ -6,7 +6,7 @@ import { editDistance, maxEdits } from "@gaavli/utils";
 
 function parseCachedMasterProducts(value: string) {
   const stored = JSON.parse(value) as {
-    products?: Array<Record<string, unknown>>;
+    products?: Record<string, unknown>[];
   };
   return productMasterPageSchema.parse({
     ...stored,

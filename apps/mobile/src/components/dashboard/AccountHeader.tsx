@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import type { ReactNode } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
@@ -60,133 +60,131 @@ export function AccountHeader({
     <View
       style={[s.header, { marginHorizontal: -edgeInset, marginTop: -topInset }]}
     >
-      <View
-        pointerEvents="none"
-        accessibilityElementsHidden
-        importantForAccessibility="no-hide-descendants"
-        style={s.art}
-      >
-        <Image
-          source={require("../../../assets/account-header-village.png")}
-          style={s.artImage}
-          resizeMode="cover"
-        />
-      </View>
-      <View style={s.row}>
-        <View style={s.identity}>
-          <Text style={s.greeting}>{t.headerGreeting}</Text>
-          <Text accessibilityRole="header" style={s.name}>
-            {identity.name}
-          </Text>
-          <Text style={s.role}>{role}</Text>
-        </View>
-        <View style={s.headerControls}>
-          <View style={s.iconRow}>
-            {session && (
-              <NotificationBell language={language} disabled={disabled} />
-            )}
-            {!session ? (
-              <GuestProfileButton language={language} disabled={disabled} />
-            ) : (
+      <View style={s.topRow}>
+        <View style={s.location}>
+          {browsingVillageControl ??
+            (!!identity.location && (
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel={t.settings}
+                accessibilityLabel={`${identity.location}. ${t.changeVillage}`}
                 accessibilityState={{ disabled }}
                 disabled={disabled}
-                onPress={() => router.push("/profile")}
+                onPress={
+                  onVillagePress ||
+                  (() => router.push(session ? "/village" : "/language"))
+                }
                 style={({ pressed }) => [
-                  s.control,
+                  s.locationButton,
                   pressed && d.pressed,
                   disabled && s.disabled,
                 ]}
               >
-                <View style={s.avatar}>
-                  {identity.initials ? (
-                    <Text style={s.initials}>{identity.initials}</Text>
-                  ) : (
-                    <Ionicons
-                      accessible={false}
-                      name="person-outline"
-                      size={20}
-                      color={theme.colors.heading}
-                    />
-                  )}
-                </View>
+                <Ionicons
+                  accessible={false}
+                  name="location"
+                  size={18}
+                  color={theme.colors.primary}
+                />
+                <Text numberOfLines={1} style={s.locationText}>
+                  {identity.location}
+                </Text>
+                <Ionicons
+                  accessible={false}
+                  name="chevron-down"
+                  size={16}
+                  color={theme.colors.muted}
+                />
               </Pressable>
-            )}
-          </View>
-          {!!browsingVillageControl && (
-            <View style={s.browsingVillage}>{browsingVillageControl}</View>
+            ))}
+        </View>
+        <View style={s.iconRow}>
+          {session && (
+            <NotificationBell language={language} disabled={disabled} />
+          )}
+          {!session ? (
+            <GuestProfileButton language={language} disabled={disabled} />
+          ) : (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t.settings}
+              accessibilityState={{ disabled }}
+              disabled={disabled}
+              onPress={() => router.push("/profile")}
+              style={({ pressed }) => [
+                s.control,
+                pressed && d.pressed,
+                disabled && s.disabled,
+              ]}
+            >
+              <View style={s.avatar}>
+                {identity.initials ? (
+                  <Text style={s.initials}>{identity.initials}</Text>
+                ) : (
+                  <Ionicons
+                    accessible={false}
+                    name="person-outline"
+                    size={20}
+                    color={theme.colors.primaryDark}
+                  />
+                )}
+              </View>
+            </Pressable>
           )}
         </View>
       </View>
-      {!browsingVillageControl && !!identity.location && (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={`${identity.location}. ${t.changeVillage}`}
-          hitSlop={{ top: 8, bottom: 8 }}
-          accessibilityState={{ disabled }}
-          disabled={disabled}
-          onPress={
-            onVillagePress ||
-            (() => router.push(session ? "/village" : "/language"))
-          }
-          style={({ pressed }) => [
-            s.location,
-            pressed && d.pressed,
-            disabled && s.disabled,
-          ]}
-        >
-          <Ionicons
-            accessible={false}
-            name="location"
-            size={18}
-            color={theme.colors.primaryDark}
-          />
-          <Text style={s.locationText}>{identity.location}</Text>
-        </Pressable>
-      )}
+      <View style={s.identity}>
+        <Text style={s.greeting}>{t.headerGreeting}</Text>
+        <Text accessibilityRole="header" numberOfLines={1} style={s.name}>
+          {identity.name}
+        </Text>
+        <View style={s.rolePill}>
+          <Text style={s.role}>{role}</Text>
+        </View>
+      </View>
     </View>
   );
 }
 
 const s = StyleSheet.create({
   header: {
-    backgroundColor: theme.colors.tint,
-    borderBottomLeftRadius: theme.radii.card,
-    borderBottomRightRadius: theme.radii.card,
-    overflow: "hidden",
-    paddingHorizontal: 14,
-    paddingTop: 8,
-    paddingBottom: 10,
-    gap: 3,
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingTop: 4,
+    paddingBottom: 4,
+    gap: 6,
   },
-  row: { flexDirection: "row", alignItems: "flex-start", gap: 4 },
-  headerControls: { alignItems: "flex-end", maxWidth: "60%", flexShrink: 1 },
-  iconRow: { flexDirection: "row", gap: 4 },
-  browsingVillage: { alignSelf: "flex-end", maxWidth: "100%" },
-  identity: { flex: 1, gap: 0 },
-  greeting: { fontSize: 13, lineHeight: 20, color: theme.colors.text },
-  name: {
-    fontSize: 18,
-    lineHeight: 28,
-    fontWeight: "700",
-    color: theme.colors.heading,
-    includeFontPadding: true,
-  },
-  role: { fontSize: 13, lineHeight: 20, color: theme.colors.muted },
-  initials: {
-    fontSize: 13,
-    lineHeight: 22,
-    fontWeight: "700",
-    color: theme.colors.heading,
+  topRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  location: { flex: 1, minWidth: 0, alignItems: "flex-start" },
+  locationButton: {
+    minHeight: 44,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    maxWidth: "100%",
   },
   locationText: {
-    fontSize: 12,
-    lineHeight: 20,
+    ...theme.type.label,
     color: theme.colors.text,
     flexShrink: 1,
   },
+  iconRow: { flexDirection: "row", alignItems: "center" },
+  identity: { gap: 0, paddingTop: 4 },
+  greeting: { ...theme.type.caption, color: theme.colors.muted },
+  name: { ...theme.type.display, color: theme.colors.heading },
+  rolePill: {
+    alignSelf: "flex-start",
+    marginTop: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.tint,
+  },
+  role: { ...theme.type.micro, color: theme.colors.primaryDark },
+  initials: { ...theme.type.label, color: theme.colors.primaryDark },
   control: {
     minWidth: theme.layout.touchTarget,
     minHeight: theme.layout.touchTarget,
@@ -194,32 +192,14 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   avatar: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: theme.colors.softGreen,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: theme.colors.tint,
+    borderWidth: 1,
+    borderColor: theme.colors.softGreen,
     alignItems: "center",
     justifyContent: "center",
-  },
-  art: {
-    position: "absolute",
-    width: "70%",
-    height: 94,
-    right: 0,
-    bottom: 0,
-  },
-  artImage: { width: "100%", height: "100%" },
-  location: {
-    minHeight: 28,
-    flexDirection: "row",
-    alignItems: "center",
-    alignSelf: "flex-start",
-    gap: 6,
-    paddingHorizontal: 4,
-    paddingVertical: 2,
-    maxWidth: "72%",
-    borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.tint,
   },
   disabled: { opacity: theme.interaction.disabledOpacity },
 });

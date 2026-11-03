@@ -1,3 +1,21 @@
+# App redesign — 2026-11-03
+
+Visual redesign of the mobile app, applied through design tokens and shared
+components so every screen picks it up. `theme.ts` has the new palette (soft
+neutral background, one green, warm accent used sparingly), a type scale with a
+12pt minimum and Devanagari-safe line heights, and 12/16/pill radii. `ui.tsx`
+gains `ScreenHeader`, `StateMessage` and `Chip`; buttons, inputs and cards are
+restyled. Rebuilt: welcome/language, Home (village chip, greeting, search entry,
+sections), Marketplace (title, village, search, filter chips, listing rows,
+empty states), tab bar, product and listing cards, `PageSceneHeader` (now a plain
+header without banner art). Other screens (product details, add listing, my
+listings, profiles, activity, register/OTP/village) use the new tokens and shared
+components but were not individually redrawn. Coordinator screens are restyled
+only through those shared tokens; their files are unchanged, and a design mockup
+exists separately. Mobile TypeScript, ESLint and 85 tests pass. Checked in the
+iOS simulator as a guest: welcome, Home, Marketplace, guest Settings. Signed-in
+screens and Android are not yet reviewed on a device.
+
 # Listing CRUD backend compatibility — 2026-10-14
 
 Server create/edit/deactivate/owned reads/sold-out/relist APIs are implemented;

@@ -79,9 +79,9 @@ export function BrowsingVillageSelector() {
       >
         <Ionicons
           accessible={false}
-          name="location-outline"
+          name="location"
           size={18}
-          color={theme.colors.primaryDark}
+          color={theme.colors.primary}
         />
         <Text numberOfLines={1} style={s.name}>
           {name}
@@ -93,7 +93,7 @@ export function BrowsingVillageSelector() {
             accessible={false}
             name="chevron-down"
             size={16}
-            color={theme.colors.primaryDark}
+            color={theme.colors.muted}
           />
         )}
       </Pressable>
@@ -118,23 +118,18 @@ export function BrowsingVillageSelector() {
 }
 const s = StyleSheet.create({
   control: {
-    minHeight: theme.layout.touchTarget,
+    minHeight: 44,
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.tint,
+    paddingHorizontal: 12,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
     flexShrink: 1,
     maxWidth: "100%",
   },
-  name: {
-    fontSize: 14,
-    lineHeight: 22,
-    color: theme.colors.text,
-    fontWeight: "600",
-    flexShrink: 1,
-  },
+  name: { ...theme.type.label, color: theme.colors.text, flexShrink: 1 },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

@@ -1,6 +1,8 @@
 import { numberLocale } from "../locale";
 import { useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { theme } from "../theme";
 import { BecomeSellerDialog } from "../components/BecomeSellerDialog";
 import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
 import { useRouter } from "expo-router";
@@ -34,6 +36,30 @@ import {
   d,
 } from "../components/dashboard/primitives";
 
+const h = StyleSheet.create({
+  search: {
+    minHeight: 52,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    paddingLeft: 14,
+    paddingRight: 6,
+    borderRadius: theme.radii.card,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.borderStrong,
+  },
+  searchText: { flex: 1, ...theme.type.body, color: theme.colors.placeholder },
+  mic: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: theme.colors.tint,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
 export function HomeDashboard({
   data,
   language,
@@ -59,6 +85,28 @@ export function HomeDashboard({
         browsingVillageControl={<BrowsingVillageSelector />}
       />
       {data.isPreview && <PreviewBanner />}
+      <Pressable
+        accessibilityRole="search"
+        accessibilityLabel={t.marketplaceSearchPlaceholder}
+        onPress={() => onNavigate("/marketplace")}
+        style={({ pressed }) => [h.search, pressed && d.pressed]}
+      >
+        <Ionicons
+          accessible={false}
+          name="search"
+          size={20}
+          color={theme.colors.muted}
+        />
+        <Text style={h.searchText}>{t.marketplaceSearchPlaceholder}</Text>
+        <View style={h.mic}>
+          <Ionicons
+            accessible={false}
+            name="mic-outline"
+            size={20}
+            color={theme.colors.primary}
+          />
+        </View>
+      </Pressable>
       {/* Temporarily hidden; retained for future use.
       <CoordinatorInfo coordinator={data.coordinator} language={language} />
       */}
