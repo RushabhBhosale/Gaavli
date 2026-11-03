@@ -38,7 +38,7 @@ Dinner Set|डिनर सेट|डिनर सेट|dinner set,crockery set
 Brass Thali|पीतल की थाली|पितळी ताट|||^STEEL_THALI
 Copper Glass|तांबे का गिलास|तांब्याचा पेला|tamba glass||^STEEL_GLASS
 Copper Water Bottle|तांबे की बोतल|तांब्याची बाटली|copper bottle
-Copper Jug|तांबे का जग|तांब्याचा जग|||?
+Copper Jug|तांबे का जग|तांब्याचा जग|||
 Tambya|लोटा|तांब्या|lota,tambya
 Ceramic Plate|चीनी मिट्टी की प्लेट|चिनीमातीची प्लेट|crockery plate
 Melamine Plate|मेलामाइन प्लेट|मेलामाईन प्लेट
@@ -50,12 +50,12 @@ Leaf Plates|पत्तल|पत्रावळी|patravali,pattal,leaf plate
 Areca Leaf Plates|सुपारी पत्ते की प्लेट|सुपारीच्या पानाच्या प्लेट|areca plates|packet,dozen
 Leaf Bowls|दोना|द्रोण|dona,dron|packet,dozen
 Paper Cups|कागज़ के कप|कागदी कप|disposable cups|packet
-Disposable Spoons|डिस्पोज़ेबल चम्मच|डिस्पोजेबल चमचे|||?
+Disposable Spoons|डिस्पोज़ेबल चम्मच|डिस्पोजेबल चमचे|||
 Serving Bowl|सर्विंग बाउल|सर्व्हिंग बाऊल
 Water Jug|पानी का जग|पाण्याचा जग|jug|piece
 Ladle|करछी|पळी|kadchhi,pali,daav,ladle
 Spatula|पलटा|उलथणे|ulthane,palta,spatula
-Serving Spoon|बड़ा चम्मच|मोठा चमचा|||?
+Serving Spoon|बड़ा चम्मच|मोठा चमचा|||
 Tongs|चिमटा|चिमटा|chimta,sandasi,tongs
 
 @sub|kitchen-tools|Kitchen Tools|रसोई के औज़ार|स्वयंपाकघरातील साधने|piece,set
@@ -81,15 +81,15 @@ Bottle Opener|बोतल ओपनर|बाटली ओपनर
 Lemon Squeezer|नींबू निचोड़ने वाला|लिंबू पिळणी|lemon press
 Whisk|फेंटनी|फेटणी|whisk,ravi
 Wooden Churner|मथनी|रवी|ravi,mathani,butter churner
-Measuring Cups|मापने के कप|मापाचे कप|||?
-Kitchen Scissors|रसोई कैंची|किचन कात्री|||?
-Garlic Crusher|लहसुन कूटने वाला|लसूण ठेचणी|||?
+Measuring Cups|मापने के कप|मापाचे कप|||
+Kitchen Scissors|रसोई कैंची|किचन कात्री|||
+Garlic Crusher|लहसुन कूटने वाला|लसूण ठेचणी|||
 Vegetable Chopper|सब्ज़ी कटर|भाजी चॉपर|chopper
 Roti Box|रोटी डिब्बा|पोळ्यांचा डबा|chapati box,hot case
 Casserole|कैसरोल|कॅसरोल|hot pot,insulated casserole
 Kitchen Rack|किचन रैक|किचन रॅक|dish rack,stand
-Plate Stand|प्लेट स्टैंड|ताटांचा स्टँड|||?
-Spoon Stand|चम्मच स्टैंड|चमचा स्टँड|||?
+Plate Stand|प्लेट स्टैंड|ताटांचा स्टँड|||
+Spoon Stand|चम्मच स्टैंड|चमचा स्टँड|||
 
 @sub|storage|Storage Containers|भंडारण के डिब्बे|साठवणीचे डबे|piece,set
 Steel Dabba|स्टील डिब्बा|स्टील डबा|steel container,dabba
@@ -101,8 +101,8 @@ Grain Storage Bin|अनाज भंडार|धान्य कोठी|||^R
 Oil Can|तेल का डिब्बा|तेलाचा डबा|oil container
 Water Matka|मटका|माठ|math,matka,clay pot,ghada
 Water Pot|घड़ा|घागर|ghagar,ghada,kalshi
-Brass Handa|पीतल का हंडा|पितळी हंडा|handa,brass pot||?
-Copper Handa|तांबे का हंडा|तांब्याचा हंडा|||?
+Brass Handa|पीतल का हंडा|पितळी हंडा|handa,brass pot||
+Copper Handa|तांबे का हंडा|तांब्याचा हंडा|||
 Steel Drum|स्टील ड्रम|स्टील पिंप|pimp,drum
 Plastic Drum|प्लास्टिक ड्रम|प्लास्टिक पिंप|||^STEEL_DRUM
 Water Filter|पानी का फ़िल्टर|पाण्याचा फिल्टर|filter,purifier
@@ -119,7 +119,7 @@ Electric Kettle|इलेक्ट्रिक केतली|इलेक्�
 Rice Cooker|राइस कुकर|राईस कुकर|electric cooker
 Toaster|टोस्टर|टोस्टर|sandwich toaster
 Microwave Oven|माइक्रोवेव|मायक्रोवेव्ह|oven
-OTG Oven|ओटीजी ओवन|ओटीजी ओव्हन|||?
+OTG Oven|ओटीजी ओवन|ओटीजी ओव्हन|||
 Refrigerator|फ्रिज|फ्रिज|fridge
 Chimney|चिमनी|चिमणी|kitchen chimney
 Water Heater|गीज़र|गिझर|geyser

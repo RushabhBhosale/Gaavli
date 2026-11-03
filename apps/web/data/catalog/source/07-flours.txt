@@ -37,7 +37,7 @@ Kulith Pith|कुलथी का आटा|कुळीथ पीठ|kulith pi
 Dhokla Flour|ढोकला आटा|ढोकळा पीठ|dhokla atta
 Idli Batter|इडली घोल|इडलीचे पीठ (ओले)|idli batter,idli dosa batter|kg,g,packet
 Dosa Batter|डोसा घोल|डोशाचे पीठ (ओले)|dosa batter|kg,g,packet
-Appe Batter|अप्पे घोल|आप्प्यांचे पीठ|appe batter,paniyaram batter|kg,g,packet|?
+Appe Batter|अप्पे घोल|आप्प्यांचे पीठ|appe batter,paniyaram batter|kg,g,packet|
 Ghavan Pith|घावन आटा|घावनचे पीठ|ghavan,neer dosa flour
 Wheat Bran|चोकर|कोंडा|chokar,konda,wheat bran
 Sattu|सत्तू|सत्तू|sattu,chana sattu

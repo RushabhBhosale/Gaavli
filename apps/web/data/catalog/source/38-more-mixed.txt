@@ -28,8 +28,8 @@ Urea Molasses Block|यूरिया मोलासेस ब्लॉक|य
 Chick Brooder|चूज़ा ब्रूडर|पिल्ले ब्रूडर|brooder|piece
 Bee Smoker|मधुमक्खी धुआं यंत्र|मधमाशी धूर यंत्र|smoker|piece
 Bee Veil|मधुमक्खी जाली टोपी|मधमाशी जाळी टोपी|bee hat|piece
-Honey Extractor|शहद निकालने की मशीन|मध काढणी यंत्र|||?
-Silkworm Rearing Tray|रेशम कीट ट्रे|रेशीम किडे ट्रे|||?
+Honey Extractor|शहद निकालने की मशीन|मध काढणी यंत्र|||
+Silkworm Rearing Tray|रेशम कीट ट्रे|रेशीम किडे ट्रे|||
 Chandrika|चंद्रिका|चंद्रिका|mountage,sericulture chandrika|piece
 Silkworm Eggs|रेशम कीट अंडे|रेशीम अंडीपुंज|dfl,silkworm dfls|packet,box
 Fishing Net|मछली पकड़ने का जाल|मासेमारी जाळे|jal,jale|piece,kg
@@ -44,10 +44,10 @@ Vakhar|वखर|वखर|vakhar,blade harrow
 Pabhar|पाभर|पाभर|pabhar,seed drill bullock
 Iron Plough|लोहे का हल|लोखंडी नांगर|||^PLOUGH
 Mango Picker|आम तोड़ने का झेला|झेला|zela,mango harvester|piece
-Coconut Tree Climber|नारियल पेड़ चढ़ने का यंत्र|नारळ झाडावर चढण्याचे यंत्र|||?
+Coconut Tree Climber|नारियल पेड़ चढ़ने का यंत्र|नारळ झाडावर चढण्याचे यंत्र|||
 Tree Pruner|पेड़ छंटाई औज़ार|झाड छाटणी यंत्र|lopper|piece
 Dibbler|डिबलर|टोकणी यंत्र|tokan yantra,seed dibbler|piece
-Hand Seed Drill|हाथ बीज ड्रिल|हात पेरणी यंत्र|||?
+Hand Seed Drill|हाथ बीज ड्रिल|हात पेरणी यंत्र|||
 Serrated Sickle|दांतेदार हंसिया|दातेरी विळा|||^SICKLE
 Grass Cutter Sickle|घास काटने की हंसिया|गवत कापणी विळा|||^SICKLE
 Bullock Yoke Iron|लोहे का जुआ|लोखंडी जू|||^YOKE
@@ -132,9 +132,9 @@ Photo Cake|फ़ोटो केक|फोटो केक|||^CAKE
 Chocolate Chips|चॉकलेट चिप्स|चॉकलेट चिप्स|choco chips|g,packet
 Sprinkles|स्प्रिंकल्स|स्प्रिंकल्स
 Whipping Cream Powder|व्हिपिंग क्रीम पाउडर|व्हिपिंग क्रीम पावडर
-Fondant|फ़ोंडेंट|फॉन्डंट|||?
+Fondant|फ़ोंडेंट|फॉन्डंट|||
 Cake Board|केक बोर्ड|केक बोर्ड
-Gelatin|जिलेटिन|जिलेटिन|||?
+Gelatin|जिलेटिन|जिलेटिन|||
 Ice Cream Cone|आइसक्रीम कोन|आईस्क्रीम कोन|wafer cone|packet,piece
 
 @category|dairy
@@ -155,8 +155,8 @@ Mango Kulfi|आम कुल्फ़ी|आंबा कुल्फी|||^KULF
 Pista Kulfi|पिस्ता कुल्फ़ी|पिस्ता कुल्फी|||^KULFI
 Matka Kulfi|मटका कुल्फ़ी|मटका कुल्फी|||^KULFI
 Tofu|टोफ़ू|टोफू|soya paneer|g,kg,packet
-Soya Milk|सोया दूध|सोया दूध|||?
-Almond Milk|बादाम का दूध (वनस्पति)|बदाम दूध (वनस्पती)|||?
+Soya Milk|सोया दूध|सोया दूध|||
+Almond Milk|बादाम का दूध (वनस्पति)|बदाम दूध (वनस्पती)|||
 Kesar Lassi|केसर लस्सी|केशर लस्सी|||^LASSI
 Rose Lassi|गुलाब लस्सी|गुलाब लस्सी|||^LASSI
 Mango Milkshake|आम मिल्कशेक|आंबा मिल्कशेक|||^MILKSHAKE
@@ -178,4 +178,4 @@ Shalu|शालू|शालू|shalu,bridal saree,lagnacha shalu||^SAREE
 @category|handicrafts
 @sub|handicrafts
 Dhokra Art|ढोकरा कला|ढोकरा कला|dokra,dhokra
-Tribal Jewellery|आदिवासी आभूषण|आदिवासी दागिने|||?
+Tribal Jewellery|आदिवासी आभूषण|आदिवासी दागिने|||

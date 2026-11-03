@@ -1,0 +1,532 @@
+# Generated from curated specs; see data/catalog/README.md.
+@category|fruits
+@sub|mango-varieties
+Alphonso Ratnagiri Mango|हापूस रत्नागिरी आम|हापूस रत्नागिरी आंबा|alphonso ratnagiri aam,alphonso ratnagiri amba,alphonso ratnagiri|kg,dozen,piece|^MANGO
+Alphonso Devgad Mango|हापूस देवगड आम|हापूस देवगड आंबा|alphonso devgad aam,alphonso devgad amba,alphonso devgad|kg,dozen,piece|^MANGO
+Alphonso Konkan Mango|कोकणी हापूस आम|कोकणी हापूस आंबा|alphonso konkan aam,alphonso konkan amba,alphonso konkan|kg,dozen,piece|^MANGO
+Hapus Mango|हापूस आम|हापूस आंबा|hapus aam,hapus amba,hapus|kg,dozen,piece|^MANGO
+Kesar Gir Mango|केसर गिर आम|केसर गिर आंबा|kesar gir aam,kesar gir amba,kesar gir|kg,dozen,piece|^MANGO
+Kesar Junagadh Mango|केसर जुनागढ आम|केसर जुनागढ आंबा|kesar junagadh aam,kesar junagadh amba,kesar junagadh|kg,dozen,piece|^MANGO
+Kesar Talala Mango|केसर तलाला आम|केसर तलाला आंबा|kesar talala aam,kesar talala amba,kesar talala|kg,dozen,piece|^MANGO
+Dasheri Malihabad Mango|दशहरी मलिहाबाद आम|दशहरी मलिहाबाद आंबा|dasheri malihabad aam,dasheri malihabad amba,dasheri malihabad|kg,dozen,piece|^MANGO
+Langra Mango|लंगडा आम|लंगडा आंबा|langra aam,langra amba,langra|kg,dozen,piece|^MANGO
+Langra Varanasi Mango|लंगडा वाराणसी आम|लंगडा वाराणसी आंबा|langra varanasi aam,langra varanasi amba,langra varanasi|kg,dozen,piece|^MANGO
+Totapuri Karnataka Mango|कर्नाटक तोतापुरी आम|कर्नाटक तोतापुरी आंबा|totapuri karnataka aam,totapuri karnataka amba,totapuri karnataka|kg,dozen,piece|^MANGO
+Banganapalli Benishan Mango|बैगनपल्ली बेनिशान आम|बैगनपल्ली बेनिशान आंबा|banganapalli benishan aam,banganapalli benishan amba,banganapalli benishan|kg,dozen,piece|^MANGO
+Amrapali Mango|आम्रपाली|आम्रपाली आंबा|amrapali aam,amrapali amba,amrapali|kg,dozen,piece|^MANGO
+Mallgova Mango|मल्गोवा आम|मल्गोवा आंबा|mallgova aam,mallgova amba,mallgova|kg,dozen,piece|^MANGO
+Mulgoa Mango|मुलगोवा आम|मुलगोवा आंबा|mulgoa aam,mulgoa amba,mulgoa|kg,dozen,piece|^MANGO
+Kishen Bhog Mango|किशनभोग आम|किशनभोग आंबा|kishen bhog aam,kishen bhog amba,kishen bhog|kg,dozen,piece|^MANGO
+Fazli Mango|फजली आम|फजली आंबा|fazli aam,fazli amba,fazli|kg,dozen,piece|^MANGO
+Zardalu Mango|जर्दालू आम|जर्दालू आंबा|zardalu aam,zardalu amba,zardalu|kg,dozen,piece|^MANGO
+Bombay Green Mango|बॉम्बे ग्रीन आम|बॉम्बे ग्रीन आंबा|bombay green aam,bombay green amba,bombay green|kg,dozen,piece|^MANGO
+Gulab Khas Mango|गुलाब खास आम|गुलाब खास आंबा|gulab khas aam,gulab khas amba,gulab khas|kg,dozen,piece|^MANGO
+Safeda Lucknow Mango|सफेदा लखनौ आम|सफेदा लखनौ आंबा|safeda lucknow aam,safeda lucknow amba,safeda lucknow|kg,dozen,piece|^MANGO
+Rataul Mango|रटौल आम|रटौल आंबा|rataul aam,rataul amba,rataul|kg,dozen,piece|^MANGO
+Sindhri Mango|सिंधरी आम|सिंधरी आंबा|sindhri aam,sindhri amba,sindhri|kg,dozen,piece|^MANGO
+Malda Mango|मालदा आम|मालदा आंबा|malda aam,malda amba,malda|kg,dozen,piece|^MANGO
+Sukul Mango|सुकुल आम|सुकुल आंबा|sukul aam,sukul amba,sukul|kg,dozen,piece|^MANGO
+Bangalora Mango|बंगलोरा आम|बंगलोरा आंबा|bangalora aam,bangalora amba,bangalora|kg,dozen,piece|^MANGO
+Imam Pasand Mango|इमाम पसंद आम|इमाम पसंद आंबा|imam pasand aam,imam pasand amba,imam pasand|kg,dozen,piece|^MANGO
+Raspuri Mango|रसपुरी आम|रसपुरी आंबा|raspuri aam,raspuri amba,raspuri|kg,dozen,piece|^MANGO
+Badami Mango|बदामी आम|बदामी आंबा|badami aam,badami amba,badami|kg,dozen,piece|^MANGO
+Badami Karnataka Mango|बदामी कर्नाटक आम|बदामी कर्नाटक आंबा|badami karnataka aam,badami karnataka amba,badami karnataka|kg,dozen,piece|^MANGO
+Pairi Mango|पायरी आम|पायरी आंबा|pairi aam,pairi amba,pairi|kg,dozen,piece|^MANGO
+Mankurad Mango|मानकुराद आम|मानकुराद आंबा|mankurad aam,mankurad amba,mankurad|kg,dozen,piece|^MANGO
+Fernandin Mango|फर्नांदिन आम|फर्नांदिन आंबा|fernandin aam,fernandin amba,fernandin|kg,dozen,piece|^MANGO
+Arka Anmol Mango|अर्का अनमोल आम|अर्का अनमोल आंबा|arka anmol aam,arka anmol amba,arka anmol|kg,dozen,piece|^MANGO
+Arka Puneet Mango|अर्का पुनीत आम|अर्का पुनीत आंबा|arka puneet aam,arka puneet amba,arka puneet|kg,dozen,piece|^MANGO
+Arka Aruna Mango|अर्का अरुणा आम|अर्का अरुणा आंबा|arka aruna aam,arka aruna amba,arka aruna|kg,dozen,piece|^MANGO
+Arka Neelkiran Mango|अर्का नीलकिरण आम|अर्का नीलकिरण आंबा|arka neelkiran aam,arka neelkiran amba,arka neelkiran|kg,dozen,piece|^MANGO
+Pusa Arunima Mango|पूसा अरुणिमा आम|पूसा अरुणिमा आंबा|pusa arunima aam,pusa arunima amba,pusa arunima|kg,dozen,piece|^MANGO
+Pusa Lalima Mango|पूसा ललिमा आम|पूसा ललिमा आंबा|pusa lalima aam,pusa lalima amba,pusa lalima|kg,dozen,piece|^MANGO
+Pusa Surya Mango|पूसा सूर्य आम|पूसा सूर्य आंबा|pusa surya aam,pusa surya amba,pusa surya|kg,dozen,piece|^MANGO
+Pusa Pratibha Mango|पूसा प्रतिभा आम|पूसा प्रतिभा आंबा|pusa pratibha aam,pusa pratibha amba,pusa pratibha|kg,dozen,piece|^MANGO
+Pusa Peetamber Mango|पूसा पीतांबर आम|पूसा पीतांबर आंबा|pusa peetamber aam,pusa peetamber amba,pusa peetamber|kg,dozen,piece|^MANGO
+Ambika Mango|अंबिका आम|अंबिका आंबा|ambika aam,ambika amba,ambika|kg,dozen,piece|^MANGO
+Au Rumani Mango|औ रुमानी आम|औ रुमानी आंबा|au rumani aam,au rumani amba,au rumani|kg,dozen,piece|^MANGO
+Rumani Mango|रुमानी आम|रुमानी आंबा|rumani aam,rumani amba,rumani|kg,dozen,piece|^MANGO
+Kalepad Mango|कालेपाड आम|कालेपाड आंबा|kalepad aam,kalepad amba,kalepad|kg,dozen,piece|^MANGO
+Kent Mango|केंट आम|केंट आंबा|kent aam,kent amba,kent|kg,dozen,piece|^MANGO
+Tommy Atkins Mango|टॉमी अटकिन्स आम|टॉमी अटकिन्स आंबा|tommy atkins aam,tommy atkins amba,tommy atkins|kg,dozen,piece|^MANGO
+Keitt Mango|कीट आम|कीट आंबा|keitt aam,keitt amba,keitt|kg,dozen,piece|^MANGO
+Sensation Mango|सेन्सेशन आम|सेन्सेशन आंबा|sensation aam,sensation amba,sensation|kg,dozen,piece|^MANGO
+Himayat Mango|हिमायत आम|हिमायत आंबा|himayat aam,himayat amba,himayat|kg,dozen,piece|^MANGO
+Himayuddin Mango|हिमायुद्दीन आम|हिमायुद्दीन आंबा|himayuddin aam,himayuddin amba,himayuddin|kg,dozen,piece|^MANGO
+Suvarnarekha Mango|सुवर्णरेखा आम|सुवर्णरेखा आंबा|suvarnarekha aam,suvarnarekha amba,suvarnarekha|kg,dozen,piece|^MANGO
+Chandrakaran Mango|चंद्रकरण आम|चंद्रकरण आंबा|chandrakaran aam,chandrakaran amba,chandrakaran|kg,dozen,piece|^MANGO
+Jamadar Mango|जमादार आम|जमादार आंबा|jamadar aam,jamadar amba,jamadar|kg,dozen,piece|^MANGO
+Gola Mango|गोला आम|गोला आंबा|gola aam,gola amba,gola|kg,dozen,piece|^MANGO
+Sundari Mango|सुंदरी आम|सुंदरी आंबा|sundari aam,sundari amba,sundari|kg,dozen,piece|^MANGO
+Sabja Mango|सब्जा आम|सब्जा आंबा|sabja aam,sabja amba,sabja|kg,dozen,piece|^MANGO
+Bhadauran Mango|भदौरान आम|भदौरान आंबा|bhadauran aam,bhadauran amba,bhadauran|kg,dozen,piece|^MANGO
+Bombay Mango|बॉम्बे आम|बॉम्बे आंबा|bombay aam,bombay amba,bombay|kg,dozen,piece|^MANGO
+Dilpasand Mango|दिलपसंद आम|दिलपसंद आंबा|dilpasand aam,dilpasand amba,dilpasand|kg,dozen,piece|^MANGO
+Husnara Mango|हुस्नारा आम|हुस्नारा आंबा|husnara aam,husnara amba,husnara|kg,dozen,piece|^MANGO
+Kala Pahad Mango|काला पहाड़ आम|काला पहाड़ आंबा|kala pahad aam,kala pahad amba,kala pahad|kg,dozen,piece|^MANGO
+Kalapadi Mango|कालापाडी आम|कालापाडी आंबा|kalapadi aam,kalapadi amba,kalapadi|kg,dozen,piece|^MANGO
+Kachha Mitha Mango|कच्चा मीठा आम|कच्चा मीठा आंबा|kachha mitha aam,kachha mitha amba,kachha mitha|kg,dozen,piece|^MANGO
+Khirsapati Mango|खिरसापाती आम|खिरसापाती आंबा|khirsapati aam,khirsapati amba,khirsapati|kg,dozen,piece|^MANGO
+Himsagar Bengal Mango|हिमसागर बंगाल आम|हिमसागर बंगाल आंबा|himsagar bengal aam,himsagar bengal amba,himsagar bengal|kg,dozen,piece|^MANGO
+Lakhanbhog Mango|लखनभोग आम|लखनभोग आंबा|lakhanbhog aam,lakhanbhog amba,lakhanbhog|kg,dozen,piece|^MANGO
+Fazli Bengal Mango|फजली बंगाल आम|फजली बंगाल आंबा|fazli bengal aam,fazli bengal amba,fazli bengal|kg,dozen,piece|^MANGO
+Mithua Mango|मिठुआ आम|मिठुआंबा|mithua aam,mithua amba,mithua|kg,dozen,piece|^MANGO
+Mithuwa Mango|मिठुवा आम|मिठुवा आंबा|mithuwa aam,mithuwa amba,mithuwa|kg,dozen,piece|^MANGO
+Rani Pasand Mango|रानी पसंद आम|रानी पसंद आंबा|rani pasand aam,rani pasand amba,rani pasand|kg,dozen,piece|^MANGO
+Sorathia Mango|सोरठिया आम|सोरठिया आंबा|sorathia aam,sorathia amba,sorathia|kg,dozen,piece|^MANGO
+Vanraj Mango|वनराज आम|वनराज आंबा|vanraj aam,vanraj amba,vanraj|kg,dozen,piece|^MANGO
+Jamadar Gujarat Mango|जमादार गुजरात आम|जमादार गुजरात आंबा|jamadar gujarat aam,jamadar gujarat amba,jamadar gujarat|kg,dozen,piece|^MANGO
+Neelphonso Mango|नीलफोन्सो आम|नीलफोन्सो आंबा|neelphonso aam,neelphonso amba,neelphonso|kg,dozen,piece|^MANGO
+Mallika Hybrid Mango|मल्लिका संकरित आम|मल्लिका संकरित आंबा|mallika hybrid aam,mallika hybrid amba,mallika hybrid|kg,dozen,piece|^MANGO
+Ratnagiri Hapus Mango|रत्नागिरी हापूस आम|रत्नागिरी हापूस आंबा|ratnagiri hapus aam,ratnagiri hapus amba,ratnagiri hapus|kg,dozen,piece|^MANGO
+Konkan Ruchira Mango|कोकण रुचिरा आम|कोकण रुचिरा आंबा|konkan ruchira aam,konkan ruchira amba,konkan ruchira|kg,dozen,piece|^MANGO
+Konkan Raja Mango|कोकण राजा आम|कोकण राजा आंबा|konkan raja aam,konkan raja amba,konkan raja|kg,dozen,piece|^MANGO
+Konkan Sam Mango|कोकण साम आम|कोकण साम आंबा|konkan sam aam,konkan sam amba,konkan sam|kg,dozen,piece|^MANGO
+Pickling Mango|लोणच्याचा आम|लोणच्याचा आंबा|pickling mango aam,pickling mango amba,pickling mango|kg,dozen,piece|^MANGO
+Naturally Ripened Mango|नैसर्गिकरीत्या पिकवलेला आम|नैसर्गिकरीत्या पिकवलेला आंबा|naturally ripened aam,naturally ripened amba,naturally ripened|kg,dozen,piece|^MANGO
+Organic Mango|सेंद्रिय आम|सेंद्रिय आंबा|organic aam,organic amba,organic|kg,dozen,piece|^MANGO
+Export Quality Mango|निर्यात दर्जा आम|निर्यात दर्जा आंबा|export quality aam,export quality amba,export quality|kg,dozen,piece|^MANGO
+Desi Local Mango|गावरान आम|गावरान आंबा|desi local aam,desi local amba,desi local|kg,dozen,piece|^MANGO
+Gavthi Mango|गावठी आम|गावठी आंबा|gavthi aam,gavthi amba,gavthi|kg,dozen,piece|^MANGO
+Small Gavran Mango|लहान गावरान आम|लहान गावरान आंबा|small gavran aam,small gavran amba,small gavran|kg,dozen,piece|^MANGO
+Big Gavran Mango|मोठा गावरान आम|मोठा गावरान आंबा|big gavran aam,big gavran amba,big gavran|kg,dozen,piece|^MANGO
+@sub|banana-varieties
+Grand Naine Banana|ग्रँड नैन केला|ग्रँड नैन केळी|grand naine keli,grand naine kela,grand naine|kg,dozen,bunch|^BANANA
+Williams Banana|विल्यम्स केला|विल्यम्स केळी|williams keli,williams kela,williams|kg,dozen,bunch|^BANANA
+Cavendish Banana|कॅव्हेंडिश केला|कॅव्हेंडिश केळी|cavendish keli,cavendish kela,cavendish|kg,dozen,bunch|^BANANA
+Dwarf Cavendish Banana|बुटकी कॅव्हेंडिश केला|बुटकी कॅव्हेंडिश केळी|dwarf cavendish keli,dwarf cavendish kela,dwarf cavendish|kg,dozen,bunch|^BANANA
+Poovan Banana|पूवन केला|पूवन केळी|poovan keli,poovan kela,poovan|kg,dozen,bunch|^BANANA
+Rasthali Banana|रस्थळी केला|रस्थळी केळी|rasthali keli,rasthali kela,rasthali|kg,dozen,bunch|^BANANA
+Yelakki Banana|येलक्की केला|येलक्की केळी|yelakki keli,yelakki kela,yelakki|kg,dozen,bunch|^BANANA
+Velchi Keli Banana|वेलची केळी केला|वेलची केळी|velchi keli keli,velchi keli kela,velchi keli|kg,dozen,bunch|^BANANA
+Basrai Banana|बसराई केला|बसराई केळी|basrai keli,basrai kela,basrai|kg,dozen,bunch|^BANANA
+Lal Velchi Banana|लाल वेलची केला|लाल वेलची केळी|lal velchi keli,lal velchi kela,lal velchi|kg,dozen,bunch|^BANANA
+Monthan Banana|मोंथन केला|मोंथन केळी|monthan keli,monthan kela,monthan|kg,dozen,bunch|^BANANA
+Karpuravalli Banana|कर्पूरवल्ली केला|कर्पूरवल्ली केळी|karpuravalli keli,karpuravalli kela,karpuravalli|kg,dozen,bunch|^BANANA
+Ney Poovan Banana|नेय पूवन केला|नेय पूवन केळी|ney poovan keli,ney poovan kela,ney poovan|kg,dozen,bunch|^BANANA
+Matti Banana|मट्टी केला|मट्टी केळी|matti keli,matti kela,matti|kg,dozen,bunch|^BANANA
+Kunnan Banana|कुन्नन केला|कुन्नन केळी|kunnan keli,kunnan kela,kunnan|kg,dozen,bunch|^BANANA
+Sabri Banana|सबरी केला|सबरी केळी|sabri keli,sabri kela,sabri|kg,dozen,bunch|^BANANA
+Mysore Banana|म्हैसूर केला|म्हैसूर केळी|mysore keli,mysore kela,mysore|kg,dozen,bunch|^BANANA
+Hill Banana|हिल केळी केला|हिल केळी|hill banana keli,hill banana kela,hill banana|kg,dozen,bunch|^BANANA
+Virupakshi Banana|विरूपाक्षी केला|विरूपाक्षी केळी|virupakshi keli,virupakshi kela,virupakshi|kg,dozen,bunch|^BANANA
+Pachanadan Banana|पचनादन केला|पचनादन केळी|pachanadan keli,pachanadan kela,pachanadan|kg,dozen,bunch|^BANANA
+Kadali Banana|कदली केला|कदली केळी|kadali keli,kadali kela,kadali|kg,dozen,bunch|^BANANA
+Chakkarakeli Banana|चक्करकेली केला|चक्करकेली केळी|chakkarakeli keli,chakkarakeli kela,chakkarakeli|kg,dozen,bunch|^BANANA
+Martaman Banana|मर्तमान केला|मर्तमान केळी|martaman keli,martaman kela,martaman|kg,dozen,bunch|^BANANA
+Amritsagar Banana|अमृतसागर केला|अमृतसागर केळी|amritsagar keli,amritsagar kela,amritsagar|kg,dozen,bunch|^BANANA
+Malbhog Banana|मालभोग केला|मालभोग केळी|malbhog keli,malbhog kela,malbhog|kg,dozen,bunch|^BANANA
+Giant Governor Banana|जायंट गव्हर्नर केला|जायंट गव्हर्नर केळी|giant governor keli,giant governor kela,giant governor|kg,dozen,bunch|^BANANA
+Saba Banana|साबा केला|साबा केळी|saba keli,saba kela,saba|kg,dozen,bunch|^BANANA
+Kaveri Saba Banana|कावेरी साबा केला|कावेरी साबा केळी|kaveri saba keli,kaveri saba kela,kaveri saba|kg,dozen,bunch|^BANANA
+Udhayam Banana|उदयम केला|उदयम केळी|udhayam keli,udhayam kela,udhayam|kg,dozen,bunch|^BANANA
+Cardaba Banana|कार्डाबा केला|कार्डाबा केळी|cardaba keli,cardaba kela,cardaba|kg,dozen,bunch|^BANANA
+Jahaji Banana|जहाजी केला|जहाजी केळी|jahaji keli,jahaji kela,jahaji|kg,dozen,bunch|^BANANA
+Champa Banana|चंपा केला|चंपा केळी|champa keli,champa kela,champa|kg,dozen,bunch|^BANANA
+Kanthali Banana|कंथली केला|कंथली केळी|kanthali keli,kanthali kela,kanthali|kg,dozen,bunch|^BANANA
+Bantala Banana|बंटाला केला|बंटाला केळी|bantala keli,bantala kela,bantala|kg,dozen,bunch|^BANANA
+Manjahaji Banana|मंजहाजी केला|मंजहाजी केळी|manjahaji keli,manjahaji kela,manjahaji|kg,dozen,bunch|^BANANA
+Chini Champa Banana|चिनी चंपा केला|चिनी चंपा केळी|chini champa keli,chini champa kela,chini champa|kg,dozen,bunch|^BANANA
+Bhusaval Keli Banana|भुसावळ केळी केला|भुसावळ केळी|bhusaval keli keli,bhusaval keli kela,bhusaval keli|kg,dozen,bunch|^BANANA
+Jalgaon Keli Banana|जळगाव केळी केला|जळगाव केळी|jalgaon keli keli,jalgaon keli kela,jalgaon keli|kg,dozen,bunch|^BANANA
+Yawal Keli Banana|यावल केळी केला|यावल केळी|yawal keli keli,yawal keli kela,yawal keli|kg,dozen,bunch|^BANANA
+Tissue Culture Banana|टिश्यू कल्चर केळी केला|टिश्यू कल्चर केळी|tissue culture banana keli,tissue culture banana kela,tissue culture banana|kg,dozen,bunch|^BANANA
+Raw Banana Variety|कच्ची केळी केला|कच्ची केळी|raw banana variety keli,raw banana variety kela,raw banana variety|kg,dozen,bunch|^BANANA
+Cooking Banana|शिजवण्याची केळी केला|शिजवण्याची केळी|cooking banana keli,cooking banana kela,cooking banana|kg,dozen,bunch|^BANANA
+Plantain Banana|प्लँटेन केला|प्लँटेन केळी|plantain keli,plantain kela,plantain|kg,dozen,bunch|^BANANA
+@sub|grape-varieties
+Tas A Ganesh Grapes|तास-ए-गणेश अंगूर|तास-ए-गणेश द्राक्षे|tas a ganesh draksha,tas a ganesh angur,tas a ganesh|kg,box|^GRAPES
+Flame Seedless Grapes|फ्लेम सीडलेस अंगूर|फ्लेम सीडलेस द्राक्षे|flame seedless draksha,flame seedless angur,flame seedless|kg,box|^GRAPES
+Crimson Seedless Grapes|क्रिमसन सीडलेस अंगूर|क्रिमसन सीडलेस द्राक्षे|crimson seedless draksha,crimson seedless angur,crimson seedless|kg,box|^GRAPES
+Sharad Grapes|शरद अंगूर|शरद द्राक्षे|sharad draksha,sharad angur,sharad|kg,box|^GRAPES
+Anab E Shahi Grapes|अनाब-ए-शाही अंगूर|अनाब-ए-शाही द्राक्षे|anab e shahi draksha,anab e shahi angur,anab e shahi|kg,box|^GRAPES
+Bangalore Blue Grapes|बंगलोर ब्लू अंगूर|बंगलोर ब्लू द्राक्षे|bangalore blue draksha,bangalore blue angur,bangalore blue|kg,box|^GRAPES
+Black Champa Grapes|ब्लॅक चंपा अंगूर|ब्लॅक चंपा द्राक्षे|black champa draksha,black champa angur,black champa|kg,box|^GRAPES
+Pusa Seedless Grapes|पूसा सीडलेस अंगूर|पूसा सीडलेस द्राक्षे|pusa seedless draksha,pusa seedless angur,pusa seedless|kg,box|^GRAPES
+Pusa Navrang Grapes|पूसा नवरंग अंगूर|पूसा नवरंग द्राक्षे|pusa navrang draksha,pusa navrang angur,pusa navrang|kg,box|^GRAPES
+Perlette Grapes|पर्लेट अंगूर|पर्लेट द्राक्षे|perlette draksha,perlette angur,perlette|kg,box|^GRAPES
+Beauty Seedless Grapes|ब्युटी सीडलेस अंगूर|ब्युटी सीडलेस द्राक्षे|beauty seedless draksha,beauty seedless angur,beauty seedless|kg,box|^GRAPES
+Muscat Grapes|मस्कॅट अंगूर|मस्कॅट द्राक्षे|muscat draksha,muscat angur,muscat|kg,box|^GRAPES
+Italia Grapes|इटालिया अंगूर|इटालिया द्राक्षे|italia draksha,italia angur,italia|kg,box|^GRAPES
+Arka Neelmani Grapes|अर्का नीलमणी अंगूर|अर्का नीलमणी द्राक्षे|arka neelmani draksha,arka neelmani angur,arka neelmani|kg,box|^GRAPES
+Arka Shyam Grapes|अर्का श्याम अंगूर|अर्का श्याम द्राक्षे|arka shyam draksha,arka shyam angur,arka shyam|kg,box|^GRAPES
+Arka Kanchan Grapes|अर्का कांचन अंगूर|अर्का कांचन द्राक्षे|arka kanchan draksha,arka kanchan angur,arka kanchan|kg,box|^GRAPES
+Arka Hans Grapes|अर्का हंस अंगूर|अर्का हंस द्राक्षे|arka hans draksha,arka hans angur,arka hans|kg,box|^GRAPES
+Arka Majestic Grapes|अर्का मॅजेस्टिक अंगूर|अर्का मॅजेस्टिक द्राक्षे|arka majestic draksha,arka majestic angur,arka majestic|kg,box|^GRAPES
+Arka Trishna Grapes|अर्का तृष्णा अंगूर|अर्का तृष्णा द्राक्षे|arka trishna draksha,arka trishna angur,arka trishna|kg,box|^GRAPES
+Arka Krishna Grapes|अर्का कृष्णा अंगूर|अर्का कृष्णा द्राक्षे|arka krishna draksha,arka krishna angur,arka krishna|kg,box|^GRAPES
+Arka Vati Grapes|अर्का वती अंगूर|अर्का वती द्राक्षे|arka vati draksha,arka vati angur,arka vati|kg,box|^GRAPES
+Arka Soma Grapes|अर्का सोमा अंगूर|अर्का सोमा द्राक्षे|arka soma draksha,arka soma angur,arka soma|kg,box|^GRAPES
+Arka Chitra Grapes|अर्का चित्रा अंगूर|अर्का चित्रा द्राक्षे|arka chitra draksha,arka chitra angur,arka chitra|kg,box|^GRAPES
+Arka Tilak Grapes|अर्का तिलक अंगूर|अर्का तिलक द्राक्षे|arka tilak draksha,arka tilak angur,arka tilak|kg,box|^GRAPES
+Arka Kanchan Grape Grapes|अर्का कांचन अंगूर|अर्का कांचन द्राक्षे|arka kanchan grape draksha,arka kanchan grape angur,arka kanchan grape|kg,box|^GRAPES
+Kishmish Chorni Grapes|किशमिश चोरनी अंगूर|किशमिश चोरनी द्राक्षे|kishmish chorni draksha,kishmish chorni angur,kishmish chorni|kg,box|^GRAPES
+Kishmish Rakhmat Grapes|किशमिश रखमत अंगूर|किशमिश रखमत द्राक्षे|kishmish rakhmat draksha,kishmish rakhmat angur,kishmish rakhmat|kg,box|^GRAPES
+Dilkush Grapes|दिलखुश अंगूर|दिलखुश द्राक्षे|dilkush draksha,dilkush angur,dilkush|kg,box|^GRAPES
+Selection 7 Grapes|सिलेक्शन 7 अंगूर|सिलेक्शन 7 द्राक्षे|selection 7 draksha,selection 7 angur,selection 7|kg,box|^GRAPES
+Cheema Sahebi Grapes|चीमा साहेबी अंगूर|चीमा साहेबी द्राक्षे|cheema sahebi draksha,cheema sahebi angur,cheema sahebi|kg,box|^GRAPES
+Bhokri Grapes|भोकरी अंगूर|भोकरी द्राक्षे|bhokri draksha,bhokri angur,bhokri|kg,box|^GRAPES
+Gulabi Grapes|गुलाबी अंगूर|गुलाबी द्राक्षे|gulabi draksha,gulabi angur,gulabi|kg,box|^GRAPES
+Fantasy Seedless Grapes|फँटसी सीडलेस अंगूर|फँटसी सीडलेस द्राक्षे|fantasy seedless draksha,fantasy seedless angur,fantasy seedless|kg,box|^GRAPES
+Lady Finger Grapes|लेडी फिंगर अंगूर|लेडी फिंगर द्राक्षे|lady finger draksha,lady finger angur,lady finger|kg,box|^GRAPES
+Concord Grapes|कॉन्कॉर्ड अंगूर|कॉन्कॉर्ड द्राक्षे|concord draksha,concord angur,concord|kg,box|^GRAPES
+Isabella Grapes|इसाबेला अंगूर|इसाबेला द्राक्षे|isabella draksha,isabella angur,isabella|kg,box|^GRAPES
+Black Sapphire Grapes|ब्लॅक सफायर अंगूर|ब्लॅक सफायर द्राक्षे|black sapphire draksha,black sapphire angur,black sapphire|kg,box|^GRAPES
+Nanasaheb Purple Grapes|नानासाहेब पर्पल अंगूर|नानासाहेब पर्पल द्राक्षे|nanasaheb purple draksha,nanasaheb purple angur,nanasaheb purple|kg,box|^GRAPES
+Mamdapur Late Grapes|ममदापूर लेट अंगूर|ममदापूर लेट द्राक्षे|mamdapur late draksha,mamdapur late angur,mamdapur late|kg,box|^GRAPES
+Sangli Grapes|सांगली द्राक्षे अंगूर|सांगली द्राक्षे|sangli grapes draksha,sangli grapes angur,sangli grapes|kg,box|^GRAPES
+Sangli Manuka Grapes|सांगली मनुका अंगूर|सांगली मनुका द्राक्षे|sangli manuka draksha,sangli manuka angur,sangli manuka|kg,box|^GRAPES
+Wine Grapes|वाईन द्राक्षे अंगूर|वाईन द्राक्षे|wine grapes draksha,wine grapes angur,wine grapes|kg,box|^GRAPES
+Cabernet Sauvignon Grapes|कॅबरनेट सॉव्हिन्यॉन अंगूर|कॅबरनेट सॉव्हिन्यॉन द्राक्षे|cabernet sauvignon draksha,cabernet sauvignon angur,cabernet sauvignon|kg,box|^GRAPES
+Shiraz Grapes|शिराझ अंगूर|शिराझ द्राक्षे|shiraz draksha,shiraz angur,shiraz|kg,box|^GRAPES
+Chenin Blanc Grapes|शेनिन ब्लँ अंगूर|शेनिन ब्लँ द्राक्षे|chenin blanc draksha,chenin blanc angur,chenin blanc|kg,box|^GRAPES
+Sauvignon Blanc Grapes|सॉव्हिन्यॉन ब्लँ अंगूर|सॉव्हिन्यॉन ब्लँ द्राक्षे|sauvignon blanc draksha,sauvignon blanc angur,sauvignon blanc|kg,box|^GRAPES
+Viognier Grapes|व्हियोनिये अंगूर|व्हियोनिये द्राक्षे|viognier draksha,viognier angur,viognier|kg,box|^GRAPES
+Zinfandel Grapes|झिनफँडेल अंगूर|झिनफँडेल द्राक्षे|zinfandel draksha,zinfandel angur,zinfandel|kg,box|^GRAPES
+Seedless Green Grapes|बिनबियांची हिरवी अंगूर|बिनबियांची हिरवी द्राक्षे|seedless green draksha,seedless green angur,seedless green|kg,box|^GRAPES
+Seedless Black Grapes|बिनबियांची काळी अंगूर|बिनबियांची काळी द्राक्षे|seedless black draksha,seedless black angur,seedless black|kg,box|^GRAPES
+Seeded Green Grapes|बियांची हिरवी अंगूर|बियांची हिरवी द्राक्षे|seeded green draksha,seeded green angur,seeded green|kg,box|^GRAPES
+Seeded Black Grapes|बियांची काळी अंगूर|बियांची काळी द्राक्षे|seeded black draksha,seeded black angur,seeded black|kg,box|^GRAPES
+Raisin Type Grapes|मनुकासाठी अंगूर|मनुकासाठी द्राक्षे|raisin type draksha,raisin type angur,raisin type|kg,box|^GRAPES
+Table Type Grapes|खाण्यासाठी अंगूर|खाण्यासाठी द्राक्षे|table type draksha,table type angur,table type|kg,box|^GRAPES
+@sub|citrus-varieties|Citrus Varieties|नींबू वर्गीय किस्में|लिंबूवर्गीय वाण|kg,dozen,piece
+Nagpur Santra Orange|नागपुरी संत्रा संतरा|नागपुरी संत्रा संत्रे|nagpur santra santra,nagpur santra|kg,dozen|^ORANGE
+Nagpur Mandarin Orange|नागपूर मँडरिन संतरा|नागपूर मँडरिन संत्रे|nagpur mandarin santra,nagpur mandarin|kg,dozen|^ORANGE
+Kinnow Orange|किन्नू संतरा|किन्नू संत्रे|kinnow santra,kinnow|kg,dozen|^ORANGE
+Coorg Mandarin Orange|कूर्ग संत्रा संतरा|कूर्ग संत्रा संत्रे|coorg mandarin santra,coorg mandarin|kg,dozen|^ORANGE
+Darjeeling Orange|दार्जिलिंग संत्रा संतरा|दार्जिलिंग संत्रा संत्रे|darjeeling orange santra,darjeeling orange|kg,dozen|^ORANGE
+Khasi Mandarin Orange|खासी संत्रा संतरा|खासी संत्रा संत्रे|khasi mandarin santra,khasi mandarin|kg,dozen|^ORANGE
+Sikkim Mandarin Orange|सिक्कीम संत्रा संतरा|सिक्कीम संत्रा संत्रे|sikkim mandarin santra,sikkim mandarin|kg,dozen|^ORANGE
+Mudkhed Orange|मुदखेड संत्रा संतरा|मुदखेड संत्रा संत्रे|mudkhed orange santra,mudkhed orange|kg,dozen|^ORANGE
+Ambia Bahar Orange|आंबिया बहार संतरा|आंबिया बहार संत्रे|ambia bahar santra,ambia bahar|kg,dozen|^ORANGE
+Mrig Bahar Orange|मृग बहार संतरा|मृग बहार संत्रे|mrig bahar santra,mrig bahar|kg,dozen|^ORANGE
+Hasta Bahar Orange|हस्त बहार संतरा|हस्त बहार संत्रे|hasta bahar santra,hasta bahar|kg,dozen|^ORANGE
+Shamouti Orange|शामुती संतरा|शामुती संत्रे|shamouti santra,shamouti|kg,dozen|^ORANGE
+Washington Navel Orange|वॉशिंग्टन नेव्हल संतरा|वॉशिंग्टन नेव्हल संत्रे|washington navel santra,washington navel|kg,dozen|^ORANGE
+Blood Red Malta Orange|ब्लड रेड माल्टा संतरा|ब्लड रेड माल्टा संत्रे|blood red malta santra,blood red malta|kg,dozen|^ORANGE
+Jaffa Orange|जाफा संतरा|जाफा संत्रे|jaffa santra,jaffa|kg,dozen|^ORANGE
+Mosambi Orange|मोसंबी संतरा|मोसंबी संत्रे|mosambi orange santra,mosambi orange|kg,dozen|^ORANGE
+Local Santra Orange|गावरान संत्रा संतरा|गावरान संत्रा संत्रे|local santra santra,local santra|kg,dozen|^ORANGE
+Seedless Orange|बिनबियांचा संत्रा संतरा|बिनबियांचा संत्रा संत्रे|seedless orange santra,seedless orange|kg,dozen|^ORANGE
+Pusa Orange|पूसा संत्रा संतरा|पूसा संत्रा संत्रे|pusa orange santra,pusa orange|kg,dozen|^ORANGE
+Mandarin Orange|मँडरिन ऑरेंज संतरा|मँडरिन ऑरेंज संत्रे|mandarin orange santra,mandarin orange|kg,dozen|^ORANGE
+Clementine Orange|क्लेमेंटाइन संतरा|क्लेमेंटाइन संत्रे|clementine santra,clementine|kg,dozen|^ORANGE
+Tangerine Orange|टँजेरीन संतरा|टँजेरीन संत्रे|tangerine santra,tangerine|kg,dozen|^ORANGE
+Satsuma Orange|सत्सुमा संतरा|सत्सुमा संत्रे|satsuma santra,satsuma|kg,dozen|^ORANGE
+Daisy Tangerine Orange|डेझी टँजेरीन संतरा|डेझी टँजेरीन संत्रे|daisy tangerine santra,daisy tangerine|kg,dozen|^ORANGE
+Sathgudi Sweet Lime|सतगुडी मौसमी|सतगुडी मोसंबी|sathgudi mosambi,sathgudi sathgudi,sathgudi|kg,dozen|^SWEET_LIME
+Mosambi Jalna Sweet Lime|मोसंबी जालना मौसमी|मोसंबी जालना|mosambi jalna mosambi,mosambi jalna sathgudi,mosambi jalna|kg,dozen|^SWEET_LIME
+Mosambi Paithan Sweet Lime|मोसंबी पैठण मौसमी|मोसंबी पैठण|mosambi paithan mosambi,mosambi paithan sathgudi,mosambi paithan|kg,dozen|^SWEET_LIME
+Mosambi Aurangabad Sweet Lime|मोसंबी औरंगाबाद मौसमी|मोसंबी औरंगाबाद|mosambi aurangabad mosambi,mosambi aurangabad sathgudi,mosambi aurangabad|kg,dozen|^SWEET_LIME
+Malta Mosambi Sweet Lime|माल्टा मोसंबी मौसमी|माल्टा मोसंबी|malta mosambi mosambi,malta mosambi sathgudi,malta mosambi|kg,dozen|^SWEET_LIME
+Jaffa Mosambi Sweet Lime|जाफा मोसंबी मौसमी|जाफा मोसंबी|jaffa mosambi mosambi,jaffa mosambi sathgudi,jaffa mosambi|kg,dozen|^SWEET_LIME
+Pusa Mosambi Sweet Lime|पूसा मोसंबी मौसमी|पूसा मोसंबी|pusa mosambi mosambi,pusa mosambi sathgudi,pusa mosambi|kg,dozen|^SWEET_LIME
+Nucellar Mosambi Sweet Lime|न्यूसेलर मोसंबी मौसमी|न्यूसेलर मोसंबी|nucellar mosambi mosambi,nucellar mosambi sathgudi,nucellar mosambi|kg,dozen|^SWEET_LIME
+Seedless Mosambi Sweet Lime|बिनबियांची मोसंबी मौसमी|बिनबियांची मोसंबी|seedless mosambi mosambi,seedless mosambi sathgudi,seedless mosambi|kg,dozen|^SWEET_LIME
+Local Mosambi Sweet Lime|गावरान मोसंबी मौसमी|गावरान मोसंबी|local mosambi mosambi,local mosambi sathgudi,local mosambi|kg,dozen|^SWEET_LIME
+Juice Mosambi Sweet Lime|रसासाठी मोसंबी मौसमी|रसासाठी मोसंबी|juice mosambi mosambi,juice mosambi sathgudi,juice mosambi|kg,dozen|^SWEET_LIME
+Kagzi Lemon|कागदी लिंबू नींबू|कागदी लिंबू|kagzi lemon limbu,kagzi lemon nimbu,kagzi lemon|kg,dozen,piece|^LEMON
+Kagzi Nimbu Lemon|कागजी नींबू|कागजी नींबू लिंबू|kagzi nimbu limbu,kagzi nimbu nimbu,kagzi nimbu|kg,dozen,piece|^LEMON
+Eureka Lemon|युरेका लिंबू नींबू|युरेका लिंबू|eureka lemon limbu,eureka lemon nimbu,eureka lemon|kg,dozen,piece|^LEMON
+Lisbon Lemon|लिस्बन लिंबू नींबू|लिस्बन लिंबू|lisbon lemon limbu,lisbon lemon nimbu,lisbon lemon|kg,dozen,piece|^LEMON
+Rangpur Lime Lemon|रंगपूर लाइम नींबू|रंगपूर लाइम लिंबू|rangpur lime limbu,rangpur lime nimbu,rangpur lime|kg,dozen,piece|^LEMON
+Baramasi Lemon|बारामासी लिंबू नींबू|बारामासी लिंबू|baramasi lemon limbu,baramasi lemon nimbu,baramasi lemon|kg,dozen,piece|^LEMON
+Pramalini Lemon|प्रमालिनी नींबू|प्रमालिनी लिंबू|pramalini limbu,pramalini nimbu,pramalini|kg,dozen,piece|^LEMON
+Vikram Lemon|विक्रम लिंबू नींबू|विक्रम लिंबू|vikram lemon limbu,vikram lemon nimbu,vikram lemon|kg,dozen,piece|^LEMON
+Sai Sarbati Lemon|साई सरबती नींबू|साई सरबती लिंबू|sai sarbati limbu,sai sarbati nimbu,sai sarbati|kg,dozen,piece|^LEMON
+Phule Sharbati Lemon|फुले शरबती नींबू|फुले शरबती लिंबू|phule sharbati limbu,phule sharbati nimbu,phule sharbati|kg,dozen,piece|^LEMON
+Assam Lemon|आसाम लिंबू नींबू|आसाम लिंबू|assam lemon limbu,assam lemon nimbu,assam lemon|kg,dozen,piece|^LEMON
+Gondhoraj Lemon|गंधराज नींबू|गंधराज लिंबू|gondhoraj limbu,gondhoraj nimbu,gondhoraj|kg,dozen,piece|^LEMON
+Gondhoraj Lebu Lemon|गंधराज लेबू नींबू|गंधराज लेबू लिंबू|gondhoraj lebu limbu,gondhoraj lebu nimbu,gondhoraj lebu|kg,dozen,piece|^LEMON
+Meyer Lemon|मेयर लिंबू नींबू|मेयर लिंबू|meyer lemon limbu,meyer lemon nimbu,meyer lemon|kg,dozen,piece|^LEMON
+Seedless Lemon|बिनबियांचे लिंबू नींबू|बिनबियांचे लिंबू|seedless lemon limbu,seedless lemon nimbu,seedless lemon|kg,dozen,piece|^LEMON
+Tahiti Lime Lemon|ताहिती लाइम नींबू|ताहिती लाइम लिंबू|tahiti lime limbu,tahiti lime nimbu,tahiti lime|kg,dozen,piece|^LEMON
+Persian Lime Lemon|पर्शियन लाइम नींबू|पर्शियन लाइम लिंबू|persian lime limbu,persian lime nimbu,persian lime|kg,dozen,piece|^LEMON
+Sweet Lemon|गोड लिंबू नींबू|गोड लिंबू|sweet lemon limbu,sweet lemon nimbu,sweet lemon|kg,dozen,piece|^LEMON
+Sour Lemon|आंबट लिंबू नींबू|आंबट लिंबू|sour lemon limbu,sour lemon nimbu,sour lemon|kg,dozen,piece|^LEMON
+Big Lemon|मोठे लिंबू नींबू|मोठे लिंबू|big lemon limbu,big lemon nimbu,big lemon|kg,dozen,piece|^LEMON
+Small Lemon|लहान लिंबू नींबू|लहान लिंबू|small lemon limbu,small lemon nimbu,small lemon|kg,dozen,piece|^LEMON
+Green Lemon|हिरवे लिंबू नींबू|हिरवे लिंबू|green lemon limbu,green lemon nimbu,green lemon|kg,dozen,piece|^LEMON
+Yellow Lemon|पिवळे लिंबू नींबू|पिवळे लिंबू|yellow lemon limbu,yellow lemon nimbu,yellow lemon|kg,dozen,piece|^LEMON
+Desi Nimbu Lemon|गावरान लिंबू नींबू|गावरान लिंबू|desi nimbu limbu,desi nimbu nimbu,desi nimbu|kg,dozen,piece|^LEMON
+Wild Lemon|रानटी लिंबू नींबू|रानटी लिंबू|wild lemon limbu,wild lemon nimbu,wild lemon|kg,dozen,piece|^LEMON
+Kokum Lemon|कोकम लिंबू नींबू|कोकम लिंबू|kokum lemon limbu,kokum lemon nimbu,kokum lemon|kg,dozen,piece|^LEMON
+@sub|apple-stone-fruit-varieties|Apple, Pear and Stone Fruit Varieties|सेब-नाशपाती-गुठली फल किस्में|सफरचंद-नासपती-आठळी फळ वाण|kg,box,dozen
+Golden Delicious Apple|गोल्डन डेलिशियस सेब|गोल्डन डेलिशियस सफरचंद|golden delicious safarchand,golden delicious seb,golden delicious|kg,box|^APPLE
+Granny Smith Apple|ग्रॅनी स्मिथ सेब|ग्रॅनी स्मिथ सफरचंद|granny smith safarchand,granny smith seb,granny smith|kg,box|^APPLE
+Royal Gala Apple|रॉयल गाला सेब|रॉयल गाला सफरचंद|royal gala safarchand,royal gala seb,royal gala|kg,box|^APPLE
+Red Gold Apple|रेड गोल्ड सेब|रेड गोल्ड सफरचंद|red gold safarchand,red gold seb,red gold|kg,box|^APPLE
+Jonagold Apple|जोनागोल्ड सेब|जोनागोल्ड सफरचंद|jonagold safarchand,jonagold seb,jonagold|kg,box|^APPLE
+Ambri Apple|अंबरी सेब|अंबरी सफरचंद|ambri safarchand,ambri seb,ambri|kg,box|^APPLE
+Kashmiri Ambri Apple|काश्मिरी अंबरी सेब|काश्मिरी अंबरी सफरचंद|kashmiri ambri safarchand,kashmiri ambri seb,kashmiri ambri|kg,box|^APPLE
+Kullu Delicious Apple|कुल्लू डेलिशियस सेब|कुल्लू डेलिशियस सफरचंद|kullu delicious safarchand,kullu delicious seb,kullu delicious|kg,box|^APPLE
+Kinnaur Apple|किन्नौर सफरचंद सेब|किन्नौर सफरचंद|kinnaur apple safarchand,kinnaur apple seb,kinnaur apple|kg,box|^APPLE
+Kashmir Apple|काश्मीर सफरचंद सेब|काश्मीर सफरचंद|kashmir apple safarchand,kashmir apple seb,kashmir apple|kg,box|^APPLE
+Uttarakhand Apple|उत्तराखंड सफरचंद सेब|उत्तराखंड सफरचंद|uttarakhand apple safarchand,uttarakhand apple seb,uttarakhand apple|kg,box|^APPLE
+Mollies Delicious Apple|मॉलीज डेलिशियस सेब|मॉलीज डेलिशियस सफरचंद|mollies delicious safarchand,mollies delicious seb,mollies delicious|kg,box|^APPLE
+Oregon Spur Apple|ओरेगॉन स्पर सेब|ओरेगॉन स्पर सफरचंद|oregon spur safarchand,oregon spur seb,oregon spur|kg,box|^APPLE
+Starkrimson Apple|स्टार्क्रिमसन सेब|स्टार्क्रिमसन सफरचंद|starkrimson safarchand,starkrimson seb,starkrimson|kg,box|^APPLE
+Scarlet Spur Apple|स्कार्लेट स्पर सेब|स्कार्लेट स्पर सफरचंद|scarlet spur safarchand,scarlet spur seb,scarlet spur|kg,box|^APPLE
+Top Red Apple|टॉप रेड सेब|टॉप रेड सफरचंद|top red safarchand,top red seb,top red|kg,box|^APPLE
+Super Chief Apple|सुपर चीफ सेब|सुपर चीफ सफरचंद|super chief safarchand,super chief seb,super chief|kg,box|^APPLE
+Vance Delicious Apple|व्हान्स डेलिशियस सेब|व्हान्स डेलिशियस सफरचंद|vance delicious safarchand,vance delicious seb,vance delicious|kg,box|^APPLE
+Rich-A-Red Apple|रिच-ए-रेड सेब|रिच-ए-रेड सफरचंद|rich-a-red safarchand,rich-a-red seb,rich-a-red|kg,box|^APPLE
+Cox Orange Pippin Apple|कॉक्स ऑरेंज पिपिन सेब|कॉक्स ऑरेंज पिपिन सफरचंद|cox orange pippin safarchand,cox orange pippin seb,cox orange pippin|kg,box|^APPLE
+Red Apple|रेड सफरचंद सेब|रेड सफरचंद|red apple safarchand,red apple seb,red apple|kg,box|^APPLE
+Yellow Apple|पिवळे सफरचंद सेब|पिवळे सफरचंद|yellow apple safarchand,yellow apple seb,yellow apple|kg,box|^APPLE
+Local Apple|स्थानिक सफरचंद सेब|स्थानिक सफरचंद|local apple safarchand,local apple seb,local apple|kg,box|^APPLE
+Crab Apple|क्रॅब ॲपल सेब|क्रॅब ॲपल सफरचंद|crab apple safarchand,crab apple seb,crab apple|kg,box|^APPLE
+Baggugosha Pear|बागुगोशा नाशपाती|बागुगोशा नासपती|baggugosha nashpati,baggugosha|kg,box|^PEAR
+Patharnakh Pear|पथरनख नाशपाती|पथरनख नासपती|patharnakh nashpati,patharnakh|kg,box|^PEAR
+Nashpati Patharnakh Pear|पथरनख नाशपाती|पथरनख नाशपाती नासपती|nashpati patharnakh nashpati,nashpati patharnakh|kg,box|^PEAR
+William Pear|विल्यम नाशपाती|विल्यम नाशपाती नासपती|william pear nashpati,william pear|kg,box|^PEAR
+Bartlett Pear|बार्टलेट नाशपाती|बार्टलेट नासपती|bartlett nashpati,bartlett|kg,box|^PEAR
+Williams Bon Chretien Pear|विल्यम्स बॉन क्रेटियन नाशपाती|विल्यम्स बॉन क्रेटियन नासपती|williams bon chretien nashpati,williams bon chretien|kg,box|^PEAR
+Conference Pear|कॉन्फरन्स नाशपाती|कॉन्फरन्स नासपती|conference nashpati,conference|kg,box|^PEAR
+Packham Pear|पॅकहॅम नाशपाती|पॅकहॅम नासपती|packham nashpati,packham|kg,box|^PEAR
+Anjou Pear|अंजू नाशपाती|अंजू नासपती|anjou nashpati,anjou|kg,box|^PEAR
+Kieffer Pear|कीफर नाशपाती|कीफर नासपती|kieffer nashpati,kieffer|kg,box|^PEAR
+Le Conte Pear|ले काँत नाशपाती|ले काँत नासपती|le conte nashpati,le conte|kg,box|^PEAR
+Gola Pear|गोला नासपती नाशपाती|गोला नासपती|gola pear nashpati,gola pear|kg,box|^PEAR
+Punjab Beauty Pear|पंजाब्युटी नाशपाती|पंजाब्युटी नासपती|punjab beauty nashpati,punjab beauty|kg,box|^PEAR
+Punjab Nectar Pear|पंजाब नेक्टर नाशपाती|पंजाब नेक्टर नासपती|punjab nectar nashpati,punjab nectar|kg,box|^PEAR
+Local Nashpati Pear|स्थानिक नासपती नाशपाती|स्थानिक नासपती|local nashpati nashpati,local nashpati|kg,box|^PEAR
+Shan E Punjab Peach|शान-ए-पंजाब आड़ू|शान-ए-पंजाब पीच|shan e punjab aadu,shan e punjab peach,shan e punjab|kg,box|^PEACH
+Partap Peach|प्रताप आड़ू|प्रतापीच|partap aadu,partap peach,partap|kg,box|^PEACH
+Prabhat Peach|प्रभात आड़ू|प्रभात पीच|prabhat aadu,prabhat peach,prabhat|kg,box|^PEACH
+Sharbati Peach|शरबती पीच आड़ू|शरबती पीच|sharbati peach aadu,sharbati peach peach,sharbati peach|kg,box|^PEACH
+Florda Prince Peach|फ्लोरिडा प्रिन्स आड़ू|फ्लोरिडा प्रिन्स पीच|florda prince aadu,florda prince peach,florda prince|kg,box|^PEACH
+Flordasun Peach|फ्लोरडासन आड़ू|फ्लोरडासन पीच|flordasun aadu,flordasun peach,flordasun|kg,box|^PEACH
+Alexander Peach|अलेक्झांडर आड़ू|अलेक्झांडर पीच|alexander aadu,alexander peach,alexander|kg,box|^PEACH
+July Elberta Peach|जुलै एल्बर्टा आड़ू|जुलै एल्बर्टा पीच|july elberta aadu,july elberta peach,july elberta|kg,box|^PEACH
+Red June Peach|रेड जून आड़ू|रेड जून पीच|red june aadu,red june peach,red june|kg,box|^PEACH
+Saharanpur Prabhat Peach|सहारनपूर प्रभात आड़ू|सहारनपूर प्रभात पीच|saharanpur prabhat aadu,saharanpur prabhat peach,saharanpur prabhat|kg,box|^PEACH
+Local Aadu Peach|स्थानिक आडू आड़ू|स्थानिक आडू पीच|local aadu aadu,local aadu peach,local aadu|kg,box|^PEACH
+Santa Rosa Plum|सांता रोझा आलूबुखारा|सांता रोझा आलुबुखार|santa rosa alu bukhara,santa rosa plum,santa rosa|kg,box|^PLUM
+Satsuma Plum|सत्सुमा प्लम आलूबुखारा|सत्सुमा प्लम आलुबुखार|satsuma plum alu bukhara,satsuma plum plum,satsuma plum|kg,box|^PLUM
+Kala Amritsari Plum|काला अमृतसरी आलूबुखारा|काला अमृतसरी आलुबुखार|kala amritsari alu bukhara,kala amritsari plum,kala amritsari|kg,box|^PLUM
+Green Gage Plum|ग्रीन गेज आलूबुखारा|ग्रीन गेज आलुबुखार|green gage alu bukhara,green gage plum,green gage|kg,box|^PLUM
+Satluj Purple Plum|सतलज पर्पल आलूबुखारा|सतलज पर्पल आलुबुखार|satluj purple alu bukhara,satluj purple plum,satluj purple|kg,box|^PLUM
+Mariposa Plum|मारिपोसा आलूबुखारा|मारिपोसा आलुबुखार|mariposa alu bukhara,mariposa plum,mariposa|kg,box|^PLUM
+Methley Plum|मेथली आलूबुखारा|मेथली आलुबुखार|methley alu bukhara,methley plum,methley|kg,box|^PLUM
+Burbank Plum|बर्बँक आलूबुखारा|बर्बँक आलुबुखार|burbank alu bukhara,burbank plum,burbank|kg,box|^PLUM
+Local Plum|स्थानिक प्लम आलूबुखारा|स्थानिक प्लम आलुबुखार|local plum alu bukhara,local plum plum,local plum|kg,box|^PLUM
+Charmagz Apricot|चारमगज खुबानी|चारमगज जर्दाळू|charmagz khubani,charmagz zardalu,charmagz apricot,charmagz|kg,box|^APRICOT
+Nari Apricot|नारी खुबानी|नारी जर्दाळू|nari khubani,nari zardalu,nari apricot,nari|kg,box|^APRICOT
+Kaisha Apricot|कैशा खुबानी|कैशा जर्दाळू|kaisha khubani,kaisha zardalu,kaisha apricot,kaisha|kg,box|^APRICOT
+Safeda Apricot|सफेदा खुबानी|सफेदा जर्दाळू|safeda khubani,safeda zardalu,safeda apricot,safeda|kg,box|^APRICOT
+Turkey Apricot|तुर्की खुबानी|तुर्की जर्दाळू|turkey khubani,turkey zardalu,turkey apricot,turkey|kg,box|^APRICOT
+New Castle Apricot|न्यूकॅसल खुबानी|न्यूकॅसल जर्दाळू|new castle khubani,new castle zardalu,new castle apricot,new castle|kg,box|^APRICOT
+Moorpark Apricot|मूरपार्क खुबानी|मूरपार्क जर्दाळू|moorpark khubani,moorpark zardalu,moorpark apricot,moorpark|kg,box|^APRICOT
+Dry Apricot Ladakh|लद्दाख सुके जर्दाळू खुबानी|लद्दाख सुके जर्दाळू|dry apricot ladakh khubani,dry apricot ladakh zardalu,dry apricot ladakh apricot,dry apricot ladakh|kg,box|^APRICOT
+Raktsey Karpo Apricot|रक्तसे कारपो खुबानी|रक्तसे कारपो जर्दाळू|raktsey karpo khubani,raktsey karpo zardalu,raktsey karpo apricot,raktsey karpo|kg,box|^APRICOT
+Local Apricot|स्थानिक जर्दाळू खुबानी|स्थानिक जर्दाळू|local apricot khubani,local apricot zardalu,local apricot apricot,local apricot|kg,box|^APRICOT
+@sub|tropical-fruit-varieties|Tropical Fruit Varieties|उष्णकटिबंधीय फल किस्में|उष्णकटिबंधीय फळ वाण|kg,dozen,piece
+Lucknow 49 Guava|लखनौ 49 अमरूद|लखनौ 49 पेरू|lucknow 49 peru,lucknow 49 amrood,lucknow 49|kg,dozen|^GUAVA
+L 49 Guava|एल 49 अमरूद|एल 49 पेरू|l 49 peru,l 49 amrood,l 49|kg,dozen|^GUAVA
+Arka Amulya Guava|अर्का अमूल्या अमरूद|अर्का अमूल्या पेरू|arka amulya peru,arka amulya amrood,arka amulya|kg,dozen|^GUAVA
+Arka Mridula Guava|अर्का मृदुला अमरूद|अर्का मृदुला पेरू|arka mridula peru,arka mridula amrood,arka mridula|kg,dozen|^GUAVA
+Arka Kiran Guava|अर्का किरण अमरूद|अर्का किरण पेरू|arka kiran peru,arka kiran amrood,arka kiran|kg,dozen|^GUAVA
+Arka Rashmi Guava|अर्का रश्मी अमरूद|अर्का रश्मी पेरू|arka rashmi peru,arka rashmi amrood,arka rashmi|kg,dozen|^GUAVA
+Lalit Guava|ललित अमरूद|ललित पेरू|lalit peru,lalit amrood,lalit|kg,dozen|^GUAVA
+Shweta Guava|श्वेता अमरूद|श्वेता पेरू|shweta peru,shweta amrood,shweta|kg,dozen|^GUAVA
+Dhareedar Guava|धारीदार अमरूद|धारीदार पेरू|dhareedar peru,dhareedar amrood,dhareedar|kg,dozen|^GUAVA
+Hafsi Guava|हफ्सी अमरूद|हफ्सी पेरू|hafsi peru,hafsi amrood,hafsi|kg,dozen|^GUAVA
+Banarasi Surkha Guava|बनारसी सुर्खा अमरूद|बनारसी सुर्खा पेरू|banarasi surkha peru,banarasi surkha amrood,banarasi surkha|kg,dozen|^GUAVA
+Safed Jam Guava|सफेद जाम अमरूद|सफेद जाम पेरू|safed jam peru,safed jam amrood,safed jam|kg,dozen|^GUAVA
+Kohir Safeda Guava|कोहिर सफेदा अमरूद|कोहिर सफेदा पेरू|kohir safeda peru,kohir safeda amrood,kohir safeda|kg,dozen|^GUAVA
+Apple Colour Guava|अॅपल कलर अमरूद|अॅपल कलर पेरू|apple colour peru,apple colour amrood,apple colour|kg,dozen|^GUAVA
+Pear Guava|नासपती पेरू अमरूद|नासपती पेरू|pear guava peru,pear guava amrood,pear guava|kg,dozen|^GUAVA
+Thai Guava|थाई पेरू अमरूद|थाई पेरू|thai guava peru,thai guava amrood,thai guava|kg,dozen|^GUAVA
+Taiwan Pink Guava|तैवान पिंक अमरूद|तैवान पिंक पेरू|taiwan pink peru,taiwan pink amrood,taiwan pink|kg,dozen|^GUAVA
+Red Guava|लाल पेरू अमरूद|लाल पेरू|red guava peru,red guava amrood,red guava|kg,dozen|^GUAVA
+White Guava|पांढरा पेरू अमरूद|पांढरा पेरू|white guava peru,white guava amrood,white guava|kg,dozen|^GUAVA
+Seedless Guava|बिनबियांचा पेरू अमरूद|बिनबियांचा पेरू|seedless guava peru,seedless guava amrood,seedless guava|kg,dozen|^GUAVA
+Pusa Guava|पूसा पेरू अमरूद|पूसा पेरू|pusa guava peru,pusa guava amrood,pusa guava|kg,dozen|^GUAVA
+Local Peru Guava|गावरान पेरू अमरूद|गावरान पेरू|local peru peru,local peru amrood,local peru|kg,dozen|^GUAVA
+Hybrid Guava|संकरित पेरू अमरूद|संकरित पेरू|hybrid guava peru,hybrid guava amrood,hybrid guava|kg,dozen|^GUAVA
+Big Peru Guava|मोठा पेरू अमरूद|मोठा पेरू|big peru peru,big peru amrood,big peru|kg,dozen|^GUAVA
+Baby Peru Guava|बेबी पेरू अमरूद|बेबी पेरू|baby peru peru,baby peru amrood,baby peru|kg,dozen|^GUAVA
+Pune Peru Guava|पुणे पेरू अमरूद|पुणे पेरू|pune peru peru,pune peru amrood,pune peru|kg,dozen|^GUAVA
+Aurangabad Peru Guava|औरंगाबाद पेरू अमरूद|औरंगाबाद पेरू|aurangabad peru peru,aurangabad peru amrood,aurangabad peru|kg,dozen|^GUAVA
+Purandar Peru Guava|पुरंदर पेरू अमरूद|पुरंदर पेरू|purandar peru peru,purandar peru amrood,purandar peru|kg,dozen|^GUAVA
+Mridula Pomegranate|मृदुला अनार|मृदुला डाळिंब|mridula dalimb,mridula anar,mridula|kg,box|^POMEGRANATE
+Ruby Pomegranate|रुबी अनार|रुबी डाळिंब|ruby dalimb,ruby anar,ruby|kg,box|^POMEGRANATE
+Super Bhagwa Pomegranate|सुपर भगवा अनार|सुपर भगवा डाळिंब|super bhagwa dalimb,super bhagwa anar,super bhagwa|kg,box|^POMEGRANATE
+Phule Bhagwa Super Pomegranate|फुले भगवा सुपर अनार|फुले भगवा सुपर डाळिंब|phule bhagwa super dalimb,phule bhagwa super anar,phule bhagwa super|kg,box|^POMEGRANATE
+Phule Arakta Pomegranate|फुले अरक्ता अनार|फुले अरक्ता डाळिंब|phule arakta dalimb,phule arakta anar,phule arakta|kg,box|^POMEGRANATE
+Phule Bhagwa Pomegranate|फुले भगवा अनार|फुले भगवा डाळिंब|phule bhagwa dalimb,phule bhagwa anar,phule bhagwa|kg,box|^POMEGRANATE
+Kandhari Pomegranate|कंधारी अनार|कंधारी डाळिंब|kandhari dalimb,kandhari anar,kandhari|kg,box|^POMEGRANATE
+Kandhari Kabuli Pomegranate|कंधारी काबुली अनार|कंधारी काबुली डाळिंब|kandhari kabuli dalimb,kandhari kabuli anar,kandhari kabuli|kg,box|^POMEGRANATE
+Jalore Seedless Pomegranate|जालोर सीडलेस अनार|जालोर सीडलेस डाळिंब|jalore seedless dalimb,jalore seedless anar,jalore seedless|kg,box|^POMEGRANATE
+Jyoti Pomegranate|ज्योती अनार|ज्योती डाळिंब|jyoti dalimb,jyoti anar,jyoti|kg,box|^POMEGRANATE
+G 137 Pomegranate|जी 137 अनार|जी 137 डाळिंब|g 137 dalimb,g 137 anar,g 137|kg,box|^POMEGRANATE
+P 23 Pomegranate|पी 23 अनार|पी 23 डाळिंब|p 23 dalimb,p 23 anar,p 23|kg,box|^POMEGRANATE
+P 26 Pomegranate|पी 26 अनार|पी 26 डाळिंब|p 26 dalimb,p 26 anar,p 26|kg,box|^POMEGRANATE
+Dholka Pomegranate|ढोलका अनार|ढोलका डाळिंब|dholka dalimb,dholka anar,dholka|kg,box|^POMEGRANATE
+Muskat Pomegranate|मस्कत अनार|मस्कत डाळिंब|muskat dalimb,muskat anar,muskat|kg,box|^POMEGRANATE
+Bassein Seedless Pomegranate|वसई बिनबियांचा अनार|वसई बिनबियांचा डाळिंब|bassein seedless dalimb,bassein seedless anar,bassein seedless|kg,box|^POMEGRANATE
+Alandi Pomegranate|आळंदी अनार|आळंदी डाळिंब|alandi dalimb,alandi anar,alandi|kg,box|^POMEGRANATE
+Spanish Ruby Pomegranate|स्पॅनिश रुबी अनार|स्पॅनिश रुबी डाळिंब|spanish ruby dalimb,spanish ruby anar,spanish ruby|kg,box|^POMEGRANATE
+Wonderful Pomegranate|वंडरफुल अनार|वंडरफुल डाळिंब|wonderful dalimb,wonderful anar,wonderful|kg,box|^POMEGRANATE
+Solapur Lal Pomegranate|सोलापूर लाल अनार|सोलापूर लाल डाळिंब|solapur lal dalimb,solapur lal anar,solapur lal|kg,box|^POMEGRANATE
+Solapur Bhagwa Pomegranate|सोलापूर भगवा अनार|सोलापूर भगवा डाळिंब|solapur bhagwa dalimb,solapur bhagwa anar,solapur bhagwa|kg,box|^POMEGRANATE
+Sangola Dalimb Pomegranate|सांगोला डाळिंब अनार|सांगोला डाळिंब|sangola dalimb dalimb,sangola dalimb anar,sangola dalimb|kg,box|^POMEGRANATE
+Mohol Dalimb Pomegranate|मोहोळ डाळिंब अनार|मोहोळ डाळिंब|mohol dalimb dalimb,mohol dalimb anar,mohol dalimb|kg,box|^POMEGRANATE
+Red Anar Pomegranate|लाल अनार|लाल अनार डाळिंब|red anar dalimb,red anar anar,red anar|kg,box|^POMEGRANATE
+Soft Seed Anar Pomegranate|मऊ बियांचा अनार|मऊ बियांचा अनार डाळिंब|soft seed anar dalimb,soft seed anar anar,soft seed anar|kg,box|^POMEGRANATE
+Hard Seed Anar Pomegranate|कडक बियांचा अनार|कडक बियांचा अनार डाळिंब|hard seed anar dalimb,hard seed anar anar,hard seed anar|kg,box|^POMEGRANATE
+Desi Dalimb Pomegranate|गावरान डाळिंब अनार|गावरान डाळिंब|desi dalimb dalimb,desi dalimb anar,desi dalimb|kg,box|^POMEGRANATE
+Wild Anardana Pomegranate|रानटी अनारदाणा|रानटी अनारदाणा डाळिंब|wild anardana dalimb,wild anardana anar,wild anardana|kg,box|^POMEGRANATE
+Pusa Delicious Papaya|पूसा डेलिशियस पपीता|पूसा डेलिशियस पपई|pusa delicious papai,pusa delicious papita,pusa delicious|kg,piece|^PAPAYA
+Pusa Majesty Papaya|पूसा मॅजेस्टी पपीता|पूसा मॅजेस्टी पपई|pusa majesty papai,pusa majesty papita,pusa majesty|kg,piece|^PAPAYA
+Pusa Dwarf Papaya|पूसा ड्वार्फ पपीता|पूसा ड्वार्फ पपई|pusa dwarf papai,pusa dwarf papita,pusa dwarf|kg,piece|^PAPAYA
+Pusa Giant Papaya|पूसा जायंट पपीता|पूसा जायंट पपई|pusa giant papai,pusa giant papita,pusa giant|kg,piece|^PAPAYA
+Pusa Nanha Papaya|पूसा नन्हा पपीता|पूसा नन्हा पपई|pusa nanha papai,pusa nanha papita,pusa nanha|kg,piece|^PAPAYA
+Coorg Honey Dew Papaya|कूर्ग हनीड्यू पपीता|कूर्ग हनीड्यू पपई|coorg honey dew papai,coorg honey dew papita,coorg honey dew|kg,piece|^PAPAYA
+Co 1 Papaya|सीओ 1 पपीता|सीओ 1 पपई|co 1 papai,co 1 papita,co 1|kg,piece|^PAPAYA
+Co 2 Papaya|सीओ 2 पपीता|सीओ 2 पपई|co 2 papai,co 2 papita,co 2|kg,piece|^PAPAYA
+Co 3 Papaya|सीओ 3 पपीता|सीओ 3 पपई|co 3 papai,co 3 papita,co 3|kg,piece|^PAPAYA
+Co 7 Papaya|सीओ 7 पपीता|सीओ 7 पपई|co 7 papai,co 7 papita,co 7|kg,piece|^PAPAYA
+Ranchi Papaya|रांची पपीता|रांची पपई|ranchi papai,ranchi papita,ranchi|kg,piece|^PAPAYA
+Washington Papaya|वॉशिंग्टन पपीता|वॉशिंग्टन पपई|washington papai,washington papita,washington|kg,piece|^PAPAYA
+Taiwan 786 Papaya|तैवान 786 पपीता|तैवान 786 पपई|taiwan 786 papai,taiwan 786 papita,taiwan 786|kg,piece|^PAPAYA
+Surya Papaya|सूर्या पपीता|सूर्या पपई|surya papai,surya papita,surya|kg,piece|^PAPAYA
+Arka Surya Papaya|अर्का सूर्या पपीता|अर्का सूर्या पपई|arka surya papai,arka surya papita,arka surya|kg,piece|^PAPAYA
+Arka Prabhat Papaya|अर्का प्रभात पपीता|अर्का प्रभात पपई|arka prabhat papai,arka prabhat papita,arka prabhat|kg,piece|^PAPAYA
+Vaibhav Papaya|वैभव पपीता|वैभव पपई|vaibhav papaya papai,vaibhav papaya papita,vaibhav papaya|kg,piece|^PAPAYA
+Hybrid Papaya|संकरित पपई पपीता|संकरित पपई|hybrid papaya papai,hybrid papaya papita,hybrid papaya|kg,piece|^PAPAYA
+Seedless Papaya|बिनबियांची पपई पपीता|बिनबियांची पपई|seedless papaya papai,seedless papaya papita,seedless papaya|kg,piece|^PAPAYA
+Papain Type Papaya|पपेनसाठी पपीता|पपेनसाठी पपई|papain type papai,papain type papita,papain type|kg,piece|^PAPAYA
+Solo Papaya|सोलो पपीता|सोलो पपई|solo papai,solo papita,solo|kg,piece|^PAPAYA
+Tainung Papaya|तैनुंग पपीता|तैनुंग पपई|tainung papai,tainung papita,tainung|kg,piece|^PAPAYA
+Sunrise Solo Papaya|सनराईज सोलो पपीता|सनराईज सोलो पपई|sunrise solo papai,sunrise solo papita,sunrise solo|kg,piece|^PAPAYA
+Local Papai Papaya|गावरान पपई पपीता|गावरान पपई|local papai papai,local papai papita,local papai|kg,piece|^PAPAYA
+Kapa Jackfruit|कापा कटहल|कापा फणस|kapa phanas,kapa kathal,kapa|kg,piece|^JACKFRUIT
+Barka Jackfruit|बरका कटहल|बरका फणस|barka phanas,barka kathal,barka|kg,piece|^JACKFRUIT
+Gulabi Phanas Jackfruit|गुलाबी फणस कटहल|गुलाबी फणस|gulabi phanas phanas,gulabi phanas kathal,gulabi phanas|kg,piece|^JACKFRUIT
+Rudrakshi Jackfruit|रुद्राक्षी कटहल|रुद्राक्षी फणस|rudrakshi phanas,rudrakshi kathal,rudrakshi|kg,piece|^JACKFRUIT
+Safed Phanas Jackfruit|सफेद फणस कटहल|सफेद फणस|safed phanas phanas,safed phanas kathal,safed phanas|kg,piece|^JACKFRUIT
+Hybrid Jackfruit|संकरित फणस कटहल|संकरित फणस|hybrid jackfruit phanas,hybrid jackfruit kathal,hybrid jackfruit|kg,piece|^JACKFRUIT
+Singapore Jack Jackfruit|सिंगापूर जॅक कटहल|सिंगापूर जॅक फणस|singapore jack phanas,singapore jack kathal,singapore jack|kg,piece|^JACKFRUIT
+Vietnam Super Early Jackfruit|व्हिएतनाम सुपर अर्ली कटहल|व्हिएतनाम सुपर अर्ली फणस|vietnam super early phanas,vietnam super early kathal,vietnam super early|kg,piece|^JACKFRUIT
+Palur 1 Jackfruit|पालूर 1 कटहल|पालूर 1 फणस|palur 1 phanas,palur 1 kathal,palur 1|kg,piece|^JACKFRUIT
+Varikka Jackfruit|वरिक्का कटहल|वरिक्का फणस|varikka phanas,varikka kathal,varikka|kg,piece|^JACKFRUIT
+Koozha Jackfruit|कूळा कटहल|कूळा फणस|koozha phanas,koozha kathal,koozha|kg,piece|^JACKFRUIT
+Muttom Varikka Jackfruit|मुट्टम वरिक्का कटहल|मुट्टम वरिक्का फणस|muttom varikka phanas,muttom varikka kathal,muttom varikka|kg,piece|^JACKFRUIT
+Thenvarikka Jackfruit|तेन्वरिक्का कटहल|तेन्वरिक्का फणस|thenvarikka phanas,thenvarikka kathal,thenvarikka|kg,piece|^JACKFRUIT
+Ripe Jackfruit|पिकलेला फणस कटहल|पिकलेला फणस|ripe jackfruit phanas,ripe jackfruit kathal,ripe jackfruit|kg,piece|^JACKFRUIT
+Seed Jackfruit|आठळ्या कटहल|आठळ्या फणस|seed jackfruit phanas,seed jackfruit kathal,seed jackfruit|kg,piece|^JACKFRUIT
+Early Jackfruit|लवकर फणस कटहल|लवकर फणस|early jackfruit phanas,early jackfruit kathal,early jackfruit|kg,piece|^JACKFRUIT
+Dwarf Jackfruit|बुटका फणस कटहल|बुटका फणस|dwarf jackfruit phanas,dwarf jackfruit kathal,dwarf jackfruit|kg,piece|^JACKFRUIT
+Cricket Ball Sapota|क्रिकेट बॉल चीकू|क्रिकेट बॉल चिकू|cricket ball chikoo,cricket ball chiku,cricket ball|kg,dozen|^SAPOTA
+Dhola Diwani Sapota|ढोला दिवाणी चीकू|ढोला दिवाणी चिकू|dhola diwani chikoo,dhola diwani chiku,dhola diwani|kg,dozen|^SAPOTA
+Kirthibharathi Sapota|कीर्तीभारती चीकू|कीर्तीभारती चिकू|kirthibharathi chikoo,kirthibharathi chiku,kirthibharathi|kg,dozen|^SAPOTA
+Pala Sapota|पाला चीकू|पाला चिकू|pala chikoo,pala chiku,pala|kg,dozen|^SAPOTA
+Kirti Bharti Sapota|कीर्ती भारती चीकू|कीर्ती भारती चिकू|kirti bharti chikoo,kirti bharti chiku,kirti bharti|kg,dozen|^SAPOTA
+Oval Sapota|ओव्हल चीकू|ओव्हल चिकू|oval chikoo,oval chiku,oval|kg,dozen|^SAPOTA
+Bhuri Patti Sapota|भूरी पत्ती चीकू|भूरी पत्ती चिकू|bhuri patti chikoo,bhuri patti chiku,bhuri patti|kg,dozen|^SAPOTA
+DHS 1 Sapota|डीएचएस 1 चीकू|डीएचएस 1 चिकू|dhs 1 chikoo,dhs 1 chiku,dhs 1|kg,dozen|^SAPOTA
+DHS 2 Sapota|डीएचएस 2 चीकू|डीएचएस 2 चिकू|dhs 2 chikoo,dhs 2 chiku,dhs 2|kg,dozen|^SAPOTA
+CO 1 Sapota|सीओ 1 चीकू|सीओ 1 चिकू|co 1 sapota chikoo,co 1 sapota chiku,co 1 sapota|kg,dozen|^SAPOTA
+CO 2 Sapota|सीओ 2 चीकू|सीओ 2 चिकू|co 2 sapota chikoo,co 2 sapota chiku,co 2 sapota|kg,dozen|^SAPOTA
+CO 3 Sapota|सीओ 3 चीकू|सीओ 3 चिकू|co 3 sapota chikoo,co 3 sapota chiku,co 3 sapota|kg,dozen|^SAPOTA
+PKM 1 Sapota|पीकेएम 1 चीकू|पीकेएम 1 चिकू|pkm 1 sapota chikoo,pkm 1 sapota chiku,pkm 1 sapota|kg,dozen|^SAPOTA
+Gavaraiah Sapota|गावराया चीकू|गावराया चिकू|gavaraiah chikoo,gavaraiah chiku,gavaraiah|kg,dozen|^SAPOTA
+Dahanu Chikoo Sapota|डहाणू चिकू चीकू|डहाणू चिकू|dahanu chikoo chikoo,dahanu chikoo chiku,dahanu chikoo|kg,dozen|^SAPOTA
+Dahanu Gholwad Chikoo Sapota|डहाणू घोलवड चिकू चीकू|डहाणू घोलवड चिकू|dahanu gholwad chikoo chikoo,dahanu gholwad chikoo chiku,dahanu gholwad chikoo|kg,dozen|^SAPOTA
+Round Chikoo Sapota|गोल चिकू चीकू|गोल चिकू|round chikoo chikoo,round chikoo chiku,round chikoo|kg,dozen|^SAPOTA
+Oval Chikoo Sapota|लांबट चिकू चीकू|लांबट चिकू|oval chikoo chikoo,oval chikoo chiku,oval chikoo|kg,dozen|^SAPOTA
+Big Chikoo Sapota|मोठा चिकू चीकू|मोठा चिकू|big chikoo chikoo,big chikoo chiku,big chikoo|kg,dozen|^SAPOTA
+Small Chikoo Sapota|लहान चिकू चीकू|लहान चिकू|small chikoo chikoo,small chikoo chiku,small chikoo|kg,dozen|^SAPOTA
+Desi Chikoo Sapota|गावरान चिकू चीकू|गावरान चिकू|desi chikoo chikoo,desi chikoo chiku,desi chikoo|kg,dozen|^SAPOTA
+Mammoth Custard Apple|मॅमथ सीताफल|मॅमथ सीताफळ|mammoth sitaphal,mammoth|kg,dozen|^CUSTARD_APPLE
+Red Sitaphal Custard Apple|लाल सीताफळ सीताफल|लाल सीताफळ|red sitaphal sitaphal,red sitaphal|kg,dozen|^CUSTARD_APPLE
+Arka Sahan Custard Apple|अर्का सहान सीताफल|अर्का सहान सीताफळ|arka sahan sitaphal,arka sahan|kg,dozen|^CUSTARD_APPLE
+Atemoya Custard Apple|अटेमोया सीताफल|अटेमोया सीताफळ|atemoya sitaphal,atemoya|kg,dozen|^CUSTARD_APPLE
+Phule Purandar Custard Apple|फुले पुरंदर सीताफल|फुले पुरंदर सीताफळ|phule purandar sitaphal,phule purandar|kg,dozen|^CUSTARD_APPLE
+NMK 1 Golden Custard Apple|एनएमके 1 गोल्डन सीताफल|एनएमके 1 गोल्डन सीताफळ|nmk 1 golden sitaphal,nmk 1 golden|kg,dozen|^CUSTARD_APPLE
+Golden Sitaphal Custard Apple|गोल्डन सीताफळ सीताफल|गोल्डन सीताफळ|golden sitaphal sitaphal,golden sitaphal|kg,dozen|^CUSTARD_APPLE
+Purandar Sitaphal Custard Apple|पुरंदर सीताफळ सीताफल|पुरंदर सीताफळ|purandar sitaphal sitaphal,purandar sitaphal|kg,dozen|^CUSTARD_APPLE
+Dhule Sitaphal Custard Apple|धुळे सीताफळ सीताफल|धुळे सीताफळ|dhule sitaphal sitaphal,dhule sitaphal|kg,dozen|^CUSTARD_APPLE
+Beed Sitaphal Custard Apple|बीड सीताफळ सीताफल|बीड सीताफळ|beed sitaphal sitaphal,beed sitaphal|kg,dozen|^CUSTARD_APPLE
+Local Sitaphal Custard Apple|गावरान सीताफळ सीताफल|गावरान सीताफळ|local sitaphal sitaphal,local sitaphal|kg,dozen|^CUSTARD_APPLE
+Seedless Sitaphal Custard Apple|बिनबियांचे सीताफळ सीताफल|बिनबियांचे सीताफळ|seedless sitaphal sitaphal,seedless sitaphal|kg,dozen|^CUSTARD_APPLE
+Big Sitaphal Custard Apple|मोठे सीताफळ सीताफल|मोठे सीताफळ|big sitaphal sitaphal,big sitaphal|kg,dozen|^CUSTARD_APPLE
+African Pride Custard Apple|आफ्रिकन प्राईड सीताफल|आफ्रिकन प्राईड सीताफळ|african pride sitaphal,african pride|kg,dozen|^CUSTARD_APPLE
+Shahi Litchi|शाही लीची|शाही लिची|shahi lichi,shahi litchi,shahi|kg,box|^LITCHI
+China Litchi|चायना लीची|चायना लिची|china lichi,china litchi,china|kg,box|^LITCHI
+Dehradun Litchi|देहरादून लीची|देहरादून लिची|dehradun lichi,dehradun litchi,dehradun|kg,box|^LITCHI
+Rose Scented Litchi|गुलाब सुगंधी लीची|गुलाब सुगंधी लिची|rose scented lichi,rose scented litchi,rose scented|kg,box|^LITCHI
+Bombai Litchi|बोंबाई लीची|बोंबाई लिची|bombai lichi,bombai litchi,bombai|kg,box|^LITCHI
+Bedana Litchi|बेदाना लीची|बेदाना लिची|bedana lichi,bedana litchi,bedana|kg,box|^LITCHI
+Calcuttia Litchi|कलकत्तिया लीची|कलकत्तिया लिची|calcuttia lichi,calcuttia litchi,calcuttia|kg,box|^LITCHI
+Purbi Litchi|पूर्वी लीची|पूर्वी लिची|purbi lichi,purbi litchi,purbi|kg,box|^LITCHI
+Late Bedana Litchi|लेट बेदाना लीची|लेट बेदाना लिची|late bedana lichi,late bedana litchi,late bedana|kg,box|^LITCHI
+Seedless Late Litchi|बिनबियांची लेट लीची|बिनबियांची लेट लिची|seedless late lichi,seedless late litchi,seedless late|kg,box|^LITCHI
+Muzaffarpur Shahi Litchi|मुजफ्फरपूर शाही लीची|मुजफ्फरपूर शाही लिची|muzaffarpur shahi lichi,muzaffarpur shahi litchi,muzaffarpur shahi|kg,box|^LITCHI
+Bihar Litchi|बिहार लीची|बिहार लीची लिची|bihar litchi lichi,bihar litchi litchi,bihar litchi|kg,box|^LITCHI
+Local Litchi|स्थानिक लीची|स्थानिक लीची लिची|local litchi lichi,local litchi litchi,local litchi|kg,box|^LITCHI
+Early Litchi|लवकर लीची|लवकर लीची लिची|early litchi lichi,early litchi litchi,early litchi|kg,box|^LITCHI
+Late Litchi|उशिरा लीची|उशिरा लीची लिची|late litchi lichi,late litchi litchi,late litchi|kg,box|^LITCHI
+Purandar Anjeer Fig|पुरंदर अंजीर|पुरंदर अंजीर|purandar anjeer anjeer,purandar anjeer anjir,purandar anjeer|kg,box|^FIG
+Dinkar Fig|दिनकर अंजीर|दिनकर अंजीर|dinkar anjeer,dinkar anjir,dinkar|kg,box|^FIG
+Deanna Fig|डीना अंजीर|डीना अंजीर|deanna anjeer,deanna anjir,deanna|kg,box|^FIG
+Brown Turkey Fig|ब्राऊन टर्की अंजीर|ब्राऊन टर्की अंजीर|brown turkey anjeer,brown turkey anjir,brown turkey|kg,box|^FIG
+Conadria Fig|कॉनॅड्रिया अंजीर|कॉनॅड्रिया अंजीर|conadria anjeer,conadria anjir,conadria|kg,box|^FIG
+Black Mission Fig|ब्लॅक मिशन अंजीर|ब्लॅक मिशन अंजीर|black mission anjeer,black mission anjir,black mission|kg,box|^FIG
+Kadota Fig|कडोटा अंजीर|कडोटा अंजीर|kadota anjeer,kadota anjir,kadota|kg,box|^FIG
+Dried Anjeer Fig|सुके अंजीर|सुके अंजीर|dried anjeer anjeer,dried anjeer anjir,dried anjeer|kg,box|^FIG
+Afghan Anjeer Fig|अफगाणी अंजीर|अफगाणी अंजीर|afghan anjeer anjeer,afghan anjeer anjir,afghan anjeer|kg,box|^FIG
+Dry Anjeer Premium Fig|सुके अंजीर प्रीमियम|सुके अंजीर प्रीमियम|dry anjeer premium anjeer,dry anjeer premium anjir,dry anjeer premium|kg,box|^FIG
+Fresh Anjeer Fig|ताजे अंजीर|ताजे अंजीर|fresh anjeer anjeer,fresh anjeer anjir,fresh anjeer|kg,box|^FIG
+Local Anjeer Fig|गावरान अंजीर|गावरान अंजीर|local anjeer anjeer,local anjeer anjir,local anjeer|kg,box|^FIG
+Kew Pineapple|कीव अनानास|कीव अननस|kew ananas,kew|kg,piece|^PINEAPPLE
+Queen Pineapple|क्वीन अनानास|क्वीन अननस|queen ananas,queen|kg,piece|^PINEAPPLE
+Giant Kew Pineapple|जायंट कीव अनानास|जायंट कीव अननस|giant kew ananas,giant kew|kg,piece|^PINEAPPLE
+Mauritius Pineapple|मॉरिशस अनानास|मॉरिशस अननस|mauritius ananas,mauritius|kg,piece|^PINEAPPLE
+Amritha Pineapple|अमृता अनानास|अमृता अननस|amritha ananas,amritha|kg,piece|^PINEAPPLE
+Mitchell Pineapple|मिचेल अनानास|मिचेल अननस|mitchell ananas,mitchell|kg,piece|^PINEAPPLE
+Sugarloaf Pineapple|शुगरलोफ अनानास|शुगरलोफ अननस|sugarloaf ananas,sugarloaf|kg,piece|^PINEAPPLE
+Vazhakulam Pineapple|वाळकुलम अननस अनानास|वाळकुलम अननस|vazhakulam pineapple ananas,vazhakulam pineapple|kg,piece|^PINEAPPLE
+Tripura Queen Pineapple|त्रिपुरा क्वीन अनानास|त्रिपुरा क्वीन अननस|tripura queen ananas,tripura queen|kg,piece|^PINEAPPLE
+Honey Queen Pineapple|हनी क्वीन अनानास|हनी क्वीन अननस|honey queen ananas,honey queen|kg,piece|^PINEAPPLE
+Local Pineapple|स्थानिक अननस अनानास|स्थानिक अननस|local pineapple ananas,local pineapple|kg,piece|^PINEAPPLE
+Sweet Charlie Strawberry|स्वीट चार्ली स्ट्रॉबेरी|स्वीट चार्ली स्ट्रॉबेरी|sweet charlie strawberry,sweet charlie|kg,box|^STRAWBERRY
+Winter Dawn Strawberry|विंटर डॉन स्ट्रॉबेरी|विंटर डॉन स्ट्रॉबेरी|winter dawn strawberry,winter dawn|kg,box|^STRAWBERRY
+Camarosa Strawberry|कॅमरोसा स्ट्रॉबेरी|कॅमरोसा स्ट्रॉबेरी|camarosa strawberry,camarosa|kg,box|^STRAWBERRY
+Nabila Strawberry|नबीला स्ट्रॉबेरी|नबीला स्ट्रॉबेरी|nabila strawberry,nabila|kg,box|^STRAWBERRY
+Chandler Strawberry|चँडलर स्ट्रॉबेरी|चँडलर स्ट्रॉबेरी|chandler strawberry,chandler|kg,box|^STRAWBERRY
+Ofra Strawberry|ओफ्रा स्ट्रॉबेरी|ओफ्रा स्ट्रॉबेरी|ofra strawberry,ofra|kg,box|^STRAWBERRY
+Festival Strawberry|फेस्टिव्हल स्ट्रॉबेरी|फेस्टिव्हल स्ट्रॉबेरी|festival strawberry,festival|kg,box|^STRAWBERRY
+Satara Strawberry|सातारा स्ट्रॉबेरी|सातारा स्ट्रॉबेरी|satara strawberry strawberry,satara strawberry|kg,box|^STRAWBERRY
+Pachgani Strawberry|पाचगणी स्ट्रॉबेरी|पाचगणी स्ट्रॉबेरी|pachgani strawberry strawberry,pachgani strawberry|kg,box|^STRAWBERRY
+Local Strawberry|स्थानिक स्ट्रॉबेरी|स्थानिक स्ट्रॉबेरी|local strawberry strawberry,local strawberry|kg,box|^STRAWBERRY
+Tall Coconut|उंच नारळ नारियल|उंच नारळ|tall coconut naral,tall coconut nariyal,tall coconut|piece,kg|^COCONUT
+Dwarf Coconut|बुटका नारळ नारियल|बुटका नारळ|dwarf coconut naral,dwarf coconut nariyal,dwarf coconut|piece,kg|^COCONUT
+Hybrid Coconut|संकरित नारळ नारियल|संकरित नारळ|hybrid coconut naral,hybrid coconut nariyal,hybrid coconut|piece,kg|^COCONUT
+West Coast Tall Coconut|वेस्ट कोस्टॉल नारियल|वेस्ट कोस्टॉल नारळ|west coast tall naral,west coast tall nariyal,west coast tall|piece,kg|^COCONUT
+East Coast Tall Coconut|ईस्ट कोस्टॉल नारियल|ईस्ट कोस्टॉल नारळ|east coast tall naral,east coast tall nariyal,east coast tall|piece,kg|^COCONUT
+Chowghat Orange Dwarf Coconut|चौघाट ऑरेंज ड्वार्फ नारियल|चौघाट ऑरेंज ड्वार्फ नारळ|chowghat orange dwarf naral,chowghat orange dwarf nariyal,chowghat orange dwarf|piece,kg|^COCONUT
+Chowghat Green Dwarf Coconut|चौघाट ग्रीन ड्वार्फ नारियल|चौघाट ग्रीन ड्वार्फ नारळ|chowghat green dwarf naral,chowghat green dwarf nariyal,chowghat green dwarf|piece,kg|^COCONUT
+Malayan Yellow Dwarf Coconut|मलायन यलो ड्वार्फ नारियल|मलायन यलो ड्वार्फ नारळ|malayan yellow dwarf naral,malayan yellow dwarf nariyal,malayan yellow dwarf|piece,kg|^COCONUT
+Konkan Bhatye Coconut|कोकण भाटये नारियल|कोकण भाटये नारळ|konkan bhatye naral,konkan bhatye nariyal,konkan bhatye|piece,kg|^COCONUT
+Banavali Coconut|बनावली नारियल|बनावली नारळ|banavali naral,banavali nariyal,banavali|piece,kg|^COCONUT
+Konkan Tall Coconut|कोकण टॉल नारियल|कोकण टॉल नारळ|konkan tall naral,konkan tall nariyal,konkan tall|piece,kg|^COCONUT
+Philippines Ordinary Coconut|फिलिपाईन्स ऑर्डिनरी नारियल|फिलिपाईन्स ऑर्डिनरी नारळ|philippines ordinary naral,philippines ordinary nariyal,philippines ordinary|piece,kg|^COCONUT
+Laccadive Ordinary Coconut|लक्कादीव ऑर्डिनरी नारियल|लक्कादीव ऑर्डिनरी नारळ|laccadive ordinary naral,laccadive ordinary nariyal,laccadive ordinary|piece,kg|^COCONUT
+Andaman Ordinary Coconut|अंदमान ऑर्डिनरी नारियल|अंदमान ऑर्डिनरी नारळ|andaman ordinary naral,andaman ordinary nariyal,andaman ordinary|piece,kg|^COCONUT
+Kera Chandra Coconut|केरा चंद्रा नारियल|केरा चंद्रा नारळ|kera chandra naral,kera chandra nariyal,kera chandra|piece,kg|^COCONUT
+Kera Sankara Coconut|केरा शंकरा नारियल|केरा शंकरा नारळ|kera sankara naral,kera sankara nariyal,kera sankara|piece,kg|^COCONUT
+Chandrasankara Coconut|चंद्रशंकरा नारियल|चंद्रशंकरा नारळ|chandrasankara naral,chandrasankara nariyal,chandrasankara|piece,kg|^COCONUT
+Tender Coconut Orange|ऑरेंज शहाळे नारियल|ऑरेंज शहाळे नारळ|tender coconut orange naral,tender coconut orange nariyal,tender coconut orange|piece,kg|^COCONUT
+Green Tender Coconut|हिरवे शहाळे नारियल|हिरवे शहाळे नारळ|green tender coconut naral,green tender coconut nariyal,green tender coconut|piece,kg|^COCONUT
+Dry Coconut Whole|सुके खोबरे वाटी नारियल|सुके खोबरे वाटी नारळ|dry coconut whole naral,dry coconut whole nariyal,dry coconut whole|piece,kg|^COCONUT
+Mature Coconut|पक्व नारळ नारियल|पक्व नारळ|mature coconut naral,mature coconut nariyal,mature coconut|piece,kg|^COCONUT
+Husked Coconut|सोललेला नारळ नारियल|सोललेला नारळ|husked coconut naral,husked coconut nariyal,husked coconut|piece,kg|^COCONUT
+Unhusked Coconut|न सोललेला नारळ नारियल|न सोललेला नारळ|unhusked coconut naral,unhusked coconut nariyal,unhusked coconut|piece,kg|^COCONUT
+Pooja Coconut|पूजेचा नारळ नारियल|पूजेचा नारळ|pooja coconut naral,pooja coconut nariyal,pooja coconut|piece,kg|^COCONUT
+Sheendi Coconut|शेंडी नारळ नारियल|शेंडी नारळ|sheendi coconut naral,sheendi coconut nariyal,sheendi coconut|piece,kg|^COCONUT
+Ball Copra Coconut|गोटा खोबरे नारियल|गोटा खोबरे नारळ|ball copra naral,ball copra nariyal,ball copra|piece,kg|^COCONUT
+Milling Copra Coconut|मिलिंग खोबरे नारियल|मिलिंग खोबरे नारळ|milling copra naral,milling copra nariyal,milling copra|piece,kg|^COCONUT
+Edible Copra Coconut|खाद्य खोबरे नारियल|खाद्य खोबरे नारळ|edible copra naral,edible copra nariyal,edible copra|piece,kg|^COCONUT

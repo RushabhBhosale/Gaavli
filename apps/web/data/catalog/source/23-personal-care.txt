@@ -23,7 +23,7 @@ Pumice Stone|झामा|झांजा दगड|jhama,pumice|piece
 @sub|hair-care|Hair Care|बालों की देखभाल|केसांची निगा|piece,bottle
 Shampoo|शैम्पू|शाम्पू|shampoo|ml,bottle,packet
 Herbal Shampoo|हर्बल शैम्पू|हर्बल शाम्पू|||^SHAMPOO
-Conditioner|कंडीशनर|कंडिशनर|||?
+Conditioner|कंडीशनर|कंडिशनर|||
 Hair Oil|बालों का तेल|केसांचे तेल|baal tel,kesache tel,hair oil|ml,bottle
 Amla Hair Oil|आंवला हेयर ऑयल|आवळा केस तेल|amla tel||^HAIR_OIL
 Bhringraj Oil|भृंगराज तेल|माका तेल|maka tel,bhringraj||^HAIR_OIL
@@ -31,7 +31,7 @@ Coconut Hair Oil|नारियल तेल (बाल)|खोबरेल क
 Mehendi Powder|मेहंदी पाउडर|मेंदी पावडर|mehndi,henna,mendi|g,packet
 Mehendi Cone|मेहंदी कोन|मेंदी कोन|henna cone|piece,packet
 Hair Dye|बालों का रंग|केसांचा रंग|hair colour,kala rang|piece,packet
-Hair Gel|हेयर जेल|हेअर जेल|||?
+Hair Gel|हेयर जेल|हेअर जेल|||
 Hair Clips|बालों की क्लिप|केसांच्या क्लिपा|hair pin,clutcher|packet,piece
 Hair Band|हेयर बैंड|हेअर बँड|rubber band,scrunchie|packet,piece
 Wooden Comb|लकड़ी की कंघी|लाकडी कंगवा|||^COMB
@@ -60,38 +60,38 @@ Nail Polish|नेल पॉलिश|नेलपेंट|nail paint|piece
 Nail Cutter|नेल कटर|नेल कटर|nail clipper|piece
 Bindi|बिंदी|टिकली|tikli,bindi|packet
 Kumkum Liquid|लिक्विड कुमकुम|लिक्विड कुंकू|liquid sindoor|piece
-Face Powder|फ़ेस पाउडर|फेस पावडर|compact||?
+Face Powder|फ़ेस पाउडर|फेस पावडर|compact||
 Perfume|परफ़्यूम|परफ्यूम|scent,deo,perfume|ml,bottle
 Attar|इत्र|अत्तर|attar,ittar|ml,bottle
 Deodorant|डिओडोरेंट|डिओडरंट|deo,body spray|ml,bottle
 
 @sub|shaving-grooming|Shaving and Grooming|शेविंग और सौंदर्य|दाढी आणि ग्रूमिंग|piece
 Shaving Cream|शेविंग क्रीम|दाढीचे क्रीम|shaving cream|piece,g
-Shaving Brush|शेविंग ब्रश|दाढीचा ब्रश|||?
+Shaving Brush|शेविंग ब्रश|दाढीचा ब्रश|||
 Razor|रेज़र|रेझर|razor|piece,packet
 Razor Blades|ब्लेड|ब्लेड|blade,patti|packet
 After Shave Lotion|आफ्टर शेव लोशन|आफ्टर शेव्ह लोशन|alum stone
 Trimmer|ट्रिमर|ट्रिमर|beard trimmer|piece
 Sanitary Pads|सैनिटरी पैड|सॅनिटरी पॅड|pads,napkin|packet
 Cloth Sanitary Pads|कपड़े के पैड|कापडी पॅड|reusable pads|packet
-Menstrual Cup|मेंस्ट्रुअल कप|मासिक पाळी कप|||?
+Menstrual Cup|मेंस्ट्रुअल कप|मासिक पाळी कप|||
 
 @category|baby-health|personal_care|Baby Care and Health|शिशु देखभाल और स्वास्थ्य|बाळांची निगा आणि आरोग्य
 @sub|baby-care|Baby Care|शिशु देखभाल|बाळांची निगा|piece,packet
 Baby Diapers|बच्चों के डायपर|बाळाचे डायपर|diaper|packet
 Cloth Nappies|कपड़े की लंगोट|कापडी लंगोट|langot,nappy|piece,dozen,packet
 Baby Wipes|बेबी वाइप्स|बेबी वाइप्स|wet wipes|packet
-Baby Oil|बेबी ऑयल|बेबी ऑईल|||?
-Baby Massage Oil|शिशु मालिश तेल|बाळाच्या मालिशचे तेल|malish tel||?
+Baby Oil|बेबी ऑयल|बेबी ऑईल|||
+Baby Massage Oil|शिशु मालिश तेल|बाळाच्या मालिशचे तेल|malish tel||
 Baby Powder|बेबी पाउडर|बेबी पावडर
-Baby Soap|बेबी साबुन|बेबी साबण|||?
+Baby Soap|बेबी साबुन|बेबी साबण|||
 Baby Shampoo|बेबी शैम्पू|बेबी शाम्पू
 Feeding Bottle|दूध की बोतल|दुधाची बाटली|feeder,feeding bottle|piece
 Baby Cradle|पालना|पाळणा|palna,jhula,cradle|piece
 Baby Swaddle|लपेटने का कपड़ा|दुपटे|dupte,swaddle|piece,set
 Baby Clothes|बच्चों के कपड़े|बाळाचे कपडे|jabla,zabla,baby dress|piece,set
 Jabla|झबला|झबले|jabla,zabla||^BABY_CLOTHES
-Teether|दांत निकलने का खिलौना|दात येण्याचे खेळणे|||?
+Teether|दांत निकलने का खिलौना|दात येण्याचे खेळणे|||
 Baby Walker|बेबी वॉकर|बेबी वॉकर|walker|piece
 Baby Food Cereal|शिशु आहार|बाळाचा आहार|baby cereal|g,packet
 Nachni Satva for Babies|बच्चों के लिए रागी सत्व|बाळांसाठी नाचणी सत्व|||^NACHNI_SATVA
@@ -103,7 +103,7 @@ Kala Dhaga|काला धागा|काळा दोरा|black thread,naza
 Cotton Roll|रुई|कापूस (वैद्यकीय)|absorbent cotton,rui|g,packet,roll
 Bandage|पट्टी|पट्टी|bandage,gauze|piece,roll,packet
 Adhesive Bandage|बैंड-एड|चिकट पट्टी|plaster|packet,box
-Crepe Bandage|क्रेप बैंडेज|क्रेप बँडेज|||?
+Crepe Bandage|क्रेप बैंडेज|क्रेप बँडेज|||
 Thermometer|थर्मामीटर|थर्मामीटर|tapman|piece
 Hot Water Bag|गरम पानी की थैली|गरम पाण्याची पिशवी|garam pani bag|piece
 Face Mask|मास्क|मास्क|mask,face mask|piece,packet,box

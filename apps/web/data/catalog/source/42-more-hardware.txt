@@ -13,31 +13,31 @@ Shutter Lock|शटर ताला|शटर कुलूप|||^PADLOCK
 Digital Door Lock|डिजिटल डोर लॉक|डिजिटल डोअर लॉक
 @sub|hand-tools
 Shovel|बेलचा|फावडे (मोठे)|belcha||^SPADE
-Mattock|गैंती (कुदाल)|कुदळ (टिकाव)|||?
+Mattock|गैंती (कुदाल)|कुदळ (टिकाव)|||
 Hand Drill|हैंड ड्रिल|हात ड्रिल|||^DRILL_MACHINE
 Hammer Drill|हैमर ड्रिल|हॅमर ड्रिल|||^DRILL_MACHINE
 Marble Cutter|मार्बल कटर|मार्बल कटर
 Wood Planer|रंदा|रंधा|randa,planer
-Wood Router|राउटर मशीन|राऊटर मशीन|||?
-Jigsaw Machine|जिगसॉ|जिगसॉ|||?
-Nail Puller|कील निकालने वाला|खिळे काढणी|||?
+Wood Router|राउटर मशीन|राऊटर मशीन|||
+Jigsaw Machine|जिगसॉ|जिगसॉ|||
+Nail Puller|कील निकालने वाला|खिळे काढणी|||
 Anvil|निहाई|ऐरण|airan,anvil|piece
 Carpenter Square|गुनिया|गुण्या|gunya,try square
 Pipe Cutter|पाइप कटर|पाईप कटर
 Crimping Tool|क्रिम्पिंग टूल|क्रिम्पिंग टूल
-Safety Goggles|सुरक्षा चश्मा|सुरक्षा गॉगल|||?
-Safety Gloves|सुरक्षा दस्ताने|सुरक्षा हातमोजे|leather gloves||?
+Safety Goggles|सुरक्षा चश्मा|सुरक्षा गॉगल|||
+Safety Gloves|सुरक्षा दस्ताने|सुरक्षा हातमोजे|leather gloves||
 Reflective Jacket|रिफ़्लेक्टिव जैकेट|रिफ्लेक्टिव्ह जॅकेट|safety jacket
 @sub|electrical
 Smart Bulb|स्मार्ट बल्ब|स्मार्ट बल्ब|||^LED_BULB
-Pendant Light|लटकती लाइट|लटकणारा दिवा|hanging light||?
-Gate Light|गेट लाइट|गेट दिवा|||?
+Pendant Light|लटकती लाइट|लटकणारा दिवा|hanging light||
+Gate Light|गेट लाइट|गेट दिवा|||
 Bulb Garland Lights|बल्ब झालर|बल्बची माळ|jhalar,tora||^DIWALI_LIGHTS
-Mosquito Killer Lamp|मच्छर मारने वाला लैंप|डास मारणारा दिवा|||?
+Mosquito Killer Lamp|मच्छर मारने वाला लैंप|डास मारणारा दिवा|||
 Battery Charger|बैटरी चार्जर|बॅटरी चार्जर
 Solar Charge Controller|सोलर चार्ज कंट्रोलर|सोलर चार्ज कंट्रोलर
-Solar Home Light Kit|सोलर होम लाइट किट|सौर गृह दिवा संच|||?
-Solar Fan|सोलर पंखा|सौर पंखा|||?
+Solar Home Light Kit|सोलर होम लाइट किट|सौर गृह दिवा संच|||
+Solar Fan|सोलर पंखा|सौर पंखा|||
 Pedestal Fan|पेडस्टल पंखा|पेडेस्टल पंखा|stand fan||^CEILING_FAN
 Rechargeable Fan|रिचार्जेबल पंखा|रिचार्जेबल पंखा|||^CEILING_FAN
 Water Pump Controller|पंप कंट्रोलर|पंप कंट्रोलर|mobile starter,gsm starter||^STARTER
@@ -49,7 +49,7 @@ Cable Tie|केबल टाई|केबल टाय|zip tie|packet
 Plastic Tap|प्लास्टिक नल|प्लास्टिक नळ|||^WATER_TAP
 Brass Tap|पीतल का नल|पितळी नळ|||^WATER_TAP
 Pillar Cock|पिलर कॉक|पिलर कॉक|||^WATER_TAP
-Angle Valve|एंगल वाल्व|अँगल व्हॉल्व्ह|||?
+Angle Valve|एंगल वाल्व|अँगल व्हॉल्व्ह|||
 Gate Valve|गेट वाल्व|गेट व्हॉल्व्ह
 Non Return Valve|नॉन रिटर्न वाल्व|नॉन रिटर्न व्हॉल्व्ह|nrv
 Loft Tank|लॉफ़्ट टैंक|लॉफ्ट टाकी|||^WATER_TANK
@@ -57,7 +57,7 @@ Overhead Tank|ओवरहेड टैंक|ओव्हरहेड टाक
 Water Storage Drum|पानी भंडारण ड्रम|पाणी साठवण पिंप|||^PLASTIC_DRUM
 Connection Pipe|कनेक्शन पाइप|कनेक्शन पाईप|flexible connector|piece
 Sink Coupling|सिंक कपलिंग|सिंक कपलिंग|waste coupling|piece
-Urinal|यूरिनल|मुतारी भांडे|||?
+Urinal|यूरिनल|मुतारी भांडे|||
 @sub|building-materials
 Red Bricks|लाल ईंट|लाल वीट|lal vit||^BRICKS
 Hollow Blocks|होलो ब्लॉक|होलो ब्लॉक|||^CEMENT_BLOCKS
@@ -74,14 +74,14 @@ Gypsum Board|जिप्सम बोर्ड|जिप्सम बोर्�
 Cement Bricks|सीमेंट ईंट|सिमेंट वीट|||^CEMENT_BLOCKS
 Lime Stone|चूना पत्थर|चुनखडी|chunkhadi|kg,ton
 River Sand|नदी की रेत|नदीची वाळू|||^SAND
-Plaster Sand|प्लास्टर रेत|गिलावा वाळू|||?
+Plaster Sand|प्लास्टर रेत|गिलावा वाळू|||
 Coarse Aggregate 20mm|20 मिमी गिट्टी|20 मिमी खडी|||^AGGREGATE
 Fine Aggregate 10mm|10 मिमी गिट्टी|10 मिमी खडी|||^AGGREGATE
-Stone Dust|पत्थर का चूरा|डस्ट (खडी)|crusher dust||?
+Stone Dust|पत्थर का चूरा|डस्ट (खडी)|crusher dust||
 
 @category|vehicles
 @sub|vehicle-accessories
-Bike Silencer|बाइक साइलेंसर|गाडी सायलेन्सर|||?
+Bike Silencer|बाइक साइलेंसर|गाडी सायलेन्सर|||
 Bike Mudguard|मडगार्ड|मडगार्ड
 Car Battery|कार बैटरी|कार बॅटरी|||^BIKE_BATTERY
 Tractor Battery|ट्रैक्टर बैटरी|ट्रॅक्टर बॅटरी|||^BIKE_BATTERY
@@ -90,4 +90,4 @@ Gear Oil|गियर ऑयल|गिअर ऑईल
 Diesel Filter|डीज़ल फ़िल्टर|डिझेल फिल्टर
 Air Filter|एयर फ़िल्टर|एअर फिल्टर
 Oil Filter|ऑयल फ़िल्टर|ऑईल फिल्टर
-Tractor Trolley Tyre|ट्रॉली टायर|ट्रॉली टायर|||?
+Tractor Trolley Tyre|ट्रॉली टायर|ट्रॉली टायर|||

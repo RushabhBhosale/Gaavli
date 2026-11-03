@@ -1,0 +1,927 @@
+# Generated from curated specs; see data/catalog/README.md.
+@category|regional-cuisine
+@sub|konkan-goan|Konkan, Goan and Coastal Foods|कोंकणी और गोवन व्यंजन|कोकणी व गोवन पदार्थ|plate,kg,piece
+Goan Fish Curry Rice|गोवन फिश करी राइस|गोवन फिश करी राइस|goan fish curry rice
+Xacuti Chicken|शाकुती चिकन|शाकुती चिकन|xacuti chicken
+Chicken Cafreal|चिकन काफ्रेल|चिकन काफ्रेल|chicken cafreal
+Pork Vindaloo|पोर्क विंदालू|पोर्क विंदालू|pork vindaloo
+Pork Sorpotel|पोर्क सोरपोटेल|पोर्क सोरपोटेल|pork sorpotel
+Pork Sausage Goan|गोवन पोर्क सॉसेज|गोवन पोर्क सॉसेज|pork sausage goan
+Chourico|चौरीस|चौरीस|chourico
+Prawn Balchao|प्रॉन बालचाव|प्रॉन बालचाव|prawn balchao
+Fish Recheado|फिश रेचाडो|फिश रेचाडो|fish recheado
+Bombil Fry Goan|बोंबील फ्राय|बोंबील फ्राय|bombil fry goan
+Bangda Recheado|बांगडा रेचाडो|बांगडा रेचाडो|bangda recheado
+Goan Bebinca|गोवन बेबिंका|गोवन बेबिंका|goan bebinca
+Dodol Goan|दोदोल|दोदोल|dodol goan
+Goan Dodol|गोवन दोदोल|गोवन दोदोल|goan dodol
+Neureos|नेवऱ्या|नेवऱ्या|neureos
+Kulkuls|कुळकुळे|कुळकुळे|kulkuls
+Perad|पेराड|पेराड|perad
+Goan Kokum Sherbet|कोकम सरबत|कोकम सरबत|goan kokum sherbet
+Prawn Curry Goan|गोवन प्रॉन करी|गोवन प्रॉन करी|prawn curry goan
+Crab Xec|खेकडा शेक|खेकडा शेक|crab xec xec
+Sanna|सन्ना|सन्ना|sanna
+Sanna Idli Goan|सन्ना इडली|सन्ना इडली|sanna idli goan
+Poi|पोई|पोई|poi
+Goan Pao|गोवन पाव|गोवन पाव|goan pao
+Undo|उंडो|उंडो|undo
+Katre Pav|कत्रे पाव|कत्रे पाव|katre pav
+Alle Belle|आले बेले|आले बेले|alle belle
+Patoleo|पातोळ्या|पातोळ्या|patoleo
+Goan Samosa|गोवन समोसा|गोवन समोसा|goan samosa
+Chorizo Pav|चौरीस पाव|चौरीस पाव|chorizo pav
+Ras Omelette|रस ऑम्लेट|रस ऑम्लेट|ras omelette
+Xinxinio|शिंशिनिओ|शिंशिनिओ|xinxinio||
+Khatkhate|खतखतें|खतखतें|khatkhate
+Amboshi|आंबोशी|आंबोशी|amboshi
+Mori Fry Konkan|मोरी फ्राय|मोरी फ्राय|mori fry konkan
+Surmai Fry Konkan|सुरमई फ्राय|सुरमई फ्राय|surmai fry konkan
+Pomfret Fry Konkan|पापलेट फ्राय|पापलेट फ्राय|pomfret fry konkan
+Bhakri Konkan|भाकरी|भाकरी|bhakri konkan
+Tandalachi Bhakri Konkan|तांदळाची भाकरी|तांदळाची भाकरी|tandalachi bhakri konkan
+Ghavne|घावणे|घावणे|ghavne
+Ghavan Chutney|घावन चटणी|घावन चटणी|ghavan chutney
+Ghavan Konkan|कोकणी घावन|कोकणी घावन|ghavan konkan
+Ukdiche Modak Konkan|उकडीचे मोदक|उकडीचे मोदक|ukdiche modak konkan
+Patoli Konkan|पातोळी|पातोळी|patoli konkan
+Khapar Poli|खापर पोळी|खापर पोळी|khapar poli
+Kele Pak|केळी पाक|केळी पाक|kele pak
+Phanasachi Bhaji|फणसाची भाजी|फणसाची भाजी|phanasachi bhaji
+Kadgi Phanas|कडगी फणस|कडगी फणस|kadgi phanas
+Aamsol Chutney|आमसूल चटणी|आमसूल चटणी|aamsol chutney
+Alu Wadi Konkan|अळू वडी|अळू वडी|alu wadi konkan
+Kolambi Bhaat|कोलंबी भात|कोलंबी भात|kolambi bhaat
+Kolambi Masala|कोलंबी मसाला|कोलंबी मसाला|kolambi masala
+Kalvan|कालवण|कालवण|kalvan
+Malvani Kombdi Vade|मालवणी कोंबडी वडे|मालवणी कोंबडी वडे|malvani kombdi vade
+Malvani Fish Thali|मालवणी फिश थाळी|मालवणी फिश थाळी|malvani fish thali
+Malvani Veg Thali|मालवणी व्हेज थाळी|मालवणी व्हेज थाळी|malvani veg thali
+Malvani Masala Chicken|मालवणी मसाला चिकन|मालवणी मसाला चिकन|malvani masala chicken
+Malvani Mutton|मालवणी मटण|मालवणी मटण|malvani mutton
+Malvani Egg Curry|मालवणी अंडा करी|मालवणी अंडा करी|malvani egg curry
+Malvani Kharda|मालवणी खर्डा|मालवणी खर्डा|malvani kharda
+Malvani Ghavne|मालवणी घावणे|मालवणी घावणे|malvani ghavne
+Malvani Khaje|मालवणी खाजे|मालवणी खाजे|malvani khaje
+Malvani Khaja|मालवणी खाजा|मालवणी खाजा|malvani khaja
+Malvani Pickle|मालवणी लोणचे|मालवणी लोणचे|malvani pickle
+Konkani Sukke|कोंकणी सुक्के|कोंकणी सुक्के|konkani sukke
+Konkani Fish Curry|कोंकणी फिश करी|कोंकणी फिश करी|konkani fish curry
+Konkani Bhaat Fish|कोंकणी भात मासे|कोंकणी भात मासे|konkani bhaat fish
+Kori Gassi|कोरी गस्सी|कोरी गस्सी|kori gassi
+Kori Rotti|कोरी रोट्टी|कोरी रोट्टी|kori rotti
+Neer Dosa Mangalorean|नीर डोसा मंगलोरी|नीर डोसा मंगलोरी|neer dosa mangalorean
+Mangalorean Bangude Fry|मंगलोरी बांगडे फ्राय|मंगलोरी बांगडे फ्राय|mangalorean bangude fry
+Mangalore Buns|मंगलोर बन्स|मंगलोर बन्स|mangalore buns
+Golibaje|गोळीबज्जे|गोळीबज्जे|golibaje
+Mangalore Pakoda|मंगलोर पकोडा|मंगलोर पकोडा|mangalore pakoda
+Patrode|पत्रोडे|पत्रोडे|patrode
+Patrode Konkan|पत्रोडे|पत्रोडे|patrode konkan
+Patrode Mangalore|मंगलोरी पत्रोडे|मंगलोरी पत्रोडे|patrode mangalore
+Pundi|पुंडी|पुंडी|pundi
+Kadubu|कडुबू|कडुबू|kadubu
+Idli Mangalore|मंगलोर इडली|मंगलोर इडली|idli mangalore
+Ghee Roast Mangalore|घी रोस्ट|घी रोस्ट|ghee roast mangalore
+Chicken Ghee Roast|चिकन घी रोस्ट|चिकन घी रोस्ट|chicken ghee roast
+Prawn Ghee Roast|प्रॉन घी रोस्ट|प्रॉन घी रोस्ट|prawn ghee roast
+Mangalorean Fish Tawa Fry|मंगलोरी फिश तवा फ्राय|मंगलोरी फिश तवा फ्राय|mangalorean fish tawa fry
+Sannas|सन्ना|सन्ना|sannas
+Sheera Goan|गोवन शिरा|गोवन शिरा|sheera goan
+Goan Alsande Vade|अळसांदे वडे|अळसांदे वडे|goan alsande vade
+Madgul|मडगूळ|मडगूळ|madgul
+Mhaprali|म्हापराळी|म्हापराळी|mhaprali||
+@sub|karnataka|Karnataka Foods|कर्नाटक व्यंजन|कर्नाटक पदार्थ|plate,kg,piece
+Bisi Bele Bath|बिसी बेले बाथ|बिसी बेले बाथ|bisi bele bath
+Vangi Bath|वांगी बाथ|वांगी बाथ|vangi bath
+Puliyogare|पुलियोगरे|पुलियोगरे|puliyogare
+Lemon Rice Karnataka|लेमन राइस|लेमन राइस|lemon rice karnataka
+Chitranna|चित्रान्न|चित्रान्न|chitranna
+Ragi Mudde|रागी मुद्दे|रागी मुद्दे|ragi mudde
+Ragi Mudde Saaru|रागी मुद्दे सारु|रागी मुद्दे सारु|ragi mudde saaru
+Jolada Rotti|जोळदा रोट्टी|जोळदा रोट्टी|jolada rotti
+Jowar Rotti Karnataka|ज्वारी रोट्टी|ज्वारी रोट्टी|jowar rotti karnataka
+Akki Rotti|अक्की रोट्टी|अक्की रोट्टी|akki rotti
+Ragi Rotti|रागी रोट्टी|रागी रोट्टी|ragi rotti
+Thatte Idli|थट्टे इडली|थट्टे इडली|thatte idli
+Rava Idli|रवा इडली|रवा इडली|rava idli
+Benne Dose|बेन्ने दोसे|बेन्ने दोसे|benne dose
+Davanagere Benne Dose|दावणगेरे बेन्ने दोसे|दावणगेरे बेन्ने दोसे|davanagere benne dose
+Masala Dose Mysore|म्हैसूर मसाला डोसा|म्हैसूर मसाला डोसा|masala dose mysore
+Neer Dose|नीर दोसे|नीर दोसे|neer dose
+Dharwad Peda|धारवाड पेढा|धारवाड पेढा|dharwad peda
+Belgaum Kunda|बेळगाव कुंदा|बेळगाव कुंदा|belgaum kunda
+Mysore Bonda|म्हैसूर बोंडा|म्हैसूर बोंडा|mysore bonda
+Maddur Vada|मद्दूर वडा|मद्दूर वडा|maddur vada
+Nippattu|निप्पट्टू|निप्पट्टू|nippattu
+Chakli Karnataka|कन्नड चकली|कन्नड चकली|chakli karnataka
+Kodubale|कोडुबळे|कोडुबळे|kodubale
+Kodbale|कोडबळे|कोडबळे|kodbale
+Congress Kadlekai|काँग्रेस कडलेकाई|काँग्रेस कडलेकाई|congress kadlekai
+Menthya Bath|मेंथ्या बाथ|मेंथ्या बाथ|menthya bath
+Khara Bath|खारा बाथ|खारा बाथ|khara bath
+Kesari Bath|केसरी बाथ|केसरी बाथ|kesari bath
+Uppittu|उप्पिट्टू|उप्पिट्टू|uppittu
+Avalakki Bath|अवलक्की बाथ|अवलक्की बाथ|avalakki bath
+Avalakki Mosaru|अवलक्की मोसरू|अवलक्की मोसरू|avalakki mosaru
+Mosaru Bajji|मोसरु भज्जी|मोसरु भज्जी|mosaru bajji
+Mosaru Anna|मोसरू अन्न|मोसरू अन्न|mosaru anna
+Curd Rice Karnataka|दही भात|दही भात|curd rice karnataka
+Majjige Huli|मज्जिगे हुळी|मज्जिगे हुळी|majjige huli
+Majjige|मज्जिगे|मज्जिगे|majjige
+Bassaru|बस्सारू|बस्सारू|bassaru
+Palya|पाल्या|पाल्या|palya
+Beans Palya|बीन्स पाल्या|बीन्स पाल्या|beans palya
+Cabbage Palya|कोबी पाल्या|कोबी पाल्या|cabbage palya
+Gojju|गोज्जू|गोज्जू|gojju
+Menasinakayi Bajji|मेणसिनकाई भज्जी|मेणसिनकाई भज्जी|menasinakayi bajji
+Ennegayi|एन्नेगायी|एन्नेगायी|ennegayi
+Ennegai Badanekai|एन्नेगाई बदनेकाई|एन्नेगाई बदनेकाई|ennegai badanekai
+Badnekai Ennegai|बदनेकाई एन्नेगाई|बदनेकाई एन्नेगाई|badnekai ennegai
+Hesarubele Kosambari|हेसरुबेळे कोसंबरी|हेसरुबेळे कोसंबरी|hesarubele kosambari
+Kosambari|कोसंबरी|कोसंबरी|kosambari
+Hurali Saaru|हुरळी सारु|हुरळी सारु|hurali saaru
+Mudde Soppu|मुद्दे सोप्पू|मुद्दे सोप्पू|mudde soppu
+Sambar Karnataka|कर्नाटक सांबार|कर्नाटक सांबार|sambar karnataka
+Huli|हुळी|हुळी|huli
+Bele Obbattu|बेळे ओब्बट्टू|बेळे ओब्बट्टू|bele obbattu
+Obbattu|ओब्बट्टू|ओब्बट्टू|obbattu
+Holige|होळिगे|होळिगे|holige
+Kayi Holige|काई होळिगे|काई होळिगे|kayi holige
+Payasa|पायस|पायस|payasa
+Shavige Payasa|शेवयी पायस|शेवयी पायस|shavige payasa
+Akki Payasa|अक्की पायस|अक्की पायस|akki payasa
+Hesaru Bele Payasa|हेसरु बेळे पायस|हेसरु बेळे पायस|hesaru bele payasa
+Sajjige|सज्जिगे|सज्जिगे|sajjige
+Sajjige Bajil|सज्जिगे बाजील|सज्जिगे बाजील|sajjige bajil
+Mangalore Bajil|मंगलोर बाजील|मंगलोर बाजील|mangalore bajil
+Hayagreeva|हयग्रीव|हयग्रीव|hayagreeva
+Dharwad Mixture|धारवाड मिक्सचर|धारवाड मिक्सचर|dharwad mixture
+Haveri Peda|हावेरी पेढा|हावेरी पेढा|haveri peda
+Jowar Rotti Meal|ज्वारी रोट्टी थाळी|ज्वारी रोट्टी थाळी|jowar rotti meal
+North Karnataka Thali|उत्तर कर्नाटक थाळी|उत्तर कर्नाटक थाळी|north karnataka thali
+Khadak Rotti|खडक रोट्टी|खडक रोट्टी|khadak rotti
+Sajje Rotti|सज्जे रोट्टी|सज्जे रोट्टी|sajje rotti
+Shenga Chutney|शेंगा चटणी|शेंगा चटणी|shenga chutney
+Shenga Holige|शेंगा होळिगे|शेंगा होळिगे|shenga holige
+Yellu Chutney|येल्लू चटणी|येल्लू चटणी|yellu chutney
+Gurellu Chutney|गुरेल्लू चटणी|गुरेल्लू चटणी|gurellu chutney
+Kadle Bele Chutney|कडले बेळे चटणी|कडले बेळे चटणी|kadle bele chutney
+Coorg Pandi Curry|कूर्ग पांडी करी|कूर्ग पांडी करी|coorg pandi curry
+Pandi Curry|पांडी करी|पांडी करी|pandi curry
+Kadambuttu|कडंबुट्टू|कडंबुट्टू|kadambuttu
+Akki Otti|अक्की ओट्टी|अक्की ओट्टी|akki otti
+Coorg Noolputtu|कूर्ग नूलपुट्टू|कूर्ग नूलपुट्टू|coorg noolputtu
+Noolputtu|नूलपुट्टू|नूलपुट्टू|noolputtu
+Coorg Bamboo Shoot Curry|कूर्ग बांबू शूट करी|कूर्ग बांबू शूट करी|coorg bamboo shoot curry
+Kumm Curry|कुम्म करी|कुम्म करी|kumm curry
+Mushroom Curry Coorg|कूर्ग मशरूम करी|कूर्ग मशरूम करी|mushroom curry coorg
+Chicken Curry Coorg|कूर्ग चिकन करी|कूर्ग चिकन करी|chicken curry coorg
+Bangda Fry Udupi|बांगडा फ्राय उडुपी|बांगडा फ्राय उडुपी|bangda fry udupi
+Udupi Sambar|उडुपी सांबार|उडुपी सांबार|udupi sambar
+Udupi Rasam|उडुपी रसम|उडुपी रसम|udupi rasam
+Udupi Idli|उडुपी इडली|उडुपी इडली|udupi idli
+Udupi Masala Dosa|उडुपी मसाला डोसा|उडुपी मसाला डोसा|udupi masala dosa
+Udupi Thali|उडुपी थाळी|उडुपी थाळी|udupi thali
+Udupi Menu|उडुपी मेनू|उडुपी मेनू|udupi menu||
+Udupi Buns|उडुपी बन्स|उडुपी बन्स|udupi buns||
+Gasagase Payasa|गसगसे पायस|गसगसे पायस|gasagase payasa
+Karnataka Meals|कर्नाटक मील्स|कर्नाटक मील्स|karnataka meals
+Bangalore Rasam Rice|बंगळुरू रसम राइस|बंगळुरू रसम राइस|bangalore rasam rice
+Bangalore Dosa|बंगळुरू दोसे|बंगळुरू दोसे|bangalore dosa
+Rava Dosa Bangalore|रवा डोसा बंगळुरू|रवा डोसा बंगळुरू|rava dosa bangalore
+Mysore Pak Karnataka|म्हैसूर पाक|म्हैसूर पाक|mysore pak karnataka
+Dum Biryani Bangalore|दम बिर्याणी बंगळुरू|दम बिर्याणी बंगळुरू|dum biryani bangalore
+Donne Biryani|डोन्ने बिर्याणी|डोन्ने बिर्याणी|donne biryani
+Ambur Style Biryani|आंबूर स्टाईल बिर्याणी|आंबूर स्टाईल बिर्याणी|ambur style biryani
+Ragi Dosa|रागी दोसे|रागी दोसे|ragi dosa
+Ragi Ambali|रागी अंबली|रागी अंबली|ragi ambali
+Ragi Malt|रागी माल्ट|रागी माल्ट|ragi malt
+Raagi Ball|रागी बॉल|रागी बॉल|raagi ball
+@sub|andhra-telangana|Andhra and Telangana Foods|आंध्र और तेलंगाना व्यंजन|आंध्र व तेलंगणा पदार्थ|plate,kg,piece
+Hyderabadi Biryani|हैदराबादी बिर्याणी|हैदराबादी बिर्याणी|hyderabadi biryani
+Hyderabadi Dum Biryani|हैदराबादी दम बिर्याणी|हैदराबादी दम बिर्याणी|hyderabadi dum biryani
+Hyderabadi Chicken Biryani|हैदराबादी चिकन बिर्याणी|हैदराबादी चिकन बिर्याणी|hyderabadi chicken biryani
+Hyderabadi Mutton Biryani|हैदराबादी मटण बिर्याणी|हैदराबादी मटण बिर्याणी|hyderabadi mutton biryani
+Hyderabadi Veg Biryani|हैदराबादी व्हेज बिर्याणी|हैदराबादी व्हेज बिर्याणी|hyderabadi veg biryani
+Hyderabadi Egg Biryani|हैदराबादी अंडा बिर्याणी|हैदराबादी अंडा बिर्याणी|hyderabadi egg biryani
+Hyderabadi Haleem|हैदराबादी हलीम|हैदराबादी हलीम|hyderabadi haleem
+Haleem|हलीम|हलीम|haleem
+Mutton Haleem|मटण हलीम|मटण हलीम|mutton haleem
+Chicken Haleem|चिकन हलीम|चिकन हलीम|chicken haleem
+Mirchi Ka Salan|मिर्ची का सालन|मिर्ची का सालन|mirchi ka salan
+Baghare Baingan|बघारे बैंगन|बघारे बैंगन|baghare baingan
+Bagara Baingan|बघारा बैंगन|बघारा बैंगन|bagara baingan
+Bagara Rice|बघाराइस|बघाराइस|bagara rice
+Khubani Ka Meetha|खुबानी का मीठा|खुबानी का मीठा|khubani ka meetha
+Double Ka Meetha|डबल का मीठा|डबल का मीठा|double ka meetha
+Qubani Ka Meetha|कुबानी का मीठा|कुबानी का मीठा|qubani ka meetha
+Shahi Tukda Hyderabadi|शाही तुकडा हैदराबादी|शाही तुकडा हैदराबादी|shahi tukda hyderabadi
+Hyderabadi Osmania Biscuit|उस्मानिया बिस्कीट|उस्मानिया बिस्कीट|hyderabadi osmania biscuit
+Osmania Biscuit|उस्मानिया बिस्कीट|उस्मानिया बिस्कीट|osmania biscuit
+Karachi Biscuit|कराची बिस्कीट|कराची बिस्कीट|karachi biscuit
+Irani Chai|इराणी चाय|इराणी चाय|irani chai
+Irani Chai Hyderabad|हैदराबादी इराणी चाय|हैदराबादी इराणी चाय|irani chai hyderabad
+Lukhmi|लुखमी|लुखमी|lukhmi
+Pathar Ka Gosht|पत्थर का गोश्त|पत्थर का गोश्त|pathar ka gosht
+Dalcha|दालचा|दालचा|dalcha
+Tamatar Ka Kut|टमाटर का कट|टमाटर का कट|tamatar ka kut
+Khatti Dal|खट्टी दाल|खट्टी दाल|khatti dal
+Pesarattu|पेसरट्टू|पेसरट्टू|pesarattu
+Upma Pesarattu|उपमा पेसरट्टू|उपमा पेसरट्टू|upma pesarattu
+MLA Pesarattu|एमएलए पेसरट्टू|एमएलए पेसरट्टू|mla pesarattu
+Gongura Pachadi|गोंगुरा पचडी|गोंगुरा पचडी|gongura pachadi
+Gongura Mutton|गोंगुरा मटण|गोंगुरा मटण|gongura mutton
+Gongura Chicken|गोंगुरा चिकन|गोंगुरा चिकन|gongura chicken
+Gongura Prawns|गोंगुरा प्रॉन|गोंगुरा प्रॉन|gongura prawns
+Pulihora|पुलिहोरा|पुलिहोरा|pulihora
+Daddojanam|दद्दोजनम|दद्दोजनम|daddojanam
+Curd Rice Andhra|आंध्र दही भात|आंध्र दही भात|curd rice andhra
+Kodi Kura|कोडी कूरा|कोडी कूरा|kodi kura
+Andhra Chicken Curry|आंध्र चिकन करी|आंध्र चिकन करी|andhra chicken curry
+Guntur Chicken|गुंटूर चिकन|गुंटूर चिकन|guntur chicken
+Chicken Fry Andhra|आंध्र चिकन फ्राय|आंध्र चिकन फ्राय|chicken fry andhra
+Apollo Fish|अपोलो फिश|अपोलो फिश|apollo fish
+Chepala Pulusu|चेपला पुलुसु|चेपला पुलुसु|chepala pulusu
+Chepa Pulusu|चेपा पुलुसु|चेपा पुलुसु|chepa pulusu
+Royyala Iguru|रोय्याला इगुरू|रोय्याला इगुरू|royyala iguru
+Royyala Vepudu|रोय्याला वेपुडु|रोय्याला वेपुडु|royyala vepudu
+Natu Kodi Pulusu|नाटू कोडी पुलुसु|नाटू कोडी पुलुसु|natu kodi pulusu
+Gutti Vankaya|गुट्टी वांकाया|गुट्टी वांकाया|gutti vankaya
+Gutti Vankaya Kura|गुट्टी वांकाया कूरा|गुट्टी वांकाया कूरा|gutti vankaya kura
+Bendakaya Fry|बेंडकाया फ्राय|बेंडकाया फ्राय|bendakaya fry
+Bendakaya Pulusu|बेंडकाया पुलुसु|बेंडकाया पुलुसु|bendakaya pulusu
+Dosakaya Pappu|दोसाकाया पप्पू|दोसाकाया पप्पू|dosakaya pappu
+Tomato Pappu|टोमॅटो पप्पू|टोमॅटो पप्पू|tomato pappu
+Mamidikaya Pappu|मामिडिकाया पप्पू|मामिडिकाया पप्पू|mamidikaya pappu
+Menthi Kura Pappu|मेंती कूरा पप्पू|मेंती कूरा पप्पू|menthi kura pappu
+Pappu Charu|पप्पू चारू|पप्पू चारू|pappu charu
+Ulava Charu|उलावा चारू|उलावा चारू|ulava charu
+Pachi Pulusu|पाची पुलुसु|पाची पुलुसु|pachi pulusu
+Mudda Pappu|मुद्दा पप्पू|मुद्दा पप्पू|mudda pappu
+Avakaya|आवकाया|आवकाया|avakaya
+Avakaya Mango Pickle|आवकाया आंबा लोणचे|आवकाया आंबा लोणचे|avakaya mango pickle
+Magaya|मगाया|मगाया|magaya
+Maagaya|मागाया|मागाया|maagaya
+Ullipaya Karam|उल्लीपाया कारम|उल्लीपाया कारम|ullipaya karam
+Nalla Karam|नल्ला कारम|नल्ला कारम|nalla karam
+Karam Podi|करम पोडी|करम पोडी|karam podi
+Gunpowder Podi|गनपावडर पोडी|गनपावडर पोडी|gunpowder podi
+Kandi Podi|कंदी पोडी|कंदी पोडी|kandi podi
+Nuvvula Podi|नुव्वुला पोडी|नुव्वुला पोडी|nuvvula podi
+Kobbari Podi|कोबरी पोडी|कोबरी पोडी|kobbari podi
+Idli Podi|इडली पोडी|इडली पोडी|idli podi
+Pulagam|पुलगम|पुलगम|pulagam
+Garelu|गारेलु|गारेलु|garelu
+Ariselu|अरिसेलु|अरिसेलु|ariselu
+Bobbatlu|बोब्बाटलु|बोब्बाटलु|bobbatlu
+Bobbatlu Puran Poli Andhra|बोब्बाटलू|बोब्बाटलू|bobbatlu puran poli andhra
+Pootharekulu|पूतरेकुलु|पूतरेकुलु|pootharekulu
+Atreyapuram Pootharekulu|आत्रेयपुरम पूतरेकुलु|आत्रेयपुरम पूतरेकुलु|atreyapuram pootharekulu
+Bandar Laddu|बंदर लड्डू|बंदर लड्डू|bandar laddu
+Kakinada Kaja|काकिनाडा काजा|काकिनाडा काजा|kakinada kaja
+Tapeswaram Kaja|तापेश्वरम काजा|तापेश्वरम काजा|tapeswaram kaja
+Mysore Pak Andhra|म्हैसूर पाक|म्हैसूर पाक|mysore pak andhra
+Sunnundalu|सुन्नुंडलु|सुन्नुंडलु|sunnundalu
+Ravva Laddu|रवा लड्डू|रवा लड्डू|ravva laddu
+Palathalikalu|पालतालिकालु|पालतालिकालु|palathalikalu
+Sakinalu|सकिनालु|सकिनालु|sakinalu
+Sarva Pindi|सर्वपिंडी|सर्वपिंडी|sarva pindi
+Sarva Pindi Telangana|तेलंगणा सर्वपिंडी|तेलंगणा सर्वपिंडी|sarva pindi telangana
+Jonna Rotte|जोन्ना रोट्टे|जोन्ना रोट्टे|jonna rotte
+Jonna Roti|जोन्ना रोटी|जोन्ना रोटी|jonna roti
+Jonna Annam|जोन्ना अन्नम|जोन्ना अन्नम|jonna annam
+Ragi Sankati|रागी संकटी|रागी संकटी|ragi sankati
+Ragi Sangati|रागी संगटी|रागी संगटी|ragi sangati
+Natu Kodi Pulao|नाटू कोडी पुलाव|नाटू कोडी पुलाव|natu kodi pulao
+Telangana Thali|तेलंगणा थाळी|तेलंगणा थाळी|telangana thali
+Andhra Meals|आंध्र मील्स|आंध्र मील्स|andhra meals
+Nellore Chepala Pulusu|नेल्लोर चेपला पुलुसु|नेल्लोर चेपला पुलुसु|nellore chepala pulusu
+Nellore Fish Curry|नेल्लोर फिश करी|नेल्लोर फिश करी|nellore fish curry
+Rayalaseema Ragi Mudda|रायलसीमा रागी मुद्दा|रायलसीमा रागी मुद्दा|rayalaseema ragi mudda
+Rayalaseema Kodi Kura|रायलसीमा कोडी कूरा|रायलसीमा कोडी कूरा|rayalaseema kodi kura
+Karam Dosa|कारम डोसा|कारम डोसा|karam dosa
+Ghee Karam Dosa|घी कारम डोसा|घी कारम डोसा|ghee karam dosa
+Mysore Bonda Andhra|म्हैसूर बोंडा|म्हैसूर बोंडा|mysore bonda andhra
+Mirapakaya Bajji|मिरपकाया भज्जी|मिरपकाया भज्जी|mirapakaya bajji
+Mirchi Bajji Andhra|आंध्र मिरची भज्जी|आंध्र मिरची भज्जी|mirchi bajji andhra
+Punugulu|पुनुगुलु|पुनुगुलु|punugulu
+Alasanda Vadalu|अलसंदा वडालु|अलसंदा वडालु|alasanda vadalu
+Dibba Rotti|दिब्बा रोट्टी|दिब्बा रोट्टी|dibba rotti
+Chegodilu|चेगोडिलु|चेगोडिलु|chegodilu
+Chakralu|चक्रालु|चक्रालु|chakralu
+Murukulu|मुरुकुलु|मुरुकुलु|murukulu
+Janthikalu|जंतिकालु|जंतिकालु|janthikalu
+Gavvalu|गव्वालु|गव्वालु|gavvalu
+Boorelu|बूरेलु|बूरेलु|boorelu
+Poornalu|पूर्णालु|पूर्णालु|poornalu
+Kudumulu|कुडुमुलु|कुडुमुलु|kudumulu
+Ulava Charu Rice|उलावा चारू राइस|उलावा चारू राइस|ulava charu rice
+Pesara Pappu|पेसरा पप्पू|पेसरा पप्पू|pesara pappu
+Kandi Pappu|कंदी पप्पू|कंदी पप्पू|kandi pappu
+Tomato Pachadi|टोमॅटो पचडी|टोमॅटो पचडी|tomato pachadi
+Dosakaya Pachadi|दोसाकाया पचडी|दोसाकाया पचडी|dosakaya pachadi
+Allam Pachadi|अल्लम पचडी|अल्लम पचडी|allam pachadi
+Pudina Pachadi|पुदिना पचडी|पुदिना पचडी|pudina pachadi
+Kobbari Pachadi|कोबरी पचडी|कोबरी पचडी|kobbari pachadi
+Gummadikaya Pachadi|गुम्मडिकाया पचडी|गुम्मडिकाया पचडी|gummadikaya pachadi
+@sub|tamil-chettinad|Tamil and Chettinad Foods|तमिल और चेट्टीनाड व्यंजन|तमिळ व चेट्टीनाड पदार्थ|plate,kg,piece
+Pongal Ven|वेन पोंगल|वेन पोंगल|pongal ven
+Sakkarai Pongal|सक्करै पोंगल|सक्करै पोंगल|sakkarai pongal
+Venn Pongal|वेन पोंगल|वेन पोंगल|venn pongal
+Sambar Vada|सांबार वडा|सांबार वडा|sambar vada
+Rasam Vada|रसम वडा|रसम वडा|rasam vada
+Curd Vada|दही वडा|दही वडा|curd vada
+Idli Sambar|इडली सांबार|इडली सांबार|idli sambar
+Podi Idli|पोडी इडली|पोडी इडली|podi idli
+Mini Idli|मिनी इडली|मिनी इडली|mini idli
+Kanchipuram Idli|कांचीपुरम इडली|कांचीपुरम इडली|kanchipuram idli
+Kushboo Idli|खुशबू इडली|खुशबू इडली|kushboo idli
+Kal Dosa|कल दोसा|कल दोसा|kal dosa
+Ghee Roast Dosa|घी रोस्ट डोसा|घी रोस्ट डोसा|ghee roast dosa
+Paper Roast Dosa|पेपर रोस्ट डोसा|पेपर रोस्ट डोसा|paper roast dosa
+Onion Rava Dosa|ओनियन रवा डोसा|ओनियन रवा डोसा|onion rava dosa
+Adai|अडई|अडई|adai
+Adai Avial|अडई अवियल|अडई अवियल|adai avial
+Appam|अप्पम|अप्पम|appam
+Vellai Appam|वेल्लै अप्पम|वेल्लै अप्पम|vellai appam
+Paal Appam|पाल अप्पम|पाल अप्पम|paal appam
+Idiyappam|इडियप्पम|इडियप्पम|idiyappam
+Idiyappam Coconut Milk|इडियप्पम नारळ दूध|इडियप्पम नारळ दूध|idiyappam coconut milk
+Kothu Parotta|कोथू पराठा|कोथू पराठा|kothu parotta
+Kothu Parotta Egg|एग कोथू पराठा|एग कोथू पराठा|kothu parotta egg
+Madurai Parotta|मदुराई पराठा|मदुराई पराठा|madurai parotta
+Virudhunagar Parotta|विरुधुनगर पराठा|विरुधुनगर पराठा|virudhunagar parotta
+Salna|सालना|सालना|salna
+Chicken Salna|चिकन सालना|चिकन सालना|chicken salna
+Kari Dosa|कारी दोसा|कारी दोसा|kari dosa
+Muttai Dosa|मुट्टई दोसा|मुट्टई दोसा|muttai dosa
+Muttai Parotta|मुट्टई पराठा|मुट्टई पराठा|muttai parotta
+Kola Urundai|कोला उरुंडै|कोला उरुंडै|kola urundai
+Chettinad Chicken|चेट्टीनाड चिकन|चेट्टीनाड चिकन|chettinad chicken
+Chettinad Chicken Curry|चेट्टीनाड चिकन करी|चेट्टीनाड चिकन करी|chettinad chicken curry
+Chettinad Mutton Curry|चेट्टीनाड मटण करी|चेट्टीनाड मटण करी|chettinad mutton curry
+Chettinad Fish Curry|चेट्टीनाड फिश करी|चेट्टीनाड फिश करी|chettinad fish curry
+Chettinad Egg Curry|चेट्टीनाड अंडा करी|चेट्टीनाड अंडा करी|chettinad egg curry
+Chettinad Prawn|चेट्टीनाड प्रॉन|चेट्टीनाड प्रॉन|chettinad prawn
+Chettinad Crab Masala|चेट्टीनाड क्रॅब मसाला|चेट्टीनाड क्रॅब मसाला|chettinad crab masala
+Chettinad Pepper Chicken|चेट्टीनाड मिरी चिकन|चेट्टीनाड मिरी चिकन|chettinad pepper chicken
+Pepper Chicken Chettinad|मिरी चिकन|मिरी चिकन|pepper chicken chettinad
+Milagu Chicken|मिलागु चिकन|मिलागु चिकन|milagu chicken
+Kozhi Varuval|कोळी वरुवल|कोळी वरुवल|kozhi varuval
+Mutton Chukka|मटण चुक्का|मटण चुक्का|mutton chukka
+Mutton Chukka Varuval|मटण चुक्का वरुवल|मटण चुक्का वरुवल|mutton chukka varuval
+Nethili Fry|नेथिली फ्राय|नेथिली फ्राय|nethili fry
+Meen Kuzhambu|मीन कुळंबू|मीन कुळंबू|meen kuzhambu
+Meen Varuval|मीन वरुवल|मीन वरुवल|meen varuval
+Nandu Masala|नंदू मसाला|नंदू मसाला|nandu masala
+Eral Thokku|एरल थोक्कू|एरल थोक्कू|eral thokku
+Karuvadu|करुवडू|करुवडू|karuvadu
+Karuvadu Kuzhambu|करुवडू कुळंबू|करुवडू कुळंबू|karuvadu kuzhambu
+Vathal Kuzhambu|वथल कुळंबू|वथल कुळंबू|vathal kuzhambu
+Sundakkai Vathal|सुंदक्काई वथल|सुंदक्काई वथल|sundakkai vathal
+Manathakkali Vathal|मणत्तक्काली वथल|मणत्तक्काली वथल|manathakkali vathal
+Mor Kuzhambu|मोर कुळंबू|मोर कुळंबू|mor kuzhambu
+Kara Kuzhambu|कारा कुळंबू|कारा कुळंबू|kara kuzhambu
+Puli Kuzhambu|पुळी कुळंबू|पुळी कुळंबू|puli kuzhambu
+Poondu Kuzhambu|पूंडू कुळंबू|पूंडू कुळंबू|poondu kuzhambu
+Sambar Tamil|तमिळ सांबार|तमिळ सांबार|sambar tamil
+Arachuvitta Sambar|अरचुविट्टा सांबार|अरचुविट्टा सांबार|arachuvitta sambar
+Rasam Pepper|मिरी रसम|मिरी रसम|rasam pepper
+Rasam Tomato|टोमॅटो रसम|टोमॅटो रसम|rasam tomato
+Rasam Lemon|लिंबू रसम|लिंबू रसम|rasam lemon
+Poondu Rasam|पूंडू रसम|पूंडू रसम|poondu rasam
+Paruppu Rasam|परुप्पू रसम|परुप्पू रसम|paruppu rasam
+Mysore Rasam|म्हैसूर रसम|म्हैसूर रसम|mysore rasam
+Kootu|कूटू|कूटू|kootu
+Poricha Kootu|पोरिचा कूटू|पोरिचा कूटू|poricha kootu
+Keerai Kootu|कीरै कूटू|कीरै कूटू|keerai kootu
+Poriyal|पोरियल|पोरियल|poriyal
+Beans Poriyal|बीन्स पोरियल|बीन्स पोरियल|beans poriyal
+Cabbage Poriyal|कोबी पोरियल|कोबी पोरियल|cabbage poriyal
+Carrot Poriyal|गाजर पोरियल|गाजर पोरियल|carrot poriyal
+Beetroot Poriyal|बीट पोरियल|बीट पोरियल|beetroot poriyal
+Vazhaipoo Poriyal|वाळैपू पोरियल|वाळैपू पोरियल|vazhaipoo poriyal
+Vazhaithandu Poriyal|वाळैतंडू पोरियल|वाळैतंडू पोरियल|vazhaithandu poriyal
+Kothavarangai Poriyal|कोथवरंगै पोरियल|कोथवरंगै पोरियल|kothavarangai poriyal
+Avarakkai Poriyal|अवरक्काई पोरियल|अवरक्काई पोरियल|avarakkai poriyal
+Keerai Masiyal|कीरै मसियल|कीरै मसियल|keerai masiyal
+Keerai Poriyal|कीरै पोरियल|कीरै पोरियल|keerai poriyal
+Murungai Keerai Poriyal|मुरुंगै कीरै पोरियल|मुरुंगै कीरै पोरियल|murungai keerai poriyal
+Arisi Upma|अरिसी उप्पुमा|अरिसी उप्पुमा|arisi upma
+Rava Kichadi|रवा किचडी|रवा किचडी|rava kichadi
+Vegetable Kichadi|भाजी किचडी|भाजी किचडी|vegetable kichadi
+Thayir Sadam|तयिर सादम|तयिर सादम|thayir sadam
+Puliyodharai|पुळियोदरै|पुळियोदरै|puliyodharai
+Elumichai Sadam|एलुमिच्चै सादम|एलुमिच्चै सादम|elumichai sadam
+Thengai Sadam|तेंगै सादम|तेंगै सादम|thengai sadam
+Ellu Sadam|एळ्ळू सादम|एळ्ळू सादम|ellu sadam
+Pudina Sadam|पुदिना सादम|पुदिना सादम|pudina sadam
+Kothamalli Sadam|कोथमल्ली सादम|कोथमल्ली सादम|kothamalli sadam
+Tomato Sadam|टोमॅटो सादम|टोमॅटो सादम|tomato sadam
+Vendhaya Kuzhambu|वेंधया कुळंबू|वेंधया कुळंबू|vendhaya kuzhambu
+Karamani Kuzhambu|करमणी कुळंबू|करमणी कुळंबू|karamani kuzhambu
+Chettinad Biryani|चेट्टीनाड बिर्याणी|चेट्टीनाड बिर्याणी|chettinad biryani
+Ambur Biryani|आंबूर बिर्याणी|आंबूर बिर्याणी|ambur biryani
+Dindigul Biryani|डिंडीगुल बिर्याणी|डिंडीगुल बिर्याणी|dindigul biryani
+Seeraga Samba Biryani|सीरगा सांबा बिर्याणी|सीरगा सांबा बिर्याणी|seeraga samba biryani
+Murukku Tamil|तमिळ मुरुक्कू|तमिळ मुरुक्कू|murukku tamil
+Seedai|सीडै|सीडै|seedai
+Kara Boondi|कारा बुंदी|कारा बुंदी|kara boondi
+Kara Sev|कारा सेव|कारा सेव|kara sev
+Omapodi|ओमापोडी|ओमापोडी|omapodi
+Mixture Tamil|तमिळ मिक्सचर|तमिळ मिक्सचर|mixture tamil
+Banana Chips Tamil|केळी वेफर्स|केळी वेफर्स|banana chips tamil
+Nendran Chips|नेंद्रन चिप्स|नेंद्रन चिप्स|nendran chips
+Athirasam|अधिरसम|अधिरसम|athirasam
+Paniyaram|पनियारम|पनियारम|paniyaram
+Kuzhi Paniyaram|कुळी पनियारम|कुळी पनियारम|kuzhi paniyaram
+Sweet Paniyaram|गोड पनियारम|गोड पनियारम|sweet paniyaram
+Kara Paniyaram|कारा पनियारम|कारा पनियारम|kara paniyaram
+Sundal|सुंदल|सुंदल|sundal
+Chana Sundal|चना सुंदल|चना सुंदल|chana sundal
+Peanut Sundal|शेंगदाणा सुंदल|शेंगदाणा सुंदल|peanut sundal
+Rajma Sundal|राजमा सुंदल|राजमा सुंदल|rajma sundal
+Corn Sundal|कॉर्न सुंदल|कॉर्न सुंदल|corn sundal
+Modhagam|मोदगम|मोदगम|modhagam
+Pal Kozhukattai|पाल कोळुकट्टै|पाल कोळुकट्टै|pal kozhukattai
+Ammini Kozhukattai|अम्मिणी कोळुकट्टै|अम्मिणी कोळुकट्टै|ammini kozhukattai
+Pidi Kozhukattai|पिडी कोळुकट्टै|पिडी कोळुकट्टै|pidi kozhukattai
+Mysore Pak Tamil|म्हैसूर पाक|म्हैसूर पाक|mysore pak tamil
+Halwa Tirunelveli|तिरुनेलवेली हलवा|तिरुनेलवेली हलवा|halwa tirunelveli
+Tirunelveli Halwa|तिरुनेलवेली हलवा|तिरुनेलवेली हलवा|tirunelveli halwa
+Srivilliputhur Palkova|श्रीविल्लिपुत्तूर पालकोवा|श्रीविल्लिपुत्तूर पालकोवा|srivilliputhur palkova
+Palkova|पालकोवा|पालकोवा|palkova
+Madurai Jigarthanda|मदुराई जिगरठंडा|मदुराई जिगरठंडा|madurai jigarthanda
+Jigarthanda|जिगरठंडा|जिगरठंडा|jigarthanda
+Paruppu Payasam|परुप्पू पायसम|परुप्पू पायसम|paruppu payasam
+Semiya Payasam|शेवया पायसम|शेवया पायसम|semiya payasam
+Javvarisi Payasam|जव्वरिसी पायसम|जव्वरिसी पायसम|javvarisi payasam
+Ada Pradhaman|अडा प्रधमन|अडा प्रधमन|ada pradhaman
+Filter Coffee|फिल्टर कॉफी|फिल्टर कॉफी|filter coffee
+Kumbakonam Degree Coffee|कुंभकोणम डिग्री कॉफी|कुंभकोणम डिग्री कॉफी|kumbakonam degree coffee
+Nannari Sharbat|नन्नारी शरबत|नन्नारी शरबत|nannari sharbat
+Panakam|पानकम|पानकम|panakam
+Neer Mor|नीर मोर|नीर मोर|neer mor
+Elaneer Payasam|एळनीर पायसम|एळनीर पायसम|elaneer payasam
+Sukku Malli Coffee|सुक्कु मल्ली कॉफी|सुक्कु मल्ली कॉफी|sukku malli coffee
+Karupatti Coffee|करुपट्टी कॉफी|करुपट्टी कॉफी|karupatti coffee
+Karupatti Halwa|करुपट्टी हलवा|करुपट्टी हलवा|karupatti halwa
+Palm Jaggery Tamil|करुपट्टी|करुपट्टी|palm jaggery tamil
+Ragi Koozh|रागी कूळ|रागी कूळ|ragi koozh
+Kambu Koozh|कंबू कूळ|कंबू कूळ|kambu koozh
+Kambu Dosai|कंबू डोसै|कंबू डोसै|kambu dosai
+Kambu Sadam|कंबू सादम|कंबू सादम|kambu sadam
+Kezhvaragu Kali|केळवरगु कळी|केळवरगु कळी|kezhvaragu kali
+Kali Tamil|कळी|कळी|kali tamil
+Kali|कळी|कळी|kali
+Kuthiraivali Pongal|कुतिरैवाली पोंगल|कुतिरैवाली पोंगल|kuthiraivali pongal
+Thinai Pongal|थिनै पोंगल|थिनै पोंगल|thinai pongal
+Varagu Pongal|वरगु पोंगल|वरगु पोंगल|varagu pongal
+Samai Upma|सामै उप्पुमा|सामै उप्पुमा|samai upma
+Kuthiraivali Idli|कुतिरैवाली इडली|कुतिरैवाली इडली|kuthiraivali idli
+@sub|kerala|Kerala Foods|केरल व्यंजन|केरळ पदार्थ|plate,kg,piece
+Puttu|पुट्टू|पुट्टू|puttu
+Puttu Kadala Curry|पुट्टू कडला करी|पुट्टू कडला करी|puttu kadala curry
+Kadala Curry|कडला करी|कडला करी|kadala curry
+Appam Kerala|केरळ अप्पम|केरळ अप्पम|appam kerala
+Appam Stew|अप्पम स्टू|अप्पम स्टू|appam stew
+Vegetable Stew Kerala|केरळ भाजी स्टू|केरळ भाजी स्टू|vegetable stew kerala
+Chicken Stew Kerala|केरळ चिकन स्टू|केरळ चिकन स्टू|chicken stew kerala
+Egg Roast Kerala|केरळ अंडा रोस्ट|केरळ अंडा रोस्ट|egg roast kerala
+Egg Roast|अंडा रोस्ट|अंडा रोस्ट|egg roast
+Nadan Chicken Curry|नाडन चिकन करी|नाडन चिकन करी|nadan chicken curry
+Chicken Roast Kerala|केरळ चिकन रोस्ट|केरळ चिकन रोस्ट|chicken roast kerala
+Beef Fry Kerala|केरळ बीफ्राय|केरळ बीफ्राय|beef fry kerala
+Beef Ularthiyathu|बीफ उलार्थियथु|बीफ उलार्थियथु|beef ularthiyathu
+Pork Ularthiyathu|पोर्क उलार्थियथु|पोर्क उलार्थियथु|pork ularthiyathu
+Duck Roast Kerala|केरळ डक रोस्ट|केरळ डक रोस्ट|duck roast kerala
+Karimeen Pollichathu|करीमीन पोळीचथु|करीमीन पोळीचथु|karimeen pollichathu
+Karimeen Fry|करीमीन फ्राय|करीमीन फ्राय|karimeen fry
+Meen Curry Kerala|केरळ मीन करी|केरळ मीन करी|meen curry kerala
+Kottayam Fish Curry|कोट्टायम फिश करी|कोट्टायम फिश करी|kottayam fish curry
+Meen Vevichathu|मीन वेविचथु|मीन वेविचथु|meen vevichathu
+Meen Pollichathu|मीन पोळीचथु|मीन पोळीचथु|meen pollichathu
+Prawn Roast Kerala|केरळ प्रॉन रोस्ट|केरळ प्रॉन रोस्ट|prawn roast kerala
+Chemmeen Roast|चेम्मीन रोस्ट|चेम्मीन रोस्ट|chemmeen roast
+Chemmeen Curry|चेम्मीन करी|चेम्मीन करी|chemmeen curry
+Chemmeen Thoran|चेम्मीन तोरन|चेम्मीन तोरन|chemmeen thoran
+Squid Roast Kerala|केरळ स्क्विड रोस्ट|केरळ स्क्विड रोस्ट|squid roast kerala
+Kallumakkaya Roast|कल्लुमक्काया रोस्ट|कल्लुमक्काया रोस्ट|kallumakkaya roast
+Mussels Fry Kerala|केरळ शिंपले फ्राय|केरळ शिंपले फ्राय|mussels fry kerala
+Kakka Irachi Roast|काक्का इराची रोस्ट|काक्का इराची रोस्ट|kakka irachi roast
+Avial|अवियल|अवियल|avial
+Olan|ओलन|ओलन|olan
+Thoran|तोरन|तोरन|thoran
+Cabbage Thoran|कोबी तोरन|कोबी तोरन|cabbage thoran
+Beans Thoran|बीन्स तोरन|बीन्स तोरन|beans thoran
+Beetroot Thoran|बीट तोरन|बीट तोरन|beetroot thoran
+Payar Thoran|पयर तोरन|पयर तोरन|payar thoran
+Cheera Thoran|चीरा तोरन|चीरा तोरन|cheera thoran
+Muringakka Thoran|मुरिंगक्का तोरन|मुरिंगक्का तोरन|muringakka thoran
+Kaya Thoran|काया तोरन|काया तोरन|kaya thoran
+Vazhakka Thoran|वाळक्का तोरन|वाळक्का तोरन|vazhakka thoran
+Kootu Curry Kerala|केरळ कूटू करी|केरळ कूटू करी|kootu curry kerala
+Erissery|एरिशेरी|एरिशेरी|erissery
+Pumpkin Erissery|भोपळा एरिशेरी|भोपळा एरिशेरी|pumpkin erissery
+Mathanga Erissery|मथंगा एरिशेरी|मथंगा एरिशेरी|mathanga erissery
+Kaalan|काळन|काळन|kaalan
+Pulissery|पुळिशेरी|पुळिशेरी|pulissery
+Moru Curry|मोरू करी|मोरू करी|moru curry
+Moru Kachiyathu|मोरू कचियथु|मोरू कचियथु|moru kachiyathu
+Parippu Curry|परिप्पू करी|परिप्पू करी|parippu curry
+Sambar Kerala|केरळ सांबार|केरळ सांबार|sambar kerala
+Rasam Kerala|केरळ रसम|केरळ रसम|rasam kerala
+Pachadi Kerala|केरळ पचडी|केरळ पचडी|pachadi kerala
+Kichadi Kerala|केरळ किचडी|केरळ किचडी|kichadi kerala
+Inji Puli|इंजी पुळी|इंजी पुळी|inji puli
+Puli Inji|पुळी इंजी|पुळी इंजी|puli inji
+Naranga Curry|नारंगा करी|नारंगा करी|naranga curry
+Kerala Lime Pickle|केरळ लिंबू लोणचे|केरळ लिंबू लोणचे|kerala lime pickle
+Kerala Mango Pickle|केरळ आंबा लोणचे|केरळ आंबा लोणचे|kerala mango pickle
+Kerala Fish Pickle|केरळ मासे लोणचे|केरळ मासे लोणचे|kerala fish pickle
+Kerala Beef Pickle|केरळ बीफ लोणचे|केरळ बीफ लोणचे|kerala beef pickle
+Kerala Prawn Pickle|केरळ कोळंबी लोणचे|केरळ कोळंबी लोणचे|kerala prawn pickle
+Chakka Varatti|चक्का वरट्टी|चक्का वरट्टी|chakka varatti
+Chakka Puzhukku|चक्का पुळुक्कू|चक्का पुळुक्कू|chakka puzhukku
+Kappa Puzhukku|कप्पा पुळुक्कू|कप्पा पुळुक्कू|kappa puzhukku
+Kappa Meen Curry|कप्पा मीन करी|कप्पा मीन करी|kappa meen curry
+Kappa Biryani|कप्पा बिर्याणी|कप्पा बिर्याणी|kappa biryani
+Tapioca Chips Kerala|केरळ कसावा चिप्स|केरळ कसावा चिप्स|tapioca chips kerala
+Banana Chips Kerala|केरळ केळी चिप्स|केरळ केळी चिप्स|banana chips kerala
+Sharkara Upperi|शर्करा उप्पेरी|शर्करा उप्पेरी|sharkara upperi
+Sharkara Varatti|शर्करा वरट्टी|शर्करा वरट्टी|sharkara varatti
+Upperi|उप्पेरी|उप्पेरी|upperi
+Kaya Varuthathu|काया वरुथथु|काया वरुथथु|kaya varuthathu
+Unniyappam|उन्नियप्पम|उन्नियप्पम|unniyappam
+Neyyappam|नेय्यप्पम|नेय्यप्पम|neyyappam
+Achappam|अच्चप्पम|अच्चप्पम|achappam
+Kuzhalappam|कुळलप्पम|कुळलप्पम|kuzhalappam
+Kozhukatta Kerala|केरळ कोळुकट्टा|केरळ कोळुकट्टा|kozhukatta kerala
+Ela Ada|एला अडा|एला अडा|ela ada
+Pazham Pori|पळम पोरी|पळम पोरी|pazham pori
+Ethakka Appam|एत्तक्का अप्पम|एत्तक्का अप्पम|ethakka appam
+Banana Fritters Kerala|केरळ केळी भजी|केरळ केळी भजी|banana fritters kerala
+Parippu Vada|परिप्पू वडा|परिप्पू वडा|parippu vada
+Ulli Vada|उल्ली वडा|उल्ली वडा|ulli vada
+Sukhiyan|सुखियन|सुखियन|sukhiyan
+Sukiyan|सुखियन|सुखियन|sukiyan
+Unnakaya|उन्नक्काया|उन्नक्काया|unnakaya
+Kozhikode Halwa|कोझिकोड हलवा|कोझिकोड हलवा|kozhikode halwa
+Calicut Halwa|कालिकत हलवा|कालिकत हलवा|calicut halwa
+Black Halwa Kerala|केरळ काळा हलवा|केरळ काळा हलवा|black halwa kerala
+Kerala Banana Halwa|केरळ केळी हलवा|केरळ केळी हलवा|kerala banana halwa
+Payasam Kerala|केरळ पायसम|केरळ पायसम|payasam kerala
+Palada Payasam|पालाडा पायसम|पालाडा पायसम|palada payasam
+Ada Pradhaman Kerala|अडा प्रधमन|अडा प्रधमन|ada pradhaman kerala
+Pal Payasam|पाल पायसम|पाल पायसम|pal payasam
+Gothambu Payasam|गोथंबु पायसम|गोथंबु पायसम|gothambu payasam
+Parippu Payasam|परिप्पू पायसम|परिप्पू पायसम|parippu payasam
+Chakka Pradhaman|चक्का प्रधमन|चक्का प्रधमन|chakka pradhaman
+Sadya|साद्या|साद्या|sadya
+Onam Sadya|ओणम साद्या|ओणम साद्या|onam sadya
+Kerala Sadya Thali|केरळ साद्या थाळी|केरळ साद्या थाळी|kerala sadya thali
+Kerala Meals|केरळ मील्स|केरळ मील्स|kerala meals
+Kerala Biryani|केरळ बिर्याणी|केरळ बिर्याणी|kerala biryani
+Thalassery Biryani|तलश्शेरी बिर्याणी|तलश्शेरी बिर्याणी|thalassery biryani
+Malabar Biryani|मलबार बिर्याणी|मलबार बिर्याणी|malabar biryani
+Kozhikode Biryani|कोझिकोड बिर्याणी|कोझिकोड बिर्याणी|kozhikode biryani
+Ghee Rice Kerala|केरळ घी राइस|केरळ घी राइस|ghee rice kerala
+Neychoru|नेय्चोरू|नेय्चोरू|neychoru
+Matta Rice Kerala|केरळ मट्टा तांदूळ|केरळ मट्टा तांदूळ|matta rice kerala
+Pathiri|पत्थिरी|पत्थिरी|pathiri
+Ari Pathiri|अरी पत्थिरी|अरी पत्थिरी|ari pathiri
+Chatti Pathiri|चट्टी पत्थिरी|चट्टी पत्थिरी|chatti pathiri
+Kerala Parotta|केरळ पराठा|केरळ पराठा|kerala parotta
+Chapati Kerala|केरळ चपाती|केरळ चपाती|chapati kerala
+Kallappam|कल्लप्पम|कल्लप्पम|kallappam
+Vattayappam|वट्टयप्पम|वट्टयप्पम|vattayappam
+Kerala Egg Puffs|केरळ अंडा पफ|केरळ अंडा पफ|kerala egg puffs
+Kerala Veg Puffs|केरळ व्हेज पफ|केरळ व्हेज पफ|kerala veg puffs
+Pazham Nurukku|पळम नुरुक्कू|पळम नुरुक्कू|pazham nurukku
+Sambharam|संभारम|संभारम|sambharam
+Sambaram|संभारम|संभारम|sambaram
+Karuppatti Appam|करुप्पट्टी अप्पम|करुप्पट्टी अप्पम|karuppatti appam
+@sub|bengali-odia|Bengali and Odia Foods|बंगाली और ओडिया व्यंजन|बंगाली व ओडिया पदार्थ|plate,kg,piece
+Macher Jhol|माछेर झोल|माछेर झोल|macher jhol
+Shorshe Ilish|शोरशे इलिश|शोरशे इलिश|shorshe ilish
+Ilish Bhapa|इलिश भापा|इलिश भापा|ilish bhapa
+Ilish Paturi|इलिश पातुरी|इलिश पातुरी|ilish paturi
+Chingri Malai Curry|चिंगरी मलाई करी|चिंगरी मलाई करी|chingri malai curry
+Daab Chingri|दाब चिंगरी|दाब चिंगरी|daab chingri
+Chingri Bhapa|चिंगरी भापा|चिंगरी भापा|chingri bhapa
+Bhetki Paturi|भेटकी पातुरी|भेटकी पातुरी|bhetki paturi
+Fish Kalia|फिश कालिया|फिश कालिया|fish kalia
+Rui Macher Kalia|रुई माछेर कालिया|रुई माछेर कालिया|rui macher kalia
+Katla Kalia|कतला कालिया|कतला कालिया|katla kalia
+Doi Maach|दोई माछ|दोई माछ|doi maach
+Koi Maach|कई माछ|कई माछ|koi maach
+Tel Koi|तेल कई|तेल कई|tel koi
+Mourala Macher Jhol|मौरला माछेर झोल|मौरला माछेर झोल|mourala macher jhol
+Pabda Macher Jhol|पाबदा माछेर झोल|पाबदा माछेर झोल|pabda macher jhol
+Chitol Macher Muitha|चितोल माछेर मुइठा|चितोल माछेर मुइठा|chitol macher muitha
+Kosha Mangsho|कोशा मांगशो|कोशा मांगशो|kosha mangsho
+Bengali Mutton Curry|बंगाली मटण करी|बंगाली मटण करी|bengali mutton curry
+Kolkata Biryani|कोलकाता बिर्याणी|कोलकाता बिर्याणी|kolkata biryani
+Kolkata Mutton Biryani|कोलकाता मटण बिर्याणी|कोलकाता मटण बिर्याणी|kolkata mutton biryani
+Aloo Biryani Kolkata|आलू बिर्याणी कोलकाता|आलू बिर्याणी कोलकाता|aloo biryani kolkata
+Kolkata Chicken Roll|कोलकाता चिकन रोल|कोलकाता चिकन रोल|kolkata chicken roll
+Egg Roll Kolkata|कोलकाता अंडा रोल|कोलकाता अंडा रोल|egg roll kolkata
+Kati Roll|काठी रोल|काठी रोल|kati roll
+Mughlai Paratha|मुगलाई पराठा|मुगलाई पराठा|mughlai paratha
+Chelo Kebab|चेलो कबाब|चेलो कबाब|chelo kebab
+Luchi|लुची|लुची|luchi
+Luchi Alur Dom|लुची आलूर दम|लुची आलूर दम|luchi alur dom
+Koraishutir Kochuri|कराईशुटीर कचोरी|कराईशुटीर कचोरी|koraishutir kochuri
+Radhaballavi|राधाबल्लभी|राधाबल्लभी|radhaballavi
+Radhabollobhi|राधाबल्लभी|राधाबल्लभी|radhabollobhi
+Dal Puri Bengali|बंगाली डाल पुरी|बंगाली डाल पुरी|dal puri bengali
+Aloor Dom|आलूर दम|आलूर दम|aloor dom
+Cholar Dal|छोलार डाल|छोलार डाल|cholar dal
+Shukto|शुक्तो|शुक्तो|shukto
+Chorchori|चोरचोरी|चोरचोरी|chorchori
+Labra|लाबड़ा|लाबड़ा|labra
+Ghonto|घोंटो|घोंटो|ghonto
+Dhokar Dalna|धोकार डालना|धोकार डालना|dhokar dalna
+Echorer Dalna|एंचोरेर डालना|एंचोरेर डालना|echorer dalna
+Potoler Dorma|पोटोलेर दोरमा|पोटोलेर दोरमा|potoler dorma
+Potol Posto|पोटोल पोस्तो|पोटोल पोस्तो|potol posto
+Aloo Posto|आलू पोस्तो|आलू पोस्तो|aloo posto
+Posto Bora|पोस्तो बोरा|पोस्तो बोरा|posto bora
+Begun Bhaja|बेगुन भाजा|बेगुन भाजा|begun bhaja
+Begun Basanti|बेगुन बासंती|बेगुन बासंती|begun basanti
+Kumro Bhaja|कुमड़ो भाजा|कुमड़ो भाजा|kumro bhaja
+Kumro Chokka|कुमड़ो चोक्का|कुमड़ो चोक्का|kumro chokka
+Mochar Ghonto|मोचार घोंटो|मोचार घोंटो|mochar ghonto
+Mocha Ghonto|मोचा घोंटो|मोचा घोंटो|mocha ghonto
+Thor Ghonto|थोर घोंटो|थोर घोंटो|thor ghonto
+Sorshe Bata Maach|शोरशे बाटा माछ|शोरशे बाटा माछ|sorshe bata maach
+Bengali Khichuri|बंगाली खिचुरी|बंगाली खिचुरी|bengali khichuri
+Bhoger Khichuri|भोगेर खिचुरी|भोगेर खिचुरी|bhoger khichuri
+Basanti Pulao|बासंती पुलाव|बासंती पुलाव|basanti pulao
+Mishti Pulao|मिष्टी पुलाव|मिष्टी पुलाव|mishti pulao
+Payesh|पायेश|पायेश|payesh
+Nolen Gurer Payesh|नोलेन गुरेर पायेश|नोलेन गुरेर पायेश|nolen gurer payesh
+Rosogolla|रोसोगोल्ला|रोसोगोल्ला|rosogolla
+Bengali Rasgulla|बंगाली रसगुल्ला|बंगाली रसगुल्ला|bengali rasgulla
+Nolen Gurer Sandesh|नोलेन गुरेर संदेश|नोलेन गुरेर संदेश|nolen gurer sandesh
+Ledikeni|लेडीकेनी|लेडीकेनी|ledikeni
+Rasmalai Bengali|बंगाली रसमलाई|बंगाली रसमलाई|rasmalai bengali
+Kalakand Bengali|बंगाली कलाकंद|बंगाली कलाकंद|kalakand bengali
+Sitabhog|सीताभोग|सीताभोग|sitabhog
+Mihidana|मिहिदाना|मिहिदाना|mihidana
+Joynagarer Moa|जयनगरेर मोआ|जयनगरेर मोआ|joynagarer moa
+Patishapta|पातिशाप्ता|पातिशाप्ता|patishapta
+Pitha Bengali|बंगाली पिठा|बंगाली पिठा|pitha bengali
+Puli Pitha|पुली पिठा|पुली पिठा|puli pitha
+Bhapa Pitha|भापा पिठा|भापा पिठा|bhapa pitha
+Chitoi Pitha|चितोई पिठा|चितोई पिठा|chitoi pitha
+Narkel Naru|नारकेल नाडू|नारकेल नाडू|narkel naru
+Til Naru|तिल नाडू|तिल नाडू|til naru
+Muri Bengali|मुरी|मुरी|muri bengali
+Jhalmuri|झालमुरी|झालमुरी|jhalmuri
+Ghugni Chaat|घुगनी चाट|घुगनी चाट|ghugni chaat
+Phuchka|फुचका|फुचका|phuchka
+Telebhaja|तेलेभाजा|तेलेभाजा|telebhaja
+Beguni|बेगुनी|बेगुनी|beguni
+Aloo Chop|आलू चॉप|आलू चॉप|aloo chop
+Mochar Chop|मोचार चॉप|मोचार चॉप|mochar chop
+Fish Fry Kolkata|कोलकाता फिश फ्राय|कोलकाता फिश फ्राय|fish fry kolkata
+Fish Chop|फिश चॉप|फिश चॉप|fish chop
+Mutton Cutlet Kolkata|कोलकाता मटण कटलेट|कोलकाता मटण कटलेट|mutton cutlet kolkata
+Kabiraji Cutlet|कविराजी कटलेट|कविराजी कटलेट|kabiraji cutlet
+Singara|सिंगारा|सिंगारा|singara
+Bengali Singara|बंगाली सिंगारा|बंगाली सिंगारा|bengali singara
+Bhaja Moong Dal|भाजा मूंग डाल|भाजा मूंग डाल|bhaja moong dal
+Bhaja Moong Dal Khichuri|भाजा मूंग डाल खिचुरी|भाजा मूंग डाल खिचुरी|bhaja moong dal khichuri
+Panch Phoron Tarkari|पंचफोरन तरकारी|पंचफोरन तरकारी|panch phoron tarkari
+Alu Bhate|आलू भाते|आलू भाते|alu bhate
+Dim Er Dalna|डिमेर डालना|डिमेर डालना|dim er dalna
+Dimer Devil|डिमेर डेविल|डिमेर डेविल|dimer devil
+Egg Devil|एग डेविल|एग डेविल|egg devil
+Kolkata Chowmein|कोलकाता चाऊमीन|कोलकाता चाऊमीन|kolkata chowmein
+Chinese Kolkata|कोलकाता चायनीज|कोलकाता चायनीज|chinese kolkata
+Pakhala|पखाल|पखाल|pakhala
+Pakhala Bhata|पखाल भात|पखाल भात|pakhala bhata
+Dalma|दालमा|दालमा|dalma
+Santula|संतुला|संतुला|santula
+Chhena Gaja|छेना गजा|छेना गजा|chhena gaja
+Chhena Jhili|छेना झिली|छेना झिली|chhena jhili
+Rasabali|रसाबळी|रसाबळी|rasabali
+Khaja Odisha|ओडिशा खाजा|ओडिशा खाजा|khaja odisha
+Gaja Odisha|गजा|गजा|gaja odisha
+Odia Kheer|ओडिया खीर|ओडिया खीर|odia kheer
+Manda Pitha|मांडा पिठा|मांडा पिठा|manda pitha
+Arisa Pitha|अरिसा पिठा|अरिसा पिठा|arisa pitha
+Kakara Pitha|काकरा पिठा|काकरा पिठा|kakara pitha
+Enduri Pitha|एंदुरी पिठा|एंदुरी पिठा|enduri pitha
+Chakuli Pitha|चकुली पिठा|चकुली पिठा|chakuli pitha
+Poda Pitha|पोडा पिठा|पोडा पिठा|poda pitha
+Chhena Poda Nayagarh|नयागड छेना पोडा|नयागड छेना पोडा|chhena poda nayagarh
+Dahi Bara|दही बारा|दही बारा|dahi bara
+Dahibara Aloodum|दहीबारा आलूदम|दहीबारा आलूदम|dahibara aloodum
+Ghugni Odia|ओडिया घुगनी|ओडिया घुगनी|ghugni odia
+Alu Dum Odia|ओडिया आलू दम|ओडिया आलू दम|alu dum odia
+Chuda Ghuguni|चूडा घुगुनी|चूडा घुगुनी|chuda ghuguni
+Bara Ghuguni|बारा घुगुनी|बारा घुगुनी|bara ghuguni
+Machha Besara|माछा बेसरा|माछा बेसरा|machha besara
+Chingudi Malai Odia|चिंगुडी मलाई|चिंगुडी मलाई|chingudi malai odia
+Santula Odia|संतुला|संतुला|santula odia
+Saga Bhaja|साग भाजा|साग भाजा|saga bhaja
+Badi Chura|बडी चूरा|बडी चूरा|badi chura
+Kakharu Phula Bhaja|काखारू फूला भाजा|काखारू फूला भाजा|kakharu phula bhaja
+Ambula|अंबुला|अंबुला|ambula
+Khatta|खट्टा|खट्टा|khatta
+Mahura|महुरा|महुरा|mahura
+Odia Thali|ओडिया थाळी|ओडिया थाळी|odia thali
+Bengali Thali|बंगाली थाळी|बंगाली थाळी|bengali thali
+Bengali Fish Thali|बंगाली फिश थाळी|बंगाली फिश थाळी|bengali fish thali
+Bengali Veg Thali|बंगाली व्हेज थाळी|बंगाली व्हेज थाळी|bengali veg thali
+@sub|northeast-himalayan|North East, Kashmiri and Himalayan Foods|पूर्वोत्तर, कश्मीरी और पहाड़ी व्यंजन|ईशान्य, काश्मिरी व पहाडी पदार्थ|plate,kg,piece
+Assam Fish Tenga|आसाम फिश टेंगा|आसाम फिश टेंगा|assam fish tenga
+Masor Tenga|मासोर टेंगा|मासोर टेंगा|masor tenga
+Masor Tenga Assamese|आसामी मासोर टेंगा|आसामी मासोर टेंगा|masor tenga assamese
+Khar|खार|खार|khar
+Khar Assamese|आसामी खार|आसामी खार|khar assamese
+Pitika|पिटिका|पिटिका|pitika
+Aloo Pitika|आलू पिटिका|आलू पिटिका|aloo pitika
+Bengena Pitika|बेंगेना पिटिका|बेंगेना पिटिका|bengena pitika
+Duck Curry Assamese|आसामी डक करी|आसामी डक करी|duck curry assamese
+Duck Meat With Ash Gourd|कोहळ्यासह डक मीट|कोहळ्यासह डक मीट|duck meat with ash gourd
+Pigeon Meat Curry Assamese|आसामी कबूतर करी|आसामी कबूतर करी|pigeon meat curry assamese
+Paro Mangxo|पारो मांग्शो|पारो मांग्शो|paro mangxo
+Pork With Bamboo Shoot|बांबू शूट पोर्क|बांबू शूट पोर्क|pork with bamboo shoot
+Bamboo Shoot Pork Assam|बांबू शूट पोर्क आसाम|बांबू शूट पोर्क आसाम|bamboo shoot pork assam
+Aloo Pitika Assam|आलू पिटिका आसाम|आलू पिटिका आसाम|aloo pitika assam
+Pitha Assamese|आसामी पिठा|आसामी पिठा|pitha assamese
+Til Pitha|तिल पिठा|तिल पिठा|til pitha
+Ghila Pitha|घिला पिठा|घिला पिठा|ghila pitha
+Narikol Pitha|नारिकोल पिठा|नारिकोल पिठा|narikol pitha
+Xunga Pitha|शुंगा पिठा|शुंगा पिठा|xunga pitha
+Tekeli Pitha|टेकेली पिठा|टेकेली पिठा|tekeli pitha
+Sunga Pitha|सुंगा पिठा|सुंगा पिठा|sunga pitha
+Laru|लारू|लारू|laru
+Narikol Laru|नारिकोलारू|नारिकोलारू|narikol laru
+Tilor Laru|तिलोर लारू|तिलोर लारू|tilor laru
+Joha Rice Kheer|जोहा तांदूळ खीर|जोहा तांदूळ खीर|joha rice kheer
+Payas Assamese|आसामी पायस|आसामी पायस|payas assamese
+Komal Saul|कोमल साउल|कोमल साउल|komal saul
+Bora Saul|बोरा साउल|बोरा साउल|bora saul
+Chira Doi|चिरा दोई|चिरा दोई|chira doi
+Doi Chira Gur|दोई चिरा गूर|दोई चिरा गूर|doi chira gur
+Sandoh Guri|सांदोह गुरी|सांदोह गुरी|sandoh guri
+Xaak Assamese|आसामी शाक|आसामी शाक|xaak assamese
+Masor Poka Diya|मासोर पोका दिया|मासोर पोका दिया|masor poka diya
+Matimah Dali|माटीमाह दाली|माटीमाह दाली|matimah dali
+Mati Dal Assam|माटी दाल आसाम|माटी दाल आसाम|mati dal assam
+Assamese Thali|आसामी थाळी|आसामी थाळी|assamese thali
+Assam CTC Tea|आसाम सीटीसी चहा|आसाम सीटीसी चहा|assam ctc tea
+Assam Orthodox Tea|आसाम ऑर्थोडॉक्स चहा|आसाम ऑर्थोडॉक्स चहा|assam orthodox tea
+Manipuri Eromba|मणिपुरी एरोम्बा|मणिपुरी एरोम्बा|manipuri eromba
+Eromba|एरोम्बा|एरोम्बा|eromba
+Singju|सिंगजू|सिंगजू|singju
+Chak Hao Kheer|चक हाओ खीर|चक हाओ खीर|chak hao kheer
+Chamthong|चामथोंग|चामथोंग|chamthong
+Ngari|नगारी|नगारी|ngari
+Ngari Manipur|मणिपुरी नगारी|मणिपुरी नगारी|ngari manipur
+Morok Metpa|मोरोक मेतपा|मोरोक मेतपा|morok metpa
+Iromba|इरोम्बा|इरोम्बा|iromba
+Kangsoi|कांगसोई|कांगसोई|kangsoi
+Kangsoi Manipuri|मणिपुरी कांगसोई|मणिपुरी कांगसोई|kangsoi manipuri
+Nga Atoiba Thongba|नगा अतोईबा थोंगबा|नगा अतोईबा थोंगबा|nga atoiba thongba
+Pakora Manipur|मणिपुरी पकोडा|मणिपुरी पकोडा|pakora manipur
+Bamboo Shoot Naga|नागा बांबू शूट|नागा बांबू शूट|bamboo shoot naga
+Axone|अखुनी|अखुनी|axone
+Akhuni|अखुनी|अखुनी|akhuni
+Smoked Pork Naga|नागा स्मोक्ड पोर्क|नागा स्मोक्ड पोर्क|smoked pork naga
+Naga Pork With Bamboo Shoot|नागा बांबू शूट पोर्क|नागा बांबू शूट पोर्क|naga pork with bamboo shoot
+Naga Chutney|नागा चटणी|नागा चटणी|naga chutney
+Raja Mircha Chutney|राजा मिर्चा चटणी|राजा मिर्चा चटणी|raja mircha chutney
+Bhut Jolokia Chutney|भूत जोलोकिया चटणी|भूत जोलोकिया चटणी|bhut jolokia chutney
+Naga Pickle|नागा लोणचे|नागा लोणचे|naga pickle
+Galho|गाल्हो|गाल्हो|galho
+Jadoh|जादोह|जादोह|jadoh
+Jadoh Meghalaya|मेघालयी जादोह|मेघालयी जादोह|jadoh meghalaya
+Doh Neiiong|दोह नेईओंग|दोह नेईओंग|doh neiiong
+Doh Khlieh|दोह ख्लिह|दोह ख्लिह|doh khlieh
+Dohthlen|दोह्ठलेन|दोह्ठलेन|dohthlen
+Putharo|पुठारो|पुठारो|putharo
+Pukhlein|पुख्लीन|पुख्लीन|pukhlein
+Tungrymbai|तुंग्रीम्बाई|तुंग्रीम्बाई|tungrymbai
+Tungtap|तुंगटप|तुंगटप|tungtap
+Momo Sikkim|सिक्कीमोमो|सिक्कीमोमो|momo sikkim
+Thukpa|थुकपा|थुकपा|thukpa
+Thukpa Sikkim|सिक्कीम थुकपा|सिक्कीम थुकपा|thukpa sikkim
+Gya Thuk|ग्या थुक|ग्या थुक|gya thuk
+Chowmein Sikkim|सिक्कीम चाऊमीन|सिक्कीम चाऊमीन|chowmein sikkim
+Phagshapa|फाग्शापा|फाग्शापा|phagshapa
+Sel Roti|सेल रोटी|सेल रोटी|sel roti
+Gundruk|गुंद्रुक|गुंद्रुक|gundruk
+Gundruk Soup|गुंद्रुक सूप|गुंद्रुक सूप|gundruk soup
+Sinki|सिंकी|सिंकी|sinki
+Kinema|किनेमा|किनेमा|kinema
+Kinema Curry|किनेमा करी|किनेमा करी|kinema curry
+Churpi|चुरपी|चुरपी|churpi
+Churpi Cheese|चुरपी चीज|चुरपी चीज|churpi cheese
+Dalle Khursani Chutney|डल्ले खुर्सानी चटणी|डल्ले खुर्सानी चटणी|dalle khursani chutney
+Thenthuk|थेंठुक|थेंठुक|thenthuk
+Bamboo Shoot Pickle Sikkim|बांबू शूट लोणचे सिक्कीम|बांबू शूट लोणचे सिक्कीम|bamboo shoot pickle sikkim
+Tingmo|टिंगमो|टिंगमो|tingmo
+Shamdey|शामदे|शामदे|shamdey
+Ema Datshi|एमा दात्शी|एमा दात्शी|ema datshi
+Kewa Datshi|केवा दात्शी|केवा दात्शी|kewa datshi
+Jasha Maru|जाशा मारू|जाशा मारू|jasha maru
+Red Rice Bhutan|लाल तांदूळ भूतान|लाल तांदूळ भूतान|red rice bhutan
+Wazwan|वाज़वान|वाज़वान|wazwan
+Rogan Josh|रोगन जोश|रोगन जोश|rogan josh
+Rogan Josh Kashmiri|काश्मिरी रोगन जोश|काश्मिरी रोगन जोश|rogan josh kashmiri
+Yakhni|याखनी|याखनी|yakhni
+Goshtaba|गोश्ताबा|गोश्ताबा|goshtaba
+Rista|रिस्ता|रिस्ता|rista
+Tabak Maaz|तबक माज|तबक माज|tabak maaz
+Kashmiri Dum Aloo|काश्मिरी दम आलू|काश्मिरी दम आलू|kashmiri dum aloo
+Dum Aloo Kashmiri|काश्मिरी दम आलू|काश्मिरी दम आलू|dum aloo kashmiri
+Haak|हाक|हाक|haak
+Haak Saag|हाक साग|हाक साग|haak saag
+Nadru Yakhni|नादरू याखनी|नादरू याखनी|nadru yakhni
+Nadru Monje|नादरू मोंजे|नादरू मोंजे|nadru monje
+Kashmiri Kebab|काश्मिरी कबाब|काश्मिरी कबाब|kashmiri kebab
+Kashmiri Pulao|काश्मिरी पुलाव|काश्मिरी पुलाव|kashmiri pulao
+Kashmiri Chaman|काश्मिरी चमन|काश्मिरी चमन|kashmiri chaman
+Kashmiri Paneer|काश्मिरी पनीर|काश्मिरी पनीर|kashmiri paneer
+Kashmiri Lotus Stem Curry|काश्मिरी कमळ काकडी करी|काश्मिरी कमळ काकडी करी|kashmiri lotus stem curry
+Kashmiri Kahwa|काश्मिरी कहवा|काश्मिरी कहवा|kashmiri kahwa
+Noon Chai|नून चाय|नून चाय|noon chai
+Sheer Chai|शीर चाय|शीर चाय|sheer chai
+Kashmiri Chai|काश्मिरी चाय|काश्मिरी चाय|kashmiri chai
+Girda|गिरदा|गिरदा|girda
+Lavasa|लवासा|लवासा|lavasa
+Czochwor|चोचवोर|चोचवोर|czochwor
+Kulcha Kashmiri|काश्मिरी कुलचा|काश्मिरी कुलचा|kulcha kashmiri
+Bakarkhani|बाकरखानी|बाकरखानी|bakarkhani
+Kashmiri Bakirkhani|काश्मिरी बाकरखानी|काश्मिरी बाकरखानी|kashmiri bakirkhani
+Shirmal Kashmiri|काश्मिरी शीरमाल|काश्मिरी शीरमाल|shirmal kashmiri
+Kashmiri Walnut Cake|काश्मिरी अक्रोड केक|काश्मिरी अक्रोड केक|kashmiri walnut cake
+Phirni Kashmiri|काश्मिरी फिरनी|काश्मिरी फिरनी|phirni kashmiri
+Halwa Kashmiri|काश्मिरी हलवा|काश्मिरी हलवा|halwa kashmiri
+Modur Pulao|मोदूर पुलाव|मोदूर पुलाव|modur pulao
+Himachali Dham|हिमाचली धाम|हिमाचली धाम|himachali dham
+Himachali Siddu|हिमाचली सिड्डू|हिमाचली सिड्डू|himachali siddu
+Siddu|सिड्डू|सिड्डू|siddu
+Chha Gosht|छा गोश्त|छा गोश्त|chha gosht
+Madra|मद्रा|मद्रा|madra
+Chana Madra|चना मद्रा|चना मद्रा|chana madra
+Rajma Madra|राजमा मद्रा|राजमा मद्रा|rajma madra
+Himachali Rajma|हिमाचली राजमा|हिमाचली राजमा|himachali rajma
+Babru|बबरू|बबरू|babru
+Aktori|अक्तोरी|अक्तोरी|aktori
+Patande|पटांडे|पटांडे|patande
+Tudkiya Bhath|तुडकिया भात|तुडकिया भात|tudkiya bhath
+Tudkiya Bhat|तुडकिया भात|तुडकिया भात|tudkiya bhat
+Bhey|भे|भे|bhey
+Khatta Himachali|हिमाचली खट्टा|हिमाचली खट्टा|khatta himachali
+Himachali Trout|हिमाचली ट्राउट|हिमाचली ट्राउट|himachali trout
+Chamba Chukh|चंबा चुख|चंबा चुख|chamba chukh
+Chukh|चुख|चुख|chukh
+Mittha|मिट्ठा|मिट्ठा|mittha
+Himachali Mittha|हिमाचली मिट्ठा|हिमाचली मिट्ठा|himachali mittha
+Kangra Tea|कांगडा चहा|कांगडा चहा|kangra tea
+Uttarakhandi Aloo Ke Gutke|उत्तराखंडी आलू के गुटके|उत्तराखंडी आलू के गुटके|uttarakhandi aloo ke gutke
+Aloo Ke Gutke|आलू के गुटके|आलू के गुटके|aloo ke gutke
+Kafuli|काफुली|काफुली|kafuli
+Phaanu|फाणू|फाणू|phaanu
+Chainsoo|चैंसू|चैंसू|chainsoo
+Dubuk|डुबुक|डुबुक|dubuk
+Bhatt Ki Churkani|भट्ट की चुरकानी|भट्ट की चुरकानी|bhatt ki churkani
+Jhangora Kheer|झंगोरा खीर|झंगोरा खीर|jhangora kheer
+Jhangora|झंगोरा|झंगोरा|jhangora
+Mandua Roti|मंडुआ रोटी|मंडुआ रोटी|mandua roti
+Madua Roti|मडुआ रोटी|मडुआ रोटी|madua roti
+Kandali Ka Saag|कंडाली का साग|कंडाली का साग|kandali ka saag
+Singal|सिंगल|सिंगल|singal
+Arsa|अरसा|अरसा|arsa
+Arsa Uttarakhand|उत्तराखंडी अरसा|उत्तराखंडी अरसा|arsa uttarakhand
+Singori|सिंगोरी|सिंगोरी|singori
+Almora Bal Mithai|अल्मोडा बाल मिठाई|अल्मोडा बाल मिठाई|almora bal mithai
+Rus|रस|रस|rus
+Bhaang Ki Chutney|भांग की चटनी|भांग की चटनी|bhaang ki chutney
+Pahadi Raita|पहाडी रायता|पहाडी रायता|pahadi raita
+Pahadi Nimbu|पहाडी नींबू|पहाडी नींबू|pahadi nimbu
+Pahadi Namak|पहाडी नमक|पहाडी नमक|pahadi namak
+Ladakhi Thukpa|लद्दाखी थुकपा|लद्दाखी थुकपा|ladakhi thukpa
+Skyu|स्क्यू|स्क्यू|skyu
+Chutagi|चुटागी|चुटागी|chutagi
+Khambir|खंबीर|खंबीर|khambir
+Butter Tea|बटर टी|बटर टी|butter tea
+Gur Chai|गुरगुर चाय|गुरगुर चाय|gur gur chai
+Sea Buckthorn Juice|सीबकथॉर्न ज्यूस|सीबकथॉर्न ज्यूस|sea buckthorn juice
+Apricot Jam Ladakh|लद्दाख जर्दाळू जॅम|लद्दाख जर्दाळू जॅम|apricot jam ladakh
+Tripura Chakhwi|त्रिपुरा चाखवी|त्रिपुरा चाखवी|tripura chakhwi
+Mui Borok|मुई बोरोक|मुई बोरोक|mui borok
+Wahan Mosdeng|वाहन मोसदेंग|वाहन मोसदेंग|wahan mosdeng
+Berma|बेर्मा|बेर्मा|berma
+Gudok|गुडोक|गुडोक|gudok
+Mizo Bai|मिझो बाई|मिझो बाई|mizo bai
+Bai Mizo|बाई|बाई|bai mizo
+Vawksa Rep|वाव्क्सा रेप|वाव्क्सा रेप|vawksa rep
+Sawhchiar|सौचियार|सौचियार|sawhchiar
+Arsa Roti Mizo|अरसा रोटी|अरसा रोटी|arsa roti mizo

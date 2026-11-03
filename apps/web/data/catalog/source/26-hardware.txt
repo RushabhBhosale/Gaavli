@@ -6,7 +6,7 @@ Wire Nails|तार की कील|तारेचे खिळे|khile,keel
 Concrete Nails|कंक्रीट कील|काँक्रीट खिळे|steel nails
 Roofing Nails|छत की कील|पत्र्याचे खिळे|umbrella nails,patra khile
 Wood Screws|लकड़ी के पेंच|लाकडी स्क्रू|screw,pench
-Self Tapping Screws|सेल्फ टैपिंग पेंच|सेल्फ टॅपिंग स्क्रू|||?
+Self Tapping Screws|सेल्फ टैपिंग पेंच|सेल्फ टॅपिंग स्क्रू|||
 Nut Bolt|नट बोल्ट|नट बोल्ट|nut bolt
 Washers|वॉशर|वॉशर|washer
 Anchor Fasteners|एंकर फास्टनर|अँकर फास्टनर|anchor bolt
@@ -21,14 +21,14 @@ Door Stopper|डोर स्टॉपर|डोअर स्टॉपर
 Door Closer|डोर क्लोज़र|डोअर क्लोजर
 Drawer Channel|ड्रॉअर चैनल|ड्रॉवर चॅनल|telescopic channel|pair
 Curtain Rod|पर्दे की रॉड|पडद्याचा रॉड|curtain pipe|piece
-Curtain Brackets|पर्दा ब्रैकेट|पडदा ब्रॅकेट|||?
+Curtain Brackets|पर्दा ब्रैकेट|पडदा ब्रॅकेट|||
 Wall Hooks|दीवार हुक|भिंतीचे हुक|khunti,hook|piece,packet
 Chain|ज़ंजीर|साखळी|sakhli,zanjeer,chain|metre,kg,piece
 Wire Mesh|जाली|जाळी|jali,mesh|metre,roll
 Binding Wire|बाइंडिंग तार|बाईंडिंग तार|tar,binding wire|kg
 GI Wire|जीआई तार|जीआय तार|galvanized wire|kg
 Welding Rod|वेल्डिंग रॉड|वेल्डिंग रॉड|electrode|packet,kg
-Rivets|रिवेट|रिव्हेट|||?
+Rivets|रिवेट|रिव्हेट|||
 
 @sub|hand-tools|Hand Tools|हस्त उपकरण|हत्यारे|piece,set
 Hammer|हथौड़ा|हातोडा|hathoda,hatoda,hammer
@@ -99,17 +99,17 @@ Doorbell|दरवाज़े की घंटी|दारावरची ब�
 Electric Tester|टेस्टर|टेस्टर|line tester
 Multimeter|मल्टीमीटर|मल्टीमीटर
 Rechargeable Torch|रिचार्जेबल टॉर्च|रिचार्जेबल टॉर्च|||^TORCH
-Decorative Light|सजावटी लाइट|सजावटी दिवा|jhoomar,chandelier||?
-Street Light|स्ट्रीट लाइट|पथदिवा|||?
+Decorative Light|सजावटी लाइट|सजावटी दिवा|jhoomar,chandelier||
+Street Light|स्ट्रीट लाइट|पथदिवा|||
 Television|टीवी|टीव्ही|tv,led tv
 Set Top Box|सेट टॉप बॉक्स|सेट टॉप बॉक्स|dish tv box|piece
 Dish Antenna|डिश एंटीना|डिश अँटेना|dish|piece
 Radio|रेडियो|रेडिओ|transistor|piece
 Speaker|स्पीकर|स्पीकर|bluetooth speaker,music system|piece
-Washing Machine|वॉशिंग मशीन|वॉशिंग मशीन|||?
+Washing Machine|वॉशिंग मशीन|वॉशिंग मशीन|||
 Sewing Machine|सिलाई मशीन|शिलाई मशीन|silai machine
 Electric Motor|इलेक्ट्रिक मोटर|इलेक्ट्रिक मोटर|motor
-Motor Winding Wire|वाइंडिंग तार|वाइंडिंग वायर|||?
+Motor Winding Wire|वाइंडिंग तार|वाइंडिंग वायर|||
 
 @sub|mobile-electronics|Mobile and Electronics|मोबाइल और इलेक्ट्रॉनिक्स|मोबाईल आणि इलेक्ट्रॉनिक्स|piece
 Mobile Phone|मोबाइल फ़ोन|मोबाईल फोन|phone,smartphone
@@ -152,9 +152,9 @@ Pipe Coupler|पाइप कपलर|पाईप कपलर|coupler,socket|
 PVC Solvent|पीवीसी सॉल्वेंट|पीव्हीसी सॉल्व्हंट|pipe glue|piece
 Teflon Tape|टेफ़्लॉन टेप|टेफ्लॉन टेप|thread tape|piece
 Water Tank Float Valve|फ्लोट वाल्व|फ्लोट व्हॉल्व्ह|ball cock|piece
-Water Level Controller|पानी स्तर नियंत्रक|पाणी पातळी नियंत्रक|automatic water controller||?
+Water Level Controller|पानी स्तर नियंत्रक|पाणी पातळी नियंत्रक|automatic water controller||
 Floor Trap|फ़्लोर ट्रैप|फ्लोअर ट्रॅप|nahani trap|piece
-Water Meter|पानी मीटर|पाणी मीटर|||?
+Water Meter|पानी मीटर|पाणी मीटर|||
 
 @sub|building-materials|Building Materials|निर्माण सामग्री|बांधकाम साहित्य|piece,bag,ton
 Cement|सीमेंट|सिमेंट|cement|bag
@@ -170,7 +170,7 @@ Steel TMT Bars|सरिया|सळई|sariya,salai,tmt bar,rod|kg,ton
 Roof Tiles|खपरैल|कौले|kaule,mangalore tiles,khaprail|piece
 Cement Sheet|सीमेंट की चादर|सिमेंट पत्रा|ac sheet,asbestos sheet|sheet
 GI Roofing Sheet|टीन की चादर|पत्रा|patra,tin sheet,galvanized sheet|sheet
-Plastic Roofing Sheet|प्लास्टिक शीट (छत)|प्लास्टिक पत्रा|fiber sheet||?
+Plastic Roofing Sheet|प्लास्टिक शीट (छत)|प्लास्टिक पत्रा|fiber sheet||
 Floor Tiles|फ़र्श टाइल्स|फरशी टाईल्स|tiles,farshi|piece,box
 Wall Tiles|दीवार टाइल्स|भिंतीच्या टाईल्स|||^FLOOR_TILES
 Shahabad Stone|शहाबादी पत्थर|शहाबादी फरशी|shahabadi farshi
@@ -190,7 +190,7 @@ Window Grill|खिड़की ग्रिल|खिडकी ग्रिल|
 Shutter|शटर|शटर|rolling shutter|piece
 Glass Sheet|कांच की शीट|काचेचा पत्रा|kanch,glass|sheet
 Water Proofing Chemical|वॉटरप्रूफ़िंग|वॉटरप्रूफिंग केमिकल|waterproofing|litre,kg
-Tile Adhesive|टाइल चिपकाने वाला|टाईल अॅडहेसिव्ह|||?
+Tile Adhesive|टाइल चिपकाने वाला|टाईल अॅडहेसिव्ह|||
 
 @sub|paint|Paint and Polish|पेंट और पॉलिश|रंग आणि पॉलिश|litre,kg,piece
 Wall Paint|दीवार का पेंट|भिंतीचा रंग|paint,rang,emulsion

@@ -3,7 +3,7 @@
 @sub|seasonal-vegetables
 Breadfruit|बड़हल (ब्रेडफ्रूट)|नीरफणस|neerphanas,breadfruit|kg,piece
 Air Potato|गेठी|करांदे|karande,air potato|kg
-Lesser Yam|कंद (लघु रतालू)|कणगी|kanagi,lesser yam|kg|?
+Lesser Yam|कंद (लघु रतालू)|कणगी|kanagi,lesser yam|kg|
 @category|leafy-vegetables
 @sub|wild-greens
 Pokla|पोकला|पोकळा|pokla,green amaranth konkan|bunch
@@ -15,7 +15,7 @@ Teppal|तिरफल|तिरफळ|tirphal,teppal,triphal fish spice|g,kg,pa
 Wolf Herring|करली|करली|karli,wolf herring|kg,piece
 Red Snapper|लाल स्नैपर|तांबोशी|tamboshi,red snapper|kg,piece
 Small Crabs|छोटे केकड़े|चिंबोऱ्या|chimborya,chimbori|kg,dozen
-Small Shark|छोटी शार्क|मोरी|mori,baby shark|kg|?
+Small Shark|छोटी शार्क|मोरी|mori,baby shark|kg|
 @category|sweets
 @sub|syrup-sweets
 Patoli|पतोली|पातोळ्या|patolya,patoli,haldi leaf sweet|piece,dozen

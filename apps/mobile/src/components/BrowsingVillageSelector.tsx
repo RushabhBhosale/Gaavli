@@ -15,7 +15,11 @@ import {
 import { preferenceStorage } from "../storage/sqlite";
 import { VillagePicker, useVillageSearch } from "./VillagePicker";
 
-export function BrowsingVillageSelector() {
+export function BrowsingVillageSelector({
+  onDark = false,
+}: {
+  onDark?: boolean;
+}) {
   const selected = useAppStore(browsingVillageFor);
   const language = useAppStore((state) => state.language);
   const offline = useAppStore((state) => state.offline);
@@ -75,15 +79,19 @@ export function BrowsingVillageSelector() {
           setFailure("");
           setOpen(true);
         }}
-        style={({ pressed }) => [s.control, pressed && s.pressed]}
+        style={({ pressed }) => [
+          s.control,
+          onDark && s.controlDark,
+          pressed && s.pressed,
+        ]}
       >
         <Ionicons
           accessible={false}
           name="location"
           size={18}
-          color={theme.colors.primary}
+          color={onDark ? theme.colors.heroText : theme.colors.primary}
         />
-        <Text numberOfLines={1} style={s.name}>
+        <Text numberOfLines={1} style={[s.name, onDark && s.nameDark]}>
           {name}
         </Text>
         {saving ? (
@@ -93,7 +101,7 @@ export function BrowsingVillageSelector() {
             accessible={false}
             name="chevron-down"
             size={16}
-            color={theme.colors.muted}
+            color={onDark ? theme.colors.heroMuted : theme.colors.muted}
           />
         )}
       </Pressable>
@@ -130,6 +138,11 @@ const s = StyleSheet.create({
     flexShrink: 1,
     maxWidth: "100%",
   },
+  controlDark: {
+    backgroundColor: theme.colors.heroSurface,
+    borderColor: theme.colors.heroBorder,
+  },
   name: { ...theme.type.label, color: theme.colors.text, flexShrink: 1 },
+  nameDark: { color: theme.colors.heroText },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

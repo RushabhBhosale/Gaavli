@@ -1,15 +1,15 @@
 # Gaavli master product catalog (v1)
 
 Curated, unbranded, multilingual (English, Hindi, Marathi) product directory for
-the local marketplace: 5,031 products in 43 categories and 141 subcategories.
-1,131 of them are genuine varieties (for example Alphonso Mango, Indrayani Rice,
-Khillar Cow) linked to a parent product with `variantOf`. Generic names only:
+the local marketplace: 10,791 products in 44 categories and 170 subcategories.
+5,508 of them are genuine varieties (for example Alphonso Mango, Indrayani Rice,
+Bhima Super Onion Seeds, Khillar Cow) linked to a parent product with `variantOf`. Generic names only:
 no brands, barcodes or packaged-SKU data.
 
 | Scope                                                                   | Products | Pending review |
 | ----------------------------------------------------------------------- | -------: | -------------: |
-| Farm produce, farm inputs, livestock, plants and homemade food          |    3,376 |            328 |
-| General local goods (puja, household, kitchen, clothing, hardware, ...) |    1,655 |            157 |
+| Farm produce, farm inputs, seeds, livestock, plants and regional foods  |    9,168 |              0 |
+| General local goods (puja, household, kitchen, clothing, hardware, ...) |    1,655 |              0 |
 
 ## Files
 
@@ -53,14 +53,14 @@ once from the English name. After a code has been imported, pin it with
 
 ## Review status
 
-Rows flagged `?` (485) are emitted as `INACTIVE` / `pending_review` and are not
+Rows flagged `?` (none at the moment) are emitted as `INACTIVE` / `pending_review` and are not
 selectable until an admin reviews them. Removing a flag is the review action.
 Other rows are curated but have not been checked by a native speaker yet; a
 Hindi and Marathi review pass before broad rollout is recommended.
 
 ## Loading into the database
 
-All categories map to a `LISTING_PRODUCT_GROUPS` value, so all 5,031 rows are
+All categories map to a `LISTING_PRODUCT_GROUPS` value, so all 10,791 rows are
 in `product-master.v2.json`. Load and index them (dry run first, then
 `--apply`), then spot-check search:
 
@@ -76,3 +76,26 @@ Compiled for Gaavli from common Maharashtra market, nursery, agri-input and
 kitchen vocabulary. Crop varieties are public agricultural-university and ICAR
 release names. Crop-protection entries are generic active ingredients, not
 brands or usage advice. No third-party dataset was copied.
+
+## Seed, variety and regional food batch (files 49 to 56)
+
+5,760 products added in one batch: seed and planting-material varieties
+(vegetables, rice and paddy, wheat, barley, oats, maize, sorghum, millets,
+pulses, oilseeds, potato, ginger, turmeric and other rhizomes, fruit varieties)
+and regional Indian foods by cuisine (the new `regional-cuisine` category:
+Punjabi, Rajasthani, Gujarati, Uttar Pradesh and Bihar, Madhya Pradesh and
+Chhattisgarh, Konkan and Goa, Karnataka, Andhra and Telangana, Tamil and
+Chettinad, Kerala, Bengali and Odia, North East, Kashmir and the Himalayas).
+
+- Variety names are public release or traditional names (ICAR institutes, state
+  agricultural universities, local landraces). No company hybrids or brands.
+  They were compiled from general knowledge, not from a dataset, so a crop
+  scientist should check the numbered release codes (for example `HD 2967`,
+  `MTU 1010`) before broad rollout.
+- All rows are active. The review flags were removed on request, so names that
+  were marked uncertain (about 670 rows across the catalog) are live and
+  should still get a native-speaker and crop-scientist check.
+- Hindi and Marathi share one Devanagari spelling for proper names, with the
+  crop word (and `बीज` / `बियाणे` for seeds) in each language.
+- The files are generated, but they are ordinary sources: edit them by hand and
+  rebuild like any other file.

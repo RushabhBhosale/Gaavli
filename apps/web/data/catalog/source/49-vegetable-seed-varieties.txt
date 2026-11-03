@@ -1,0 +1,427 @@
+# Generated from curated specs; see data/catalog/README.md.
+@category|crop-varieties
+@sub|onion-garlic-seeds|Onion and Garlic Seeds|प्याज-लहसुन बीज|कांदा-लसूण बियाणे|kg,g,packet
+Bhima Dark Red Onion Seeds|भीमा डार्क रेड प्याज बीज|भीमा डार्क रेड कांदा बियाणे|bhima dark red kanda biyane,bhima dark red pyaz beej,bhima dark red onion seed,bhima dark red|kg,g,packet|^ONION_SEEDS
+Bhima Safed Onion Seeds|भीमा सफेद प्याज बीज|भीमा सफेद कांदा बियाणे|bhima safed kanda biyane,bhima safed pyaz beej,bhima safed onion seed,bhima safed|kg,g,packet|^ONION_SEEDS
+Bhima Subhra Onion Seeds|भीमा शुभ्रा प्याज बीज|भीमा शुभ्रा कांदा बियाणे|bhima subhra kanda biyane,bhima subhra pyaz beej,bhima subhra onion seed,bhima subhra|kg,g,packet|^ONION_SEEDS
+Bhima Light Red Onion Seeds|भीमा लाइट रेड प्याज बीज|भीमा लाइट रेड कांदा बियाणे|bhima light red kanda biyane,bhima light red pyaz beej,bhima light red onion seed,bhima light red|kg,g,packet|^ONION_SEEDS
+Bhima Shubhra Onion Seeds|भीमा शुभ्रा प्याज बीज|भीमा शुभ्रा कांदा बियाणे|bhima shubhra kanda biyane,bhima shubhra pyaz beej,bhima shubhra onion seed,bhima shubhra|kg,g,packet|^ONION_SEEDS
+Agrifound Light Red Onion Seeds|अॅग्रीफाऊंड लाइट रेड प्याज बीज|अॅग्रीफाऊंड लाइट रेड कांदा बियाणे|agrifound light red kanda biyane,agrifound light red pyaz beej,agrifound light red onion seed,agrifound light red|kg,g,packet|^ONION_SEEDS
+Agrifound White Onion Seeds|अॅग्रीफाऊंड व्हाइट प्याज बीज|अॅग्रीफाऊंड व्हाइट कांदा बियाणे|agrifound white kanda biyane,agrifound white pyaz beej,agrifound white onion seed,agrifound white|kg,g,packet|^ONION_SEEDS
+Agrifound Rose Onion Seeds|अॅग्रीफाऊंड रोझ प्याज बीज|अॅग्रीफाऊंड रोझ कांदा बियाणे|agrifound rose kanda biyane,agrifound rose pyaz beej,agrifound rose onion seed,agrifound rose|kg,g,packet|^ONION_SEEDS
+Agrifound Red Onion Seeds|अॅग्रीफाऊंड रेड प्याज बीज|अॅग्रीफाऊंड रेड कांदा बियाणे|agrifound red kanda biyane,agrifound red pyaz beej,agrifound red onion seed,agrifound red|kg,g,packet|^ONION_SEEDS
+Phule Safed Onion Seeds|फुले सफेद प्याज बीज|फुले सफेद कांदा बियाणे|phule safed kanda biyane,phule safed pyaz beej,phule safed onion seed,phule safed|kg,g,packet|^ONION_SEEDS
+Phule Chhatrapati Onion Seeds|फुले छत्रपती प्याज बीज|फुले छत्रपती कांदा बियाणे|phule chhatrapati kanda biyane,phule chhatrapati pyaz beej,phule chhatrapati onion seed,phule chhatrapati|kg,g,packet|^ONION_SEEDS
+Arka Kalyan Onion Seeds|अर्का कल्याण प्याज बीज|अर्का कल्याण कांदा बियाणे|arka kalyan kanda biyane,arka kalyan pyaz beej,arka kalyan onion seed,arka kalyan|kg,g,packet|^ONION_SEEDS
+Arka Niketan Onion Seeds|अर्का निकेतन प्याज बीज|अर्का निकेतन कांदा बियाणे|arka niketan kanda biyane,arka niketan pyaz beej,arka niketan onion seed,arka niketan|kg,g,packet|^ONION_SEEDS
+Arka Bindu Onion Seeds|अर्का बिंदू प्याज बीज|अर्का बिंदू कांदा बियाणे|arka bindu kanda biyane,arka bindu pyaz beej,arka bindu onion seed,arka bindu|kg,g,packet|^ONION_SEEDS
+Arka Pitamber Onion Seeds|अर्का पीतांबर प्याज बीज|अर्का पीतांबर कांदा बियाणे|arka pitamber kanda biyane,arka pitamber pyaz beej,arka pitamber onion seed,arka pitamber|kg,g,packet|^ONION_SEEDS
+Arka Lalima Onion Seeds|अर्का लालिमा प्याज बीज|अर्का लालिमा कांदा बियाणे|arka lalima kanda biyane,arka lalima pyaz beej,arka lalima onion seed,arka lalima|kg,g,packet|^ONION_SEEDS
+Arka Pragati Onion Seeds|अर्का प्रगती प्याज बीज|अर्का प्रगती कांदा बियाणे|arka pragati kanda biyane,arka pragati pyaz beej,arka pragati onion seed,arka pragati|kg,g,packet|^ONION_SEEDS
+Arka Kirtiman Onion Seeds|अर्का कीर्तिमान प्याज बीज|अर्का कीर्तिमान कांदा बियाणे|arka kirtiman kanda biyane,arka kirtiman pyaz beej,arka kirtiman onion seed,arka kirtiman|kg,g,packet|^ONION_SEEDS
+Arka Bheem Onion Seeds|अर्का भीम प्याज बीज|अर्का भीम कांदा बियाणे|arka bheem kanda biyane,arka bheem pyaz beej,arka bheem onion seed,arka bheem|kg,g,packet|^ONION_SEEDS
+Pusa Red Onion Seeds|पूसा रेड प्याज बीज|पूसा रेड कांदा बियाणे|pusa red kanda biyane,pusa red pyaz beej,pusa red onion seed,pusa red|kg,g,packet|^ONION_SEEDS
+Pusa Riddhi Onion Seeds|पूसा रिद्धी प्याज बीज|पूसा रिद्धी कांदा बियाणे|pusa riddhi kanda biyane,pusa riddhi pyaz beej,pusa riddhi onion seed,pusa riddhi|kg,g,packet|^ONION_SEEDS
+Pusa Madhavi Onion Seeds|पूसा माधवी प्याज बीज|पूसा माधवी कांदा बियाणे|pusa madhavi kanda biyane,pusa madhavi pyaz beej,pusa madhavi onion seed,pusa madhavi|kg,g,packet|^ONION_SEEDS
+Pusa White Round Onion Seeds|पूसा व्हाइट राउंड प्याज बीज|पूसा व्हाइट राउंड कांदा बियाणे|pusa white round kanda biyane,pusa white round pyaz beej,pusa white round onion seed,pusa white round|kg,g,packet|^ONION_SEEDS
+Pusa White Flat Onion Seeds|पूसा व्हाइट फ्लॅट प्याज बीज|पूसा व्हाइट फ्लॅट कांदा बियाणे|pusa white flat kanda biyane,pusa white flat pyaz beej,pusa white flat onion seed,pusa white flat|kg,g,packet|^ONION_SEEDS
+Pusa Ratnar Onion Seeds|पूसा रतनार प्याज बीज|पूसा रतनार कांदा बियाणे|pusa ratnar kanda biyane,pusa ratnar pyaz beej,pusa ratnar onion seed,pusa ratnar|kg,g,packet|^ONION_SEEDS
+Pusa Soumya Onion Seeds|पूसा सौम्या प्याज बीज|पूसा सौम्या कांदा बियाणे|pusa soumya kanda biyane,pusa soumya pyaz beej,pusa soumya onion seed,pusa soumya|kg,g,packet|^ONION_SEEDS
+Punjab Selection Onion Seeds|पंजाब सिलेक्शन प्याज बीज|पंजाब सिलेक्शन कांदा बियाणे|punjab selection kanda biyane,punjab selection pyaz beej,punjab selection onion seed,punjab selection|kg,g,packet|^ONION_SEEDS
+Punjab Naroya Onion Seeds|पंजाब नरोया प्याज बीज|पंजाब नरोया कांदा बियाणे|punjab naroya kanda biyane,punjab naroya pyaz beej,punjab naroya onion seed,punjab naroya|kg,g,packet|^ONION_SEEDS
+Punjab White Onion Seeds|पंजाब व्हाइट प्याज बीज|पंजाब व्हाइट कांदा बियाणे|punjab white kanda biyane,punjab white pyaz beej,punjab white onion seed,punjab white|kg,g,packet|^ONION_SEEDS
+Punjab 48 Onion Seeds|पंजाब 48 प्याज बीज|पंजाब 48 कांदा बियाणे|punjab 48 kanda biyane,punjab 48 pyaz beej,punjab 48 onion seed,punjab 48|kg,g,packet|^ONION_SEEDS
+Hisar 2 Onion Seeds|हिसार 2 प्याज बीज|हिसार 2 कांदा बियाणे|hisar 2 kanda biyane,hisar 2 pyaz beej,hisar 2 onion seed,hisar 2|kg,g,packet|^ONION_SEEDS
+Hisar 4 Onion Seeds|हिसार 4 प्याज बीज|हिसार 4 कांदा बियाणे|hisar 4 kanda biyane,hisar 4 pyaz beej,hisar 4 onion seed,hisar 4|kg,g,packet|^ONION_SEEDS
+Kalyanpur Red Round Onion Seeds|कल्याणपूरेड राउंड प्याज बीज|कल्याणपूरेड राउंड कांदा बियाणे|kalyanpur red round kanda biyane,kalyanpur red round pyaz beej,kalyanpur red round onion seed,kalyanpur red round|kg,g,packet|^ONION_SEEDS
+Patna Red Onion Seeds|पटना रेड प्याज बीज|पटना रेड कांदा बियाणे|patna red kanda biyane,patna red pyaz beej,patna red onion seed,patna red|kg,g,packet|^ONION_SEEDS
+Patna White Onion Seeds|पटना व्हाइट प्याज बीज|पटना व्हाइट कांदा बियाणे|patna white kanda biyane,patna white pyaz beej,patna white onion seed,patna white|kg,g,packet|^ONION_SEEDS
+VL Piaz 3 Onion Seeds|व्हीएल प्याज 3 बीज|व्हीएल प्याज 3 कांदा बियाणे|vl piaz 3 kanda biyane,vl piaz 3 pyaz beej,vl piaz 3 onion seed,vl piaz 3|kg,g,packet|^ONION_SEEDS
+Udaipur 101 Onion Seeds|उदयपूर 101 प्याज बीज|उदयपूर 101 कांदा बियाणे|udaipur 101 kanda biyane,udaipur 101 pyaz beej,udaipur 101 onion seed,udaipur 101|kg,g,packet|^ONION_SEEDS
+Udaipur 102 Onion Seeds|उदयपूर 102 प्याज बीज|उदयपूर 102 कांदा बियाणे|udaipur 102 kanda biyane,udaipur 102 pyaz beej,udaipur 102 onion seed,udaipur 102|kg,g,packet|^ONION_SEEDS
+Udaipur 103 Onion Seeds|उदयपूर 103 प्याज बीज|उदयपूर 103 कांदा बियाणे|udaipur 103 kanda biyane,udaipur 103 pyaz beej,udaipur 103 onion seed,udaipur 103|kg,g,packet|^ONION_SEEDS
+RO 1 Onion Seeds|आरओ 1 प्याज बीज|आरओ 1 कांदा बियाणे|ro 1 kanda biyane,ro 1 pyaz beej,ro 1 onion seed,ro 1|kg,g,packet|^ONION_SEEDS
+RO 252 Onion Seeds|आरओ 252 प्याज बीज|आरओ 252 कांदा बियाणे|ro 252 kanda biyane,ro 252 pyaz beej,ro 252 onion seed,ro 252|kg,g,packet|^ONION_SEEDS
+Nashik Red Onion Seeds|नाशिक रेड प्याज बीज|नाशिक रेड कांदा बियाणे|nashik red kanda biyane,nashik red pyaz beej,nashik red onion seed,nashik red|kg,g,packet|^ONION_SEEDS
+Pune Fursungi Onion Seeds|पुणे फुरसुंगी प्याज बीज|पुणे फुरसुंगी कांदा बियाणे|pune fursungi kanda biyane,pune fursungi pyaz beej,pune fursungi onion seed,pune fursungi|kg,g,packet|^ONION_SEEDS
+Poona Red Onion Seeds|पूना रेड प्याज बीज|पूना रेड कांदा बियाणे|poona red kanda biyane,poona red pyaz beej,poona red onion seed,poona red|kg,g,packet|^ONION_SEEDS
+Telagi Red Onion Seeds|तेलगी रेड प्याज बीज|तेलगी रेड कांदा बियाणे|telagi red kanda biyane,telagi red pyaz beej,telagi red onion seed,telagi red|kg,g,packet|^ONION_SEEDS
+Bellary Red Onion Seeds|बेल्लारी रेड प्याज बीज|बेल्लारी रेड कांदा बियाणे|bellary red kanda biyane,bellary red pyaz beej,bellary red onion seed,bellary red|kg,g,packet|^ONION_SEEDS
+Early Grano Onion Seeds|अर्ली ग्रानो प्याज बीज|अर्ली ग्रानो कांदा बियाणे|early grano kanda biyane,early grano pyaz beej,early grano onion seed,early grano|kg,g,packet|^ONION_SEEDS
+Texas Grano Onion Seeds|टेक्सास ग्रानो प्याज बीज|टेक्सास ग्रानो कांदा बियाणे|texas grano kanda biyane,texas grano pyaz beej,texas grano onion seed,texas grano|kg,g,packet|^ONION_SEEDS
+Sukhsagar Onion Seeds|सुखसागर प्याज बीज|सुखसागर कांदा बियाणे|sukhsagar kanda biyane,sukhsagar pyaz beej,sukhsagar onion seed,sukhsagar|kg,g,packet|^ONION_SEEDS
+Rangda Onion Seeds|रांगडा प्याज बीज|रांगडा कांदा बियाणे|rangda kanda biyane,rangda pyaz beej,rangda onion seed,rangda|kg,g,packet|^ONION_SEEDS
+Gulabi Onion Seeds|गुलाबी प्याज बीज|गुलाबी कांदा बियाणे|gulabi kanda biyane,gulabi pyaz beej,gulabi onion seed,gulabi|kg,g,packet|^ONION_SEEDS
+Lasalgaon Red Onion Seeds|लासलगाव रेड प्याज बीज|लासलगाव रेड कांदा बियाणे|lasalgaon red kanda biyane,lasalgaon red pyaz beej,lasalgaon red onion seed,lasalgaon red|kg,g,packet|^ONION_SEEDS
+Talegaon Red Onion Seeds|तळेगाव रेड प्याज बीज|तळेगाव रेड कांदा बियाणे|talegaon red kanda biyane,talegaon red pyaz beej,talegaon red onion seed,talegaon red|kg,g,packet|^ONION_SEEDS
+Pandharpur Red Onion Seeds|पंढरपूरेड प्याज बीज|पंढरपूरेड कांदा बियाणे|pandharpur red kanda biyane,pandharpur red pyaz beej,pandharpur red onion seed,pandharpur red|kg,g,packet|^ONION_SEEDS
+Akola Safed Onion Seeds|अकोला सफेद प्याज बीज|अकोला सफेद कांदा बियाणे|akola safed kanda biyane,akola safed pyaz beej,akola safed onion seed,akola safed|kg,g,packet|^ONION_SEEDS
+Kharif Season Onion Seeds|खरीफ हंगामी प्याज बीज|खरीफ हंगामी कांदा बियाणे|kharif season kanda biyane,kharif season pyaz beej,kharif season onion seed,kharif season|kg,g,packet|^ONION_SEEDS
+Rabi Season Onion Seeds|रब्बी हंगामी प्याज बीज|रब्बी हंगामी कांदा बियाणे|rabi season kanda biyane,rabi season pyaz beej,rabi season onion seed,rabi season|kg,g,packet|^ONION_SEEDS
+Late Kharif Onion Seeds|उशिरा खरीफ प्याज बीज|उशिरा खरीफ कांदा बियाणे|late kharif kanda biyane,late kharif pyaz beej,late kharif onion seed,late kharif|kg,g,packet|^ONION_SEEDS
+Hybrid Red Onion Seeds|संकरित लाल प्याज बीज|संकरित लाल कांदा बियाणे|hybrid red kanda biyane,hybrid red pyaz beej,hybrid red onion seed,hybrid red|kg,g,packet|^ONION_SEEDS
+Hybrid White Onion Seeds|संकरित सफेद प्याज बीज|संकरित सफेद कांदा बियाणे|hybrid white kanda biyane,hybrid white pyaz beej,hybrid white onion seed,hybrid white|kg,g,packet|^ONION_SEEDS
+Yellow Onion Seeds|पिवळा प्याज बीज|पिवळा कांदा बियाणे|yellow onion kanda biyane,yellow onion pyaz beej,yellow onion onion seed,yellow onion|kg,g,packet|^ONION_SEEDS
+Red Round Onion Seeds|लाल गोल प्याज बीज|लाल गोल कांदा बियाणे|red round kanda biyane,red round pyaz beej,red round onion seed,red round|kg,g,packet|^ONION_SEEDS
+Long Day Onion Seeds|लांब दिवस प्याज बीज|लांब दिवस कांदा बियाणे|long day kanda biyane,long day pyaz beej,long day onion seed,long day|kg,g,packet|^ONION_SEEDS
+Short Day Onion Seeds|लहान दिवस प्याज बीज|लहान दिवस कांदा बियाणे|short day kanda biyane,short day pyaz beej,short day onion seed,short day|kg,g,packet|^ONION_SEEDS
+Open Pollinated Onion Seeds|खुले परागीकरण प्याज बीज|खुले परागीकरण कांदा बियाणे|open pollinated kanda biyane,open pollinated pyaz beej,open pollinated onion seed,open pollinated|kg,g,packet|^ONION_SEEDS
+Desi Local Onion Seeds|देसी लोकल प्याज बीज|गावरान कांदा बियाणे|desi local kanda biyane,desi local pyaz beej,desi local onion seed,desi local|kg,g,packet|^ONION_SEEDS
+Gavran Onion Seeds|गावरान प्याज बीज|गावरान कांदा बियाणे|gavran kanda biyane,gavran pyaz beej,gavran onion seed,gavran|kg,g,packet|^ONION_SEEDS
+Light Red Bulb Onion Seeds|फिकट लाल गड्डा प्याज बीज|फिकट लाल गड्डा कांदा बियाणे|light red bulb kanda biyane,light red bulb pyaz beej,light red bulb onion seed,light red bulb|kg,g,packet|^ONION_SEEDS
+Dark Red Bulb Onion Seeds|गडद लाल गड्डा प्याज बीज|गडद लाल गड्डा कांदा बियाणे|dark red bulb kanda biyane,dark red bulb pyaz beej,dark red bulb onion seed,dark red bulb|kg,g,packet|^ONION_SEEDS
+Big Bulb Onion Seeds|मोठा गड्डा प्याज बीज|मोठा गड्डा कांदा बियाणे|big bulb kanda biyane,big bulb pyaz beej,big bulb onion seed,big bulb|kg,g,packet|^ONION_SEEDS
+Small Bulb Onion Seeds|छोटा गड्डा प्याज बीज|छोटा गड्डा कांदा बियाणे|small bulb kanda biyane,small bulb pyaz beej,small bulb onion seed,small bulb|kg,g,packet|^ONION_SEEDS
+Pungent Onion Seeds|तिखट प्याज बीज|तिखट कांदा बियाणे|pungent kanda biyane,pungent pyaz beej,pungent onion seed,pungent|kg,g,packet|^ONION_SEEDS
+Mild Onion Seeds|सौम्य प्याज बीज|सौम्य कांदा बियाणे|mild kanda biyane,mild pyaz beej,mild onion seed,mild|kg,g,packet|^ONION_SEEDS
+Garlic Seeds|लहसुन बीज|लसूण बियाणे|lasun biyane,lasun seed,garlic clove seed|kg,g,packet|=GARLIC_SEEDS
+Yamuna Safed Garlic Seeds|यमुना सफेद लहसुन बीज|यमुना सफेद लसूण बियाणे|yamuna safed lasun biyane,yamuna safed lasun seed,yamuna safed garlic clove seed,yamuna safed|kg,g,packet|^GARLIC_SEEDS
+Yamuna Safed 2 Garlic Seeds|यमुना सफेद 2 लहसुन बीज|यमुना सफेद 2 लसूण बियाणे|yamuna safed 2 lasun biyane,yamuna safed 2 lasun seed,yamuna safed 2 garlic clove seed,yamuna safed 2|kg,g,packet|^GARLIC_SEEDS
+Yamuna Safed 3 Garlic Seeds|यमुना सफेद 3 लहसुन बीज|यमुना सफेद 3 लसूण बियाणे|yamuna safed 3 lasun biyane,yamuna safed 3 lasun seed,yamuna safed 3 garlic clove seed,yamuna safed 3|kg,g,packet|^GARLIC_SEEDS
+Yamuna Safed 4 Garlic Seeds|यमुना सफेद 4 लहसुन बीज|यमुना सफेद 4 लसूण बियाणे|yamuna safed 4 lasun biyane,yamuna safed 4 lasun seed,yamuna safed 4 garlic clove seed,yamuna safed 4|kg,g,packet|^GARLIC_SEEDS
+Agrifound White Garlic Seeds|अॅग्रीफाऊंड व्हाइट लहसुन बीज|अॅग्रीफाऊंड व्हाइट लसूण बियाणे|agrifound white lasun biyane,agrifound white lasun seed,agrifound white garlic clove seed,agrifound white|kg,g,packet|^GARLIC_SEEDS
+Agrifound Parvati Garlic Seeds|अॅग्रीफाऊंड पार्वती लहसुन बीज|अॅग्रीफाऊंड पार्वती लसूण बियाणे|agrifound parvati lasun biyane,agrifound parvati lasun seed,agrifound parvati garlic clove seed,agrifound parvati|kg,g,packet|^GARLIC_SEEDS
+Bhima Omkar Garlic Seeds|भीमा ओंकार लहसुन बीज|भीमा ओंकार लसूण बियाणे|bhima omkar lasun biyane,bhima omkar lasun seed,bhima omkar garlic clove seed,bhima omkar|kg,g,packet|^GARLIC_SEEDS
+Bhima Purple Garlic Seeds|भीमा पर्पल लहसुन बीज|भीमा पर्पल लसूण बियाणे|bhima purple lasun biyane,bhima purple lasun seed,bhima purple garlic clove seed,bhima purple|kg,g,packet|^GARLIC_SEEDS
+G-41 Garlic Seeds|जी-41 लहसुन बीज|जी-41 लसूण बियाणे|g-41 lasun biyane,g-41 lasun seed,g-41 garlic clove seed,g-41|kg,g,packet|^GARLIC_SEEDS
+G-50 Garlic Seeds|जी-50 लहसुन बीज|जी-50 लसूण बियाणे|g-50 lasun biyane,g-50 lasun seed,g-50 garlic clove seed,g-50|kg,g,packet|^GARLIC_SEEDS
+G-282 Garlic Seeds|जी-282 लहसुन बीज|जी-282 लसूण बियाणे|g-282 lasun biyane,g-282 lasun seed,g-282 garlic clove seed,g-282|kg,g,packet|^GARLIC_SEEDS
+Godavari Garlic Seeds|गोदावरी लहसुन बीज|गोदावरी लसूण बियाणे|godavari lasun biyane,godavari lasun seed,godavari garlic clove seed,godavari|kg,g,packet|^GARLIC_SEEDS
+Shweta Garlic Seeds|श्वेता लहसुन बीज|श्वेता लसूण बियाणे|shweta lasun biyane,shweta lasun seed,shweta garlic clove seed,shweta|kg,g,packet|^GARLIC_SEEDS
+Phule Basant Garlic Seeds|फुले बसंत लहसुन बीज|फुले बसंत लसूण बियाणे|phule basant lasun biyane,phule basant lasun seed,phule basant garlic clove seed,phule basant|kg,g,packet|^GARLIC_SEEDS
+Gadag Local Garlic Seeds|गदग लोकल लहसुन बीज|गदग लोकल लसूण बियाणे|gadag local lasun biyane,gadag local lasun seed,gadag local garlic clove seed,gadag local|kg,g,packet|^GARLIC_SEEDS
+Ooty 1 Garlic Seeds|ऊटी 1 लहसुन बीज|ऊटी 1 लसूण बियाणे|ooty 1 lasun biyane,ooty 1 lasun seed,ooty 1 garlic clove seed,ooty 1|kg,g,packet|^GARLIC_SEEDS
+Ooty Local Garlic Seeds|ऊटी लोकल लहसुन बीज|ऊटी लोकल लसूण बियाणे|ooty local lasun biyane,ooty local lasun seed,ooty local garlic clove seed,ooty local|kg,g,packet|^GARLIC_SEEDS
+Mahadev Garlic Seeds|महादेव लहसुन बीज|महादेव लसूण बियाणे|mahadev lasun biyane,mahadev lasun seed,mahadev garlic clove seed,mahadev|kg,g,packet|^GARLIC_SEEDS
+Jamnagar Local Garlic Seeds|जामनगर लोकल लहसुन बीज|जामनगर लोकल लसूण बियाणे|jamnagar local lasun biyane,jamnagar local lasun seed,jamnagar local garlic clove seed,jamnagar local|kg,g,packet|^GARLIC_SEEDS
+Rajkot Local Garlic Seeds|राजकोट लोकल लहसुन बीज|राजकोट लोकल लसूण बियाणे|rajkot local lasun biyane,rajkot local lasun seed,rajkot local garlic clove seed,rajkot local|kg,g,packet|^GARLIC_SEEDS
+Malwa Local Garlic Seeds|मालवा लोकल लहसुन बीज|मालवा लोकल लसूण बियाणे|malwa local lasun biyane,malwa local lasun seed,malwa local garlic clove seed,malwa local|kg,g,packet|^GARLIC_SEEDS
+Single Clove Garlic Seeds|एक पाकळी लहसुन बीज|एक पाकळी लसूण बियाणे|single clove lasun biyane,single clove lasun seed,single clove garlic clove seed,single clove|kg,g,packet|^GARLIC_SEEDS
+Desi Garlic Seeds|देसी लहसुन बीज|गावरान लसूण बियाणे|desi lasun biyane,desi lasun seed,desi garlic clove seed,desi|kg,g,packet|^GARLIC_SEEDS
+Bold Clove Garlic Seeds|मोठी पाकळी लहसुन बीज|मोठी पाकळी लसूण बियाणे|bold clove lasun biyane,bold clove lasun seed,bold clove garlic clove seed,bold clove|kg,g,packet|^GARLIC_SEEDS
+Small Clove Garlic Seeds|लहान पाकळी लहसुन बीज|लहान पाकळी लसूण बियाणे|small clove lasun biyane,small clove lasun seed,small clove garlic clove seed,small clove|kg,g,packet|^GARLIC_SEEDS
+White Hard Neck Garlic Seeds|सफेद सख्त गर्दन लहसुन बीज|सफेद सख्त गर्दन लसूण बियाणे|white hard neck lasun biyane,white hard neck lasun seed,white hard neck garlic clove seed,white hard neck|kg,g,packet|^GARLIC_SEEDS
+Pink Skin Garlic Seeds|गुलाबी साल लहसुन बीज|गुलाबी साल लसूण बियाणे|pink skin lasun biyane,pink skin lasun seed,pink skin garlic clove seed,pink skin|kg,g,packet|^GARLIC_SEEDS
+Hill Garlic Seeds|पहाड़ी लहसुन बीज|डोंगरी लसूण बियाणे|hill garlic lasun biyane,hill garlic lasun seed,hill garlic garlic clove seed,hill garlic|kg,g,packet|^GARLIC_SEEDS
+White Bunching Spring Onion Seeds|सफेद बंचिंग हरा प्याज बीज|पांढरा बंचिंग हिरवा कांदा बियाणे|white bunching spring onion seed,white bunching hirva kanda,white bunching|kg,g,packet|^SPRING_ONION_SEEDS
+Evergreen Spring Onion Seeds|एव्हरग्रीन हरा प्याज बीज|एव्हरग्रीन हिरवा कांदा बियाणे|evergreen spring onion seed,evergreen hirva kanda,evergreen|kg,g,packet|^SPRING_ONION_SEEDS
+Hybrid Spring Onion Seeds|संकरित हरा प्याज बीज|संकरित हिरवा कांदा बियाणे|hybrid spring onion seed,hybrid hirva kanda,hybrid|kg,g,packet|^SPRING_ONION_SEEDS
+Long White Spring Onion Seeds|लांब पांढरा हरा प्याज बीज|लांब सफेद हिरवा कांदा बियाणे|long white spring onion seed,long white hirva kanda,long white|kg,g,packet|^SPRING_ONION_SEEDS
+Red Bunching Spring Onion Seeds|लाल बंचिंग हरा प्याज बीज|लाल बंचिंग हिरवा कांदा बियाणे|red bunching spring onion seed,red bunching hirva kanda,red bunching|kg,g,packet|^SPRING_ONION_SEEDS
+@sub|solanaceous-seeds|Tomato, Chilli and Brinjal Seeds|टमाटर-मिर्च-बैंगन बीज|टोमॅटो-मिरची-वांगी बियाणे|kg,g,packet
+Pusa Early Dwarf Tomato Seeds|पूसा अर्ली ड्वार्फ टमाटर बीज|पूसा अर्ली ड्वार्फ टोमॅटो बियाणे|pusa early dwarf tomato biyane,pusa early dwarf tamatar beej,pusa early dwarf tomato seed,pusa early dwarf|kg,g,packet|^TOMATO_SEEDS
+Pusa Gaurav Tomato Seeds|पूसा गौरव टमाटर बीज|पूसा गौरव टोमॅटो बियाणे|pusa gaurav tomato biyane,pusa gaurav tamatar beej,pusa gaurav tomato seed,pusa gaurav|kg,g,packet|^TOMATO_SEEDS
+Pusa Sheetal Tomato Seeds|पूसा शीतल टमाटर बीज|पूसा शीतल टोमॅटो बियाणे|pusa sheetal tomato biyane,pusa sheetal tamatar beej,pusa sheetal tomato seed,pusa sheetal|kg,g,packet|^TOMATO_SEEDS
+Pusa Hybrid 1 Tomato Seeds|पूसा हायब्रीड 1 टमाटर बीज|पूसा हायब्रीड 1 टोमॅटो बियाणे|pusa hybrid 1 tomato biyane,pusa hybrid 1 tamatar beej,pusa hybrid 1 tomato seed,pusa hybrid 1|kg,g,packet|^TOMATO_SEEDS
+Pusa Hybrid 2 Tomato Seeds|पूसा हायब्रीड 2 टमाटर बीज|पूसा हायब्रीड 2 टोमॅटो बियाणे|pusa hybrid 2 tomato biyane,pusa hybrid 2 tamatar beej,pusa hybrid 2 tomato seed,pusa hybrid 2|kg,g,packet|^TOMATO_SEEDS
+Pusa Hybrid 4 Tomato Seeds|पूसा हायब्रीड 4 टमाटर बीज|पूसा हायब्रीड 4 टोमॅटो बियाणे|pusa hybrid 4 tomato biyane,pusa hybrid 4 tamatar beej,pusa hybrid 4 tomato seed,pusa hybrid 4|kg,g,packet|^TOMATO_SEEDS
+Pusa Rohini Tomato Seeds|पूसा रोहिणी टमाटर बीज|पूसा रोहिणी टोमॅटो बियाणे|pusa rohini tomato biyane,pusa rohini tamatar beej,pusa rohini tomato seed,pusa rohini|kg,g,packet|^TOMATO_SEEDS
+Pusa Sadabahar Tomato Seeds|पूसा सदाबहार टमाटर बीज|पूसा सदाबहार टोमॅटो बियाणे|pusa sadabahar tomato biyane,pusa sadabahar tamatar beej,pusa sadabahar tomato seed,pusa sadabahar|kg,g,packet|^TOMATO_SEEDS
+Pusa Uphar Tomato Seeds|पूसा उपहार टमाटर बीज|पूसा उपहार टोमॅटो बियाणे|pusa uphar tomato biyane,pusa uphar tamatar beej,pusa uphar tomato seed,pusa uphar|kg,g,packet|^TOMATO_SEEDS
+Pusa Divya Tomato Seeds|पूसा दिव्या टमाटर बीज|पूसा दिव्या टोमॅटो बियाणे|pusa divya tomato biyane,pusa divya tamatar beej,pusa divya tomato seed,pusa divya|kg,g,packet|^TOMATO_SEEDS
+Pusa Cherry Tomato 1 Seeds|पूसा चेरी टोमॅटो 1 टमाटर बीज|पूसा चेरी टोमॅटो 1 बियाणे|pusa cherry tomato 1 tomato biyane,pusa cherry tomato 1 tamatar beej,pusa cherry tomato 1 tomato seed,pusa cherry tomato 1|kg,g,packet|^TOMATO_SEEDS
+Arka Saurabh Tomato Seeds|अर्का सौरभ टमाटर बीज|अर्का सौरभ टोमॅटो बियाणे|arka saurabh tomato biyane,arka saurabh tamatar beej,arka saurabh tomato seed,arka saurabh|kg,g,packet|^TOMATO_SEEDS
+Arka Alok Tomato Seeds|अर्का आलोक टमाटर बीज|अर्का आलोक टोमॅटो बियाणे|arka alok tomato biyane,arka alok tamatar beej,arka alok tomato seed,arka alok|kg,g,packet|^TOMATO_SEEDS
+Arka Abha Tomato Seeds|अर्का आभा टमाटर बीज|अर्का आभा टोमॅटो बियाणे|arka abha tomato biyane,arka abha tamatar beej,arka abha tomato seed,arka abha|kg,g,packet|^TOMATO_SEEDS
+Arka Ahuti Tomato Seeds|अर्का आहुती टमाटर बीज|अर्का आहुती टोमॅटो बियाणे|arka ahuti tomato biyane,arka ahuti tamatar beej,arka ahuti tomato seed,arka ahuti|kg,g,packet|^TOMATO_SEEDS
+Arka Meghali Tomato Seeds|अर्का मेघाली टमाटर बीज|अर्का मेघाली टोमॅटो बियाणे|arka meghali tomato biyane,arka meghali tamatar beej,arka meghali tomato seed,arka meghali|kg,g,packet|^TOMATO_SEEDS
+Arka Samrat Tomato Seeds|अर्का सम्राट टमाटर बीज|अर्का सम्राटोमॅटो बियाणे|arka samrat tomato biyane,arka samrat tamatar beej,arka samrat tomato seed,arka samrat|kg,g,packet|^TOMATO_SEEDS
+Arka Vardan Tomato Seeds|अर्का वरदान टमाटर बीज|अर्का वरदान टोमॅटो बियाणे|arka vardan tomato biyane,arka vardan tamatar beej,arka vardan tomato seed,arka vardan|kg,g,packet|^TOMATO_SEEDS
+Arka Ashish Tomato Seeds|अर्का आशीष टमाटर बीज|अर्का आशीष टोमॅटो बियाणे|arka ashish tomato biyane,arka ashish tamatar beej,arka ashish tomato seed,arka ashish|kg,g,packet|^TOMATO_SEEDS
+Arka Abhijit Tomato Seeds|अर्का अभिजित टमाटर बीज|अर्का अभिजित टोमॅटो बियाणे|arka abhijit tomato biyane,arka abhijit tamatar beej,arka abhijit tomato seed,arka abhijit|kg,g,packet|^TOMATO_SEEDS
+Arka Shreshta Tomato Seeds|अर्का श्रेष्ठ टमाटर बीज|अर्का श्रेष्ठ टोमॅटो बियाणे|arka shreshta tomato biyane,arka shreshta tamatar beej,arka shreshta tomato seed,arka shreshta|kg,g,packet|^TOMATO_SEEDS
+Arka Ananya Tomato Seeds|अर्का अनन्या टमाटर बीज|अर्का अनन्या टोमॅटो बियाणे|arka ananya tomato biyane,arka ananya tamatar beej,arka ananya tomato seed,arka ananya|kg,g,packet|^TOMATO_SEEDS
+Arka Apeksha Tomato Seeds|अर्का अपेक्षा टमाटर बीज|अर्का अपेक्षा टोमॅटो बियाणे|arka apeksha tomato biyane,arka apeksha tamatar beej,arka apeksha tomato seed,arka apeksha|kg,g,packet|^TOMATO_SEEDS
+Arka Vishesh Tomato Seeds|अर्का विशेष टमाटर बीज|अर्का विशेष टोमॅटो बियाणे|arka vishesh tomato biyane,arka vishesh tamatar beej,arka vishesh tomato seed,arka vishesh|kg,g,packet|^TOMATO_SEEDS
+Arka Rakshak Hybrid Tomato Seeds|अर्का रक्षक संकरित टमाटर बीज|अर्का रक्षक संकरित टोमॅटो बियाणे|arka rakshak hybrid tomato biyane,arka rakshak hybrid tamatar beej,arka rakshak hybrid tomato seed,arka rakshak hybrid|kg,g,packet|^TOMATO_SEEDS
+Pant T-3 Tomato Seeds|पंत टी-3 टमाटर बीज|पंत टी-3 टोमॅटो बियाणे|pant t-3 tomato biyane,pant t-3 tamatar beej,pant t-3 tomato seed,pant t-3|kg,g,packet|^TOMATO_SEEDS
+Pant Bahar Tomato Seeds|पंत बहार टमाटर बीज|पंत बहार टोमॅटो बियाणे|pant bahar tomato biyane,pant bahar tamatar beej,pant bahar tomato seed,pant bahar|kg,g,packet|^TOMATO_SEEDS
+Pant T-1 Tomato Seeds|पंत टी-1 टमाटर बीज|पंत टी-1 टोमॅटो बियाणे|pant t-1 tomato biyane,pant t-1 tamatar beej,pant t-1 tomato seed,pant t-1|kg,g,packet|^TOMATO_SEEDS
+Pant T-10 Tomato Seeds|पंत टी-10 टमाटर बीज|पंत टी-10 टोमॅटो बियाणे|pant t-10 tomato biyane,pant t-10 tamatar beej,pant t-10 tomato seed,pant t-10|kg,g,packet|^TOMATO_SEEDS
+Pant Hybrid T-1 Tomato Seeds|पंत हायब्रीड टी-1 टमाटर बीज|पंत हायब्रीड टी-1 टोमॅटो बियाणे|pant hybrid t-1 tomato biyane,pant hybrid t-1 tamatar beej,pant hybrid t-1 tomato seed,pant hybrid t-1|kg,g,packet|^TOMATO_SEEDS
+CO-3 Tomato Seeds|सीओ-3 टमाटर बीज|सीओ-3 टोमॅटो बियाणे|co-3 tomato biyane,co-3 tamatar beej,co-3 tomato seed,co-3|kg,g,packet|^TOMATO_SEEDS
+PKM-1 Tomato Seeds|पीकेएम-1 टमाटर बीज|पीकेएम-1 टोमॅटो बियाणे|pkm-1 tomato biyane,pkm-1 tamatar beej,pkm-1 tomato seed,pkm-1|kg,g,packet|^TOMATO_SEEDS
+Punjab Chhuhara Tomato Seeds|पंजाब छुहारा टमाटर बीज|पंजाब छुहारा टोमॅटो बियाणे|punjab chhuhara tomato biyane,punjab chhuhara tamatar beej,punjab chhuhara tomato seed,punjab chhuhara|kg,g,packet|^TOMATO_SEEDS
+Punjab Kesri Tomato Seeds|पंजाब केसरी टमाटर बीज|पंजाब केसरी टोमॅटो बियाणे|punjab kesri tomato biyane,punjab kesri tamatar beej,punjab kesri tomato seed,punjab kesri|kg,g,packet|^TOMATO_SEEDS
+Punjab Upma Tomato Seeds|पंजाब उपमा टमाटर बीज|पंजाब उपमा टोमॅटो बियाणे|punjab upma tomato biyane,punjab upma tamatar beej,punjab upma tomato seed,punjab upma|kg,g,packet|^TOMATO_SEEDS
+Punjab Ratta Tomato Seeds|पंजाब रत्ता टमाटर बीज|पंजाब रत्ता टोमॅटो बियाणे|punjab ratta tomato biyane,punjab ratta tamatar beej,punjab ratta tomato seed,punjab ratta|kg,g,packet|^TOMATO_SEEDS
+Punjab Varkha Bahar 1 Tomato Seeds|पंजाब वर्षा बहार 1 टमाटर बीज|पंजाब वर्षा बहार 1 टोमॅटो बियाणे|punjab varkha bahar 1 tomato biyane,punjab varkha bahar 1 tamatar beej,punjab varkha bahar 1 tomato seed,punjab varkha bahar 1|kg,g,packet|^TOMATO_SEEDS
+Punjab Varkha Bahar 2 Tomato Seeds|पंजाब वर्षा बहार 2 टमाटर बीज|पंजाब वर्षा बहार 2 टोमॅटो बियाणे|punjab varkha bahar 2 tomato biyane,punjab varkha bahar 2 tamatar beej,punjab varkha bahar 2 tomato seed,punjab varkha bahar 2|kg,g,packet|^TOMATO_SEEDS
+Punjab Sartaj Tomato Seeds|पंजाब सरताज टमाटर बीज|पंजाब सरताज टोमॅटो बियाणे|punjab sartaj tomato biyane,punjab sartaj tamatar beej,punjab sartaj tomato seed,punjab sartaj|kg,g,packet|^TOMATO_SEEDS
+Sel-120 Tomato Seeds|सेल-120 टमाटर बीज|सेल-120 टोमॅटो बियाणे|sel-120 tomato biyane,sel-120 tamatar beej,sel-120 tomato seed,sel-120|kg,g,packet|^TOMATO_SEEDS
+Sioux Tomato Seeds|सू टमाटर बीज|सू टोमॅटो बियाणे|sioux tomato biyane,sioux tamatar beej,sioux tomato seed,sioux|kg,g,packet|^TOMATO_SEEDS
+Roma Tomato Seeds|रोमा टमाटर बीज|रोमा टोमॅटो बियाणे|roma tomato biyane,roma tamatar beej,roma tomato seed,roma|kg,g,packet|^TOMATO_SEEDS
+Marglobe Tomato Seeds|मार्ग्लोब टमाटर बीज|मार्ग्लोब टोमॅटो बियाणे|marglobe tomato biyane,marglobe tamatar beej,marglobe tomato seed,marglobe|kg,g,packet|^TOMATO_SEEDS
+Best of All Tomato Seeds|बेस्ट ऑफ ऑल टमाटर बीज|बेस्ट ऑफ ऑल टोमॅटो बियाणे|best of all tomato biyane,best of all tamatar beej,best of all tomato seed,best of all|kg,g,packet|^TOMATO_SEEDS
+Money Maker Tomato Seeds|मनी मेकर टमाटर बीज|मनी मेकर टोमॅटो बियाणे|money maker tomato biyane,money maker tamatar beej,money maker tomato seed,money maker|kg,g,packet|^TOMATO_SEEDS
+Floradade Tomato Seeds|फ्लोराडेड टमाटर बीज|फ्लोराडेड टोमॅटो बियाणे|floradade tomato biyane,floradade tamatar beej,floradade tomato seed,floradade|kg,g,packet|^TOMATO_SEEDS
+Rutgers Tomato Seeds|रटगर्स टमाटर बीज|रटगर्स टोमॅटो बियाणे|rutgers tomato biyane,rutgers tamatar beej,rutgers tomato seed,rutgers|kg,g,packet|^TOMATO_SEEDS
+Ponderosa Tomato Seeds|पोंडेरोसा टमाटर बीज|पोंडेरोसा टोमॅटो बियाणे|ponderosa tomato biyane,ponderosa tamatar beej,ponderosa tomato seed,ponderosa|kg,g,packet|^TOMATO_SEEDS
+Early Bird Tomato Seeds|अर्ली बर्ड टमाटर बीज|अर्ली बर्ड टोमॅटो बियाणे|early bird tomato biyane,early bird tamatar beej,early bird tomato seed,early bird|kg,g,packet|^TOMATO_SEEDS
+Himsona Tomato Seeds|हिमसोना टमाटर बीज|हिमसोना टोमॅटो बियाणे|himsona tomato biyane,himsona tamatar beej,himsona tomato seed,himsona|kg,g,packet|^TOMATO_SEEDS
+Himshikhar Tomato Seeds|हिमशिखर टमाटर बीज|हिमशिखर टोमॅटो बियाणे|himshikhar tomato biyane,himshikhar tamatar beej,himshikhar tomato seed,himshikhar|kg,g,packet|^TOMATO_SEEDS
+Kashi Vishesh Tomato Seeds|काशी विशेष टमाटर बीज|काशी विशेष टोमॅटो बियाणे|kashi vishesh tomato biyane,kashi vishesh tamatar beej,kashi vishesh tomato seed,kashi vishesh|kg,g,packet|^TOMATO_SEEDS
+Kashi Amrit Tomato Seeds|काशी अमृत टमाटर बीज|काशी अमृत टोमॅटो बियाणे|kashi amrit tomato biyane,kashi amrit tamatar beej,kashi amrit tomato seed,kashi amrit|kg,g,packet|^TOMATO_SEEDS
+Kashi Hemant Tomato Seeds|काशी हेमंत टमाटर बीज|काशी हेमंत टोमॅटो बियाणे|kashi hemant tomato biyane,kashi hemant tamatar beej,kashi hemant tomato seed,kashi hemant|kg,g,packet|^TOMATO_SEEDS
+Kashi Anupam Tomato Seeds|काशी अनुपम टमाटर बीज|काशी अनुपम टोमॅटो बियाणे|kashi anupam tomato biyane,kashi anupam tamatar beej,kashi anupam tomato seed,kashi anupam|kg,g,packet|^TOMATO_SEEDS
+Kashi Sharad Tomato Seeds|काशी शरद टमाटर बीज|काशी शरद टोमॅटो बियाणे|kashi sharad tomato biyane,kashi sharad tamatar beej,kashi sharad tomato seed,kashi sharad|kg,g,packet|^TOMATO_SEEDS
+Kashi Aman Tomato Seeds|काशी अमन टमाटर बीज|काशी अमन टोमॅटो बियाणे|kashi aman tomato biyane,kashi aman tamatar beej,kashi aman tomato seed,kashi aman|kg,g,packet|^TOMATO_SEEDS
+Kashi Abhiman Tomato Seeds|काशी अभिमान टमाटर बीज|काशी अभिमान टोमॅटो बियाणे|kashi abhiman tomato biyane,kashi abhiman tamatar beej,kashi abhiman tomato seed,kashi abhiman|kg,g,packet|^TOMATO_SEEDS
+Kashi Chayan Tomato Seeds|काशी चयन टमाटर बीज|काशी चयन टोमॅटो बियाणे|kashi chayan tomato biyane,kashi chayan tamatar beej,kashi chayan tomato seed,kashi chayan|kg,g,packet|^TOMATO_SEEDS
+Azad T-3 Tomato Seeds|आजाद टी-3 टमाटर बीज|आजाद टी-3 टोमॅटो बियाणे|azad t-3 tomato biyane,azad t-3 tamatar beej,azad t-3 tomato seed,azad t-3|kg,g,packet|^TOMATO_SEEDS
+Azad T-5 Tomato Seeds|आजाद टी-5 टमाटर बीज|आजाद टी-5 टोमॅटो बियाणे|azad t-5 tomato biyane,azad t-5 tamatar beej,azad t-5 tomato seed,azad t-5|kg,g,packet|^TOMATO_SEEDS
+Azad T-6 Tomato Seeds|आजाद टी-6 टमाटर बीज|आजाद टी-6 टोमॅटो बियाणे|azad t-6 tomato biyane,azad t-6 tamatar beej,azad t-6 tomato seed,azad t-6|kg,g,packet|^TOMATO_SEEDS
+NDT-1 Tomato Seeds|एनडीटी-1 टमाटर बीज|एनडीटी-1 टोमॅटो बियाणे|ndt-1 tomato biyane,ndt-1 tamatar beej,ndt-1 tomato seed,ndt-1|kg,g,packet|^TOMATO_SEEDS
+NDT-2 Tomato Seeds|एनडीटी-2 टमाटर बीज|एनडीटी-2 टोमॅटो बियाणे|ndt-2 tomato biyane,ndt-2 tamatar beej,ndt-2 tomato seed,ndt-2|kg,g,packet|^TOMATO_SEEDS
+NDT-3 Tomato Seeds|एनडीटी-3 टमाटर बीज|एनडीटी-3 टोमॅटो बियाणे|ndt-3 tomato biyane,ndt-3 tamatar beej,ndt-3 tomato seed,ndt-3|kg,g,packet|^TOMATO_SEEDS
+Utkal Pallavi Tomato Seeds|उत्कल पल्लवी टमाटर बीज|उत्कल पल्लवी टोमॅटो बियाणे|utkal pallavi tomato biyane,utkal pallavi tamatar beej,utkal pallavi tomato seed,utkal pallavi|kg,g,packet|^TOMATO_SEEDS
+Utkal Raja Tomato Seeds|उत्कल राजा टमाटर बीज|उत्कल राजा टोमॅटो बियाणे|utkal raja tomato biyane,utkal raja tamatar beej,utkal raja tomato seed,utkal raja|kg,g,packet|^TOMATO_SEEDS
+Utkal Kumari Tomato Seeds|उत्कल कुमारी टमाटर बीज|उत्कल कुमारी टोमॅटो बियाणे|utkal kumari tomato biyane,utkal kumari tamatar beej,utkal kumari tomato seed,utkal kumari|kg,g,packet|^TOMATO_SEEDS
+Utkal Urvashi Tomato Seeds|उत्कल उर्वशी टमाटर बीज|उत्कल उर्वशी टोमॅटो बियाणे|utkal urvashi tomato biyane,utkal urvashi tamatar beej,utkal urvashi tomato seed,utkal urvashi|kg,g,packet|^TOMATO_SEEDS
+Utkal Deepti Tomato Seeds|उत्कल दीप्ती टमाटर बीज|उत्कल दीप्ती टोमॅटो बियाणे|utkal deepti tomato biyane,utkal deepti tamatar beej,utkal deepti tomato seed,utkal deepti|kg,g,packet|^TOMATO_SEEDS
+Phule T-4 Tomato Seeds|फुले टी-4 टमाटर बीज|फुले टी-4 टोमॅटो बियाणे|phule t-4 tomato biyane,phule t-4 tamatar beej,phule t-4 tomato seed,phule t-4|kg,g,packet|^TOMATO_SEEDS
+Phule Jayanti Tomato Seeds|फुले जयंती टमाटर बीज|फुले जयंती टोमॅटो बियाणे|phule jayanti tomato biyane,phule jayanti tamatar beej,phule jayanti tomato seed,phule jayanti|kg,g,packet|^TOMATO_SEEDS
+Rajshree Tomato Seeds|राजश्री टमाटर बीज|राजश्री टोमॅटो बियाणे|rajshree tomato biyane,rajshree tamatar beej,rajshree tomato seed,rajshree|kg,g,packet|^TOMATO_SEEDS
+Phule Kesari Tomato Seeds|फुले केसरी टमाटर बीज|फुले केसरी टोमॅटो बियाणे|phule kesari tomato biyane,phule kesari tamatar beej,phule kesari tomato seed,phule kesari|kg,g,packet|^TOMATO_SEEDS
+Bhagyashree Tomato Seeds|भाग्यश्री टमाटर बीज|भाग्यश्री टोमॅटो बियाणे|bhagyashree tomato biyane,bhagyashree tamatar beej,bhagyashree tomato seed,bhagyashree|kg,g,packet|^TOMATO_SEEDS
+Co-1 Tomato Seeds|सीओ-1 टमाटर बीज|सीओ-1 टोमॅटो बियाणे|co-1 tomato biyane,co-1 tamatar beej,co-1 tomato seed,co-1|kg,g,packet|^TOMATO_SEEDS
+Co-2 Tomato Seeds|सीओ-2 टमाटर बीज|सीओ-2 टोमॅटो बियाणे|co-2 tomato biyane,co-2 tamatar beej,co-2 tomato seed,co-2|kg,g,packet|^TOMATO_SEEDS
+Shakti Tomato Seeds|शक्ती टमाटर बीज|शक्ती टोमॅटो बियाणे|shakti tomato biyane,shakti tamatar beej,shakti tomato seed,shakti|kg,g,packet|^TOMATO_SEEDS
+Anagha Tomato Seeds|अनघा टमाटर बीज|अनघा टोमॅटो बियाणे|anagha tomato biyane,anagha tamatar beej,anagha tomato seed,anagha|kg,g,packet|^TOMATO_SEEDS
+Vaibhav Tomato Seeds|वैभव टमाटर बीज|वैभव टोमॅटो बियाणे|vaibhav tomato biyane,vaibhav tamatar beej,vaibhav tomato seed,vaibhav|kg,g,packet|^TOMATO_SEEDS
+Vrindavan Tomato Seeds|वृंदावन टमाटर बीज|वृंदावन टोमॅटो बियाणे|vrindavan tomato biyane,vrindavan tamatar beej,vrindavan tomato seed,vrindavan|kg,g,packet|^TOMATO_SEEDS
+Vijeta Tomato Seeds|विजेता टमाटर बीज|विजेता टोमॅटो बियाणे|vijeta tomato biyane,vijeta tamatar beej,vijeta tomato seed,vijeta|kg,g,packet|^TOMATO_SEEDS
+Lakshmi Tomato Seeds|लक्ष्मी टमाटर बीज|लक्ष्मी टोमॅटो बियाणे|lakshmi tomato biyane,lakshmi tamatar beej,lakshmi tomato seed,lakshmi|kg,g,packet|^TOMATO_SEEDS
+Hybrid Round Tomato Seeds|संकरित गोल टमाटर बीज|संकरित गोल टोमॅटो बियाणे|hybrid round tomato biyane,hybrid round tamatar beej,hybrid round tomato seed,hybrid round|kg,g,packet|^TOMATO_SEEDS
+Hybrid Plum Tomato Seeds|संकरित प्लम टमाटर बीज|संकरित प्लम टोमॅटो बियाणे|hybrid plum tomato biyane,hybrid plum tamatar beej,hybrid plum tomato seed,hybrid plum|kg,g,packet|^TOMATO_SEEDS
+Hybrid Cherry Tomato Seeds|संकरित चेरी टमाटर बीज|संकरित चेरी टोमॅटो बियाणे|hybrid cherry tomato biyane,hybrid cherry tamatar beej,hybrid cherry tomato seed,hybrid cherry|kg,g,packet|^TOMATO_SEEDS
+Determinate Tomato Seeds|मर्यादित वाढ टमाटर बीज|मर्यादित वाढ टोमॅटो बियाणे|determinate tomato biyane,determinate tamatar beej,determinate tomato seed,determinate|kg,g,packet|^TOMATO_SEEDS
+Indeterminate Tomato Seeds|अमर्याद वाढ टमाटर बीज|अमर्याद वाढ टोमॅटो बियाणे|indeterminate tomato biyane,indeterminate tamatar beej,indeterminate tomato seed,indeterminate|kg,g,packet|^TOMATO_SEEDS
+Open Pollinated Tomato Seeds|खुले परागीकरण टमाटर बीज|खुले परागीकरण टोमॅटो बियाणे|open pollinated tomato biyane,open pollinated tamatar beej,open pollinated tomato seed,open pollinated|kg,g,packet|^TOMATO_SEEDS
+Heirloom Tomato Seeds|पारंपरिक टमाटर बीज|पारंपरिक टोमॅटो बियाणे|heirloom tomato biyane,heirloom tamatar beej,heirloom tomato seed,heirloom|kg,g,packet|^TOMATO_SEEDS
+Salad Tomato Seeds|सलाद टमाटर बीज|सलाद टोमॅटो बियाणे|salad tomato biyane,salad tamatar beej,salad tomato seed,salad|kg,g,packet|^TOMATO_SEEDS
+Paste Tomato Seeds|पेस्ट टमाटर बीज|पेस्टोमॅटो बियाणे|paste tomato biyane,paste tamatar beej,paste tomato seed,paste|kg,g,packet|^TOMATO_SEEDS
+Yellow Tomato Seeds|पिवळा टमाटर बीज|पिवळा टोमॅटो बियाणे|yellow tomato biyane,yellow tamatar beej,yellow tomato seed,yellow|kg,g,packet|^TOMATO_SEEDS
+Pear Shaped Tomato Seeds|नाशपाती आकार टमाटर बीज|नासपती आकार टोमॅटो बियाणे|pear shaped tomato biyane,pear shaped tamatar beej,pear shaped tomato seed,pear shaped|kg,g,packet|^TOMATO_SEEDS
+Cluster Tomato Seeds|गुच्छ टमाटर बीज|गुच्छ टोमॅटो बियाणे|cluster tomato biyane,cluster tamatar beej,cluster tomato seed,cluster|kg,g,packet|^TOMATO_SEEDS
+Heat Tolerant Tomato Seeds|उष्णता सहनशील टमाटर बीज|उष्णता सहनशील टोमॅटो बियाणे|heat tolerant tomato biyane,heat tolerant tamatar beej,heat tolerant tomato seed,heat tolerant|kg,g,packet|^TOMATO_SEEDS
+Leaf Curl Tolerant Tomato Seeds|पर्णगुच्छ सहनशील टमाटर बीज|पर्णगुच्छ सहनशील टोमॅटो बियाणे|leaf curl tolerant tomato biyane,leaf curl tolerant tamatar beej,leaf curl tolerant tomato seed,leaf curl tolerant|kg,g,packet|^TOMATO_SEEDS
+Wilt Resistant Tomato Seeds|मर रोग प्रतिरोधक टमाटर बीज|मर रोग प्रतिरोधक टोमॅटो बियाणे|wilt resistant tomato biyane,wilt resistant tamatar beej,wilt resistant tomato seed,wilt resistant|kg,g,packet|^TOMATO_SEEDS
+Red Cherry Tomato Seeds|लाल चेरी चेरी टमाटर बीज|लाल चेरी चेरी टोमॅटो बियाणे|red cherry cherry tomato seed,red cherry|kg,g,packet|^CHERRY_TOMATO_SEEDS
+Yellow Cherry Tomato Seeds|पिवळी चेरी चेरी टमाटर बीज|पिवळी चेरी चेरी टोमॅटो बियाणे|yellow cherry cherry tomato seed,yellow cherry|kg,g,packet|^CHERRY_TOMATO_SEEDS
+Black Cherry Tomato Seeds|काळी चेरी चेरी टमाटर बीज|काळी चेरी चेरी टोमॅटो बियाणे|black cherry cherry tomato seed,black cherry|kg,g,packet|^CHERRY_TOMATO_SEEDS
+Pear Cherry Tomato Seeds|नाशपाती चेरी चेरी टमाटर बीज|नासपती चेरी चेरी टोमॅटो बियाणे|pear cherry cherry tomato seed,pear cherry|kg,g,packet|^CHERRY_TOMATO_SEEDS
+Sweet 100 Cherry Tomato Seeds|स्वीट 100 चेरी टमाटर बीज|स्वीट 100 चेरी टोमॅटो बियाणे|sweet 100 cherry tomato seed,sweet 100|kg,g,packet|^CHERRY_TOMATO_SEEDS
+Grape Tomato Cherry Tomato Seeds|ग्रेप टोमॅटो चेरी टमाटर बीज|ग्रेप टोमॅटो चेरी टोमॅटो बियाणे|grape tomato cherry tomato seed,grape tomato|kg,g,packet|^CHERRY_TOMATO_SEEDS
+Pusa Purple Long Brinjal Seeds|पूसा पर्पल लॉंग बैंगन बीज|पूसा पर्पल लॉंग वांगी बियाणे|pusa purple long vangi biyane,pusa purple long baingan beej,pusa purple long brinjal seed,pusa purple long|kg,g,packet|^BRINJAL_SEEDS
+Pusa Purple Cluster Brinjal Seeds|पूसा पर्पल क्लस्टर बैंगन बीज|पूसा पर्पल क्लस्टर वांगी बियाणे|pusa purple cluster vangi biyane,pusa purple cluster baingan beej,pusa purple cluster brinjal seed,pusa purple cluster|kg,g,packet|^BRINJAL_SEEDS
+Pusa Purple Round Brinjal Seeds|पूसा पर्पल राउंड बैंगन बीज|पूसा पर्पल राउंड वांगी बियाणे|pusa purple round vangi biyane,pusa purple round baingan beej,pusa purple round brinjal seed,pusa purple round|kg,g,packet|^BRINJAL_SEEDS
+Pusa Kranti Brinjal Seeds|पूसा क्रांती बैंगन बीज|पूसा क्रांती वांगी बियाणे|pusa kranti vangi biyane,pusa kranti baingan beej,pusa kranti brinjal seed,pusa kranti|kg,g,packet|^BRINJAL_SEEDS
+Pusa Anmol Brinjal Seeds|पूसा अनमोल बैंगन बीज|पूसा अनमोल वांगी बियाणे|pusa anmol vangi biyane,pusa anmol baingan beej,pusa anmol brinjal seed,pusa anmol|kg,g,packet|^BRINJAL_SEEDS
+Pusa Bhairav Brinjal Seeds|पूसा भैरव बैंगन बीज|पूसा भैरव वांगी बियाणे|pusa bhairav vangi biyane,pusa bhairav baingan beej,pusa bhairav brinjal seed,pusa bhairav|kg,g,packet|^BRINJAL_SEEDS
+Pusa Hybrid 5 Brinjal Seeds|पूसा हायब्रीड 5 बैंगन बीज|पूसा हायब्रीड 5 वांगी बियाणे|pusa hybrid 5 vangi biyane,pusa hybrid 5 baingan beej,pusa hybrid 5 brinjal seed,pusa hybrid 5|kg,g,packet|^BRINJAL_SEEDS
+Pusa Hybrid 6 Brinjal Seeds|पूसा हायब्रीड 6 बैंगन बीज|पूसा हायब्रीड 6 वांगी बियाणे|pusa hybrid 6 vangi biyane,pusa hybrid 6 baingan beej,pusa hybrid 6 brinjal seed,pusa hybrid 6|kg,g,packet|^BRINJAL_SEEDS
+Pusa Upkar Brinjal Seeds|पूसा उपकार बैंगन बीज|पूसा उपकार वांगी बियाणे|pusa upkar vangi biyane,pusa upkar baingan beej,pusa upkar brinjal seed,pusa upkar|kg,g,packet|^BRINJAL_SEEDS
+Pusa Shyamla Brinjal Seeds|पूसा श्यामला बैंगन बीज|पूसा श्यामला वांगी बियाणे|pusa shyamla vangi biyane,pusa shyamla baingan beej,pusa shyamla brinjal seed,pusa shyamla|kg,g,packet|^BRINJAL_SEEDS
+Arka Kusumakar Brinjal Seeds|अर्का कुसुमाकर बैंगन बीज|अर्का कुसुमाकर वांगी बियाणे|arka kusumakar vangi biyane,arka kusumakar baingan beej,arka kusumakar brinjal seed,arka kusumakar|kg,g,packet|^BRINJAL_SEEDS
+Arka Shirish Brinjal Seeds|अर्का शिरीष बैंगन बीज|अर्का शिरीष वांगी बियाणे|arka shirish vangi biyane,arka shirish baingan beej,arka shirish brinjal seed,arka shirish|kg,g,packet|^BRINJAL_SEEDS
+Arka Neelkanth Brinjal Seeds|अर्का नीलकंठ बैंगन बीज|अर्का नीलकंठ वांगी बियाणे|arka neelkanth vangi biyane,arka neelkanth baingan beej,arka neelkanth brinjal seed,arka neelkanth|kg,g,packet|^BRINJAL_SEEDS
+Arka Keshav Brinjal Seeds|अर्का केशव बैंगन बीज|अर्का केशव वांगी बियाणे|arka keshav vangi biyane,arka keshav baingan beej,arka keshav brinjal seed,arka keshav|kg,g,packet|^BRINJAL_SEEDS
+Arka Nidhi Brinjal Seeds|अर्का निधी बैंगन बीज|अर्का निधी वांगी बियाणे|arka nidhi vangi biyane,arka nidhi baingan beej,arka nidhi brinjal seed,arka nidhi|kg,g,packet|^BRINJAL_SEEDS
+Arka Anand Brinjal Seeds|अर्का आनंद बैंगन बीज|अर्का आनंद वांगी बियाणे|arka anand vangi biyane,arka anand baingan beej,arka anand brinjal seed,arka anand|kg,g,packet|^BRINJAL_SEEDS
+Arka Navneet Brinjal Seeds|अर्का नवनीत बैंगन बीज|अर्का नवनीत वांगी बियाणे|arka navneet vangi biyane,arka navneet baingan beej,arka navneet brinjal seed,arka navneet|kg,g,packet|^BRINJAL_SEEDS
+Pant Samrat Brinjal Seeds|पंत सम्राट बैंगन बीज|पंत सम्राट वांगी बियाणे|pant samrat vangi biyane,pant samrat baingan beej,pant samrat brinjal seed,pant samrat|kg,g,packet|^BRINJAL_SEEDS
+Pant Rituraj Brinjal Seeds|पंत ऋतुराज बैंगन बीज|पंत ऋतुराज वांगी बियाणे|pant rituraj vangi biyane,pant rituraj baingan beej,pant rituraj brinjal seed,pant rituraj|kg,g,packet|^BRINJAL_SEEDS
+Pant Brinjal Hybrid 1 Seeds|पंत बैंगन हायब्रीड 1 बीज|पंत बैंगन हायब्रीड 1 वांगी बियाणे|pant brinjal hybrid 1 vangi biyane,pant brinjal hybrid 1 baingan beej,pant brinjal hybrid 1 brinjal seed,pant brinjal hybrid 1|kg,g,packet|^BRINJAL_SEEDS
+Punjab Sadabahar Brinjal Seeds|पंजाब सदाबहार बैंगन बीज|पंजाब सदाबहार वांगी बियाणे|punjab sadabahar vangi biyane,punjab sadabahar baingan beej,punjab sadabahar brinjal seed,punjab sadabahar|kg,g,packet|^BRINJAL_SEEDS
+Punjab Jamuni Gola Brinjal Seeds|पंजाब जामुनी गोला बैंगन बीज|पंजाब जामुनी गोला वांगी बियाणे|punjab jamuni gola vangi biyane,punjab jamuni gola baingan beej,punjab jamuni gola brinjal seed,punjab jamuni gola|kg,g,packet|^BRINJAL_SEEDS
+Punjab Barsati Brinjal Seeds|पंजाब बरसाती बैंगन बीज|पंजाब बरसाती वांगी बियाणे|punjab barsati vangi biyane,punjab barsati baingan beej,punjab barsati brinjal seed,punjab barsati|kg,g,packet|^BRINJAL_SEEDS
+Punjab Neelam Brinjal Seeds|पंजाब नीलम बैंगन बीज|पंजाब नीलम वांगी बियाणे|punjab neelam vangi biyane,punjab neelam baingan beej,punjab neelam brinjal seed,punjab neelam|kg,g,packet|^BRINJAL_SEEDS
+Punjab Bahar Brinjal Seeds|पंजाब बहार बैंगन बीज|पंजाब बहार वांगी बियाणे|punjab bahar vangi biyane,punjab bahar baingan beej,punjab bahar brinjal seed,punjab bahar|kg,g,packet|^BRINJAL_SEEDS
+Azad Kranti Brinjal Seeds|आजाद क्रांती बैंगन बीज|आजाद क्रांती वांगी बियाणे|azad kranti vangi biyane,azad kranti baingan beej,azad kranti brinjal seed,azad kranti|kg,g,packet|^BRINJAL_SEEDS
+Azad B-1 Brinjal Seeds|आजाद बी-1 बैंगन बीज|आजाद बी-1 वांगी बियाणे|azad b-1 vangi biyane,azad b-1 baingan beej,azad b-1 brinjal seed,azad b-1|kg,g,packet|^BRINJAL_SEEDS
+Azad B-2 Brinjal Seeds|आजाद बी-2 बैंगन बीज|आजाद बी-2 वांगी बियाणे|azad b-2 vangi biyane,azad b-2 baingan beej,azad b-2 brinjal seed,azad b-2|kg,g,packet|^BRINJAL_SEEDS
+Swarna Shyamali Brinjal Seeds|स्वर्ण श्यामली बैंगन बीज|स्वर्ण श्यामली वांगी बियाणे|swarna shyamali vangi biyane,swarna shyamali baingan beej,swarna shyamali brinjal seed,swarna shyamali|kg,g,packet|^BRINJAL_SEEDS
+Swarna Mani Brinjal Seeds|स्वर्ण मणी बैंगन बीज|स्वर्ण मणी वांगी बियाणे|swarna mani vangi biyane,swarna mani baingan beej,swarna mani brinjal seed,swarna mani|kg,g,packet|^BRINJAL_SEEDS
+Swarna Pratibha Brinjal Seeds|स्वर्ण प्रतिभा बैंगन बीज|स्वर्ण प्रतिभा वांगी बियाणे|swarna pratibha vangi biyane,swarna pratibha baingan beej,swarna pratibha brinjal seed,swarna pratibha|kg,g,packet|^BRINJAL_SEEDS
+Swarna Shobha Brinjal Seeds|स्वर्ण शोभा बैंगन बीज|स्वर्ण शोभा वांगी बियाणे|swarna shobha vangi biyane,swarna shobha baingan beej,swarna shobha brinjal seed,swarna shobha|kg,g,packet|^BRINJAL_SEEDS
+Swarna Shakti Brinjal Seeds|स्वर्ण शक्ती बैंगन बीज|स्वर्ण शक्ती वांगी बियाणे|swarna shakti vangi biyane,swarna shakti baingan beej,swarna shakti brinjal seed,swarna shakti|kg,g,packet|^BRINJAL_SEEDS
+Kashi Taru Brinjal Seeds|काशी तरू बैंगन बीज|काशी तरू वांगी बियाणे|kashi taru vangi biyane,kashi taru baingan beej,kashi taru brinjal seed,kashi taru|kg,g,packet|^BRINJAL_SEEDS
+Kashi Sandesh Brinjal Seeds|काशी संदेश बैंगन बीज|काशी संदेश वांगी बियाणे|kashi sandesh vangi biyane,kashi sandesh baingan beej,kashi sandesh brinjal seed,kashi sandesh|kg,g,packet|^BRINJAL_SEEDS
+Kashi Komal Brinjal Seeds|काशी कोमल बैंगन बीज|काशी कोमल वांगी बियाणे|kashi komal vangi biyane,kashi komal baingan beej,kashi komal brinjal seed,kashi komal|kg,g,packet|^BRINJAL_SEEDS
+Kashi Prakash Brinjal Seeds|काशी प्रकाश बैंगन बीज|काशी प्रकाश वांगी बियाणे|kashi prakash vangi biyane,kashi prakash baingan beej,kashi prakash brinjal seed,kashi prakash|kg,g,packet|^BRINJAL_SEEDS
+Kashi Uttam Brinjal Seeds|काशी उत्तम बैंगन बीज|काशी उत्तम वांगी बियाणे|kashi uttam vangi biyane,kashi uttam baingan beej,kashi uttam brinjal seed,kashi uttam|kg,g,packet|^BRINJAL_SEEDS
+Kashi Sandesh Hybrid Brinjal Seeds|काशी संदेश संकरित बैंगन बीज|काशी संदेश संकरित वांगी बियाणे|kashi sandesh hybrid vangi biyane,kashi sandesh hybrid baingan beej,kashi sandesh hybrid brinjal seed,kashi sandesh hybrid|kg,g,packet|^BRINJAL_SEEDS
+Utkal Keshari Brinjal Seeds|उत्कल केशरी बैंगन बीज|उत्कल केशरी वांगी बियाणे|utkal keshari vangi biyane,utkal keshari baingan beej,utkal keshari brinjal seed,utkal keshari|kg,g,packet|^BRINJAL_SEEDS
+Utkal Tarini Brinjal Seeds|उत्कल तारिणी बैंगन बीज|उत्कल तारिणी वांगी बियाणे|utkal tarini vangi biyane,utkal tarini baingan beej,utkal tarini brinjal seed,utkal tarini|kg,g,packet|^BRINJAL_SEEDS
+Utkal Jyoti Brinjal Seeds|उत्कल ज्योती बैंगन बीज|उत्कल ज्योती वांगी बियाणे|utkal jyoti vangi biyane,utkal jyoti baingan beej,utkal jyoti brinjal seed,utkal jyoti|kg,g,packet|^BRINJAL_SEEDS
+Utkal Madhuri Brinjal Seeds|उत्कल माधुरी बैंगन बीज|उत्कल माधुरी वांगी बियाणे|utkal madhuri vangi biyane,utkal madhuri baingan beej,utkal madhuri brinjal seed,utkal madhuri|kg,g,packet|^BRINJAL_SEEDS
+Utkal Anushree Brinjal Seeds|उत्कल अनुश्री बैंगन बीज|उत्कल अनुश्री वांगी बियाणे|utkal anushree vangi biyane,utkal anushree baingan beej,utkal anushree brinjal seed,utkal anushree|kg,g,packet|^BRINJAL_SEEDS
+Krishnanagar Green Round Brinjal Seeds|कृष्णनगर ग्रीन राउंड बैंगन बीज|कृष्णनगर ग्रीन राउंड वांगी बियाणे|krishnanagar green round vangi biyane,krishnanagar green round baingan beej,krishnanagar green round brinjal seed,krishnanagar green round|kg,g,packet|^BRINJAL_SEEDS
+Nurki Brinjal Seeds|नुरकी बैंगन बीज|नुरकी वांगी बियाणे|nurki vangi biyane,nurki baingan beej,nurki brinjal seed,nurki|kg,g,packet|^BRINJAL_SEEDS
+Muktakeshi Brinjal Seeds|मुक्तकेशी बैंगन बीज|मुक्तकेशी वांगी बियाणे|muktakeshi vangi biyane,muktakeshi baingan beej,muktakeshi brinjal seed,muktakeshi|kg,g,packet|^BRINJAL_SEEDS
+Vijay Hybrid Brinjal Seeds|विजय संकरित बैंगन बीज|विजय संकरित वांगी बियाणे|vijay hybrid vangi biyane,vijay hybrid baingan beej,vijay hybrid brinjal seed,vijay hybrid|kg,g,packet|^BRINJAL_SEEDS
+Hisar Pragati Brinjal Seeds|हिसार प्रगती बैंगन बीज|हिसार प्रगती वांगी बियाणे|hisar pragati vangi biyane,hisar pragati baingan beej,hisar pragati brinjal seed,hisar pragati|kg,g,packet|^BRINJAL_SEEDS
+Hisar Shyamal Brinjal Seeds|हिसार श्यामल बैंगन बीज|हिसार श्यामल वांगी बियाणे|hisar shyamal vangi biyane,hisar shyamal baingan beej,hisar shyamal brinjal seed,hisar shyamal|kg,g,packet|^BRINJAL_SEEDS
+Hisar Jamuni Brinjal Seeds|हिसार जामुनी बैंगन बीज|हिसार जामुनी वांगी बियाणे|hisar jamuni vangi biyane,hisar jamuni baingan beej,hisar jamuni brinjal seed,hisar jamuni|kg,g,packet|^BRINJAL_SEEDS
+Phule Harit Brinjal Seeds|फुले हरित बैंगन बीज|फुले हरित वांगी बियाणे|phule harit vangi biyane,phule harit baingan beej,phule harit brinjal seed,phule harit|kg,g,packet|^BRINJAL_SEEDS
+Phule Ajay Brinjal Seeds|फुले अजय बैंगन बीज|फुले अजय वांगी बियाणे|phule ajay vangi biyane,phule ajay baingan beej,phule ajay brinjal seed,phule ajay|kg,g,packet|^BRINJAL_SEEDS
+Phule Krishna Brinjal Seeds|फुले कृष्णा बैंगन बीज|फुले कृष्णा वांगी बियाणे|phule krishna vangi biyane,phule krishna baingan beej,phule krishna brinjal seed,phule krishna|kg,g,packet|^BRINJAL_SEEDS
+Konkan Prabha Brinjal Seeds|कोकण प्रभा बैंगन बीज|कोकण प्रभा वांगी बियाणे|konkan prabha vangi biyane,konkan prabha baingan beej,konkan prabha brinjal seed,konkan prabha|kg,g,packet|^BRINJAL_SEEDS
+Konkan Bhushan Brinjal Seeds|कोकण भूषण बैंगन बीज|कोकण भूषण वांगी बियाणे|konkan bhushan vangi biyane,konkan bhushan baingan beej,konkan bhushan brinjal seed,konkan bhushan|kg,g,packet|^BRINJAL_SEEDS
+Konkan Tara Brinjal Seeds|कोकण तारा बैंगन बीज|कोकण तारा वांगी बियाणे|konkan tara vangi biyane,konkan tara baingan beej,konkan tara brinjal seed,konkan tara|kg,g,packet|^BRINJAL_SEEDS
+Ratnagiri Green Brinjal Seeds|रत्नागिरी हिरवी बैंगन बीज|रत्नागिरी हिरवी वांगी बियाणे|ratnagiri green vangi biyane,ratnagiri green baingan beej,ratnagiri green brinjal seed,ratnagiri green|kg,g,packet|^BRINJAL_SEEDS
+Bhagyamati Brinjal Seeds|भाग्यमती बैंगन बीज|भाग्यमती वांगी बियाणे|bhagyamati vangi biyane,bhagyamati baingan beej,bhagyamati brinjal seed,bhagyamati|kg,g,packet|^BRINJAL_SEEDS
+Vengurla Brinjal Seeds|वेंगुर्ला वांगी बैंगन बीज|वेंगुर्ला वांगी बियाणे|vengurla brinjal vangi biyane,vengurla brinjal baingan beej,vengurla brinjal brinjal seed,vengurla brinjal|kg,g,packet|^BRINJAL_SEEDS
+Vaingan Bharit Brinjal Seeds|भरताचे वांगे बैंगन बीज|भरताचे वांगे वांगी बियाणे|vaingan bharit vangi biyane,vaingan bharit baingan beej,vaingan bharit brinjal seed,vaingan bharit|kg,g,packet|^BRINJAL_SEEDS
+Bharit Round Big Brinjal Seeds|भरताची मोठी गोल वांगी बैंगन बीज|भरताची मोठी गोल वांगी बियाणे|bharit round big vangi biyane,bharit round big baingan beej,bharit round big brinjal seed,bharit round big|kg,g,packet|^BRINJAL_SEEDS
+Bharit Round Green Brinjal Seeds|भरताची हिरवी वांगी बैंगन बीज|भरताची हिरवी वांगी बियाणे|bharit round green vangi biyane,bharit round green baingan beej,bharit round green brinjal seed,bharit round green|kg,g,packet|^BRINJAL_SEEDS
+Raveya Brinjal Seeds|रवैया बैंगन बीज|रवैया वांगी बियाणे|raveya vangi biyane,raveya baingan beej,raveya brinjal seed,raveya|kg,g,packet|^BRINJAL_SEEDS
+Purple Long Brinjal Seeds|जांभळी लांबैंगन बीज|जांभळी लांब वांगी बियाणे|purple long vangi biyane,purple long baingan beej,purple long brinjal seed,purple long|kg,g,packet|^BRINJAL_SEEDS
+Purple Round Brinjal Seeds|जांभळी गोल बैंगन बीज|जांभळी गोल वांगी बियाणे|purple round vangi biyane,purple round baingan beej,purple round brinjal seed,purple round|kg,g,packet|^BRINJAL_SEEDS
+Green Round Brinjal Seeds|हिरवी गोल बैंगन बीज|हिरवी गोल वांगी बियाणे|green round vangi biyane,green round baingan beej,green round brinjal seed,green round|kg,g,packet|^BRINJAL_SEEDS
+Green Long Brinjal Seeds|हिरवी लांबैंगन बीज|हिरवी लांब वांगी बियाणे|green long vangi biyane,green long baingan beej,green long brinjal seed,green long|kg,g,packet|^BRINJAL_SEEDS
+White Egg Brinjal Seeds|पांढरे अंडे बैंगन बीज|पांढरे अंडाकृती वांगी बियाणे|white egg vangi biyane,white egg baingan beej,white egg brinjal seed,white egg|kg,g,packet|^BRINJAL_SEEDS
+Striped Brinjal Seeds|पट्टेदार बैंगन बीज|पट्टेदार वांगी बियाणे|striped vangi biyane,striped baingan beej,striped brinjal seed,striped|kg,g,packet|^BRINJAL_SEEDS
+Pink Brinjal Seeds|गुलाबी बैंगन बीज|गुलाबी वांगी बियाणे|pink vangi biyane,pink baingan beej,pink brinjal seed,pink|kg,g,packet|^BRINJAL_SEEDS
+Small Round Brinjal Seeds|लहान गोल बैंगन बीज|लहान गोल वांगी बियाणे|small round vangi biyane,small round baingan beej,small round brinjal seed,small round|kg,g,packet|^BRINJAL_SEEDS
+Finger Type Brinjal Seeds|बोटासारखी बैंगन बीज|बोटासारखी वांगी बियाणे|finger type vangi biyane,finger type baingan beej,finger type brinjal seed,finger type|kg,g,packet|^BRINJAL_SEEDS
+Hybrid Long Brinjal Seeds|संकरित लांबैंगन बीज|संकरित लांब वांगी बियाणे|hybrid long vangi biyane,hybrid long baingan beej,hybrid long brinjal seed,hybrid long|kg,g,packet|^BRINJAL_SEEDS
+Hybrid Round Brinjal Seeds|संकरित गोल बैंगन बीज|संकरित गोल वांगी बियाणे|hybrid round vangi biyane,hybrid round baingan beej,hybrid round brinjal seed,hybrid round|kg,g,packet|^BRINJAL_SEEDS
+Thai Brinjal Seeds|थाई बैंगन बीज|थाई वांगी बियाणे|thai vangi biyane,thai baingan beej,thai brinjal seed,thai|kg,g,packet|^BRINJAL_SEEDS
+Kateri Brinjal Seeds|कटेरी बैंगन बीज|कटेरी वांगी बियाणे|kateri vangi biyane,kateri baingan beej,kateri brinjal seed,kateri|kg,g,packet|^BRINJAL_SEEDS
+Pusa Jwala Green Chilli Seeds|पूसा ज्वाला हरी मिर्च बीज|पूसा ज्वाला हिरवी मिरची बियाणे|pusa jwala mirchi biyane,pusa jwala mirchi beej,pusa jwala chilli seed,pusa jwala|kg,g,packet|^GREEN_CHILLI_SEEDS
+Pusa Sadabahar Green Chilli Seeds|पूसा सदाबहार हरी मिर्च बीज|पूसा सदाबहार हिरवी मिरची बियाणे|pusa sadabahar mirchi biyane,pusa sadabahar mirchi beej,pusa sadabahar chilli seed,pusa sadabahar|kg,g,packet|^GREEN_CHILLI_SEEDS
+Pusa Deepti Green Chilli Seeds|पूसा दीप्ति हरी मिर्च बीज|पूसा दीप्ति हिरवी मिरची बियाणे|pusa deepti mirchi biyane,pusa deepti mirchi beej,pusa deepti chilli seed,pusa deepti|kg,g,packet|^GREEN_CHILLI_SEEDS
+Pusa Mukta Green Chilli Seeds|पूसा मुक्ता हरी मिर्च बीज|पूसा मुक्ता हिरवी मिरची बियाणे|pusa mukta mirchi biyane,pusa mukta mirchi beej,pusa mukta chilli seed,pusa mukta|kg,g,packet|^GREEN_CHILLI_SEEDS
+Arka Lohit Green Chilli Seeds|अर्का लोहित हरी मिर्च बीज|अर्का लोहित हिरवी मिरची बियाणे|arka lohit mirchi biyane,arka lohit mirchi beej,arka lohit chilli seed,arka lohit|kg,g,packet|^GREEN_CHILLI_SEEDS
+Arka Suphal Green Chilli Seeds|अर्का सुफल हरी मिर्च बीज|अर्का सुफल हिरवी मिरची बियाणे|arka suphal mirchi biyane,arka suphal mirchi beej,arka suphal chilli seed,arka suphal|kg,g,packet|^GREEN_CHILLI_SEEDS
+Arka Meghana Green Chilli Seeds|अर्का मेघना हरी मिर्च बीज|अर्का मेघना हिरवी मिरची बियाणे|arka meghana mirchi biyane,arka meghana mirchi beej,arka meghana chilli seed,arka meghana|kg,g,packet|^GREEN_CHILLI_SEEDS
+Arka Harita Green Chilli Seeds|अर्का हरिता हरी मिर्च बीज|अर्का हरिता हिरवी मिरची बियाणे|arka harita mirchi biyane,arka harita mirchi beej,arka harita chilli seed,arka harita|kg,g,packet|^GREEN_CHILLI_SEEDS
+Arka Abhir Green Chilli Seeds|अर्का अभीर हरी मिर्च बीज|अर्का अभीर हिरवी मिरची बियाणे|arka abhir mirchi biyane,arka abhir mirchi beej,arka abhir chilli seed,arka abhir|kg,g,packet|^GREEN_CHILLI_SEEDS
+Arka Haritha Green Chilli Seeds|अर्का हरिता हरी मिर्च बीज|अर्का हरिता हिरवी मिरची बियाणे|arka haritha mirchi biyane,arka haritha mirchi beej,arka haritha chilli seed,arka haritha|kg,g,packet|^GREEN_CHILLI_SEEDS
+Punjab Lal Green Chilli Seeds|पंजाब लाल हरी मिर्च बीज|पंजाब लाल हिरवी मिरची बियाणे|punjab lal mirchi biyane,punjab lal mirchi beej,punjab lal chilli seed,punjab lal|kg,g,packet|^GREEN_CHILLI_SEEDS
+Punjab Guchhedar Green Chilli Seeds|पंजाब गुच्छेदार हरी मिर्च बीज|पंजाब गुच्छेदार हिरवी मिरची बियाणे|punjab guchhedar mirchi biyane,punjab guchhedar mirchi beej,punjab guchhedar chilli seed,punjab guchhedar|kg,g,packet|^GREEN_CHILLI_SEEDS
+Punjab Tej Green Chilli Seeds|पंजाब तेज हरी मिर्च बीज|पंजाब तेज हिरवी मिरची बियाणे|punjab tej mirchi biyane,punjab tej mirchi beej,punjab tej chilli seed,punjab tej|kg,g,packet|^GREEN_CHILLI_SEEDS
+Punjab Surkh Green Chilli Seeds|पंजाब सुर्ख हरी मिर्च बीज|पंजाब सुर्ख हिरवी मिरची बियाणे|punjab surkh mirchi biyane,punjab surkh mirchi beej,punjab surkh chilli seed,punjab surkh|kg,g,packet|^GREEN_CHILLI_SEEDS
+Pant C-1 Green Chilli Seeds|पंत सी-1 हरी मिर्च बीज|पंत सी-1 हिरवी मिरची बियाणे|pant c-1 mirchi biyane,pant c-1 mirchi beej,pant c-1 chilli seed,pant c-1|kg,g,packet|^GREEN_CHILLI_SEEDS
+Pant C-2 Green Chilli Seeds|पंत सी-2 हरी मिर्च बीज|पंत सी-2 हिरवी मिरची बियाणे|pant c-2 mirchi biyane,pant c-2 mirchi beej,pant c-2 chilli seed,pant c-2|kg,g,packet|^GREEN_CHILLI_SEEDS
+Kashi Anmol Green Chilli Seeds|काशी अनमोल हरी मिर्च बीज|काशी अनमोल हिरवी मिरची बियाणे|kashi anmol mirchi biyane,kashi anmol mirchi beej,kashi anmol chilli seed,kashi anmol|kg,g,packet|^GREEN_CHILLI_SEEDS
+Kashi Early Green Chilli Seeds|काशी अर्ली हरी मिर्च बीज|काशी अर्ली हिरवी मिरची बियाणे|kashi early mirchi biyane,kashi early mirchi beej,kashi early chilli seed,kashi early|kg,g,packet|^GREEN_CHILLI_SEEDS
+Kashi Surkh Green Chilli Seeds|काशी सुर्ख हरी मिर्च बीज|काशी सुर्ख हिरवी मिरची बियाणे|kashi surkh mirchi biyane,kashi surkh mirchi beej,kashi surkh chilli seed,kashi surkh|kg,g,packet|^GREEN_CHILLI_SEEDS
+Kashi Tej Green Chilli Seeds|काशी तेज हरी मिर्च बीज|काशी तेज हिरवी मिरची बियाणे|kashi tej mirchi biyane,kashi tej mirchi beej,kashi tej chilli seed,kashi tej|kg,g,packet|^GREEN_CHILLI_SEEDS
+NP-46A Green Chilli Seeds|एनपी-46ए हरी मिर्च बीज|एनपी-46ए हिरवी मिरची बियाणे|np-46a mirchi biyane,np-46a mirchi beej,np-46a chilli seed,np-46a|kg,g,packet|^GREEN_CHILLI_SEEDS
+K-1 Green Chilli Seeds|के-1 हरी मिर्च बीज|के-1 हिरवी मिरची बियाणे|k-1 mirchi biyane,k-1 mirchi beej,k-1 chilli seed,k-1|kg,g,packet|^GREEN_CHILLI_SEEDS
+K-2 Green Chilli Seeds|के-2 हरी मिर्च बीज|के-2 हिरवी मिरची बियाणे|k-2 mirchi biyane,k-2 mirchi beej,k-2 chilli seed,k-2|kg,g,packet|^GREEN_CHILLI_SEEDS
+CO-1 Green Chilli Seeds|सीओ-1 हरी मिर्च बीज|सीओ-1 हिरवी मिरची बियाणे|co-1 mirchi biyane,co-1 mirchi beej,co-1 chilli seed,co-1|kg,g,packet|^GREEN_CHILLI_SEEDS
+CO-2 Green Chilli Seeds|सीओ-2 हरी मिर्च बीज|सीओ-2 हिरवी मिरची बियाणे|co-2 mirchi biyane,co-2 mirchi beej,co-2 chilli seed,co-2|kg,g,packet|^GREEN_CHILLI_SEEDS
+CO-3 Green Chilli Seeds|सीओ-3 हरी मिर्च बीज|सीओ-3 हिरवी मिरची बियाणे|co-3 mirchi biyane,co-3 mirchi beej,co-3 chilli seed,co-3|kg,g,packet|^GREEN_CHILLI_SEEDS
+CO-4 Green Chilli Seeds|सीओ-4 हरी मिर्च बीज|सीओ-4 हिरवी मिरची बियाणे|co-4 mirchi biyane,co-4 mirchi beej,co-4 chilli seed,co-4|kg,g,packet|^GREEN_CHILLI_SEEDS
+PLR-1 Green Chilli Seeds|पीएलआर-1 हरी मिर्च बीज|पीएलआर-1 हिरवी मिरची बियाणे|plr-1 mirchi biyane,plr-1 mirchi beej,plr-1 chilli seed,plr-1|kg,g,packet|^GREEN_CHILLI_SEEDS
+PKM-1 Green Chilli Seeds|पीकेएम-1 हरी मिर्च बीज|पीकेएम-1 हिरवी मिरची बियाणे|pkm-1 mirchi biyane,pkm-1 mirchi beej,pkm-1 chilli seed,pkm-1|kg,g,packet|^GREEN_CHILLI_SEEDS
+Jwala Green Chilli Seeds|ज्वाला हरी मिर्च बीज|ज्वाला हिरवी मिरची बियाणे|jwala mirchi biyane,jwala mirchi beej,jwala chilli seed,jwala|kg,g,packet|^GREEN_CHILLI_SEEDS
+Jwalamukhi Green Chilli Seeds|ज्वालामुखी हरी मिर्च बीज|ज्वालामुखी हिरवी मिरची बियाणे|jwalamukhi mirchi biyane,jwalamukhi mirchi beej,jwalamukhi chilli seed,jwalamukhi|kg,g,packet|^GREEN_CHILLI_SEEDS
+Jawahar 218 Green Chilli Seeds|जवाहर 218 हरी मिर्च बीज|जवाहर 218 हिरवी मिरची बियाणे|jawahar 218 mirchi biyane,jawahar 218 mirchi beej,jawahar 218 chilli seed,jawahar 218|kg,g,packet|^GREEN_CHILLI_SEEDS
+Jawahar Mirch 283 Green Chilli Seeds|जवाहर मिर्च 283 हरी मिर्च बीज|जवाहर मिर्च 283 हिरवी मिरची बियाणे|jawahar mirch 283 mirchi biyane,jawahar mirch 283 mirchi beej,jawahar mirch 283 chilli seed,jawahar mirch 283|kg,g,packet|^GREEN_CHILLI_SEEDS
+Jawahar Mirch 148 Green Chilli Seeds|जवाहर मिर्च 148 हरी मिर्च बीज|जवाहर मिर्च 148 हिरवी मिरची बियाणे|jawahar mirch 148 mirchi biyane,jawahar mirch 148 mirchi beej,jawahar mirch 148 chilli seed,jawahar mirch 148|kg,g,packet|^GREEN_CHILLI_SEEDS
+Phule Jyoti Green Chilli Seeds|फुले ज्योती हरी मिर्च बीज|फुले ज्योती हिरवी मिरची बियाणे|phule jyoti mirchi biyane,phule jyoti mirchi beej,phule jyoti chilli seed,phule jyoti|kg,g,packet|^GREEN_CHILLI_SEEDS
+Phule Sai Green Chilli Seeds|फुले साई हरी मिर्च बीज|फुले साई हिरवी मिरची बियाणे|phule sai mirchi biyane,phule sai mirchi beej,phule sai chilli seed,phule sai|kg,g,packet|^GREEN_CHILLI_SEEDS
+Phule Suryamukhi Green Chilli Seeds|फुले सूर्यमुखी हरी मिर्च बीज|फुले सूर्यमुखी हिरवी मिरची बियाणे|phule suryamukhi mirchi biyane,phule suryamukhi mirchi beej,phule suryamukhi chilli seed,phule suryamukhi|kg,g,packet|^GREEN_CHILLI_SEEDS
+Phule Mukta Green Chilli Seeds|फुले मुक्ता हरी मिर्च बीज|फुले मुक्ता हिरवी मिरची बियाणे|phule mukta mirchi biyane,phule mukta mirchi beej,phule mukta chilli seed,phule mukta|kg,g,packet|^GREEN_CHILLI_SEEDS
+Phule Chandrika Green Chilli Seeds|फुले चंद्रिका हरी मिर्च बीज|फुले चंद्रिका हिरवी मिरची बियाणे|phule chandrika mirchi biyane,phule chandrika mirchi beej,phule chandrika chilli seed,phule chandrika|kg,g,packet|^GREEN_CHILLI_SEEDS
+Phule Teja Green Chilli Seeds|फुले तेजा हरी मिर्च बीज|फुले तेजा हिरवी मिरची बियाणे|phule teja mirchi biyane,phule teja mirchi beej,phule teja chilli seed,phule teja|kg,g,packet|^GREEN_CHILLI_SEEDS
+Konkan Kirti Green Chilli Seeds|कोकण कीर्ती हरी मिर्च बीज|कोकण कीर्ती हिरवी मिरची बियाणे|konkan kirti mirchi biyane,konkan kirti mirchi beej,konkan kirti chilli seed,konkan kirti|kg,g,packet|^GREEN_CHILLI_SEEDS
+Parbhani Tejas Green Chilli Seeds|परभणी तेजस हरी मिर्च बीज|परभणी तेजस हिरवी मिरची बियाणे|parbhani tejas mirchi biyane,parbhani tejas mirchi beej,parbhani tejas chilli seed,parbhani tejas|kg,g,packet|^GREEN_CHILLI_SEEDS
+Akola Tejas Green Chilli Seeds|अकोला तेजस हरी मिर्च बीज|अकोला तेजस हिरवी मिरची बियाणे|akola tejas mirchi biyane,akola tejas mirchi beej,akola tejas chilli seed,akola tejas|kg,g,packet|^GREEN_CHILLI_SEEDS
+Sankeshwari Green Chilli Seeds|संकेश्वरी हरी मिर्च बीज|संकेश्वरी हिरवी मिरची बियाणे|sankeshwari mirchi biyane,sankeshwari mirchi beej,sankeshwari chilli seed,sankeshwari|kg,g,packet|^GREEN_CHILLI_SEEDS
+Ellora Green Chilli Seeds|एलोरा हरी मिर्च बीज|एलोरा हिरवी मिरची बियाणे|ellora mirchi biyane,ellora mirchi beej,ellora chilli seed,ellora|kg,g,packet|^GREEN_CHILLI_SEEDS
+Nandurbar Local Green Chilli Seeds|नंदुरबार लोकल हरी मिर्च बीज|नंदुरबार लोकल हिरवी मिरची बियाणे|nandurbar local mirchi biyane,nandurbar local mirchi beej,nandurbar local chilli seed,nandurbar local|kg,g,packet|^GREEN_CHILLI_SEEDS
+Kolhapuri Thecha Type Green Chilli Seeds|कोल्हापुरी ठेचा प्रकार हरी मिर्च बीज|कोल्हापुरी ठेचा प्रकार हिरवी मिरची बियाणे|kolhapuri thecha type mirchi biyane,kolhapuri thecha type mirchi beej,kolhapuri thecha type chilli seed,kolhapuri thecha type|kg,g,packet|^GREEN_CHILLI_SEEDS
+Jwari Mirchi Green Chilli Seeds|ज्वारी मिरची हरी मिर्च बीज|ज्वारी मिरची हिरवी मिरची बियाणे|jwari mirchi mirchi biyane,jwari mirchi mirchi beej,jwari mirchi chilli seed,jwari mirchi|kg,g,packet|^GREEN_CHILLI_SEEDS
+Bhavnagri Green Chilli Seeds|भावनगरी हरी मिर्च बीज|भावनगरी हिरवी मिरची बियाणे|bhavnagri mirchi biyane,bhavnagri mirchi beej,bhavnagri chilli seed,bhavnagri|kg,g,packet|^GREEN_CHILLI_SEEDS
+Ghati Green Chilli Seeds|घाटी हरी मिर्च बीज|घाटी हिरवी मिरची बियाणे|ghati mirchi biyane,ghati mirchi beej,ghati chilli seed,ghati|kg,g,packet|^GREEN_CHILLI_SEEDS
+Gavti Green Chilli Seeds|गावठी हरी मिर्च बीज|गावठी हिरवी मिरची बियाणे|gavti mirchi biyane,gavti mirchi beej,gavti chilli seed,gavti|kg,g,packet|^GREEN_CHILLI_SEEDS
+Desi Green Chilli Seeds|देसी हरी मिर्च बीज|गावरान हिरवी मिरची बियाणे|desi mirchi biyane,desi mirchi beej,desi chilli seed,desi|kg,g,packet|^GREEN_CHILLI_SEEDS
+Hybrid Green Chilli Seeds|संकरित हिरवी हरी मिर्च बीज|संकरित हिरवी हिरवी मिरची बियाणे|hybrid green mirchi biyane,hybrid green mirchi beej,hybrid green chilli seed,hybrid green|kg,g,packet|^GREEN_CHILLI_SEEDS
+Hybrid Hot Green Chilli Seeds|संकरितिखट हरी मिर्च बीज|संकरितिखट हिरवी मिरची बियाणे|hybrid hot mirchi biyane,hybrid hot mirchi beej,hybrid hot chilli seed,hybrid hot|kg,g,packet|^GREEN_CHILLI_SEEDS
+Long Thin Green Chilli Seeds|लांबारीक हरी मिर्च बीज|लांबारीक हिरवी मिरची बियाणे|long thin mirchi biyane,long thin mirchi beej,long thin chilli seed,long thin|kg,g,packet|^GREEN_CHILLI_SEEDS
+Short Thick Green Chilli Seeds|आखूड जाड हरी मिर्च बीज|आखूड जाड हिरवी मिरची बियाणे|short thick mirchi biyane,short thick mirchi beej,short thick chilli seed,short thick|kg,g,packet|^GREEN_CHILLI_SEEDS
+Mild Green Chilli Seeds|सौम्य हिरवी हरी मिर्च बीज|सौम्य हिरवी हिरवी मिरची बियाणे|mild green mirchi biyane,mild green mirchi beej,mild green chilli seed,mild green|kg,g,packet|^GREEN_CHILLI_SEEDS
+Extra Hot Green Chilli Seeds|अति तिखट हरी मिर्च बीज|अति तिखट हिरवी मिरची बियाणे|extra hot mirchi biyane,extra hot mirchi beej,extra hot chilli seed,extra hot|kg,g,packet|^GREEN_CHILLI_SEEDS
+Dry Red Chilli Seeds|सूखी लाल मिर्च बीज|सुकी लाल मिरची बियाणे|dry chilli seed,sukhi mirchi biyane|kg,g,packet|=DRY_RED_CHILLI_SEEDS
+Byadgi Dry Red Chilli Seeds|ब्याडगी सूखी लाल मिर्च बीज|ब्याडगी सुकी लाल मिरची बियाणे|byadgi dry chilli seed,byadgi sukhi mirchi biyane,byadgi|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Guntur Sannam Dry Red Chilli Seeds|गुंटूर सन्नम सूखी लाल मिर्च बीज|गुंटूर सन्नम सुकी लाल मिरची बियाणे|guntur sannam dry chilli seed,guntur sannam sukhi mirchi biyane,guntur sannam|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Teja S17 Dry Red Chilli Seeds|तेजा एस17 सूखी लाल मिर्च बीज|तेजा एस17 सुकी लाल मिरची बियाणे|teja s17 dry chilli seed,teja s17 sukhi mirchi biyane,teja s17|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Warangal Chapata Dry Red Chilli Seeds|वारंगल चपाटा सूखी लाल मिर्च बीज|वारंगल चपाटा सुकी लाल मिरची बियाणे|warangal chapata dry chilli seed,warangal chapata sukhi mirchi biyane,warangal chapata|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Kashmiri Dry Red Chilli Seeds|काश्मिरी सूखी लाल मिर्च बीज|काश्मिरी सुकी लाल मिरची बियाणे|kashmiri dry chilli seed,kashmiri sukhi mirchi biyane,kashmiri|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Sankeshwari Red Dry Red Chilli Seeds|संकेश्वरी लाल सूखी लाल मिर्च बीज|संकेश्वरी लाल सुकी लाल मिरची बियाणे|sankeshwari red dry chilli seed,sankeshwari red sukhi mirchi biyane,sankeshwari red|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Jwala Red Dry Red Chilli Seeds|ज्वालाल सूखी लाल मिर्च बीज|ज्वालाल सुकी लाल मिरची बियाणे|jwala red dry chilli seed,jwala red sukhi mirchi biyane,jwala red|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+LCA 334 Dry Red Chilli Seeds|एलसीए 334 सूखी लाल मिर्च बीज|एलसीए 334 सुकी लाल मिरची बियाणे|lca 334 dry chilli seed,lca 334 sukhi mirchi biyane,lca 334|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Kanthari Dry Red Chilli Seeds|कांथारी सूखी लाल मिर्च बीज|कांथारी सुकी लाल मिरची बियाणे|kanthari dry chilli seed,kanthari sukhi mirchi biyane,kanthari|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Ramnad Mundu Dry Red Chilli Seeds|रामनाड मुंडू सूखी लाल मिर्च बीज|रामनाड मुंडू सुकी लाल मिरची बियाणे|ramnad mundu dry chilli seed,ramnad mundu sukhi mirchi biyane,ramnad mundu|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Bhut Jolokia Dry Red Chilli Seeds|भूत जोलोकिया सूखी लाल मिर्च बीज|भूत जोलोकिया सुकी लाल मिरची बियाणे|bhut jolokia dry chilli seed,bhut jolokia sukhi mirchi biyane,bhut jolokia|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Dhani Dry Red Chilli Seeds|धनी सूखी लाल मिर्च बीज|धनी सुकी लाल मिरची बियाणे|dhani dry chilli seed,dhani sukhi mirchi biyane,dhani|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Mathania Dry Red Chilli Seeds|मथानिया सूखी लाल मिर्च बीज|मथानिया सुकी लाल मिरची बियाणे|mathania dry chilli seed,mathania sukhi mirchi biyane,mathania|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Reshampatti Dry Red Chilli Seeds|रेशमपट्टी सूखी लाल मिर्च बीज|रेशमपट्टी सुकी लाल मिरची बियाणे|reshampatti dry chilli seed,reshampatti sukhi mirchi biyane,reshampatti|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Pusa Sadabahar Red Dry Red Chilli Seeds|पूसा सदाबहार लाल सूखी लाल मिर्च बीज|पूसा सदाबहार लाल सुकी लाल मिरची बियाणे|pusa sadabahar red dry chilli seed,pusa sadabahar red sukhi mirchi biyane,pusa sadabahar red|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Gundu Dry Red Chilli Seeds|गुंडू सूखी लाल मिर्च बीज|गुंडू सुकी लाल मिरची बियाणे|gundu dry chilli seed,gundu sukhi mirchi biyane,gundu|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Naga Morich Dry Red Chilli Seeds|नागा मोरिच सूखी लाल मिर्च बीज|नागा मोरिच सुकी लाल मिरची बियाणे|naga morich dry chilli seed,naga morich sukhi mirchi biyane,naga morich|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Lavangi Dry Red Chilli Seeds|लवंगी सूखी लाल मिर्च बीज|लवंगी सुकी लाल मिरची बियाणे|lavangi dry chilli seed,lavangi sukhi mirchi biyane,lavangi|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+Ghoongroo Dry Red Chilli Seeds|घुंगरू सूखी लाल मिर्च बीज|घुंगरू सुकी लाल मिरची बियाणे|ghoongroo dry chilli seed,ghoongroo sukhi mirchi biyane,ghoongroo|kg,g,packet|^DRY_RED_CHILLI_SEEDS
+California Wonder Capsicum Seeds|कॅलिफोर्निया वंडर शिमला मिर्च बीज|कॅलिफोर्निया वंडर ढोबळी मिरची बियाणे|california wonder dhobli mirchi biyane,california wonder shimla mirch beej,california wonder capsicum seed,california wonder|kg,g,packet|^CAPSICUM_SEEDS
+Arka Mohini Capsicum Seeds|अर्का मोहिनी शिमला मिर्च बीज|अर्का मोहिनी ढोबळी मिरची बियाणे|arka mohini dhobli mirchi biyane,arka mohini shimla mirch beej,arka mohini capsicum seed,arka mohini|kg,g,packet|^CAPSICUM_SEEDS
+Arka Gaurav Capsicum Seeds|अर्का गौरव शिमला मिर्च बीज|अर्का गौरव ढोबळी मिरची बियाणे|arka gaurav dhobli mirchi biyane,arka gaurav shimla mirch beej,arka gaurav capsicum seed,arka gaurav|kg,g,packet|^CAPSICUM_SEEDS
+Arka Basant Capsicum Seeds|अर्का बसंत शिमला मिर्च बीज|अर्का बसंत ढोबळी मिरची बियाणे|arka basant dhobli mirchi biyane,arka basant shimla mirch beej,arka basant capsicum seed,arka basant|kg,g,packet|^CAPSICUM_SEEDS
+Pusa Deepti Capsicum Seeds|पूसा दीप्ती शिमला मिर्च बीज|पूसा दीप्ती ढोबळी मिरची बियाणे|pusa deepti capsicum dhobli mirchi biyane,pusa deepti capsicum shimla mirch beej,pusa deepti capsicum capsicum seed,pusa deepti capsicum|kg,g,packet|^CAPSICUM_SEEDS
+Solan Bharpoor Capsicum Seeds|सोलन भरपूर शिमला मिर्च बीज|सोलन भरपूर ढोबळी मिरची बियाणे|solan bharpoor dhobli mirchi biyane,solan bharpoor shimla mirch beej,solan bharpoor capsicum seed,solan bharpoor|kg,g,packet|^CAPSICUM_SEEDS
+Solan Hybrid 1 Capsicum Seeds|सोलन हायब्रीड 1 शिमला मिर्च बीज|सोलन हायब्रीड 1 ढोबळी मिरची बियाणे|solan hybrid 1 dhobli mirchi biyane,solan hybrid 1 shimla mirch beej,solan hybrid 1 capsicum seed,solan hybrid 1|kg,g,packet|^CAPSICUM_SEEDS
+Solan Hybrid 2 Capsicum Seeds|सोलन हायब्रीड 2 शिमला मिर्च बीज|सोलन हायब्रीड 2 ढोबळी मिरची बियाणे|solan hybrid 2 dhobli mirchi biyane,solan hybrid 2 shimla mirch beej,solan hybrid 2 capsicum seed,solan hybrid 2|kg,g,packet|^CAPSICUM_SEEDS
+Kashi Early Capsicum Seeds|काशी अर्ली शिमला मिर्च बीज|काशी अर्ली ढोबळी मिरची बियाणे|kashi early capsicum dhobli mirchi biyane,kashi early capsicum shimla mirch beej,kashi early capsicum capsicum seed,kashi early capsicum|kg,g,packet|^CAPSICUM_SEEDS
+Yolo Wonder Capsicum Seeds|योलो वंडर शिमला मिर्च बीज|योलो वंडर ढोबळी मिरची बियाणे|yolo wonder dhobli mirchi biyane,yolo wonder shimla mirch beej,yolo wonder capsicum seed,yolo wonder|kg,g,packet|^CAPSICUM_SEEDS
+Green Bell Capsicum Seeds|ग्रीन बेल शिमला मिर्च बीज|ग्रीन बेल ढोबळी मिरची बियाणे|green bell dhobli mirchi biyane,green bell shimla mirch beej,green bell capsicum seed,green bell|kg,g,packet|^CAPSICUM_SEEDS
+Red Bell Capsicum Seeds|रेड बेल शिमला मिर्च बीज|रेड बेल ढोबळी मिरची बियाणे|red bell dhobli mirchi biyane,red bell shimla mirch beej,red bell capsicum seed,red bell|kg,g,packet|^CAPSICUM_SEEDS
+Yellow Bell Capsicum Seeds|यलो बेल शिमला मिर्च बीज|यलो बेल ढोबळी मिरची बियाणे|yellow bell dhobli mirchi biyane,yellow bell shimla mirch beej,yellow bell capsicum seed,yellow bell|kg,g,packet|^CAPSICUM_SEEDS
+Orange Bell Capsicum Seeds|ऑरेंज बेल शिमला मिर्च बीज|ऑरेंज बेल ढोबळी मिरची बियाणे|orange bell dhobli mirchi biyane,orange bell shimla mirch beej,orange bell capsicum seed,orange bell|kg,g,packet|^CAPSICUM_SEEDS
+Purple Bell Capsicum Seeds|पर्पल बेल शिमला मिर्च बीज|पर्पल बेल ढोबळी मिरची बियाणे|purple bell dhobli mirchi biyane,purple bell shimla mirch beej,purple bell capsicum seed,purple bell|kg,g,packet|^CAPSICUM_SEEDS
+Colored Hybrid Capsicum Seeds|रंगीत संकरित शिमला मिर्च बीज|रंगीत संकरित ढोबळी मिरची बियाणे|colored hybrid dhobli mirchi biyane,colored hybrid shimla mirch beej,colored hybrid capsicum seed,colored hybrid|kg,g,packet|^CAPSICUM_SEEDS
+Polyhouse Hybrid Capsicum Seeds|पॉलीहाऊस संकरित शिमला मिर्च बीज|पॉलीहाऊस संकरित ढोबळी मिरची बियाणे|polyhouse hybrid dhobli mirchi biyane,polyhouse hybrid shimla mirch beej,polyhouse hybrid capsicum seed,polyhouse hybrid|kg,g,packet|^CAPSICUM_SEEDS
+Pusa Sawani Okra Seeds|पूसावनी भिंडी बीज|पूसावनी भेंडी बियाणे|pusa sawani bhendi biyane,pusa sawani bhindi beej,pusa sawani okra seed,pusa sawani|kg,g,packet|^OKRA_SEEDS
+Pusa A-4 Okra Seeds|पूसा ए-4 भिंडी बीज|पूसा ए-4 भेंडी बियाणे|pusa a-4 bhendi biyane,pusa a-4 bhindi beej,pusa a-4 okra seed,pusa a-4|kg,g,packet|^OKRA_SEEDS
+Pusa Makhmali Okra Seeds|पूसा मखमली भिंडी बीज|पूसा मखमली भेंडी बियाणे|pusa makhmali bhendi biyane,pusa makhmali bhindi beej,pusa makhmali okra seed,pusa makhmali|kg,g,packet|^OKRA_SEEDS
+Pusa Bhindi 5 Okra Seeds|पूसा भिंडी 5 बीज|पूसा भिंडी 5 भेंडी बियाणे|pusa bhindi 5 bhendi biyane,pusa bhindi 5 bhindi beej,pusa bhindi 5 okra seed,pusa bhindi 5|kg,g,packet|^OKRA_SEEDS
+Pusa Mansoon Okra Seeds|पूसा मानसून भिंडी बीज|पूसा मानसून भेंडी बियाणे|pusa mansoon bhendi biyane,pusa mansoon bhindi beej,pusa mansoon okra seed,pusa mansoon|kg,g,packet|^OKRA_SEEDS
+Arka Abhay Okra Seeds|अर्का अभय भिंडी बीज|अर्का अभय भेंडी बियाणे|arka abhay bhendi biyane,arka abhay bhindi beej,arka abhay okra seed,arka abhay|kg,g,packet|^OKRA_SEEDS
+Arka Nikita Okra Seeds|अर्का निकिता भिंडी बीज|अर्का निकिता भेंडी बियाणे|arka nikita bhendi biyane,arka nikita bhindi beej,arka nikita okra seed,arka nikita|kg,g,packet|^OKRA_SEEDS
+Phule Kirti Okra Seeds|फुले कीर्ती भिंडी बीज|फुले कीर्ती भेंडी बियाणे|phule kirti bhendi biyane,phule kirti bhindi beej,phule kirti okra seed,phule kirti|kg,g,packet|^OKRA_SEEDS
+Phule Pradhan Okra Seeds|फुले प्रधान भिंडी बीज|फुले प्रधान भेंडी बियाणे|phule pradhan bhendi biyane,phule pradhan bhindi beej,phule pradhan okra seed,phule pradhan|kg,g,packet|^OKRA_SEEDS
+Punjab Padmini Okra Seeds|पंजाब पद्मिनी भिंडी बीज|पंजाब पद्मिनी भेंडी बियाणे|punjab padmini bhendi biyane,punjab padmini bhindi beej,punjab padmini okra seed,punjab padmini|kg,g,packet|^OKRA_SEEDS
+Punjab 7 Okra Seeds|पंजाब 7 भिंडी बीज|पंजाब 7 भेंडी बियाणे|punjab 7 bhendi biyane,punjab 7 bhindi beej,punjab 7 okra seed,punjab 7|kg,g,packet|^OKRA_SEEDS
+Punjab 8 Okra Seeds|पंजाब 8 भिंडी बीज|पंजाब 8 भेंडी बियाणे|punjab 8 bhendi biyane,punjab 8 bhindi beej,punjab 8 okra seed,punjab 8|kg,g,packet|^OKRA_SEEDS
+Punjab Suhawani Okra Seeds|पंजाब सुहावनी भिंडी बीज|पंजाब सुहावनी भेंडी बियाणे|punjab suhawani bhendi biyane,punjab suhawani bhindi beej,punjab suhawani okra seed,punjab suhawani|kg,g,packet|^OKRA_SEEDS
+Kashi Pragati Okra Seeds|काशी प्रगती भिंडी बीज|काशी प्रगती भेंडी बियाणे|kashi pragati bhendi biyane,kashi pragati bhindi beej,kashi pragati okra seed,kashi pragati|kg,g,packet|^OKRA_SEEDS
+Kashi Kranti Okra Seeds|काशी क्रांती भिंडी बीज|काशी क्रांती भेंडी बियाणे|kashi kranti bhendi biyane,kashi kranti bhindi beej,kashi kranti okra seed,kashi kranti|kg,g,packet|^OKRA_SEEDS
+Kashi Vibhuti Okra Seeds|काशी विभूती भिंडी बीज|काशी विभूती भेंडी बियाणे|kashi vibhuti bhendi biyane,kashi vibhuti bhindi beej,kashi vibhuti okra seed,kashi vibhuti|kg,g,packet|^OKRA_SEEDS
+Kashi Mohini Okra Seeds|काशी मोहिनी भिंडी बीज|काशी मोहिनी भेंडी बियाणे|kashi mohini bhendi biyane,kashi mohini bhindi beej,kashi mohini okra seed,kashi mohini|kg,g,packet|^OKRA_SEEDS
+Kashi Lalima Okra Seeds|काशी लालिमा भिंडी बीज|काशी लालिमा भेंडी बियाणे|kashi lalima bhendi biyane,kashi lalima bhindi beej,kashi lalima okra seed,kashi lalima|kg,g,packet|^OKRA_SEEDS
+Azad Bhindi 1 Okra Seeds|आजाद भिंडी 1 बीज|आजाद भिंडी 1 भेंडी बियाणे|azad bhindi 1 bhendi biyane,azad bhindi 1 bhindi beej,azad bhindi 1 okra seed,azad bhindi 1|kg,g,packet|^OKRA_SEEDS
+VRO 6 Okra Seeds|व्हीआरओ 6 भिंडी बीज|व्हीआरओ 6 भेंडी बियाणे|vro 6 bhendi biyane,vro 6 bhindi beej,vro 6 okra seed,vro 6|kg,g,packet|^OKRA_SEEDS
+VRO 4 Okra Seeds|व्हीआरओ 4 भिंडी बीज|व्हीआरओ 4 भेंडी बियाणे|vro 4 bhendi biyane,vro 4 bhindi beej,vro 4 okra seed,vro 4|kg,g,packet|^OKRA_SEEDS
+Varsha Uphar Okra Seeds|वर्षा उपहार भिंडी बीज|वर्षा उपहार भेंडी बियाणे|varsha uphar bhendi biyane,varsha uphar bhindi beej,varsha uphar okra seed,varsha uphar|kg,g,packet|^OKRA_SEEDS
+Utkal Gaurav Okra Seeds|उत्कल गौरव भिंडी बीज|उत्कल गौरव भेंडी बियाणे|utkal gaurav bhendi biyane,utkal gaurav bhindi beej,utkal gaurav okra seed,utkal gaurav|kg,g,packet|^OKRA_SEEDS
+Utkal Urvashi Okra Seeds|उत्कल उर्वशी भिंडी बीज|उत्कल उर्वशी भेंडी बियाणे|utkal urvashi okra bhendi biyane,utkal urvashi okra bhindi beej,utkal urvashi okra okra seed,utkal urvashi okra|kg,g,packet|^OKRA_SEEDS
+Hisar Unnat Okra Seeds|हिसार उन्नत भिंडी बीज|हिसार उन्नत भेंडी बियाणे|hisar unnat bhendi biyane,hisar unnat bhindi beej,hisar unnat okra seed,hisar unnat|kg,g,packet|^OKRA_SEEDS
+Hisar Naveen Okra Seeds|हिसार नवीन भिंडी बीज|हिसार नवीन भेंडी बियाणे|hisar naveen bhendi biyane,hisar naveen bhindi beej,hisar naveen okra seed,hisar naveen|kg,g,packet|^OKRA_SEEDS
+Sel-2 Okra Seeds|सेल-2 भिंडी बीज|सेल-2 भेंडी बियाणे|sel-2 bhendi biyane,sel-2 bhindi beej,sel-2 okra seed,sel-2|kg,g,packet|^OKRA_SEEDS
+CO-1 Okra Seeds|सीओ-1 भिंडी बीज|सीओ-1 भेंडी बियाणे|co-1 bhendi biyane,co-1 bhindi beej,co-1 okra seed,co-1|kg,g,packet|^OKRA_SEEDS
+CO-2 Okra Seeds|सीओ-2 भिंडी बीज|सीओ-2 भेंडी बियाणे|co-2 bhendi biyane,co-2 bhindi beej,co-2 okra seed,co-2|kg,g,packet|^OKRA_SEEDS
+CO-3 Okra Seeds|सीओ-3 भिंडी बीज|सीओ-3 भेंडी बियाणे|co-3 bhendi biyane,co-3 bhindi beej,co-3 okra seed,co-3|kg,g,packet|^OKRA_SEEDS
+Red Okra Seeds|लाल भेंडी भिंडी बीज|लाल भेंडी बियाणे|red okra bhendi biyane,red okra bhindi beej,red okra okra seed,red okra|kg,g,packet|^OKRA_SEEDS
+Red Burgundy Okra Seeds|रेड बरगंडी भिंडी बीज|रेड बरगंडी भेंडी बियाणे|red burgundy bhendi biyane,red burgundy bhindi beej,red burgundy okra seed,red burgundy|kg,g,packet|^OKRA_SEEDS
+Clemson Spineless Okra Seeds|क्लेमसन स्पाइनलेस भिंडी बीज|क्लेमसन स्पाइनलेस भेंडी बियाणे|clemson spineless bhendi biyane,clemson spineless bhindi beej,clemson spineless okra seed,clemson spineless|kg,g,packet|^OKRA_SEEDS
+Green Long Okra Seeds|हिरवी लांब भिंडी बीज|हिरवी लांब भेंडी बियाणे|green long bhendi biyane,green long bhindi beej,green long okra seed,green long|kg,g,packet|^OKRA_SEEDS
+Green Short Okra Seeds|हिरवी आखूड भिंडी बीज|हिरवी आखूड भेंडी बियाणे|green short bhendi biyane,green short bhindi beej,green short okra seed,green short|kg,g,packet|^OKRA_SEEDS
+Five Ridge Okra Seeds|पंचकोनी भिंडी बीज|पंचकोनी भेंडी बियाणे|five ridge bhendi biyane,five ridge bhindi beej,five ridge okra seed,five ridge|kg,g,packet|^OKRA_SEEDS
+Hybrid Okra Seeds|संकरित भिंडी बीज|संकरित भेंडी बियाणे|hybrid bhendi biyane,hybrid bhindi beej,hybrid okra seed,hybrid|kg,g,packet|^OKRA_SEEDS
+Yellow Vein Mosaic Resistant Okra Seeds|पिवळा विषाणू प्रतिरोधक भिंडी बीज|पिवळा विषाणू प्रतिरोधक भेंडी बियाणे|yellow vein mosaic resistant bhendi biyane,yellow vein mosaic resistant bhindi beej,yellow vein mosaic resistant okra seed,yellow vein mosaic resistant|kg,g,packet|^OKRA_SEEDS
+Desi Okra Seeds|देसी भिंडी बीज|गावरान भेंडी बियाणे|desi bhendi biyane,desi bhindi beej,desi okra seed,desi|kg,g,packet|^OKRA_SEEDS
+Ladies Finger Dwarf Okra Seeds|बुटकी भिंडी बीज|बुटकी भेंडी बियाणे|ladies finger dwarf bhendi biyane,ladies finger dwarf bhindi beej,ladies finger dwarf okra seed,ladies finger dwarf|kg,g,packet|^OKRA_SEEDS

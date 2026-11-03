@@ -34,7 +34,7 @@ export function ProductCard({
     ? undefined
     : Math.max(
         150,
-        Math.min(190, (width - 56) * 0.46 * Math.min(fontScale, 1.4)),
+        Math.min(180, (width - 56) * 0.46 * Math.min(fontScale, 1.4)),
       );
   const name = listingName(listing, language);
   const unit = listingUnit(listing.unit, language);
@@ -61,6 +61,7 @@ export function ProductCard({
       style={({ pressed }) => [
         s.card,
         { width: cardWidth },
+        compact && s.compactCard,
         pressed && s.pressed,
       ]}
     >
@@ -74,35 +75,52 @@ export function ProductCard({
           />
         </View>
       ) : (
-        <ListingImage listing={listing} style={s.image} />
+        <View style={[s.image, compact && s.imageCompact]}>
+          <ListingImage listing={listing} style={s.photo} iconSize={40} />
+          {hasPrice && (
+            <View style={s.priceChip}>
+              <Text numberOfLines={1} style={s.priceChipText}>
+                {rate}
+              </Text>
+            </View>
+          )}
+        </View>
       )}
       <View style={s.body}>
         {isDirectory && (
           <Badge tone={isService ? "blue" : "green"}>{kind}</Badge>
         )}
-        {listing.isDemo && <Badge yellow>{t.demoListing}</Badge>}
-        <Text numberOfLines={2} style={s.name}>
+        {listing.isDemo && !compact && <Badge yellow>{t.demoListing}</Badge>}
+        <Text numberOfLines={compact ? 1 : 2} style={s.name}>
           {name}
         </Text>
-        <Text numberOfLines={1} style={[s.price, !hasPrice && s.noPrice]}>
-          {rate}
-        </Text>
-        <Text numberOfLines={1} style={s.meta}>
-          {isDirectory
-            ? t.directoryAvailable
-            : listingQuantity(listing, language)}
-        </Text>
-        <View style={s.locationRow}>
-          <Ionicons
-            accessible={false}
-            name="location-outline"
-            size={14}
-            color={theme.colors.muted}
-          />
-          <Text numberOfLines={1} style={[s.meta, s.village]}>
-            {village}
+        {!hasPrice && !isDirectory && (
+          <Text numberOfLines={1} style={s.noPrice}>
+            {rate}
           </Text>
-        </View>
+        )}
+        {isDirectory ? (
+          <Text numberOfLines={1} style={s.meta}>
+            {t.directoryAvailable}
+          </Text>
+        ) : (
+          <>
+            <Text numberOfLines={1} style={s.meta}>
+              {listingQuantity(listing, language)}
+            </Text>
+            <View style={s.locationRow}>
+              <Ionicons
+                accessible={false}
+                name="location-outline"
+                size={13}
+                color={theme.colors.muted}
+              />
+              <Text numberOfLines={1} style={[s.meta, s.village]}>
+                {village}
+              </Text>
+            </View>
+          </>
+        )}
       </View>
     </Pressable>
   );
@@ -115,19 +133,33 @@ const s = StyleSheet.create({
     borderColor: theme.colors.border,
     overflow: "hidden",
   },
-  image: { height: 112, width: "100%", backgroundColor: theme.colors.tint },
-  directoryTile: { alignItems: "center", justifyContent: "center" },
-  body: { padding: 12, gap: 4 },
-  name: { ...theme.type.subheading, color: theme.colors.heading },
-  price: {
-    fontSize: 17,
-    lineHeight: 24,
-    fontWeight: "700",
-    color: theme.colors.primary,
+  image: {
+    height: 124,
+    width: "100%",
+    backgroundColor: theme.colors.tint,
+    overflow: "hidden",
   },
-  noPrice: { fontSize: 14, fontWeight: "500", color: theme.colors.muted },
-  meta: { ...theme.type.caption, color: theme.colors.muted },
-  locationRow: { flexDirection: "row", alignItems: "center", gap: 4 },
+  // Same size for every card in the row, whatever the name or photo.
+  compactCard: { height: 232 },
+  imageCompact: { height: 136 },
+  photo: { width: "100%", height: "100%" },
+  directoryTile: { alignItems: "center", justifyContent: "center" },
+  priceChip: {
+    position: "absolute",
+    left: 8,
+    bottom: 8,
+    maxWidth: "90%",
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderRadius: theme.radii.chip,
+    backgroundColor: theme.colors.primary,
+  },
+  priceChipText: { ...theme.type.micro, color: theme.colors.onPrimary },
+  body: { paddingHorizontal: 12, paddingVertical: 10, gap: 2 },
+  name: { ...theme.type.subheading, color: theme.colors.heading },
+  noPrice: { ...theme.type.caption, color: theme.colors.muted },
+  meta: { fontSize: 14, lineHeight: 20, color: theme.colors.muted },
+  locationRow: { flexDirection: "row", alignItems: "center", gap: 3 },
   village: { flex: 1 },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

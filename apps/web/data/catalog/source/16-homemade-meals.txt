@@ -8,7 +8,7 @@ Bajra Bhakri|बाजरे की रोटी|बाजरीची भाक
 Nachni Bhakri|रागी रोटी|नाचणीची भाकरी|ragi roti
 Rice Bhakri|चावल की रोटी|तांदळाची भाकरी|tandalachi bhakri,rice roti
 Makki Roti|मक्के की रोटी|मक्याची भाकरी|makki di roti
-Kalnyachi Bhakri|मिश्रित अनाज रोटी|कळण्याची भाकरी|kalna bhakri||?
+Kalnyachi Bhakri|मिश्रित अनाज रोटी|कळण्याची भाकरी|kalna bhakri||
 Thepla|थेपला|थेपले|methi thepla
 Paratha|पराठा|पराठा|paratha,parotha
 Aloo Paratha|आलू पराठा|आलू पराठा|aloo paratha,batata paratha||^PARATHA

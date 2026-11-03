@@ -66,7 +66,7 @@ Sugarcane Tops|गन्ने का अगोला|उसाचे वाड�
 Silage|साइलेज|मुरघास|murghas,silage,maize silage|kg,ton,bag
 Hay|सूखी घास|वाळलेले गवत|gavat,dry grass,hay
 Groundnut Haulms|मूंगफली का भूसा|भुईमुगाचा पाला|shenga pala,groundnut fodder
-Tur Bhusa|अरहर भूसा|तुरीचे भुसकट|tur kutar||?
+Tur Bhusa|अरहर भूसा|तुरीचे भुसकट|tur kutar||
 Hydroponic Fodder|हाइड्रोपोनिक चारा|हायड्रोपोनिक चारा|hydroponic fodder
 Azolla|अजोला|अझोला|azolla|kg
 
@@ -92,9 +92,9 @@ Fish Feed|मछली दाना|मत्स्य खाद्य|fish feed
 Dog Food|कुत्ते का खाना|कुत्र्याचे खाद्य|dog food,pet food|kg,packet
 Cat Food|बिल्ली का खाना|मांजरीचे खाद्य|cat food|kg,packet
 Bird Seed|पक्षियों का दाना|पक्ष्यांचे दाणे|bird food,chidiya dana|kg,packet
-Calf Starter|बछड़ा आहार|वासरू खाद्य|calf feed||?
+Calf Starter|बछड़ा आहार|वासरू खाद्य|calf feed||
 Maize Crushed|मक्का दलिया (पशु)|मका भरडा|maka bharda,crushed maize
-Jowar Crushed|ज्वार दलिया (पशु)|ज्वारी भरडा|bharda||?
+Jowar Crushed|ज्वार दलिया (पशु)|ज्वारी भरडा|bharda||
 
 @sub|animal-care|Animal Care Supplies|पशु देखभाल सामग्री|जनावरांची निगा साहित्य|piece
 Cattle Rope|पशु रस्सी|जनावरांची दोरी|kasra,dave,cattle rope
@@ -108,20 +108,20 @@ Water Trough|पानी की हौदी|पाण्याचा हौद
 Poultry Feeder|मुर्गी फीडर|कोंबडी फीडर|feeder|piece
 Poultry Drinker|मुर्गी ड्रिंकर|कोंबडी ड्रिंकर|drinker|piece
 Poultry Cage|मुर्गी पिंजरा|कोंबडीचे पिंजरे|kombdi pinjra|piece
-Goat Cage|बकरी का बाड़ा|शेळी पिंजरा|||?
+Goat Cage|बकरी का बाड़ा|शेळी पिंजरा|||
 Animal Shed Sheet|पशु शेड शीट|गोठा पत्रा|gotha patra|sheet
 Bullock Decoration|बैल सजावट|बैलांचा साज|bail saj,shingadi,pola decoration|set,piece
 Horn Caps|सींग कवर|शिंगांची टोपी|shingadi|pair
 Ghungroo for Bullock|बैल घुंघरू|बैलांचे घुंगरू|ghungru,bail ghungroo|set,piece
 Zool|झूल|झूल|jhool,bail jhool,cattle blanket|piece
-Hoof Trimming Tool|खुर काटने का औज़ार|खूर कापणी हत्यार|||?
-Teat Dip|थन डिप|सडे बुडवण|||?
+Hoof Trimming Tool|खुर काटने का औज़ार|खूर कापणी हत्यार|||
+Teat Dip|थन डिप|सडे बुडवण|||
 Dewormer|कृमिनाशक|जंतनाशक|deworming,jantnashak|bottle,packet
 Tick Spray|किलनी स्प्रे|गोचीड फवारणी|gochid,tick killer|bottle,litre
-Fly Repellent|मक्खी भगाने वाला|माशी प्रतिबंधक|||?
+Fly Repellent|मक्खी भगाने वाला|माशी प्रतिबंधक|||
 Wound Spray|घाव स्प्रे|जखम स्प्रे|wound healing spray|bottle
 Dog Collar|कुत्ते का पट्टा|कुत्र्याचा पट्टा|dog belt,collar|piece
 Dog Leash|कुत्ते की चेन|कुत्र्याची साखळी|dog chain|piece
-Pet Bowl|पालतू कटोरा|पाळीव प्राण्यांचे भांडे|||?
+Pet Bowl|पालतू कटोरा|पाळीव प्राण्यांचे भांडे|||
 Bird Cage|पक्षी पिंजरा|पक्ष्यांचा पिंजरा|pinjra,cage|piece
 Aquarium|एक्वेरियम|मत्स्यालय|fish tank|piece

@@ -15,7 +15,7 @@ Nagarmotha|नागरमोथा|नागरमोथा|nagarmotha
 Giloy Stem|गिलोय|गुळवेल|gulvel,giloy,guduchi
 Neem Bark|नीम की छाल|कडुलिंबाची साल|neem chaal
 Arjun Bark|अर्जुन की छाल|अर्जुन साल|arjun chaal
-Babul Bark|बबूल छाल|बाभळीची साल|||?
+Babul Bark|बबूल छाल|बाभळीची साल|||
 Bel Powder|बेल चूर्ण|बेल चूर्ण|bel churna
 Brahmi Dry|ब्राह्मी सूखी|ब्राह्मी (सुकी)|brahmi
 Shankhpushpi|शंखपुष्पी|शंखपुष्पी|shankhpushpi
@@ -44,9 +44,9 @@ Sariva|अनंतमूल|अनंतमूळ|anantmul,sariva
 Manjishtha|मंजिष्ठा|मंजिष्ठा|manjishtha
 Lodhra|लोध्र|लोध्र|lodhra
 Ashoka Bark|अशोक छाल|अशोक साल|ashoka chaal
-Hibiscus Dry Flowers|सूखे गुड़हल फूल|सुकी जास्वंद फुले|||?
+Hibiscus Dry Flowers|सूखे गुड़हल फूल|सुकी जास्वंद फुले|||
 Moringa Dry Leaves|सूखी सहजन पत्ती|सुकी शेवगा पाने|moringa leaves dry
-Curry Leaves Powder|करी पत्ता पाउडर|कढीपत्ता पावडर|||?
+Curry Leaves Powder|करी पत्ता पाउडर|कढीपत्ता पावडर|||
 Neem Powder|नीम पाउडर|कडुलिंब पावडर|neem powder
 Reetha Powder|रीठा पाउडर|रिठा पावडर
 Henna Leaves|मेहंदी पत्ते|मेंदीची पाने|mehndi patta
@@ -61,7 +61,7 @@ Mahua Dry Flowers|सूखे महुआ फूल|सुकी मोहफ�
 Tendu Leaves|तेंदू पत्ता|तेंदूपत्ता|tendu patta,bidi leaves|bundle,kg
 Lac|लाख|लाख|lakh,lac
 Gum Karaya|कराया गोंद|कराया डिंक|karaya
-Dhawda Gum|धावड़ा गोंद|धावडा डिंक|dhawda dink||?
+Dhawda Gum|धावड़ा गोंद|धावडा डिंक|dhawda dink||
 Palash Flowers|पलाश फूल|पळस फुले|palash,tesu,palas phule
 Nirgudi Leaves|निर्गुंडी|निर्गुडी|nirgudi,nirgundi|bunch,kg
 Adulsa Leaves|अडूसा पत्ते|अडुळसा पाने|adulsa|bunch,kg

@@ -38,13 +38,13 @@ Dried Figs|सूखे अंजीर|सुके अंजीर|sukha anjee
 Dried Apricots|सूखी खुबानी|सुके जर्दाळू|khubani,jardalu,dry apricot
 Prunes|आलूबुखारा सूखा|सुके आलुबुखार|prunes
 Dried Cranberries|सूखी क्रैनबेरी|सुक्या क्रॅनबेरी|cranberry
-Dried Blueberries|सूखी ब्लूबेरी|सुक्या ब्लूबेरी|||?
+Dried Blueberries|सूखी ब्लूबेरी|सुक्या ब्लूबेरी|||
 Dried Kiwi|सूखी कीवी|सुकी किवी|dry kiwi
 Dried Mango Slices|सूखे आम के टुकड़े|आंब्याच्या सुक्या फोडी|dry mango slices
 Amla Candy|आंवला कैंडी|आवळा कँडी|amla candy,awla supari
 Ginger Candy|अदरक कैंडी|आले कँडी|ginger candy,ale vadi
 Tutti Frutti|टूटी फ्रूटी|टूटी फ्रूटी|tutti fruity,papaya candy
-Dried Pineapple|सूखा अनानास|सुके अननस|||?
+Dried Pineapple|सूखा अनानास|सुके अननस|||
 Mixed Dry Fruits|मिश्रित मेवे|मिश्र सुकामेवा|mix dry fruits,mixed nuts
 Dry Fruit Gift Box|मेवे का गिफ्ट बॉक्स|सुकामेवा भेट पेटी|dry fruit box|box
 
@@ -54,9 +54,9 @@ Watermelon Seeds|तरबूज के बीज|कलिंगडाच्य
 Chia Seeds|चिया बीज|चिया बिया|chia
 Sabja Seeds|सब्जा बीज|सब्जा|sabja,tukmaria
 Roasted Flaxseeds|भुनी अलसी|भाजलेले जवस|roasted alsi,javas mukhwas
-Roasted Sunflower Seeds|भुने सूरजमुखी बीज|भाजलेल्या सूर्यफूल बिया|||?
+Roasted Sunflower Seeds|भुने सूरजमुखी बीज|भाजलेल्या सूर्यफूल बिया|||
 Melon Seeds|ख़रबूज़े के बीज|खरबुजाच्या बिया|char magaz,magaz
-Lotus Seeds (Kamal Gatta)|कमल गट्टा|कमळ बी|kamal gatta||?
+Lotus Seeds (Kamal Gatta)|कमल गट्टा|कमळ बी|kamal gatta||
 Halim Seeds|हलीम|अळीव|aliv,halim,garden cress seeds
 Mukhwas|मुखवास|मुखवास|mukhwas,mouth freshener
 Sweet Saunf Mukhwas|मीठी सौंफ|गोड बडीशेप|sweet saunf,dhana dal mukhwas||^MUKHWAS

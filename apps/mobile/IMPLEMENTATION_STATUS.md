@@ -1,3 +1,38 @@
+# Speed, offline listings and voice search — 2026-11-03
+
+Listings, listing details, the village directory and the village picker are
+saved on the device (SQLite, 7 days, no contact or account data) and restored
+before the first screen, so Home, Marketplace and Product details open instantly
+and work offline. When the connection returns the screens refresh in the
+background. Product details open instantly from the list they were tapped in.
+Marketplace loads 20 listings per request (was 5), keeps the previous results
+while a new search loads, searches 200 ms after typing stops, and shows one
+compact row per product. Home tiles, hero and coordinator card are smaller.
+Voice search maps village names ("kanda", "tamatar", "dudh") to products in the
+app language, tolerates one spelling slip and sends these words to the speech
+engine as hints. The server listing search now uses the catalog search for
+anything that is not an exact product name (apps/web `masterSearchMappings`), so
+typed "kanda" also finds onion; this needs a web deploy to reach the hosted API.
+Mobile 90 tests and web 24 tests pass. Checked in the iOS simulator with the API
+stopped: Home, Marketplace and Product details loaded from the saved copy.
+Device speed on a real phone and Android are not measured.
+
+# Dashboard, products page and product details redesign — 2026-11-03
+
+Home now has a dark-green hero (village chip, greeting, search), a 2x2 tile
+grid (Marketplace, Services, Transport, Village Information), the village
+coordinator card (name, verified tick, Call button when a public number exists)
+and a "Fresh in your village" carousel. Marketplace active listings are a
+two-column photo grid with the price on the photo; unavailable listings stay
+as muted rows; the header is one row (title, village chip, bell). Product
+details have a full-width photo, price and stock card, seller card and a fixed
+action bar (Call and Notify, or Contact seller for guests). New strings in
+en/mr/hi: shopByCategory, freshToday, soldBy, quickFacts, homeSearchHint.
+`HomeHero` is new; `ProductCard`, `CoordinatorInfo`, `MarketplaceHeader` and
+`ProductDetailsScreen` were rebuilt. Mobile TypeScript, ESLint and 86 tests
+pass. Checked in the iOS simulator as a guest in Karjat and Narayangaon;
+signed-in call/notify flows and Android are not yet reviewed on a device.
+
 # App redesign — 2026-11-03
 
 Visual redesign of the mobile app, applied through design tokens and shared

@@ -60,7 +60,7 @@ Peanut Chikki|मूंगफली चिक्की|शेंगदाणा 
 Rajgira Chikki|राजगीरा चिक्की|राजगिरा चिक्की|ramdana chikki
 Dry Fruit Chikki|ड्राई फ्रूट चिक्की|सुकामेवा चिक्की|||^PEANUT_CHIKKI
 Lonavala Chikki|लोनावला चिक्की|लोणावळा चिक्की|lonavla chikki||^PEANUT_CHIKKI
-Coconut Chikki|नारियल चिक्की|नारळ चिक्की|||?
+Coconut Chikki|नारियल चिक्की|नारळ चिक्की|||
 Fudge|फज|फज|chocolate fudge|g,box,piece
 
 @sub|syrup-sweets|Syrup Sweets and Bengali Sweets|चाशनी वाली मिठाई|पाकातील मिठाई|kg,g,piece,box

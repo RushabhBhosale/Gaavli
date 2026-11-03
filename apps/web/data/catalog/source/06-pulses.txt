@@ -24,8 +24,8 @@ Kashmiri Rajma|कश्मीरी राजमा|काश्मिरी �
 White Kidney Beans|सफ़ेद राजमा|पांढरा राजमा|white rajma,safed rajma||^KIDNEY_BEANS
 Soybean Chunks|सोया बड़ी|सोया चंक्स|soya chunks,soya badi|kg,g,packet
 Soya Granules|सोया दाना|सोया ग्रॅन्युल्स|soya keema|kg,g,packet
-Pavta (Dry)|सूखा पावटा|पावटा (सुका)|dry pavta,pavte||?
-Ghevda Beans (Dry)|सूखी सेम|घेवडा (सुका)|dry ghevda,kaali ghevda||?
+Pavta (Dry)|सूखा पावटा|पावटा (सुका)|dry pavta,pavte||
+Ghevda Beans (Dry)|सूखी सेम|घेवडा (सुका)|dry ghevda,kaali ghevda||
 Double Beans (Dry)|सूखी डबल बीन्स|डबल बी (सुकी)|dry double bee,lima beans dry|kg,g
 Moong Sprouts|अंकुरित मूंग|मोड आलेले मूग|sprouted moong,mod aalele mug|kg,g,packet
 Matki Sprouts|अंकुरित मोठ|मोड आलेली मटकी|sprouted matki,matki usal|kg,g,packet
@@ -47,5 +47,5 @@ Kulthi Dal|कुलथी दाल|हुलग्याची डाळ|kulit
 Peas Dal|मटर दाल|वाटाणा डाळ|matar dal,split peas|kg,g
 Roasted Chana|भुना चना|फुटाणे|bhuna chana,phutane,futane,roasted gram|kg,g,packet
 Roasted Chana Dal|दालिया (भुनी चना दाल)|डाळे|dale,daliya chana,pottukadalai|kg,g,packet
-Lakhi Dal|खेसारी दाल|लाखी डाळ|lakh dal,khesari|kg,g|?
+Lakhi Dal|खेसारी दाल|लाखी डाळ|lakh dal,khesari|kg,g|
 Mixed Dal|मिश्रित दाल|मिक्स डाळ|panchmel dal,mix dal|kg,g,packet

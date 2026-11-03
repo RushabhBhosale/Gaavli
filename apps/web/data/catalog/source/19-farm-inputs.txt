@@ -100,7 +100,7 @@ Sesame Sowing Seeds|तिल बीज (बुवाई)|तीळ बिया
 Castor Sowing Seeds|अरंडी बीज (बुवाई)|एरंडी बियाणे|castor hybrid seeds
 Niger Sowing Seeds|रामतिल बीज (बुवाई)|कारळे बियाणे|karale perni
 Flax Sowing Seeds|अलसी बीज (बुवाई)|जवस बियाणे|linseed sowing seeds
-Onion Seed Bulbs|प्याज की गांठें|कांद्याचे गोळे (बीजोत्पादन)|kanda gole,onion sets|kg,bag|?
+Onion Seed Bulbs|प्याज की गांठें|कांद्याचे गोळे (बीजोत्पादन)|kanda gole,onion sets|kg,bag|
 Potato Seed Tubers|आलू बीज|बटाटा बेणे|batata bene,seed potato|kg,bag
 Sugarcane Setts|गन्ने के बीज (कलम)|उसाचे बेणे|us bene,sugarcane seed|ton,quintal,bundle
 Turmeric Seed Rhizomes|हल्दी बीज|हळद बेणे|halad bene,turmeric seed|kg,quintal
@@ -109,10 +109,10 @@ Garlic Seed Cloves|लहसुन बीज|लसूण बेणे|lasun ben
 Napier Grass Slips|नेपियर घास की कलम|नेपियर गवताचे ठोंब|napier,hybrid napier,co4,elephant grass|bundle,piece
 Lucerne Seeds|रिजका बीज|लसूण घास बियाणे|lucerne,alfalfa,lasun ghas|kg,packet
 Berseem Seeds|बरसीम बीज|बरसीम बियाणे|berseem|kg,packet
-Fodder Maize Seeds|चारा मक्का बीज|चारा मका बियाणे|african tall||?
-Fodder Sorghum Seeds|चारा ज्वार बीज|चारा ज्वारी बियाणे|multicut jowar,ssg||?
-Stylo Grass Seeds|स्टाइलो घास बीज|स्टायलो गवत बियाणे|||?
-Marvel Grass Slips|मारवेल घास|मारवेल गवत|marvel||?
+Fodder Maize Seeds|चारा मक्का बीज|चारा मका बियाणे|african tall||
+Fodder Sorghum Seeds|चारा ज्वार बीज|चारा ज्वारी बियाणे|multicut jowar,ssg||
+Stylo Grass Seeds|स्टाइलो घास बीज|स्टायलो गवत बियाणे|||
+Marvel Grass Slips|मारवेल घास|मारवेल गवत|marvel||
 Dhaincha Seeds|ढैंचा बीज|ढेंचा बियाणे|dhaincha,green manure seeds|kg
 Sunhemp Seeds|सनई बीज|ताग बियाणे|sunhemp,sunn hemp|kg
 
@@ -213,7 +213,7 @@ Khurpi|खुरपी|खुरपे|khurpi,khurpe
 Plough|हल|नांगर|nangar,hal,plough
 Bullock Cart|बैलगाड़ी|बैलगाडी|bailgadi
 Yoke|जुआ|जू|ju,juwa
-Pitchfork|पंजा (भूसा)|आकडी|akdi||?
+Pitchfork|पंजा (भूसा)|आकडी|akdi||
 Iron Pan|तसला|घमेले|ghamela,tasla,ghamelle
 Bamboo Basket|बांस की टोकरी|टोपली|topli,tokri,dalla
 Winnowing Fan|सूप|सूप|soop,supa
@@ -227,20 +227,20 @@ Barbed Wire|कांटेदार तार|काटेरी तार|kate
 Chain Link Fencing|जाली तार|जाळीचे कुंपण|wire mesh,fencing jali|roll,metre
 Fencing Pole|बाड़ खंभा|कुंपणाचे खांब|cement pole,angle|piece
 Grafting Knife|ग्राफ्टिंग चाकू|कलम चाकू|kalam chaku
-Grafting Tape|ग्राफ्टिंग टेप|कलम पट्टी|||?
+Grafting Tape|ग्राफ्टिंग टेप|कलम पट्टी|||
 Hand Sprayer Pump|हैंड स्प्रे पंप|हात फवारणी पंप|knapsack sprayer,spray pump
 Battery Sprayer Pump|बैटरी स्प्रे पंप|बॅटरी फवारणी पंप|battery pump,electric sprayer
 Power Sprayer|पावर स्प्रेयर|पॉवर स्प्रेयर|htp pump,petrol sprayer
 Mulching Paper|मल्चिंग पेपर|मल्चिंग पेपर|mulching film,plastic mulch|roll
 Crop Cover|फसल कवर|पीक आच्छादन|crop cover bag,fruit cover|piece,packet
-Grape Bunch Cover|अंगूर गुच्छ कवर|द्राक्ष घड पिशवी|||?
-Pomegranate Fruit Cover|अनार फल कवर|डाळिंब फळ पिशवी|||?
+Grape Bunch Cover|अंगूर गुच्छ कवर|द्राक्ष घड पिशवी|||
+Pomegranate Fruit Cover|अनार फल कवर|डाळिंब फळ पिशवी|||
 Silage Bag|साइलेज बैग|मुरघास पिशवी|silage bag,murghas bag|piece
 Crates|प्लास्टिक कैरेट|प्लास्टिक क्रेट|crate,carat|piece,dozen
 Weighing Scale|तराजू|वजनकाटा|tarazu,vajan kata,weighing machine
 Digital Weighing Scale|डिजिटल तराजू|डिजिटल वजनकाटा|electronic kata||^WEIGHING_SCALE
-Soil Testing Kit|मृदा परीक्षण किट|माती परीक्षण किट|||?
-Moisture Meter|नमी मीटर|ओलावा मीटर|||?
+Soil Testing Kit|मृदा परीक्षण किट|माती परीक्षण किट|||
+Moisture Meter|नमी मीटर|ओलावा मीटर|||
 
 @sub|irrigation|Irrigation|सिंचाई|सिंचन|piece,metre,roll
 Drip Pipe|ड्रिप पाइप|ठिबक पाईप|drip lateral,thibak|roll,metre
@@ -284,6 +284,6 @@ Oil Expeller|तेल घानी मशीन|तेल घाणा यं�
 Milking Machine|दूध निकालने की मशीन|दूध काढणी यंत्र|milking machine
 Egg Incubator|अंडा इनक्यूबेटर|अंडी उबवणी यंत्र|incubator
 Earth Auger|गड्ढा खोदने की मशीन|खड्डा खोदणी यंत्र|post hole digger
-Paddy Transplanter|धान रोपाई मशीन|भात लावणी यंत्र|||?
+Paddy Transplanter|धान रोपाई मशीन|भात लावणी यंत्र|||
 Maize Sheller|मक्का छीलने की मशीन|मका सोलणी यंत्र|corn sheller
-Groundnut Decorticator|मूंगफली छीलने की मशीन|शेंगा फोडणी यंत्र|||?
+Groundnut Decorticator|मूंगफली छीलने की मशीन|शेंगा फोडणी यंत्र|||

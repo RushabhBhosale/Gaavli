@@ -111,19 +111,19 @@ Bougainvillea|बोगनवेलिया|बोगनवेल|bougainvillea
 Adenium|एडेनियम|अडेनियम|desert rose,adenium
 Periwinkle|सदाबहार|सदाफुली|sadafuli,sadabahar,vinca
 Portulaca|पोर्टुलाका|ऑफिस टाईम|office time plant,moss rose,9 o clock
-Gerbera Plant|जरबेरा का पौधा|जरबेराचे रोप|||?
+Gerbera Plant|जरबेरा का पौधा|जरबेराचे रोप|||
 Lotus Plant|कमल का पौधा|कमळाचे रोप|lotus tuber,kamal kand
-Water Lily Plant|कुमुदिनी का पौधा|वॉटर लिली रोप|||?
+Water Lily Plant|कुमुदिनी का पौधा|वॉटर लिली रोप|||
 Tuberose Bulbs|रजनीगंधा कंद|निशिगंधाचे कंद|nishigandh kand|piece,kg
-Gladiolus Bulbs|ग्लेडियोलस कंद|ग्लॅडिओलस कंद|||?
-Lily Bulbs|लिली कंद|लिली कंद|||?
+Gladiolus Bulbs|ग्लेडियोलस कंद|ग्लॅडिओलस कंद|||
+Lily Bulbs|लिली कंद|लिली कंद|||
 Petunia|पेटूनिया|पिटुनिया|petunia
 Zinnia|ज़िनिया|झिनिया|zinnia
 Cosmos|कॉसमॉस|कॉसमॉस|cosmos
 Salvia|साल्विया|साल्व्हिया|salvia
 Balsam|गुलमेंहदी|तेरडा|terda,gulmehndi,balsam
 Celosia|मुर्गकेश|कोंबडा फूल|kombda,cock's comb
-Gomphrena|गोम्फ्रेना|गोंडा फूल|globe amaranth,gonda||?
+Gomphrena|गोम्फ्रेना|गोंडा फूल|globe amaranth,gonda||
 Dianthus|डायन्थस|डायन्थस
 Pentas|पेंटास|पेंटास
 Lantana|लैंटाना|घाणेरी|ghaneri,lantana
@@ -131,18 +131,18 @@ Plumbago|प्लम्बेगो|प्लम्बॅगो
 Mussaenda|मुसेंडा|मुसांडा
 Night Queen|रात की रानी|रातराणी|raat rani,ratrani,night blooming jasmine
 Madhumalti|मधुमालती|मधुमालती|rangoon creeper
-Kamini|कामिनी|कुंती|orange jasmine,kamini||?
+Kamini|कामिनी|कुंती|orange jasmine,kamini||
 Gulmohar|गुलमोहर|गुलमोहर|gulmohar,flame tree
 Bottle Brush Plant|बॉटल ब्रश पौधा|बॉटल ब्रश रोप|callistemon,bottle brush tree
-Allamanda|अलमांडा|पिवळी घंटी|yellow bell creeper||?
+Allamanda|अलमांडा|पिवळी घंटी|yellow bell creeper||
 Ixora Dwarf|बौना इक्सोरा|बुटका इक्झोरा|||^IXORA_PLANT
-Anthurium Plant|एंथुरियम का पौधा|अँथुरियम रोप|||?
-Orchid Plant|ऑर्किड का पौधा|ऑर्किड रोप|||?
+Anthurium Plant|एंथुरियम का पौधा|अँथुरियम रोप|||
+Orchid Plant|ऑर्किड का पौधा|ऑर्किड रोप|||
 Kalanchoe|कलांचो|कलांचो
 Begonia|बेगोनिया|बेगोनिया
-Geranium|जेरेनियम|जिरेनियम|||?
+Geranium|जेरेनियम|जिरेनियम|||
 Brahma Kamal Plant|ब्रह्म कमल का पौधा|ब्रह्मकमळ रोप|brahmakamal rop
-Crown of Thorns|यूफोर्बिया|ख्रिस्त काटा|euphorbia milii||?
+Crown of Thorns|यूफोर्बिया|ख्रिस्त काटा|euphorbia milii||
 Golden Shower Tree|अमलतास|बहावा|bahava,amaltas,cassia fistula
 
 @sub|indoor-ornamental|Indoor and Ornamental Plants|इनडोर और सजावटी पौधे|इनडोअर व शोभेची झाडे|piece,pot
@@ -154,16 +154,16 @@ Lucky Bamboo|लकी बांस|लकी बांबू|lucky bamboo
 Aloe Vera Plant|एलोवेरा का पौधा|कोरफडीचे रोप|korphad,ghritkumari
 Spider Plant|स्पाइडर प्लांट|स्पायडर प्लांट
 Rubber Plant|रबर प्लांट|रबर प्लांट|ficus elastica
-ZZ Plant|ज़ेडज़ेड प्लांट|झेडझेड प्लांट|zamioculcas||?
+ZZ Plant|ज़ेडज़ेड प्लांट|झेडझेड प्लांट|zamioculcas||
 Peace Lily|पीस लिली|पीस लिली|spathiphyllum
 Syngonium|सिंगोनियम|सिंगोनियम
 Croton|क्रोटन|क्रोटन|croton
-Dracaena|ड्रैसीना|ड्रासेना|||?
+Dracaena|ड्रैसीना|ड्रासेना|||
 Ficus Plant|फ़ाइकस|फायकस|weeping fig
 Bonsai|बोनसाई|बोन्साय|bonsai tree
 Cactus|कैक्टस|निवडुंग|nivdung,cactus
 Succulents|सकुलेंट|सक्युलंट|succulent
-Christmas Tree Plant|क्रिसमस ट्री|ख्रिसमस ट्री|araucaria,thuja||?
+Christmas Tree Plant|क्रिसमस ट्री|ख्रिसमस ट्री|araucaria,thuja||
 Fern|फ़र्न|फर्न|fern
 Bamboo Plant|बांस का पौधा|बांबूचे रोप|bamboo sapling,kalak
 Golden Bamboo|सुनहरा बांस|सोनेरी बांबू|||^BAMBOO_PLANT
@@ -176,7 +176,7 @@ Fan Palm|फैन पाम|फॅन पाम
 Bismarckia Palm|बिस्मार्किया पाम|बिस्मार्किया पाम
 Royal Palm|रॉयल पाम|रॉयल पाम
 Lawn Grass|लॉन घास|लॉन गवत|mexican grass,carpet grass|sheet,metre
-Hedge Plant|बाड़ का पौधा|कुंपणाचे रोप|duranta,hedge||?
+Hedge Plant|बाड़ का पौधा|कुंपणाचे रोप|duranta,hedge||
 
 @sub|medicinal-plants|Medicinal and Sacred Plants|औषधीय और पवित्र पौधे|औषधी आणि पवित्र वनस्पती|piece,pot
 Tulsi Plant|तुलसी का पौधा|तुळशीचे रोप|tulsi rop,holy basil plant
@@ -184,54 +184,54 @@ Krishna Tulsi Plant|कृष्ण तुलसी का पौधा|कृ�
 Curry Leaf Plant|करी पत्ता का पौधा|कढीपत्त्याचे रोप|kadipatta rop
 Neem Sapling|नीम का पौधा|कडुलिंबाचे रोप|neem plant,kadulimb rop
 Giloy Plant|गिलोय का पौधा|गुळवेलीचे रोप|gulvel,giloy
-Ashwagandha Plant|अश्वगंधा का पौधा|अश्वगंधा रोप|||?
+Ashwagandha Plant|अश्वगंधा का पौधा|अश्वगंधा रोप|||
 Brahmi Plant|ब्राह्मी का पौधा|ब्राह्मी रोप|brahmi
-Shatavari Plant|शतावरी का पौधा|शतावरी रोप|||?
+Shatavari Plant|शतावरी का पौधा|शतावरी रोप|||
 Adulsa Plant|अडूसा का पौधा|अडुळसा रोप|adulsa,vasaka
 Ajwain Plant|अजवाइन का पौधा|ओव्याचे रोप|ova plant,karpuravalli
 Mint Plant|पुदीने का पौधा|पुदिन्याचे रोप|pudina plant
 Lemongrass Plant|लेमनग्रास का पौधा|गवती चहा रोप|gavti chaha rop
-Stevia Plant|स्टीविया का पौधा|स्टीव्हिया रोप|||?
+Stevia Plant|स्टीविया का पौधा|स्टीव्हिया रोप|||
 Insulin Plant|इंसुलिन प्लांट|इन्सुलिन रोप|costus igneus
 Shami Plant|शमी का पौधा|शमीचे रोप|shami vruksha
-Rudraksha Plant|रुद्राक्ष का पौधा|रुद्राक्षाचे रोप|||?
+Rudraksha Plant|रुद्राक्ष का पौधा|रुद्राक्षाचे रोप|||
 Peepal Sapling|पीपल का पौधा|पिंपळाचे रोप|pimpal,peepal
 Banyan Sapling|बरगद का पौधा|वडाचे रोप|vad,bargad,banyan
 Audumbar Sapling|गूलर का पौधा|औदुंबराचे रोप|umbar rop
-Apta Sapling|आपटा का पौधा|आपट्याचे रोप|||?
+Apta Sapling|आपटा का पौधा|आपट्याचे रोप|||
 Sandalwood Sapling|चंदन का पौधा|चंदनाचे रोप|chandan rop
-Durva Plant|दूर्वा घास|दुर्वा रोप|||?
+Durva Plant|दूर्वा घास|दुर्वा रोप|||
 Kadamba Sapling|कदंब का पौधा|कदंबाचे रोप|kadamba
 Ashoka Sapling|अशोक का पौधा|अशोकाचे रोप|ashok tree
-Arjun Sapling|अर्जुन का पौधा|अर्जुनाचे रोप|arjun tree||?
-Harda Sapling|हरड़ का पौधा|हिरड्याचे रोप|hirda||?
+Arjun Sapling|अर्जुन का पौधा|अर्जुनाचे रोप|arjun tree||
+Harda Sapling|हरड़ का पौधा|हिरड्याचे रोप|hirda||
 Vetiver Plant|खस का पौधा|वाळ्याचे रोप|khus,vala
 Moringa Sapling|सहजन का पौधा|शेवग्याचे रोप|shevga rop,drumstick plant
 Black Pepper Vine|काली मिर्च की बेल|मिरीचा वेल|miri vel
 Betel Vine|पान की बेल|विड्याच्या पानाचा वेल|nagvel
-Vanilla Vine|वनीला बेल|व्हॅनिला वेल|||?
+Vanilla Vine|वनीला बेल|व्हॅनिला वेल|||
 
 @sub|trees-saplings|Tree and Forest Saplings|पेड़ और वन पौधे|झाडे व वन रोपे|piece
 Teak Sapling|सागौन का पौधा|सागाचे रोप|sagwan,sag,teak
 Mahogany Sapling|महोगनी का पौधा|महोगनीचे रोप|mahogany
-Red Sanders Sapling|लाल चंदन का पौधा|रक्तचंदनाचे रोप|rakt chandan||?
+Red Sanders Sapling|लाल चंदन का पौधा|रक्तचंदनाचे रोप|rakt chandan||
 Melia Dubia Sapling|मेलिया डुबिया|मलबार नीम रोप|malabar neem
 Eucalyptus Sapling|नीलगिरी का पौधा|निलगिरीचे रोप|nilgiri,eucalyptus
 Subabul Sapling|सुबबूल|सुबाभूळ|subabul,leucaena
 Karanj Sapling|करंज का पौधा|करंजाचे रोप|pongamia
 Gliricidia Sapling|ग्लिरिसिडिया|गिरीपुष्प|giripushp
-Silver Oak Sapling|सिल्वर ओक|सिल्व्हर ओक|||?
+Silver Oak Sapling|सिल्वर ओक|सिल्व्हर ओक|||
 Casuarina Sapling|सरू का पौधा|सुरूचे रोप|suru,casuarina
 Babul Sapling|बबूल का पौधा|बाभळीचे रोप|babhul,babul
-Khair Sapling|खैर का पौधा|खैराचे रोप|khair||?
-Shivan Sapling|गम्हार का पौधा|शिवणीचे रोप|gamhar,shivan||?
-Kanchan Sapling|कचनार का पौधा|कांचनचे रोप|kachnar||?
-Spathodea Sapling|पिचकारी का पौधा|पिचकारी रोप|african tulip||?
-Rain Tree Sapling|विलायती सिरस|विलायती शिरीष|||?
+Khair Sapling|खैर का पौधा|खैराचे रोप|khair||
+Shivan Sapling|गम्हार का पौधा|शिवणीचे रोप|gamhar,shivan||
+Kanchan Sapling|कचनार का पौधा|कांचनचे रोप|kachnar||
+Spathodea Sapling|पिचकारी का पौधा|पिचकारी रोप|african tulip||
+Rain Tree Sapling|विलायती सिरस|विलायती शिरीष|||
 Coconut Seedling|नारियल का पौधा|नारळाचे रोप|maad|piece
 Areca Nut Sapling|सुपारी का पौधा|सुपारीचे रोप|supari rop
 Cashew Grafts|काजू कलम|काजू कलम|kaju kalam,cashew plant
-Oil Palm Sapling|ऑयल पाम का पौधा|ऑईल पाम रोप|||?
+Oil Palm Sapling|ऑयल पाम का पौधा|ऑईल पाम रोप|||
 
 @sub|garden-supplies|Gardening Supplies|बागवानी सामग्री|बागकाम साहित्य|piece,kg,bag
 Flower Pot|गमला|कुंडी|gamla,kundi,pot
@@ -246,22 +246,22 @@ Potting Soil|गमले की मिट्टी|कुंडीची मा
 Red Soil|लाल मिट्टी|लाल माती|lal mati|kg,bag,ton
 Cocopeat|कोकोपीट|कोकोपीट|coco peat,coir pith|kg,bag,piece
 Perlite|परलाइट|परलाइट
-Garden Pebbles|सजावटी कंकड़|सजावटीचे खडे|pebbles||?
+Garden Pebbles|सजावटी कंकड़|सजावटीचे खडे|pebbles||
 Pruning Shears|कटिंग कैंची|छाटणी कात्री|secateurs,pruner
 Watering Can|फव्वारा|झारी|zari,jhari,watering can
 Garden Hose Pipe|बगीचे का पाइप|बागेचा पाईप|hose pipe|piece,metre
 Garden Sprayer|स्प्रे बोतल|स्प्रे पंप (लहान)|hand sprayer|piece
-Plant Stand|गमला स्टैंड|कुंडी स्टँड|||?
+Plant Stand|गमला स्टैंड|कुंडी स्टँड|||
 Shade Net|शेड नेट|शेडनेट|green net,shade net|metre,piece,roll
-Garden Gloves|बागवानी दस्ताने|बागकाम हातमोजे|||?
+Garden Gloves|बागवानी दस्ताने|बागकाम हातमोजे|||
 Plant Support Stick|पौधे की लकड़ी|रोपांना आधार काठी|bamboo stick,support stick|piece,bundle
-Kitchen Garden Kit|किचन गार्डन किट|परसबाग किट|terrace garden kit||?
+Kitchen Garden Kit|किचन गार्डन किट|परसबाग किट|terrace garden kit||
 Organic Plant Food|जैविक पौधा खाद|सेंद्रिय रोप खत|plant tonic,organic manure|kg,g,packet
 Bone Meal|हड्डी खाद|हाडांचे खत|bone meal|kg,bag
 Neem Cake|नीम खली|निंबोळी पेंड|neem khali,nimboli pend|kg,bag
 Mustard Cake|सरसों खली|मोहरी पेंड|sarso khali|kg,bag
 Groundnut Cake|मूंगफली खली|शेंगदाणा पेंड|shengdana pend|kg,bag
-Seaweed Fertilizer|समुद्री शैवाल खाद|सागरी शेवाळ खत|||?
+Seaweed Fertilizer|समुद्री शैवाल खाद|सागरी शेवाळ खत|||
 Cow Dung Cakes|उपले|गोवऱ्या|gowarya,upla,kande,dung cakes|piece,dozen,bag
 Cow Dung|गोबर|शेण|gobar,shen|kg,bag,ton
 Cow Urine|गोमूत्र|गोमूत्र|gomutra|litre,bottle

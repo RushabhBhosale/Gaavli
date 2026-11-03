@@ -7,18 +7,18 @@ Garlic Ooty|ऊटी लहसुन|ऊटी लसूण|ooty garlic,big gar
 Single Clove Garlic|एक कली लहसुन|एक पाकळी लसूण|kashmiri garlic,snow mountain garlic||^GARLIC
 Jwala Chilli|ज्वाला मिर्च|ज्वाला मिरची|jwala mirchi||^GREEN_CHILLI
 Dabba Mirchi|डब्बा मिर्च|डब्बा मिरची
-Kashmiri Green Chilli|कश्मीरी हरी मिर्च|काश्मिरी हिरवी मिरची|||?
+Kashmiri Green Chilli|कश्मीरी हरी मिर्च|काश्मिरी हिरवी मिरची|||
 Pickling Chilli|अचार वाली मिर्च|लोणच्याची मिरची|achar mirchi||^GREEN_CHILLI
-Nylon Okra|नायलॉन भिंडी|नायलॉन भेंडी|||?
+Nylon Okra|नायलॉन भिंडी|नायलॉन भेंडी|||
 Gavran Brinjal|देसी बैंगन|गावरान वांगी|gavran vangi||^BRINJAL
 Gavran Okra|देसी भिंडी|गावरान भेंडी|gavran bhendi||^OKRA
 Kakdi Long|लंबी ककड़ी|वाळूक|valuk,long melon,kakdi||^CUCUMBER
 @sub|beans-pods
-Soybean Pods Fresh|हरी सोयाबीन फली|ओल्या सोयाबीन शेंगा|edamame||?
+Soybean Pods Fresh|हरी सोयाबीन फली|ओल्या सोयाबीन शेंगा|edamame||
 Valor Papdi|वालोर पापड़ी|वालवड|valor,valvad||^FIELD_BEAN_PODS
 @sub|roots-tubers
-Arrowroot Tuber|अरारोट कंद|आरारूट कंद|||?
-Kachalu|कचालू|कचालू|||?
+Arrowroot Tuber|अरारोट कंद|आरारूट कंद|||
+Kachalu|कचालू|कचालू|||
 
 @category|fruits
 @sub|everyday-fruits
@@ -40,28 +40,28 @@ Bajra Rava|बाजरा रवा|बाजरी रवा
 Millet Noodles|मिलेट नूडल्स|मिलेट नूडल्स|ragi noodles
 Millet Pasta|मिलेट पास्ता|मिलेट पास्ता
 Jowar Puffs|ज्वार पफ्स|ज्वारी पफ्स|jowar puff
-Ragi Puffs|रागी पफ्स|नाचणी पफ्स|||?
+Ragi Puffs|रागी पफ्स|नाचणी पफ्स|||
 Millet Cookies|मिलेट कुकीज़|मिलेट कुकीज|ragi cookies,jowar cookies
 Ragi Chakli|रागी चकली|नाचणी चकली|||^CHAKLI
 Millet Khakhra|मिलेट खाखरा|मिलेट खाकरा|||^KHAKHRA
 Millet Ladoo|मिलेट लड्डू|मिलेट लाडू|siridhanya ladoo
-Rice Noodles|चावल नूडल्स|तांदळाचे नूडल्स|||?
-Wheat Flakes|गेहूं फ्लेक्स|गव्हाचे पोहे|||?
-Bajra Flakes|बाजरा फ्लेक्स|बाजरी पोहे|||?
+Rice Noodles|चावल नूडल्स|तांदळाचे नूडल्स|||
+Wheat Flakes|गेहूं फ्लेक्स|गव्हाचे पोहे|||
+Bajra Flakes|बाजरा फ्लेक्स|बाजरी पोहे|||
 Brown Rice Poha|ब्राउन राइस पोहा|ब्राऊन राईस पोहे|||^POHA
 
 @category|spices
 @sub|spice-powders
 Mint Powder|पुदीना पाउडर|पुदिना पावडर|pudina powder
 Kasuri Methi Powder|कसूरी मेथी पाउडर|कसुरी मेथी पावडर
-Beetroot Powder|चुकंदर पाउडर|बीट पावडर|||?
+Beetroot Powder|चुकंदर पाउडर|बीट पावडर|||
 Tomato Powder|टमाटर पाउडर|टोमॅटो पावडर
-Lemon Powder|नींबू पाउडर|लिंबू पावडर|||?
-Chilli Garlic Powder|मिर्च लहसुन पाउडर|मिरची लसूण पावडर|||?
+Lemon Powder|नींबू पाउडर|लिंबू पावडर|||
+Chilli Garlic Powder|मिर्च लहसुन पाउडर|मिरची लसूण पावडर|||
 Dehydrated Onion Flakes|सूखे प्याज के टुकड़े|सुका कांदा काप|dehydrated onion
 Dehydrated Garlic Flakes|सूखे लहसुन के टुकड़े|सुका लसूण काप|dehydrated garlic
 Fried Onion|तले प्याज|तळलेला कांदा|birista
-Dried Ginger Slices|सोंठ टुकड़े|सुंठेचे काप|||?
+Dried Ginger Slices|सोंठ टुकड़े|सुंठेचे काप|||
 
 @category|beverages
 @sub|tea-coffee
@@ -69,8 +69,8 @@ Assam Tea|असम चाय|आसाम चहा|assam tea||^TEA_POWDER
 Darjeeling Tea|दार्जिलिंग चाय|दार्जिलिंग चहा|darjeeling||^TEA_POWDER
 Nilgiri Tea|नीलगिरी चाय|निलगिरी चहा|nilgiri tea||^TEA_POWDER
 Tea Dust|चाय डस्ट|चहा डस्ट|dust tea||^TEA_POWDER
-Lemongrass Tea|लेमनग्रास चाय|गवती चहा पावडर|gavti chaha tea||?
-Tulsi Tea|तुलसी चाय|तुळशी चहा|||?
+Lemongrass Tea|लेमनग्रास चाय|गवती चहा पावडर|gavti chaha tea||
+Tulsi Tea|तुलसी चाय|तुळशी चहा|||
 Ginger Tea Powder|अदरक चाय पाउडर|आले चहा पावडर|||^TEA_POWDER
 Coffee Beans Roasted|भुने कॉफ़ी बीन्स|भाजलेल्या कॉफी बिया|roasted coffee|g,kg,packet
 Jaggery Tea Premix|गुड़ चाय प्रीमिक्स|गूळ चहा प्रीमिक्स|gul chaha premix
@@ -78,9 +78,9 @@ Tea Premix|चाय प्रीमिक्स|चहा प्रीमिक
 Coffee Premix|कॉफ़ी प्रीमिक्स|कॉफी प्रीमिक्स
 @sub|juices-drinks
 Bel Sharbat|बेल शरबत|बेल सरबत|bel sharbat
-Sattu Drink|सत्तू शरबत|सत्तू सरबत|||?
+Sattu Drink|सत्तू शरबत|सत्तू सरबत|||
 Amla Sharbat|आंवला शरबत|आवळा सरबत|amla sarbat
-Jamun Sharbat|जामुन शरबत|जांभूळ सरबत|||?
+Jamun Sharbat|जामुन शरबत|जांभूळ सरबत|||
 Mango Lassi|मैंगो लस्सी|आंबा लस्सी|mango lassi
 
 @category|farm-products
@@ -90,7 +90,7 @@ Litchi Honey|लीची शहद|लिची मध|||^HONEY
 Eucalyptus Honey|नीलगिरी शहद|निलगिरी मध|||^HONEY
 Sunflower Honey|सूरजमुखी शहद|सूर्यफूल मध|||^HONEY
 Raw Honey|कच्चा शहद|कच्चा मध|unprocessed honey||^HONEY
-Coconut Sugar|नारियल चीनी|नारळ साखर|||?
+Coconut Sugar|नारियल चीनी|नारळ साखर|||
 Gur Chikki Slab|गुड़ ढेली|गुळाची ढेप|gul dhep,jaggery block||^JAGGERY
 Sugar Candy Thread|धागे वाली मिश्री|धाग्याची खडीसाखर|dhaga mishri||^KHADI_SAKHAR
 
@@ -99,8 +99,8 @@ Sugar Candy Thread|धागे वाली मिश्री|धाग्य�
 Jeera Butter|जीरा बटर|जिरा बटर|jeera butter biscuits
 Bun Maska|बन मस्का|बन मस्का|bun maska|piece,plate
 Ragi Cookies|रागी कुकीज़|नाचणी कुकीज|nachni biscuits||^MILLET_COOKIES
-Atta Cookies|आटा कुकीज़|आटा कुकीज|||?
-Coconut Cookies|नारियल कुकीज़|नारळ कुकीज|||?
+Atta Cookies|आटा कुकीज़|आटा कुकीज|||
+Coconut Cookies|नारियल कुकीज़|नारळ कुकीज|||
 Fruit Cake|फ्रूट केक|फ्रूट केक|||^CAKE
 Dry Cake|ड्राई केक|ड्राय केक|tea cake||^CAKE
 Pav Bun Butter|बटर पाव|बटर पाव|butter pav||^PAV

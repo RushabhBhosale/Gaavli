@@ -13,8 +13,8 @@ Processed Barnyard Millet|भगर|भगर|bhagar,varai tandul,vrat ke chawal
 Little Millet|कुटकी|सावा|sava,kutki,little millet
 Kodo Millet|कोदो|कोद्रा|kodo,kodra,harik
 Foxtail Millet|कंगनी|राळा|rala,kangni,kakum,navane
-Proso Millet|चीना|वरी (चेना)|chena,proso,barri||?
-Browntop Millet|हरी कंगनी|ब्राउनटॉप मिलेट|korale,browntop||?
+Proso Millet|चीना|वरी (चेना)|chena,proso,barri||
+Browntop Millet|हरी कंगनी|ब्राउनटॉप मिलेट|korale,browntop||
 Paddy|धान|भात (धान)|dhan,bhat,paddy,bhat dhan
 Barley|जौ|जव|jau,jav,barley
 Oats|जई|ओट्स|oats,jai
@@ -29,7 +29,7 @@ Khapli Wheat|खपली गेहूं|खपली गहू|khapli,emmer wh
 Lokwan Wheat|लोकवन गेहूं|लोकवन गहू|lokwan,lok 1||^WHEAT
 Sharbati Wheat|शरबती गेहूं|शरबती गहू|sharbati,mp wheat||^WHEAT
 Bansi Wheat|बंसी गेहूं|बन्सी गहू|bansi gahu||^WHEAT
-Durum Wheat|कठिया गेहूं|बक्षी गहू|kathia gehu,durum||?
+Durum Wheat|कठिया गेहूं|बक्षी गहू|kathia gehu,durum||
 
 @sub|rice-varieties|Rice Varieties|चावल की किस्में|तांदळाच्या जाती|kg,quintal,bag
 Indrayani Rice|इंद्रायणी चावल|इंद्रायणी तांदूळ|indrayani,indrayani tandul||^RICE
@@ -47,7 +47,7 @@ Brown Rice|ब्राउन चावल|ब्राऊन तांदूळ
 Black Rice|काला चावल|काळा तांदूळ|black rice,chak hao||^RICE
 Broken Rice|टूटा चावल|तुकडा तांदूळ|tukda,kanki,broken rice||^RICE
 Parboiled Rice|उसना चावल|उकडा तांदूळ|ukda tandul,usna chawal,boiled rice||^RICE
-Jeerakasala Rice|जीरा चावल|जिरगा तांदूळ|jeera samba,jirga||?
+Jeerakasala Rice|जीरा चावल|जिरगा तांदूळ|jeera samba,jirga||
 Kala Namak Rice|काला नमक चावल|काळा नमक तांदूळ|kalanamak||^RICE
 Gobindobhog Rice|गोविंदभोग चावल|गोविंदभोग तांदूळ|gobindobhog||^RICE
 Masuri Rice|मसूरी चावल|मसुरी तांदूळ|masuri||^RICE
@@ -56,7 +56,7 @@ Steam Basmati Rice|स्टीम बासमती चावल|स्टी�
 Sella Basmati Rice|सेला बासमती चावल|सेला बासमती तांदूळ|golden sella,sella||^BASMATI_RICE
 Ghansal Rice|घनसाळ चावल|घनसाळ तांदूळ|ghansal,ajara ghansal||^RICE
 Kalbhat Rice|कालभात चावल|काळभात तांदूळ|kalbhat||^RICE
-Ratnagiri 24 Rice|रत्नागिरी 24 चावल|रत्नागिरी 24 तांदूळ|r24||?
+Ratnagiri 24 Rice|रत्नागिरी 24 चावल|रत्नागिरी 24 तांदूळ|r24||
 
 @sub|processed-grains|Poha, Rava and Processed Grains|पोहा, सूजी और प्रसंस्कृत अनाज|पोहे, रवा आणि प्रक्रिया केलेले धान्य|kg,g,packet
 Poha|पोहा|पोहे|poha,pohe,flattened rice,beaten rice,chivda
@@ -71,7 +71,7 @@ Bombay Rava|बॉम्बे रवा|बॉम्बे रवा|upma rava|
 Idli Rava|इडली रवा|इडली रवा|rice rava,idli rava
 Dalia|दलिया|दलिया|daliya,broken wheat,godhuma rava,lapsi rava
 Puffed Rice|मुरमुरा|चुरमुरे|murmura,churmure,kurmure,mamra,puffed rice
-Bhadang Murmure|मसाला मुरमुरा|भडंग|bhadang,masala murmure|kg,g,packet|?
+Bhadang Murmure|मसाला मुरमुरा|भडंग|bhadang,masala murmure|kg,g,packet|
 Laja (Lahya)|लाई|लाह्या|lahya,lai,jowar lahya,popped sorghum
 Rajgira Lahya|राजगीरा लाई|राजगिऱ्याच्या लाह्या|rajgira puffed,ramdana lai
 Sago|साबूदाना|साबुदाणा|sabudana,sabudana,sago,tapioca pearls

@@ -9,10 +9,12 @@ export function ListingImage({
   listing,
   style,
   resizeMode = "cover",
+  iconSize = 28,
 }: {
   listing: Pick<HomeListing, "photoUrl" | "image">;
   style: StyleProp<ImageStyle>;
   resizeMode?: "cover" | "contain";
+  iconSize?: number;
 }) {
   const [failedUri, setFailedUri] = useState<string | null>(null);
   const uri = resolveListingPhotoUrl(
@@ -42,7 +44,11 @@ export function ListingImage({
       style={[style, { alignItems: "center", justifyContent: "center" }]}
       accessible={false}
     >
-      <Ionicons name="leaf-outline" size={28} color={theme.colors.primary} />
+      <Ionicons
+        name="leaf-outline"
+        size={iconSize}
+        color={theme.colors.primary}
+      />
     </View>
   );
 }

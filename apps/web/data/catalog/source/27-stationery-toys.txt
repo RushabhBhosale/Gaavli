@@ -27,7 +27,7 @@ Exam Pad|परीक्षा पैड|परीक्षा पॅड|writing
 Book Cover|किताब कवर|पुस्तक कव्हर|brown paper,cover roll|roll,packet
 Name Labels|नाम स्टिकर|नावाचे स्टिकर|labels|packet
 Abacus|अबेकस|अबॅकस|abacus
-Globe|ग्लोब|पृथ्वीचा गोल|||?
+Globe|ग्लोब|पृथ्वीचा गोल|||
 Charts|चार्ट|चार्ट|educational chart|piece
 Chart Paper|चार्ट पेपर|चार्ट पेपर|chart paper|sheet,packet
 Craft Paper|क्राफ्ट पेपर|रंगीत कागद|colour paper|packet,sheet
@@ -44,20 +44,20 @@ Envelope|लिफ़ाफ़ा|पाकीट|lifafa,envelope|packet,piece
 Stapler|स्टेपलर|स्टेपलर|stapler
 Stapler Pins|स्टेपलर पिन|स्टेपलर पिना|pins|box
 Gum|गम (चिपकाने वाला)|डिंक (कागदी)|gum,glue stick,dink
-Cello Tape|सेलो टेप|सेलोटेप|tape,cellotape
+Transparent Tape|पारदर्शी टेप|पारदर्शक टेप|tape,cellotape,cello tape,sellotape||=CELLO_TAPE
 Brown Tape|ब्राउन टेप|ब्राऊन टेप|packing tape
 Scissors|कैंची|कात्री|kainchi,katri,scissors
 Paper Clips|पेपर क्लिप|पेपर क्लिप|clip|box
 Rubber Bands|रबर बैंड|रबर बँड|rubber band|packet
 Marker Pen|मार्कर|मार्कर|permanent marker,whiteboard marker
-Highlighter|हाइलाइटर|हायलायटर|||?
+Highlighter|हाइलाइटर|हायलायटर|||
 Stamp Pad|स्टैम्प पैड|शिक्का पॅड|ink pad
 Rubber Stamp|रबर स्टैंप|शिक्का|shikka,stamp
 Visiting Cards|विज़िटिंग कार्ड|व्हिजिटिंग कार्ड|business card|packet,box
 Wedding Cards|शादी के कार्ड|लग्नपत्रिका|lagna patrika,invitation card|piece,dozen,packet
 Greeting Cards|ग्रीटिंग कार्ड|शुभेच्छा पत्र|greeting card|piece
 Calendar|कैलेंडर|दिनदर्शिका|dindarshika,calendar|piece
-Diary|डायरी|डायरी|||?
+Diary|डायरी|डायरी|||
 Gift Wrapping Paper|गिफ्ट रैपिंग पेपर|भेट वेष्टन कागद|wrapping paper|sheet,roll
 Carbon Paper|कार्बन पेपर|कार्बन पेपर
 Whiteboard|व्हाइटबोर्ड|व्हाईटबोर्ड
@@ -84,7 +84,7 @@ Newspaper Scrap|रद्दी|रद्दी|raddi,old newspaper|kg
 Soft Toy|सॉफ्ट टॉय|मऊ खेळणे|teddy bear,soft toys
 Doll|गुड़िया|बाहुली|bahuli,gudiya,doll
 Toy Car|खिलौना कार|खेळण्यातील गाडी|car toy
-Remote Control Car|रिमोट कंट्रोल कार|रिमोट कार|rc car||?
+Remote Control Car|रिमोट कंट्रोल कार|रिमोट कार|rc car||
 Wooden Toys|लकड़ी के खिलौने|लाकडी खेळणी|wooden toy
 Sawantwadi Toys|सावंतवाडी खिलौने|सावंतवाडीची खेळणी|sawantwadi lacquer toys||^WOODEN_TOYS
 Kitchen Set Toy|किचन सेट खिलौना|भातुकली|bhatukli,kitchen set
@@ -103,7 +103,7 @@ Chess|शतरंज|बुद्धिबळ|buddhibal,shatranj,chess
 Playing Cards|ताश|पत्ते|patte,taash,cards|packet
 Rattle|झुनझुना|खुळखुळा|khulkhula,rattle
 Tricycle|तिपहिया साइकिल|तीनचाकी सायकल|kids cycle
-Kids Bicycle|बच्चों की साइकिल|मुलांची सायकल|||?
+Kids Bicycle|बच्चों की साइकिल|मुलांची सायकल|||
 Toy Gun|खिलौना बंदूक|खेळण्यातील बंदूक|cap gun
 Gilli Danda|गिल्ली डंडा|विटी दांडू|viti dandu,gilli danda|set
 Rubber Ball|रबर की गेंद|रबरी चेंडू|ball,chendu

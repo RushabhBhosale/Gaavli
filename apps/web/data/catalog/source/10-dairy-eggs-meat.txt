@@ -60,7 +60,7 @@ Duck Eggs|बत्तख के अंडे|बदकाची अंडी|du
 Quail Eggs|बटेर के अंडे|लावा पक्ष्याची अंडी|bater anda,quail
 Kadaknath Eggs|कड़कनाथ अंडे|कडकनाथ अंडी|kadaknath anda
 Brown Eggs|भूरे अंडे|तपकिरी अंडी|brown anda||^CHICKEN_EGGS
-Boiled Eggs|उबले अंडे|उकडलेली अंडी|boiled anda|piece,dozen|?
+Boiled Eggs|उबले अंडे|उकडलेली अंडी|boiled anda|piece,dozen|
 Hatching Eggs|अंडे सेने के लिए|उबवणीची अंडी|fertile eggs,hatching eggs|piece,dozen,tray
 
 @sub|live-poultry|Live Poultry|जीवित मुर्गी|जिवंत पक्षी|piece,kg
@@ -73,7 +73,7 @@ Rooster|मुर्गा|कोंबडा|murga,kombda,cock
 Duck|बत्तख|बदक|batakh,badak
 Quail|बटेर|लावा पक्षी|bater,lava
 Turkey|टर्की|टर्की कोंबडी|turkey bird
-Guinea Fowl|तीतर|गिनी फाउल|titar,guinea fowl||?
+Guinea Fowl|तीतर|गिनी फाउल|titar,guinea fowl||
 Pigeon|कबूतर|कबूतर|kabutar,pigeon
 Day Old Chicks|चूज़े|कोंबडीची पिल्ले|chicks,pille,day old chicks|piece,box
 
@@ -99,7 +99,7 @@ Mutton Chops|मटन चॉप्स|मटण चॉप्स|||^MUTTON
 Sheep Meat|भेड़ का मांस|मेंढीचे मटण|lamb,mendhi mutton
 Pork|सूअर का मांस|डुकराचे मांस|pork
 Duck Meat|बत्तख का मांस|बदकाचे मांस|duck meat
-Quail Meat|बटेर का मांस|लावा मांस|bater meat||?
+Quail Meat|बटेर का मांस|लावा मांस|bater meat||
 Kadaknath Chicken Meat|कड़कनाथ चिकन|कडकनाथ चिकन|kadaknath meat||^CHICKEN
 
 @sub|fish|Fresh Fish|ताज़ी मछली|ताजे मासे|kg,g,piece

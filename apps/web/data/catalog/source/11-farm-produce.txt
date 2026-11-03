@@ -24,11 +24,11 @@ Jaggery Powder|गुड़ पाउडर|गूळ पावडर|gul powder
 Chikki Jaggery|चिक्की गुड़|चिक्की गूळ|chikki gul||^JAGGERY
 Liquid Jaggery|तरल गुड़|काकवी|kakvi,kakavi,liquid gul|kg,litre,bottle
 Palm Jaggery|ताड़ का गुड़|ताडगूळ|tad gul,karupatti,palm gur
-Date Palm Jaggery|खजूर गुड़|खजुराचा गूळ|nolen gur,khajur gud||?
+Date Palm Jaggery|खजूर गुड़|खजुराचा गूळ|nolen gur,khajur gud||
 Sugar|चीनी|साखर|chini,sakhar,shakkar,sugar
 Khadi Sakhar|मिश्री|खडीसाखर|mishri,khadi sakhar,rock sugar
 Brown Sugar|ब्राउन शुगर|ब्राऊन साखर|brown sugar
-Sugar Cubes|शुगर क्यूब्स|साखरेचे खडे|||?
+Sugar Cubes|शुगर क्यूब्स|साखरेचे खडे|||
 Powdered Sugar|पिसी चीनी|पिठीसाखर|pithi sakhar,icing sugar
 Batasha|बताशा|बत्तासे|batashe,battase,batasa
 Honey|शहद|मध|shahad,madh,honey

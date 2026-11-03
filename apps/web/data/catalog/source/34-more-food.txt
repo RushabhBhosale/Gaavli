@@ -34,7 +34,7 @@ Taak Bhat|छाछ चावल|ताकभात|curd rice,dahi bhat|plate
 Dahi Bhat|दही चावल|दहीभात|curd rice|plate
 Fodnicha Bhat|तड़का चावल|फोडणीचा भात|fried rice maharashtrian|plate
 Zunka Bhakar|झुनका भाकर|झुणका भाकर|zunka bhakar|plate
-Ambadi Bhaji|अम्बाड़ी सब्ज़ी|अंबाडीची भाजी|||?
+Ambadi Bhaji|अम्बाड़ी सब्ज़ी|अंबाडीची भाजी|||
 
 @sub|indian-dishes|Popular Indian Dishes|लोकप्रिय भारतीय व्यंजन|लोकप्रिय भारतीय पदार्थ|plate,kg
 Paneer Butter Masala|पनीर बटर मसाला|पनीर बटर मसाला|paneer makhani
@@ -76,22 +76,22 @@ Khobra Vadi|खोपरा वड़ी|खोबरा वडी|khobra vadi
 Rava Coconut Ladoo|रवा नारियल लड्डू|रवा नारळ लाडू|||^RAVA_LADOO
 Shrikhand Puri|श्रीखंड पूरी|श्रीखंड पुरी|shrikhand puri|plate
 Aamras Puri|आमरस पूरी|आमरस पुरी|aamras puri|plate
-Gul Ladoo|गुड़ लड्डू|गुळाचे लाडू|||?
+Gul Ladoo|गुड़ लड्डू|गुळाचे लाडू|||
 Kaju Barfi|काजू बर्फी|काजू बर्फी|||^KAJU_KATLI
 Pista Barfi|पिस्ता बर्फी|पिस्ता बर्फी|pistachio burfi
 Badam Barfi|बादाम बर्फी|बदाम बर्फी|almond burfi
-Walnut Barfi|अखरोट बर्फी|अक्रोड बर्फी|||?
-Apple Barfi|सेब बर्फी|सफरचंद बर्फी|||?
-Carrot Barfi|गाजर बर्फी|गाजर बर्फी|||?
+Walnut Barfi|अखरोट बर्फी|अक्रोड बर्फी|||
+Apple Barfi|सेब बर्फी|सफरचंद बर्फी|||
+Carrot Barfi|गाजर बर्फी|गाजर बर्फी|||
 Kheer Kadam|खीर कदम|खीर कदम
 Sutarfeni|सुतरफेनी|सुतरफेणी|sutarfeni,feni
 Phenya|फेनी|फेण्या|pheni,phenya
-Dudhi Barfi|लौकी बर्फी|दुधी बर्फी|||?
+Dudhi Barfi|लौकी बर्फी|दुधी बर्फी|||
 Rajbhog|राजभोग|राजभोग
 Tilachi Vadi|तिल की वड़ी|तिळाची वडी|til vadi
-Shengdana Vadi|मूंगफली वड़ी|शेंगदाणा वडी|||?
+Shengdana Vadi|मूंगफली वड़ी|शेंगदाणा वडी|||
 Rava Barfi|रवा बर्फी|रवा बर्फी
-Kesari Halwa|केसरी हलवा|केशरी शिरा|||?
+Kesari Halwa|केसरी हलवा|केशरी शिरा|||
 
 @category|farsan-snacks
 @sub|diwali-faral
@@ -100,7 +100,7 @@ Navratan Mix|नवरत्न मिक्सचर|नवरत्न मि�
 Khatta Meetha Mix|खट्टा मीठा|खट्टा मीठा|khatta meetha
 Chana Choor|चना चूर|चणा चूर|chana chur
 Diet Chivda|डाइट चिवड़ा|डाएट चिवडा
-Corn Mixture|मक्का मिक्सचर|मका मिक्सचर|||?
+Corn Mixture|मक्का मिक्सचर|मका मिक्सचर|||
 Kaju Mixture|काजू मिक्सचर|काजू मिक्सचर
 Soya Chivda|सोया चिवड़ा|सोया चिवडा
 Lasun Chivda|लहसुन चिवड़ा|लसूण चिवडा|garlic chivda||^POHA_CHIVDA

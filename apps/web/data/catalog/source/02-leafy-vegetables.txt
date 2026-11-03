@@ -22,9 +22,9 @@ Chuka|चूका|चुका|chuka,chuka bhaji,green sorrel
 Gongura|गोंगुरा|लाल अंबाडी|gongura,red sorrel||^SORREL_LEAVES
 Purslane|कुलफा|घोळ|ghol,kulfa,luni bhaji
 Malabar Spinach|पोई साग|मायाळू|mayalu,poi,basella
-Water Spinach|कलमी साग|नाळीची भाजी|kalmi,nalichi bhaji||?
-Chakramuni Leaves|चक्रमुनि|चक्रमुनी|multivitamin plant,sauropus||?
-Pumpkin Leaves|कद्दू के पत्ते|भोपळ्याची पाने|bhoplyachi pane||?
+Water Spinach|कलमी साग|नाळीची भाजी|kalmi,nalichi bhaji||
+Chakramuni Leaves|चक्रमुनि|चक्रमुनी|multivitamin plant,sauropus||
+Pumpkin Leaves|कद्दू के पत्ते|भोपळ्याची पाने|bhoplyachi pane||
 Chana Leaves|चने का साग|हरभऱ्याची भाजी|chane ka saag,harbharyachi bhaji,harbhara pala
 
 @sub|herbs|Fresh Herbs|ताज़ी जड़ी-बूटियाँ|ताज्या औषधी वनस्पती|bunch,kg,g
@@ -33,7 +33,7 @@ Sweet Basil|मीठी तुलसी|सब्जा तुळस|sabja,ital
 Parsley|पार्सले|पार्सली|parsley|bunch,g
 Spearmint|पहाड़ी पुदीना|पहाडी पुदिना|spearmint||^MINT
 Ajwain Leaves|अजवाइन के पत्ते|ओव्याची पाने|ova pane,karpuravalli,indian borage
-Lemon Leaves|नींबू के पत्ते|लिंबाची पाने|limbachi pane||?
+Lemon Leaves|नींबू के पत्ते|लिंबाची पाने|limbachi pane||
 Neem Leaves|नीम के पत्ते|कडुलिंबाची पाने|neem patta,kadulimb,kadulimbachi pane|bunch,kg
 Betel Leaves|पान|विड्याची पाने|paan,pan,nagvel,vidyache pan|piece,bunch,dozen
 Banana Leaves|केले के पत्ते|केळीची पाने|kele ka patta,kelichi pane|piece,bunch,dozen
@@ -41,7 +41,7 @@ Turmeric Leaves|हल्दी के पत्ते|हळदीची पा
 Mango Leaves|आम के पत्ते|आंब्याची पाने|aam patta,ambyachi pane,toran leaves|bunch
 Bel Leaves|बेलपत्र|बेलाची पाने|belpatra,bel patra,bilva|bunch,piece
 Durva Grass|दूर्वा|दूर्वा|durva,doob,doob ghas,durva judi|bunch
-Shami Leaves|शमी पत्र|शमीची पाने|shami patra,shami||?
+Shami Leaves|शमी पत्र|शमीची पाने|shami patra,shami||
 Apta Leaves|आपटा पत्ते|आपट्याची पाने|apta,sona,apatyachi pane|bunch
 Stevia Leaves|स्टीविया|स्टीव्हिया|meethi tulsi|bunch,g
 Rosemary|रोज़मेरी|रोझमेरी||bunch,g
@@ -51,15 +51,15 @@ Microgreens|माइक्रोग्रीन्स|मायक्रोग�
 
 @sub|wild-greens|Monsoon Wild Greens (Ranbhaji)|जंगली साग (रानभाजी)|रानभाज्या|bunch,kg
 Tarota Leaves|चकवड़|टाकळा|takla,takala,chakwad,tarota
-Kurdu|सिलवारी|कुरडू|kurdu,kurdu bhaji,silver cock's comb||?
+Kurdu|सिलवारी|कुरडू|kurdu,kurdu bhaji,silver cock's comb||
 Shevla|शेवला|शेवळा|shevla,shevali,dragon stalk yam
-Kartoli|ककोड़ा (जंगली)|रानकरटोली|wild kantola,kartule||?
+Kartoli|ककोड़ा (जंगली)|रानकरटोली|wild kantola,kartule||
 Kawla|कावळा|कवळा|kawla,kavla bhaji
-Bharangi|भारंगी|भारंगी|bharangi||?
+Bharangi|भारंगी|भारंगी|bharangi||
 Fodshi|फोडशी|फोडशी|fodshi,kuli
 Ambat Chuka|अम्बट चूका|आंबट चुका|ambat chuka,wild sorrel||^CHUKA
-Alu Wild Leaves|जंगली अरबी पत्ते|रानअळू|ran alu,wild colocasia||?
+Alu Wild Leaves|जंगली अरबी पत्ते|रानअळू|ran alu,wild colocasia||
 Pathri|पथरी|पाथरी|pathri,pathari
-Kena|केना|केना|kena,kena bhaji||?
-Kanchan Flowers|कचनार के फूल|कांचनची फुले|kachnar,kanchan|bunch,kg|?
+Kena|केना|केना|kena,kena bhaji||
+Kanchan Flowers|कचनार के फूल|कांचनची फुले|kachnar,kanchan|bunch,kg|
 Hadga Flowers|अगस्त्य के फूल|हादग्याची फुले|hadga,agasti,agathi flowers|bunch,kg

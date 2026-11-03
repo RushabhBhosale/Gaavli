@@ -110,8 +110,8 @@ Parbhani Kranti Okra Seeds|परभणी क्रांति भिंडी
 Arka Anamika Okra Seeds|अर्का अनामिका भिंडी बीज|अर्का अनामिका भेंडी बियाणे|arka anamika||^OKRA_SEEDS
 Phule Utkarsha Okra Seeds|फुले उत्कर्ष भिंडी बीज|फुले उत्कर्षा भेंडी बियाणे|phule utkarsha||^OKRA_SEEDS
 Phule Prachi Bitter Gourd Seeds|फुले प्राची करेला बीज|फुले प्राची कारले बियाणे|phule prachi||^BITTER_GOURD_SEEDS
-Phule Green Gold Bitter Gourd Seeds|फुले ग्रीन गोल्ड करेला बीज|फुले ग्रीन गोल्ड कारले बियाणे|||?
-Samrat Bottle Gourd Seeds|सम्राट लौकी बीज|सम्राट दुधी भोपळा बियाणे|samrat dudhi||?
+Phule Green Gold Bitter Gourd Seeds|फुले ग्रीन गोल्ड करेला बीज|फुले ग्रीन गोल्ड कारले बियाणे|||
+Samrat Bottle Gourd Seeds|सम्राट लौकी बीज|सम्राट दुधी भोपळा बियाणे|samrat dudhi||
 Pusa Kesar Carrot Seeds|पूसा केसर गाजर बीज|पुसा केसर गाजर बियाणे|pusa kesar||^CARROT_SEEDS
 Pusa Chetki Radish Seeds|पूसा चेतकी मूली बीज|पुसा चेतकी मुळा बियाणे|pusa chetki||^RADISH_SEEDS
 Pusa Snowball Cauliflower Seeds|पूसा स्नोबॉल फूलगोभी बीज|पुसा स्नोबॉल फ्लॉवर बियाणे|snowball||^CAULIFLOWER_SEEDS
@@ -120,7 +120,7 @@ Arka Komal French Bean Seeds|अर्का कोमल बीन्स बी
 Pusa Navbahar Cluster Bean Seeds|पूसा नवबहार ग्वार बीज|पुसा नवबहार गवार बियाणे|pusa navbahar||^CLUSTER_BEANS_SEEDS
 Arkel Pea Seeds|आर्केल मटर बीज|आर्केल वाटाणा बियाणे|arkel||^GREEN_PEAS_SEEDS
 PKM 1 Drumstick Seeds|पीकेएम 1 सहजन बीज|पीकेएम 1 शेवगा बियाणे|pkm 1 moringa||^DRUMSTICK_SEEDS
-Bhagya Drumstick Seeds|भाग्य सहजन बीज|भाग्या शेवगा बियाणे|bhagya kdm 01||?
+Bhagya Drumstick Seeds|भाग्य सहजन बीज|भाग्या शेवगा बियाणे|bhagya kdm 01||
 Pusa Jyoti Spinach Seeds|पूसा ज्योति पालक बीज|पुसा ज्योती पालक बियाणे|pusa jyoti||^SPINACH_SEEDS
 Kasuri Methi Seeds|कसूरी मेथी बीज|कसुरी मेथी बियाणे|kasuri methi sowing||^METHI_SOWING_SEEDS
 Sugar Baby Watermelon Seeds|शुगर बेबी तरबूज बीज|शुगर बेबी कलिंगड बियाणे|sugar baby||^WATERMELON_SOWING_SEEDS
@@ -133,7 +133,7 @@ CoM 0265 Sugarcane Setts|कोएम 0265 गन्ना बीज|कोए�
 Co 92005 Sugarcane Setts|को 92005 गन्ना बीज|को 92005 ऊस बेणे|co 92005||^SUGARCANE_SETTS
 VSI 8005 Sugarcane Setts|वीएसआई 8005 गन्ना बीज|व्हीएसआय 8005 ऊस बेणे|vsi 8005||^SUGARCANE_SETTS
 Phule 10001 Sugarcane Setts|फुले 10001 गन्ना बीज|फुले 10001 ऊस बेणे|ms 10001||^SUGARCANE_SETTS
-CoM 11082 Sugarcane Setts|कोएम 11082 गन्ना बीज|कोएम 11082 ऊस बेणे|com 11082||?
+CoM 11082 Sugarcane Setts|कोएम 11082 गन्ना बीज|कोएम 11082 ऊस बेणे|com 11082||
 Kufri Jyoti Seed Potato|कुफरी ज्योति आलू बीज|कुफरी ज्योती बटाटा बेणे|kufri jyoti||^POTATO_SEED_TUBERS
 Kufri Pukhraj Seed Potato|कुफरी पुखराज आलू बीज|कुफरी पुखराज बटाटा बेणे|kufri pukhraj||^POTATO_SEED_TUBERS
 Kufri Chipsona Seed Potato|कुफरी चिपसोना आलू बीज|कुफरी चिपसोना बटाटा बेणे|chipsona||^POTATO_SEED_TUBERS
@@ -153,16 +153,16 @@ Arka Kiran Guava Plant|अर्का किरण अमरूद पौधा
 Taiwan Pink Guava Plant|ताइवान पिंक अमरूद पौधा|तैवान पिंक पेरू रोप|taiwan pink||^GUAVA_PLANT
 Vengurla 4 Cashew Graft|वेंगुर्ला 4 काजू कलम|वेंगुर्ला 4 काजू कलम|vengurla 4||^CASHEW_GRAFTS
 Vengurla 7 Cashew Graft|वेंगुर्ला 7 काजू कलम|वेंगुर्ला 7 काजू कलम|vengurla 7||^CASHEW_GRAFTS
-Vengurla 9 Cashew Graft|वेंगुर्ला 9 काजू कलम|वेंगुर्ला 9 काजू कलम|vengurla 9||?
+Vengurla 9 Cashew Graft|वेंगुर्ला 9 काजू कलम|वेंगुर्ला 9 काजू कलम|vengurla 9||
 Konkan Amruta Kokum Plant|कोंकण अमृता कोकम पौधा|कोकण अमृता कोकम रोप|konkan amruta||^KOKUM_FRUIT_PLANT
 Pratap Coconut Seedling|प्रताप नारियल पौधा|प्रताप नारळ रोप|pratap||^COCONUT_SEEDLING
 Banavali Coconut Seedling|बाणावली नारियल पौधा|बाणावली नारळ रोप|banavali,west coast tall||^COCONUT_SEEDLING
 Dinkar Fig Plant|दिनकर अंजीर पौधा|दिनकर अंजीर रोप|dinkar||^FIG_PLANT
 Cricket Ball Sapota Plant|क्रिकेट बॉल चीकू पौधा|क्रिकेट बॉल चिकू रोप|cricket ball||^SAPOTA_PLANT
 Thompson Seedless Grape Cuttings|थॉम्पसन अंगूर कलम|थॉमसन द्राक्ष काड्या|grape cuttings,draksha kadya||^GRAPES_PLANT
-Manjari Medika Grape Cuttings|मांजरी मेडिका अंगूर कलम|मांजरी मेडिका द्राक्ष काड्या|manjari medika||?
-Dogridge Grape Rootstock|डॉगरिज रूटस्टॉक|डॉगरिज खुंट|dogridge||?
+Manjari Medika Grape Cuttings|मांजरी मेडिका अंगूर कलम|मांजरी मेडिका द्राक्ष काड्या|manjari medika||
+Dogridge Grape Rootstock|डॉगरिज रूटस्टॉक|डॉगरिज खुंट|dogridge||
 Kesar Mango Graft|केसर आम कलम|केशर आंबा कलम|kesar kalam,mango graft||^KESAR_MANGO_PLANT
 Alphonso Mango Graft|हापुस आम कलम|हापूस आंबा कलम|hapus kalam||^ALPHONSO_MANGO_PLANT
 Sai Sharbati Lemon Plant|साई शरबती नींबू पौधा|साई सरबती लिंबू रोप|sai sharbati||^LEMON_PLANT
-Phule Sharbati Lemon Plant|फुले शरबती नींबू पौधा|फुले सरबती लिंबू रोप|phule sharbati||?
+Phule Sharbati Lemon Plant|फुले शरबती नींबू पौधा|फुले सरबती लिंबू रोप|phule sharbati||

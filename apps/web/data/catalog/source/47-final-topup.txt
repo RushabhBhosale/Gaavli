@@ -37,8 +37,8 @@ Chicken Tikka Masala|चिकन टिक्का मसाला|चिक�
 Shankhpushpi Powder|शंखपुष्पी पाउडर|शंखपुष्पी पावडर
 Nagarmotha Powder|नागरमोथा पाउडर|नागरमोथा पावडर
 Jatamansi Powder|जटामांसी पाउडर|जटामांसी पावडर
-Bhumi Amla Powder|भुई आंवला पाउडर|भुई आवळी पावडर|||?
-Neem Bark Powder|नीम छाल पाउडर|कडुलिंब साल पावडर|||?
+Bhumi Amla Powder|भुई आंवला पाउडर|भुई आवळी पावडर|||
+Neem Bark Powder|नीम छाल पाउडर|कडुलिंब साल पावडर|||
 Kirayat Powder|चिरायता पाउडर|किराईत पावडर
 Snan Churna|स्नान चूर्ण|स्नानचूर्ण|herbal bath powder|g,packet
 
@@ -48,11 +48,11 @@ Thiodicarb|थायोडिकार्ब|थायोडिकार्ब|t
 Cartap Hydrochloride|कारटैप हाइड्रोक्लोराइड|कारटॅप हायड्रोक्लोराईड|cartap
 Chlorpyrifos Cypermethrin|क्लोरपायरीफॉस साइपरमेथ्रिन|क्लोरपायरीफॉस सायपरमेथ्रीन|50 5 combo
 Profenofos Cypermethrin|प्रोफेनोफॉस साइपरमेथ्रिन|प्रोफेनोफॉस सायपरमेथ्रीन|44 4 combo
-Thiamethoxam Lambda Cyhalothrin|थायमेथोक्साम लैम्ब्डा|थायामेथोक्झाम लॅम्बडा|||?
+Thiamethoxam Lambda Cyhalothrin|थायमेथोक्साम लैम्ब्डा|थायामेथोक्झाम लॅम्बडा|||
 Carboxin Thiram|कार्बोक्सिन थायरम|कार्बोक्सिन थायरम|seed treatment fungicide
 Hydrogen Cyanamide|हाइड्रोजन साइनामाइड|हायड्रोजन सायनामाईड|grape bud breaker
-CPPU|सीपीपीयू|सीपीपीयू|forchlorfenuron,grape berry size||?
-Cytokinin|साइटोकाइनिन|सायटोकायनिन|||?
+CPPU|सीपीपीयू|सीपीपीयू|forchlorfenuron,grape berry size||
+Cytokinin|साइटोकाइनिन|सायटोकायनिन|||
 
 @category|livestock
 @sub|fodder
@@ -94,9 +94,9 @@ Mechanical Pencil|मैकेनिकल पेंसिल|मेकॅनि
 
 @category|hardware
 @sub|electrical
-Ceiling Light|सीलिंग लाइट|सीलिंग लाईट|||?
+Ceiling Light|सीलिंग लाइट|सीलिंग लाईट|||
 Wall Light|वॉल लाइट|भिंतीवरील दिवा|wall lamp
-Fridge Stand|फ्रिज स्टैंड|फ्रिज स्टँड|||?
+Fridge Stand|फ्रिज स्टैंड|फ्रिज स्टँड|||
 
 @category|plumbing-building
 @sub|paint
@@ -128,13 +128,13 @@ Danedar Khoya|दानेदार खोया|रवाळ खवा|||^KHOYA
 @sub|diwali-faral
 Puneri Bhakarwadi|पुणेरी भाकरवड़ी|पुणेरी भाकरवडी|||^BHAKARWADI
 Sweet Potato Chips|शकरकंद चिप्स|रताळे वेफर्स|ratale chips|kg,g,packet
-Beetroot Chips|चुकंदर चिप्स|बीट चिप्स|||?
+Beetroot Chips|चुकंदर चिप्स|बीट चिप्स|||
 
 @category|flours
 @sub|flours
-Kodo Millet Flour|कोदो आटा|कोद्रा पीठ|||?
+Kodo Millet Flour|कोदो आटा|कोद्रा पीठ|||
 Foxtail Millet Flour|कंगनी आटा|राळा पीठ|rala pith
-Little Millet Flour|कुटकी आटा|सावा पीठ|||?
+Little Millet Flour|कुटकी आटा|सावा पीठ|||
 
 @category|beverages
 @sub|fresh-juices

@@ -42,7 +42,7 @@ export const productMasterImportSchema = z
 export const productMasterSchema = productMasterImportRowSchema
   .extend({
     productId: z.string().regex(/^[a-f0-9]{24}$/i),
-    nameHi: z.string().nullable(),
+    nameHi: z.string().nullable().default(null),
   })
   .strict();
 export const productMasterPageSchema = z

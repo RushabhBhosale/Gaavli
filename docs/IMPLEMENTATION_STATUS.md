@@ -1,3 +1,22 @@
+## 2026-11-03 - Seed, variety and regional food catalog batch (imported)
+
+- Added 5,760 products in `apps/web/data/catalog/source/49-*` to `56-*`: about
+  3,900 seed and planting-material varieties (vegetables, rice, wheat, millets,
+  pulses, oilseeds, tubers and rhizomes), 528 fruit varieties and 1,385 regional
+  dishes in a new `regional-cuisine` category. The catalog is now 10,791
+  products in 44 categories and 170 subcategories. All review flags (672 rows,
+  including the earlier 485) were removed on request, so every row is active.
+- Variety names are public ICAR, state university and landrace names written
+  from general knowledge; a crop scientist should check the release codes.
+  No brands. Web catalog tests (24) pass and the builder reports 0 errors.
+- Brand and company names were removed afterwards (for example company-owned
+  maize and vegetable hybrids, a restaurant biryani, a syrup brand); `Cello Tape`
+  is now `Transparent Tape`. Doubled words in 53 generated names were fixed.
+  The database was updated to match (91 unused rows replaced or removed).
+- Imported to the configured database: 5,792 inserted, then corrected to 10,791 verified rows and
+  a rebuilt search index (142,281 terms). Spot checks found Bhima, Pusa, Hapus,
+  Pav Bhaji, Bisi Bele Bath and Hindi-Latin seed words such as `tamatar biyane`.
+
 ## 2026-11-02 - Next.js security patch
 
 - Upgraded the web workspace from Next.js 16.4.0 to 16.4.1 and explicitly set

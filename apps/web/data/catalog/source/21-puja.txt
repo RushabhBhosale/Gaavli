@@ -100,8 +100,8 @@ Gudi Kit|गुढ़ी सामग्री|गुढी साहित्�
 Gathi Garland|शक्कर की माला|साखरेची गाठी|gathi,sakharechi gathi|piece,kg
 Tulsi Vrindavan|तुलसी वृंदावन|तुळशी वृंदावन|tulsi kunda,tulsi pot
 Rakhi|राखी|राखी|rakhi,rakshabandhan|piece,dozen
-Hartalika Puja Set|हरतालिका सामग्री|हरतालिका साहित्य|hartalika||?
-Vat Purnima Puja Kit|वट पूर्णिमा सामग्री|वटपौर्णिमा साहित्य|vat savitri||?
+Hartalika Puja Set|हरतालिका सामग्री|हरतालिका साहित्य|hartalika||
+Vat Purnima Puja Kit|वट पूर्णिमा सामग्री|वटपौर्णिमा साहित्य|vat savitri||
 Holi Colours|होली के रंग|होळीचे रंग|holi rang,herbal gulal|kg,g,packet
 Pichkari|पिचकारी|पिचकारी|water gun|piece
 Diwali Kandil|आकाश कंदील|आकाशकंदील|akash kandil,kandil,lantern|piece

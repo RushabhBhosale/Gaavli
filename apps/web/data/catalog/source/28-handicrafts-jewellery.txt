@@ -14,24 +14,24 @@ Jute Craft|जूट हस्तशिल्प|ज्यूट हस्तक
 Wooden Handicraft|लकड़ी का हस्तशिल्प|लाकडी हस्तकला|wood craft,carving
 Bidriware|बीदरी शिल्प|बिद्री कला|bidri
 Brass Handicraft|पीतल शिल्प|पितळी हस्तकला|brass decor
-Copper Handicraft|तांबे का शिल्प|तांब्याची हस्तकला|||?
-Kolhapuri Leather Craft|कोल्हापुरी चमड़ा शिल्प|कोल्हापुरी चामडी हस्तकला|||?
+Copper Handicraft|तांबे का शिल्प|तांब्याची हस्तकला|||
+Kolhapuri Leather Craft|कोल्हापुरी चमड़ा शिल्प|कोल्हापुरी चामडी हस्तकला|||
 Ganjifa Cards|गंजीफ़ा पत्ते|गंजिफा|ganjifa,sawantwadi ganjifa
 Hand Embroidery Work|कढ़ाई काम|भरतकाम|bhartkam,kadhai,embroidery
 Crochet Items|क्रोशिया वस्तुएँ|क्रोशाच्या वस्तू|crochet,kroshiya
 Macrame|मैक्रेम|मॅक्रमे|macrame
-Quilling Art|क्विलिंग|क्विलिंग|||?
+Quilling Art|क्विलिंग|क्विलिंग|||
 Handmade Candles|हस्तनिर्मित मोमबत्तियाँ|हाताने बनवलेल्या मेणबत्त्या|designer candles
-Handmade Greeting Cards|हस्तनिर्मित कार्ड|हस्तनिर्मित शुभेच्छापत्र|||?
+Handmade Greeting Cards|हस्तनिर्मित कार्ड|हस्तनिर्मित शुभेच्छापत्र|||
 Painting|चित्र|चित्र|painting,canvas painting
 Madhubani Painting|मधुबनी चित्रकला|मधुबनी चित्र|madhubani
-Glass Painting|कांच चित्रकला|काचेवरील चित्र|||?
-Mural|भित्ति चित्र|भित्तिचित्र|wall mural||?
-Paper Mache Items|पेपर मेशी|कागदी लगदा वस्तू|||?
+Glass Painting|कांच चित्रकला|काचेवरील चित्र|||
+Mural|भित्ति चित्र|भित्तिचित्र|wall mural||
+Paper Mache Items|पेपर मेशी|कागदी लगदा वस्तू|||
 Shell Craft|सीप शिल्प|शिंपल्यांची हस्तकला|seashell craft
 Stone Carving|पत्थर की नक्काशी|दगडी कोरीवकाम|stone murti
 Handloom Fabric|हथकरघा कपड़ा|हातमाग कापड|handloom|metre,piece
-Kasuti Embroidery|कसूती कढ़ाई|कसूती भरतकाम|kasuti||?
+Kasuti Embroidery|कसूती कढ़ाई|कसूती भरतकाम|kasuti||
 
 @sub|home-decor|Home Decor|घर की सजावट|गृहसजावट|piece,set
 Wall Hanging|दीवार लटकन|भिंतीवरील सजावट|wall hanging
@@ -44,11 +44,11 @@ Wind Chime|विंड चाइम|विंड चाइम
 Cushion Cover|कुशन कवर|कुशन कव्हर
 Table Lamp|टेबल लैंप|टेबल लॅम्प
 Jhumar|झूमर|झुंबर|jhumbar,chandelier
-Wall Sticker|दीवार स्टिकर|भिंतीचे स्टिकर|||?
+Wall Sticker|दीवार स्टिकर|भिंतीचे स्टिकर|||
 Urli|उरली|उरळी|urli,brass urli
 Dreamcatcher|ड्रीमकैचर|ड्रीमकॅचर
 Name Plate|नेम प्लेट|नावाची पाटी|nameplate
-Clock Decorative|सजावटी घड़ी|सजावटी घड्याळ|||?
+Clock Decorative|सजावटी घड़ी|सजावटी घड्याळ|||
 
 @sub|festival-decor|Festival and Party Decorations|त्योहार और पार्टी सजावट|सण आणि समारंभ सजावट|piece,packet,set
 Ganpati Decoration|गणपति सजावट|गणपती सजावट|makhar decoration,thermocol makhar
@@ -84,18 +84,18 @@ Green Glass Bangles|हरी कांच की चूड़ियाँ|ह�
 Glass Bangles|कांच की चूड़ियाँ|काचेच्या बांगड्या|kanchi bangdya||^BANGLES
 Lac Bangles|लाख की चूड़ियाँ|लाखेच्या बांगड्या|lakh bangles||^BANGLES
 Patlya|पटली|पाटल्या|patlya,gold bangles
-Tode|तोड़े|तोडे|tode,kada||?
+Tode|तोड़े|तोडे|tode,kada||
 Kada|कड़ा|कडे|kade,kada,bracelet
 Bajuband|बाजूबंद|वाकी|vaki,bajuband,armlet|pair,piece
 Kamarpatta|कमरबंद|कमरपट्टा|kambarpatta,waist belt
 Payal|पायल|पैंजण|painjan,payal,anklet|pair
 Jodvi|बिछिया|जोडवी|jodvi,bichiya,toe ring|pair
 Ring|अंगूठी|अंगठी|angthi,ring
-Necklace|हार|हार (दागिना)|necklace,har||?
+Necklace|हार|हार (दागिना)|necklace,har||
 Chain Jewellery|चेन|चेन (दागिना)|gold chain,silver chain
 Maang Tikka|मांग टीका|बिंदी (दागिना)|tikka,bindi jewellery
 Hair Ornaments|बालों के गहने|केसांचे दागिने|ambada pin,veni pin
 Silver Jewellery|चांदी के गहने|चांदीचे दागिने|chandi,silver
 Oxidised Jewellery|ऑक्सीडाइज़्ड गहने|ऑक्सिडाइज्ड दागिने|oxidized
 Imitation Jewellery Set|इमिटेशन ज्वेलरी सेट|इमिटेशन दागिने संच|artificial jewellery||^NECKLACE
-Jewellery Box|गहनों का डिब्बा|दागिन्यांचा डबा|||?
+Jewellery Box|गहनों का डिब्बा|दागिन्यांचा डबा|||

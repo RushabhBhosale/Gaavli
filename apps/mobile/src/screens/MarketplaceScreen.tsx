@@ -17,7 +17,7 @@ import { useRouter } from "expo-router";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { toHomeListing } from "../data/listings";
-import { useMarketplaceListings } from "../listings";
+import { MARKETPLACE_PAGE_SIZE, useMarketplaceListings } from "../listings";
 import { useListingClock } from "../hooks/useListingClock";
 import { theme } from "../theme";
 import {
@@ -33,7 +33,7 @@ import { d } from "../components/dashboard/primitives";
 import { useQuery } from "@tanstack/react-query";
 import { productMasterPageSchema } from "@gaavli/validation";
 import { loadMasterProducts } from "../data/productMaster";
-import { voiceProductSearch } from "../data/voiceSearch";
+import { produceVoiceHints, voiceProductSearch } from "../data/voiceSearch";
 import { productMasterCache } from "../storage/sqlite";
 import { api } from "../api";
 import { authenticatedApi } from "../session";
@@ -52,7 +52,7 @@ export default function MarketplaceScreen() {
   const sourceId = browsingVillage?.id;
   const scope = `${session?.user.id ?? "guest"}:${sourceId}`;
   useEffect(() => {
-    const timer = setTimeout(() => setSearch(query.trim()), 300);
+    const timer = setTimeout(() => setSearch(query.trim()), 200);
     return () => clearTimeout(timer);
   }, [query]);
   const result = useMarketplaceListings(search, category);
@@ -64,18 +64,22 @@ export default function MarketplaceScreen() {
   const filterKey = JSON.stringify([scope, search, category]);
   const [pagination, setPagination] = useState({
     key: filterKey,
-    active: 5,
-    unavailable: 5,
+    active: MARKETPLACE_PAGE_SIZE,
+    unavailable: MARKETPLACE_PAGE_SIZE,
   });
   const counts =
     pagination.key === filterKey
       ? pagination
-      : { key: filterKey, active: 5, unavailable: 5 };
+      : {
+          key: filterKey,
+          active: MARKETPLACE_PAGE_SIZE,
+          unavailable: MARKETPLACE_PAGE_SIZE,
+        };
   if (pagination.key !== filterKey) setPagination(counts);
   async function showMore(unavailable: boolean) {
     const feed = unavailable ? unavailableResult : result;
     const key = unavailable ? "unavailable" : "active";
-    const next = counts[key] + 5;
+    const next = counts[key] + MARKETPLACE_PAGE_SIZE;
     const loaded =
       feed.data?.pages.reduce((sum, page) => sum + page.listings.length, 0) ??
       0;
@@ -112,14 +116,16 @@ export default function MarketplaceScreen() {
   const voice = useVoiceSearch({
     language,
     scope,
-    hints:
-      products.data?.products.map((product) =>
+    hints: [
+      ...produceVoiceHints(),
+      ...(products.data?.products.map((product) =>
         productDisplayName(language, {
           en: product.nameEn,
           mr: product.nameMr,
           hi: product.nameHi,
         }),
-      ) || [],
+      ) || []),
+    ],
     onResult: (transcript) => {
       const normalized = voiceProductSearch(
         transcript,
@@ -161,7 +167,7 @@ export default function MarketplaceScreen() {
         ? page?.allProductCount
         : page?.productGroupCounts?.find((row) => row.productGroup === item.id)
             ?.count;
-    return count === undefined ? "—" : number.format(count);
+    return count ? number.format(count) : undefined;
   }
   const categories = [
     {
@@ -432,7 +438,7 @@ export default function MarketplaceScreen() {
 }
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
-  content: { ...d.content, gap: 12 },
+  content: { ...d.content, gap: 8 },
   sectionTitle: {
     color: theme.colors.heading,
     fontSize: 16,

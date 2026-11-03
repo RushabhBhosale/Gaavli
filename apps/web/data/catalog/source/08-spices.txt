@@ -10,7 +10,7 @@ Byadgi Chilli|ब्याडगी मिर्च|ब्याडगी मि
 Kashmiri Chilli|कश्मीरी मिर्च|काश्मिरी मिरची|kashmiri mirch||^DRY_RED_CHILLI
 Guntur Chilli|गुंटूर मिर्च|गुंटूर मिरची|guntur,teja chilli||^DRY_RED_CHILLI
 Sankeshwari Chilli|संकेश्वरी मिर्च|संकेश्वरी मिरची|sankeshwari||^DRY_RED_CHILLI
-Pandi Chilli|पांडी मिर्च|पांडी मिरची|pandi mirchi||?
+Pandi Chilli|पांडी मिर्च|पांडी मिरची|pandi mirchi||
 Coriander Seeds|धनिया|धणे|dhaniya,dhane,dhana,sabut dhaniya
 Cumin Seeds|जीरा|जिरे|jeera,jira,jire,zeera,cumin
 Shahi Jeera|शाही जीरा|शहाजिरे|shahjeera,black cumin,kala jeera
@@ -44,14 +44,14 @@ Dill Seeds|सोआ बीज|शेपू बी|suva seeds,shepu bi
 Garcinia|कोकम सूखा|आमसूल|amsul,amsol,dry kokum||^KOKUM
 Anardana|अनारदाना|अनारदाणा|anardana,dried pomegranate seeds
 Kasuri Methi|कसूरी मेथी|कसुरी मेथी|kasoori methi,dried fenugreek leaves|g,packet
-Dried Curry Leaves|सूखे करी पत्ते|सुका कढीपत्ता|sukha kadipatta||?
+Dried Curry Leaves|सूखे करी पत्ते|सुका कढीपत्ता|sukha kadipatta||
 Long Pepper|पीपली|पिंपळी|pippali,pimpli,long pepper
 Cubeb|कबाब चीनी|कंकोळ|kankol,kabab chini,tailed pepper
 Black Salt|काला नमक|पादेलोण|kala namak,padelon,sanchal
 Rock Salt|सेंधा नमक|सैंधव मीठ|sendha namak,saindhav,upvas meeth
 Alum|फिटकरी|तुरटी|phitkari,turti|kg,g
-Mustard Split|राई दाल|मोहरीची डाळ|rai kuria,mustard dal|kg,g|?
-Fenugreek Split|मेथी दाल|मेथी डाळ|methi kuria|kg,g|?
+Mustard Split|राई दाल|मोहरीची डाळ|rai kuria,mustard dal|kg,g|
+Fenugreek Split|मेथी दाल|मेथी डाळ|methi kuria|kg,g|
 Sesame (Black)|काले तिल|काळे तीळ|kale til,black til|kg,g
 White Sesame|सफ़ेद तिल|पांढरे तीळ|safed til,white til|kg,g
 
@@ -74,10 +74,10 @@ Fennel Powder|सौंफ पाउडर|बडीशेप पावडर|sa
 Fenugreek Powder|मेथी पाउडर|मेथी पावडर|methi powder
 Mustard Powder|राई पाउडर|मोहरी पावडर|rai powder
 Garlic Powder|लहसुन पाउडर|लसूण पावडर|lahsun powder
-Ginger Powder|अदरक पाउडर|आले पावडर|adrak powder||?
+Ginger Powder|अदरक पाउडर|आले पावडर|adrak powder||
 Onion Powder|प्याज पाउडर|कांदा पावडर|pyaz powder
 Kokum Powder|कोकम पाउडर|कोकम पावडर|amsul powder
-Tamarind Powder|इमली पाउडर|चिंच पावडर|imli powder||?
+Tamarind Powder|इमली पाउडर|चिंच पावडर|imli powder||
 Asafoetida Powder|हींग पाउडर|हिंग पावडर|hing powder|g,packet,box|^ASAFOETIDA
 Black Salt Powder|काला नमक पाउडर|पादेलोण पावडर|kala namak powder||^BLACK_SALT
 Ajwain Powder|अजवाइन पाउडर|ओवा पावडर|ova powder
@@ -121,7 +121,7 @@ CKP Masala|सीकेपी मसाला|सीकेपी मसाला
 Kashmiri Garam Masala|कश्मीरी गरम मसाला|काश्मिरी गरम मसाला|||^GARAM_MASALA
 Tandoori Masala|तंदूरी मसाला|तंदुरी मसाला|tandoori masala
 Shahi Paneer Masala|शाही पनीर मसाला|शाही पनीर मसाला|||^PANEER_MASALA
-Upvas Masala|व्रत मसाला|उपवास मसाला|fasting masala||?
+Upvas Masala|व्रत मसाला|उपवास मसाला|fasting masala||
 Pickle Masala|अचार मसाला|लोणचे मसाला|achar masala,lonche masala
 Panch Phoron|पंच फोरन|पंच फोडण|panch phoron,five spice
 Curry Powder|करी पाउडर|करी पावडर|curry powder

@@ -1,5 +1,7 @@
 import { productDisplayName, speechLocale } from "../locale";
 import type { MasterProduct, MobileLanguage } from "@gaavli/types";
+import { editDistance, maxEdits } from "@gaavli/utils";
+import { PRODUCE_ALIASES } from "./produceAliases";
 
 type ProductName = Pick<
   MasterProduct,
@@ -109,15 +111,54 @@ export function voiceProductSearch(
       }).slice(0, 100),
       productGroup: match.product.productGroup,
     };
-  return {
-    text: (
-      phrase
-        .split(" ")
-        .filter((word) => !fillers.has(word))
-        .join(" ") || phrase
-    ).slice(0, 100),
-    productGroup: null,
-  };
+  const content =
+    phrase
+      .split(" ")
+      .filter((word) => !fillers.has(word))
+      .join(" ") || phrase;
+  const known = knownProduce(content);
+  if (known)
+    return {
+      text: productDisplayName(language, {
+        en: known.en,
+        mr: known.mr,
+        hi: known.hi,
+      }).slice(0, 100),
+      productGroup: known.productGroup,
+    };
+  return { text: content.slice(0, 100), productGroup: null };
+}
+
+// "kanda" is onion; a close spelling ("kaanda", "pyaaz") is too. Whole words
+// only, so a sentence never matches by accident.
+function knownProduce(content: string) {
+  const padded = ` ${content} `;
+  let best: { entry: (typeof PRODUCE_ALIASES)[number]; length: number } | null =
+    null;
+  for (const entry of PRODUCE_ALIASES)
+    for (const alias of entry.aliases)
+      if (padded.includes(` ${alias} `) && alias.length > (best?.length ?? 0))
+        best = { entry, length: alias.length };
+  if (best) return best.entry;
+  const word = content;
+  if (word.includes(" ") || Array.from(word).length < 4) return null;
+  const allowed = Math.min(1, maxEdits(Array.from(word).length));
+  if (!allowed) return null;
+  return (
+    PRODUCE_ALIASES.find((entry) =>
+      entry.aliases.some(
+        (alias) =>
+          !alias.includes(" ") &&
+          Array.from(alias).length >= 4 &&
+          editDistance(word, alias, allowed) <= allowed,
+      ),
+    ) ?? null
+  );
+}
+
+// Words the speech engine should listen for, in addition to product names.
+export function produceVoiceHints() {
+  return PRODUCE_ALIASES.flatMap((entry) => entry.aliases.slice(0, 2));
 }
 
 export type VoiceFailure =

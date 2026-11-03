@@ -51,9 +51,9 @@ Rock Phosphate|रॉक फॉस्फेट|रॉक फॉस्फेट|r
 Agricultural Drone|कृषि ड्रोन|शेती ड्रोन|spray drone,kisan drone
 Laser Land Leveller|लेज़र लैंड लेवलर|लेझर लँड लेव्हलर
 Boom Sprayer|बूम स्प्रेयर|बूम स्प्रेयर|tractor sprayer
-Groundnut Digger|मूंगफली खुदाई यंत्र|भुईमूग काढणी यंत्र|||?
-Cotton Picker Machine|कपास चुनने की मशीन|कापूस वेचणी यंत्र|||?
-Sugarcane Cutter|गन्ना काटने की मशीन|ऊस तोडणी यंत्र|||?
+Groundnut Digger|मूंगफली खुदाई यंत्र|भुईमूग काढणी यंत्र|||
+Cotton Picker Machine|कपास चुनने की मशीन|कापूस वेचणी यंत्र|||
+Sugarcane Cutter|गन्ना काटने की मशीन|ऊस तोडणी यंत्र|||
 Mini Dal Mill|मिनी दाल मिल|मिनी डाळ मिल|dal mill
 Pulverizer|पल्वराइज़र|पल्व्हरायझर|masala grinder machine
 Solar Dryer|सोलर ड्रायर|सौर वाळवणी यंत्र|solar food dryer
@@ -76,7 +76,7 @@ Mudhol Hound|मुधोल हाउंड|मुधोळ हाउंड|mud
 Labrador Puppy|लैब्राडोर पिल्ला|लॅब्राडोर पिल्लू|labrador||^DOG_PUPPY
 German Shepherd Puppy|जर्मन शेफ़र्ड पिल्ला|जर्मन शेफर्ड पिल्लू|gsd||^DOG_PUPPY
 Indie Dog Puppy|देसी कुत्ते का पिल्ला|गावठी कुत्र्याचे पिल्लू|desi dog,indie||^DOG_PUPPY
-Emu|एमु|इमू|emu bird||?
+Emu|एमु|इमू|emu bird||
 @sub|fodder
 Bajra Kadba|बाजरा कड़बी|बाजरीचा कडबा|bajra karbi||^DRY_FODDER
 Maize Stover|मक्का कड़बी|मक्याचा कडबा|maka kadba||^DRY_FODDER
@@ -129,8 +129,8 @@ Kaju Ladoo|काजू लड्डू|काजू लाडू
 @sub|barfi-halwa
 Atta Halwa|आटे का हलवा|कणकेचा शिरा|kada prasad,atta sheera
 Badam Halwa|बादाम हलवा|बदाम हलवा|badam sheera
-Beetroot Halwa|चुकंदर हलवा|बीट हलवा|||?
-Kozhukattai|कोझुकट्टई|कोळुकट्टई|||?
+Beetroot Halwa|चुकंदर हलवा|बीट हलवा|||
+Kozhukattai|कोझुकट्टई|कोळुकट्टई|||
 Ghari|घारी|घारी|surti ghari
 Pantua|पंतुआ|पंतुआ
 Chhena Poda|छेना पोड़ा|छेना पोडा
@@ -156,15 +156,15 @@ Behada Sapling|बहेड़ा पौधा|बेहडा रोप|baheda 
 Shisham Sapling|शीशम पौधा|शिसम रोप|rosewood,shisham
 Ain Sapling|ऐन पौधा|ऐन रोप|ain,terminalia elliptica
 Bija Sapling|बीजा पौधा|बिबळा रोप|bibla,vijaysar
-Agarwood Sapling|अगर पौधा|अगरवूड रोप|agar tree||?
-Kusum Sapling|कुसुम पौधा|कुसुम रोप|kusum tree||?
+Agarwood Sapling|अगर पौधा|अगरवूड रोप|agar tree||
+Kusum Sapling|कुसुम पौधा|कुसुम रोप|kusum tree||
 Hadga Sapling|अगस्त्य पौधा|हादगा रोप|agasti tree,sesbania
 Gulmohar Sapling|गुलमोहर पौधा|गुलमोहर रोप|||^GULMOHAR
 @sub|flowering-plants
 Barleria|कोरांटी|कोरांटी|korantee,barleria
 Clerodendrum|क्लेरोडेंड्रम|क्लेरोडेंड्रम|bleeding heart vine
 Petrea Vine|पेट्रिया बेल|पेट्रिया वेल|purple wreath
-Pyrostegia Vine|पायरोस्टेजिया बेल|पायरोस्टेजिया वेल|golden shower creeper||?
+Pyrostegia Vine|पायरोस्टेजिया बेल|पायरोस्टेजिया वेल|golden shower creeper||
 Brunfelsia|ब्रूनफेल्सिया|ब्रुनफेल्सिया|yesterday today tomorrow
 Russelia|रसेलिया|रसेलिया|firecracker plant
 Ruellia|रुएलिया|रुएलिया|mexican petunia

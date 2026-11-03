@@ -10,12 +10,12 @@ Safflower|कुसुम|करडई|kardai,kusum
 Flaxseed|अलसी|जवस|alsi,javas,jawas,linseed
 Castor Seeds|अरंडी|एरंडी|arandi,erandi,castor
 Niger Seeds|रामतिल|कारळे|karale,karla,ramtil,khurasani
-Mustard Oilseed|सरसों|मोहरी (तेलबिया)|sarson,mustard for oil||?
+Mustard Oilseed|सरसों|मोहरी (तेलबिया)|sarson,mustard for oil||
 Coconut Copra|खोपरा|खोबरे (कोपरा)|copra,khopra,milling copra
 Cottonseed|बिनौला|सरकी|sarki,binola,cotton seed|kg,quintal,bag
 Neem Seeds|नीम के बीज|लिंबोळी|nimboli,limboli,neem beej
 Karanj Seeds|करंज के बीज|करंज बिया|karanj,pongamia
-Mahua Seeds|महुआ के बीज|मोहाच्या बिया|mahua beej,moha bia|kg,quintal|?
+Mahua Seeds|महुआ के बीज|मोहाच्या बिया|mahua beej,moha bia|kg,quintal|
 
 @category|oils-ghee|farm_products|Cooking Oils and Ghee|खाद्य तेल और घी|खाद्यतेल आणि तूप
 @sub|edible-oils|Edible Oils|खाद्य तेल|खाद्यतेल|litre,ml,kg,bottle
@@ -35,9 +35,9 @@ Rice Bran Oil|राइस ब्रान तेल|राईस ब्रा�
 Palm Oil|पाम तेल|पाम तेल|palmolein
 Olive Oil|जैतून का तेल|ऑलिव्ह तेल|jaitun tel,olive oil
 Flaxseed Oil|अलसी का तेल|जवस तेल|alsi tel,javas tel
-Niger Seed Oil|रामतिल तेल|कारळे तेल|karale tel||?
+Niger Seed Oil|रामतिल तेल|कारळे तेल|karale tel||
 Vanaspati|वनस्पति घी|वनस्पती तूप|vanaspati,hydrogenated oil|kg,litre,packet
-Blended Edible Oil|मिश्रित खाद्य तेल|मिश्र खाद्यतेल|blended oil||?
+Blended Edible Oil|मिश्रित खाद्य तेल|मिश्र खाद्यतेल|blended oil||
 
 @sub|non-edible-oils|Non-edible and Massage Oils|अखाद्य तेल|अखाद्य तेल|litre,ml,bottle
 Castor Oil|अरंडी का तेल|एरंडेल तेल|arandi tel,erandel,castor oil
@@ -45,4 +45,4 @@ Neem Oil|नीम का तेल|कडुलिंबाचे तेल|nee
 Karanj Oil|करंज तेल|करंज तेल|pongamia oil
 Almond Oil|बादाम तेल|बदाम तेल|badam tel
 Lamp Oil|दीया तेल|दिव्याचे तेल|diya tel,deepam oil,puja oil
-Mahua Oil|महुआ तेल|मोहाचे तेल|||?
+Mahua Oil|महुआ तेल|मोहाचे तेल|||

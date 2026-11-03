@@ -2,10 +2,10 @@
 @category|baby-health
 @sub|baby-care
 Baby Carrier|बेबी कैरियर|बाळ वाहक|baby sling
-Baby Bath Tub|बेबी बाथ टब|बाळाचा आंघोळ टब|||?
+Baby Bath Tub|बेबी बाथ टब|बाळाचा आंघोळ टब|||
 Sippy Cup|सिप्पी कप|सिपर कप|sipper
 Baby Bib|बेबी बिब|बाळाचा बिब|bib|piece,packet
-Baby Blanket|बेबी कंबल|बाळाचे ब्लँकेट|||?
+Baby Blanket|बेबी कंबल|बाळाचे ब्लँकेट|||
 Baby Bottle Nipple|बोतल निप्पल|बाटली निपल|nipple|piece,packet
 Baby Pram|बेबी प्राम|बाबागाडी|babagadi,stroller,pram
 Baby Potty Seat|बेबी पॉटी|बाळाची पॉटी|potty chair
@@ -16,42 +16,42 @@ Wheelchair|व्हीलचेयर|व्हीलचेअर|wheel chair
 Walker Adult|वॉकर|वॉकर|walking frame
 Crutches|बैसाखी|कुबड्या|kubdya,crutch|pair
 Back Support Belt|कमर बेल्ट|कंबर पट्टा|lumbar belt
-Cervical Collar|गर्दन पट्टा|मान पट्टा|||?
+Cervical Collar|गर्दन पट्टा|मान पट्टा|||
 Nebulizer|नेबुलाइज़र|नेब्युलायझर
 Pulse Oximeter|पल्स ऑक्सीमीटर|पल्स ऑक्सिमीटर|oximeter
-Hearing Aid|कान की मशीन|श्रवणयंत्र|hearing machine||?
+Hearing Aid|कान की मशीन|श्रवणयंत्र|hearing machine||
 
 @category|toys-sports
 @sub|toys
-Doll House|गुड़िया घर|बाहुलीचे घर|||?
-Rocking Horse|झूलने वाला घोड़ा|झुलणारा घोडा|||?
-Toy Train|खिलौना ट्रेन|खेळण्यातील रेल्वे|||?
+Doll House|गुड़िया घर|बाहुलीचे घर|||
+Rocking Horse|झूलने वाला घोड़ा|झुलणारा घोडा|||
+Toy Train|खिलौना ट्रेन|खेळण्यातील रेल्वे|||
 Educational Toys|शैक्षिक खिलौने|शैक्षणिक खेळणी|learning toys
 Flash Cards|फ़्लैश कार्ड|फ्लॅश कार्ड
 Kids Slide|बच्चों की स्लाइड|घसरगुंडी|ghasargundi,slide
 Kids Swing|बच्चों का झूला|मुलांचा झोका|zoka,swing|piece
 Battery Car Kids|बच्चों की बैटरी कार|मुलांची बॅटरी कार|ride on car
-Clay Toys|मिट्टी के खिलौने|मातीची खेळणी|||?
+Clay Toys|मिट्टी के खिलौने|मातीची खेळणी|||
 Lattoo Wooden|लकड़ी का लट्टू|लाकडी भोवरा|||^SPINNING_TOP
 @sub|sports
 Cricket Kit|क्रिकेट किट|क्रिकेट किट|cricket set|set
-Kho Kho Pole|खो-खो खंभा|खो-खो खांब|||?
+Kho Kho Pole|खो-खो खंभा|खो-खो खांब|||
 Basketball|बास्केटबॉल|बास्केटबॉल|basket ball
 Table Tennis Bat|टेबल टेनिस बैट|टेबल टेनिस बॅट|tt racket
 Carrom Powder|कैरम पाउडर|कॅरम पावडर|boric powder
-Swimming Goggles|तैराकी चश्मा|पोहण्याचा गॉगल|||?
+Swimming Goggles|तैराकी चश्मा|पोहण्याचा गॉगल|||
 Sports Jersey|स्पोर्ट्स जर्सी|स्पोर्ट्स जर्सी
 Hand Grip|हैंड ग्रिप|हँड ग्रिप
-Exercise Cycle|एक्सरसाइज़ साइकिल|व्यायाम सायकल|||?
+Exercise Cycle|एक्सरसाइज़ साइकिल|व्यायाम सायकल|||
 Treadmill|ट्रेडमिल|ट्रेडमिल
-Wrestling Mat|कुश्ती मैट|कुस्ती मॅट|kusti mat||?
+Wrestling Mat|कुश्ती मैट|कुस्ती मॅट|kusti mat||
 Gada|गदा|गदा|mace,gada|piece
 Mudgal|मुगदर|जोडी|jodi,mugdar|pair
 
 @category|stationery
 @sub|school-supplies
 Practical File|प्रैक्टिकल फ़ाइल|प्रॅक्टिकल फाईल
-Journal Book|जर्नल बुक|जर्नल वही|||?
+Journal Book|जर्नल बुक|जर्नल वही|||
 Atlas|एटलस|अॅटलास|map book
 Map|नक्शा|नकाशा|naksha,map|piece
 
@@ -65,7 +65,7 @@ WiFi Router|वाई-फ़ाई राउटर|वायफाय राउ�
 Camera|कैमरा|कॅमेरा|digital camera
 Selfie Stick|सेल्फ़ी स्टिक|सेल्फी स्टिक
 Tripod|ट्राइपॉड|ट्रायपॉड
-Ring Light|रिंग लाइट|रिंग लाईट|||?
+Ring Light|रिंग लाइट|रिंग लाईट|||
 Microphone|माइक|माईक|mic
 Sound System|साउंड सिस्टम|साउंड सिस्टिम|dj system,amplifier
 @sub|electrical
@@ -87,12 +87,12 @@ Plastic Table|प्लास्टिक मेज़|प्लास्टि�
 Steel Cot|स्टील खाट|स्टील कॉट|steel cot||^COT
 Wooden Cot|लकड़ी की खाट|लाकडी खाट|||^COT
 Rope Cot|रस्सी की खाट|दोरीची खाट|charpai,baj||^COT
-Bamboo Furniture|बांस का फ़र्नीचर|बांबू फर्निचर|||?
-Wooden Stool|लकड़ी का स्टूल|लाकडी स्टूल|||?
+Bamboo Furniture|बांस का फ़र्नीचर|बांबू फर्निचर|||
+Wooden Stool|लकड़ी का स्टूल|लाकडी स्टूल|||
 Bean Bag|बीन बैग|बीन बॅग
 Computer Table|कंप्यूटर टेबल|संगणक टेबल|||^TABLE
 Kids Study Table|बच्चों की स्टडी टेबल|मुलांचे अभ्यास टेबल|||^TABLE
-Wall Cupboard|दीवार अलमारी|भिंत कपाट|||?
+Wall Cupboard|दीवार अलमारी|भिंत कपाट|||
 Kitchen Trolley|किचन ट्रॉली|किचन ट्रॉली|modular trolley
 Patla|पाटला|पाटा (बसायचा)|pat,patla||^WOODEN_PAT
 Office Table|ऑफ़िस टेबल|ऑफिस टेबल|||^TABLE
@@ -108,7 +108,7 @@ Silver Coin|चांदी का सिक्का|चांदीचे न�
 Brass Samai Large|बड़ी पीतल समई|मोठी पितळी समई|||^SAMAI
 Copper Kalash|तांबे का कलश|तांब्याचा कलश|||^KALASH
 Brass Kalash|पीतल का कलश|पितळी कलश|||^KALASH
-Wooden Spoon|लकड़ी का चम्मच|लाकडी चमचा|||?
+Wooden Spoon|लकड़ी का चम्मच|लाकडी चमचा|||
 
 @category|clothing
 @sub|sarees

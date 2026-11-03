@@ -39,7 +39,7 @@ Halosulfuron|हैलोसल्फ़्यूरॉन|हॅलोसल्
 Tembotrione|टेम्बोट्रियोन|टेम्बोट्रायोन|tembotrione
 Mepiquat Chloride|मेपिक्वाट क्लोराइड|मेपिक्वाट क्लोराईड|mepiquat
 Brassinolide|ब्रासिनोलाइड|ब्रासिनोलाईड
-Salicylic Acid Spray|सैलिसिलिक एसिड|सॅलिसिलिक अॅसिड|||?
+Salicylic Acid Spray|सैलिसिलिक एसिड|सॅलिसिलिक अॅसिड|||
 @sub|fertilizers
 Manganese Sulphate|मैंगनीज़ सल्फेट|मँगनीज सल्फेट|manganese sulphate|kg,packet
 Calcium Nitrate Boron|कैल्शियम नाइट्रेट बोरॉन|कॅल्शियम नायट्रेट बोरॉन|||^CALCIUM_NITRATE
@@ -54,18 +54,18 @@ Beejamrut|बीजामृत|बीजामृत|bijamrut,seed treatment co
 @category|plants
 @sub|medicinal-plants
 Nirgudi Plant|निर्गुंडी पौधा|निर्गुडी रोप|nirgudi rop
-Kalmegh Plant|कालमेघ पौधा|कालमेघ रोप|||?
+Kalmegh Plant|कालमेघ पौधा|कालमेघ रोप|||
 Bhringraj Plant|भृंगराज पौधा|माका रोप|maka plant
-Punarnava Plant|पुनर्नवा पौधा|पुनर्नवा रोप|||?
+Punarnava Plant|पुनर्नवा पौधा|पुनर्नवा रोप|||
 Pippali Plant|पीपली पौधा|पिंपळी रोप|long pepper plant
 Vekhand Plant|वच पौधा|वेखंड रोप|sweet flag plant
 Hadjod Plant|हड़जोड़ पौधा|हाडजोड रोप|hadjod,cissus
-Chitrak Plant|चित्रक पौधा|चित्रक रोप|||?
+Chitrak Plant|चित्रक पौधा|चित्रक रोप|||
 Bhui Amla Plant|भुई आंवला पौधा|भुई आवळी रोप|bhui avli,phyllanthus
 Touch Me Not Plant|लाजवंती पौधा|लाजाळू रोप|lajalu,lajwanti,mimosa
 Castor Plant|अरंडी पौधा|एरंडाचे रोप|erand plant
 Calotropis Plant|आक का पौधा|रुईचे रोप|rui plant,aak
-Kokilaksha Plant|कोकिलाक्ष पौधा|तालीमखाना रोप|talimkhana||?
+Kokilaksha Plant|कोकिलाक्ष पौधा|तालीमखाना रोप|talimkhana||
 Gulvel Cutting|गिलोय कलम|गुळवेल कलम|||^GILOY_PLANT
 Moringa Dwarf Plant|बौना सहजन पौधा|बुटका शेवगा रोप|||^MORINGA_SAPLING
 
@@ -84,13 +84,13 @@ Bombil Thali|बोंबिल थाली|बोंबील थाळी|||^
 @sub|indian-dishes
 Dum Aloo|दम आलू|दम आलू|dum aloo
 Malai Kofta|मलाई कोफ़्ता|मलई कोफ्ता|malai kofta
-Veg Handi|वेज हांडी|व्हेज हंडी|||?
+Veg Handi|वेज हांडी|व्हेज हंडी|||
 Paneer Biryani|पनीर बिरयानी|पनीर बिर्याणी|||^BIRYANI
 Fruit Salad|फ्रूट सलाद|फ्रूट सॅलड|fruit chaat|plate,kg
 Cut Fruits Box|कटे फल डिब्बा|चिरलेली फळे डबा|cut fruits|box,plate
 Sprouts Salad|अंकुरित सलाद|मोड आलेल्या कडधान्यांचे सॅलड|sprouts chaat|plate
 Ribbon Pakoda|रिबन पकोड़ा|रिबन पकोडा|ribbon murukku|kg,g,packet
-Thattai|थट्टई|थट्टई|||?
+Thattai|थट्टई|थट्टई|||
 
 @category|sweets
 @sub|syrup-sweets
@@ -127,13 +127,13 @@ Artificial Mangalsutra|आर्टिफ़िशियल मंगलसू�
 Gopichandan|गोपीचंदन|गोपीचंदन|gopi chandan|piece,g
 Red Sandalwood Powder|लाल चंदन पाउडर|रक्तचंदन पावडर|rakta chandan|g,packet
 Abhishek Patra|अभिषेक पात्र|अभिषेक पात्र|jaladhari|piece
-Artificial Garland for God|देव की कृत्रिम माला|देवाचा कृत्रिम हार|||?
-Pearl Garland for God|मोती की माला (भगवान)|देवाचा मोत्यांचा हार|moti har dev||?
+Artificial Garland for God|देव की कृत्रिम माला|देवाचा कृत्रिम हार|||
+Pearl Garland for God|मोती की माला (भगवान)|देवाचा मोत्यांचा हार|moti har dev||
 Ganpati Mukut|गणपति मुकुट|गणपती मुकुट|||^MUKUT
 
 @category|hardware
 @sub|mobile-electronics
-TV Wall Mount|टीवी वॉल माउंट|टीव्ही वॉल माउंट|||?
+TV Wall Mount|टीवी वॉल माउंट|टीव्ही वॉल माउंट|||
 HDMI Cable|एचडीएमआई केबल|एचडीएमआय केबल
 TV Remote|टीवी रिमोट|टीव्ही रिमोट|remote control
 Button Cell|बटन सेल|बटण सेल|watch battery|piece,packet
@@ -141,5 +141,5 @@ Electric Rickshaw|ई-रिक्शा|ई-रिक्षा|e rickshaw,toto|
 
 @category|household-cleaning
 @sub|home-essentials
-Ironing Board|इस्त्री बोर्ड|इस्त्री बोर्ड|||?
+Ironing Board|इस्त्री बोर्ड|इस्त्री बोर्ड|||
 Onion Storage Structure|प्याज भंडारण ढांचा|कांदा चाळ|kanda chal,onion storage|piece

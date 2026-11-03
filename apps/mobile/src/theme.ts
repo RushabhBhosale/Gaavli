@@ -12,6 +12,11 @@ export const theme = {
     onPrimary: "#FFFFFF",
     primaryPressed: "#156B3F",
     primaryDark: "#0F3D2B",
+    // On the dark green hero
+    heroText: "#FFFFFF",
+    heroMuted: "#BFDCCB",
+    heroSurface: "#FFFFFF1F",
+    heroBorder: "#FFFFFF33",
     icon: "#1B7A4A",
     brand: "#1B7A4A",
     tint: "#EAF4EE",

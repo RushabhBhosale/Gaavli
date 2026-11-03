@@ -74,7 +74,7 @@ Gloves|दस्ताने|हातमोजे|hatmoje,gloves|pair
 Socks|मोज़े|मोजे|moje,socks|pair,packet
 Thermal Wear|थर्मल|थर्मल कपडे|thermals|piece,set
 Gongadi|कम्बल (गोंगड़ी)|घोंगडी|ghongadi,ghongdi,kambli,woollen blanket
-Irle|इरला|इरले|irle,irla,rain shield||?
+Irle|इरला|इरले|irle,irla,rain shield||
 
 @sub|home-textiles|Home Textiles and Bedding|घरेलू वस्त्र और बिस्तर|घरगुती वस्त्रे आणि अंथरूण|piece,set
 Bedsheet|चादर|चादर|chadar,bedsheet,bed sheet

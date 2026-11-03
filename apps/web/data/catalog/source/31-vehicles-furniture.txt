@@ -38,13 +38,13 @@ Bicycle Chain|साइकिल चेन|सायकल चेन
 Bicycle Bell|साइकिल घंटी|सायकल घंटी|cycle bell
 Bicycle Carrier|साइकिल कैरियर|सायकल कॅरिअर|carrier
 Bicycle Seat|साइकिल सीट|सायकल सीट
-Bicycle Lock|साइकिल ताला|सायकल कुलूप|||?
+Bicycle Lock|साइकिल ताला|सायकल कुलूप|||
 Number Plate|नंबर प्लेट|नंबर प्लेट
 Coolant|कूलेंट|कूलंट
-Bullock Cart Wheel|बैलगाड़ी पहिया|बैलगाडीचे चाक|||?
+Bullock Cart Wheel|बैलगाड़ी पहिया|बैलगाडीचे चाक|||
 Tractor Spare Parts|ट्रैक्टर पुर्ज़े|ट्रॅक्टरचे सुटे भाग|tractor parts
 Sprayer Pump Spare Parts|स्प्रे पंप पुर्ज़े|फवारणी पंपाचे सुटे भाग|nozzle,lance
-Motor Pump Spare Parts|मोटर पंप पुर्ज़े|मोटर पंपाचे सुटे भाग|impeller,bearing||?
+Motor Pump Spare Parts|मोटर पंप पुर्ज़े|मोटर पंपाचे सुटे भाग|impeller,bearing||
 Bearing|बेयरिंग|बेअरिंग|bearing
 V Belt|वी बेल्ट|व्ही बेल्ट|fan belt,v belt
 
@@ -66,14 +66,14 @@ Wooden Swing|लकड़ी का झूला|लाकडी झोपाळ
 Bench|बेंच|बाक|bak,bench
 Rack|रैक|रॅक|shelf,rack
 TV Unit|टीवी यूनिट|टीव्ही युनिट
-Shoe Cabinet|जूता अलमारी|चप्पल कपाट|||?
+Shoe Cabinet|जूता अलमारी|चप्पल कपाट|||
 Office Chair|ऑफ़िस कुर्सी|ऑफिस खुर्ची|revolving chair
 Folding Chair|फोल्डिंग कुर्सी|फोल्डिंग खुर्ची|||^CHAIR
 Folding Bed|फोल्डिंग पलंग|फोल्डिंग पलंग|||^BED
 Diwan|दीवान|दिवाण|diwan,divan
 Teapoy|टीपॉय|टीपॉय|center table
 Dressing Table|ड्रेसिंग टेबल|ड्रेसिंग टेबल
-Bookshelf|किताबों की अलमारी|पुस्तकांचे कपाट|||?
+Bookshelf|किताबों की अलमारी|पुस्तकांचे कपाट|||
 Iron Trunk|लोहे की पेटी|लोखंडी पेटी|peti,trunk
 Wooden Pat|लकड़ी का पाट|लाकडी पाट|pat,low stool
 
@@ -88,14 +88,14 @@ Saree Fall|साड़ी फॉल|साडी फॉल|fall|piece
 Embroidery Thread|कढ़ाई का धागा|भरतकामाचा दोरा|resham,embroidery|piece,packet
 Knitting Wool|ऊन|लोकर|lokar,oon,wool|g,piece,kg
 Knitting Needles|सलाई|सुया (विणकाम)|salai|pair,set
-Crochet Hook|क्रोशिया सुई|क्रोशाची सुई|||?
+Crochet Hook|क्रोशिया सुई|क्रोशाची सुई|||
 Measuring Tape Tailor|दर्ज़ी फ़ीता|शिंप्याची टेप|tailor tape|piece
-Tailor Chalk|दर्ज़ी चॉक|शिंप्याचा खडू|||?
-Sewing Machine Needle|सिलाई मशीन सुई|शिलाई मशीनची सुई|||?
-Sewing Machine Oil|सिलाई मशीन तेल|शिलाई मशीन तेल|||?
+Tailor Chalk|दर्ज़ी चॉक|शिंप्याचा खडू|||
+Sewing Machine Needle|सिलाई मशीन सुई|शिलाई मशीनची सुई|||
+Sewing Machine Oil|सिलाई मशीन तेल|शिलाई मशीन तेल|||
 Beads|मोती|मणी|mani,moti,beads|packet,g
 Sequins|सितारे|टिकल्या (सजावट)|sitara,sequins|packet
-Fabric Paint|फ़ैब्रिक पेंट|कापडी रंग|||?
+Fabric Paint|फ़ैब्रिक पेंट|कापडी रंग|||
 Gota Patti|गोटा पट्टी|गोटा पट्टी|gota|metre,roll
 Zari Border|ज़री बॉर्डर|जरी काठ|zari|metre,roll
 Tassels|लटकन|लटकन|latkan,tassel|piece,packet
@@ -103,6 +103,6 @@ Velcro|वेल्क्रो|वेल्क्रो
 Interlining|बकरम|बकरम|buckram|metre
 Thread Reel|धागे की रील|दोऱ्याची रीळ|reel|piece,dozen
 Fabric Dye|कपड़ा रंग|कपड्यांचा रंग|dye,rang|packet,g
-Clay Modelling|मॉडलिंग क्ले|मॉडेलिंग माती|||?
+Clay Modelling|मॉडलिंग क्ले|मॉडेलिंग माती|||
 Shadu Clay|शाडू मिट्टी|शाडू माती|shadu mati|kg,bag
 Plaster of Paris|प्लास्टर ऑफ़ पेरिस|प्लास्टर ऑफ पॅरिस|pop|kg,bag

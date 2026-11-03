@@ -67,14 +67,21 @@ export function SectionHeader({
   action,
   onPress,
   badge,
+  icon,
 }: {
   title: string;
+  icon?: IconName;
   action?: string;
   onPress?: () => void;
   badge?: string;
 }) {
   return (
     <View style={d.sectionHeader}>
+      {icon && (
+        <View accessible={false} style={d.sectionIcon}>
+          <Ionicons name={icon} size={18} color={theme.colors.primary} />
+        </View>
+      )}
       <Text accessibilityRole="header" style={d.sectionTitle}>
         {title}
       </Text>
@@ -211,6 +218,14 @@ export const d = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: 10,
+  },
+  sectionIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: theme.colors.tint,
+    alignItems: "center",
+    justifyContent: "center",
   },
   sectionTitle: {
     flex: 1,

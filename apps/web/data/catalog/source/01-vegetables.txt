@@ -65,7 +65,7 @@ Cluster Beans|ग्वार फली|गवार|gawar,guar,gavar,gavar shen
 French Beans|फ्रेंच बीन्स|फरसबी|farasbi,fansi,beans,french bean
 Field Bean Pods|सेम की फली|वालाच्या शेंगा|sem,papdi,val papdi,valachya shenga
 Ghevda Beans|सेम फली|घेवडा|ghevda,ghevada,indian beans,sem phali
-Pavta Beans|पावटा फली|पावटा|pavta,pavte,lablab beans||?
+Pavta Beans|पावटा फली|पावटा|pavta,pavte,lablab beans||
 Double Beans|डबल बीन्स|डबल बी|double bee,lima beans
 Cowpea Pods|लोबिया फली|चवळीच्या शेंगा|chavli shenga,lobia phali,barbati,long beans
 Green Peas|हरी मटर|वाटाणा|matar,mattar,hari matar,vatana,hirva vatana,peas
@@ -86,7 +86,7 @@ Fresh Turmeric|कच्ची हल्दी|ओली हळद|kachchi haldi
 Mango Ginger|आमा हल्दी|आंबे हळद|amba haldi,ambe halad
 Water Chestnut|सिंघाड़ा|शिंगाडा|singhara,singada,shingada
 Kohlrabi|गांठ गोभी|नवलकोल|ganth gobhi,knol khol,navalkol|kg,piece
-Tapioca|कसावा|टॅपिओका कंद|cassava,kasava,sabudana kand||?
+Tapioca|कसावा|टॅपिओका कंद|cassava,kasava,sabudana kand||
 
 @sub|exotic-vegetables|Exotic Vegetables|विदेशी सब्ज़ियाँ|परदेशी भाज्या|kg,g,piece
 Mushroom|मशरूम|मशरूम|mushroom,khumbi,alimbi,alambi|kg,g,packet
@@ -103,10 +103,10 @@ Asparagus|शतावरी|शतावरी|asparagus|kg,bunch
 
 @sub|seasonal-vegetables|Seasonal and Special Vegetables|मौसमी सब्ज़ियाँ|हंगामी भाज्या|kg,g,piece
 Banana Flower|केले का फूल|केळफूल|kele ka phool,kelphul,banana blossom|piece
-Banana Stem|केले का तना|केळीचे खोड|kele ka tana,keliche khod|piece,kg|?
-Lotus Stem|कमल ककड़ी|कमळाचे देठ|kamal kakdi,bhein,lotus root||?
-Bamboo Shoot|बांस का करील|बांबूचे कोंब|kirla,karil,bamboo shoots||?
+Banana Stem|केले का तना|केळीचे खोड|kele ka tana,keliche khod|piece,kg|
+Lotus Stem|कमल ककड़ी|कमळाचे देठ|kamal kakdi,bhein,lotus root||
+Bamboo Shoot|बांस का करील|बांबूचे कोंब|kirla,karil,bamboo shoots||
 Green Garlic|हरा लहसुन|ओली लसूण|hara lahsun,oli lasun,green garlic|bunch,kg
 Spring Onion|हरा प्याज|कांद्याची पात|hara pyaz,kandyachi paat,kanda paat,scallion|bunch,kg
-Moringa Flowers|सहजन के फूल|शेवग्याची फुले|shevgyachi phule,sahjan phool|kg,g|?
+Moringa Flowers|सहजन के फूल|शेवग्याची फुले|shevgyachi phule,sahjan phool|kg,g|
 Jackfruit Seeds|कटहल के बीज|फणसाच्या आठळ्या|athalya,kathal beej|kg,g

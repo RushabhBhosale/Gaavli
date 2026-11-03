@@ -13,7 +13,7 @@ Methamba|मेथंबा|मेथांबा|methamba,kairi methamba
 Lemon Pickle|नींबू का अचार|लिंबाचे लोणचे|nimbu achar,limbu lonche,lime pickle
 Sweet Lemon Pickle|मीठा नींबू अचार|गोड लिंबाचे लोणचे|god limbu lonche||^LEMON_PICKLE
 Green Chilli Pickle|हरी मिर्च का अचार|हिरव्या मिरचीचे लोणचे|mirchi achar,mirchi lonche,chilli pickle
-Stuffed Red Chilli Pickle|भरवां लाल मिर्च अचार|भरलेल्या लाल मिरचीचे लोणचे|bharwa mirch||?
+Stuffed Red Chilli Pickle|भरवां लाल मिर्च अचार|भरलेल्या लाल मिरचीचे लोणचे|bharwa mirch||
 Amla Pickle|आंवले का अचार|आवळ्याचे लोणचे|amla achar,avla lonche
 Amla Murabba|आंवले का मुरब्बा|आवळ्याचा मुरंबा|amla murabba,avla moramba
 Amla Supari|आंवला सुपारी|आवळा सुपारी|amla mukhwas
@@ -24,11 +24,11 @@ Carrot Pickle|गाजर का अचार|गाजराचे लोण�
 Karonda Pickle|करौंदे का अचार|करवंदाचे लोणचे|karvand lonche
 Fresh Turmeric Pickle|कच्ची हल्दी का अचार|ओल्या हळदीचे लोणचे|haldi achar,oli halad lonche
 Mango Ginger Pickle|आमा हल्दी अचार|आंबेहळदीचे लोणचे|ambe halad lonche
-Bamboo Shoot Pickle|बांस का अचार|बांबूचे लोणचे|kalak lonche||?
+Bamboo Shoot Pickle|बांस का अचार|बांबूचे लोणचे|kalak lonche||
 Jackfruit Pickle|कटहल का अचार|फणसाचे लोणचे|kathal achar
-Tendli Pickle|कुंदरू का अचार|तोंडलीचे लोणचे|tondli lonche||?
+Tendli Pickle|कुंदरू का अचार|तोंडलीचे लोणचे|tondli lonche||
 Bitter Gourd Pickle|करेले का अचार|कारल्याचे लोणचे|karela achar
-Kokum Pickle|कोकम अचार|कोकम लोणचे|||?
+Kokum Pickle|कोकम अचार|कोकम लोणचे|||
 Fish Pickle|मछली का अचार|माशाचे लोणचे|fish achar
 Prawn Pickle|झींगा अचार|कोळंबीचे लोणचे|kolambi lonche,prawns pickle
 Chicken Pickle|चिकन अचार|चिकन लोणचे|chicken achar
@@ -38,7 +38,7 @@ Tomato Pickle|टमाटर का अचार|टोमॅटोचे ल�
 Cauliflower Pickle|गोभी का अचार|फ्लॉवरचे लोणचे|gobhi achar
 Radish Pickle|मूली का अचार|मुळ्याचे लोणचे|mooli achar
 Dates Pickle|खजूर का अचार|खजुराचे लोणचे|khajur achar
-Tamarind Pickle|इमली का अचार|चिंचेचे लोणचे|imli achar,puli inji||?
+Tamarind Pickle|इमली का अचार|चिंचेचे लोणचे|imli achar,puli inji||
 Kairi Takku|कैरी टक्कू|कैरीचा तक्कू|takku,kairi takku
 Ker Sangri Pickle|केर सांगरी अचार|केर सांगरी लोणचे|ker sangri
 
@@ -70,12 +70,12 @@ Mixed Fruit Jam|मिक्स फ्रूट जैम|मिक्स फ्
 Mango Jam|आम का जैम|आंबा जॅम|aam jam|g,jar,bottle
 Strawberry Jam|स्ट्रॉबेरी जैम|स्ट्रॉबेरी जॅम
 Karvanda Jam|करौंदा जैम|करवंद जॅम
-Fig Jam|अंजीर जैम|अंजीर जॅम|||?
-Jamun Jam|जामुन जैम|जांभूळ जॅम|||?
-Pineapple Jam|अनानास जैम|अननस जॅम|||?
+Fig Jam|अंजीर जैम|अंजीर जॅम|||
+Jamun Jam|जामुन जैम|जांभूळ जॅम|||
+Pineapple Jam|अनानास जैम|अननस जॅम|||
 Orange Marmalade|संतरा मार्मलेड|संत्रा मार्मलेड|marmalade|g,jar,bottle
 Mango Pulp|आम का गूदा|आंब्याचा पल्प|aam ras,mango pulp tin|kg,litre,box
-Tamarind Paste|इमली पेस्ट|चिंच पेस्ट|||?
+Tamarind Paste|इमली पेस्ट|चिंच पेस्ट|||
 Ginger Garlic Paste|अदरक लहसुन पेस्ट|आले लसूण पेस्ट|adrak lahsun paste,ale lasun paste|g,kg,jar,bottle
 
 @sub|papad-sandge|Papad, Sandge and Vadi|पापड़, बड़ी और वड़ी|पापड, सांडगे आणि वड्या|kg,g,packet,piece
@@ -94,7 +94,7 @@ Garlic Papad|लहसुन पापड़|लसूण पापड|lasun pap
 Black Pepper Papad|काली मिर्च पापड़|मिरी पापड|miri papad
 Jackfruit Papad|कटहल पापड़|फणसाचे पापड|phanas papad
 Mango Papad|आम पापड़|आंबा पोळी|aam papad,amba poli,mango leather
-Fanas Poli|कटहल पापड़ (मीठा)|फणस पोळी|phanas poli||?
+Fanas Poli|कटहल पापड़ (मीठा)|फणस पोळी|phanas poli||
 Papdi|पापड़ी|पापडी|papdi,papadi|kg,g,packet
 Sandge|बड़ी|सांडगे|sandge,sandage,vadi
 Moong Vadi|मूंग बड़ी|मुगाच्या वड्या|moong badi,moong wadi

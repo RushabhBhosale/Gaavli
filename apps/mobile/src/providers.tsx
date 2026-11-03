@@ -11,17 +11,42 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useAppStore } from "./store";
 import { CoordinatorAccessSync } from "./coordinator/access";
 import { NotificationSync } from "./notifications";
+import { persistQueryCache, restoreQueryCache } from "./storage/queryCache";
+import { queryCacheStorage } from "./storage/sqlite";
 
 export function AppProviders({ children }: { children: ReactNode }) {
   const [client] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
-          queries: { staleTime: 30000, retry: 1 },
+          queries: {
+            staleTime: 30000,
+            gcTime: 60 * 60 * 1000,
+            retry: 1,
+            // Saved listings show instantly; fresh ones replace them once the
+            // connection is back.
+            refetchOnReconnect: "always",
+          },
           mutations: { retry: false },
         },
       }),
   );
+  const [restored, setRestored] = useState(false);
+  useEffect(() => {
+    let active = true;
+    let stop: (() => void) | undefined;
+    void restoreQueryCache(client, queryCacheStorage)
+      .catch(() => false)
+      .then(() => {
+        if (!active) return;
+        stop = persistQueryCache(client, queryCacheStorage);
+        setRestored(true);
+      });
+    return () => {
+      active = false;
+      stop?.();
+    };
+  }, [client]);
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       const online =
@@ -41,9 +66,13 @@ export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <SafeAreaProvider>
       <QueryClientProvider client={client}>
-        <CoordinatorAccessSync />
-        <NotificationSync />
-        {children}
+        {restored && (
+          <>
+            <CoordinatorAccessSync />
+            <NotificationSync />
+            {children}
+          </>
+        )}
       </QueryClientProvider>
     </SafeAreaProvider>
   );

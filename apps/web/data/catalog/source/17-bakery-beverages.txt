@@ -22,7 +22,7 @@ Nankhatai|नानखटाई|नानकटाई|nankhatai,nan khatai
 Butter Biscuits|बटर बिस्किट|बटर बिस्किटे|osmania biscuits
 Jeera Biscuits|जीरा बिस्किट|जिरे बिस्किटे|jeera butter
 Atta Biscuits|आटा बिस्किट|गव्हाची बिस्किटे|wheat biscuits
-Coconut Biscuits|नारियल बिस्किट|नारळ बिस्किटे|||?
+Coconut Biscuits|नारियल बिस्किट|नारळ बिस्किटे|||
 Cream Biscuits|क्रीम बिस्किट|क्रीम बिस्किटे
 Glucose Biscuits|ग्लूकोज़ बिस्किट|ग्लुकोज बिस्किटे|glucose biscuit
 Salt Biscuits|नमकीन बिस्किट|खारी बिस्किटे|salted crackers
@@ -36,7 +36,7 @@ Cake|केक|केक|birthday cake,cake
 Cup Cake|कप केक|कप केक|cupcake
 Pastry|पेस्ट्री|पेस्ट्री
 Plum Cake|प्लम केक|प्लम केक|christmas cake
-Banana Cake|केला केक|बनाना केक|||?
+Banana Cake|केला केक|बनाना केक|||
 Eggless Cake|अंडा रहित केक|एगलेस केक|||^CAKE
 Brownie|ब्राउनी|ब्राउनी
 Doughnut|डोनट|डोनट|donut
@@ -49,12 +49,12 @@ Tea Powder|चाय पत्ती|चहा पावडर|chai patti,chaha 
 Loose Leaf Tea|पत्ती चाय|पानांचा चहा|leaf tea||^TEA_POWDER
 Masala Tea Powder|मसाला चाय पत्ती|मसाला चहा पावडर|||^TEA_POWDER
 Green Tea|ग्रीन टी|ग्रीन टी|green tea bags
-Herbal Tea|हर्बल चाय|हर्बल चहा|||?
+Herbal Tea|हर्बल चाय|हर्बल चहा|||
 Tea Bags|टी बैग|टी बॅग|tea bags|box,packet
 Coffee Powder|कॉफ़ी पाउडर|कॉफी पावडर|coffee,filter coffee
 Instant Coffee|इंस्टेंट कॉफ़ी|इन्स्टंट कॉफी|||^COFFEE_POWDER
 Filter Coffee Powder|फ़िल्टर कॉफ़ी|फिल्टर कॉफी|south indian coffee||^COFFEE_POWDER
-Chicory|चिकोरी|चिकोरी|||?
+Chicory|चिकोरी|चिकोरी|||
 Malt Drink Powder|माल्ट पेय पाउडर|माल्ट पेय पावडर|health drink,malt powder
 
 @sub|juices-drinks|Juices and Drinks|जूस और पेय|ज्यूस आणि पेये|litre,ml,bottle
@@ -70,9 +70,9 @@ Sweet Lime Juice|मौसमी जूस|मोसंबी ज्यूस|mo
 Pomegranate Juice|अनार का जूस|डाळिंब ज्यूस|anar juice
 Amla Juice|आंवला जूस|आवळा ज्यूस|amla ras
 Aloe Vera Juice|एलोवेरा जूस|कोरफड ज्यूस|korphad juice
-Karela Juice|करेले का जूस|कारले ज्यूस|||?
-Jamun Juice|जामुन का रस|जांभूळ ज्यूस|||?
-Watermelon Juice|तरबूज का जूस|कलिंगड ज्यूस|||?
+Karela Juice|करेले का जूस|कारले ज्यूस|||
+Jamun Juice|जामुन का रस|जांभूळ ज्यूस|||
+Watermelon Juice|तरबूज का जूस|कलिंगड ज्यूस|||
 Tender Coconut Water|नारियल पानी|शहाळ्याचे पाणी|nariyal pani,coconut water|bottle,litre,piece
 Neera|नीरा|नीरा|neera,palm sap
 Soda|सोडा|सोडा|soda water
@@ -85,11 +85,11 @@ Thandai|ठंडाई|थंडाई|thandai powder
 Badam Milk|बादाम दूध|बदाम दूध|badam doodh
 Milkshake|मिल्कशेक|मिल्कशेक|shake
 Cold Coffee|कोल्ड कॉफ़ी|कोल्ड कॉफी
-Energy Drink|एनर्जी ड्रिंक|एनर्जी ड्रिंक|||?
-Mango Squash|आम स्क्वैश|आंबा स्क्वॅश|||?
-Lemon Squash|नींबू स्क्वैश|लिंबू स्क्वॅश|||?
-Orange Squash|संतरा स्क्वैश|संत्रा स्क्वॅश|||?
-Pineapple Squash|अनानास स्क्वैश|अननस स्क्वॅश|||?
+Energy Drink|एनर्जी ड्रिंक|एनर्जी ड्रिंक|||
+Mango Squash|आम स्क्वैश|आंबा स्क्वॅश|||
+Lemon Squash|नींबू स्क्वैश|लिंबू स्क्वॅश|||
+Orange Squash|संतरा स्क्वैश|संत्रा स्क्वॅश|||
+Pineapple Squash|अनानास स्क्वैश|अननस स्क्वॅश|||
 Karvanda Sharbat|करौंदा शरबत|करवंद सरबत
 Panha|पना|पन्हे|aam panna,kairi panha,panhe
 Kairi Panha Concentrate|आम पना सिरप|कैरी पन्हे सिरप|||^PANHA

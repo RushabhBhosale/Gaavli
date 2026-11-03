@@ -78,7 +78,7 @@ Rat Glue Pad|चूहे का गोंद पैड|उंदीर चि�
 Ant Powder|चींटी पाउडर|मुंग्यांची पावडर|ant killer,mungi powder|packet,g
 Termite Treatment|दीमक दवा|वाळवी औषध|valvi,deemak|bottle,litre
 Fly Trap|मक्खी पकड़ने वाला|माशी सापळा|fly catcher|piece
-Lizard Repellent|छिपकली भगाने वाला|पाल प्रतिबंधक|||?
+Lizard Repellent|छिपकली भगाने वाला|पाल प्रतिबंधक|||
 Bed Bug Spray|खटमल स्प्रे|ढेकूण फवारणी|dhekun,khatmal|bottle
 
 @sub|home-essentials|Home Essentials|घरेलू आवश्यक सामान|घरगुती गरजेच्या वस्तू|piece

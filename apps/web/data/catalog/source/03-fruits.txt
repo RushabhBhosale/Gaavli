@@ -44,13 +44,13 @@ Cashew Apple|काजू फल|काजू बोंड|kaju bond,cashew frui
 Kokum Fruit|कोकम|रातांबा|ratamba,kokam,kokum fresh
 Ice Apple|ताड़गोला|ताडगोळा|tadgola,tadgole,taal,palm fruit|piece,dozen
 Fresh Dates|ताज़ा खजूर|ओले खजूर|kharek fresh,khajur|kg,g
-Persimmon|जापानी फल|परसिमन|amlok||?
+Persimmon|जापानी फल|परसिमन|amlok||
 Passion Fruit|पैशन फ्रूट|पॅशन फ्रूट|krishna phal|piece,kg
 Mangosteen|मैंगोस्टीन|मँगोस्टीन||piece,kg
 Rambutan|रामबूटन|रामबुतान||kg,box
 Blueberry|ब्लूबेरी|ब्लूबेरी|blueberries|box,g
 Raspberry|रसभरी|रासबेरी|rasbhari|box,g
-Cape Gooseberry|रसभरी (मकोय)|रसभरी|golden berry,physalis|box,g|?
+Cape Gooseberry|रसभरी (मकोय)|रसभरी|golden berry,physalis|box,g|
 Phalsa|फालसा|फालसा|falsa,phalsa|kg,g
 Apricot|खुबानी|जर्दाळू|khubani,jardalu|kg,g
 Kinnow|किन्नू|किन्नू|kinu,kinnow|kg,dozen|^ORANGE
@@ -124,8 +124,8 @@ Lasoda|लसोड़ा|भोकर|bhokar,lasoda,gunda
 Wild Fig|गूलर|उंबर|umbar,gular,audumbar
 Ramphal|रामफल|रामफळ|ramphal,bullock's heart
 Hanuman Phal|हनुमान फल|हनुमान फळ|soursop,lakshmanphal
-Toran Fruit|तोरण|तोरण|toran||?
-Alu Fruit|आलू (जंगली)|आळू|alu fruit||?
+Toran Fruit|तोरण|तोरण|toran||
+Alu Fruit|आलू (जंगली)|आळू|alu fruit||
 Ripe Tamarind|पकी इमली|पिकलेली चिंच|pakki imli,piklele chinch||^TAMARIND
 Raw Tamarind Pods|कच्ची इमली|कच्ची चिंच|kachchi imli,hirvi chinch||^TAMARIND
-Ambadi Fruit|अम्बाड़ी फूल|अंबाडीची फुले|roselle,ambadi phule||?
+Ambadi Fruit|अम्बाड़ी फूल|अंबाडीची फुले|roselle,ambadi phule||

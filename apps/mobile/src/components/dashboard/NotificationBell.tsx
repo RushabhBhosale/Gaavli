@@ -19,9 +19,11 @@ import { d } from "./primitives";
 export function NotificationBell({
   language,
   disabled = false,
+  onDark = false,
 }: {
   language: MobileLanguage;
   disabled?: boolean;
+  onDark?: boolean;
 }) {
   const session = useAppStore((state) => state.session);
   const offline = useAppStore((state) => state.offline);
@@ -62,7 +64,7 @@ export function NotificationBell({
         accessible={false}
         name="notifications-outline"
         size={24}
-        color={theme.colors.heading}
+        color={onDark ? theme.colors.heroText : theme.colors.heading}
       />
       {unread.isLoading && (
         <ActivityIndicator

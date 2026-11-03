@@ -1,0 +1,471 @@
+# Generated from curated specs; see data/catalog/README.md.
+@category|regional-cuisine|homemade|Regional Indian Foods|क्षेत्रीय भारतीय व्यंजन|प्रादेशिक भारतीय पदार्थ
+@sub|punjabi-haryanvi|Punjabi and Haryanvi Foods|पंजाबी और हरियाणवी व्यंजन|पंजाबी व हरियाणवी पदार्थ|plate,kg,piece
+Sarson Da Saag|सरसों दा साग|सरसों दा साग|sarson da saag
+Makki Di Roti|मक्की दी रोटी|मक्की दी रोटी|makki di roti
+Butter Chicken Curry|बटर चिकन करी|बटर चिकन करी|butter chicken curry
+Amritsari Kulcha|अमृतसरी कुलचा|अमृतसरी कुलचा|amritsari kulcha
+Amritsari Fish Fry|अमृतसरी फिश फ्राय|अमृतसरी फिश फ्राय|amritsari fish fry
+Malai Tikka|मलाई टिक्का|मलाई टिक्का|malai tikka
+Tandoori Roti|तंदूरी रोटी|तंदूरी रोटी|tandoori roti
+Lassi Sweet|गोड लस्सी|गोड लस्सी|lassi sweet
+Lassi Salted|खारी लस्सी|खारी लस्सी|lassi salted
+Patiala Lassi|पटियाला लस्सी|पटियाला लस्सी|patiala lassi
+Kadhi Pakora|कढ़ी पकोड़ा|कढ़ी पकोड़ा|kadhi pakora
+Sarson Ka Saag Paneer|सरसों का साग पनीर|सरसों का साग पनीर|sarson ka saag paneer
+Pindi Chole|पिंडी छोले|पिंडी छोले|pindi chole
+Aloo Paratha Punjabi|आलू पराठा पंजाबी|आलू पराठा पंजाबी|aloo paratha punjabi
+Gobi Paratha|गोभी पराठा|गोभी पराठा|gobi paratha
+Mooli Paratha|मूली पराठा|मूली पराठा|mooli paratha
+Pinni|पिन्नी|पिन्नी|pinni
+Atta Pinni|आटा पिन्नी|आटा पिन्नी|atta pinni
+Panjiri|पंजीरी|पंजीरी|panjiri
+Gajar Halwa Punjabi|गाजर का हलवा|गाजर का हलवा|gajar halwa punjabi
+Kheer Punjabi|पंजाबी खीर|पंजाबी खीर|kheer punjabi
+Jalebi Punjabi|जलेबी|जलेबी|jalebi punjabi
+Amritsari Vadi|अमृतसरी वडी|अमृतसरी वडी|amritsari vadi
+Punjabi Kadhi|पंजाबी कढ़ी|पंजाबी कढ़ी|punjabi kadhi
+Kadhai Paneer|कढ़ाई पनीर|कढ़ाई पनीर|kadhai paneer
+Matar Paneer|मटर पनीर|मटर पनीर|matar paneer
+Saag Aloo|साग आलू|साग आलू|saag aloo
+Baingan Bharta Punjabi|बैंगन भर्ता|बैंगन भर्ता|baingan bharta punjabi
+Bhindi Masala Punjabi|भिंडी मसाला|भिंडी मसाला|bhindi masala punjabi
+Tinda Masala|टिंडा मसाला|टिंडा मसाला|tinda masala
+Karela Masala|करेला मसाला|करेला मसाला|karela masala
+Amritsari Chole|अमृतसरी छोले|अमृतसरी छोले|amritsari chole
+Dal Tadka Punjabi|दाल तड़का|दाल तड़का|dal tadka punjabi
+Veg Pulao Punjabi|व्हेज पुलाव|व्हेज पुलाव|veg pulao punjabi
+Sattu Paratha Haryanvi|सत्तू पराठा|सत्तू पराठा|sattu paratha haryanvi
+Bajra Khichdi Haryanvi|बाजरा खिचड़ी|बाजरा खिचड़ी|bajra khichdi haryanvi
+Kachri Sabzi|काचरी सब्जी|काचरी सब्जी|kachri sabzi
+Churma Haryanvi|चूरमा|चूरमा|churma haryanvi
+Hara Dhania Cholia|हरा धनिया छोलिया|हरा धनिया छोलिया|hara dhania cholia
+Bathua Raita|बथुआ रायता|बथुआ रायता|bathua raita
+Bathua Paratha|बथुआ पराठा|बथुआ पराठा|bathua paratha
+Gur Wale Chawal|गुड़ वाले चावल|गुड़ वाले चावल|gur wale chawal
+Meethe Chawal|मीठे चावल|मीठे चावल|meethe chawal
+Zarda Punjabi|जर्दा|जर्दा|zarda punjabi
+Patisa|पतीसा|पतीसा|patisa
+Gulgule|गुलगुले|गुलगुले|gulgule
+Dahi Bhalla|दही भल्ला|दही भल्ला|dahi bhalla
+Aloo Tikki Chaat|आलू टिक्की चाट|आलू टिक्की चाट|aloo tikki chaat
+Papdi Chaat|पापड़ी चाट|पापड़ी चाट|papdi chaat
+Samosa Punjabi|पंजाबी समोसा|पंजाबी समोसा|samosa punjabi
+Chole Samosa|छोले समोसा|छोले समोसा|chole samosa
+Pakora Mix|मिक्स पकोड़ा|मिक्स पकोड़ा|pakora mix
+Paneer Pakora|पनीर पकोड़ा|पनीर पकोड़ा|paneer pakora
+Fish Pakora|फिश पकोड़ा|फिश पकोड़ा|fish pakora
+Seekh Kebab|सीख कबाब|सीख कबाब|seekh kebab
+Reshmi Kebab|रेशमी कबाब|रेशमी कबाब|reshmi kebab
+Mutton Rogan Josh Punjabi|मटन रोगन जोश|मटन रोगन जोश|mutton rogan josh punjabi
+Mutton Curry Punjabi|मटन करी|मटन करी|mutton curry punjabi
+Egg Curry Punjabi|अंडा करी|अंडा करी|egg curry punjabi
+Anda Bhurji Punjabi|अंडा भुर्जी|अंडा भुर्जी|anda bhurji punjabi
+Kali Dal|काली दाल|काली दाल|kali dal
+Pindi Chana Masala|पिंडी चना मसाला|पिंडी चना मसाला|pindi chana masala
+Kulfi Falooda|कुल्फी फालूदा|कुल्फी फालूदा|kulfi falooda
+Rabri|रबडी|रबडी|rabri
+Rabri Falooda|रबडी फालूदा|रबडी फालूदा|rabri falooda
+Chaas Punjabi|पंजाबी छास|पंजाबी छास|chaas punjabi
+Kanji Punjabi|कांजी|कांजी|kanji punjabi
+Gajar Kanji|गाजर कांजी|गाजर कांजी|gajar kanji
+Thandai Punjabi|ठंडाई|ठंडाई|thandai punjabi
+Kesar Doodh|केसर दूध|केसर दूध|kesar doodh
+Haldi Doodh|हल्दी दूध|हल्दी दूध|haldi doodh
+Badam Doodh|बदाम दूध|बदाम दूध|badam doodh
+Ghee Roti|घी रोटी|घी रोटी|ghee roti
+Bajre Di Roti|बाजरे दी रोटी|बाजरे दी रोटी|bajre di roti
+Missi Roti|मिस्सी रोटी|मिस्सी रोटी|missi roti
+Lachha Paratha|लच्छा पराठा|लच्छा पराठा|lachha paratha
+Naan Butter|बटर नान|बटर नान|naan butter
+Naan Garlic|गार्लिक नान|गार्लिक नान|naan garlic
+Naan Stuffed|स्टफ्ड नान|स्टफ्ड नान|naan stuffed
+Kulcha Plain|प्लेन कुलचा|प्लेन कुलचा|kulcha plain
+Kulcha Stuffed|स्टफ्ड कुलचा|स्टफ्ड कुलचा|kulcha stuffed
+@sub|rajasthani|Rajasthani Foods|राजस्थानी व्यंजन|राजस्थानी पदार्थ|plate,kg,piece
+Dal Baati Churma|दाल बाटी चूरमा|दाल बाटी चूरमा|dal baati churma
+Gatte Ki Sabzi|गट्टे की सब्जी|गट्टे की सब्जी|gatte ki sabzi
+Ker Sangri|केर सांगरी|केर सांगरी|ker sangri
+Laal Maas|लाल मांस|लाल मांस|laal maas
+Safed Maas|सफेद मांस|सफेद मांस|safed maas
+Pyaaz Kachori|प्याज कचौरी|प्याज कचौरी|pyaaz kachori
+Mirchi Vada|मिर्ची वडा|मिर्ची वडा|mirchi vada
+Mirchi Bada Jodhpuri|मिर्ची बड़ा जोधपुरी|मिर्ची बड़ा जोधपुरी|mirchi bada jodhpuri
+Bajra Roti Rajasthani|बाजरे की रोटी|बाजरे की रोटी|bajra roti rajasthani
+Bajre Ka Sogra|बाजरे का सोगरा|बाजरे का सोगरा|bajre ka sogra
+Rajasthani Kadhi|राजस्थानी कढ़ी|राजस्थानी कढ़ी|rajasthani kadhi
+Pakodi Kadhi|पकौड़ी कढ़ी|पकौड़ी कढ़ी|pakodi kadhi
+Besan Gatta Pulao|बेसन गट्टा पुलाव|बेसन गट्टा पुलाव|besan gatta pulao
+Gatte Ka Pulao|गट्टे का पुलाव|गट्टे का पुलाव|gatte ka pulao
+Bikaneri Bhujia|बीकानेरी भुजिया|बीकानेरी भुजिया|bikaneri bhujia
+Bikaneri Papad|बीकानेरी पापड़|बीकानेरी पापड़|bikaneri papad
+Rajasthani Papad Sabzi|पापड़ की सब्जी|पापड़ की सब्जी|rajasthani papad sabzi
+Panchmel Dal|पंचमेल दाल|पंचमेल दाल|panchmel dal
+Panchkuta Sabzi|पंचकूटा सब्जी|पंचकूटा सब्जी|panchkuta sabzi
+Khejri Sangri|खेजड़ी सांगरी|खेजड़ी सांगरी|khejri sangri
+Kachri Chutney|काचरी चटनी|काचरी चटनी|kachri chutney
+Lehsun Chutney Rajasthani|लहसुन की चटनी|लहसुन की चटनी|lehsun chutney rajasthani
+Paneer Ghevar|पनीर घेवर|पनीर घेवर|paneer ghevar
+Mawa Ghevar|मावा घेवर|मावा घेवर|mawa ghevar
+Feeni|फीणी|फीणी|feeni
+Mohan Thaal|मोहन थाल|मोहन थाल|mohan thaal
+Balushahi Rajasthani|बालूशाही|बालूशाही|balushahi rajasthani
+Mawa Kachori Jodhpur|मावा कचौरी जोधपुर|मावा कचौरी जोधपुर|mawa kachori jodhpur
+Rasgulla Bikaner|बीकानेरी रसगुल्ला|बीकानेरी रसगुल्ला|rasgulla bikaner
+Ghewar Jaipur|जयपुरी घेवर|जयपुरी घेवर|ghewar jaipur
+Dilkhushal|दिलखुशाल|दिलखुशाल|dilkhushal
+Mishri Mawa|मिश्री मावा|मिश्री मावा|mishri mawa
+Alwar Ka Mawa|अलवर का मावा|अलवर का मावा|alwar ka mawa
+Kalakand Alwar|अलवर का कलाकंद|अलवर का कलाकंद|kalakand alwar
+Pheni Sweet|फेनी|फेनी|pheni sweet
+Imarti Rajasthani|इमरती|इमरती|imarti rajasthani
+Jalebi Jaipur|जयपुरी जलेबी|जयपुरी जलेबी|jalebi jaipur
+Rabdi Rajasthani|राजस्थानी रबड़ी|राजस्थानी रबड़ी|rabdi rajasthani
+Lapsi|लापसी|लापसी|lapsi
+Sheera Rajasthani|शीरा|शीरा|sheera rajasthani
+Til Ki Chikki|तिल की चिक्की|तिल की चिक्की|til ki chikki
+Bajra Khichdi Rajasthani|बाजरा खिचड़ी|बाजरा खिचड़ी|bajra khichdi rajasthani
+Mangodi Ki Sabzi|मंगोड़ी की सब्जी|मंगोड़ी की सब्जी|mangodi ki sabzi
+Moong Mangodi|मूंग मंगोड़ी|मूंग मंगोड़ी|moong mangodi
+Mangodi|मंगोड़ी|मंगोड़ी|mangodi
+Pyaz Ki Kachori Jaipur|प्याज की कचौरी जयपुर|प्याज की कचौरी जयपुर|pyaz ki kachori jaipur
+Dal Pakwan|दाल पकवान|दाल पकवान|dal pakwan
+Sev Tamatar Sabzi|सेव टमाटर सब्जी|सेव टमाटर सब्जी|sev tamatar sabzi
+Aloo Pyaz Sabzi|आलू प्याज सब्जी|आलू प्याज सब्जी|aloo pyaz sabzi
+Gulab Jamun Rajasthani|गुलाब जामुन|गुलाब जामुन|gulab jamun rajasthani
+Marwari Thali|मारवाड़ी थाली|मारवाड़ी थाली|marwari thali
+Rajasthani Thali|राजस्थानी थाली|राजस्थानी थाली|rajasthani thali
+Jodhpuri Thali|जोधपुरी थाली|जोधपुरी थाली|jodhpuri thali
+Mewari Thali|मेवाड़ी थाली|मेवाड़ी थाली|mewari thali
+Shekhawati Thali|शेखावाटी थाली|शेखावाटी थाली|shekhawati thali
+Laal Mirch Ka Achar|लाल मिर्च का अचार|लाल मिर्च का अचार|laal mirch ka achar
+Gunda Achar|गुंदा अचार|गुंदा अचार|gunda achar
+Kair Achar|केर अचार|केर अचार|kair achar
+Rajasthani Mirchi Achar|राजस्थानी मिर्ची अचार|राजस्थानी मिर्ची अचार|rajasthani mirchi achar
+Bhuna Kheema Rajasthani|भुना कीमा|भुना कीमा|bhuna kheema rajasthani
+Jungli Maas|जंगली मांस|जंगली मांस|jungli maas
+Soyita|सोयिता|सोयिता|soyita
+Bajre Ki Raab|बाजरे की राब|बाजरे की राब|bajre ki raab
+Raab|राब|राब|raab
+Chaas Rajasthani|राजस्थानी छाछ|राजस्थानी छाछ|chaas rajasthani
+Kesariya Doodh|केसरिया दूध|केसरिया दूध|kesariya doodh
+Thandai Rajasthani|ठंडाई|ठंडाई|thandai rajasthani
+Aam Panna Rajasthani|आम पन्ना|आम पन्ना|aam panna rajasthani
+Jaljeera Rajasthani|जलजीरा|जलजीरा|jaljeera rajasthani
+Kanji Vada Rajasthani|कांजी वड़ा|कांजी वड़ा|kanji vada rajasthani
+Khoba Roti|खोबा रोटी|खोबा रोटी|khoba roti
+Missi Roti Rajasthani|मिस्सी रोटी|मिस्सी रोटी|missi roti rajasthani
+Bati Plain|बाटी|बाटी|bati plain
+Baati Stuffed|स्टफ्ड बाटी|स्टफ्ड बाटी|baati stuffed
+Dal Rajasthani Panchmel|पंचमेल दाल|पंचमेल दाल|dal rajasthani panchmel
+Lahsun Ki Chutney|लहसुन की चटनी|लहसुन की चटनी|lahsun ki chutney
+Bajra Kheechdo|बाजरा खीचड़ो|बाजरा खीचड़ो|bajra kheechdo
+Moong Dal Pakoda Rajasthani|मूंग दाल पकोड़ा|मूंग दाल पकोड़ा|moong dal pakoda rajasthani
+Kachori Rajasthani|राजस्थानी कचौरी|राजस्थानी कचौरी|kachori rajasthani
+@sub|gujarati|Gujarati Foods|गुजराती व्यंजन|गुजराती पदार्थ|plate,kg,piece
+Dhokla Khatta|खट्टा ढोकला|खट्टा ढोकला|dhokla khatta
+Khaman Dhokla|खमण ढोकला|खमण ढोकला|khaman dhokla
+Nylon Khaman|नायलॉन खमण|नायलॉन खमण|nylon khaman
+Rasawala Khaman|रसावाला खमण|रसावाला खमण|rasawala khaman
+Sandwich Dhokla|सँडविच ढोकला|सँडविच ढोकला|sandwich dhokla
+Handvo Gujarati|हांडवो|हांडवो|handvo gujarati
+Muthiya|मुठिया|मुठिया|muthiya
+Steamed Muthiya|उकडलेले मुठिया|उकडलेले मुठिया|steamed muthiya
+Fried Muthiya|तळलेले मुठिया|तळलेले मुठिया|fried muthiya
+Bottle Gourd Muthiya|दुधी मुठिया|दुधी मुठिया|bottle gourd muthiya
+Methi Thepla|मेथी थेपला|मेथी थेपला|methi thepla
+Plain Thepla|साधा थेपला|साधा थेपला|plain thepla
+Dudhi Thepla|दुधी थेपला|दुधी थेपला|dudhi thepla
+Masala Thepla|मसाला थेपला|मसाला थेपला|masala thepla
+Methi Na Gota|मेथी ना गोटा|मेथी ना गोटा|methi na gota
+Jalebi Fafda|जलेबी फाफडा|जलेबी फाफडा|jalebi fafda
+Bhavnagri Gathiya|भावनगरी गाठिया|भावनगरी गाठिया|bhavnagri gathiya
+Puri Gujarati|गुजराती पुरी|गुजराती पुरी|puri gujarati
+Farsi Puri|फरसी पुरी|फरसी पुरी|farsi puri
+Mathri Gujarati|गुजराती मठरी|गुजराती मठरी|mathri gujarati
+Chakri Gujarati|गुजराती चकली|गुजराती चकली|chakri gujarati
+Sev Khamani|सेव खमणी|सेव खमणी|sev khamani
+Sev Usal|सेव उसळ|सेव उसळ|sev usal
+Kutchi Dabeli|कच्छी दाबेली|कच्छी दाबेली|kutchi dabeli
+Locho|लोचो|लोचो|locho
+Patra|पात्रा|पात्रा|patra
+Patra Gujarati|गुजराती पात्रा|गुजराती पात्रा|patra gujarati
+Surti Undhiyu|सुरती उंधियू|सुरती उंधियू|surti undhiyu
+Undhiyu Gujarati|उंधियू|उंधियू|undhiyu gujarati
+Surati Locho|सुरती लोचो|सुरती लोचो|surati locho
+Surti Ghari|सुरती घारी|सुरती घारी|surti ghari
+Kesar Pista Ghari|केसर पिस्ता घारी|केसर पिस्ता घारी|kesar pista ghari
+Sukhdi|सुखडी|सुखडी|sukhdi
+Gol Papdi|गोळ पापडी|गोळ पापडी|gol papdi
+Magas|मगस|मगस|magas
+Adadiya Pak|अडदिया पाक|अडदिया पाक|adadiya pak
+Churma Ladoo Gujarati|चुरमा लाडू|चुरमा लाडू|churma ladoo gujarati
+Basundi Gujarati|बासुंदी|बासुंदी|basundi gujarati
+Shrikhand Kesar|केसर श्रीखंड|केसर श्रीखंड|shrikhand kesar
+Shrikhand Elaichi|इलायची श्रीखंड|इलायची श्रीखंड|shrikhand elaichi
+Shrikhand Mango|आंबा श्रीखंड|आंबा श्रीखंड|shrikhand mango
+Doodhpak|दूधपाक|दूधपाक|doodhpak
+Kansar|कंसार|कंसार|kansar
+Mesub|मेसूब|मेसूब|mesub
+Surti Jamun|सुरती जामुन|सुरती जामुन|surti jamun
+Gujarati Kadhi|गुजराती कढ़ी|गुजराती कढ़ी|gujarati kadhi
+Gujarati Dal|गुजराती दाल|गुजराती दाल|gujarati dal
+Khatti Meethi Dal|खट्टी मीठी दाल|खट्टी मीठी दाल|khatti meethi dal
+Dal Dhokli|दाल ढोकली|दाल ढोकली|dal dhokli
+Ringan Bharta|रिंगण भर्ता|रिंगण भर्ता|ringan bharta
+Bharela Ringan|भरेला रिंगण|भरेला रिंगण|bharela ringan
+Bharela Marcha|भरेला मरचा|भरेला मरचा|bharela marcha
+Sev Tameta Nu Shaak|सेव टमेटा नु शाक|सेव टमेटा नु शाक|sev tameta nu shaak
+Ringna Batata Nu Shaak|रींगणा बटाटा नु शाक|रींगणा बटाटा नु शाक|ringna batata nu shaak
+Gujarati Khichdi|गुजराती खिचड़ी|गुजराती खिचड़ी|gujarati khichdi
+Khichu|खीचू|खीचू|khichu
+Papdi Lilva|पापडी लिलवा|पापडी लिलवा|papdi lilva
+Lilva Kachori|लिलवा कचौरी|लिलवा कचौरी|lilva kachori
+Tuvar Lilva Kachori|तुवर लिलवा कचौरी|तुवर लिलवा कचौरी|tuvar lilva kachori
+Kachori Gujarati|गुजराती कचौरी|गुजराती कचौरी|kachori gujarati
+Ragda Pattice Gujarati|रगडा पॅटिस|रगडा पॅटिस|ragda pattice gujarati
+Bhel Gujarati|गुजराती भेल|गुजराती भेल|bhel gujarati
+Surat Ponk|सुरत पोंक|सुरत पोंक|surat ponk
+Ponk Vada|पोंक वडा|पोंक वडा|ponk vada
+Ponkh|पोंक|पोंक|ponkh
+Sev Mamra|सेव मुरमुरा|सेव मुरमुरा|sev mamra
+Chevdo|चेवडो|चेवडो|chevdo
+Bhakarwadi Gujarati|गुजराती भाकरवडी|गुजराती भाकरवडी|bhakarwadi gujarati
+Sarpech|सरपेच|सरपेच|sarpech||
+Gujarati Thali|गुजराती थाळी|गुजराती थाळी|gujarati thali
+Kathiyawadi Thali|काठियावाडी थाळी|काठियावाडी थाळी|kathiyawadi thali
+Kathiyawadi Sev Tameta|काठियावाडी सेव टमाटा|काठियावाडी सेव टमाटा|kathiyawadi sev tameta
+Sev Tamatar Kathiyawadi|काठियावाडी सेव टमाटर|काठियावाडी सेव टमाटर|sev tamatar kathiyawadi
+Ringan No Olo|रिंगण नो ओळो|रिंगण नो ओळो|ringan no olo
+Olo|ओळो|ओळो|olo
+Bajra Rotla|बाजरी रोटला|बाजरी रोटला|bajra rotla
+Rotla|रोटला|रोटला|rotla
+Juvar Rotla|ज्वारी रोटला|ज्वारी रोटला|juvar rotla
+Lasaniya Batata|लसणिया बटाटा|लसणिया बटाटा|lasaniya batata
+Sev Bhaji Kathiyawadi|काठियावाडी सेव भाजी|काठियावाडी सेव भाजी|sev bhaji kathiyawadi
+Masala Chhas|मसाला छास|मसाला छास|masala chhas
+Chaas Gujarati|गुजराती छाछ|गुजराती छाछ|chaas gujarati
+Mango Panna Gujarati|आंबा पन्हे|आंबा पन्हे|mango panna gujarati
+Mango Aamras Puri|आमरस पुरी|आमरस पुरी|mango aamras puri
+Sharbat Gujarati|गुजराती शरबत|गुजराती शरबत|sharbat gujarati
+Gol Keri Nu Athanu|गोळ केरी नु अथाणु|गोळ केरी नु अथाणु|gol keri nu athanu
+Chhundo|छुंदो|छुंदो|chhundo
+Gujarati Chhundo|गुजराती छुंदो|गुजराती छुंदो|gujarati chhundo
+Methiya Keri|मेथिया केरी|मेथिया केरी|methiya keri
+Methia Masala|मेथिया मसाला|मेथिया मसाला|methia masala
+Gor Keri|गोर केरी|गोर केरी|gor keri
+Kerda Achar|केरडा अचार|केरडा अचार|kerda achar
+Lasun Ni Chutney|लसण नी चटणी|लसण नी चटणी|lasun ni chutney
+Dry Garlic Chutney Gujarati|सुकी लसूण चटणी|सुकी लसूण चटणी|dry garlic chutney gujarati
+Sev Tameta|सेव टमेटा|सेव टमेटा|sev tameta
+Thepla Masala|थेपला मसाला|थेपला मसाला|thepla masala
+Undhiyu Masala|उंधियू मसाला|उंधियू मसाला|undhiyu masala
+Khaman Mix|खमण मिक्स|खमण मिक्स|khaman mix
+Dhokla Mix|ढोकला मिक्स|ढोकला मिक्स|dhokla mix
+Handvo Mix|हांडवो मिक्स|हांडवो मिक्स|handvo mix
+Khichu Mix|खिचू मिक्स|खिचू मिक्स|khichu mix
+Fafda Mix|फाफडा मिक्स|फाफडा मिक्स|fafda mix
+Gujarati Farsan Mix|गुजराती फरसाण मिक्स|गुजराती फरसाण मिक्स|gujarati farsan mix
+@sub|uttar-pradesh-bihar|Uttar Pradesh, Bihar and Jharkhand Foods|उत्तर प्रदेश, बिहार, झारखंड व्यंजन|उत्तर प्रदेश, बिहार, झारखंड पदार्थ|plate,kg,piece
+Litti Chokha|लिट्टी चोखा|लिट्टी चोखा|litti chokha
+Litti|लिट्टी|लिट्टी|litti
+Chokha|चोखा|चोखा|chokha
+Baingan Chokha|बैंगन चोखा|बैंगन चोखा|baingan chokha
+Aloo Chokha|आलू चोखा|आलू चोखा|aloo chokha
+Tamatar Chokha|टमाटर चोखा|टमाटर चोखा|tamatar chokha
+Sattu Paratha|सत्तू पराठा|सत्तू पराठा|sattu paratha
+Sattu Ladoo|सत्तू लड्डू|सत्तू लड्डू|sattu ladoo
+Sattu Ka Sharbat|सत्तू का शरबत|सत्तू का शरबत|sattu ka sharbat
+Dal Pitha|दाल पीठा|दाल पीठा|dal pitha
+Dhuska|धुस्का|धुस्का|dhuska
+Thekua|ठेकुआ|ठेकुआ|thekua
+Khaja Bihar|खाजा|खाजा|khaja bihar
+Silao Khaja|सिलाव खाजा|सिलाव खाजा|silao khaja
+Balushahi Bihar|बालूशाही|बालूशाही|balushahi bihar
+Tilkut|तिलकुट|तिलकुट|tilkut
+Gaya Tilkut|गया तिलकुट|गया तिलकुट|gaya tilkut
+Lai Bihar|लाई|लाई|lai bihar
+Murmura Laddu Bihar|मुरमुरा लड्डू|मुरमुरा लड्डू|murmura laddu bihar
+Chura Dahi|चूड़ा दही|चूड़ा दही|chura dahi
+Chuda Bhujia|चूड़ा भुजिया|चूड़ा भुजिया|chuda bhujia
+Makhana Kheer|मखाना खीर|मखाना खीर|makhana kheer
+Makhana Roasted|भुना मखाना|भुना मखाना|makhana roasted
+Bihari Kebab|बिहारी कबाब|बिहारी कबाब|bihari kebab
+Bihari Boti|बिहारी बोटी|बिहारी बोटी|bihari boti
+Champaran Mutton|चंपारण मटन|चंपारण मटन|champaran mutton
+Handi Mutton Champaran|हांडी मटन चंपारण|हांडी मटन चंपारण|handi mutton champaran
+Ahuna Mutton|अहुना मटन|अहुना मटन|ahuna mutton
+Machhli Jharkhand|झारखंडी मछली|झारखंडी मछली|machhli jharkhand
+Rugra|रुगड़ा|रुगड़ा|rugra
+Rugda Sabzi|रुगड़ा सब्जी|रुगड़ा सब्जी|rugda sabzi
+Bamboo Shoot Sabzi|बांस की सब्जी|बांस की सब्जी|bamboo shoot sabzi
+Karil Sabzi|करील की सब्जी|करील की सब्जी|karil sabzi
+Dubki Kadhi|डुबकी कढ़ी|डुबकी कढ़ी|dubki kadhi
+Chilka Roti|छिलका रोटी|छिलका रोटी|chilka roti
+Handia|हंडिया|हंडिया|handia
+Dhuska Jharkhand|झारखंडी धुस्का|झारखंडी धुस्का|dhuska jharkhand
+Pitha Jharkhand|झारखंडी पीठा|झारखंडी पीठा|pitha jharkhand
+Arsa Roti|अरसा रोटी|अरसा रोटी|arsa roti
+Malpua Bihar|बिहारी मालपुआ|बिहारी मालपुआ|malpua bihar
+Chana Ghugni Bihar|चना घुघनी|चना घुघनी|chana ghugni bihar
+Ghugni|घुघनी|घुघनी|ghugni
+Kachri Bihar|कचरी|कचरी|kachri bihar
+Peetha Bihar|पीठा|पीठा|peetha bihar
+Bagiya|बगिया|बगिया|bagiya
+Bagiya Bihar|बगिया|बगिया|bagiya bihar
+Chane Ki Dal Bihar|चने की दाल|चने की दाल|chane ki dal bihar
+Kadhi Bari|कढ़ी बड़ी|कढ़ी बड़ी|kadhi bari
+Bari Bihar|बड़ी|बड़ी|bari bihar
+Dal Poori Bihar|दाल पूरी|दाल पूरी|dal poori bihar
+Saag Bihar|साग|साग|saag bihar
+Poi Saag|पोई साग|पोई साग|poi saag
+Bathua Saag|बथुआ साग|बथुआ साग|bathua saag
+Chana Saag|चना साग|चना साग|chana saag
+Sarson Saag Bihar|सरसों साग|सरसों साग|sarson saag bihar
+Kohda Sabzi|कोहड़ा सब्जी|कोहड़ा सब्जी|kohda sabzi
+Kaddu Ki Sabzi|कद्दू की सब्जी|कद्दू की सब्जी|kaddu ki sabzi
+Lauki Ki Sabzi|लौकी की सब्जी|लौकी की सब्जी|lauki ki sabzi
+Parwal Ki Sabzi|परवल की सब्जी|परवल की सब्जी|parwal ki sabzi
+Tinda Sabzi|टिंडा सब्जी|टिंडा सब्जी|tinda sabzi
+Aloo Dum Banarasi|आलू दम बनारसी|आलू दम बनारसी|aloo dum banarasi
+Banarasi Aloo Tikki|बनारसी आलू टिक्की|बनारसी आलू टिक्की|banarasi aloo tikki
+Banarasi Tamatar Chaat|बनारसी टमाटर चाट|बनारसी टमाटर चाट|banarasi tamatar chaat
+Banarasi Paan|बनारसी पान|बनारसी पान|banarasi paan
+Banarasi Kachori Sabzi|बनारसी कचौड़ी सब्जी|बनारसी कचौड़ी सब्जी|banarasi kachori sabzi
+Kachori Sabzi|कचौड़ी सब्जी|कचौड़ी सब्जी|kachori sabzi
+Kachori Jalebi|कचौड़ी जलेबी|कचौड़ी जलेबी|kachori jalebi
+Jalebi Dahi|जलेबी दही|जलेबी दही|jalebi dahi
+Rabri Jalebi|रबड़ी जलेबी|रबड़ी जलेबी|rabri jalebi
+Malaiyo|मलइयो|मलइयो|malaiyo
+Makhan Malai|मक्खन मलाई|मक्खन मलाई|makhan malai
+Nimish|निमिष|निमिष|nimish
+Thandai Banarasi|बनारसी ठंडाई|बनारसी ठंडाई|thandai banarasi
+Lassi Banarasi|बनारसी लस्सी|बनारसी लस्सी|lassi banarasi
+Launglata|लौंगलता|लौंगलता|launglata
+Ghewar Banarasi|बनारसी घेवर|बनारसी घेवर|ghewar banarasi
+Lal Peda|लाल पेड़ा|लाल पेड़ा|lal peda
+Mathura Peda|मथुरा पेड़ा|मथुरा पेड़ा|mathura peda
+Angoori Petha|अंगूरी पेठा|अंगूरी पेठा|angoori petha
+Dry Petha|सूखा पेठा|सूखा पेठा|dry petha
+Kesar Petha|केसर पेठा|केसर पेठा|kesar petha
+Paan Petha|पान पेठा|पान पेठा|paan petha
+Dalmoth|दालमोठ|दालमोठ|dalmoth
+Agra Dalmoth|आगरा दालमोठ|आगरा दालमोठ|agra dalmoth
+Bedai Sabzi|बेड़ई सब्जी|बेड़ई सब्जी|bedai sabzi
+Bedmi Puri|बेड़मी पूरी|बेड़मी पूरी|bedmi puri
+Bedai Aloo|बेड़ई आलू|बेड़ई आलू|bedai aloo
+Kakori Kebab|काकोरी कबाब|काकोरी कबाब|kakori kebab
+Galouti Kebab|गलौटी कबाब|गलौटी कबाब|galouti kebab
+Lucknowi Biryani|लखनवी बिरयानी|लखनवी बिरयानी|lucknowi biryani
+Awadhi Biryani|अवधी बिरयानी|अवधी बिरयानी|awadhi biryani
+Awadhi Korma|अवधी कोरमा|अवधी कोरमा|awadhi korma
+Nihari|निहारी|निहारी|nihari
+Lucknowi Paratha|लखनवी पराठा|लखनवी पराठा|lucknowi paratha
+Warqi Paratha|वर्की पराठा|वर्की पराठा|warqi paratha
+Sheermal|शीरमाल|शीरमाल|sheermal
+Sheermal Roti|शीरमाल रोटी|शीरमाल रोटी|sheermal roti
+Tunday Kabab|टुंडे कबाब|टुंडे कबाब|tunday kabab
+Basket Chaat|बास्केट चाट|बास्केट चाट|basket chaat
+Lucknowi Chaat|लखनवी चाट|लखनवी चाट|lucknowi chaat
+Kulfi Lucknow|लखनऊ कुल्फी|लखनऊ कुल्फी|kulfi lucknow
+Rewri|रेवड़ी|रेवड़ी|rewri
+Gajak Meva|मेवा गजक|मेवा गजक|gajak meva
+Til Gajak|तिल गजक|तिल गजक|til gajak
+Moongfali Gajak|मूंगफली गजक|मूंगफली गजक|moongfali gajak
+Chikki Moongfali|मूंगफली चिक्की|मूंगफली चिक्की|chikki moongfali
+Patisa Kanpur|पतीसा|पतीसा|patisa kanpur
+Gaajar Halwa Lucknow|गाजर का हलवा|गाजर का हलवा|gaajar halwa lucknow
+Kheer Kanpur|कानपुरी खीर|कानपुरी खीर|kheer kanpur
+Bhutte Ka Kees|भुट्टे का कीस|भुट्टे का कीस|bhutte ka kees
+Kheer Bhutta|भुट्टे की खीर|भुट्टे की खीर|kheer bhutta
+Bhune Bhutta|भुना भुट्टा|भुना भुट्टा|bhune bhutta
+Roasted Corn Masala|मसाला भुट्टा|मसाला भुट्टा|roasted corn masala
+Aloo Puri UP|आलू पूरी|आलू पूरी|aloo puri up
+Poori Sabzi|पूरी सब्जी|पूरी सब्जी|poori sabzi
+Kachori UP|कचौड़ी|कचौड़ी|kachori up
+Samosa UP|समोसा|समोसा|samosa up
+Chole Kulche|छोले कुलचे|छोले कुलचे|chole kulche
+Bread Pakora UP|ब्रेड पकोड़ा|ब्रेड पकोड़ा|bread pakora up
+Paneer Bread Pakora|पनीर ब्रेड पकोड़ा|पनीर ब्रेड पकोड़ा|paneer bread pakora
+@sub|madhya-pradesh-chhattisgarh|Madhya Pradesh and Chhattisgarh Foods|मध्य प्रदेश और छत्तीसगढ़ व्यंजन|मध्य प्रदेश व छत्तीसगड पदार्थ|plate,kg,piece
+Poha Jalebi|पोहा जलेबी|पोहा जलेबी|poha jalebi
+Indori Poha|इंदौरी पोहा|इंदौरी पोहा|indori poha
+Indori Sev|इंदौरी सेव|इंदौरी सेव|indori sev
+Indori Namkeen|इंदौरी नमकीन|इंदौरी नमकीन|indori namkeen
+Indori Mixture|इंदौरी मिक्सचर|इंदौरी मिक्सचर|indori mixture
+Indori Garadu|इंदौरी गराडू|इंदौरी गराडू|indori garadu
+Garadu Chaat|गराडू चाट|गराडू चाट|garadu chaat
+Bhutte Ka Kees Indori|भुट्टे का कीस इंदौरी|भुट्टे का कीस इंदौरी|bhutte ka kees indori
+Sabudana Khichdi Indori|साबूदाना खिचड़ी|साबूदाना खिचड़ी|sabudana khichdi indori
+Khopra Patties|खोपरा पैटीज|खोपरा पैटीज|khopra patties
+Palak Patties MP|पालक पैटीज|पालक पैटीज|palak patties mp
+Bhopali Gosht Korma|भोपाली गोश्त कोरमा|भोपाली गोश्त कोरमा|bhopali gosht korma
+Bhopali Paan|भोपाली पान|भोपाली पान|bhopali paan
+Bhopali Biryani|भोपाली बिरयानी|भोपाली बिरयानी|bhopali biryani
+Bhopali Nihari|भोपाली निहारी|भोपाली निहारी|bhopali nihari
+Shahi Tukda MP|शाही टुकड़ा|शाही टुकड़ा|shahi tukda mp
+Mawa Bati|मावा बाटी|मावा बाटी|mawa bati
+Dal Bafla|दाल बाफला|दाल बाफला|dal bafla
+Bafla|बाफला|बाफला|bafla
+Bhutte Ki Kheer MP|भुट्टे की खीर|भुट्टे की खीर|bhutte ki kheer mp
+Malwa Thali|मालवा थाली|मालवा थाली|malwa thali
+Malwa Kadhi|मालवा कढ़ी|मालवा कढ़ी|malwa kadhi
+Malwa Pakora|मालवा पकोड़ा|मालवा पकोड़ा|malwa pakora
+Ratlami Sev MP|रतलामी सेव|रतलामी सेव|ratlami sev mp
+Ratlami Namkeen|रतलामी नमकीन|रतलामी नमकीन|ratlami namkeen
+Ujjaini Thali|उज्जैनी थाली|उज्जैनी थाली|ujjaini thali
+Gwalior Gajak|ग्वालियर गजक|ग्वालियर गजक|gwalior gajak
+Gwalior Bedai|ग्वालियर बेड़ई|ग्वालियर बेड़ई|gwalior bedai
+Morena Gajak|मुरैना गजक|मुरैना गजक|morena gajak
+Shahdol Mahua Ladoo|शहडोल महुआ लड्डू|शहडोल महुआ लड्डू|shahdol mahua ladoo
+Mahua Ladoo|महुआ लड्डू|महुआ लड्डू|mahua ladoo
+Mahua Roti|महुआ रोटी|महुआ रोटी|mahua roti
+Mahua Phool Sabzi|महुआ फूल सब्जी|महुआ फूल सब्जी|mahua phool sabzi
+Kodo Kutki Khichdi|कोदो कुटकी खिचड़ी|कोदो कुटकी खिचड़ी|kodo kutki khichdi
+Kodo Kheer|कोदो खीर|कोदो खीर|kodo kheer
+Kutki Kheer|कुटकी खीर|कुटकी खीर|kutki kheer
+Bhopal Jalebi|भोपाली जलेबी|भोपाली जलेबी|bhopal jalebi
+Chakki Ki Shaak|चक्की की शाक|चक्की की शाक|chakki ki shaak
+Chakki Ki Sabzi|चक्की की सब्जी|चक्की की सब्जी|chakki ki sabzi
+Rajgira Poori MP|राजगिरा पूरी|राजगिरा पूरी|rajgira poori mp
+Singhara Atta Halwa MP|सिंघाड़ा आटा हलवा|सिंघाड़ा आटा हलवा|singhara atta halwa mp
+Farari Chiwda Indori|फराळी चिवडा|फराळी चिवडा|farari chiwda indori
+Chana Dal Halwa MP|चना दाल हलवा|चना दाल हलवा|chana dal halwa mp
+Mawa Jalebi|मावा जलेबी|मावा जलेबी|mawa jalebi
+Mawa Laddu|मावा लड्डू|मावा लड्डू|mawa laddu
+Khoya Jalebi|खोया जलेबी|खोया जलेबी|khoya jalebi
+Chila Chhattisgarh|छत्तीसगढ़ी चीला|छत्तीसगढ़ी चीला|chila chhattisgarh
+Chila Rice|चावल चीला|चावल चीला|chila rice
+Faraa|फरा|फरा|faraa
+Faraa Chhattisgarh|छत्तीसगढ़ी फरा|छत्तीसगढ़ी फरा|faraa chhattisgarh
+Aeta|अइरसा|अइरसा|aeta
+Aeersa|अइरसा|अइरसा|aeersa
+Anarsa Chhattisgarh|अनरसा|अनरसा|anarsa chhattisgarh
+Thethri|ठेठरी|ठेठरी|thethri
+Khurmi|खुरमी|खुरमी|khurmi
+Khurmi Chhattisgarh|छत्तीसगढ़ी खुरमी|छत्तीसगढ़ी खुरमी|khurmi chhattisgarh
+Bara Chhattisgarh|छत्तीसगढ़ी बड़ा|छत्तीसगढ़ी बड़ा|bara chhattisgarh
+Muthiya Chhattisgarh|छत्तीसगढ़ी मुठिया|छत्तीसगढ़ी मुठिया|muthiya chhattisgarh
+Chana Samosa Chhattisgarh|चना समोसा|चना समोसा|chana samosa chhattisgarh
+Bore Basi|बोरे बासी|बोरे बासी|bore basi
+Bore Baasi|बोरे बासी|बोरे बासी|bore baasi
+Bhaji Chhattisgarh|भाजी|भाजी|bhaji chhattisgarh
+Chech Bhaji|चेच भाजी|चेच भाजी|chech bhaji
+Chauler Bhaji|चौलाई भाजी|चौलाई भाजी|chauler bhaji
+Amat|अमट|अमट|amat
+Amat Chhattisgarh|अमट|अमट|amat chhattisgarh
+Bijha|बीजा|बीजा|bijha
+Bafauri|बफौरी|बफौरी|bafauri
+Ambat Dal|अंबट दाल|अंबट दाल|ambat dal
+Kodo Roti|कोदो रोटी|कोदो रोटी|kodo roti
+Dubki Kadhi Chhattisgarh|डुबकी कढ़ी|डुबकी कढ़ी|dubki kadhi chhattisgarh
+Tilgur|तिलगुर|तिलगुर|tilgur
+Bamboo Pickle Chhattisgarh|बांस अचार|बांस अचार|bamboo pickle chhattisgarh
+Bastar Mahua Liquor Type Sherbet|बस्तर महुआ शरबत|बस्तर महुआ शरबत|bastar mahua liquor type sherbet||
+Salfi|सल्फी|सल्फी|salfi||
+Chaprah Chutney|चापड़ा चटनी|चापड़ा चटनी|chaprah chutney
+Red Ant Chutney|लाल चींटी चटनी|लाल चींटी चटनी|red ant chutney
+Tendu|तेंदू|तेंदू|tendu
+Chironji Laddu|चिरौंजी लड्डू|चिरौंजी लड्डू|chironji laddu
+Chironji Barfi|चिरौंजी बर्फी|चिरौंजी बर्फी|chironji barfi
+Sal Seed|साल बीज|साल बीज|sal seed

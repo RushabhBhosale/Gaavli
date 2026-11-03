@@ -15,9 +15,21 @@
     "SMALL_BRINJAL",
     "BHARLI_VANGI"
   ],
+  "lady finger": [
+    "OKRA",
+    "LADY_FINGER_GRAPES"
+  ],
   "kakdi": [
     "CUCUMBER",
     "KAKDI_LONG"
+  ],
+  "कच्ची केळी": [
+    "RAW_BANANA",
+    "RAW_BANANA_VARIETY"
+  ],
+  "plantain": [
+    "RAW_BANANA",
+    "PLANTAIN_BANANA"
   ],
   "kathal": [
     "RAW_JACKFRUIT",
@@ -27,17 +39,45 @@
     "BITTER_GOURD",
     "WOLF_HERRING"
   ],
+  "red pumpkin": [
+    "PUMPKIN",
+    "RED_PUMPKIN_SEEDS"
+  ],
   "petha": [
     "ASH_GOURD",
     "AGRA_PETHA"
+  ],
+  "white pumpkin": [
+    "ASH_GOURD",
+    "WHITE_PUMPKIN_SEEDS"
+  ],
+  "करटोली": [
+    "SPINY_GOURD",
+    "SPINE_GOURD_SEED"
+  ],
+  "kantola": [
+    "SPINY_GOURD",
+    "KANTOLA_BITTER_GOURD_SEEDS"
   ],
   "kartoli": [
     "SPINY_GOURD",
     "KARTOLI"
   ],
+  "spine gourd": [
+    "SPINY_GOURD",
+    "SPINE_GOURD_SEED"
+  ],
   "papdi": [
     "FIELD_BEAN_PODS",
     "PAPDI"
+  ],
+  "val papdi": [
+    "FIELD_BEAN_PODS",
+    "VAL_PAPDI_LABLAB_BEAN_SEEDS"
+  ],
+  "pavta": [
+    "PAVTA_BEANS",
+    "PAVTA_LABLAB_BEAN_SEEDS"
   ],
   "pavte": [
     "PAVTA_BEANS",
@@ -52,6 +92,14 @@
     "SWEET_CORN",
     "MAIZE"
   ],
+  "alu kand": [
+    "TARO_ROOT",
+    "COLOCASIA_SEED_CORMS"
+  ],
+  "mango ginger": [
+    "MANGO_GINGER",
+    "MANGO_GINGER_TURMERIC_SEED_RHIZOME"
+  ],
   "iceberg lettuce": [
     "LETTUCE",
     "ICEBERG_LETTUCE"
@@ -59,6 +107,14 @@
   "dhaniya": [
     "CORIANDER_LEAVES",
     "CORIANDER_SEEDS"
+  ],
+  "cilantro": [
+    "CORIANDER_LEAVES",
+    "CILANTRO_CORIANDER_SEEDS"
+  ],
+  "red math": [
+    "RED_AMARANTH",
+    "RED_MATH_AMARANTH_SEEDS"
   ],
   "math": [
     "GREEN_AMARANTH",
@@ -80,7 +136,8 @@
   ],
   "patrode": [
     "COLOCASIA_LEAVES_FOR_VADI",
-    "ALU_VADI"
+    "ALU_VADI",
+    "PATRODE"
   ],
   "घोळ": [
     "PURSLANE",
@@ -90,13 +147,23 @@
     "PURSLANE",
     "GHOL_FISH"
   ],
+  "पोई साग": [
+    "MALABAR_SPINACH",
+    "POI_SAAG"
+  ],
+  "poi": [
+    "MALABAR_SPINACH",
+    "POI"
+  ],
   "sabja": [
     "SWEET_BASIL",
-    "SABJA_SEEDS"
+    "SABJA_SEEDS",
+    "SABJA_MANGO"
   ],
   "karpuravalli": [
     "AJWAIN_LEAVES",
-    "AJWAIN_PLANT"
+    "AJWAIN_PLANT",
+    "KARPURAVALLI_BANANA"
   ],
   "paan": [
     "BETEL_LEAVES",
@@ -117,6 +184,14 @@
   "kachnar": [
     "KANCHAN_FLOWERS",
     "KANCHAN_SAPLING"
+  ],
+  "kanchan": [
+    "KANCHAN_FLOWERS",
+    "KANCHAN_COWPEA_GRAIN_SEEDS"
+  ],
+  "cantaloupe": [
+    "MUSKMELON",
+    "CANTALOUPE_MUSKMELON_SEEDS"
   ],
   "shrifal": [
     "COCONUT",
@@ -167,6 +242,26 @@
     "APRICOT",
     "DRIED_APRICOTS"
   ],
+  "kinnow": [
+    "KINNOW",
+    "KINNOW_ORANGE"
+  ],
+  "granny smith": [
+    "GREEN_APPLE",
+    "GRANNY_SMITH_APPLE"
+  ],
+  "हापूस आंबा": [
+    "ALPHONSO_MANGO",
+    "HAPUS_MANGO"
+  ],
+  "hapus": [
+    "ALPHONSO_MANGO",
+    "HAPUS_MANGO"
+  ],
+  "ratnagiri hapus": [
+    "RATNAGIRI_ALPHONSO_MANGO",
+    "RATNAGIRI_HAPUS_MANGO"
+  ],
   "kesar": [
     "KESAR_MANGO",
     "SAFFRON"
@@ -175,13 +270,86 @@
     "KESAR_MANGO",
     "SAFFRON"
   ],
+  "पायरी आम": [
+    "PAYRI_MANGO",
+    "PAIRI_MANGO"
+  ],
+  "पायरी आंबा": [
+    "PAYRI_MANGO",
+    "PAIRI_MANGO"
+  ],
+  "pairi": [
+    "PAYRI_MANGO",
+    "PAIRI_MANGO"
+  ],
+  "लंगडा आंबा": [
+    "LANGDA_MANGO",
+    "LANGRA_MANGO"
+  ],
+  "langra": [
+    "LANGDA_MANGO",
+    "LANGRA_MANGO"
+  ],
+  "बदामी आंबा": [
+    "BANGANAPALLI_MANGO",
+    "BADAMI_MANGO"
+  ],
+  "badami": [
+    "BANGANAPALLI_MANGO",
+    "BADAMI_MANGO"
+  ],
+  "rajapuri": [
+    "RAJAPURI_MANGO",
+    "RAJAPURI_TURMERIC_SEED_RHIZOME"
+  ],
+  "mallika": [
+    "MALLIKA_MANGO",
+    "MALLIKA_LENTIL_SEEDS"
+  ],
   "ratna": [
     "RATNA_MANGO",
     "RATNA_PADDY_SEEDS"
   ],
+  "sindhu": [
+    "SINDHU_MANGO",
+    "SINDHU_CORIANDER_SEEDS"
+  ],
+  "गावरान आंबा": [
+    "DESI_MANGO",
+    "DESI_LOCAL_MANGO"
+  ],
+  "pickling mango": [
+    "PICKLE_MANGO",
+    "PICKLING_MANGO"
+  ],
+  "वेलची केळी": [
+    "ELAICHI_BANANA",
+    "VELCHI_KELI_BANANA"
+  ],
   "velchi": [
     "ELAICHI_BANANA",
-    "CARDAMOM"
+    "CARDAMOM",
+    "VELCHI_PADDY_SEEDS"
+  ],
+  "yelakki": [
+    "ELAICHI_BANANA",
+    "YELAKKI_BANANA"
+  ],
+  "बसराई केळी": [
+    "ROBUSTA_BANANA",
+    "BASRAI_BANANA"
+  ],
+  "basrai": [
+    "ROBUSTA_BANANA",
+    "BASRAI_BANANA"
+  ],
+  "cavendish": [
+    "ROBUSTA_BANANA",
+    "CAVENDISH_BANANA"
+  ],
+  "grand naine": [
+    "ROBUSTA_BANANA",
+    "GRAND_NAINE_BANANA"
   ],
   "jalgaon banana": [
     "ROBUSTA_BANANA",
@@ -191,9 +359,50 @@
     "RAJELI_BANANA",
     "VASAI_BANANA"
   ],
+  "sharad": [
+    "SHARAD_SEEDLESS_GRAPES",
+    "SHARAD_PIGEON_PEA_SEEDS",
+    "SHARAD_GRAPES"
+  ],
   "black grapes": [
     "SHARAD_SEEDLESS_GRAPES",
     "BLACK_GRAPES"
+  ],
+  "nagpur santra": [
+    "NAGPUR_ORANGE",
+    "NAGPUR_SANTRA_ORANGE"
+  ],
+  "red guava": [
+    "PINK_GUAVA",
+    "RED_GUAVA"
+  ],
+  "lalit guava": [
+    "PINK_GUAVA",
+    "LALIT_GUAVA"
+  ],
+  "safeda": [
+    "ALLAHABAD_SAFEDA_GUAVA",
+    "SAFEDA_APRICOT"
+  ],
+  "white guava": [
+    "ALLAHABAD_SAFEDA_GUAVA",
+    "WHITE_GUAVA"
+  ],
+  "lucknow 49": [
+    "SARDAR_GUAVA",
+    "LUCKNOW_49_GUAVA"
+  ],
+  "कागदी लिंबू": [
+    "KAGZI_LIME",
+    "KAGZI_LEMON"
+  ],
+  "kagzi nimbu": [
+    "KAGZI_LIME",
+    "KAGZI_NIMBU_LEMON"
+  ],
+  "purandar anjeer": [
+    "POONA_FIG",
+    "PURANDAR_ANJEER_FIG"
   ],
   "तोरण": [
     "TORAN_FRUIT",
@@ -203,13 +412,22 @@
     "TORAN_FRUIT",
     "TORAN"
   ],
+  "mogra": [
+    "ARABIAN_JASMINE",
+    "MOGRA_PADDY_SEEDS"
+  ],
   "bela": [
     "ARABIAN_JASMINE",
     "JASMINE_SAMBAC_PLANT"
   ],
   "jai": [
     "JAI_JASMINE",
-    "OATS"
+    "OATS",
+    "JAI_FIELD_PEA_SEEDS"
+  ],
+  "champa": [
+    "CHAMPA",
+    "CHAMPA_BANANA"
   ],
   "aak": [
     "CALOTROPIS_FLOWERS",
@@ -227,6 +445,10 @@
     "MIXED_FLOWER_GARLAND",
     "NECKLACE"
   ],
+  "bouquet": [
+    "FLOWER_BOUQUET",
+    "BOUQUET_DILL_SEEDS"
+  ],
   "maka": [
     "MAIZE",
     "BHRINGRAJ_DRY"
@@ -243,13 +465,95 @@
     "PROSO_MILLET",
     "CHHENA"
   ],
+  "rajgira": [
+    "AMARANTH_GRAIN",
+    "RAJGIRA_AMARANTH_SEEDS"
+  ],
+  "amaranth seeds": [
+    "AMARANTH_GRAIN",
+    "AMARANTH_SEEDS"
+  ],
   "maldandi": [
     "DAGADI_JOWAR",
-    "MALDANDI_35_1_JOWAR_SEEDS"
+    "MALDANDI_35_1_JOWAR_SEEDS",
+    "MALDANDI_SORGHUM_SEEDS"
+  ],
+  "shalu jowar": [
+    "SHALU_JOWAR",
+    "SHALU_JOWAR_SORGHUM_SEEDS"
+  ],
+  "rabi jowar": [
+    "SHALU_JOWAR",
+    "RABI_JOWAR_SORGHUM_SEEDS"
+  ],
+  "hybrid jowar": [
+    "HYBRID_JOWAR",
+    "HYBRID_JOWAR_SORGHUM_SEEDS"
+  ],
+  "kharif jowar": [
+    "HYBRID_JOWAR",
+    "KHARIF_JOWAR_SORGHUM_SEEDS"
+  ],
+  "khapli": [
+    "KHAPLI_WHEAT",
+    "KHAPLI_WHEAT_SEEDS"
+  ],
+  "lokwan": [
+    "LOKWAN_WHEAT",
+    "LOKWAN_WHEAT_SEEDS"
+  ],
+  "sharbati": [
+    "SHARBATI_WHEAT",
+    "SHARBATI_WHEAT_SEEDS"
+  ],
+  "durum wheat": [
+    "DURUM_WHEAT",
+    "DURUM_WHEAT_SEEDS"
+  ],
+  "ambemohar": [
+    "AMBEMOHAR_RICE",
+    "AMBEMOHAR_PADDY_SEEDS"
+  ],
+  "kolam": [
+    "KOLAM_RICE",
+    "KOLAM_PADDY_SEEDS"
   ],
   "wada kolam": [
     "KOLAM_RICE",
-    "WADA_KOLAM_RICE"
+    "WADA_KOLAM_RICE",
+    "WADA_KOLAM_PADDY_SEEDS"
+  ],
+  "basmati": [
+    "BASMATI_RICE",
+    "BASMATI_PADDY_SEEDS"
+  ],
+  "red rice": [
+    "RED_RICE",
+    "RED_RICE_PADDY_SEEDS"
+  ],
+  "brown rice": [
+    "BROWN_RICE",
+    "BROWN_RICE_PADDY_SEEDS"
+  ],
+  "black rice": [
+    "BLACK_RICE",
+    "BLACK_RICE_PADDY_SEEDS"
+  ],
+  "chak hao": [
+    "BLACK_RICE",
+    "CHAK_HAO_PADDY_SEEDS"
+  ],
+  "jirga": [
+    "JEERAKASALA_RICE",
+    "JIRGA_PADDY_SEEDS"
+  ],
+  "kalanamak": [
+    "KALA_NAMAK_RICE",
+    "KALANAMAK_PADDY_SEEDS"
+  ],
+  "ghansal": [
+    "GHANSAL_RICE",
+    "GHANSAL_PADDY_SEEDS"
   ],
   "chivda": [
     "POHA",
@@ -258,6 +562,10 @@
   "bhadang": [
     "BHADANG_MURMURE",
     "KURMURA_CHIVDA"
+  ],
+  "लाई": [
+    "LAJA_LAHYA",
+    "LAI_BIHAR"
   ],
   "jowar lahya": [
     "LAJA_LAHYA",
@@ -276,13 +584,37 @@
     "CHICKPEA",
     "BLACK_CHICKPEA"
   ],
+  "kabuli chana": [
+    "KABULI_CHANA",
+    "KABULI_CHANA_CHICKPEA_SEEDS"
+  ],
   "chole": [
     "KABULI_CHANA",
     "CHOLE"
   ],
+  "desi chana": [
+    "BLACK_CHICKPEA",
+    "DESI_CHANA_CHICKPEA_SEEDS"
+  ],
+  "green chana": [
+    "GREEN_CHICKPEA_DRY",
+    "GREEN_CHANA_CHICKPEA_SEEDS"
+  ],
+  "dry peas": [
+    "DRY_PEAS",
+    "DRY_PEAS_GREEN_PEAS_SEEDS"
+  ],
   "matki usal": [
     "MATKI_SPROUTS",
     "MATKI_USAL"
+  ],
+  "panchmel dal": [
+    "MIXED_DAL",
+    "PANCHMEL_DAL"
+  ],
+  "ragi malt": [
+    "NACHNI_SATVA",
+    "RAGI_MALT"
   ],
   "ghavan": [
     "GHAVAN_PITH",
@@ -296,6 +628,14 @@
     "WHEAT_BRAN",
     "WHEAT_BRAN_FEED"
   ],
+  "byadgi": [
+    "BYADGI_CHILLI",
+    "BYADGI_DRY_RED_CHILLI_SEEDS"
+  ],
+  "sankeshwari": [
+    "SANKESHWARI_CHILLI",
+    "SANKESHWARI_GREEN_CHILLI_SEEDS"
+  ],
   "mace": [
     "MACE",
     "GADA"
@@ -308,9 +648,17 @@
     "KOKUM",
     "GARCINIA"
   ],
+  "kasuri methi": [
+    "KASURI_METHI",
+    "KASURI_METHI_FENUGREEK_SEEDS"
+  ],
   "chana masala": [
     "CHHOLE_MASALA",
     "CHOLE"
+  ],
+  "जलजीरा": [
+    "JALJEERA_POWDER",
+    "JALJEERA_RAJASTHANI"
   ],
   "copra": [
     "COCONUT_COPRA",
@@ -319,6 +667,10 @@
   "khopra": [
     "COCONUT_COPRA",
     "DRIED_COCONUT"
+  ],
+  "milling copra": [
+    "COCONUT_COPRA",
+    "MILLING_COPRA_COCONUT"
   ],
   "pongamia": [
     "KARANJ_SEEDS",
@@ -332,6 +684,18 @@
     "SHRIKHAND",
     "ELAICHI_SHRIKHAND"
   ],
+  "बासुंदी": [
+    "BASUNDI",
+    "BASUNDI_GUJARATI"
+  ],
+  "रबडी": [
+    "RABDI",
+    "RABRI"
+  ],
+  "rabri": [
+    "RABDI",
+    "RABRI"
+  ],
   "malai kulfi": [
     "KULFI",
     "MALAI_KULFI"
@@ -339,6 +703,10 @@
   "kandi pedha": [
     "PEDHA",
     "KANDI_PEDHA"
+  ],
+  "belgaum kunda": [
+    "KUNDA",
+    "BELGAUM_KUNDA"
   ],
   "quail": [
     "QUAIL_EGGS",
@@ -351,6 +719,10 @@
   "cock": [
     "ROOSTER",
     "SHUTTLECOCK"
+  ],
+  "turkey": [
+    "TURKEY",
+    "TURKEY_APRICOT"
   ],
   "murgi": [
     "CHICKEN",
@@ -406,6 +778,14 @@
     "KHADI_SAKHAR",
     "MISHRI_TOOTH_POWDER"
   ],
+  "gola": [
+    "COCONUT_HALVES",
+    "GOLA_MANGO"
+  ],
+  "भुना मखाना": [
+    "ROASTED_MAKHANA",
+    "MAKHANA_ROASTED"
+  ],
   "dink": [
     "GOND",
     "GUM"
@@ -414,17 +794,141 @@
     "RAISINS",
     "MUNAKKA"
   ],
+  "सुके अंजीर": [
+    "DRIED_FIGS",
+    "DRIED_ANJEER_FIG"
+  ],
+  "हलीम": [
+    "HALIM_SEEDS",
+    "HALEEM"
+  ],
+  "रवा लड्डू": [
+    "RAVA_LADOO",
+    "RAVVA_LADDU"
+  ],
   "khajur ladoo": [
     "DRY_FRUIT_LADOO",
     "DATES_LADOO"
+  ],
+  "चुरमा लाडू": [
+    "CHURMA_LADOO",
+    "CHURMA_LADOO_GUJARATI"
   ],
   "kaju barfi": [
     "KAJU_KATLI",
     "KAJU_BARFI"
   ],
+  "धारवाड पेढा": [
+    "DHARWAD_PEDHA",
+    "DHARWAD_PEDA"
+  ],
+  "dharwad peda": [
+    "DHARWAD_PEDHA",
+    "DHARWAD_PEDA"
+  ],
+  "मथुरा पेड़ा": [
+    "MATHURA_PEDHA",
+    "MATHURA_PEDA"
+  ],
+  "mathura peda": [
+    "MATHURA_PEDHA",
+    "MATHURA_PEDA"
+  ],
+  "गाजर का हलवा": [
+    "GAJAR_HALWA",
+    "GAJAR_HALWA_PUNJABI",
+    "GAAJAR_HALWA_LUCKNOW"
+  ],
   "kaju pista roll": [
     "KAJU_ROLL",
     "KAJU_PISTA_ROLL"
+  ],
+  "patisa": [
+    "SOAN_PAPDI",
+    "PATISA"
+  ],
+  "म्हैसूर पाक": [
+    "MYSORE_PAK",
+    "MYSORE_PAK_KARNATAKA",
+    "MYSORE_PAK_ANDHRA",
+    "MYSORE_PAK_TAMIL"
+  ],
+  "उकडीचे मोदक": [
+    "UKADICHE_MODAK",
+    "UKDICHE_MODAK_KONKAN"
+  ],
+  "angoori petha": [
+    "AGRA_PETHA",
+    "ANGOORI_PETHA"
+  ],
+  "sukhdi": [
+    "GUL_PAPDI",
+    "SUKHDI"
+  ],
+  "मूंगफली चिक्की": [
+    "PEANUT_CHIKKI",
+    "CHIKKI_MOONGFALI"
+  ],
+  "गुलाब जामुन": [
+    "GULAB_JAMUN",
+    "GULAB_JAMUN_RAJASTHANI"
+  ],
+  "rosogolla": [
+    "RASGULLA",
+    "ROSOGOLLA"
+  ],
+  "जलेबी": [
+    "JALEBI",
+    "JALEBI_PUNJABI"
+  ],
+  "इमरती": [
+    "IMARTI",
+    "IMARTI_RAJASTHANI"
+  ],
+  "बालूशाही": [
+    "BALUSHAHI",
+    "BALUSHAHI_RAJASTHANI",
+    "BALUSHAHI_BIHAR"
+  ],
+  "शाही टुकड़ा": [
+    "SHAHI_TUKDA",
+    "SHAHI_TUKDA_MP"
+  ],
+  "double ka meetha": [
+    "SHAHI_TUKDA",
+    "DOUBLE_KA_MEETHA"
+  ],
+  "अनरसा": [
+    "ANARSA",
+    "ANARSA_CHHATTISGARH"
+  ],
+  "neureos": [
+    "KARANJI",
+    "NEUREOS"
+  ],
+  "holige": [
+    "PURAN_POLI",
+    "HOLIGE"
+  ],
+  "obbattu": [
+    "PURAN_POLI",
+    "OBBATTU"
+  ],
+  "मीठे चावल": [
+    "SAKHARBHAT",
+    "MEETHE_CHAWAL"
+  ],
+  "meethe chawal": [
+    "SAKHARBHAT",
+    "MEETHE_CHAWAL"
+  ],
+  "दूधपाक": [
+    "DUDH_PAK",
+    "DOODHPAK"
+  ],
+  "kesari bath": [
+    "KESARI_BHAT",
+    "KESARI_BATH"
   ],
   "sweet box": [
     "MITHAI_ASSORTED_BOX",
@@ -441,6 +945,26 @@
   "chakri": [
     "CHAKLI",
     "CHAKRI_CRACKERS"
+  ],
+  "रतलामी सेव": [
+    "RATLAMI_SEV",
+    "RATLAMI_SEV_MP"
+  ],
+  "kodubale": [
+    "KADBOLI",
+    "KODUBALE"
+  ],
+  "bhavnagri gathiya": [
+    "GATHIYA",
+    "BHAVNAGRI_GATHIYA"
+  ],
+  "केळी वेफर्स": [
+    "BANANA_CHIPS",
+    "BANANA_CHIPS_TAMIL"
+  ],
+  "समोसा": [
+    "SAMOSA",
+    "SAMOSA_UP"
   ],
   "bhel": [
     "BHEL_MIX",
@@ -462,17 +986,107 @@
     "MISAL_PAV",
     "PUNERI_MISAL"
   ],
+  "mirchi vada": [
+    "MIRCHI_BHAJI",
+    "MIRCHI_VADA"
+  ],
+  "साबूदाना खिचड़ी": [
+    "SABUDANA_KHICHDI",
+    "SABUDANA_KHICHDI_INDORI"
+  ],
+  "kutchi dabeli": [
+    "DABELI",
+    "KUTCHI_DABELI"
+  ],
+  "paniyaram": [
+    "APPE",
+    "PANIYARAM"
+  ],
   "patra": [
     "ALU_VADI",
-    "GI_ROOFING_SHEET"
+    "GI_ROOFING_SHEET",
+    "PATRA"
+  ],
+  "ब्रेड पकोड़ा": [
+    "BREAD_PAKODA",
+    "BREAD_PAKORA_UP"
+  ],
+  "रगडा पॅटिस": [
+    "RAGDA_PATTICE",
+    "RAGDA_PATTICE_GUJARATI"
+  ],
+  "avakaya": [
+    "AVAKAYA_PICKLE",
+    "AVAKAYA"
+  ],
+  "chhundo": [
+    "MANGO_CHUNDA",
+    "CHHUNDO"
+  ],
+  "gongura pachadi": [
+    "GONGURA_PICKLE",
+    "GONGURA_PACHADI"
+  ],
+  "puli inji": [
+    "TAMARIND_PICKLE",
+    "PULI_INJI"
+  ],
+  "ker sangri": [
+    "KER_SANGRI_PICKLE",
+    "KER_SANGRI"
+  ],
+  "लहसुन की चटनी": [
+    "GARLIC_CHUTNEY",
+    "LEHSUN_CHUTNEY_RAJASTHANI",
+    "LAHSUN_KI_CHUTNEY"
   ],
   "kharda": [
     "GREEN_CHILLI_THECHA",
     "KHARDA"
   ],
+  "इडली पोडी": [
+    "IDLI_CHUTNEY_POWDER",
+    "IDLI_PODI"
+  ],
+  "idli podi": [
+    "IDLI_CHUTNEY_POWDER",
+    "IDLI_PODI"
+  ],
+  "बड़ी": [
+    "SANDGE",
+    "BARI_BIHAR"
+  ],
   "khichiya": [
     "MIRGUNDA",
     "KHICHIYA_PAPAD"
+  ],
+  "बाजरे की रोटी": [
+    "BAJRA_BHAKRI",
+    "BAJRA_ROTI_RAJASTHANI"
+  ],
+  "तांदळाची भाकरी": [
+    "RICE_BHAKRI",
+    "TANDALACHI_BHAKRI_KONKAN"
+  ],
+  "makki di roti": [
+    "MAKKI_ROTI",
+    "MAKKI_DI_ROTI"
+  ],
+  "methi thepla": [
+    "THEPLA",
+    "METHI_THEPLA"
+  ],
+  "ghavne": [
+    "GHAVAN",
+    "GHAVNE"
+  ],
+  "amritsari kulcha": [
+    "KULCHA",
+    "AMRITSARI_KULCHA"
+  ],
+  "malvani fish thali": [
+    "FISH_THALI",
+    "MALVANI_FISH_THALI"
   ],
   "dabba": [
     "TIFFIN_MEAL",
@@ -491,9 +1105,33 @@
     "BIRYANI",
     "VEG_BIRYANI"
   ],
+  "बैंगन भर्ता": [
+    "VANGYACHE_BHARIT",
+    "BAINGAN_BHARTA_PUNJABI"
+  ],
   "surmai fry": [
     "FISH_FRY",
     "SURMAI_FRY"
+  ],
+  "अंडा करी": [
+    "EGG_CURRY",
+    "EGG_CURRY_PUNJABI"
+  ],
+  "मटन करी": [
+    "MUTTON_CURRY",
+    "MUTTON_CURRY_PUNJABI"
+  ],
+  "अंडा भुर्जी": [
+    "EGG_BHURJI",
+    "ANDA_BHURJI_PUNJABI"
+  ],
+  "dal baati churma": [
+    "DAL_BAATI",
+    "DAL_BAATI_CHURMA"
+  ],
+  "dhokla mix": [
+    "INSTANT_DHOKLA_MIX",
+    "DHOKLA_MIX"
   ],
   "ladi pav": [
     "PAV",
@@ -511,6 +1149,18 @@
     "TEA_POWDER",
     "TEA_DUST"
   ],
+  "filter coffee": [
+    "COFFEE_POWDER",
+    "FILTER_COFFEE"
+  ],
+  "फिल्टर कॉफी": [
+    "FILTER_COFFEE_POWDER",
+    "FILTER_COFFEE"
+  ],
+  "कोकम सरबत": [
+    "KOKUM_SHARBAT",
+    "GOAN_KOKUM_SHERBET"
+  ],
   "kokum syrup": [
     "KOKUM_SHARBAT",
     "KOKUM_SYRUP"
@@ -522,6 +1172,19 @@
   "soda": [
     "SODA",
     "WASHING_SODA"
+  ],
+  "ठंडाई": [
+    "THANDAI",
+    "THANDAI_PUNJABI",
+    "THANDAI_RAJASTHANI"
+  ],
+  "बदाम दूध": [
+    "BADAM_MILK",
+    "BADAM_DOODH"
+  ],
+  "badam doodh": [
+    "BADAM_MILK",
+    "BADAM_DOODH"
   ],
   "क्रिसमस ट्री": [
     "CHRISTMAS_TREE_PLANT",
@@ -585,6 +1248,30 @@
     "GROUNDNUT_CAKE",
     "GROUNDNUT_OIL_CAKE"
   ],
+  "लाल भोपळा बियाणे": [
+    "PUMPKIN_SOWING_SEEDS",
+    "RED_PUMPKIN_SEEDS"
+  ],
+  "हल्दी बीज": [
+    "TURMERIC_SEED_RHIZOMES",
+    "TURMERIC_SEED_RHIZOME"
+  ],
+  "turmeric seed": [
+    "TURMERIC_SEED_RHIZOMES",
+    "TURMERIC_SEED_RHIZOME"
+  ],
+  "अदरक बीज": [
+    "GINGER_SEED_RHIZOMES",
+    "GINGER_SEED_RHIZOME"
+  ],
+  "ginger seed": [
+    "GINGER_SEED_RHIZOMES",
+    "GINGER_SEED_RHIZOME"
+  ],
+  "लहसुन बीज": [
+    "GARLIC_SEED_CLOVES",
+    "GARLIC_SEEDS"
+  ],
   "napier": [
     "NAPIER_GRASS_SLIPS",
     "NAPIER_GRASS"
@@ -609,9 +1296,17 @@
     "BERSEEM_SEEDS",
     "BERSEEM"
   ],
+  "चारा मका बियाणे": [
+    "FODDER_MAIZE_SEEDS",
+    "FODDER_MAIZE_VARIETY_SEEDS"
+  ],
   "african tall": [
     "FODDER_MAIZE_SEEDS",
     "AFRICAN_TALL_MAIZE_SEEDS"
+  ],
+  "चारा ज्वारी बियाणे": [
+    "FODDER_SORGHUM_SEEDS",
+    "FODDER_SORGHUM_VARIETY_SEEDS"
   ],
   "mop": [
     "MURIATE_OF_POTASH",
@@ -706,6 +1401,12 @@
     "COTTON_WICKS",
     "STEEL_BOWL"
   ],
+  "annapurna": [
+    "ANNAPURNA_IDOL",
+    "ANNAPURNA_AMARANTH_SEEDS",
+    "ANNAPURNA_SWEET_POTATO_VINES",
+    "ANNAPURNA_PADDY_SEEDS"
+  ],
   "bell": [
     "PUJA_GHANTI",
     "DOORBELL"
@@ -730,6 +1431,14 @@
   "whitener": [
     "FABRIC_WHITENER",
     "CORRECTION_PEN"
+  ],
+  "khar": [
+    "WASHING_SODA",
+    "KHAR"
+  ],
+  "कांजी": [
+    "STARCH_POWDER",
+    "KANJI_PUNJABI"
   ],
   "scrubber": [
     "SCRUBBER",
@@ -852,7 +1561,8 @@
   ],
   "ravi": [
     "WHISK",
-    "WOODEN_CHURNER"
+    "WOODEN_CHURNER",
+    "RAVI_SUNFLOWER_SEEDS"
   ],
   "koti": [
     "RICE_DRUM",
@@ -974,6 +1684,10 @@
     "FILE_TOOL",
     "FILE_FOLDER"
   ],
+  "bulb": [
+    "LED_BULB",
+    "BULB_TURMERIC_SEED_RHIZOME"
+  ],
   "socket": [
     "SOCKET",
     "PIPE_COUPLER"
@@ -1016,7 +1730,8 @@
   ],
   "cricket ball": [
     "CRICKET_BALL",
-    "CRICKET_BALL_SAPOTA_PLANT"
+    "CRICKET_BALL_SAPOTA_PLANT",
+    "CRICKET_BALL_SAPOTA"
   ],
   "peti": [
     "HARMONIUM",
@@ -1054,6 +1769,18 @@
     "LOLLIPOP",
     "CHICKEN_LOLLIPOP"
   ],
+  "रेवड़ी": [
+    "REWDI",
+    "REWRI"
+  ],
+  "rewri": [
+    "REWDI",
+    "REWRI"
+  ],
+  "til gajak": [
+    "GAJAK",
+    "TIL_GAJAK"
+  ],
   "nuggets": [
     "FROZEN_SNACKS",
     "CHICKEN_NUGGETS"
@@ -1078,9 +1805,443 @@
     "SWING",
     "KIDS_SWING"
   ],
+  "moti": [
+    "BEADS",
+    "MOTI_PADDY_SEEDS"
+  ],
+  "niaw 301": [
+    "TRIMBAK_WHEAT_SEEDS",
+    "NIAW_301_WHEAT_SEEDS"
+  ],
+  "niaw 917": [
+    "TAPOVAN_WHEAT_SEEDS",
+    "NIAW_917_WHEAT_SEEDS"
+  ],
+  "niaw 1994": [
+    "PHULE_SAMADHAN_WHEAT_SEEDS",
+    "NIAW_1994_WHEAT_SEEDS"
+  ],
+  "niaw 1415": [
+    "NETRAVATI_WHEAT_SEEDS",
+    "NIAW_1415_WHEAT_SEEDS"
+  ],
+  "m 35-1": [
+    "MALDANDI_35_1_JOWAR_SEEDS",
+    "M_35_1_SORGHUM_SEEDS"
+  ],
+  "फुले वसुधा ज्वार बीज": [
+    "PHULE_VASUDHA_JOWAR_SEEDS",
+    "PHULE_VASUDHA_SORGHUM_SEEDS"
+  ],
+  "फुले वसुधा ज्वारी बियाणे": [
+    "PHULE_VASUDHA_JOWAR_SEEDS",
+    "PHULE_VASUDHA_SORGHUM_SEEDS"
+  ],
+  "phule vasudha": [
+    "PHULE_VASUDHA_JOWAR_SEEDS",
+    "PHULE_VASUDHA_SORGHUM_SEEDS"
+  ],
+  "फुले सुचित्रा ज्वार बीज": [
+    "PHULE_SUCHITRA_JOWAR_SEEDS",
+    "PHULE_SUCHITRA_SORGHUM_SEEDS"
+  ],
+  "फुले सुचित्रा ज्वारी बियाणे": [
+    "PHULE_SUCHITRA_JOWAR_SEEDS",
+    "PHULE_SUCHITRA_SORGHUM_SEEDS"
+  ],
+  "phule suchitra": [
+    "PHULE_SUCHITRA_JOWAR_SEEDS",
+    "PHULE_SUCHITRA_SORGHUM_SEEDS"
+  ],
+  "फुले रेवती ज्वार बीज": [
+    "PHULE_REVATI_JOWAR_SEEDS",
+    "PHULE_REVATI_SORGHUM_SEEDS"
+  ],
+  "फुले रेवती ज्वारी बियाणे": [
+    "PHULE_REVATI_JOWAR_SEEDS",
+    "PHULE_REVATI_SORGHUM_SEEDS"
+  ],
+  "phule revati": [
+    "PHULE_REVATI_JOWAR_SEEDS",
+    "PHULE_REVATI_SORGHUM_SEEDS"
+  ],
+  "फुले अनुराधा ज्वार बीज": [
+    "PHULE_ANURADHA_JOWAR_SEEDS",
+    "PHULE_ANURADHA_SORGHUM_SEEDS"
+  ],
+  "फुले अनुराधा ज्वारी बियाणे": [
+    "PHULE_ANURADHA_JOWAR_SEEDS",
+    "PHULE_ANURADHA_SORGHUM_SEEDS"
+  ],
+  "phule anuradha": [
+    "PHULE_ANURADHA_JOWAR_SEEDS",
+    "PHULE_ANURADHA_SORGHUM_SEEDS"
+  ],
+  "परभणी मोती ज्वार बीज": [
+    "PARBHANI_MOTI_JOWAR_SEEDS",
+    "PARBHANI_MOTI_SORGHUM_SEEDS"
+  ],
+  "परभणी मोती ज्वारी बियाणे": [
+    "PARBHANI_MOTI_JOWAR_SEEDS",
+    "PARBHANI_MOTI_SORGHUM_SEEDS"
+  ],
+  "parbhani moti": [
+    "PARBHANI_MOTI_JOWAR_SEEDS",
+    "PARBHANI_MOTI_MAIZE_SEEDS",
+    "PARBHANI_MOTI_SORGHUM_SEEDS"
+  ],
+  "फुले यशोदा ज्वार बीज": [
+    "PHULE_YASHODA_JOWAR_SEEDS",
+    "PHULE_YASHODA_SORGHUM_SEEDS"
+  ],
+  "फुले यशोदा ज्वारी बियाणे": [
+    "PHULE_YASHODA_JOWAR_SEEDS",
+    "PHULE_YASHODA_SORGHUM_SEEDS"
+  ],
+  "phule yashoda": [
+    "PHULE_YASHODA_JOWAR_SEEDS",
+    "PHULE_YASHODA_SORGHUM_SEEDS"
+  ],
+  "धनशक्ती बाजरी बियाणे": [
+    "DHANSHAKTI_BAJRA_SEEDS",
+    "DHANSHAKTI_PEARL_MILLET_SEEDS"
+  ],
+  "dhanshakti": [
+    "DHANSHAKTI_BAJRA_SEEDS",
+    "DHANSHAKTI_PEARL_MILLET_SEEDS"
+  ],
+  "iron rich bajra": [
+    "DHANSHAKTI_BAJRA_SEEDS",
+    "IRON_RICH_BAJRA_PEARL_MILLET_SEEDS"
+  ],
+  "फुले आदिशक्ती बाजरी बियाणे": [
+    "PHULE_ADISHAKTI_BAJRA_SEEDS",
+    "PHULE_ADISHAKTI_PEARL_MILLET_SEEDS"
+  ],
+  "phule adishakti": [
+    "PHULE_ADISHAKTI_BAJRA_SEEDS",
+    "PHULE_ADISHAKTI_PEARL_MILLET_SEEDS"
+  ],
+  "जया धान बीज": [
+    "JAYA_PADDY_SEEDS",
+    "JAYA_RICE_PADDY_SEEDS"
+  ],
+  "जया भात बियाणे": [
+    "JAYA_PADDY_SEEDS",
+    "JAYA_RICE_PADDY_SEEDS"
+  ],
+  "sahyadri": [
+    "SAHYADRI_HYBRID_PADDY_SEEDS",
+    "SAHYADRI_PADDY_SEEDS"
+  ],
+  "दापोली 1 रागी बीज": [
+    "DAPOLI_1_NACHNI_SEEDS",
+    "DAPOLI_1_FINGER_MILLET_SEEDS"
+  ],
+  "दापोली 1 नाचणी बियाणे": [
+    "DAPOLI_1_NACHNI_SEEDS",
+    "DAPOLI_1_FINGER_MILLET_SEEDS"
+  ],
+  "samrudhi": [
+    "MAUS_71_SOYBEAN_SEEDS",
+    "SAMRUDHI_SOYBEAN_SEEDS"
+  ],
+  "kds 726": [
+    "PHULE_SANGAM_SOYBEAN_SEEDS",
+    "KDS_726_SOYBEAN_SEEDS"
+  ],
+  "kds 753": [
+    "PHULE_KIMAYA_SOYBEAN_SEEDS",
+    "KDS_753_SOYBEAN_SEEDS"
+  ],
+  "ds 228": [
+    "PHULE_KALYANI_SOYBEAN_SEEDS",
+    "DS_228_SOYBEAN_SEEDS"
+  ],
+  "बीडीएन 711 तूर बियाणे": [
+    "BDN_711_TUR_SEEDS",
+    "BDN_711_PIGEON_PEA_SEEDS"
+  ],
+  "bdn 711": [
+    "BDN_711_TUR_SEEDS",
+    "BDN_711_PIGEON_PEA_SEEDS"
+  ],
+  "बीडीएन 716 तूर बियाणे": [
+    "BDN_716_TUR_SEEDS",
+    "BDN_716_PIGEON_PEA_SEEDS"
+  ],
+  "bdn 716": [
+    "BDN_716_TUR_SEEDS",
+    "BDN_716_PIGEON_PEA_SEEDS"
+  ],
+  "विपुला तूर बियाणे": [
+    "VIPULA_TUR_SEEDS",
+    "VIPULA_PIGEON_PEA_SEEDS"
+  ],
+  "vipula": [
+    "VIPULA_TUR_SEEDS",
+    "VIPULA_PIGEON_PEA_SEEDS"
+  ],
+  "आशा तूर बियाणे": [
+    "ASHA_TUR_SEEDS",
+    "ASHA_PIGEON_PEA_SEEDS"
+  ],
+  "icpl 87119": [
+    "ASHA_TUR_SEEDS",
+    "ICPL_87119_PIGEON_PEA_SEEDS"
+  ],
+  "विजय चना बीज": [
+    "VIJAY_GRAM_SEEDS",
+    "VIJAY_CHICKPEA_SEEDS"
+  ],
+  "विजय हरभरा बियाणे": [
+    "VIJAY_GRAM_SEEDS",
+    "VIJAY_CHICKPEA_SEEDS"
+  ],
+  "दिग्विजय चना बीज": [
+    "DIGVIJAY_GRAM_SEEDS",
+    "DIGVIJAY_CHICKPEA_SEEDS"
+  ],
+  "दिग्विजय हरभरा बियाणे": [
+    "DIGVIJAY_GRAM_SEEDS",
+    "DIGVIJAY_CHICKPEA_SEEDS"
+  ],
+  "digvijay": [
+    "DIGVIJAY_GRAM_SEEDS",
+    "DIGVIJAY_CHICKPEA_SEEDS"
+  ],
+  "विशाल चना बीज": [
+    "VISHAL_GRAM_SEEDS",
+    "VISHAL_CHICKPEA_SEEDS"
+  ],
+  "विशाल हरभरा बियाणे": [
+    "VISHAL_GRAM_SEEDS",
+    "VISHAL_CHICKPEA_SEEDS"
+  ],
+  "vishal": [
+    "VISHAL_GRAM_SEEDS",
+    "VISHAL_CHICKPEA_SEEDS"
+  ],
+  "फुले विक्रम चना बीज": [
+    "PHULE_VIKRAM_GRAM_SEEDS",
+    "PHULE_VIKRAM_CHICKPEA_SEEDS"
+  ],
+  "फुले विक्रम हरभरा बियाणे": [
+    "PHULE_VIKRAM_GRAM_SEEDS",
+    "PHULE_VIKRAM_CHICKPEA_SEEDS"
+  ],
+  "phule vikram": [
+    "PHULE_VIKRAM_GRAM_SEEDS",
+    "PHULE_VIKRAM_COWPEA_SEEDS",
+    "PHULE_VIKRAM_CHICKPEA_SEEDS"
+  ],
+  "जाकी 9218 चना बीज": [
+    "JAKI_9218_GRAM_SEEDS",
+    "JAKI_9218_CHICKPEA_SEEDS"
+  ],
+  "जाकी 9218 हरभरा बियाणे": [
+    "JAKI_9218_GRAM_SEEDS",
+    "JAKI_9218_CHICKPEA_SEEDS"
+  ],
+  "jaki 9218": [
+    "JAKI_9218_GRAM_SEEDS",
+    "JAKI_9218_CHICKPEA_SEEDS"
+  ],
+  "जेजी 11 चना बीज": [
+    "JG_11_GRAM_SEEDS",
+    "JG_11_CHICKPEA_SEEDS"
+  ],
+  "जेजी 11 हरभरा बियाणे": [
+    "JG_11_GRAM_SEEDS",
+    "JG_11_CHICKPEA_SEEDS"
+  ],
+  "jg 11": [
+    "JG_11_GRAM_SEEDS",
+    "JG_11_CHICKPEA_SEEDS"
+  ],
+  "virat": [
+    "VIRAT_KABULI_GRAM_SEEDS",
+    "VIRAT_CHICKPEA_SEEDS"
+  ],
+  "बीएम 2003-2 मूंग बीज": [
+    "BM_2003_2_MOONG_SEEDS",
+    "BM_2003_2_GREEN_GRAM_SEEDS"
+  ],
+  "बीएम 2003-2 मूग बियाणे": [
+    "BM_2003_2_MOONG_SEEDS",
+    "BM_2003_2_GREEN_GRAM_SEEDS"
+  ],
+  "bm 2003-2": [
+    "BM_2003_2_MOONG_SEEDS",
+    "BM_2003_2_GREEN_GRAM_SEEDS"
+  ],
+  "वैभव मूंग बीज": [
+    "VAIBHAV_MOONG_SEEDS",
+    "VAIBHAV_GREEN_GRAM_SEEDS"
+  ],
+  "वैभव मूग बियाणे": [
+    "VAIBHAV_MOONG_SEEDS",
+    "VAIBHAV_GREEN_GRAM_SEEDS"
+  ],
+  "vaibhav": [
+    "VAIBHAV_MOONG_SEEDS",
+    "VAIBHAV_TOMATO_SEEDS",
+    "VAIBHAV_GREEN_GRAM_SEEDS"
+  ],
+  "टीएयू 1 उड़द बीज": [
+    "TAU_1_UDID_SEEDS",
+    "TAU_1_BLACK_GRAM_SEEDS",
+    "TAU_1_URAD_BLACK_GRAM_SEEDS"
+  ],
+  "टीएयू 1 उडीद बियाणे": [
+    "TAU_1_UDID_SEEDS",
+    "TAU_1_BLACK_GRAM_SEEDS",
+    "TAU_1_URAD_BLACK_GRAM_SEEDS"
+  ],
+  "tau 1": [
+    "TAU_1_UDID_SEEDS",
+    "TAU_1_BLACK_GRAM_SEEDS"
+  ],
+  "jl 24": [
+    "PHULE_PRAGATI_GROUNDNUT_SEEDS",
+    "JL_24_GROUNDNUT_SEEDS"
+  ],
   "white onion seeds": [
     "BHIMA_SHWETA_ONION_SEEDS",
     "WHITE_ONION_SEEDS"
+  ],
+  "phule suvarna": [
+    "PHULE_SUVARNA_ONION_SEEDS",
+    "PHULE_SUVARNA_GREEN_GRAM_SEEDS"
+  ],
+  "phule jyoti": [
+    "PHULE_JYOTI_CHILLI_SEEDS",
+    "PHULE_JYOTI_GREEN_CHILLI_SEEDS"
+  ],
+  "phule sai": [
+    "PHULE_SAI_CHILLI_SEEDS",
+    "PHULE_SAI_GREEN_CHILLI_SEEDS"
+  ],
+  "pusa jwala": [
+    "PUSA_JWALA_CHILLI_SEEDS",
+    "PUSA_JWALA_GREEN_CHILLI_SEEDS"
+  ],
+  "jwala": [
+    "PUSA_JWALA_CHILLI_SEEDS",
+    "JWALA_GREEN_CHILLI_SEEDS"
+  ],
+  "पूसा स्नोबॉल फूलगोभी बीज": [
+    "PUSA_SNOWBALL_CAULIFLOWER_SEEDS",
+    "POOS_SNOWBALL_CAULIFLOWER_SEEDS"
+  ],
+  "अर्का कोमल फरसबी बियाणे": [
+    "ARKA_KOMAL_FRENCH_BEAN_SEEDS",
+    "ARKA_KOMAL_FRENCH_BEANS_SEEDS"
+  ],
+  "arka komal": [
+    "ARKA_KOMAL_FRENCH_BEAN_SEEDS",
+    "ARKA_KOMAL_FRENCH_BEANS_SEEDS"
+  ],
+  "pusa navbahar": [
+    "PUSA_NAVBAHAR_CLUSTER_BEAN_SEEDS",
+    "PUSA_NAVBAHAR_CLUSTER_BEANS_SEEDS"
+  ],
+  "आर्केल मटर बीज": [
+    "ARKEL_PEA_SEEDS",
+    "ARKEL_GREEN_PEAS_SEEDS"
+  ],
+  "आर्केल वाटाणा बियाणे": [
+    "ARKEL_PEA_SEEDS",
+    "ARKEL_GREEN_PEAS_SEEDS"
+  ],
+  "arkel": [
+    "ARKEL_PEA_SEEDS",
+    "ARKEL_GREEN_PEAS_SEEDS"
+  ],
+  "कसूरी मेथी बीज": [
+    "KASURI_METHI_SEEDS",
+    "KASURI_METHI_FENUGREEK_SEEDS"
+  ],
+  "taiwan 786": [
+    "RED_LADY_PAPAYA_SEEDS",
+    "TAIWAN_786_PAPAYA"
+  ],
+  "kufri jyoti": [
+    "KUFRI_JYOTI_SEED_POTATO",
+    "KUFRI_JYOTI_POTATO_SEED_TUBERS"
+  ],
+  "kufri pukhraj": [
+    "KUFRI_PUKHRAJ_SEED_POTATO",
+    "KUFRI_PUKHRAJ_POTATO_SEED_TUBERS"
+  ],
+  "kufri lauvkar": [
+    "KUFRI_LAUVKAR_SEED_POTATO",
+    "KUFRI_LAUVKAR_POTATO_SEED_TUBERS"
+  ],
+  "salem turmeric seed": [
+    "SALEM_TURMERIC_SEED",
+    "SALEM_TURMERIC_SEED_RHIZOME"
+  ],
+  "सेलम हल्दी बीज": [
+    "SALEM_TURMERIC_SEED",
+    "SALEM_TURMERIC_SEED_RHIZOME",
+    "SELAM_TURMERIC_SEED_RHIZOME"
+  ],
+  "rajapuri turmeric seed": [
+    "RAJAPURI_TURMERIC_SEED",
+    "RAJAPURI_TURMERIC_SEED_RHIZOME"
+  ],
+  "राजापुरी हल्दी बीज": [
+    "RAJAPURI_TURMERIC_SEED",
+    "RAJAPURI_TURMERIC_SEED_RHIZOME"
+  ],
+  "waigaon turmeric seed": [
+    "WAIGAON_TURMERIC_SEED",
+    "WAIGAON_TURMERIC_SEED_RHIZOME"
+  ],
+  "solapur lal": [
+    "SOLAPUR_LAL_POMEGRANATE_PLANT",
+    "SOLAPUR_LAL_POMEGRANATE"
+  ],
+  "mridula": [
+    "MRIDULA_POMEGRANATE_PLANT",
+    "MRIDULA_POMEGRANATE"
+  ],
+  "phule purandar": [
+    "PHULE_PURANDAR_CUSTARD_APPLE_PLANT",
+    "PHULE_PURANDAR_CUSTARD_APPLE"
+  ],
+  "golden sitaphal": [
+    "NMK_1_GOLDEN_CUSTARD_APPLE_PLANT",
+    "GOLDEN_SITAPHAL_CUSTARD_APPLE"
+  ],
+  "lalit": [
+    "LALIT_GUAVA_PLANT",
+    "LALIT_GUAVA"
+  ],
+  "arka kiran": [
+    "ARKA_KIRAN_GUAVA_PLANT",
+    "ARKA_KIRAN_GUAVA"
+  ],
+  "taiwan pink": [
+    "TAIWAN_PINK_GUAVA_PLANT",
+    "TAIWAN_PINK_GUAVA"
+  ],
+  "banavali": [
+    "BANAVALI_COCONUT_SEEDLING",
+    "BANAVALI_COCONUT"
+  ],
+  "west coast tall": [
+    "BANAVALI_COCONUT_SEEDLING",
+    "WEST_COAST_TALL_COCONUT"
+  ],
+  "dinkar": [
+    "DINKAR_FIG_PLANT",
+    "DINKAR_FIG"
+  ],
+  "phule sharbati": [
+    "PHULE_SHARBATI_LEMON_PLANT",
+    "PHULE_SHARBATI_LEMON"
   ],
   "morpankhi": [
     "THUJA",
@@ -1089,6 +2250,14 @@
   "dhoma": [
     "CROAKER",
     "DHOMA"
+  ],
+  "बोंबील फ्राय": [
+    "BOMBIL_FRY",
+    "BOMBIL_FRY_GOAN"
+  ],
+  "सुरमई फ्राय": [
+    "SURMAI_FRY",
+    "SURMAI_FRY_KONKAN"
   ],
   "birde": [
     "VALACHE_BIRDE",
@@ -1102,6 +2271,22 @@
     "TAAK_BHAT",
     "DAHI_BHAT"
   ],
+  "seekh kebab": [
+    "KEBAB",
+    "SEEKH_KEBAB"
+  ],
+  "आमरस पुरी": [
+    "AAMRAS_PURI",
+    "MANGO_AAMRAS_PURI"
+  ],
+  "फेनी": [
+    "PHENYA",
+    "PHENI_SWEET"
+  ],
+  "sharkara varatti": [
+    "SWEET_BANANA_CHIPS",
+    "SHARKARA_VARATTI"
+  ],
   "patla": [
     "BATHROOM_STOOL",
     "PATLA"
@@ -1110,12 +2295,1121 @@
     "SUN_SHADE_CURTAIN",
     "BAMBOO_CHIK"
   ],
+  "foundation": [
+    "FOUNDATION",
+    "FOUNDATION_POTATO_SEED_TUBERS"
+  ],
   "kashmiri garlic": [
     "SINGLE_CLOVE_GARLIC",
     "KASHMIRI_GARLIC"
   ],
+  "edamame": [
+    "SOYBEAN_PODS_FRESH",
+    "EDAMAME_SOYBEAN_SEEDS"
+  ],
   "ragi cookies": [
     "MILLET_COOKIES",
     "RAGI_COOKIES"
+  ],
+  "शीरा": [
+    "MOLASSES",
+    "SHEERA_RAJASTHANI"
+  ],
+  "shalu": [
+    "SHALU",
+    "SHALU_SORGHUM_SEEDS"
+  ],
+  "भिंडी मसाला": [
+    "BHINDI_MASALA",
+    "BHINDI_MASALA_PUNJABI"
+  ],
+  "chitranna": [
+    "LEMON_RICE",
+    "CHITRANNA"
+  ],
+  "puliyogare": [
+    "TAMARIND_RICE",
+    "PULIYOGARE"
+  ],
+  "म्हैसूर मसाला डोसा": [
+    "MYSORE_MASALA_DOSA",
+    "MASALA_DOSE_MYSORE"
+  ],
+  "surti ghari": [
+    "GHARI",
+    "SURTI_GHARI"
+  ],
+  "अधिरसम": [
+    "ADHIRASAM",
+    "ATHIRASAM"
+  ],
+  "swiss chard": [
+    "SWISS_CHARD",
+    "SWISS_CHARD_PALAK_LEAF_BEET_SEEDS"
+  ],
+  "कचरी": [
+    "KACHRI",
+    "KACHRI_BIHAR"
+  ],
+  "honeydew": [
+    "HONEYDEW_MELON",
+    "HONEYDEW_MUSKMELON_SEEDS"
+  ],
+  "sharda": [
+    "SHARDA_MELON",
+    "SHARDA_PIGEON_PEA_SEEDS"
+  ],
+  "जळगाव केळी": [
+    "JALGAON_BANANA",
+    "JALGAON_KELI_BANANA"
+  ],
+  "jalgaon keli": [
+    "JALGAON_BANANA",
+    "JALGAON_KELI_BANANA"
+  ],
+  "dahanu chikoo": [
+    "GHOLVAD_CHIKOO",
+    "DAHANU_CHIKOO_SAPOTA"
+  ],
+  "black masoor": [
+    "MASOOR_WHOLE_BLACK",
+    "BLACK_MASOOR_LENTIL_SEEDS"
+  ],
+  "bhut jolokia": [
+    "BHUT_JOLOKIA",
+    "BHUT_JOLOKIA_DRY_RED_CHILLI_SEEDS"
+  ],
+  "dwarf coconut": [
+    "DWARF_COCONUT_SEEDLING",
+    "DWARF_COCONUT"
+  ],
+  "केसर श्रीखंड": [
+    "KESAR_SHRIKHAND",
+    "SHRIKHAND_KESAR"
+  ],
+  "इलायची श्रीखंड": [
+    "ELAICHI_SHRIKHAND",
+    "SHRIKHAND_ELAICHI"
+  ],
+  "खोया जलेबी": [
+    "KHAWA_JALEBI",
+    "KHOYA_JALEBI"
+  ],
+  "mawa jalebi": [
+    "KHAWA_JALEBI",
+    "MAWA_JALEBI"
+  ],
+  "kandhari": [
+    "KANDHARI_HING",
+    "KANDHARI_POMEGRANATE"
+  ],
+  "dilkush": [
+    "DILKHUSH",
+    "DILKUSH_GRAPES"
+  ],
+  "dilpasand": [
+    "DILKHUSH",
+    "DILPASAND_MANGO"
+  ],
+  "पातोळ्या": [
+    "PATOLI",
+    "PATOLEO"
+  ],
+  "dal dhokli": [
+    "VARAN_PHAL",
+    "DAL_DHOKLI"
+  ],
+  "उंधियू": [
+    "UNDHIYU",
+    "UNDHIYU_GUJARATI"
+  ],
+  "हांडवो": [
+    "HANDVO",
+    "HANDVO_GUJARATI"
+  ],
+  "भीमा शुभ्रा प्याज बीज": [
+    "BHIMA_SUBHRA_ONION_SEEDS",
+    "BHIMA_SHUBHRA_ONION_SEEDS"
+  ],
+  "भीमा शुभ्रा कांदा बियाणे": [
+    "BHIMA_SUBHRA_ONION_SEEDS",
+    "BHIMA_SHUBHRA_ONION_SEEDS"
+  ],
+  "agrifound white": [
+    "AGRIFOUND_WHITE_ONION_SEEDS",
+    "AGRIFOUND_WHITE_GARLIC_SEEDS"
+  ],
+  "pusa red": [
+    "PUSA_RED_ONION_SEEDS",
+    "PUSA_RED_SWEET_POTATO_VINES"
+  ],
+  "punjab selection": [
+    "PUNJAB_SELECTION_ONION_SEEDS",
+    "PUNJAB_SELECTION_SPINACH_SEEDS"
+  ],
+  "gulabi": [
+    "GULABI_ONION_SEEDS",
+    "GULABI_GRAPES"
+  ],
+  "hybrid red": [
+    "HYBRID_RED_ONION_SEEDS",
+    "HYBRID_RED_CARROT_SEEDS",
+    "HYBRID_RED_WATERMELON_SEEDS"
+  ],
+  "open pollinated": [
+    "OPEN_POLLINATED_ONION_SEEDS",
+    "OPEN_POLLINATED_TOMATO_SEEDS"
+  ],
+  "गावरान कांदा बियाणे": [
+    "DESI_LOCAL_ONION_SEEDS",
+    "GAVRAN_ONION_SEEDS"
+  ],
+  "desi local": [
+    "DESI_LOCAL_ONION_SEEDS",
+    "DESI_LOCAL_BOTTLE_GOURD_SEEDS",
+    "DESI_LOCAL_MANGO"
+  ],
+  "shweta": [
+    "SHWETA_GARLIC_SEEDS",
+    "SHWETA_CAULIFLOWER_SEEDS",
+    "SHWETA_GUAVA"
+  ],
+  "ooty 1": [
+    "OOTY_1_GARLIC_SEEDS",
+    "OOTY_1_CARROT_SEEDS"
+  ],
+  "desi": [
+    "DESI_GARLIC_SEEDS",
+    "DESI_GREEN_CHILLI_SEEDS",
+    "DESI_OKRA_SEEDS",
+    "DESI_CABBAGE_SEEDS",
+    "DESI_RADISH_SEEDS",
+    "DESI_BEETROOT_SEEDS",
+    "DESI_SPINACH_SEEDS",
+    "DESI_BITTER_GOURD_SEEDS",
+    "DESI_RIDGE_GOURD_SEEDS",
+    "DESI_SPONGE_GOURD_SEEDS",
+    "DESI_PUMPKIN_SEEDS",
+    "DESI_SNAKE_GOURD_SEEDS",
+    "DESI_WATERMELON_SEEDS",
+    "DESI_MUSKMELON_SEEDS",
+    "DESI_GREEN_PEAS_SEEDS",
+    "DESI_FRENCH_BEANS_SEEDS",
+    "DESI_COWPEA_SEEDS",
+    "DESI_LABLAB_BEAN_SEEDS",
+    "DESI_SWEET_CORN_SEEDS"
+  ],
+  "hybrid": [
+    "HYBRID_SPRING_ONION_SEEDS",
+    "HYBRID_OKRA_SEEDS",
+    "HYBRID_CABBAGE_SEEDS",
+    "HYBRID_BROCCOLI_SEEDS",
+    "HYBRID_RED_CABBAGE_SEEDS",
+    "HYBRID_KOHLRABI_SEEDS",
+    "HYBRID_RADISH_SEEDS",
+    "HYBRID_BEETROOT_SEEDS",
+    "HYBRID_SPINACH_SEEDS",
+    "HYBRID_FENUGREEK_SEEDS",
+    "HYBRID_AMARANTH_SEEDS",
+    "HYBRID_RIDGE_GOURD_SEEDS",
+    "HYBRID_SPONGE_GOURD_SEEDS",
+    "HYBRID_PUMPKIN_SEEDS",
+    "HYBRID_ASH_GOURD_SEEDS",
+    "HYBRID_SNAKE_GOURD_SEEDS",
+    "HYBRID_ROUND_GOURD_SEEDS",
+    "HYBRID_ZUCCHINI_SEEDS",
+    "HYBRID_GREEN_PEAS_SEEDS",
+    "HYBRID_FRENCH_BEANS_SEEDS",
+    "HYBRID_CLUSTER_BEANS_SEEDS",
+    "HYBRID_COWPEA_SEEDS",
+    "HYBRID_LABLAB_BEAN_SEEDS",
+    "HYBRID_SWEET_POTATO_VINES",
+    "HYBRID_ELEPHANT_FOOT_YAM_SEED",
+    "HYBRID_BABY_CORN_SEEDS",
+    "HYBRID_DRUMSTICK_SEEDS",
+    "HYBRID_IVY_GOURD_VINES",
+    "HYBRID_QUINOA_SEEDS"
+  ],
+  "long white": [
+    "LONG_WHITE_SPRING_ONION_SEEDS",
+    "LONG_WHITE_RADISH_SEEDS"
+  ],
+  "pusa hybrid 1": [
+    "PUSA_HYBRID_1_TOMATO_SEEDS",
+    "PUSA_HYBRID_1_CUCUMBER_SEEDS",
+    "PUSA_HYBRID_1_BITTER_GOURD_SEEDS",
+    "PUSA_HYBRID_1_PUMPKIN_SEEDS"
+  ],
+  "pusa hybrid 2": [
+    "PUSA_HYBRID_2_TOMATO_SEEDS",
+    "PUSA_HYBRID_2_CABBAGE_SEEDS",
+    "PUSA_HYBRID_2_CAULIFLOWER_SEEDS",
+    "PUSA_HYBRID_2_BITTER_GOURD_SEEDS"
+  ],
+  "pusa sadabahar": [
+    "PUSA_SADABAHAR_TOMATO_SEEDS",
+    "PUSA_SADABAHAR_GREEN_CHILLI_SEEDS",
+    "PUSA_SADABAHAR_CLUSTER_BEANS_SEEDS"
+  ],
+  "pusa uphar": [
+    "PUSA_UPHAR_TOMATO_SEEDS",
+    "PUSA_UPHAR_GREEN_PEAS_SEEDS"
+  ],
+  "arka samrat": [
+    "ARKA_SAMRAT_TOMATO_SEEDS",
+    "ARKA_SAMRAT_COWPEA_SEEDS"
+  ],
+  "co-3": [
+    "CO_3_TOMATO_SEEDS",
+    "CO_3_GREEN_CHILLI_SEEDS",
+    "CO_3_OKRA_SEEDS",
+    "CO_3_CORIANDER_SEEDS",
+    "CO_3_AMARANTH_SEEDS",
+    "CO_3_LABLAB_BEAN_SEEDS",
+    "CO_3_SWEET_POTATO_VINES",
+    "CO_3_TAPIOCA_STEMS"
+  ],
+  "pkm-1": [
+    "PKM_1_TOMATO_SEEDS",
+    "PKM_1_GREEN_CHILLI_SEEDS"
+  ],
+  "roma": [
+    "ROMA_TOMATO_SEEDS",
+    "ROMA_TURMERIC_SEED_RHIZOME"
+  ],
+  "rajshree": [
+    "RAJSHREE_TOMATO_SEEDS",
+    "RAJSHREE_PADDY_SEEDS"
+  ],
+  "co-1": [
+    "CO_1_TOMATO_SEEDS",
+    "CO_1_GREEN_CHILLI_SEEDS",
+    "CO_1_OKRA_SEEDS",
+    "CO_1_FENUGREEK_SEEDS",
+    "CO_1_CORIANDER_SEEDS",
+    "CO_1_AMARANTH_SEEDS",
+    "CO_1_BOTTLE_GOURD_SEEDS",
+    "CO_1_BITTER_GOURD_SEEDS",
+    "CO_1_RIDGE_GOURD_SEEDS",
+    "CO_1_PUMPKIN_SEEDS",
+    "CO_1_ASH_GOURD_SEEDS",
+    "CO_1_SNAKE_GOURD_SEEDS",
+    "CO_1_LABLAB_BEAN_SEEDS",
+    "CO_1_SWEET_POTATO_VINES",
+    "CO_1_TURMERIC_SEED_RHIZOME",
+    "CO_1_TAPIOCA_STEMS"
+  ],
+  "co-2": [
+    "CO_2_TOMATO_SEEDS",
+    "CO_2_GREEN_CHILLI_SEEDS",
+    "CO_2_OKRA_SEEDS",
+    "CO_2_CORIANDER_SEEDS",
+    "CO_2_AMARANTH_SEEDS",
+    "CO_2_BOTTLE_GOURD_SEEDS",
+    "CO_2_RIDGE_GOURD_SEEDS",
+    "CO_2_PUMPKIN_SEEDS",
+    "CO_2_ASH_GOURD_SEEDS",
+    "CO_2_SNAKE_GOURD_SEEDS",
+    "CO_2_LABLAB_BEAN_SEEDS",
+    "CO_2_SWEET_POTATO_VINES",
+    "CO_2_TAPIOCA_STEMS"
+  ],
+  "hybrid round": [
+    "HYBRID_ROUND_TOMATO_SEEDS",
+    "HYBRID_ROUND_BRINJAL_SEEDS",
+    "HYBRID_ROUND_BOTTLE_GOURD_SEEDS"
+  ],
+  "yellow": [
+    "YELLOW_TOMATO_SEEDS",
+    "YELLOW_BABY_CORN_SEEDS"
+  ],
+  "pear shaped": [
+    "PEAR_SHAPED_TOMATO_SEEDS",
+    "PEAR_SHAPED_BOTTLE_GOURD_SEEDS"
+  ],
+  "pusa anmol": [
+    "PUSA_ANMOL_BRINJAL_SEEDS",
+    "PUSA_ANMOL_WHEAT_SEEDS"
+  ],
+  "swarna shakti": [
+    "SWARNA_SHAKTI_BRINJAL_SEEDS",
+    "SWARNA_SHAKTI_PADDY_SEEDS"
+  ],
+  "konkan tara": [
+    "KONKAN_TARA_BRINJAL_SEEDS",
+    "KONKAN_TARA_BITTER_GOURD_SEEDS"
+  ],
+  "green long": [
+    "GREEN_LONG_BRINJAL_SEEDS",
+    "GREEN_LONG_OKRA_SEEDS"
+  ],
+  "striped": [
+    "STRIPED_BRINJAL_SEEDS",
+    "STRIPED_WATERMELON_SEEDS"
+  ],
+  "hybrid long": [
+    "HYBRID_LONG_BRINJAL_SEEDS",
+    "HYBRID_LONG_CUCUMBER_SEEDS",
+    "HYBRID_LONG_BOTTLE_GOURD_SEEDS",
+    "HYBRID_LONG_BITTER_GOURD_SEEDS",
+    "HYBRID_LONG_PADDY_SEEDS"
+  ],
+  "pusa mukta": [
+    "PUSA_MUKTA_GREEN_CHILLI_SEEDS",
+    "PUSA_MUKTA_CABBAGE_SEEDS"
+  ],
+  "अर्का हरिता हरी मिर्च बीज": [
+    "ARKA_HARITA_GREEN_CHILLI_SEEDS",
+    "ARKA_HARITHA_GREEN_CHILLI_SEEDS"
+  ],
+  "अर्का हरिता हिरवी मिरची बियाणे": [
+    "ARKA_HARITA_GREEN_CHILLI_SEEDS",
+    "ARKA_HARITHA_GREEN_CHILLI_SEEDS"
+  ],
+  "k-1": [
+    "K_1_GREEN_CHILLI_SEEDS",
+    "K_1_CABBAGE_SEEDS"
+  ],
+  "co-4": [
+    "CO_4_GREEN_CHILLI_SEEDS",
+    "CO_4_CORIANDER_SEEDS",
+    "CO_4_AMARANTH_SEEDS",
+    "CO_4_LABLAB_BEAN_SEEDS",
+    "CO_4_TAPIOCA_STEMS"
+  ],
+  "jwalamukhi": [
+    "JWALAMUKHI_GREEN_CHILLI_SEEDS",
+    "JWALAMUKHI_SUNFLOWER_SEEDS"
+  ],
+  "ghati": [
+    "GHATI_GREEN_CHILLI_SEEDS",
+    "GHATI_PADDY_SEEDS"
+  ],
+  "phule kirti": [
+    "PHULE_KIRTI_OKRA_SEEDS",
+    "PHULE_KIRTI_RIDGE_GOURD_SEEDS"
+  ],
+  "देसी भिंडी बीज": [
+    "DESI_OKRA_SEEDS",
+    "GAVRAN_OKRA_SEEDS"
+  ],
+  "गावरान भेंडी बियाणे": [
+    "DESI_OKRA_SEEDS",
+    "GAVRAN_OKRA_SEEDS"
+  ],
+  "pusa ageti": [
+    "PUSA_AGETI_CABBAGE_SEEDS",
+    "PUSA_AGETI_PIGEON_PEA_SEEDS"
+  ],
+  "pusa sharad": [
+    "PUSA_SHARAD_CABBAGE_SEEDS",
+    "PUSA_SHARAD_CAULIFLOWER_SEEDS"
+  ],
+  "krishna": [
+    "KRISHNA_CABBAGE_SEEDS",
+    "KRISHNA_TURMERIC_SEED_RHIZOME",
+    "KRISHNA_BLACK_GRAM_SEEDS",
+    "KRISHNA_MUSTARD_SEEDS"
+  ],
+  "pusa shubhra": [
+    "PUSA_SHUBHRA_CAULIFLOWER_SEEDS",
+    "PUSA_SHUBHRA_CHICKPEA_SEEDS"
+  ],
+  "basanti": [
+    "BASANTI_CAULIFLOWER_SEEDS",
+    "BASANTI_MUSTARD_SEEDS"
+  ],
+  "kashi lal": [
+    "KASHI_LAL_CARROT_SEEDS",
+    "KASHI_LAL_RADISH_SEEDS"
+  ],
+  "punjab rasila": [
+    "PUNJAB_RASILA_CARROT_SEEDS",
+    "PUNJAB_RASILA_MUSKMELON_SEEDS"
+  ],
+  "punjab safed": [
+    "PUNJAB_SAFED_RADISH_SEEDS",
+    "PUNJAB_SAFED_TURNIP_SEEDS"
+  ],
+  "long leaf": [
+    "LONG_LEAF_SPINACH_SEEDS",
+    "LONG_LEAF_DILL_SEEDS"
+  ],
+  "seed type": [
+    "SEED_TYPE_CORIANDER_SEEDS",
+    "SEED_TYPE_CLUSTER_BEANS_SEEDS"
+  ],
+  "dual purpose": [
+    "DUAL_PURPOSE_CORIANDER_SEEDS",
+    "DUAL_PURPOSE_CLUSTER_BEANS_SEEDS"
+  ],
+  "co-5": [
+    "CO_5_AMARANTH_SEEDS",
+    "CO_5_LABLAB_BEAN_SEEDS",
+    "CO_5_TAPIOCA_STEMS"
+  ],
+  "pusa kiran": [
+    "PUSA_KIRAN_AMARANTH_SEEDS",
+    "PUSA_KIRAN_WHEAT_SEEDS"
+  ],
+  "लाल माठ बियाणे": [
+    "RED_MATH_AMARANTH_SEEDS",
+    "RED_AMARANTH_SEEDS"
+  ],
+  "हिरवा माठ बियाणे": [
+    "GREEN_MATH_AMARANTH_SEEDS",
+    "GREEN_AMARANTH_SEEDS"
+  ],
+  "suvarna": [
+    "SUVARNA_AMARANTH_SEEDS",
+    "SUVARNA_TURMERIC_SEED_RHIZOME"
+  ],
+  "mammoth": [
+    "MAMMOTH_DILL_SEEDS",
+    "MAMMOTH_CUSTARD_APPLE"
+  ],
+  "फुले शुभांगी खीरा बीज": [
+    "PHULE_SHUBHANGI_CUCUMBER_SEEDS",
+    "PHULE_SUBHANGI_CUCUMBER_SEEDS"
+  ],
+  "फुले शुभांगी काकडी बियाणे": [
+    "PHULE_SHUBHANGI_CUCUMBER_SEEDS",
+    "PHULE_SUBHANGI_CUCUMBER_SEEDS"
+  ],
+  "arka manik": [
+    "ARKA_MANIK_CUCUMBER_SEEDS",
+    "ARKA_MANIK_WATERMELON_SEEDS"
+  ],
+  "hybrid short": [
+    "HYBRID_SHORT_CUCUMBER_SEEDS",
+    "HYBRID_SHORT_BITTER_GOURD_SEEDS"
+  ],
+  "गावरान काकडी बियाणे": [
+    "DESI_KAKDI_CUCUMBER_SEEDS",
+    "DESI_CUCUMBER_SEEDS"
+  ],
+  "pusa komal": [
+    "PUSA_KOMAL_BOTTLE_GOURD_SEEDS",
+    "PUSA_KOMAL_COWPEA_SEEDS"
+  ],
+  "dwarf": [
+    "DWARF_BOTTLE_GOURD_SEEDS",
+    "DWARF_GREEN_PEAS_SEEDS"
+  ],
+  "priya": [
+    "PRIYA_BITTER_GOURD_SEEDS",
+    "PRIYA_SWEET_CORN_SEEDS"
+  ],
+  "mdu-1": [
+    "MDU_1_BITTER_GOURD_SEEDS",
+    "MDU_1_SNAKE_GOURD_SEEDS"
+  ],
+  "kashi harit": [
+    "KASHI_HARIT_BITTER_GOURD_SEEDS",
+    "KASHI_HARIT_PUMPKIN_SEEDS"
+  ],
+  "smooth": [
+    "SMOOTH_BITTER_GOURD_SEEDS",
+    "SMOOTH_CHAYOTE_SEEDS"
+  ],
+  "kerala local": [
+    "KERALA_LOCAL_BITTER_GOURD_SEEDS",
+    "KERALA_LOCAL_GINGER_SEED_RHIZOME"
+  ],
+  "pusa sneha": [
+    "PUSA_SNEHA_RIDGE_GOURD_SEEDS",
+    "PUSA_SNEHA_SPONGE_GOURD_SEEDS"
+  ],
+  "संकरितोरई बीज": [
+    "HYBRID_RIDGE_GOURD_SEEDS",
+    "HYBRID_ZUCCHINI_SEEDS"
+  ],
+  "long": [
+    "LONG_RIDGE_GOURD_SEEDS",
+    "LONG_SPONGE_GOURD_SEEDS",
+    "LONG_ASH_GOURD_SEEDS"
+  ],
+  "short": [
+    "SHORT_RIDGE_GOURD_SEEDS",
+    "SHORT_SPONGE_GOURD_SEEDS"
+  ],
+  "pusa alankar": [
+    "PUSA_ALANKAR_PUMPKIN_SEEDS",
+    "PUSA_ALANKAR_ZUCCHINI_SEEDS"
+  ],
+  "durgapura kesar": [
+    "DURGAPURA_KESAR_WATERMELON_SEEDS",
+    "DURGAPURA_KESAR_MUSKMELON_SEEDS"
+  ],
+  "पूसा रसाल तरबूज बीज": [
+    "PUSA_RASAL_WATERMELON_SEEDS",
+    "PUSA_RASAAL_WATERMELON_SEEDS"
+  ],
+  "पूसा रसाल कलिंगड बियाणे": [
+    "PUSA_RASAL_WATERMELON_SEEDS",
+    "PUSA_RASAAL_WATERMELON_SEEDS"
+  ],
+  "punjab sunehri": [
+    "PUNJAB_SUNEHRI_WATERMELON_SEEDS",
+    "PUNJAB_SUNEHRI_MUSKMELON_SEEDS"
+  ],
+  "yellow flesh": [
+    "YELLOW_FLESH_WATERMELON_SEEDS",
+    "YELLOW_FLESH_POTATO_SEED_TUBERS"
+  ],
+  "mulching type": [
+    "MULCHING_TYPE_WATERMELON_SEEDS",
+    "MULCHING_TYPE_MUSKMELON_SEEDS"
+  ],
+  "kashi madhu": [
+    "KASHI_MADHU_MUSKMELON_SEEDS",
+    "KASHI_MADHU_FRENCH_BEANS_SEEDS"
+  ],
+  "local": [
+    "LOCAL_CHAYOTE_SEEDS",
+    "LOCAL_SWORD_BEAN_SEEDS",
+    "LOCAL_BROAD_BEANS_SEEDS",
+    "LOCAL_TURMERIC_SEED_RHIZOME",
+    "LOCAL_COLOCASIA_SEED_CORMS",
+    "LOCAL_POPCORN_SEEDS",
+    "LOCAL_CURRY_LEAF_SEEDS",
+    "LOCAL_PARWAL_VINES"
+  ],
+  "अर्कार्तिक मटर बीज": [
+    "ARKA_KARTHIK_GREEN_PEAS_SEEDS",
+    "ARKA_KARTIK_GREEN_PEAS_SEEDS"
+  ],
+  "अर्कार्तिक वाटाणा बियाणे": [
+    "ARKA_KARTHIK_GREEN_PEAS_SEEDS",
+    "ARKA_KARTIK_GREEN_PEAS_SEEDS"
+  ],
+  "व्हीएल मटर 42 बीज": [
+    "VL_MATAR_42_GREEN_PEAS_SEEDS",
+    "VL_MATAR_42_FIELD_PEA_SEEDS"
+  ],
+  "व्हीएल मटर 42 वाटाणा बियाणे": [
+    "VL_MATAR_42_GREEN_PEAS_SEEDS",
+    "VL_MATAR_42_FIELD_PEA_SEEDS"
+  ],
+  "व्हीएल मटर 47 बीज": [
+    "VL_MATAR_47_GREEN_PEAS_SEEDS",
+    "VL_MATAR_47_FIELD_PEA_SEEDS"
+  ],
+  "व्हीएल मटर 47 वाटाणा बियाणे": [
+    "VL_MATAR_47_GREEN_PEAS_SEEDS",
+    "VL_MATAR_47_FIELD_PEA_SEEDS"
+  ],
+  "प्रकाश मटर बीज": [
+    "PRAKASH_GREEN_PEAS_SEEDS",
+    "PRAKASH_FIELD_PEA_SEEDS"
+  ],
+  "प्रकाश वाटाणा बियाणे": [
+    "PRAKASH_GREEN_PEAS_SEEDS",
+    "PRAKASH_FIELD_PEA_SEEDS"
+  ],
+  "prakash": [
+    "PRAKASH_GREEN_PEAS_SEEDS",
+    "PRAKASH_FIELD_PEA_SEEDS"
+  ],
+  "बुटका वाटाणा बियाणे": [
+    "DWARF_GREEN_PEAS_SEEDS",
+    "DWARF_PEA_FIELD_PEA_SEEDS"
+  ],
+  "उंच वाटाणा बियाणे": [
+    "TALL_GREEN_PEAS_SEEDS",
+    "TALL_PEA_FIELD_PEA_SEEDS"
+  ],
+  "लवकर वाटाणा बियाणे": [
+    "EARLY_GREEN_PEAS_SEEDS",
+    "EARLY_PEA_FIELD_PEA_SEEDS"
+  ],
+  "उशिरा वाटाणा बियाणे": [
+    "LATE_GREEN_PEAS_SEEDS",
+    "LATE_PEA_FIELD_PEA_SEEDS"
+  ],
+  "pusa parvati": [
+    "PUSA_PARVATI_FRENCH_BEANS_SEEDS",
+    "PUSA_PARVATI_CHICKPEA_SEEDS"
+  ],
+  "bush type": [
+    "BUSH_TYPE_FRENCH_BEANS_SEEDS",
+    "BUSH_TYPE_LABLAB_BEAN_SEEDS"
+  ],
+  "pole type": [
+    "POLE_TYPE_FRENCH_BEANS_SEEDS",
+    "POLE_TYPE_LABLAB_BEAN_SEEDS"
+  ],
+  "flat pod": [
+    "FLAT_POD_FRENCH_BEANS_SEEDS",
+    "FLAT_POD_LABLAB_BEAN_SEEDS"
+  ],
+  "purple pod": [
+    "PURPLE_POD_FRENCH_BEANS_SEEDS",
+    "PURPLE_POD_WINGED_BEAN_SEEDS"
+  ],
+  "पूसा नवबहार ग्वार फली बीज": [
+    "PUSA_NAVBAHAR_CLUSTER_BEANS_SEEDS",
+    "PUSA_NAVBAHAR_GUAR_CLUSTER_BEANS_SEEDS"
+  ],
+  "पूसा नवबहार गवार बियाणे": [
+    "PUSA_NAVBAHAR_CLUSTER_BEANS_SEEDS",
+    "PUSA_NAVBAHAR_GUAR_CLUSTER_BEANS_SEEDS"
+  ],
+  "पूसा मौसमी ग्वार फली बीज": [
+    "PUSA_MAUSAMI_CLUSTER_BEANS_SEEDS",
+    "PUSA_MAUSAMI_GUAR_CLUSTER_BEANS_SEEDS"
+  ],
+  "पूसा मौसमी गवार बियाणे": [
+    "PUSA_MAUSAMI_CLUSTER_BEANS_SEEDS",
+    "PUSA_MAUSAMI_GUAR_CLUSTER_BEANS_SEEDS"
+  ],
+  "pusa sukomal": [
+    "PUSA_SUKOMAL_CLUSTER_BEANS_SEEDS",
+    "PUSA_SUKOMAL_COWPEA_SEEDS"
+  ],
+  "long pod": [
+    "LONG_POD_CLUSTER_BEANS_SEEDS",
+    "LONG_POD_DRUMSTICK_SEEDS"
+  ],
+  "short pod": [
+    "SHORT_POD_CLUSTER_BEANS_SEEDS",
+    "SHORT_POD_DRUMSTICK_SEEDS"
+  ],
+  "malika": [
+    "MALIKA_COWPEA_SEEDS",
+    "MALIKA_LENTIL_SEEDS"
+  ],
+  "पावटा सेम बीज": [
+    "GHEVDA_PAVTA_LABLAB_BEAN_SEEDS",
+    "PAVTA_LABLAB_BEAN_SEEDS"
+  ],
+  "पावटा घेवडा बियाणे": [
+    "GHEVDA_PAVTA_LABLAB_BEAN_SEEDS",
+    "PAVTA_LABLAB_BEAN_SEEDS"
+  ],
+  "green pod": [
+    "GREEN_POD_WINGED_BEAN_SEEDS",
+    "GREEN_POD_DRUMSTICK_SEEDS"
+  ],
+  "red skin": [
+    "RED_SKIN_POTATO_SEED_TUBERS",
+    "RED_SKIN_SWEET_POTATO_VINES"
+  ],
+  "श्री रत्ना शकरकंद बेल": [
+    "SREE_RATNA_SWEET_POTATO_VINES",
+    "SREE_RETHNA_SWEET_POTATO_VINES"
+  ],
+  "श्री रत्ना रताळ्याचे वेल": [
+    "SREE_RATNA_SWEET_POTATO_VINES",
+    "SREE_RETHNA_SWEET_POTATO_VINES"
+  ],
+  "samrat": [
+    "SAMRAT_SWEET_POTATO_VINES",
+    "SAMRAT_CHICKPEA_SEEDS"
+  ],
+  "himgiri": [
+    "HIMGIRI_GINGER_SEED_RHIZOME",
+    "HIMGIRI_AMARANTH_GRAIN_SEEDS",
+    "HIMGIRI_BUCKWHEAT_SEEDS"
+  ],
+  "china": [
+    "CHINA_GINGER_SEED_RHIZOME",
+    "CHINA_LITCHI"
+  ],
+  "सेलम हळद बियाणे": [
+    "SALEM_TURMERIC_SEED_RHIZOME",
+    "SELAM_TURMERIC_SEED_RHIZOME"
+  ],
+  "pragati": [
+    "PRAGATI_TURMERIC_SEED_RHIZOME",
+    "PRAGATI_CHICKPEA_SEEDS"
+  ],
+  "गजेंद्र सूरन बीज": [
+    "GAJENDRA_ELEPHANT_FOOT_YAM_SEED",
+    "GAJENDRA_YAM_ELEPHANT_FOOT_YAM_SEED"
+  ],
+  "गजेंद्र सुरण बियाणे": [
+    "GAJENDRA_ELEPHANT_FOOT_YAM_SEED",
+    "GAJENDRA_YAM_ELEPHANT_FOOT_YAM_SEED"
+  ],
+  "konkan ruchira": [
+    "KONKAN_RUCHIRA_DRUMSTICK_SEEDS",
+    "KONKAN_RUCHIRA_MANGO"
+  ],
+  "धनराज सहजन बीज": [
+    "DHANRAJ_DRUMSTICK_SEEDS",
+    "DHANRAJ_MORINGA_DRUMSTICK_SEEDS"
+  ],
+  "धनराज शेवगा बियाणे": [
+    "DHANRAJ_DRUMSTICK_SEEDS",
+    "DHANRAJ_MORINGA_DRUMSTICK_SEEDS"
+  ],
+  "pusa 33": [
+    "PUSA_33_PADDY_SEEDS",
+    "PUSA_33_PIGEON_PEA_SEEDS"
+  ],
+  "पूसा 834 धान बीज": [
+    "PUSA_834_PADDY_SEEDS",
+    "PUSA_834_RICE_PADDY_SEEDS"
+  ],
+  "पूसा 834 भात बियाणे": [
+    "PUSA_834_PADDY_SEEDS",
+    "PUSA_834_RICE_PADDY_SEEDS"
+  ],
+  "सांबा महसुरी धान बीज": [
+    "SAMBHA_MAHSURI_PADDY_SEEDS",
+    "SAMBA_MAHSURI_PADDY_SEEDS"
+  ],
+  "सांबा महसुरी भात बियाणे": [
+    "SAMBHA_MAHSURI_PADDY_SEEDS",
+    "SAMBA_MAHSURI_PADDY_SEEDS"
+  ],
+  "आयआर 36 धान बीज": [
+    "IR_36_PADDY_SEEDS",
+    "IR_36_RICE_PADDY_SEEDS"
+  ],
+  "आयआर 36 भात बियाणे": [
+    "IR_36_PADDY_SEEDS",
+    "IR_36_RICE_PADDY_SEEDS"
+  ],
+  "ज्योती धान बीज": [
+    "JYOTHI_PADDY_SEEDS",
+    "JYOTHI_RICE_PADDY_SEEDS"
+  ],
+  "ज्योती भात बियाणे": [
+    "JYOTHI_PADDY_SEEDS",
+    "JYOTHI_RICE_PADDY_SEEDS"
+  ],
+  "prabhat": [
+    "PRABHAT_PADDY_SEEDS",
+    "PRABHAT_PEACH"
+  ],
+  "सरजू 52 धान बीज": [
+    "SARJOO_52_PADDY_SEEDS",
+    "SARJU_52_PADDY_SEEDS"
+  ],
+  "सरजू 52 भात बियाणे": [
+    "SARJOO_52_PADDY_SEEDS",
+    "SARJU_52_PADDY_SEEDS"
+  ],
+  "mahamaya": [
+    "MAHAMAYA_PADDY_SEEDS",
+    "MAHAMAYA_CHICKPEA_SEEDS"
+  ],
+  "दुबराज धान बीज": [
+    "DUBRAJ_PADDY_SEEDS",
+    "DUBRAJ_RICE_PADDY_SEEDS"
+  ],
+  "दुबराज भात बियाणे": [
+    "DUBRAJ_PADDY_SEEDS",
+    "DUBRAJ_RICE_PADDY_SEEDS"
+  ],
+  "jyoti": [
+    "JYOTI_BARLEY_SEEDS",
+    "JYOTI_POMEGRANATE"
+  ],
+  "azad": [
+    "AZAD_BARLEY_SEEDS",
+    "AZAD_PIGEON_PEA_SEEDS"
+  ],
+  "kent": [
+    "KENT_OATS_SEEDS",
+    "KENT_MANGO"
+  ],
+  "arun": [
+    "ARUN_MAIZE_SEEDS",
+    "ARUN_LENTIL_SEEDS"
+  ],
+  "शाळू ज्वार बीज": [
+    "SHALU_SORGHUM_SEEDS",
+    "SHALU_JOWAR_SORGHUM_SEEDS"
+  ],
+  "शाळू ज्वारी बियाणे": [
+    "SHALU_SORGHUM_SEEDS",
+    "SHALU_JOWAR_SORGHUM_SEEDS"
+  ],
+  "co 8": [
+    "CO_8_PEARL_MILLET_SEEDS",
+    "CO_8_PIGEON_PEA_SEEDS",
+    "CO_8_GROUNDNUT_SEEDS"
+  ],
+  "co 7": [
+    "CO_7_PEARL_MILLET_SEEDS",
+    "CO_7_PIGEON_PEA_SEEDS",
+    "CO_7_GROUNDNUT_SEEDS",
+    "CO_7_PAPAYA"
+  ],
+  "co 6": [
+    "CO_6_PEARL_MILLET_SEEDS",
+    "CO_6_PIGEON_PEA_SEEDS",
+    "CO_6_GROUNDNUT_SEEDS"
+  ],
+  "co 5": [
+    "CO_5_PEARL_MILLET_SEEDS",
+    "CO_5_PIGEON_PEA_SEEDS",
+    "CO_5_GROUNDNUT_SEEDS"
+  ],
+  "co 4": [
+    "CO_4_PEARL_MILLET_SEEDS",
+    "CO_4_FOXTAIL_MILLET_SEEDS",
+    "CO_4_GROUNDNUT_SEEDS"
+  ],
+  "दापोली सफेद रागी बीज": [
+    "DAPOLI_SAFED_FINGER_MILLET_SEEDS",
+    "DAPOLI_WHITE_FINGER_MILLET_SEEDS"
+  ],
+  "दापोली सफेद नाचणी बियाणे": [
+    "DAPOLI_SAFED_FINGER_MILLET_SEEDS",
+    "DAPOLI_WHITE_FINGER_MILLET_SEEDS"
+  ],
+  "co 1": [
+    "CO_1_FOXTAIL_MILLET_SEEDS",
+    "CO_1_PAPAYA"
+  ],
+  "co 2": [
+    "CO_2_FOXTAIL_MILLET_SEEDS",
+    "CO_2_GROUNDNUT_SEEDS",
+    "CO_2_PAPAYA"
+  ],
+  "co 3": [
+    "CO_3_FOXTAIL_MILLET_SEEDS",
+    "CO_3_GROUNDNUT_SEEDS",
+    "CO_3_PAPAYA"
+  ],
+  "paiyur 1": [
+    "PAIYUR_1_LITTLE_MILLET_SEEDS",
+    "PAIYUR_1_HORSE_GRAM_SEEDS"
+  ],
+  "paiyur 2": [
+    "PAIYUR_2_LITTLE_MILLET_SEEDS",
+    "PAIYUR_2_HORSE_GRAM_SEEDS"
+  ],
+  "jk 13": [
+    "JK_13_LITTLE_MILLET_SEEDS",
+    "JK_13_KODO_MILLET_SEEDS"
+  ],
+  "अन्नपूर्णा राजगिरामदाना बीज": [
+    "ANNAPURNA_RAJGIRA_AMARANTH_GRAIN_SEEDS",
+    "ANNAPURNA_AMARANTH_GRAIN_SEEDS"
+  ],
+  "अन्नपूर्णा राजगिरा बियाणे": [
+    "ANNAPURNA_RAJGIRA_AMARANTH_GRAIN_SEEDS",
+    "ANNAPURNA_AMARANTH_GRAIN_SEEDS"
+  ],
+  "आकाश चना बीज": [
+    "AKASH_CHICKPEA_SEEDS",
+    "AKASH_CHANA_CHICKPEA_SEEDS"
+  ],
+  "आकाश हरभरा बियाणे": [
+    "AKASH_CHICKPEA_SEEDS",
+    "AKASH_CHANA_CHICKPEA_SEEDS"
+  ],
+  "सीएसजे 515 चना बीज": [
+    "CSJ_515_CHICKPEA_SEEDS",
+    "CSJ_515_CHANA_CHICKPEA_SEEDS"
+  ],
+  "सीएसजे 515 हरभरा बियाणे": [
+    "CSJ_515_CHICKPEA_SEEDS",
+    "CSJ_515_CHANA_CHICKPEA_SEEDS"
+  ],
+  "kranti": [
+    "KRANTI_CHICKPEA_SEEDS",
+    "KRANTI_MUSTARD_SEEDS"
+  ],
+  "मारुती अरहर बीज": [
+    "MARUTI_PIGEON_PEA_SEEDS",
+    "MARUTI_TUR_PIGEON_PEA_SEEDS"
+  ],
+  "मारुती तूर बियाणे": [
+    "MARUTI_PIGEON_PEA_SEEDS",
+    "MARUTI_TUR_PIGEON_PEA_SEEDS"
+  ],
+  "pusa bold": [
+    "PUSA_BOLD_GREEN_GRAM_SEEDS",
+    "PUSA_BOLD_MUSTARD_SEEDS"
+  ],
+  "हम 6 मूंग बीज": [
+    "HUM_6_GREEN_GRAM_SEEDS",
+    "HUM_6_MOONG_GREEN_GRAM_SEEDS"
+  ],
+  "हम 6 मूग बियाणे": [
+    "HUM_6_GREEN_GRAM_SEEDS",
+    "HUM_6_MOONG_GREEN_GRAM_SEEDS"
+  ],
+  "gm 1": [
+    "GM_1_GREEN_GRAM_SEEDS",
+    "GM_1_MUSTARD_SEEDS"
+  ],
+  "gm 4": [
+    "GM_4_GREEN_GRAM_SEEDS",
+    "GM_4_MUSTARD_SEEDS"
+  ],
+  "gm 3": [
+    "GM_3_GREEN_GRAM_SEEDS",
+    "GM_3_MUSTARD_SEEDS"
+  ],
+  "gm 2": [
+    "GM_2_GREEN_GRAM_SEEDS",
+    "GM_2_MUSTARD_SEEDS"
+  ],
+  "सरला उड़द बीज": [
+    "SARLA_BLACK_GRAM_SEEDS",
+    "SARLA_URAD_BLACK_GRAM_SEEDS"
+  ],
+  "सरला उडीद बियाणे": [
+    "SARLA_BLACK_GRAM_SEEDS",
+    "SARLA_URAD_BLACK_GRAM_SEEDS"
+  ],
+  "वाटाणा बियाणे": [
+    "FIELD_PEA_SEEDS",
+    "GREEN_PEAS_SEEDS"
+  ],
+  "ambika": [
+    "AMBIKA_FIELD_PEA_SEEDS",
+    "AMBIKA_MANGO"
+  ],
+  "पीएस 1347 सोयाबीन बीज": [
+    "PS_1347_SOYBEAN_SEEDS",
+    "PS_1347_SOY_SOYBEAN_SEEDS"
+  ],
+  "पीएस 1347 सोयाबीन बियाणे": [
+    "PS_1347_SOYBEAN_SEEDS",
+    "PS_1347_SOY_SOYBEAN_SEEDS"
+  ],
+  "आरकेएस 18 सोयाबीन बीज": [
+    "RKS_18_SOYBEAN_SEEDS",
+    "RKS_18_SOYA_SOYBEAN_SEEDS"
+  ],
+  "आरकेएस 18 सोयाबीन बियाणे": [
+    "RKS_18_SOYBEAN_SEEDS",
+    "RKS_18_SOYA_SOYBEAN_SEEDS"
+  ],
+  "surya": [
+    "SURYA_SUNFLOWER_SEEDS",
+    "SURYA_PAPAYA"
+  ],
+  "सत्तू पराठा": [
+    "SATTU_PARATHA_HARYANVI",
+    "SATTU_PARATHA"
+  ],
+  "बाजरा खिचड़ी": [
+    "BAJRA_KHICHDI_HARYANVI",
+    "BAJRA_KHICHDI_RAJASTHANI"
+  ],
+  "पतीसा": [
+    "PATISA",
+    "PATISA_KANPUR"
+  ],
+  "मिस्सी रोटी": [
+    "MISSI_ROTI",
+    "MISSI_ROTI_RAJASTHANI"
+  ],
+  "पंचमेल दाल": [
+    "PANCHMEL_DAL",
+    "DAL_RAJASTHANI_PANCHMEL"
+  ],
+  "डुबकी कढ़ी": [
+    "DUBKI_KADHI",
+    "DUBKI_KADHI_CHHATTISGARH"
+  ],
+  "अरसा रोटी": [
+    "ARSA_ROTI",
+    "ARSA_ROTI_MIZO"
+  ],
+  "बगिया": [
+    "BAGIYA",
+    "BAGIYA_BIHAR"
+  ],
+  "भुट्टे की खीर": [
+    "KHEER_BHUTTA",
+    "BHUTTE_KI_KHEER_MP"
+  ],
+  "अइरसा": [
+    "AETA",
+    "AEERSA"
+  ],
+  "बोरे बासी": [
+    "BORE_BASI",
+    "BORE_BAASI"
+  ],
+  "अमट": [
+    "AMAT",
+    "AMAT_CHHATTISGARH"
+  ],
+  "सन्ना": [
+    "SANNA",
+    "SANNAS"
+  ],
+  "पत्रोडे": [
+    "PATRODE",
+    "PATRODE_KONKAN"
+  ],
+  "म्हैसूर बोंडा": [
+    "MYSORE_BONDA",
+    "MYSORE_BONDA_ANDHRA"
+  ],
+  "उस्मानिया बिस्कीट": [
+    "HYDERABADI_OSMANIA_BISCUIT",
+    "OSMANIA_BISCUIT"
+  ],
+  "वेन पोंगल": [
+    "PONGAL_VEN",
+    "VENN_PONGAL"
+  ],
+  "तिरुनेलवेली हलवा": [
+    "HALWA_TIRUNELVELI",
+    "TIRUNELVELI_HALWA"
+  ],
+  "अडा प्रधमन": [
+    "ADA_PRADHAMAN",
+    "ADA_PRADHAMAN_KERALA"
+  ],
+  "कळी": [
+    "KALI_TAMIL",
+    "KALI"
+  ],
+  "सुखियन": [
+    "SUKHIYAN",
+    "SUKIYAN"
+  ],
+  "संभारम": [
+    "SAMBHARAM",
+    "SAMBARAM"
+  ],
+  "राधाबल्लभी": [
+    "RADHABALLAVI",
+    "RADHABOLLOBHI"
+  ],
+  "संतुला": [
+    "SANTULA",
+    "SANTULA_ODIA"
+  ],
+  "अखुनी": [
+    "AXONE",
+    "AKHUNI"
+  ],
+  "काश्मिरी दम आलू": [
+    "KASHMIRI_DUM_ALOO",
+    "DUM_ALOO_KASHMIRI"
+  ],
+  "तुडकिया भात": [
+    "TUDKIYA_BHATH",
+    "TUDKIYA_BHAT"
+  ],
+  "अर्का कांचन अंगूर": [
+    "ARKA_KANCHAN_GRAPES",
+    "ARKA_KANCHAN_GRAPE_GRAPES"
+  ],
+  "अर्का कांचन द्राक्षे": [
+    "ARKA_KANCHAN_GRAPES",
+    "ARKA_KANCHAN_GRAPE_GRAPES"
+  ],
+  "पथरनख नाशपाती": [
+    "PATHARNAKH_PEAR",
+    "NASHPATI_PATHARNAKH_PEAR"
+  ],
+  "oval chikoo": [
+    "OVAL_SAPOTA",
+    "OVAL_CHIKOO_SAPOTA"
   ]
 }

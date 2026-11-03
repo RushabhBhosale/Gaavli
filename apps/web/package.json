@@ -23,6 +23,8 @@
     "test:coordinator-integration": "node --conditions=react-server --import tsx tests/coordinator.integration.mts",
     "test:product-master": "node --conditions=react-server --import tsx tests/product-master.integration.mts",
     "test:catalog-search": "node --conditions=react-server --import tsx tests/catalog-search.integration.mts",
+    "test:demo-seed": "node --conditions=react-server --import tsx tests/demo-seed.integration.mts",
+    "test:kalamb-test-seed": "node --conditions=react-server --import tsx tests/kalamb-test-seed.integration.mts",
     "setup:mobile-auth": "node scripts/setup-mobile-auth.mjs",
     "smoke": "node scripts/smoke-http.mjs",
     "seed": "tsx scripts/seed.ts",
@@ -31,7 +33,10 @@
     "check:catalog-search": "node --conditions=react-server --import tsx scripts/check-catalog-search.mts",
     "index:catalog-search": "node --conditions=react-server --import tsx scripts/index-catalog-search.mts",
     "seed:sample": "tsx scripts/seed-sample.ts",
-    "seed:narayangaon": "tsx scripts/seed-narayangaon.mts"
+    "seed:narayangaon": "tsx scripts/seed-narayangaon.mts",
+    "seed:demo": "node --conditions=react-server --import tsx scripts/seed-demo.mts",
+    "demo:seed": "node scripts/demo-environment.mjs seed",
+    "demo:server": "node scripts/demo-environment.mjs server"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

@@ -4,7 +4,6 @@ import type { MobileLanguage } from "@gaavli/types";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { BrowsingVillageSelector } from "../BrowsingVillageSelector";
-import { GuestProfileButton } from "./GuestProfileButton";
 import { useAppStore } from "../../store";
 import { NotificationBell } from "./NotificationBell";
 
@@ -21,19 +20,11 @@ export function MarketplaceHeader({
   return (
     <View style={s.banner}>
       <View style={s.row}>
-        <View style={s.titleCol}>
-          <Text accessibilityRole="header" style={s.title}>
-            {t.marketplace}
-          </Text>
-          <Text numberOfLines={1} style={s.subtitle}>
-            {t.marketplaceBrandTagline}
-          </Text>
-        </View>
-        {!session && <GuestProfileButton language={language} />}
-        {session && <NotificationBell language={language} />}
-      </View>
-      <View style={s.village}>
+        <Text accessibilityRole="header" style={s.title}>
+          {t.marketplace}
+        </Text>
         <BrowsingVillageSelector />
+        {session && <NotificationBell language={language} />}
       </View>
       {children}
     </View>
@@ -42,9 +33,6 @@ export function MarketplaceHeader({
 
 const s = StyleSheet.create({
   banner: { gap: 12 },
-  row: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 48 },
-  titleCol: { flex: 1, minWidth: 0, gap: 0 },
-  title: { ...theme.type.display, color: theme.colors.heading },
-  subtitle: { ...theme.type.caption, color: theme.colors.muted },
-  village: { alignItems: "flex-start" },
+  row: { flexDirection: "row", alignItems: "center", gap: 8, minHeight: 48 },
+  title: { ...theme.type.title, color: theme.colors.heading, flexShrink: 0 },
 });

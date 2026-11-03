@@ -6,7 +6,12 @@ import { theme } from "../../theme";
 import { listingName, type HomeListing } from "../../types/home";
 import { Badge } from "./primitives";
 import { ListingImage } from "./ListingImage";
-import { listingQuantity, listingRate, listingPosted } from "./listingText";
+import {
+  listingQuantity,
+  listingRate,
+  listingPosted,
+  listingUnit,
+} from "./listingText";
 
 // One row per product: photo, name, price, then the facts a buyer checks next.
 // The whole card opens the product, so there is a single obvious target.
@@ -39,29 +44,31 @@ export function MarketplaceListingCard({
         style={({ pressed }) => [s.card, pressed && s.pressed]}
       >
         <View style={s.imageFrame}>
-          <ListingImage listing={listing} style={s.image} resizeMode="cover" />
+          <ListingImage
+            listing={listing}
+            style={s.image}
+            resizeMode="cover"
+            iconSize={26}
+          />
         </View>
         <View style={s.body}>
-          <Text numberOfLines={2} style={s.name}>
+          <Text numberOfLines={1} style={s.name}>
             {name}
           </Text>
-          <Text style={s.price}>{rate}</Text>
-          <View style={s.metaRow}>
-            <Ionicons
-              accessible={false}
-              name="cube-outline"
-              size={15}
-              color={theme.colors.muted}
-            />
-            <Text numberOfLines={1} style={s.meta}>
-              {listingQuantity(listing, language)}
+          <Text numberOfLines={1} style={s.price}>
+            {rate}
+            <Text style={s.quantity}>
+              {"  ·  "}
+              {listing.availableQuantity === null
+                ? listingQuantity(listing, language)
+                : `${listing.availableQuantity} ${listingUnit(listing.unit, language)}`.trim()}
             </Text>
-          </View>
+          </Text>
           <View style={s.metaRow}>
             <Ionicons
               accessible={false}
               name="location-outline"
-              size={15}
+              size={14}
               color={theme.colors.muted}
             />
             <Text numberOfLines={1} style={s.meta}>
@@ -75,7 +82,7 @@ export function MarketplaceListingCard({
         <Ionicons
           accessible={false}
           name="chevron-forward"
-          size={20}
+          size={18}
           color={theme.colors.inactive}
         />
       </Pressable>
@@ -109,7 +116,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
-    padding: 12,
+    padding: 10,
     borderRadius: theme.radii.card,
     borderWidth: 1,
     borderColor: theme.colors.border,
@@ -122,8 +129,8 @@ const s = StyleSheet.create({
   },
   pressed: { opacity: theme.interaction.pressedOpacity },
   imageFrame: {
-    width: 96,
-    height: 96,
+    width: 88,
+    height: 88,
     borderRadius: theme.radii.control,
     backgroundColor: theme.colors.tint,
     overflow: "hidden",
@@ -136,12 +143,17 @@ const s = StyleSheet.create({
     opacity: 0.7,
     backgroundColor: theme.colors.border,
   },
-  body: { flex: 1, gap: 3, minWidth: 0 },
+  body: { flex: 1, gap: 1, minWidth: 0 },
+  quantity: {
+    ...theme.type.caption,
+    color: theme.colors.muted,
+    fontWeight: "400",
+  },
   name: { ...theme.type.subheading, color: theme.colors.heading },
   muted: { color: theme.colors.muted },
   price: {
-    fontSize: 17,
-    lineHeight: 24,
+    fontSize: 16,
+    lineHeight: 23,
     fontWeight: "700",
     color: theme.colors.primary,
   },

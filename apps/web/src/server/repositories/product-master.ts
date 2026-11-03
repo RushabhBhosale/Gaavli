@@ -1,6 +1,7 @@
 import "server-only";
-import type { ClientSession } from "mongoose";
+import { Types, type ClientSession } from "mongoose";
 import { ProductMaster } from "../models/product-master";
+import { searchCatalog } from "./catalog-search";
 import {
   productMasterImportSchema,
   productMasterPageSchema,
@@ -72,11 +73,12 @@ export async function findActiveMasterProducts(search: string) {
     })),
   });
 }
-// Exact catalog-name mappings only; unrecognized/manual multi-term searches
-// retain their existing literal behavior. Never infer or mutate listing links.
+// Exact catalog names first. Anything else goes through the catalog search, so
+// everyday names ("kanda"), other languages and small spelling mistakes still
+// find the product. Never infer or mutate listing links.
 export async function masterSearchMappings(search: string) {
   const literal = search.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return ProductMaster.find({
+  const exact = await ProductMaster.find({
     status: "ACTIVE",
     $or: ["nameMr", "nameEn", "nameHi"].map((key) => ({
       [key]: { $regex: `^${literal}$`, $options: "i" },
@@ -84,6 +86,18 @@ export async function masterSearchMappings(search: string) {
   })
     .select("nameEn nameMr nameHi")
     .lean();
+  if (exact.length) return exact;
+  try {
+    const { products } = await searchCatalog(search, 5);
+    return products.map((product) => ({
+      _id: new Types.ObjectId(product.productId),
+      nameEn: product.nameEn,
+      nameMr: product.nameMr,
+      nameHi: product.nameHi ?? "",
+    }));
+  } catch {
+    return [];
+  }
 }
 export function activeMasterProduct(id: string, session: ClientSession) {
   return ProductMaster.findOneAndUpdate(

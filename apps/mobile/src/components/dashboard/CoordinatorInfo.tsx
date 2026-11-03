@@ -12,6 +12,15 @@ import type { HomeCoordinator } from "../../types/home";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
 
+const initials = (name: string) =>
+  name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((word) => Array.from(word)[0] ?? "")
+    .join("");
+
+// The village coordinator: a person to call when the app is not enough.
 export function CoordinatorInfo({
   coordinator,
   language,
@@ -22,95 +31,107 @@ export function CoordinatorInfo({
   const t = messages(language);
   if (!coordinator) return null;
   const name = language !== "en" ? coordinator.nameMr : coordinator.name;
+  const callable = !!(coordinator.publicContactable && coordinator.phone);
   return (
-    <View style={s.row}>
+    <View style={s.card}>
+      <View accessible={false} style={s.avatar}>
+        <Text style={s.initials}>{initials(name)}</Text>
+      </View>
       <View style={s.copy}>
         <Text style={s.label}>{t.villageCoordinator}</Text>
         <View style={s.nameRow}>
-          <Text style={s.name}>{name}</Text>
+          <Text numberOfLines={1} style={s.name}>
+            {name}
+          </Text>
           {coordinator.verified && (
             <Ionicons
               name="checkmark-circle"
-              size={14}
+              size={16}
               color={theme.colors.primary}
               accessibilityLabel={t.verified}
             />
           )}
         </View>
-        {!!coordinator.village && (
-          <Text style={s.label}>
-            {language !== "en"
-              ? coordinator.villageMr || coordinator.village
-              : coordinator.village}
-          </Text>
-        )}
+        {!callable && <Text style={s.noPhone}>{t.coordinatorNoPhone}</Text>}
       </View>
-      {coordinator.publicContactable && coordinator.phone && (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={`${t.dashboardContact}: ${name}`}
-          onPress={() => {
-            if (
-              coordinator.publicContactable &&
-              /^\+91[6-9]\d{9}$/.test(coordinator.phone ?? "")
-            )
-              void Linking.openURL(`tel:${coordinator.phone}`).catch(() =>
-                Alert.alert(t.callError),
-              );
-          }}
-          style={({ pressed }) => [s.callTarget, pressed && s.pressed]}
-        >
-          <View style={s.callPill}>
-            <Ionicons name="call-outline" size={14} color={theme.colors.text} />
-            <Text style={s.callText}>{t.dashboardContact}</Text>
-          </View>
-        </Pressable>
-      )}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`${t.dashboardContact}: ${name}`}
+        accessibilityHint={callable ? undefined : t.coordinatorNoPhone}
+        accessibilityState={{ disabled: !callable }}
+        disabled={!callable}
+        onPress={() => {
+          if (/^\+91[6-9]\d{9}$/.test(coordinator.phone ?? ""))
+            void Linking.openURL(`tel:${coordinator.phone}`).catch(() =>
+              Alert.alert(t.callError),
+            );
+        }}
+        style={({ pressed }) => [
+          s.call,
+          !callable && s.callOff,
+          pressed && s.pressed,
+        ]}
+      >
+        <Ionicons
+          accessible={false}
+          name="call"
+          size={18}
+          color={callable ? theme.colors.onPrimary : theme.colors.inactive}
+        />
+        <Text style={[s.callText, !callable && s.callTextOff]}>
+          {t.dashboardContact}
+        </Text>
+      </Pressable>
     </View>
   );
 }
 const s = StyleSheet.create({
-  row: {
+  card: {
     flexDirection: "row",
-    gap: 12,
     alignItems: "center",
-    backgroundColor: theme.colors.tint,
+    gap: 12,
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radii.card,
-    padding: 12,
+    paddingVertical: 10,
+    paddingLeft: 12,
+    paddingRight: 10,
+    minHeight: 68,
   },
-  copy: { flex: 1, gap: 2 },
-  label: { fontSize: 11, lineHeight: 17, color: theme.colors.muted },
-  nameRow: { flexDirection: "row", alignItems: "center", gap: 5 },
-  name: {
-    flexShrink: 1,
-    color: theme.colors.text,
-    fontSize: 13,
-    lineHeight: 20,
-    fontWeight: "500",
-  },
-  callTarget: {
-    minHeight: theme.layout.touchTarget,
-    minWidth: theme.layout.touchTarget,
+  avatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: theme.colors.tint,
+    alignItems: "center",
     justifyContent: "center",
   },
-  callPill: {
+  initials: { ...theme.type.subheading, color: theme.colors.primaryDark },
+  copy: { flex: 1, minWidth: 0 },
+  label: { ...theme.type.micro, color: theme.colors.muted },
+  nameRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  name: {
+    flexShrink: 1,
+    ...theme.type.subheading,
+    color: theme.colors.heading,
+  },
+  call: {
+    minHeight: theme.layout.touchTarget,
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
-    backgroundColor: theme.colors.tint,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.radii.control,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
+    gap: 6,
+    paddingHorizontal: 16,
+    borderRadius: 24,
+    backgroundColor: theme.colors.primary,
   },
-  callText: {
-    color: theme.colors.text,
-    fontSize: 12,
-    lineHeight: 18,
-    fontWeight: "600",
+  callOff: { backgroundColor: theme.colors.surfaceMuted },
+  callTextOff: { color: theme.colors.inactive },
+  noPhone: {
+    ...theme.type.micro,
+    fontWeight: "400" as const,
+    color: theme.colors.muted,
   },
+  callText: { ...theme.type.label, color: theme.colors.onPrimary },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });
