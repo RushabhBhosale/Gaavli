@@ -9,6 +9,7 @@
 //   @pattern|{en} Seeds|{hi} बीज|{mr} बियाणे          (applies to "+CODE" lines)
 //   English|Hindi|Marathi|alias,alias|units|flags
 //   +CODE                                            (compose from pattern)
+//   @alias|CODE|alias,alias                          (add search words to any product)
 // Flags: =CODE pins a code, ^CODE marks a variety of CODE, ? needs review.
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -67,6 +68,7 @@ type Product = {
 };
 
 const errors: string[] = [];
+const extraAliases: { code: string; where: string; aliases: string[] }[] = [];
 const warnings: string[] = [];
 const normalize = (value: string) =>
   value.normalize("NFKC").toLowerCase().trim().replace(/\s+/gu, " ");
@@ -146,6 +148,12 @@ for (const file of files) {
       pattern = undefined;
       return;
     }
+    if (cols[0] === "@alias") {
+      const [, code, list] = cols;
+      if (!code || !list) return errors.push(`${where}: incomplete @alias`);
+      extraAliases.push({ code, where, aliases: list.split(",") });
+      return;
+    }
     if (cols[0] === "@pattern") {
       const [, en, hi, mr] = cols;
       pattern = { en, hi, mr };
@@ -221,6 +229,20 @@ for (const { code, pattern, product } of pending) {
     variantOf: null,
     reviewStatus: source.reviewStatus,
   });
+}
+
+for (const { code, where, aliases } of extraAliases) {
+  const target = products.find((p) => p.productCode === code);
+  if (!target) {
+    errors.push(`${where}: @alias for unknown product ${code}`);
+    continue;
+  }
+  const have = new Set(target.aliases.map(normalize));
+  for (const alias of aliases.map((a) => a.trim()).filter(Boolean))
+    if (!have.has(normalize(alias))) {
+      target.aliases.push(alias);
+      have.add(normalize(alias));
+    }
 }
 
 // Integrity checks.

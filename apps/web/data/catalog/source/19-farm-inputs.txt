@@ -49,11 +49,11 @@
 +SPRING_ONION
 +LEEK
 
-Pumpkin Sowing Seeds|कद्दू बीज (बुवाई)|लाल भोपळा बियाणे|kaddu seeds sowing
-Watermelon Sowing Seeds|तरबूज बीज (बुवाई)|कलिंगड बियाणे|tarbuj seeds sowing
-Methi Sowing Seeds|मेथी बीज (बुवाई)|मेथी बियाणे|methi seeds for sowing
+Pumpkin Sowing Seeds|कद्दू बीज (बुवाई)|लाल भोपळा बियाणे|kaddu seeds sowing,bhopla biyane,kaddu beej,pumpkin seed
+Watermelon Sowing Seeds|तरबूज बीज (बुवाई)|कलिंगड बियाणे|tarbuj seeds sowing,kalingad biyane,tarbooj beej,watermelon seed
+Methi Sowing Seeds|मेथी बीज (बुवाई)|मेथी बियाणे|methi seeds for sowing,fenugreek seed,methi beej,methi biyane
 Shepu Sowing Seeds|सोआ बीज (बुवाई)|शेपू बियाणे|dill sowing seeds
-Coriander Sowing Seeds|धनिया बीज (बुवाई)|कोथिंबीर बियाणे|dhane perni,coriander seeds sowing
+Coriander Sowing Seeds|धनिया बीज (बुवाई)|कोथिंबीर बियाणे|dhane perni,coriander seeds sowing,coriander seed,dhaniya biyane,kothimbir biyane
 Ambadi Sowing Seeds|अम्बाड़ी बीज|अंबाडी बियाणे|gongura seeds
 
 @sub|flower-seeds|Flower Seeds|फूलों के बीज|फुलांचे बियाणे|packet,g
@@ -95,13 +95,13 @@ Ambadi Sowing Seeds|अम्बाड़ी बीज|अंबाडी बि
 +LENTIL
 +BARLEY
 +OATS
-Sunflower Sowing Seeds|सूरजमुखी बीज (बुवाई)|सूर्यफूल बियाणे|sunflower hybrid seeds
+Sunflower Sowing Seeds|सूरजमुखी बीज (बुवाई)|सूर्यफूल बियाणे|sunflower hybrid seeds,sunflower seed,surajmukhi beej,suryaful biyane
 Sesame Sowing Seeds|तिल बीज (बुवाई)|तीळ बियाणे|til seeds sowing
 Castor Sowing Seeds|अरंडी बीज (बुवाई)|एरंडी बियाणे|castor hybrid seeds
 Niger Sowing Seeds|रामतिल बीज (बुवाई)|कारळे बियाणे|karale perni
 Flax Sowing Seeds|अलसी बीज (बुवाई)|जवस बियाणे|linseed sowing seeds
-Onion Seed Bulbs|प्याज की गांठें|कांद्याचे गोळे (बीजोत्पादन)|kanda gole,onion sets|kg,bag|
-Potato Seed Tubers|आलू बीज|बटाटा बेणे|batata bene,seed potato|kg,bag
+Onion Seed Bulbs|प्याज की गांठें|कांद्याचे गोळे (बीजोत्पादन)|kanda gole,onion sets,kanda gadde,onion bulbils|kg,bag|
+Potato Seed Tubers|आलू बीज|बटाटा बेणे|batata bene,seed potato,aloo beej,batata biyane,potato seed|kg,bag|
 Sugarcane Setts|गन्ने के बीज (कलम)|उसाचे बेणे|us bene,sugarcane seed|ton,quintal,bundle
 Turmeric Seed Rhizomes|हल्दी बीज|हळद बेणे|halad bene,turmeric seed|kg,quintal
 Ginger Seed Rhizomes|अदरक बीज|आले बेणे|ale bene,ginger seed|kg,quintal

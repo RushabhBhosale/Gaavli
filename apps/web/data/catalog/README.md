@@ -15,7 +15,9 @@ no brands, barcodes or packaged-SKU data.
 
 - `source/*.txt`: the hand-edited source. One product per line:
   `English|Hindi|Marathi|aliases|units|flags`. `@category`, `@sub` and
-  `@pattern` directives are documented at the top of `scripts/build-catalog.mts`.
+  `@pattern` and `@alias|CODE|word,word` directives are documented at the top of
+  `scripts/build-catalog.mts` (`@alias` adds search words to any product, such as
+  "kanda biyane" on Onion Seeds).
   Flags: `=CODE` pins a code, `^CODE` marks a variety, `?` means the native
   names or the listing need native-speaker review.
 - `catalog.v1.json` (generated): categories plus products with stable
@@ -99,3 +101,22 @@ Chettinad, Kerala, Bengali and Odia, North East, Kashmir and the Himalayas).
   crop word (and `बीज` / `बियाणे` for seeds) in each language.
 - The files are generated, but they are ordinary sources: edit them by hand and
   rebuild like any other file.
+
+## Generated search words (file 58)
+
+`source/58-generated-aliases.txt` gives 10,512 products about 57,600 extra search
+words, made only from their names by `scripts/generate-catalog-aliases.mts`:
+Latin spellings of the Hindi and Marathi names (`कांदा बियाणे` becomes
+`kanda biyane`), everyday names in place of the English crop word (`tur`,
+`arhar`, `bhindi`), `seed` / `beej` / `biyane` for seed products, and release
+codes without spaces (`hd2967`). Regenerate after changing names:
+
+```sh
+npm run build:catalog --workspace=@gaavli/web -- --write
+node --import tsx apps/web/scripts/generate-catalog-aliases.mts
+npm run build:catalog --workspace=@gaavli/web -- --write
+npm run index:catalog-search --workspace=@gaavli/web -- --apply
+```
+
+Aliases live in the search index, so a re-index is enough: no app or server
+release is needed.

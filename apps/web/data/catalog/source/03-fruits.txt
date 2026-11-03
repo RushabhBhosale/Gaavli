@@ -2,35 +2,35 @@
 @category|fruits|fruits|Fruits|फल|फळे
 
 @sub|everyday-fruits|Everyday Fruits|रोज़ के फल|रोजची फळे|kg,dozen,piece
-Mango|आम|आंबा|aam,amba,ambe,mangoes|dozen,kg,piece,box
-Banana|केला|केळी|kela,keli,kele,bananas|dozen,kg,piece
-Apple|सेब|सफरचंद|seb,safarchand,apples|kg,piece,box
-Orange|संतरा|संत्री|santra,santre,narangi,oranges|kg,dozen,piece
-Sweet Lime|मौसमी|मोसंबी|mosambi,mausami,musambi
+Mango|आम|आंबा|aam,amba,ambe,mangoes|dozen,kg,piece,box|
+Banana|केला|केळी|kela,keli,kele,bananas|dozen,kg,piece|
+Apple|सेब|सफरचंद|seb,safarchand,apples|kg,piece,box|
+Orange|संतरा|संत्री|santra,santre,narangi,oranges|kg,dozen,piece|
+Sweet Lime|मौसमी|मोसंबी|mosambi,mausami,musambi,sathgudi
 Pomegranate|अनार|डाळिंब|anar,dalimb,dalimba
-Grapes|अंगूर|द्राक्षे|angoor,angur,draksha,drakshe|kg,g,box
+Grapes|अंगूर|द्राक्षे|angoor,angur,draksha,drakshe|kg,g,box|
 Guava|अमरूद|पेरू|amrud,amrood,peru
-Papaya|पपीता|पपई|papita,papai|kg,piece
+Papaya|पपीता|पपई|papita,papai|kg,piece|
 Watermelon|तरबूज|कलिंगड|tarbuj,tarbooj,kalingad|kg,piece
 Muskmelon|खरबूजा|खरबूज|kharbuja,kharbuj,cantaloupe|kg,piece
 Custard Apple|शरीफा|सीताफळ|sharifa,sitaphal,sitafal
 Sapota|चीकू|चिकू|chiku,chikoo,sapodilla
-Pineapple|अनानास|अननस|ananas,ananas|piece,kg
-Coconut|नारियल|नारळ|nariyal,naral,shrifal|piece,dozen
+Pineapple|अनानास|अननस|ananas,ananas|piece,kg|
+Coconut|नारियल|नारळ|nariyal,naral,shrifal|piece,dozen|
 Tender Coconut|हरा नारियल|शहाळे|nariyal pani,shahale,daab,green coconut|piece,dozen
-Lemon|नींबू|लिंबू|nimbu,neebu,limbu,lime|piece,kg,dozen
+Lemon|नींबू|लिंबू|nimbu,neebu,limbu,lime|piece,kg,dozen|
 Indian Gooseberry|आंवला|आवळा|amla,awla,avla,aonla
 Indian Jujube|बेर|बोर|ber,bor,bore,jujube
-Jackfruit|कटहल|फणस|kathal,phanas,fanas|piece,kg
+Jackfruit|कटहल|फणस|kathal,phanas,fanas|piece,kg|
 Java Plum|जामुन|जांभूळ|jamun,jambhul,jambool
 Karonda|करौंदा|करवंद|karonda,karvand,karvanda
-Fig|अंजीर|अंजीर|anjeer,anjir,figs|kg,box
-Strawberry|स्ट्रॉबेरी|स्ट्रॉबेरी|strawberries|kg,box,g
+Fig|अंजीर|अंजीर|anjeer,anjir,figs|kg,box|
+Strawberry|स्ट्रॉबेरी|स्ट्रॉबेरी|strawberries,strawberry|kg,box,g|
 Tamarind|इमली|चिंच|imli,chinch,chincha
 Pear|नाशपाती|नासपती|nashpati,naspati,pears
-Peach|आड़ू|पीच|aadu,aru,peaches
-Plum|आलूबुखारा|आलुबुखार|aloo bukhara,plums
-Litchi|लीची|लिची|lychee,lichi
+Peach|आड़ू|पीच|aadu,aru,peaches,peach
+Plum|आलूबुखारा|आलुबुखार|aloo bukhara,plums,alu bukhara,plum
+Litchi|लीची|लिची|lychee,lichi,litchi
 Cherry|चेरी|चेरी|cherries|kg,g,box
 Kiwi|कीवी|किवी|kiwi fruit|piece,kg,box
 Dragon Fruit|ड्रैगन फ्रूट|ड्रॅगन फ्रूट|pitaya,kamalam|piece,kg
@@ -52,7 +52,7 @@ Blueberry|ब्लूबेरी|ब्लूबेरी|blueberries|box,g
 Raspberry|रसभरी|रासबेरी|rasbhari|box,g
 Cape Gooseberry|रसभरी (मकोय)|रसभरी|golden berry,physalis|box,g|
 Phalsa|फालसा|फालसा|falsa,phalsa|kg,g
-Apricot|खुबानी|जर्दाळू|khubani,jardalu|kg,g
+Apricot|खुबानी|जर्दाळू|khubani,jardalu,apricot,zardalu|kg,g|
 Kinnow|किन्नू|किन्नू|kinu,kinnow|kg,dozen|^ORANGE
 Malta Orange|माल्टा|माल्टा संत्री|malta|kg,dozen|^ORANGE
 Green Apple|हरा सेब|हिरवे सफरचंद|hara seb,granny smith||^APPLE

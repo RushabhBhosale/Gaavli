@@ -51,7 +51,7 @@ Dry Fruit Gift Box|मेवे का गिफ्ट बॉक्स|सुक
 @sub|edible-seeds|Edible Seeds|खाद्य बीज|खाद्य बिया|kg,g,packet
 Pumpkin Seeds|कद्दू के बीज|भोपळ्याच्या बिया|kaddu beej,pumpkin seeds
 Watermelon Seeds|तरबूज के बीज|कलिंगडाच्या बिया|magaj,tarbuj beej
-Chia Seeds|चिया बीज|चिया बिया|chia
+Chia Seeds|चिया बीज|चिया बिया|chia,chia seed
 Sabja Seeds|सब्जा बीज|सब्जा|sabja,tukmaria
 Roasted Flaxseeds|भुनी अलसी|भाजलेले जवस|roasted alsi,javas mukhwas
 Roasted Sunflower Seeds|भुने सूरजमुखी बीज|भाजलेल्या सूर्यफूल बिया|||

@@ -14,7 +14,7 @@ Pandi Chilli|पांडी मिर्च|पांडी मिरची|pan
 Coriander Seeds|धनिया|धणे|dhaniya,dhane,dhana,sabut dhaniya
 Cumin Seeds|जीरा|जिरे|jeera,jira,jire,zeera,cumin
 Shahi Jeera|शाही जीरा|शहाजिरे|shahjeera,black cumin,kala jeera
-Mustard Seeds|राई|मोहरी|rai,mohri,sarson,mustard
+Mustard Seeds|राई|मोहरी|rai,mohri,sarson,mustard,mohri biyane,mustard seed,rai seed,sarson beej
 Yellow Mustard Seeds|पीली सरसों|पिवळी मोहरी|peeli sarson||^MUSTARD_SEEDS
 Fenugreek Seeds|मेथी दाना|मेथी दाणे|methi dana,methi seeds
 Fennel Seeds|सौंफ|बडीशेप|saunf,saunf,badishep,variyali
@@ -40,7 +40,7 @@ Kokum|कोकम|कोकम|kokam,kokum,amsul,amsol
 Tamarind Pulp Block|इमली गूदा|चिंचेचा गोळा|imli,chinch gola,seedless tamarind|kg,g,packet
 Poppy Seeds|खसखस|खसखस|khaskhas,khus khus,posto
 Nigella Seeds|कलौंजी|कलौंजी|kalonji,kalaunji
-Dill Seeds|सोआ बीज|शेपू बी|suva seeds,shepu bi
+Dill Seeds|सोआ बीज|शेपू बी|suva seeds,shepu bi,dill seed,shepu biyane,suva beej
 Garcinia|कोकम सूखा|आमसूल|amsul,amsol,dry kokum||^KOKUM
 Anardana|अनारदाना|अनारदाणा|anardana,dried pomegranate seeds
 Kasuri Methi|कसूरी मेथी|कसुरी मेथी|kasoori methi,dried fenugreek leaves|g,packet

@@ -1,3 +1,16 @@
+## 2026-11-03 - Generated search words for every product (indexed)
+
+- Added `scripts/generate-catalog-aliases.mts` and `source/58-generated-aliases.txt`:
+  about 57,600 search words for 10,512 products (Latin spellings of Hindi and
+  Marathi names, everyday crop names such as tur, arhar, bhindi, kanda, seed
+  words beej and biyane, and release codes like hd2967). Added an `@alias|CODE|...`
+  directive to the catalog builder. The parent seed products also got their
+  everyday names so "kanda b" finds Onion Seeds.
+- Re-indexed the configured database: 225,562 search terms (was 142,755); the
+  database is about 146 MB on disk. Checked kanda b, arhar beej, bhindi, hd2967,
+  mirchi biyane, vangi, gur, dhan, tandul and tur dal. Web catalog tests pass.
+  No app or server release is needed for this change.
+
 ## 2026-11-03 - Seed, variety and regional food catalog batch (imported)
 
 - Added 5,760 products in `apps/web/data/catalog/source/49-*` to `56-*`: about

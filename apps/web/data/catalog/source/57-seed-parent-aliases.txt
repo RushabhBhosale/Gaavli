@@ -1,0 +1,117 @@
+# Everyday search words (for example "kanda biyane") for the seed and planting-material parent products.
+@alias|ONION_SEEDS|kanda biyane,pyaz beej,onion seed
+@alias|GARLIC_SEEDS|lasun biyane,lasun seed,garlic clove seed
+@alias|SPRING_ONION_SEEDS|spring onion seed,hirva kanda
+@alias|ONION_SEED_BULBS|onion bulbils,kanda gadde
+@alias|TOMATO_SEEDS|tomato biyane,tamatar beej,tomato seed
+@alias|CHERRY_TOMATO_SEEDS|cherry tomato seed
+@alias|BRINJAL_SEEDS|vangi biyane,baingan beej,brinjal seed,eggplant seed
+@alias|GREEN_CHILLI_SEEDS|mirchi biyane,mirchi beej,chilli seed,green chilli seed
+@alias|DRY_RED_CHILLI_SEEDS|dry chilli seed,sukhi mirchi biyane
+@alias|CAPSICUM_SEEDS|dhobli mirchi biyane,shimla mirch beej,capsicum seed
+@alias|OKRA_SEEDS|bhendi biyane,bhindi beej,okra seed,lady finger seed
+@alias|CABBAGE_SEEDS|kobi biyane,patta gobhi beej,cabbage seed
+@alias|CAULIFLOWER_SEEDS|fulkobi biyane,phool gobhi beej,cauliflower seed
+@alias|BROCCOLI_SEEDS|broccoli seed
+@alias|RED_CABBAGE_SEEDS|red cabbage seed
+@alias|KOHLRABI_SEEDS|navalkol seed
+@alias|CARROT_SEEDS|gajar biyane,gajar beej,carrot seed
+@alias|RADISH_SEEDS|mula biyane,mooli beej,radish seed
+@alias|BEETROOT_SEEDS|beet biyane,chukandar beej,beetroot seed
+@alias|TURNIP_SEEDS|turnip seed
+@alias|SPINACH_SEEDS|palak biyane,palak beej,spinach seed
+@alias|METHI_SOWING_SEEDS|methi biyane,methi beej,fenugreek seed
+@alias|CORIANDER_SOWING_SEEDS|dhaniya biyane,kothimbir biyane,coriander seed
+@alias|AMARANTH_SEEDS|math biyane,chaulai beej,amaranth seed,tandulja seed
+@alias|LETTUCE_SEEDS|salad patta seed
+@alias|DILL_SEEDS|shepu biyane,suva beej,dill seed
+@alias|LEAF_BEET_SEEDS|swiss chard seed
+@alias|CUCUMBER_SEEDS|kakdi biyane,kheera beej,cucumber seed
+@alias|BOTTLE_GOURD_SEEDS|dudhi biyane,lauki beej,bottle gourd seed
+@alias|BITTER_GOURD_SEEDS|karle biyane,karela beej,bitter gourd seed
+@alias|RIDGE_GOURD_SEEDS|dodka biyane,turai beej,ridge gourd seed
+@alias|SPONGE_GOURD_SEEDS|ghosale biyane,sponge gourd seed,gilki beej
+@alias|PUMPKIN_SOWING_SEEDS|bhopla biyane,kaddu beej,pumpkin seed
+@alias|ASH_GOURD_SEEDS|kohla biyane,petha beej,ash gourd seed
+@alias|SNAKE_GOURD_SEEDS|padwal biyane,chichinda beej,snake gourd seed
+@alias|ROUND_GOURD_SEEDS|tinda seed,tinda beej
+@alias|WATERMELON_SOWING_SEEDS|kalingad biyane,tarbooj beej,watermelon seed
+@alias|MUSKMELON_SEEDS|kharbuj biyane,kharbuja beej,muskmelon seed
+@alias|ZUCCHINI_SEEDS|zucchini seed
+@alias|CHAYOTE_SEEDS|chow chow seed,chayote fruit seed
+@alias|GREEN_PEAS_SEEDS|vatana biyane,matar beej,pea seed,green pea seed
+@alias|FRENCH_BEANS_SEEDS|farasbi biyane,french bean seed,beans beej
+@alias|CLUSTER_BEANS_SEEDS|gavar biyane,guar phali beej,cluster bean seed
+@alias|COWPEA_PODS_SEEDS|chavli biyane,lobia beej,cowpea seed,yardlong bean seed
+@alias|GHEVDA_BEANS_SEEDS|ghevda biyane,sem beej,val seed,lablab seed
+@alias|WINGED_BEAN_SEEDS|winged bean seed,goa bean seed
+@alias|SWORD_BEAN_SEEDS|sword bean seed
+@alias|BROAD_BEANS_SEEDS|bakla seed,fava bean seed
+@alias|POTATO_SEED_TUBERS|batata biyane,aloo beej,potato seed,seed potato
+@alias|SWEET_POTATO_VINE|ratale vine,shakarkand cutting,sweet potato vine
+@alias|GINGER_SEED_RHIZOME|ale biyane,adrak beej,ginger seed,seed ginger
+@alias|TURMERIC_SEED_RHIZOME|halad biyane,haldi beej,turmeric seed,seed turmeric
+@alias|COLOCASIA_SEED_CORMS|arbi seed,alu kand,taro corm
+@alias|YAM_SEED_CORMS|suran seed,zimikand seed,elephant yam seed
+@alias|TAPIOCA_STEMS|cassava sett,tapioca cutting,sabudana kand cutting
+@alias|SWEET_CORN_SEEDS|sweet corn seed,makka beej
+@alias|BABY_CORN_SEEDS|baby corn seed
+@alias|POPCORN_SEEDS|popcorn seed
+@alias|DRUMSTICK_SEEDS|shevga biyane,sahjan beej,moringa seed,drumstick seed
+@alias|CURRY_LEAF_SEEDS|kadipatta seed,curry patta seed
+@alias|PARWAL_VINE|parwal cutting,pointed gourd vine
+@alias|IVY_GOURD_VINE|tondli cutting,kundru vine,ivy gourd cutting
+@alias|SPINE_GOURD_SEED|kantola seed,kartoli seed,teasel gourd seed
+@alias|PADDY_SEEDS|bhat biyane,dhan beej,paddy seed,rice seed
+@alias|WHEAT_SEEDS|gahu biyane,gehun beej,wheat seed
+@alias|BARLEY_SEEDS|jav biyane,jau beej,barley seed
+@alias|OATS_SEEDS|oat seed,jai beej,fodder oat seed
+@alias|MAIZE_SEEDS|maka biyane,makka beej,maize seed,corn seed
+@alias|SORGHUM_SEEDS|jwari biyane,jowar beej,sorghum seed
+@alias|PEARL_MILLET_SEEDS|bajri biyane,bajra beej,pearl millet seed
+@alias|FINGER_MILLET_SEEDS|nachni biyane,ragi beej,finger millet seed
+@alias|FOXTAIL_MILLET_SEEDS|rala biyane,kangni beej,foxtail millet seed
+@alias|LITTLE_MILLET_SEEDS|sava biyane,kutki beej,little millet seed
+@alias|KODO_MILLET_SEEDS|kodra biyane,kodo beej,kodo millet seed
+@alias|BARNYARD_MILLET_SEEDS|varai biyane,sanwa beej,barnyard millet seed
+@alias|PROSO_MILLET_SEEDS|chena seed,cheena beej,proso millet seed
+@alias|BROWNTOP_MILLET_SEEDS|korale seed,browntop seed
+@alias|AMARANTH_GRAIN_SEEDS|rajgira biyane,ramdana beej,grain amaranth seed
+@alias|BUCKWHEAT_SEEDS|kuttu seed,kuttu beej,buckwheat seed
+@alias|QUINOA_SEEDS|quinoa seed
+@alias|CHIA_SEEDS|chia seed
+@alias|CHICKPEA_SEEDS|harbhara biyane,chana beej,gram seed,chickpea seed
+@alias|PIGEON_PEA_SEEDS|tur biyane,arhar beej,toor seed,pigeon pea seed
+@alias|GREEN_GRAM_SEEDS|moog biyane,moong beej,green gram seed,mung seed
+@alias|BLACK_GRAM_SEEDS|udid biyane,urad beej,black gram seed,urad seed
+@alias|LENTIL_SEEDS|masoor biyane,masoor beej,lentil seed
+@alias|FIELD_PEA_SEEDS|dry matar seed,field pea seed,pea dal seed
+@alias|HORSE_GRAM_SEEDS|hulga biyane,kulthi beej,horse gram seed
+@alias|MOTH_BEAN_SEEDS|matki biyane,moth beej,moth bean seed
+@alias|COWPEA_GRAIN_SEEDS|chavli dane seed,lobia grain seed
+@alias|SOYBEAN_SEEDS|soyabean biyane,soybean seed,soya beej
+@alias|GROUNDNUT_SEEDS|bhuimug biyane,moongphali beej,groundnut seed,peanut seed,shengdana biyane
+@alias|SUNFLOWER_SOWING_SEEDS|suryaful biyane,sunflower seed,surajmukhi beej
+@alias|MUSTARD_SEEDS|mohri biyane,sarson beej,mustard seed,rai seed
+@alias|MANGO|aam,amba
+@alias|BANANA|keli,kela
+@alias|GRAPES|draksha,angur
+@alias|ORANGE|santra
+@alias|SWEET_LIME|mosambi,sathgudi
+@alias|LEMON|limbu,nimbu
+@alias|APPLE|safarchand,seb
+@alias|PEAR|nashpati
+@alias|PEACH|aadu,peach
+@alias|PLUM|alu bukhara,plum
+@alias|APRICOT|khubani,zardalu,apricot
+@alias|GUAVA|peru,amrood
+@alias|POMEGRANATE|dalimb,anar
+@alias|PAPAYA|papai,papita
+@alias|JACKFRUIT|phanas,kathal
+@alias|SAPOTA|chikoo,chiku
+@alias|CUSTARD_APPLE|sitaphal
+@alias|LITCHI|lichi,litchi
+@alias|FIG|anjeer,anjir
+@alias|PINEAPPLE|ananas
+@alias|STRAWBERRY|strawberry
+@alias|COCONUT|naral,nariyal
