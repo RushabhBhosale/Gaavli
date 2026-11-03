@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { MasterProduct, OwnedListing } from "@gaavli/types";
 import {
+  catalogSearchResponseSchema,
   productMasterImportSchema,
   productMasterPageSchema,
 } from "@gaavli/validation";
@@ -242,4 +243,28 @@ test("online search carries a corrected spelling and tolerates older servers", a
   });
   assert.equal(older.didYouMean, null);
   assert.equal(older.products.length, 1);
+});
+
+test("the catalog search response with a corrected spelling is accepted", () => {
+  const product = {
+    productId: "6a1111111111111111111111",
+    code: "ONION_SEEDS",
+    nameMr: "कांदा बियाणे",
+    nameEn: "Onion Seeds",
+    nameHi: "प्याज बीज",
+    productGroup: "farm_inputs",
+    defaultUnit: "kg",
+    status: "ACTIVE",
+    sortOrder: 1,
+  };
+  for (const didYouMean of [null, "kanda biyane", undefined]) {
+    const response = catalogSearchResponseSchema.parse({
+      products: [product],
+      ...(didYouMean === undefined ? {} : { didYouMean }),
+    });
+    assert.equal(response.products.length, 1);
+  }
+  assert.throws(() =>
+    catalogSearchResponseSchema.parse({ products: [], extra: 1 }),
+  );
 });

@@ -25,7 +25,7 @@ import {
   mobileUserSchema,
   ownedListingSchema,
   listingIdSchema,
-  productMasterPageSchema,
+  catalogSearchResponseSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
 import { showToast } from "../toast";
@@ -143,7 +143,7 @@ function ListingFormScreen({
         fetch: (search, signal) =>
           authenticatedApi(
             `/catalog/search?q=${encodeURIComponent(search)}&limit=20`,
-            productMasterPageSchema,
+            catalogSearchResponseSchema,
             { signal },
           ),
       }),

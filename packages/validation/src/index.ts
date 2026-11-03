@@ -17,6 +17,7 @@ export {
   productMasterSchema,
   productMasterPageSchema,
   catalogSearchPageSchema,
+  catalogSearchResponseSchema,
   productMasterQuerySchema,
   productMasterImportRowSchema,
   productMasterImportSchema,

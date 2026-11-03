@@ -61,6 +61,14 @@ export const catalogSearchPageSchema = z
     didYouMean: z.string().min(1).max(120).nullable(),
   })
   .strict();
+// What the app accepts from the catalog search endpoint: servers that do not
+// send a corrected spelling yet are fine too.
+export const catalogSearchResponseSchema = z
+  .object({
+    products: productMasterPageSchema.shape.products,
+    didYouMean: z.string().min(1).max(120).nullable().optional(),
+  })
+  .strict();
 export const productMasterQuerySchema = z
   .object({ search: z.string().trim().max(100).default("") })
   .strict();
