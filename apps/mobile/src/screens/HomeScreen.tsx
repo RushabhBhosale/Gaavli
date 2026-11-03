@@ -18,6 +18,7 @@ import type {
   HomeListing,
 } from "../types/home";
 import { AccountHeader } from "../components/dashboard/AccountHeader";
+import { DashboardTabs } from "../components/dashboard/DashboardTabs";
 import { BrowsingVillageSelector } from "../components/BrowsingVillageSelector";
 import { browsingVillageFor } from "../storage/browsingVillage";
 import { ProductCard } from "../components/dashboard/ProductCard";
@@ -59,6 +60,7 @@ export function HomeDashboard({
         language={language}
         browsingVillageControl={<BrowsingVillageSelector />}
       />
+      <DashboardTabs selected="buyer" />
       {data.isPreview && <PreviewBanner />}
       {/* Temporarily hidden; retained for future use.
       <CoordinatorInfo coordinator={data.coordinator} language={language} />

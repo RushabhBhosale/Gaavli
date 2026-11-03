@@ -1,6 +1,8 @@
 import type { MobileLanguage } from "@gaavli/types";
 
 const en = {
+  dashboardCoordinator: "Coordinator",
+  dashboardSeller: "Seller",
   dashboardLiveAvailability: "Today's Live Availability",
   dashboardFreshCount: "{count} fresh listings",
   dashboardCategories: "Village services and marketplace",
@@ -523,6 +525,8 @@ const en = {
 };
 type Messages = { [Key in keyof typeof en]: string };
 const mr: Messages = {
+  dashboardCoordinator: "समन्वयक",
+  dashboardSeller: "शेतकरी",
   dashboardLiveAvailability: "आजची थेट उपलब्धता",
   dashboardFreshCount: "{count} ताज्या नोंदी",
   dashboardCategories: "गाव सुविधा व बाजार",

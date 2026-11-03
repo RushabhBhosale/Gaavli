@@ -41,6 +41,7 @@ import { ApiError } from "../api/client";
 import { errorMessage } from "../errors";
 import { showToast } from "../toast";
 import { useListingClock } from "../hooks/useListingClock";
+import { DashboardTabs } from "../components/dashboard/DashboardTabs";
 
 export default function MyListingsScreen() {
   const router = useRouter();
@@ -337,6 +338,7 @@ export default function MyListingsScreen() {
           </View>
         </View>
       </View>
+      <DashboardTabs selected="seller" />
       <View style={s.searchRow}>
         <View style={s.searchBox}>
           <Ionicons

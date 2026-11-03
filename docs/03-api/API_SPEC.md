@@ -1,3 +1,14 @@
+# Coordinator mapped-village user directory - 2026-11-03 (user approved)
+
+`GET /api/v1/coordinator/users` and `/coordinator/users/:id` accept
+`includeMapped=true|false` (string, default false). True extends directory
+reads from the authorized source village to directly connected active villages.
+Each user retains their actual village DTO; mapped users are read-only.
+The server resolves mappings, applies filters/counts/pagination across that
+scope, and rechecks coordinator assignment. It grants no mapped-village writes,
+listing moderation, reporting or activity access. Mapped user detail reads
+return an empty management-listings array. See COORDINATOR_MOBILE.md.
+
 # Shared dashboard/directory - 2026-10-29 (user approved)
 
 Added public/bearer `GET /api/v1/dashboard`, `/api/v1/directory` and

@@ -68,6 +68,7 @@ const en = {
   loadMore: "Load more",
   userDetails: "User details",
   editUser: "Correct buyer names",
+  directoryEdit: "Edit",
   editHelp:
     "Only names of unverified buyers you added can be corrected. Verified profiles, mobile numbers and roles are read-only.",
   buyerSuccess: "Buyer pre-registration saved",
@@ -268,6 +269,7 @@ const mr: Record<keyof typeof en, string> = {
   verified: "मोबाईल पडताळलेला",
   unverified: "मोबाईल पडताळलेला नाही",
   unknown: "नोंद नाही",
+  directoryEdit: "बदल करा",
   roleBuyer: "खरेदीदार",
   roleSeller: "विक्रेता",
   roleCoordinator: "समन्वयक",

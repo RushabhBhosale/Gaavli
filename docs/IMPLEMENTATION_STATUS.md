@@ -1,3 +1,129 @@
+## 2026-11-03 - Buyer/Seller dashboard tabs after identity
+
+- Moved Buyer Home's dashboard switcher below AccountHeader and Seller's below
+  its existing identity/village banner, before search. Coordinator already uses
+  this order. Removed the unused automatic tab injection from DashboardScreen.
+- Existing dashboard content, role visibility and navigation remain unchanged.
+  Mobile TypeScript, targeted ESLint, Prettier and whitespace checks passed.
+  Device visual acceptance remains pending.
+
+## 2026-11-03 - Mapped-village users in coordinator directory
+
+- Directory and user details request `includeMapped=true`; the server resolves
+  the active assigned source village plus directly connected active villages
+  through bidirectional mappings. Combined filtering/counts/pagination preserve
+  each user's real village. Buyer browsing selection does not affect scope.
+- Default API calls remain source-only, preserving Manage summary counts.
+  Mapped accounts are view-only even when pre-registered by the coordinator.
+  Their detail view omits management listings; edits, reports, moderation and
+  activity remain assignment-scoped. Removed links/inactive villages revoke
+  mapped reads on subsequent requests; no transitive mapping access is granted.
+- Updated API/security documentation and integration coverage. Shortened the
+  integration suite's isolated database name to meet Atlas's 38-byte limit,
+  retaining its exact-name/prefix cleanup guards.
+- Passed: web/mobile TypeScript, targeted web/mobile ESLint, all 81 mobile tests,
+  Prettier and whitespace checks. Coordinator integration passed combined scope,
+  actual villages, search/filter/paging, reverse mappings, inactive/disconnected
+  exclusions, transitive denial and mapped edit denial. Device visual and hosted
+  API deployment verification remain pending.
+
+## 2026-11-03 - Add Buyer toast-only success feedback
+
+- Removed the post-create confirmation panel and Add another / View buyer /
+  Return to Manage actions. Confirmed creation reuses the existing coordinator
+  success toast, clears the draft and opens Manage. Failed/uncertain saves
+  retain the existing form and recovery behavior; edit saves remain unchanged.
+- Mobile TypeScript, targeted ESLint, Prettier and whitespace checks passed.
+  Device navigation/toast verification remains pending.
+
+## 2026-11-03 - Smaller directory filter pills
+
+- Reduced directory filter pills to a 36px minimum visual height with 12px
+  horizontal padding. Added vertical touch padding through hitSlop and prevented
+  the horizontal filter scroller from expanding; labels can still grow with font
+  scaling. Existing filters and selected yellow styling remain unchanged.
+- Mobile TypeScript, targeted ESLint and Prettier passed. Device visual
+  verification remains pending.
+
+## 2026-11-03 - Directory role/village and shared buyer editing
+
+- Directory rows show one role plus localized village; seller takes precedence
+  for buyer/seller accounts. Excluded the signed-in coordinator's own row from
+  rendered results. Removed the Active filter and directory Refresh button;
+  other filters, paging, search and assigned-village scope remain unchanged.
+- Edit actions now open Add Buyer with an account ID, refetch permissions and
+  render the same BuyerForm prefilled with saved names/mobile/village. Save
+  sends the existing versioned name-only PATCH. Mobile/village remain locked,
+  verified users cannot edit, and legacy edit routes redirect to Add Buyer.
+- Passed: mobile TypeScript, targeted ESLint, Prettier, whitespace checks and
+  all 81 mobile tests. Device layout and navigation acceptance remain pending.
+
+## 2026-11-03 - Compact coordinator user directory
+
+- Updated the directory with a search-icon field, horizontal yellow-selected
+  filters and rounded user rows containing an initial, saved name and roles.
+  Removed village controls/text and status/verification lines from this list;
+  the existing selected assigned-village API scope and detail view remain.
+- Eligible users show a localized Edit action opening the existing name-only
+  correction form. Both directory and detail/edit views require server `canEdit`
+  and a verification flag other than true. The existing server permission check
+  continues to restrict corrections to the actor's active unverified buyer
+  pre-registrations; verified and other users stay read-only.
+- Preserved search, existing filters, refresh, pagination and detail navigation.
+  Mobile TypeScript, all 81 mobile tests, targeted ESLint, Prettier and whitespace
+  checks passed. Device visual acceptance remains pending.
+
+## 2026-11-03 - Add Buyer required-field indicators
+
+- Added an asterisk to First Name, Last Name, Mobile and Village labels in the
+  coordinator Add Buyer form, using the existing Marathi/English labels.
+  Existing validation and the preselected required village remain unchanged.
+- Mobile TypeScript, targeted ESLint and whitespace checks passed. Device visual
+  verification remains pending.
+
+## 2026-11-03 - Coordinator information before dashboard tabs
+
+- Moved the existing coordinator identity/assigned-village header above the
+  dashboard switcher; summary cards and quick actions follow the tabs. The
+  assignment-pending view also shows coordinator identity before the switcher.
+- Reused the existing CoordinatorPage header and dashboard tabs without adding
+  screens or changing role access, navigation, APIs or summary/actions.
+- Mobile TypeScript, targeted ESLint, Prettier and whitespace checks passed.
+  Device visual acceptance remains pending.
+
+## 2026-11-02 - Role-based mobile dashboard tabs
+
+- IMPLEMENTED — VERIFICATION PENDING (device acceptance): shared top switcher
+  uses समन्वयक / खरेदीदार / शेतकरी and English translations, existing light
+  green/yellow theme, icons, accessible selected state and wrapping labels.
+- Reuses CoordinatorManageScreen with its existing summary/actions, HomeScreen
+  for buying and marketplace discovery, and MyListingsScreen for selling.
+  Coordinator Home defaults to Manage content; explicit Buyer navigation uses
+  the Home route parameter. Existing bottom tab routes/history remain intact.
+- Visibility uses existing coordinator-role/legacy-assignment logic and seller
+  capability; assignment-pending users retain the existing protected-work gate.
+  No session, backend, API, data model or offline-operation changes.
+- Passed: mobile TypeScript, full mobile ESLint, all 81 mobile tests, and diff
+  whitespace checks. Added coverage for dashboard availability/defaults,
+  explicit Buyer selection, pending assignment, revoked/legacy coordinator
+  roles, unchanged account data and translated labels.
+- Android Metro/Hermes export passed (1,607 modules). Device checks remain pending:
+  role switching, Android back/bottom navigation, small/large-font layouts,
+  listing actions and foreground role revocation.
+
+## 2026-10-29 - Marathi live-preview unit rendering follow-up
+
+- Marathi units remain present in API data and translations. Compact price badges
+  now render the localized unit as a separate, non-shrinking text item, with the
+  slash attached to the amount. Removed fixed line height from compact price text
+  so Android's native Devanagari font metrics and font padding determine height.
+  Long values can wrap within the badge; no price or unit is truncated or invented.
+- Verification: mobile TypeScript, targeted ESLint, Prettier, all 80 mobile tests,
+  and the Android release build passed. Release source map includes this rendering
+  change; the rebuilt APK contains https://gaavli.vercel.app/api/v1. APK output:
+  apps/mobile/android/app/build/outputs/apk/release/app-release.apk.
+  Android visual acceptance remains pending because no device is connected.
+
 ## 2026-10-29 - Home price units and category count wording
 
 - Guest Kalamb follow-up: the configured public API returns Potato at price 80

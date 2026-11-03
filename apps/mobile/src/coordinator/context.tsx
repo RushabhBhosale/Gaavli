@@ -78,6 +78,7 @@ export function CoordinatorPage({
   compact = false,
   form = false,
   customScreen = false,
+  afterHeader,
   children,
 }: {
   title: string;
@@ -86,6 +87,7 @@ export function CoordinatorPage({
   compact?: boolean;
   form?: boolean;
   customScreen?: boolean;
+  afterHeader?: ReactNode;
   children: ReactNode;
 }) {
   const { session, language, offline } = useAppStore();
@@ -113,6 +115,7 @@ export function CoordinatorPage({
           <Text style={d.sectionTitle}>{session?.user.name}</Text>
           <Text style={d.description}>{t.coordinatorSubtitle}</Text>
         </Card>
+        {afterHeader}
         <Text accessibilityRole="header" style={d.sectionTitle}>
           {t.assignmentPending}
         </Text>
@@ -131,6 +134,7 @@ export function CoordinatorPage({
       compact={compact || form}
       form={form}
       customScreen={customScreen}
+      afterHeader={afterHeader}
       selectVillage={select}
       header={
         showSceneHeader ? (
@@ -279,6 +283,7 @@ export function CoordinatorPage({
   );
 }
 function CoordinatorScope({
+  afterHeader,
   actorId,
   village,
   title,
@@ -290,6 +295,7 @@ function CoordinatorScope({
   header,
   children,
 }: {
+  afterHeader?: ReactNode;
   actorId: string;
   village: MobileVillage;
   title: string;
@@ -497,6 +503,7 @@ function CoordinatorScope({
                 {title}
               </Text>
             ))}
+          {afterHeader}
           {failure && <ErrorMessage message={failure} />}
           {pending && (
             <>

@@ -19,6 +19,7 @@ const date = z
 export const coordinatorQuerySchema = z
   .object({
     villageId: id.optional(),
+    includeMapped: z.enum(["true", "false"]).default("false"),
     search: z.string().trim().max(100).default(""),
     area: z.enum(["all", "taluka", "district", "other_talukas"]).default("all"),
     filter: z

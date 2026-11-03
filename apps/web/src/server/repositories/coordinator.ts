@@ -82,9 +82,14 @@ export async function findCoordinatorUsers(
   village: InstanceType<typeof Village>,
   query: CoordinatorQuery,
 ) {
+  const villages = await coordinatorDirectoryVillages(
+    village,
+    query.includeMapped === "true",
+  );
+  const byId = new Map(villages.map((entry) => [String(entry._id), entry]));
   const search = escapeSearch(query.search);
   const filter = {
-    village: village._id,
+    village: { $in: villages.map((entry) => entry._id) },
     ...(search
       ? {
           $or: ["name", "firstName", "lastName", "mobile"].map((key) => ({
@@ -113,11 +118,38 @@ export async function findCoordinatorUsers(
     User.countDocuments(filter),
   ]);
   return {
-    users: rows.map((row) => coordinatorUserDto(row, village, actorId)),
+    users: rows.map((row) => {
+      const dto = coordinatorUserDto(
+        row,
+        byId.get(String(row.village))!,
+        actorId,
+      );
+      if (String(row.village) !== String(village._id)) dto.canEdit = false;
+      return dto;
+    }),
     total,
     page: query.page,
     limit: query.limit,
   };
+}
+// Directory-only read scope: direct, active, bidirectional mappings. This does
+// not grant an assignment or expand mutation, activity or moderation access.
+export async function coordinatorDirectoryVillages(
+  village: InstanceType<typeof Village>,
+  includeMapped: boolean,
+) {
+  if (!includeMapped) return [village];
+  const connections = await VillageConnection.find({
+    active: true,
+    $or: [{ sourceVillageId: village._id }, { targetVillageId: village._id }],
+  }).lean();
+  const ids = connections.map((row) =>
+    String(row.sourceVillageId) === String(village._id)
+      ? row.targetVillageId
+      : row.sourceVillageId,
+  );
+  const mapped = await Village.find({ _id: { $in: ids }, isActive: true });
+  return [village, ...mapped];
 }
 export async function findConnections(
   villageId: string,

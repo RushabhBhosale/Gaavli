@@ -23,15 +23,18 @@ export function Screen({
   children,
   compact = false,
   footer,
+  topContent,
 }: {
   children: ReactNode;
   compact?: boolean;
   footer?: ReactNode;
+  topContent?: ReactNode;
 }) {
   const offline = useAppStore((state) => state.offline);
   const language = useAppStore((state) => state.language);
   return (
     <SafeAreaView style={styles.safe}>
+      {topContent}
       {offline && <OfflineBanner message={messages(language).offline} />}
       <KeyboardAvoidingView
         style={styles.flex}

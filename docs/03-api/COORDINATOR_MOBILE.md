@@ -10,6 +10,78 @@ is introduced. Native visual/GPS/dialer acceptance remains a separate device che
 
 ## Navigation and authorization
 
+Mapped directory revision — 2026-11-03 (user approved): mobile User Directory
+requests `includeMapped=true` on `/coordinator/users` and user detail reads.
+After checking the active coordinator role and source assignment, the server
+includes users whose registered village is the source or a directly mapped,
+active village through an active bidirectional VillageConnection. Search,
+role filters, counts and pagination apply to the combined scope. DTOs carry
+each user's actual village. No recursive/transitive connections are included.
+Buyer browsingVillage is never used to authorize these reads.
+
+`includeMapped` accepts only `true` / `false` strings and defaults to `false`,
+preserving assigned-village-only callers and Manage summary totals. Mapped
+users are view-only (`canEdit:false`), including pre-registrations by the actor.
+Their user details can be opened within the same directory scope, but no
+listing-management records are returned for an unassigned mapped village;
+mobile hides that listing section. PATCH, reports, activity and moderation
+retain their assignment-only checks. Removed mappings or inactive villages
+are excluded on subsequent requests. This supersedes the directory-only
+assigned-village visibility described in earlier revisions below.
+
+Add Buyer success revision — 2026-11-03 (user approved): after confirmed
+creation, reuse the coordinator mutation's existing localized success toast,
+clear the buyer draft and return directly to Manage. Do not render the former
+Add another buyer / View buyer / Return to Manage confirmation screen. Failed
+or uncertain writes retain the form and existing recovery behavior.
+
+Directory follow-up — 2026-11-03 (user approved): show one role followed by
+the user's localized village (`Seller - Kalamb`, `Buyer - Narayangaon`), with
+seller taking precedence for buyer/seller accounts. Hide the signed-in
+coordinator's own row. Remove the Active filter and standalone Refresh button
+from this list; All, Sellers, Buyers and Pre-registered remain. The selected
+assigned-village scope is unchanged. Edit opens `/coordinator/add-buyer?id=...`
+and reuses BuyerForm with saved details and Save changes. Only names are editable;
+mobile and village remain read-only under the existing correction contract.
+Fresh detail permissions gate the form, verified users remain read-only, and
+legacy user/edit links redirect to the shared Add Buyer route.
+
+User directory layout revision — 2026-11-03 (user approved): omit the
+assigned-village controls and village text from directory list rows while
+retaining the selected assigned-village API scope. Use a search-icon field,
+horizontal filter pills and compact rounded rows with initials, name and roles.
+Replace list status badges/verification lines with an Edit action only when
+the server returns `canEdit` and `mobileVerified` is not true. It opens the
+existing name-correction form. Verified users and other users without edit
+permission remain view-only; row presses still open their authorized details.
+Existing filters, refresh, pagination and server-side edit checks remain.
+
+Dashboard tabs revision — 2026-11-02 (user approved): signed-in dashboard
+screens share a compact Marathi/English Coordinator | Buyer | Seller switcher.
+The Marathi labels are समन्वयक | खरेदीदार | शेतकरी. Coordinator is visible only
+for the existing coordinator role, Buyer remains the default account capability,
+and Seller requires `isSeller`. Switching never activates a capability.
+Home initially renders the existing coordinator Manage screen (summary cards,
+assigned-village selector and quick actions) for coordinators. Explicit Buyer
+selection opens the existing shared Home with `dashboard=buyer`, preserving its
+marketplace entry and discovery. Seller opens the existing My Listings screen.
+The switcher uses existing Expo Router tab routes/history, with no nested
+navigator or extra header. The existing bottom tabs and Activity remain available.
+Assignment-pending coordinators can switch to personal buying/selling, but the
+existing coordinator scope checks still prevent unassigned management work.
+This supersedes the shared buyer Home default described below.
+
+Coordinator layout order — 2026-11-03 (user approved): show the existing
+coordinator identity and assigned-village header first, followed by the dashboard
+tabs, then summary cards and quick actions. For assignment-pending coordinators,
+show the saved coordinator identity before the tabs and assignment explanation.
+
+Buyer/Seller layout follow-up — 2026-11-03 (user approved): Buyer Home places
+the same dashboard switcher immediately after AccountHeader; My Listings places
+it after its existing seller identity/village banner, before search and listings.
+All three dashboards now show user information before role tabs. DashboardScreen
+remains a generic screen wrapper and does not inject tabs above its content.
+
 Manage layout revision — 2026-10-19: use a compact identity header with a dark
 green round coordinator monogram, the saved user's name and localized coordinator
 role, a localized Village Coordinator subtitle, and a pale green village badge.
