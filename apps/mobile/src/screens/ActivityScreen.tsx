@@ -53,16 +53,19 @@ type ActivityItem =
 export default function ActivityScreen({
   onBack,
   initialDirection,
+  requestDirection,
 }: {
   onBack?: () => void;
   initialDirection?: RequestTab;
+  requestDirection?: "sent" | "received";
 } = {}) {
   const session = useAppStore((state) => state.session);
   return (
     <ActivityContent
-      key={session?.user.id}
+      key={`${session?.user.id}:${requestDirection ?? "all"}`}
       onBack={onBack}
       initialDirection={initialDirection}
+      requestDirection={requestDirection}
     />
   );
 }
@@ -70,9 +73,11 @@ export default function ActivityScreen({
 function ActivityContent({
   onBack,
   initialDirection,
+  requestDirection,
 }: {
   onBack?: () => void;
   initialDirection?: RequestTab;
+  requestDirection?: "sent" | "received";
 }) {
   const { language, session, offline } = useAppStore();
   const t = messages(language);
@@ -83,7 +88,7 @@ function ActivityContent({
   const [selectedTab, setSelectedTab] = useState<RequestTab>(
     initialDirection || "sent",
   );
-  const tab = availableRequestTab(isSeller, selectedTab);
+  const tab = availableRequestTab(isSeller, requestDirection ?? selectedTab);
   const notificationsActive = tab === "notifications";
   const appActive = useAppActive();
   const [focused, setFocused] = useState(false);
@@ -195,7 +200,7 @@ function ActivityContent({
   const header = (
     <View style={s.listHeader}>
       <PageSceneHeader
-        title={t.myRequests}
+        title={requestDirection ? labels[tab] : t.myRequests}
         subtitle={t.activitySubtitle}
         backLabel={t.back}
         onBack={onBack || (() => router.replace("/home"))}
@@ -224,24 +229,26 @@ function ActivityContent({
           </Pressable>
         }
       />
-      <View style={s.tabs} accessibilityRole="tablist">
-        {requestTabs(isSeller).map((value) => (
-          <Pressable
-            key={value}
-            accessibilityRole="tab"
-            accessibilityState={{ selected: tab === value }}
-            onPress={() => {
-              if (value !== selectedTab) {
-                setVisibleIds([]);
-                setSelectedTab(value);
-              }
-            }}
-            style={[s.tab, tab === value && s.selected]}
-          >
-            <Text style={s.tabText}>{labels[value]}</Text>
-          </Pressable>
-        ))}
-      </View>
+      {!requestDirection && (
+        <View style={s.tabs} accessibilityRole="tablist">
+          {requestTabs(isSeller).map((value) => (
+            <Pressable
+              key={value}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: tab === value }}
+              onPress={() => {
+                if (value !== selectedTab) {
+                  setVisibleIds([]);
+                  setSelectedTab(value);
+                }
+              }}
+              style={[s.tab, tab === value && s.selected]}
+            >
+              <Text style={s.tabText}>{labels[value]}</Text>
+            </Pressable>
+          ))}
+        </View>
+      )}
       {offline && <Text style={d.description}>{t.offlineAction}</Text>}
       {unread.isError && !active.isError && (
         <>

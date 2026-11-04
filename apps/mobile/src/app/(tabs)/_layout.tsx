@@ -7,11 +7,15 @@ import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { coordinatorMessages } from "../../coordinator/i18n";
 import { hasCoordinatorRole } from "../../data/accountAccess";
+import { availableDashboardTab } from "../../data/dashboardTabs";
 
 export default function BuyerTabs() {
-  const { session, language, browsingVillage } = useAppStore();
+  const { session, language, browsingVillage, dashboardTab } = useAppStore();
   const t = messages(language);
   const coordinator = hasCoordinatorRole(session?.user);
+  const coordinatorActivity =
+    coordinator &&
+    availableDashboardTab(session?.user, dashboardTab) === "coordinator";
   const c = coordinatorMessages(language);
   const { fontScale } = useWindowDimensions();
   const insets = useSafeAreaInsets();
@@ -147,7 +151,7 @@ export default function BuyerTabs() {
         name="activity"
         options={{
           href: session ? undefined : null,
-          title: coordinator ? c.activity : t.myActivity,
+          title: coordinatorActivity ? c.activity : t.myActivity,
           tabBarLabel: ({ color }) => (
             <Text
               style={{
@@ -158,7 +162,7 @@ export default function BuyerTabs() {
                 textAlign: "center",
               }}
             >
-              {coordinator ? c.activity : t.myActivity}
+              {coordinatorActivity ? c.activity : t.myActivity}
             </Text>
           ),
           tabBarIcon: ({ color, size, focused }) => (

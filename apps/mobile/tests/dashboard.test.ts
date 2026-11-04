@@ -27,7 +27,11 @@ import {
 import { toHomeListing, liveDashboard } from "../src/data/listings";
 import { accountHeaderIdentity } from "../src/data/accountHeader";
 import { hasCoordinatorRole } from "../src/data/accountAccess";
-import { dashboardTabs, homeDashboardTab } from "../src/data/dashboardTabs";
+import {
+  availableDashboardTab,
+  dashboardTabs,
+  homeDashboardTab,
+} from "../src/data/dashboardTabs";
 import { resolveListingPhotoUrl } from "../src/data/listingPhotos";
 import {
   listingRate,
@@ -280,6 +284,14 @@ test("dashboard navigation defaults coordinators to their tools without granting
     isCoordinator: true,
     coordinatorVillages: [],
   };
+  assert.equal(availableDashboardTab(coordinator, null), "coordinator");
+  assert.equal(availableDashboardTab(coordinator, "buyer"), "buyer");
+  assert.equal(availableDashboardTab(coordinator, "seller"), "coordinator");
+  assert.equal(
+    availableDashboardTab({ ...coordinator, isSeller: true }, "seller"),
+    "seller",
+  );
+  assert.equal(availableDashboardTab(account, "coordinator"), "buyer");
   assert.deepEqual(dashboardTabs(coordinator), ["coordinator", "buyer"]);
   assert.deepEqual(dashboardTabs({ ...coordinator, isSeller: true }), [
     "coordinator",

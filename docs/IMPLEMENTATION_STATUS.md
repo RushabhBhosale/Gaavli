@@ -1,3 +1,20 @@
+## 2026-11-04 - Role-specific coordinator Activity
+
+- Coordinator accounts retain their dashboards while bottom Activity follows
+  the focused top role: Buyer opens Sent requests, Seller opens Received
+  requests, and Coordinator opens its assigned-village event feed. Role-specific
+  request views hide the other request tabs; standalone request screens and
+  non-coordinator accounts retain their existing behavior.
+- Removed coordinator Activity village controls, dates/Apply, summary cards,
+  filters, Refresh and personal request/listing/report shortcut buttons. Kept
+  event details, pagination, loading/errors/retry and existing server date/scope
+  rules. No push notification or backend notification changes were introduced.
+- Dashboard selection is session-local, follows dashboard focus/back navigation,
+  preserves same-account refresh, resets on account change/logout, and falls
+  back when a role is unavailable.
+- Mobile TypeScript, all 82 mobile tests, targeted ESLint, Prettier and whitespace
+  checks passed. Device navigation/visual checks remain pending.
+
 ## 2026-11-03 - Buyer/Seller dashboard tabs after identity
 
 - Moved Buyer Home's dashboard switcher below AccountHeader and Seller's below

@@ -10,6 +10,23 @@ is introduced. Native visual/GPS/dialer acceptance remains a separate device che
 
 ## Navigation and authorization
 
+Role-specific Activity revision — 2026-11-04 (user approved): retain the
+dashboard content on the top Coordinator/Buyer/Seller selection, and let bottom
+Activity follow that selection for coordinator accounts. Buyer opens personal
+sent requests; Seller opens personal received requests, without the other request
+direction tabs. Coordinator opens only the existing assigned-village activity
+feed. Remove its village controls, date inputs/Apply, summary cards, type filters,
+refresh button and personal request/listing/report shortcuts. Feed pagination,
+details and failure/retry states remain. This is the existing coordinator event
+feed, not a new push notification provider. Server scope and default date range
+(last 30 days) are unchanged.
+
+The selected dashboard role is session-local, synchronized when its dashboard
+receives focus, validated against current capabilities, preserved on same-account
+refresh, and cleared on account change/logout. Buyer browsing village grants no
+coordinator scope. Non-coordinator request screens and the notification inbox
+retain their existing behavior.
+
 Mapped directory revision — 2026-11-03 (user approved): mobile User Directory
 requests `includeMapped=true` on `/coordinator/users` and user detail reads.
 After checking the active coordinator role and source assignment, the server

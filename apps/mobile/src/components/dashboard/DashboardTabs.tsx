@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback } from "react";
 import { dashboardTabs, type DashboardTab } from "../../data/dashboardTabs";
 import { useAppStore } from "../../store";
 import { messages } from "../../i18n";
@@ -9,6 +10,12 @@ import { theme } from "../../theme";
 export function DashboardTabs({ selected }: { selected: DashboardTab }) {
   const { session, language } = useAppStore();
   const router = useRouter();
+  const setDashboardTab = useAppStore((state) => state.setDashboardTab);
+  useFocusEffect(
+    useCallback(() => {
+      setDashboardTab(selected);
+    }, [selected, setDashboardTab]),
+  );
   const t = messages(language);
   if (!session) return null;
   const labels = {
