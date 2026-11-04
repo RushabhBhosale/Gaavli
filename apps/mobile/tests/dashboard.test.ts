@@ -27,6 +27,7 @@ import {
 import { toHomeListing, liveDashboard } from "../src/data/listings";
 import { accountHeaderIdentity } from "../src/data/accountHeader";
 import { hasCoordinatorRole } from "../src/data/accountAccess";
+import { dashboardTabs, homeDashboardTab } from "../src/data/dashboardTabs";
 import { resolveListingPhotoUrl } from "../src/data/listingPhotos";
 import {
   listingRate,
@@ -271,6 +272,49 @@ const account: MobileUser = {
     pinCode: "410206",
   },
 };
+
+test("dashboard navigation defaults coordinators to their tools without granting seller access", () => {
+  const original = structuredClone(account);
+  assert.deepEqual(dashboardTabs(account), ["buyer"]);
+  assert.deepEqual(dashboardTabs(null), ["buyer"]);
+  assert.deepEqual(dashboardTabs({ ...account, isSeller: true }), [
+    "buyer",
+    "seller",
+  ]);
+  const coordinator = {
+    ...account,
+    isCoordinator: true,
+    coordinatorVillages: [],
+  };
+  assert.deepEqual(dashboardTabs(coordinator), ["coordinator", "buyer"]);
+  assert.deepEqual(dashboardTabs({ ...coordinator, isSeller: true }), [
+    "coordinator",
+    "buyer",
+    "seller",
+  ]);
+  assert.equal(homeDashboardTab(coordinator, undefined), "coordinator");
+  assert.equal(homeDashboardTab(coordinator, "buyer"), "buyer");
+  assert.equal(homeDashboardTab(account, "coordinator"), "buyer");
+  const revoked = {
+    ...account,
+    isCoordinator: false,
+    coordinatorVillages: [account.village!],
+  };
+  assert.deepEqual(dashboardTabs(revoked), ["buyer"]);
+  assert.equal(homeDashboardTab(revoked, undefined), "buyer");
+  assert.equal(
+    homeDashboardTab(
+      { ...account, coordinatorVillages: [account.village!] },
+      undefined,
+    ),
+    "coordinator",
+  );
+  assert.deepEqual(account, original);
+  assert.equal(messages("mr").dashboardCoordinator, "समन्वयक");
+  assert.equal(messages("mr").dashboardSeller, "शेतकरी");
+  assert.equal(messages("en").dashboardCoordinator, "Coordinator");
+  assert.equal(messages("en").dashboardSeller, "Seller");
+});
 
 test("shared header preserves identity and prioritizes active coordinator, seller, then buyer", () => {
   const buyer = accountHeaderIdentity(account, "en");

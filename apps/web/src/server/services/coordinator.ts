@@ -34,6 +34,7 @@ import {
   coordinatorListingDto,
   coordinatorReportDto,
   findCoordinatorUsers,
+  coordinatorDirectoryVillages,
   findCoordinatorActivity,
   findConnections,
   dateRange,
@@ -201,13 +202,29 @@ export async function coordinatorUser(
   id: string,
 ) {
   const village = await coordinatorScope(actorId, query.villageId);
-  const user = await User.findOne({ _id: id, village: village._id });
+  const villages = await coordinatorDirectoryVillages(
+    village,
+    query.includeMapped === "true",
+  );
+  const user = await User.findOne({
+    _id: id,
+    village: { $in: villages.map((entry) => entry._id) },
+  });
   if (!user) throw missing();
-  const listings = await Listing.find({ seller: id, village: village._id })
-    .sort({ createdAt: -1 })
-    .limit(50);
+  const ownVillage = String(user.village) === String(village._id);
+  const userVillage = villages.find(
+    (entry) => String(entry._id) === String(user.village),
+  )!;
+  const dto = coordinatorUserDto(user, userVillage, actorId);
+  if (!ownVillage) dto.canEdit = false;
+  // Mapped users are view-only; listing moderation still requires assignment.
+  const listings = ownVillage
+    ? await Listing.find({ seller: id, village: village._id })
+        .sort({ createdAt: -1 })
+        .limit(50)
+    : [];
   return coordinatorUserDetailSchema.parse({
-    user: coordinatorUserDto(user, village, actorId),
+    user: dto,
     listings: listings.map(coordinatorListingDto),
   });
 }

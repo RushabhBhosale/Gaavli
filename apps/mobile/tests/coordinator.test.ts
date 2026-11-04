@@ -49,6 +49,15 @@ test("multi-village addition stops on uncertain results and confirms only comple
 });
 
 test("coordinator inputs normalize mobile numbers and reject scope, role and product-field injection", () => {
+  assert.equal(coordinatorQuerySchema.parse({}).includeMapped, "false");
+  assert.equal(
+    coordinatorQuerySchema.parse({ includeMapped: "true" }).includeMapped,
+    "true",
+  );
+  assert.equal(
+    coordinatorQuerySchema.safeParse({ includeMapped: "all" }).success,
+    false,
+  );
   const buyer = {
     firstName: "Rahul",
     lastName: "More",

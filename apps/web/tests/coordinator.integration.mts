@@ -10,7 +10,7 @@ import {
   mobileUserSchema,
 } from "@gaavli/validation";
 nextEnv.loadEnvConfig(process.cwd());
-const databaseName = `gaavli_coordinator_test_${randomBytes(8).toString("hex")}`;
+const databaseName = `gaavli_coord_test_${randomBytes(8).toString("hex")}`;
 const uri = new URL(process.env.MONGODB_URI || "");
 uri.pathname = `/${databaseName}`;
 process.env.MONGODB_URI = uri.toString();
@@ -461,6 +461,117 @@ try {
     await check(await call(scoped(`villages/${aid}/connections`))),
   );
   assert.equal(connections.total, 1);
+  const localDirectory = coordinatorUsersSchema.parse(
+    await check(await call(scoped("users"))),
+  );
+  assert.equal(
+    localDirectory.users.some((row) => row.id === String(seller._id)),
+    false,
+  );
+  const mappedDirectory = coordinatorUsersSchema.parse(
+    await check(
+      await call(scoped("users?includeMapped=true&filter=sellers&search=Far")),
+    ),
+  );
+  assert.equal(mappedDirectory.total, 1);
+  assert.equal(mappedDirectory.users[0].id, String(seller._id));
+  assert.equal(mappedDirectory.users[0].village.id, bid);
+  assert.equal(mappedDirectory.users[0].canEdit, false);
+  const mappedDetail = await check(
+    await call(scoped(`users/${seller._id}?includeMapped=true`)),
+  );
+  assert.equal(mappedDetail.user.village.id, bid);
+  assert.equal(mappedDetail.user.canEdit, false);
+  assert.deepEqual(mappedDetail.listings, []);
+  const mappedPending = await User.create({
+    name: "Mapped Pending",
+    firstName: "Mapped",
+    lastName: "Pending",
+    mobile: "9876543290",
+    roles: ["buyer"],
+    village: b._id,
+    status: "active",
+    mobileVerified: false,
+    preRegisteredAt: new Date(),
+    createdByCoordinator: coordinator._id,
+  });
+  const pendingMappedPage = coordinatorUsersSchema.parse(
+    await check(
+      await call(
+        scoped(
+          "users?includeMapped=true&filter=preregistered&search=Mapped Pending",
+        ),
+      ),
+    ),
+  );
+  assert.equal(pendingMappedPage.total, 1);
+  assert.equal(pendingMappedPage.users[0].canEdit, false);
+  await check(
+    await call(
+      scoped(`users/${mappedPending._id}?includeMapped=true`),
+      "PATCH",
+      { firstName: "Changed", lastName: "Name", version: 0 },
+      "mapped-pending-edit-denied",
+    ),
+    404,
+  );
+  await User.deleteOne({ _id: mappedPending._id });
+  const transitiveUser = await User.create({
+    name: "Transitive Only",
+    roles: ["buyer"],
+    village: c._id,
+  });
+  const transitiveLink = await VillageConnection.create({
+    sourceVillageId: b._id,
+    targetVillageId: c._id,
+    active: true,
+    createdBy: coordinator._id,
+  });
+  assert.equal(
+    (
+      await check(
+        await call(scoped("users?includeMapped=true&search=Transitive Only")),
+      )
+    ).total,
+    0,
+  );
+  await check(
+    await call(scoped(`users/${transitiveUser._id}?includeMapped=true`)),
+    404,
+  );
+  await VillageConnection.deleteOne({ _id: transitiveLink._id });
+  await User.deleteOne({ _id: transitiveUser._id });
+  await check(await call(scoped(`users/${seller._id}`)), 404);
+  await check(await call(`users?includeMapped=true&villageId=${bid}`), 403);
+  await check(
+    await call(
+      scoped(`users/${seller._id}?includeMapped=true`),
+      "PATCH",
+      { firstName: "Changed", lastName: "Name", version: 0 },
+      "mapped-edit-denied",
+    ),
+    404,
+  );
+  await Village.updateOne({ _id: b._id }, { $set: { isActive: false } });
+  assert.equal(
+    (await check(await call(scoped("users?includeMapped=true&search=Far"))))
+      .total,
+    0,
+  );
+  await check(
+    await call(scoped(`users/${seller._id}?includeMapped=true`)),
+    404,
+  );
+  await Village.updateOne({ _id: b._id }, { $set: { isActive: true } });
+  const mappedPage = coordinatorUsersSchema.parse(
+    await check(await call(scoped("users?includeMapped=true&limit=1"))),
+  );
+  const mappedPageTwo = coordinatorUsersSchema.parse(
+    await check(await call(scoped("users?includeMapped=true&limit=1&page=2"))),
+  );
+  assert.equal(mappedPage.total, localDirectory.total + 1);
+  assert.equal(mappedPageTwo.total, mappedPage.total);
+  assert.notEqual(mappedPage.users[0].id, mappedPageTwo.users[0].id);
   const marketplacePage = await check(
     await listings.GET(
       req("/listings", "GET", undefined, undefined, buyerToken),
@@ -599,6 +710,14 @@ try {
     2,
   );
   await check(await call(`dashboard?villageId=${bid}`));
+  const reverseDirectory = coordinatorUsersSchema.parse(
+    await check(
+      await call(`users?villageId=${bid}&includeMapped=true&search=9876543211`),
+    ),
+  );
+  assert.equal(reverseDirectory.total, 1);
+  assert.equal(reverseDirectory.users[0].id, String(buyer._id));
+  assert.equal(reverseDirectory.users[0].village.id, aid);
   console.log(
     "PASS: active assignment scope, multi-village selection, bidirectional marketplace/contact discovery, GPS/name/taluka/district candidates and duplicate prevention.",
   );
@@ -727,6 +846,15 @@ try {
   );
   assert.equal(await Village.countDocuments(), 3);
   assert.equal(await Listing.countDocuments(), 2);
+  assert.equal(
+    (await check(await call(scoped("users?includeMapped=true&search=Far"))))
+      .total,
+    0,
+  );
+  await check(
+    await call(scoped(`users/${seller._id}?includeMapped=true`)),
+    404,
+  );
   await check(
     await listings.GET(
       req(
@@ -882,7 +1010,7 @@ try {
   if (
     mongoose.connection.readyState === 1 &&
     mongoose.connection.name === databaseName &&
-    /^gaavli_coordinator_test_[a-f0-9]{16}$/.test(databaseName)
+    /^gaavli_coord_test_[a-f0-9]{16}$/.test(databaseName)
   )
     await mongoose.connection.dropDatabase();
   await mongoose.disconnect();

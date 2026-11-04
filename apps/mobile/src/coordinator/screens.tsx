@@ -12,6 +12,7 @@ import {
   TextInput,
   View,
   Pressable,
+  StyleSheet,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
@@ -54,6 +55,7 @@ import { ListingImage } from "../components/dashboard/ListingImage";
 import { theme } from "../theme";
 import { addVillageConnections } from "../data/coordinator";
 import { coordinatorMessages } from "./i18n";
+import { DashboardTabs } from "../components/dashboard/DashboardTabs";
 import {
   CoordinatorPage,
   useCoordinator,
@@ -130,7 +132,11 @@ export function CoordinatorManageScreen() {
   const { t } = useCopy();
   const router = useRouter();
   return (
-    <CoordinatorPage title={t.manage} compact>
+    <CoordinatorPage
+      title={t.manage}
+      compact
+      afterHeader={<DashboardTabs selected="coordinator" />}
+    >
       <ManageSummary />
       <View style={{ marginTop: 8, gap: 12 }}>
         <View
@@ -247,9 +253,11 @@ type BuyerDraft = { firstName: string; lastName: string; mobile: string };
 function BuyerForm({
   draft,
   setDraft,
+  editUser,
 }: {
   draft: BuyerDraft;
   setDraft: (draft: BuyerDraft) => void;
+  editUser?: User;
 }) {
   const { language, t, common } = useCopy();
   const router = useRouter();
@@ -260,11 +268,8 @@ function BuyerForm({
   const setMobile = (value: string) => setDraft({ ...draft, mobile: value });
   const [villageExpanded, setVillageExpanded] = useState(false);
   const offline = useAppStore((state) => state.offline);
-  const assignments = useAppStore(
-    (state) => state.session?.user.coordinatorVillages,
-  );
   const [selectedVillage, setSelectedVillage] = useState<MobileVillage>(
-    scope.village,
+    editUser?.village ?? scope.village,
   );
   const villageQuery = useInfiniteQuery({
     queryKey: ["buyer-registration-villages", scope.actorId],
@@ -277,23 +282,46 @@ function BuyerForm({
       ),
     getNextPageParam: (last) =>
       last.page * last.limit < last.total ? last.page + 1 : undefined,
-    enabled: villageExpanded && !offline,
+    enabled: !editUser && villageExpanded && !offline,
   });
   const villages =
     villageQuery.data?.pages.flatMap((page) => page.villages) ?? [];
-  const [invalid, setInvalid] = useState(false),
-    [created, setCreated] = useState<string | null>(null);
-  const locked = scope.busy || scope.pending;
-  const validation = coordinatorBuyerSchema.safeParse({
-    firstName,
-    lastName,
-    mobile,
-  });
+  const [invalid, setInvalid] = useState(false);
+  const locked =
+    scope.busy ||
+    scope.pending ||
+    !!(editUser && (!editUser.canEdit || editUser.mobileVerified === true));
+  const validation = editUser
+    ? coordinatorUserEditSchema.safeParse({
+        firstName,
+        lastName,
+        version: editUser.version,
+      })
+    : coordinatorBuyerSchema.safeParse({ firstName, lastName, mobile });
   const hasError = (field: string) =>
     invalid &&
     !validation.success &&
     validation.error.issues.some((issue) => issue.path[0] === field);
   async function submit() {
+    if (locked) return;
+    if (editUser) {
+      const parsed = coordinatorUserEditSchema.safeParse({
+        firstName,
+        lastName,
+        version: editUser.version,
+      });
+      setInvalid(!parsed.success);
+      if (!parsed.success) return;
+      if (
+        await scope.write(
+          `/coordinator/users/${editUser.id}`,
+          "PATCH",
+          parsed.data,
+        )
+      )
+        router.back();
+      return;
+    }
     const parsed = coordinatorBuyerSchema.safeParse({
       firstName,
       lastName,
@@ -307,41 +335,15 @@ function BuyerForm({
       "POST",
       parsed.data,
     );
-    if (result) setCreated(result.id);
+    if (result) {
+      setDraft({ firstName: "", lastName: "", mobile: "" });
+      router.replace("/manage");
+    }
   }
-  return created ? (
-    <>
-      <Panel>
-        <Text style={d.cardTitle}>{t.buyerSuccess}</Text>
-        <Text style={d.description}>{t.buyerSuccessHelp}</Text>
-      </Panel>
-      <Button
-        onPress={() => {
-          setCreated(null);
-          setDraft({ firstName: "", lastName: "", mobile: "" });
-        }}
-      >
-        {t.addAnother}
-      </Button>
-      {assignments?.some((village) => village.id === selectedVillage.id) && (
-        <Button
-          secondary
-          onPress={() => {
-            scope.selectVillage(selectedVillage.id);
-            router.push(`/coordinator/user/${created}`);
-          }}
-        >
-          {t.viewUser}
-        </Button>
-      )}
-      <Button secondary onPress={() => router.replace("/manage")}>
-        {t.backManage}
-      </Button>
-    </>
-  ) : (
+  return (
     <>
       <Input
-        label={common.firstName}
+        label={`${common.firstName} *`}
         value={firstName}
         maxLength={60}
         error={hasError("firstName") ? common.nameError : undefined}
@@ -350,7 +352,7 @@ function BuyerForm({
         autoCapitalize="words"
       />
       <Input
-        label={common.lastName}
+        label={`${common.lastName} *`}
         value={lastName}
         maxLength={60}
         error={hasError("lastName") ? common.nameError : undefined}
@@ -359,23 +361,23 @@ function BuyerForm({
         autoCapitalize="words"
       />
       <Input
-        label={common.mobile}
+        label={`${common.mobile} *`}
         value={mobile}
         maxLength={24}
         error={hasError("mobile") ? common.mobileError : undefined}
-        editable={!locked}
+        editable={!locked && !editUser}
         onChangeText={setMobile}
         keyboardType="phone-pad"
       />
       <View style={{ gap: 8 }}>
         <DropdownField
-          label={t.village}
+          label={`${t.village} *`}
           placeholder={t.village}
           value={
             language !== "en" ? selectedVillage.nameMr : selectedVillage.name
           }
           expanded={villageExpanded}
-          disabled={locked}
+          disabled={locked || !!editUser}
           onPress={() => setVillageExpanded(!villageExpanded)}
         />
         {villageExpanded &&
@@ -400,13 +402,15 @@ function BuyerForm({
         )}
       </View>
       {invalid && <ErrorMessage message={t.invalid} />}
-      <Text style={d.description}>{t.buyerSuccessHelp}</Text>
+      <Text style={d.description}>
+        {editUser ? t.editHelp : t.buyerSuccessHelp}
+      </Text>
       <Button
         disabled={locked}
         loading={scope.busy}
         onPress={() => void submit()}
       >
-        {t.addBuyer}
+        {editUser ? t.save : t.addBuyer}
       </Button>
     </>
   );
@@ -449,72 +453,246 @@ function UserSummary({ user }: { user: User }) {
   );
 }
 function Directory() {
-  const { t } = useCopy();
+  const { language, t } = useCopy();
+  const { actorId } = useCoordinator();
   const router = useRouter();
   const [search, setSearch] = useState(""),
     [filter, setFilter] = useState("all");
   const query = useCoordinatorPages(
     "/coordinator/users",
     coordinatorUsersSchema,
-    { search, filter },
+    { search, filter, includeMapped: "true" },
   );
-  const rows = query.data?.pages.flatMap((page) => page.users) || [];
+  const rows =
+    query.data?.pages
+      .flatMap((page) => page.users)
+      .filter((user) => user.id !== actorId) || [];
+  const roleLabels: Record<string, string> = {
+    buyer: t.roleBuyer,
+    seller: t.roleSeller,
+    coordinator: t.roleCoordinator,
+    service_provider: t.roleService,
+  };
   return (
     <>
-      <Input
-        label={t.searchUsers}
-        value={search}
-        maxLength={100}
-        onChangeText={setSearch}
-        returnKeyType="search"
-        onSubmitEditing={() => void query.refetch()}
-      />
-      <Chips
-        choices={[
+      <View style={directoryStyles.search}>
+        <Ionicons
+          accessible={false}
+          name="search-outline"
+          size={21}
+          color={theme.colors.muted}
+        />
+        <TextInput
+          accessibilityLabel={t.searchUsers}
+          placeholder={t.searchUsers}
+          placeholderTextColor={theme.colors.placeholder}
+          value={search}
+          maxLength={100}
+          onChangeText={setSearch}
+          returnKeyType="search"
+          onSubmitEditing={() => void query.refetch()}
+          style={directoryStyles.searchInput}
+        />
+      </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={directoryStyles.filterScroll}
+        contentContainerStyle={directoryStyles.filters}
+      >
+        {[
           ["all", t.all],
-          ["buyers", t.buyers],
           ["sellers", t.sellers],
-          ["active", t.active],
+          ["buyers", t.buyers],
           ["preregistered", t.preregistered],
-        ]}
-        value={filter}
-        onChange={setFilter}
-      />
-      <Refresh query={query} />
+        ].map(([value, label]) => (
+          <Pressable
+            key={value}
+            accessibilityRole="button"
+            accessibilityState={{ selected: filter === value }}
+            hitSlop={{ top: 6, bottom: 6 }}
+            onPress={() => setFilter(value)}
+            style={({ pressed }) => [
+              directoryStyles.filter,
+              filter === value && directoryStyles.selectedFilter,
+              pressed && d.pressed,
+            ]}
+          >
+            <Text style={directoryStyles.filterText}>{label}</Text>
+          </Pressable>
+        ))}
+      </ScrollView>
       <QueryStatus query={query} empty={!rows.length} />
       {!query.isError &&
         rows.map((user) => (
-          <Pressable
-            key={user.id}
-            accessibilityRole="button"
-            accessibilityLabel={user.name}
-            style={({ pressed }) => [pressed && d.pressed]}
-            onPress={() => router.push(`/coordinator/user/${user.id}`)}
-          >
-            <Panel>
-              <UserSummary user={user} />
-            </Panel>
-          </Pressable>
+          <View key={user.id} style={directoryStyles.row}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={user.name}
+              style={({ pressed }) => [
+                directoryStyles.user,
+                pressed && d.pressed,
+              ]}
+              onPress={() => router.push(`/coordinator/user/${user.id}`)}
+            >
+              <View
+                style={[
+                  directoryStyles.avatar,
+                  {
+                    backgroundColor: user.roles.includes("seller")
+                      ? theme.colors.tint
+                      : theme.colors.accentBackground,
+                  },
+                ]}
+                accessible={false}
+              >
+                <Text style={directoryStyles.initial}>
+                  {Array.from(user.name.trim())[0] || "?"}
+                </Text>
+              </View>
+              <View style={directoryStyles.copy}>
+                <Text style={d.cardTitle}>{user.name}</Text>
+                <Text style={d.description}>
+                  {
+                    roleLabels[
+                      [
+                        "seller",
+                        "coordinator",
+                        "buyer",
+                        "service_provider",
+                      ].find((role) => user.roles.includes(role)) || "buyer"
+                    ]
+                  }{" "}
+                  -{" "}
+                  {language === "mr" ? user.village.nameMr : user.village.name}
+                </Text>
+              </View>
+            </Pressable>
+            {user.canEdit && user.mobileVerified !== true && (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={`${t.editUser}: ${user.name}`}
+                onPress={() =>
+                  router.push({
+                    pathname: "/coordinator/add-buyer",
+                    params: { id: user.id },
+                  })
+                }
+                style={({ pressed }) => [
+                  directoryStyles.edit,
+                  pressed && d.pressed,
+                ]}
+              >
+                <Ionicons
+                  accessible={false}
+                  name="create-outline"
+                  size={17}
+                  color={theme.colors.heading}
+                />
+                <Text style={directoryStyles.filterText}>
+                  {t.directoryEdit}
+                </Text>
+              </Pressable>
+            )}
+          </View>
         ))}
       <More query={query} />
     </>
   );
 }
+const directoryStyles = StyleSheet.create({
+  search: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    minHeight: 54,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: 18,
+    backgroundColor: theme.colors.surface,
+  },
+  searchInput: {
+    flex: 1,
+    minWidth: 0,
+    minHeight: theme.layout.touchTarget,
+    fontSize: 15,
+    color: theme.colors.text,
+    paddingVertical: 10,
+  },
+  filterScroll: { flexGrow: 0 },
+  filters: { gap: 8, paddingVertical: 6, alignItems: "center" },
+  filter: {
+    minHeight: 36,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: 18,
+    backgroundColor: theme.colors.surface,
+    justifyContent: "center",
+  },
+  selectedFilter: {
+    backgroundColor: theme.colors.accent,
+    borderColor: theme.colors.accent,
+  },
+  filterText: { fontSize: 13, fontWeight: "600", color: theme.colors.text },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: 22,
+    backgroundColor: theme.colors.surface,
+  },
+  user: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    minHeight: theme.layout.touchTarget,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  initial: { fontSize: 21, fontWeight: "600", color: theme.colors.heading },
+  copy: { flex: 1, gap: 2 },
+  edit: {
+    minHeight: theme.layout.touchTarget,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+    paddingHorizontal: 10,
+    borderRadius: theme.radii.control,
+    backgroundColor: theme.colors.tint,
+    flexShrink: 1,
+  },
+});
 function UserDetail({ id, edit }: { id: string; edit: boolean }) {
+  const { village } = useCoordinator();
   const query = useCoordinatorQuery(
     `/coordinator/users/${id}`,
     coordinatorUserDetailSchema,
+    { includeMapped: "true" },
   );
   const { t } = useCopy();
   const router = useRouter();
   return (
     <>
       <QueryStatus query={query} />
-      <Refresh query={query} />
+      {!edit && <Refresh query={query} />}
       {!query.isError &&
         query.data &&
         (edit ? (
-          query.data.user.canEdit ? (
+          query.data.user.canEdit && query.data.user.mobileVerified !== true ? (
             <EditUser
               key={`${id}:${query.data.user.version}`}
               user={query.data.user}
@@ -527,81 +705,51 @@ function UserDetail({ id, edit }: { id: string; edit: boolean }) {
             <Panel>
               <UserSummary user={query.data.user} />
             </Panel>
-            {query.data.user.canEdit && (
-              <Button
-                onPress={() => router.push(`/coordinator/user/${id}/edit`)}
-              >
-                {t.editUser}
-              </Button>
-            )}
+            {query.data.user.canEdit &&
+              query.data.user.mobileVerified !== true && (
+                <Button
+                  onPress={() =>
+                    router.push({
+                      pathname: "/coordinator/add-buyer",
+                      params: { id },
+                    })
+                  }
+                >
+                  {t.editUser}
+                </Button>
+              )}
             <Text style={d.description}>{t.editHelp}</Text>
-            <Text style={d.sectionTitle}>{t.listings}</Text>
-            {!query.data.listings.length && (
-              <Text style={d.description}>{t.empty}</Text>
+            {query.data.user.village.id === village.id && (
+              <>
+                <Text style={d.sectionTitle}>{t.listings}</Text>
+                {!query.data.listings.length && (
+                  <Text style={d.description}>{t.empty}</Text>
+                )}
+                {query.data.listings.map((listing) => (
+                  <NavigationCard
+                    key={listing.id}
+                    icon="leaf-outline"
+                    title={listing.productName}
+                    subtitle={`${listing.quantity ?? t.unknown} ${listing.unit || ""}`}
+                    onPress={() =>
+                      router.push(`/coordinator/listing/${listing.id}`)
+                    }
+                  />
+                ))}
+              </>
             )}
-            {query.data.listings.map((listing) => (
-              <NavigationCard
-                key={listing.id}
-                icon="leaf-outline"
-                title={listing.productName}
-                subtitle={`${listing.quantity ?? t.unknown} ${listing.unit || ""}`}
-                onPress={() =>
-                  router.push(`/coordinator/listing/${listing.id}`)
-                }
-              />
-            ))}
           </>
         ))}
     </>
   );
 }
 function EditUser({ user }: { user: User }) {
-  const { t, common } = useCopy();
-  const scope = useCoordinator();
-  const router = useRouter();
-  const [firstName, setFirst] = useState(user.firstName || ""),
-    [lastName, setLast] = useState(user.lastName || ""),
-    [invalid, setInvalid] = useState(false);
-  async function save() {
-    const parsed = coordinatorUserEditSchema.safeParse({
-      firstName,
-      lastName,
-      version: user.version,
-    });
-    setInvalid(!parsed.success);
-    if (!parsed.success) return;
-    if (
-      await scope.write(`/coordinator/users/${user.id}`, "PATCH", parsed.data)
-    )
-      router.back();
-  }
-  return (
-    <>
-      <Text style={d.description}>{t.editHelp}</Text>
-      <Input
-        label={common.firstName}
-        value={firstName}
-        onChangeText={setFirst}
-        maxLength={60}
-        editable={!scope.busy && !scope.pending}
-      />
-      <Input
-        label={common.lastName}
-        value={lastName}
-        onChangeText={setLast}
-        maxLength={60}
-        editable={!scope.busy && !scope.pending}
-      />
-      {invalid && <ErrorMessage message={t.invalid} />}
-      <Button
-        loading={scope.busy}
-        disabled={scope.pending}
-        onPress={() => void save()}
-      >
-        {t.save}
-      </Button>
-    </>
-  );
+  const [draft, setDraft] = useState<BuyerDraft>({
+    firstName: user.firstName || "",
+    lastName: user.lastName || "",
+    mobile: user.mobile || "",
+  });
+  return <BuyerForm draft={draft} setDraft={setDraft} editUser={user} />;
 }
 function Connections() {
   const { language, t } = useCopy();
@@ -1642,20 +1790,34 @@ export default function CoordinatorScreen() {
     lastName: "",
     mobile: "",
   });
-  const { path } = useLocalSearchParams<{ path: string[] }>();
+  const { path, id } = useLocalSearchParams<{ path: string[]; id?: string }>();
   const { t } = useCopy();
   const parts = Array.isArray(path) ? path : [];
   let title = t.manage;
   let content;
   if (parts[0] === "add-buyer") {
-    title = t.addBuyer;
-    content = <BuyerForm draft={buyerDraft} setDraft={setBuyerDraft} />;
+    title = id ? t.editUser : t.addBuyer;
+    content = id ? (
+      <UserDetail id={id} edit />
+    ) : (
+      <BuyerForm draft={buyerDraft} setDraft={setBuyerDraft} />
+    );
   } else if (parts[0] === "users") {
     title = t.directory;
     content = <Directory />;
   } else if (parts[0] === "user" && parts[1]) {
     title = parts[2] === "edit" ? t.editUser : t.userDetails;
-    content = <UserDetail id={parts[1]} edit={parts[2] === "edit"} />;
+    content =
+      parts[2] === "edit" ? (
+        <Redirect
+          href={{
+            pathname: "/coordinator/add-buyer",
+            params: { id: parts[1] },
+          }}
+        />
+      ) : (
+        <UserDetail id={parts[1]} edit={false} />
+      );
   } else if (parts[0] === "connections") {
     title = t.connections;
     content = parts[1] === "add" ? <AddConnection /> : <Connections />;
@@ -1678,7 +1840,9 @@ export default function CoordinatorScreen() {
       back
       customScreen={parts[0] === "connections" && parts[1] === "add"}
       form={
-        parts[0] === "add-buyer" || (parts[0] === "connections" && !parts[1])
+        parts[0] === "users" ||
+        parts[0] === "add-buyer" ||
+        (parts[0] === "connections" && !parts[1])
       }
     >
       {content}

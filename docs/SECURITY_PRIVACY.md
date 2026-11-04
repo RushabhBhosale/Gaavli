@@ -1,3 +1,16 @@
+## Coordinator mapped-directory reads - 2026-11-03 (user approved)
+
+The authenticated coordinator User Directory may include names, roles, mobile
+numbers and village details for users in the assigned source village and its
+direct active mapped villages when `includeMapped=true`. The source must still
+be an active assigned village; arbitrary client village IDs, public discovery
+preferences and transitive connections grant no scope. Inactive villages and
+removed connections are excluded on subsequent reads. Mapped user DTOs force
+canEdit:false and their detail responses omit management listing records.
+All existing assignment-only edit, activity, reporting and listing-moderation
+checks remain. Default directory calls remain source-only. Responses stay
+authenticated/no-store; no public contact or notification consent is granted.
+
 ## Notification badge/read privacy - 2026-10-28 (user approved)
 
 Unread counts and read updates use the authenticated active recipient exclusively;
