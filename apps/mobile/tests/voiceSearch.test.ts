@@ -345,3 +345,19 @@ test("native start exceptions clean up listeners and return to idle", async () =
   assert.equal(f.removed(), 1);
   assert.equal(f.statuses.at(-1), "idle");
 });
+
+test("village names for produce find the product in the app language", () => {
+  const kanda = voiceProductSearch("Kanda", "en");
+  assert.deepEqual(kanda, { text: "Onion", productGroup: "vegetables" });
+  assert.equal(voiceProductSearch("kanda", "mr").text, "कांदा");
+  assert.equal(voiceProductSearch("kanda", "hi").text, "प्याज");
+  assert.equal(
+    voiceProductSearch("show me tamatar please", "en").text,
+    "Tomato",
+  );
+  // Speech engines often hear "kanda" as "Canada".
+  assert.equal(voiceProductSearch("Canada", "en").text, "Onion");
+  // A close spelling still finds it, an unrelated word does not.
+  assert.equal(voiceProductSearch("kaanda", "en").text, "Onion");
+  assert.equal(voiceProductSearch("steel pipe", "en").text, "steel pipe");
+});

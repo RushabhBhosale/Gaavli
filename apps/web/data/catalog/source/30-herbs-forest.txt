@@ -1,0 +1,77 @@
+# Ayurvedic raw herbs (jadibuti), forest produce and fuel. Raw botanicals only, no medicines.
+@category|herbs-forest|farm_products|Herbs and Forest Produce|जड़ी-बूटी और वनोपज|जडीबुटी आणि वनोपज
+
+@sub|jadibuti|Raw Herbs (Jadibuti)|जड़ी-बूटियाँ|जडीबुटी|g,kg,packet
+Ashwagandha Root|अश्वगंधा जड़|अश्वगंधा मूळ|ashwagandha
+Shatavari Root|शतावरी जड़|शतावरी मूळ|shatavari
+Safed Musli|सफ़ेद मूसली|सफेद मुसळी|safed musli
+Mulethi|मुलेठी|ज्येष्ठमध|jeshthamadh,mulethi,licorice
+Haritaki|हरड़|हिरडा|harad,hirda,haritaki
+Bibhitaki|बहेड़ा|बेहडा|behda,baheda,bibhitaki
+Amla Dry|सूखा आंवला|आवळकाठी|avalkathi,dry amla
+Vekhand|वच|वेखंड|vach,vekhand,sweet flag
+Kapurkachri|कपूरकचरी|कापूरकाचरी|kapur kachri
+Nagarmotha|नागरमोथा|नागरमोथा|nagarmotha
+Giloy Stem|गिलोय|गुळवेल|gulvel,giloy,guduchi
+Neem Bark|नीम की छाल|कडुलिंबाची साल|neem chaal
+Arjun Bark|अर्जुन की छाल|अर्जुन साल|arjun chaal
+Babul Bark|बबूल छाल|बाभळीची साल|||
+Bel Powder|बेल चूर्ण|बेल चूर्ण|bel churna
+Brahmi Dry|ब्राह्मी सूखी|ब्राह्मी (सुकी)|brahmi
+Shankhpushpi|शंखपुष्पी|शंखपुष्पी|shankhpushpi
+Punarnava|पुनर्नवा|पुनर्नवा|punarnava,khaparkhuti
+Gokshura|गोखरू|गोखरू|gokhru,gokshura
+Bhringraj Dry|भृंगराज|माका|maka,bhringraj
+Kalmegh|कालमेघ|कालमेघ|kalmegh,bhui neem
+Tulsi Dry Leaves|सूखी तुलसी|सुकी तुळस|tulsi patta dry
+Senna Leaves|सनाय पत्ती|सोनामुखी|sonamukhi,senna
+Ajwain Satva|अजवाइन फूल|ओवा फूल|thymol,ajwain ka phool
+Pudina Satva|पुदीना सत|पुदिना फूल|menthol,pudina phool
+Jatamansi|जटामांसी|जटामांसी|jatamansi
+Shilajit|शिलाजीत|शिलाजीत|shilajit
+Ajmoda|अजमोदा|अजमोदा|ajmoda
+Kutki|कुटकी|कुटकी|kutki
+Chitrak|चित्रक|चित्रक|chitrak
+Vidarikand|विदारीकंद|विदारीकंद|vidarikand
+Kaunch Beej|कौंच बीज|कुयरीचे बी|kaunch,kawach beej
+Pippali Root|पीपलामूल|पिंपळीमूळ|pipramul
+Rasna|रास्ना|रास्ना|rasna
+Dashmool|दशमूल|दशमूळ|dashmool
+Indrajav|इंद्रजौ|इंद्रजव|indrajav
+Vavding|वायविडंग|वावडिंग|vavding,vidang
+Kadu Kirayat|चिरायता|किराईत|kirayat,chirayata
+Sariva|अनंतमूल|अनंतमूळ|anantmul,sariva
+Manjishtha|मंजिष्ठा|मंजिष्ठा|manjishtha
+Lodhra|लोध्र|लोध्र|lodhra
+Ashoka Bark|अशोक छाल|अशोक साल|ashoka chaal
+Hibiscus Dry Flowers|सूखे गुड़हल फूल|सुकी जास्वंद फुले|||
+Moringa Dry Leaves|सूखी सहजन पत्ती|सुकी शेवगा पाने|moringa leaves dry
+Curry Leaves Powder|करी पत्ता पाउडर|कढीपत्ता पावडर|||
+Neem Powder|नीम पाउडर|कडुलिंब पावडर|neem powder
+Reetha Powder|रीठा पाउडर|रिठा पावडर
+Henna Leaves|मेहंदी पत्ते|मेंदीची पाने|mehndi patta
+Kachur Sugandhi|कचूर|कचोरा|kachora,kachur
+Akkalkara|अकरकरा|अक्कलकारा|akkalkara
+Gulvel Satva|गिलोय सत्व|गुळवेल सत्त्व|giloy satva
+Bakuchi|बावची|बावची|bavchi,bakuchi
+Kalijiri|काली जीरी|कडू जिरे|kadu jire,kalijiri
+
+@sub|forest-produce|Forest Produce|वनोपज|वनोपज|kg,g
+Mahua Dry Flowers|सूखे महुआ फूल|सुकी मोहफुले|mahua phool,moh phule
+Tendu Leaves|तेंदू पत्ता|तेंदूपत्ता|tendu patta,bidi leaves|bundle,kg
+Lac|लाख|लाख|lakh,lac
+Gum Karaya|कराया गोंद|कराया डिंक|karaya
+Dhawda Gum|धावड़ा गोंद|धावडा डिंक|dhawda dink||
+Palash Flowers|पलाश फूल|पळस फुले|palash,tesu,palas phule
+Nirgudi Leaves|निर्गुंडी|निर्गुडी|nirgudi,nirgundi|bunch,kg
+Adulsa Leaves|अडूसा पत्ते|अडुळसा पाने|adulsa|bunch,kg
+
+@sub|fuel|Fuel and Firewood|ईंधन और लकड़ी|इंधन आणि सरपण|kg,quintal,bundle
+Firewood|जलाऊ लकड़ी|सरपण|sarpan,jalau lakdi,lakda,firewood
+Charcoal|लकड़ी का कोयला|कोळसा|kolsa,koyla,charcoal
+Coal|कोयला|दगडी कोळसा|dagdi kolsa,coal
+Sawdust|बुरादा|भुसा (लाकडी)|lakdi bhusa,saw dust|kg,bag
+Biomass Briquettes|बायोमास ब्रिकेट|बायोमास ब्रिकेट|briquettes|kg,ton,bag
+Coconut Shells|नारियल खोल|करवंट्या|karvantya,coconut shell|kg,bag
+Kerosene|मिट्टी का तेल|रॉकेल|rockel,kerosene,mitti tel|litre
+LPG Cylinder|एलपीजी सिलेंडर|गॅस सिलिंडर|gas cylinder,lpg|piece

@@ -41,130 +41,133 @@
   checks passed. Device navigation/visual checks remain pending.
 
 ## 2026-11-03 - Buyer/Seller dashboard tabs after identity
+## 2026-11-03 - Generated search words for every product (indexed)
 
-- Moved Buyer Home's dashboard switcher below AccountHeader and Seller's below
-  its existing identity/village banner, before search. Coordinator already uses
-  this order. Removed the unused automatic tab injection from DashboardScreen.
-- Existing dashboard content, role visibility and navigation remain unchanged.
-  Mobile TypeScript, targeted ESLint, Prettier and whitespace checks passed.
-  Device visual acceptance remains pending.
+- Added `scripts/generate-catalog-aliases.mts` and `source/58-generated-aliases.txt`:
+  about 57,600 search words for 10,512 products (Latin spellings of Hindi and
+  Marathi names, everyday crop names such as tur, arhar, bhindi, kanda, seed
+  words beej and biyane, and release codes like hd2967). Added an `@alias|CODE|...`
+  directive to the catalog builder. The parent seed products also got their
+  everyday names so "kanda b" finds Onion Seeds.
+- Re-indexed the configured database: 225,562 search terms (was 142,755); the
+  database is about 146 MB on disk. Checked kanda b, arhar beej, bhindi, hd2967,
+  mirchi biyane, vangi, gur, dhan, tandul and tur dal. Web catalog tests pass.
+  No app or server release is needed for this change.
 
-## 2026-11-03 - Mapped-village users in coordinator directory
+## 2026-11-03 - Seed, variety and regional food catalog batch (imported)
 
-- Directory and user details request `includeMapped=true`; the server resolves
-  the active assigned source village plus directly connected active villages
-  through bidirectional mappings. Combined filtering/counts/pagination preserve
-  each user's real village. Buyer browsing selection does not affect scope.
-- Default API calls remain source-only, preserving Manage summary counts.
-  Mapped accounts are view-only even when pre-registered by the coordinator.
-  Their detail view omits management listings; edits, reports, moderation and
-  activity remain assignment-scoped. Removed links/inactive villages revoke
-  mapped reads on subsequent requests; no transitive mapping access is granted.
-- Updated API/security documentation and integration coverage. Shortened the
-  integration suite's isolated database name to meet Atlas's 38-byte limit,
-  retaining its exact-name/prefix cleanup guards.
-- Passed: web/mobile TypeScript, targeted web/mobile ESLint, all 81 mobile tests,
-  Prettier and whitespace checks. Coordinator integration passed combined scope,
-  actual villages, search/filter/paging, reverse mappings, inactive/disconnected
-  exclusions, transitive denial and mapped edit denial. Device visual and hosted
-  API deployment verification remain pending.
+- Added 5,760 products in `apps/web/data/catalog/source/49-*` to `56-*`: about
+  3,900 seed and planting-material varieties (vegetables, rice, wheat, millets,
+  pulses, oilseeds, tubers and rhizomes), 528 fruit varieties and 1,385 regional
+  dishes in a new `regional-cuisine` category. The catalog is now 10,791
+  products in 44 categories and 170 subcategories. All review flags (672 rows,
+  including the earlier 485) were removed on request, so every row is active.
+- Variety names are public ICAR, state university and landrace names written
+  from general knowledge; a crop scientist should check the release codes.
+  No brands. Web catalog tests (24) pass and the builder reports 0 errors.
+- Brand and company names were removed afterwards (for example company-owned
+  maize and vegetable hybrids, a restaurant biryani, a syrup brand); `Cello Tape`
+  is now `Transparent Tape`. Doubled words in 53 generated names were fixed.
+  The database was updated to match (91 unused rows replaced or removed).
+- Imported to the configured database: 5,792 inserted, then corrected to 10,791 verified rows and
+  a rebuilt search index (142,281 terms). Spot checks found Bhima, Pusa, Hapus,
+  Pav Bhaji, Bisi Bele Bath and Hindi-Latin seed words such as `tamatar biyane`.
 
-## 2026-11-03 - Add Buyer toast-only success feedback
+## 2026-11-02 - Next.js security patch
 
-- Removed the post-create confirmation panel and Add another / View buyer /
-  Return to Manage actions. Confirmed creation reuses the existing coordinator
-  success toast, clears the draft and opens Manage. Failed/uncertain saves
-  retain the existing form and recovery behavior; edit saves remain unchanged.
-- Mobile TypeScript, targeted ESLint, Prettier and whitespace checks passed.
-  Device navigation/toast verification remains pending.
+- Upgraded the web workspace from Next.js 16.4.0 to 16.4.1 and explicitly set
+  the existing security upgrade policy in `apps/web/next.config.ts`.
+- Passed web TypeScript checking. The development server remains running and
+  `/api/v1/health` returned HTTP 200 after the upgrade. npm reported 17
+  advisories across the remaining dependency tree; no broad dependency fixes
+  were applied.
 
-## 2026-11-03 - Smaller directory filter pills
+## 2026-11-03 - Catalog search: typos, any word order, did-you-mean
 
-- Reduced directory filter pills to a 36px minimum visual height with 12px
-  horizontal padding. Added vertical touch padding through hitSlop and prevented
-  the horizontal filter scroller from expanding; labels can still grow with font
-  scaling. Existing filters and selected yellow styling remain unchanged.
-- Mobile TypeScript, targeted ESLint and Prettier passed. Device visual
-  verification remains pending.
+- Search now matches each word of a name in any order (`pickle mango`), words
+  inside names, romanized and Devanagari spelling variants by sound
+  (`kothambir`, `टोमाटो`), swapped letters and up to two typos in longer words,
+  and a typo while still typing (`tomt`). Close matches (at least half the
+  words, including the most distinctive) follow full matches. The API returns a
+  `didYouMean` spelling when the best result needed a guess; Add Product shows
+  it as a tappable "Did you mean ...?" line in all three languages and the
+  offline fallback tolerates typos and word order too.
+- `catalogSearchTerms` gained `word` terms and indexed `key`/`skel` fields;
+  the production index was rebuilt (46,730 terms for 5,031 products). The
+  response has a new `didYouMean` field the mobile app tolerates being absent,
+  but the picker hint needs the new build.
+- Checked with unit tests, an isolated-database integration test (including
+  index-plan checks) and live searches. No load test yet.
 
-## 2026-11-03 - Directory role/village and shared buyer editing
+## 2026-11-02 - Hindi as a third app language
 
-- Directory rows show one role plus localized village; seller takes precedence
-  for buyer/seller accounts. Excluded the signed-in coordinator's own row from
-  rendered results. Removed the Active filter and directory Refresh button;
-  other filters, paging, search and assigned-village scope remain unchanged.
-- Edit actions now open Add Buyer with an account ID, refetch permissions and
-  render the same BuyerForm prefilled with saved names/mobile/village. Save
-  sends the existing versioned name-only PATCH. Mobile/village remain locked,
-  verified users cannot edit, and legacy edit routes redirect to Add Buyer.
-- Passed: mobile TypeScript, targeted ESLint, Prettier, whitespace checks and
-  all 81 mobile tests. Device layout and navigation acceptance remain pending.
+- Mobile: Hindi added to language choices; all app and coordinator messages
+  translated (machine-authored, not yet reviewed by a native speaker).
+  Product names follow the selected language with an English fallback;
+  village, category and person names use Marathi Devanagari in Hindi.
+- Server: optional `ProductMaster.nameHi`; listings, owned listings, contact
+  notifications and activity return Hindi names joined from the master
+  product. Buyer-contact notifications now also store Hindi text. Stored user
+  language `hi` is returned instead of being collapsed to Marathi.
+- The catalog import fills `nameHi` for new products and backfills existing
+  products that lack one, without overwriting stored values.
+- Breaking for installed APKs (new strict DTO fields): ship a new build.
 
-## 2026-11-03 - Compact coordinator user directory
+## 2026-11-02 - 5,031-product multilingual catalog source (not yet imported)
 
-- Updated the directory with a search-icon field, horizontal yellow-selected
-  filters and rounded user rows containing an initial, saved name and roles.
-  Removed village controls/text and status/verification lines from this list;
-  the existing selected assigned-village API scope and detail view remain.
-- Eligible users show a localized Edit action opening the existing name-only
-  correction form. Both directory and detail/edit views require server `canEdit`
-  and a verification flag other than true. The existing server permission check
-  continues to restrict corrections to the actor's active unverified buyer
-  pre-registrations; verified and other users stay read-only.
-- Preserved search, existing filters, refresh, pagination and detail navigation.
-  Mobile TypeScript, all 81 mobile tests, targeted ESLint, Prettier and whitespace
-  checks passed. Device visual acceptance remains pending.
+- Added `apps/web/data/catalog/`: hand-curated English/Hindi/Marathi source
+  files for 5,031 unbranded products (43 categories, 1,131 linked varieties),
+  plus `npm run build:catalog` to validate them and generate the catalog JSON,
+  a Product Master import file and the search alias file. See its `README.md`.
+- All 151 existing Product Master codes are kept with their stored values
+  instead of being retired, so listings and offline writes stay linked.
+- 485 rows with uncertain native names are emitted as pending review/INACTIVE.
+  No native-speaker review has been done yet.
+- 3,363 products use new product groups that are not in
+  `LISTING_PRODUCT_GROUPS` yet. Adding them needs an APK rebuild, so it is
+  pending a decision. Nothing has been imported into any database.
+- Update (user approved): added the 10 groups (`groceries`, `meat_fish`,
+  `plants_garden`, `farm_inputs`, `livestock`, `puja`, `household`,
+  `personal_care`, `clothing`, `handicrafts`). Imported all 5,031 products
+  into the configured Atlas database (4,880 inserted, 151 existing given Hindi
+  names; 485 pending-review rows are INACTIVE) and rebuilt `catalogSearchTerms`
+  (19,711 terms). Live searches (tamatar, कोथिंबीर, hapus, kukar) return the
+  catalog in about 35 ms server-side. Installed APKs need the new build.
 
-## 2026-11-03 - Add Buyer required-field indicators
+## 2026-11-02 - Replacement product catalog candidates (incomplete)
 
-- Added an asterisk to First Name, Last Name, Mobile and Village labels in the
-  coordinator Add Buyer form, using the existing Marathi/English labels.
-  Existing validation and the preselected required village remain unchanged.
-- Mobile TypeScript, targeted ESLint and whitespace checks passed. Device visual
-  verification remains pending.
+- User requested at least 5,000 products and confirmed all 151 existing master
+  records should be retired and recreated. No active master records have been
+  changed; preserving historical listing links and offline writes needs a safe
+  replacement migration.
+- Prepared a first review list of 216 generic items: 151 recreation candidates
+  from the existing user-supplied master and 65 unbranded homemade-food
+  candidates with recipe-source links. All remain pending; new candidates lack
+  verified Hindi/Marathi names and units. See
+  `apps/web/data/catalog-review/PRODUCT_LIST.md` and its companion JSON. This is
+  not an importable replacement or the requested 5,000-product catalog.
+- User clarified that the directory is for farm produce, farm goods and homemade
+  products, not branded packaged products. Removed the previously staged barcode
+  candidate file and its preparation script; neither was ever imported. The
+  requested 5,000-product catalog and migration remain unfinished.
 
-## 2026-11-03 - Coordinator information before dashboard tabs
+## 2026-11-02 - Master product directory search foundation (incomplete)
 
-- Moved the existing coordinator identity/assigned-village header above the
-  dashboard switcher; summary cards and quick actions follow the tabs. The
-  assignment-pending view also shows coordinator identity before the switcher.
-- Reused the existing CoordinatorPage header and dashboard tabs without adding
-  screens or changing role access, navigation, APIs or summary/actions.
-- Mobile TypeScript, targeted ESLint, Prettier and whitespace checks passed.
-  Device visual acceptance remains pending.
-
-## 2026-11-02 - Role-based mobile dashboard tabs
-
-- IMPLEMENTED — VERIFICATION PENDING (device acceptance): shared top switcher
-  uses समन्वयक / खरेदीदार / शेतकरी and English translations, existing light
-  green/yellow theme, icons, accessible selected state and wrapping labels.
-- Reuses CoordinatorManageScreen with its existing summary/actions, HomeScreen
-  for buying and marketplace discovery, and MyListingsScreen for selling.
-  Coordinator Home defaults to Manage content; explicit Buyer navigation uses
-  the Home route parameter. Existing bottom tab routes/history remain intact.
-- Visibility uses existing coordinator-role/legacy-assignment logic and seller
-  capability; assignment-pending users retain the existing protected-work gate.
-  No session, backend, API, data model or offline-operation changes.
-- Passed: mobile TypeScript, full mobile ESLint, all 81 mobile tests, and diff
-  whitespace checks. Added coverage for dashboard availability/defaults,
-  explicit Buyer selection, pending assignment, revoked/legacy coordinator
-  roles, unchanged account data and translated labels.
-- Android Metro/Hermes export passed (1,607 modules). Device checks remain pending:
-  role switching, Android back/bottom navigation, small/large-font layouts,
-  listing actions and foreground role revocation.
-
-## 2026-10-29 - Marathi live-preview unit rendering follow-up
-
-- Marathi units remain present in API data and translations. Compact price badges
-  now render the localized unit as a separate, non-shrinking text item, with the
-  slash attached to the amount. Removed fixed line height from compact price text
-  so Android's native Devanagari font metrics and font padding determine height.
-  Long values can wrap within the badge; no price or unit is truncated or invented.
-- Verification: mobile TypeScript, targeted ESLint, Prettier, all 80 mobile tests,
-  and the Android release build passed. Release source map includes this rendering
-  change; the rebuilt APK contains https://gaavli.vercel.app/api/v1. APK output:
-  apps/mobile/android/app/build/outputs/apk/release/app-release.apk.
-  Android visual acceptance remains pending because no device is connected.
+- Added a separate indexed search-term collection, a repeatable dry-run/apply
+  backfill, bounded multilingual exact/prefix/one-edit matching, and an
+  authenticated, rate-limited `/api/v1/catalog/search` endpoint. The Add Listing
+  picker now uses it with a 300 ms debounce and up to 20 results. Successful
+  results merge into the mobile reference cache (bounded to 1,000 products) for
+  offline literal search; this is not a full catalog sync or paginated picker.
+  Existing Product Master records and seller listings remain intact.
+- The three example alias groups are from the user's request, not a reviewed
+  comprehensive catalog. Search indexes must be rebuilt after catalog changes;
+  this stage is not a complete or production-ready directory. See
+  `docs/03-api/CATALOG_SEARCH_STAGE.md` for setup, limits and remaining work.
+- Isolated MongoDB search examples and index-plan tests, web TypeScript, focused
+  lint and normalization unit tests were checked for the search foundation.
+  Mobile checks were not run for the picker connection. Load tests, incremental
+  catalog sync, pagination and the other directory workflows remain unfinished.
 
 ## 2026-10-29 - Home price units and category count wording
 

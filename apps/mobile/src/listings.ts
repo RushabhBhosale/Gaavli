@@ -1,4 +1,12 @@
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useQuery,
+  useInfiniteQuery,
+  useQueryClient,
+  keepPreviousData,
+  type InfiniteData,
+  type QueryClient,
+} from "@tanstack/react-query";
+import type { MobileListingPage } from "@gaavli/types";
 import {
   mobileListingPageSchema,
   mobileListingSchema,
@@ -14,6 +22,7 @@ import {
   browsingVillageFor,
 } from "./storage/browsingVillage";
 
+export const MARKETPLACE_PAGE_SIZE = 20;
 const retry = (count: number, error: unknown) =>
   count < 1 &&
   !(error instanceof ApiError && error.status && error.status < 500);
@@ -27,7 +36,6 @@ export function useOwnListings(
   return useInfiniteQuery({
     queryKey: ["own-listings", session?.user.id, status, search, sort],
     enabled: !!session?.user.isSeller && enabled,
-    refetchOnMount: "always",
     initialPageParam: 1,
     queryFn: ({ pageParam, signal }) =>
       authenticatedApi(
@@ -47,7 +55,6 @@ export function useHomeListings() {
   return useQuery({
     queryKey: ["home-listings", session?.user.id ?? "guest", sourceId],
     enabled: !!sourceId && (!session || !!session.user.village),
-    refetchOnMount: "always",
     queryFn: ({ signal }) =>
       session
         ? authenticatedApi(
@@ -83,15 +90,16 @@ export function useMarketplaceListings(
       category,
     ],
     enabled: !!sourceId && (!session || !!session.user.village),
-    refetchOnMount: "always",
     initialPageParam: 1,
+    // Keep showing the previous results while a new search loads.
+    placeholderData: keepPreviousData,
     queryFn: ({ pageParam, signal }) => {
       const params: Record<string, string> = {
         search,
         includeProductGroupCounts: "true",
         includeAllProductCount: "true",
         page: String(pageParam),
-        limit: "5",
+        limit: String(MARKETPLACE_PAGE_SIZE),
         availability,
       };
       if (category !== "all") params.productGroup = category;
@@ -106,7 +114,43 @@ export function useMarketplaceListings(
     retry,
   });
 }
+// A product opened from a list is already on the device: show it at once and
+// let the fresh copy replace it.
+function cachedListing(
+  client: QueryClient,
+  userId: string,
+  sourceId: string | undefined,
+  id: string,
+) {
+  const lists = [
+    ...client.getQueriesData<MobileListingPage>({
+      queryKey: ["home-listings", userId, sourceId],
+    }),
+    ...client.getQueriesData<InfiniteData<MobileListingPage>>({
+      queryKey: ["marketplace-listings"],
+    }),
+  ];
+  for (const [key, data] of lists) {
+    if (
+      !data ||
+      (key[0] === "marketplace-listings" &&
+        (key[2] !== userId || key[3] !== sourceId))
+    )
+      continue;
+    const pages = "pages" in data ? data.pages : [data];
+    for (const page of pages) {
+      const listing = page.listings.find((item) => item.id === id);
+      if (listing)
+        return {
+          listing,
+          updatedAt: client.getQueryState(key)?.dataUpdatedAt ?? 0,
+        };
+    }
+  }
+  return undefined;
+}
 export function useListing(id: unknown) {
+  const client = useQueryClient();
   const session = useAppStore((state) => state.session);
   const browsingVillage = useAppStore(browsingVillageFor);
   const sourceId = browsingVillage?.id;
@@ -120,7 +164,24 @@ export function useListing(id: unknown) {
     ],
     enabled:
       parsed.success && !!sourceId && (!session || !!session.user.village),
-    refetchOnMount: "always",
+    initialData: () =>
+      parsed.success
+        ? cachedListing(
+            client,
+            session?.user.id ?? "guest",
+            sourceId,
+            parsed.data,
+          )?.listing
+        : undefined,
+    initialDataUpdatedAt: () =>
+      parsed.success
+        ? cachedListing(
+            client,
+            session?.user.id ?? "guest",
+            sourceId,
+            parsed.data,
+          )?.updatedAt
+        : undefined,
     queryFn: ({ signal }) => {
       const listingId = parsed.success ? parsed.data : "";
       const path = `/listings/${listingId}?sourceVillageId=${sourceId}`;

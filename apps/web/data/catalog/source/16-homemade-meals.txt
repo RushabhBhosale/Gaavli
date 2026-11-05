@@ -1,0 +1,95 @@
+# Homemade breads, meals, tiffin items and ready-to-cook mixes.
+@category|homemade-food|homemade|Homemade Food|घर का बना खाना|घरगुती पदार्थ
+
+@sub|breads-bhakri|Chapati, Bhakri and Breads|रोटी, भाकरी और पराठे|पोळी, भाकरी आणि पराठे|piece,dozen
+Chapati|रोटी|पोळी|chapati,roti,poli,phulka
+Jowar Bhakri|ज्वार की रोटी|ज्वारीची भाकरी|jowar roti,jwarichi bhakri,bhakri
+Bajra Bhakri|बाजरे की रोटी|बाजरीची भाकरी|bajra roti,bajrichi bhakri
+Nachni Bhakri|रागी रोटी|नाचणीची भाकरी|ragi roti
+Rice Bhakri|चावल की रोटी|तांदळाची भाकरी|tandalachi bhakri,rice roti
+Makki Roti|मक्के की रोटी|मक्याची भाकरी|makki di roti
+Kalnyachi Bhakri|मिश्रित अनाज रोटी|कळण्याची भाकरी|kalna bhakri||
+Thepla|थेपला|थेपले|methi thepla
+Paratha|पराठा|पराठा|paratha,parotha
+Aloo Paratha|आलू पराठा|आलू पराठा|aloo paratha,batata paratha||^PARATHA
+Methi Paratha|मेथी पराठा|मेथी पराठा|||^PARATHA
+Paneer Paratha|पनीर पराठा|पनीर पराठा|||^PARATHA
+Puri|पूरी|पुरी|poori,puri
+Ghadichi Poli|परतों वाली रोटी|घडीची पोळी|ghadichi poli,layered chapati
+Amboli|अंबोली|आंबोळी|amboli,malvani amboli
+Ghavan|घावन|घावन|ghavan,ghavne
+Dhirde|चीला|धिरडे|dhirde,cheela,chilla
+Neer Dosa|नीर डोसा|नीर डोसा|neer dosa
+Khapli Chapati|खपली रोटी|खपली पोळी|khapli poli||^CHAPATI
+Rumali Roti|रूमाली रोटी|रुमाली रोटी|roomali roti
+Naan|नान|नान|butter naan
+Kulcha|कुलचा|कुलचा|amritsari kulcha
+
+@sub|meals-tiffin|Meals and Tiffin|भोजन और टिफिन|जेवण आणि डबा|plate,piece,kg
+Veg Thali|शाकाहारी थाली|शाकाहारी थाळी|veg thali,jevan thali
+Non Veg Thali|मांसाहारी थाली|मांसाहारी थाळी|non veg thali
+Fish Thali|मछली थाली|फिश थाळी|malvani fish thali,fish thali
+Tiffin Meal|टिफिन|जेवणाचा डबा|dabba,tiffin,lunch box meal
+Pithla Bhakri|पिठला भाकरी|पिठलं भाकरी|pithla bhakri,zunka bhakar
+Zunka|झुनका|झुणका|zunka
+Pithla|पिठला|पिठलं|pithla,pitla
+Varan Bhat|दाल चावल|वरण भात|varan bhat,dal rice
+Masale Bhat|मसाले भात|मसालेभात|masale bhat
+Biryani|बिरयानी|बिर्याणी|biryani,veg biryani
+Chicken Biryani|चिकन बिरयानी|चिकन बिर्याणी|||^BIRYANI
+Mutton Biryani|मटन बिरयानी|मटण बिर्याणी|||^BIRYANI
+Pulao|पुलाव|पुलाव|pulav,veg pulao
+Khichdi|खिचड़ी|खिचडी|khichadi,dal khichdi
+Kadhi|कढ़ी|कढी|kadhi,taak kadhi
+Solkadhi|सोलकढ़ी|सोलकढी|sol kadhi,kokum kadhi|litre,bottle,ml
+Amti|आमटी|आमटी|amti,katachi amti
+Matki Usal|मोठ उसल|मटकीची उसळ|matki usal
+Bharli Vangi|भरवां बैंगन|भरली वांगी|bharli vangi,stuffed brinjal
+Vangyache Bharit|बैंगन भर्ता|वांग्याचे भरीत|baingan bharta,bharit
+Shev Bhaji|सेव की सब्ज़ी|शेव भाजी|sev bhaji,shev bhaji
+Patodi Rassa|पाटोड़ी रस्सा|पाटवडी रस्सा|patvadi rassa
+Tambda Rassa|लाल रस्सा|तांबडा रस्सा|tambda rassa,red mutton curry
+Pandhra Rassa|सफ़ेद रस्सा|पांढरा रस्सा|pandhra rassa,white mutton curry
+Kolhapuri Chicken|कोल्हापुरी चिकन|कोल्हापुरी चिकन|kolhapuri chicken rassa
+Malvani Chicken|मालवणी चिकन|मालवणी चिकन
+Chicken Sukka|चिकन सुक्का|चिकन सुकं|chicken sukka
+Mutton Sukka|मटन सुक्का|मटण सुकं|mutton sukka
+Fish Curry|मछली करी|माशाची आमटी|fish curry,fish kalwan
+Fish Fry|मछली फ्राई|फिश फ्राय|surmai fry,pomfret fry
+Egg Curry|अंडा करी|अंड्याची करी|anda curry
+Chicken Curry|चिकन करी|चिकन रस्सा|chicken rassa|plate,kg
+Mutton Curry|मटन करी|मटण रस्सा|mutton rassa|plate,kg
+Dal Fry|दाल फ्राई|डाळ फ्राय|dal tadka
+Paneer Bhurji|पनीर भुर्जी|पनीर भुर्जी
+Egg Bhurji|अंडा भुर्जी|अंडा भुर्जी|anda bhurji
+Chole|छोले|छोले|chole,chana masala
+Rajma Chawal|राजमा चावल|राजमा भात|rajma rice
+Sheera Prasad|सूजी प्रसाद|सत्यनारायण प्रसाद|satyanarayan prasad,sheera prasad|kg,plate
+Puranache Mande|मांडे|मांडे|mande,khandeshi mande|piece,dozen
+Khandeshi Shev Bhaji|खानदेशी सेव भाजी|खानदेशी शेव भाजी|||^SHEV_BHAJI
+Kombdi Vade|कोंबड़ी वड़े|कोंबडी वडे|kombdi vade,malvani vade
+Dal Baati|दाल बाटी|दाल बाटी|dal bati,dal baati churma
+
+@sub|ready-to-cook|Ready-to-Cook Mixes|रेडी टू कुक मिक्स|रेडी टू कुक मिश्रणे|g,kg,packet
+Instant Upma Mix|इंस्टेंट उपमा मिक्स|इन्स्टंट उपमा मिक्स|upma mix
+Instant Poha Mix|इंस्टेंट पोहा मिक्स|इन्स्टंट पोहे मिक्स|poha mix
+Instant Dhokla Mix|इंस्टेंट ढोकला मिक्स|इन्स्टंट ढोकळा मिक्स|dhokla mix
+Instant Idli Mix|इंस्टेंट इडली मिक्स|इन्स्टंट इडली मिक्स|idli mix
+Instant Dosa Mix|इंस्टेंट डोसा मिक्स|इन्स्टंट डोसा मिक्स|dosa mix
+Gulab Jamun Mix|गुलाब जामुन मिक्स|गुलाबजाम मिक्स|jamun mix
+Custard Powder|कस्टर्ड पाउडर|कस्टर्ड पावडर|custard
+Jelly Crystals|जेली क्रिस्टल|जेली क्रिस्टल|jelly
+Falooda Mix|फालूदा मिक्स|फालुदा मिक्स|falooda sev,faluda
+Thalipeeth Mix|थालीपीठ मिक्स|थालीपीठ मिक्स|||^THALIPEETH_BHAJANI
+Soup Mix|सूप मिक्स|सूप मिक्स|tomato soup mix,instant soup
+Baking Powder|बेकिंग पाउडर|बेकिंग पावडर|baking powder|g,packet
+Baking Soda|खाने का सोडा|खाण्याचा सोडा|soda bicarb,meetha soda,khanyacha soda|g,packet,kg
+Yeast|खमीर|यीस्ट|dry yeast,khamir|g,packet
+Citric Acid|नींबू सत|लिंबू सत्व|nimbu sat,limbu sat,citric acid|g,packet
+Food Colour|खाने का रंग|खाण्याचा रंग|food color,kesari rang|g,bottle,packet
+Essence|एसेंस|इसेन्स|vanilla essence,rose essence|ml,bottle
+Rose Water|गुलाब जल|गुलाबपाणी|gulab jal,gulab pani|ml,bottle
+Kewra Water|केवड़ा जल|केवडा पाणी|kewra jal|ml,bottle
+Agar Agar|अगर अगर|अगर अगर|china grass|g,packet
+Cocoa Powder|कोको पाउडर|कोको पावडर|cocoa|g,packet
+Drinking Chocolate|ड्रिंकिंग चॉकलेट|ड्रिंकिंग चॉकलेट|hot chocolate powder|g,packet,jar

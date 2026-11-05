@@ -19,7 +19,6 @@ export function MarketplaceCard({
       title={t.dashboardMarketplace}
       subtitle={t.dashboardMarketplaceDescription}
       dashboard
-      badgeTone="yellow"
       badge={
         count === undefined
           ? t.dashboardCountUnavailable

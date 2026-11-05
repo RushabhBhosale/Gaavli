@@ -1,3 +1,4 @@
+import { productDisplayName, numberLocale } from "../locale";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -16,17 +17,23 @@ import { useRouter } from "expo-router";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { toHomeListing } from "../data/listings";
-import { useMarketplaceListings } from "../listings";
+import { MARKETPLACE_PAGE_SIZE, useMarketplaceListings } from "../listings";
 import { useListingClock } from "../hooks/useListingClock";
 import { theme } from "../theme";
-import { Button, ErrorMessage, OfflineBanner } from "../components/ui";
+import {
+  Button,
+  Chip,
+  ErrorMessage,
+  OfflineBanner,
+  StateMessage,
+} from "../components/ui";
 import { MarketplaceListingCard } from "../components/dashboard/MarketplaceListingCard";
 import { MarketplaceHeader } from "../components/dashboard/MarketplaceHeader";
 import { d } from "../components/dashboard/primitives";
 import { useQuery } from "@tanstack/react-query";
 import { productMasterPageSchema } from "@gaavli/validation";
 import { loadMasterProducts } from "../data/productMaster";
-import { voiceProductSearch } from "../data/voiceSearch";
+import { produceVoiceHints, voiceProductSearch } from "../data/voiceSearch";
 import { productMasterCache } from "../storage/sqlite";
 import { api } from "../api";
 import { authenticatedApi } from "../session";
@@ -45,7 +52,7 @@ export default function MarketplaceScreen() {
   const sourceId = browsingVillage?.id;
   const scope = `${session?.user.id ?? "guest"}:${sourceId}`;
   useEffect(() => {
-    const timer = setTimeout(() => setSearch(query.trim()), 300);
+    const timer = setTimeout(() => setSearch(query.trim()), 200);
     return () => clearTimeout(timer);
   }, [query]);
   const result = useMarketplaceListings(search, category);
@@ -57,18 +64,22 @@ export default function MarketplaceScreen() {
   const filterKey = JSON.stringify([scope, search, category]);
   const [pagination, setPagination] = useState({
     key: filterKey,
-    active: 5,
-    unavailable: 5,
+    active: MARKETPLACE_PAGE_SIZE,
+    unavailable: MARKETPLACE_PAGE_SIZE,
   });
   const counts =
     pagination.key === filterKey
       ? pagination
-      : { key: filterKey, active: 5, unavailable: 5 };
+      : {
+          key: filterKey,
+          active: MARKETPLACE_PAGE_SIZE,
+          unavailable: MARKETPLACE_PAGE_SIZE,
+        };
   if (pagination.key !== filterKey) setPagination(counts);
   async function showMore(unavailable: boolean) {
     const feed = unavailable ? unavailableResult : result;
     const key = unavailable ? "unavailable" : "active";
-    const next = counts[key] + 5;
+    const next = counts[key] + MARKETPLACE_PAGE_SIZE;
     const loaded =
       feed.data?.pages.reduce((sum, page) => sum + page.listings.length, 0) ??
       0;
@@ -105,10 +116,16 @@ export default function MarketplaceScreen() {
   const voice = useVoiceSearch({
     language,
     scope,
-    hints:
-      products.data?.products.map((product) =>
-        language === "mr" ? product.nameMr : product.nameEn,
-      ) || [],
+    hints: [
+      ...produceVoiceHints(),
+      ...(products.data?.products.map((product) =>
+        productDisplayName(language, {
+          en: product.nameEn,
+          mr: product.nameMr,
+          hi: product.nameHi,
+        }),
+      ) || []),
+    ],
     onResult: (transcript) => {
       const normalized = voiceProductSearch(
         transcript,
@@ -143,34 +160,28 @@ export default function MarketplaceScreen() {
     : null;
   const now = useListingClock();
   const page = result.data?.pages[0];
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-  );
-  function categoryLabel(item: { id: string; label: string }) {
+  const number = new Intl.NumberFormat(numberLocale(language));
+  function categoryCount(item: { id: string }) {
     const count =
       item.id === "all"
         ? page?.allProductCount
         : page?.productGroupCounts?.find((row) => row.productGroup === item.id)
             ?.count;
-    return `${item.label} (${count === undefined ? "—" : number.format(count)})`;
+    return count ? number.format(count) : undefined;
   }
   const categories = [
     {
       id: "all",
       label: t.marketplaceAllProducts,
-      icon: "🛍️",
-      background: "#E9F4E7",
     },
     {
       id: "vegetables",
       label: t.vegetables,
-      icon: "🍅",
-      background: "#E9F4E7",
     },
-    { id: "fruits", label: t.fruits, icon: "🍎", background: "#FFF3DF" },
-    { id: "grain", label: t.grains, icon: "🌾", background: "#FFF5DD" },
-    { id: "dairy", label: t.dairy, icon: "🥛", background: "#EAF2FF" },
-    { id: "homemade", label: t.homemade, icon: "🍯", background: "#FFF1D8" },
+    { id: "fruits", label: t.fruits },
+    { id: "grain", label: t.grains },
+    { id: "dairy", label: t.dairy },
+    { id: "homemade", label: t.homemade },
   ];
   const activeListings = Array.from(
     new Map(
@@ -340,35 +351,13 @@ export default function MarketplaceScreen() {
               contentContainerStyle={s.categories}
             >
               {categories.map((item) => (
-                <Pressable
+                <Chip
                   key={item.id}
-                  accessibilityRole="button"
-                  accessibilityLabel={categoryLabel(item)}
-                  accessibilityState={{ selected: category === item.id }}
+                  label={item.label}
+                  count={categoryCount(item)}
+                  selected={category === item.id}
                   onPress={() => setCategory(item.id)}
-                  style={({ pressed }) => [s.category, pressed && d.pressed]}
-                >
-                  <View
-                    style={[
-                      s.categoryIcon,
-                      { backgroundColor: item.background },
-                      category === item.id && s.selectedCategory,
-                    ]}
-                  >
-                    <Text accessible={false} style={s.categoryEmoji}>
-                      {item.icon}
-                    </Text>
-                  </View>
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      s.categoryText,
-                      category === item.id && s.selectedCategoryText,
-                    ]}
-                  >
-                    {categoryLabel(item)}
-                  </Text>
-                </Pressable>
+                />
               ))}
             </ScrollView>
           </View>
@@ -393,20 +382,29 @@ export default function MarketplaceScreen() {
                   </Button>
                 </>
               )}
-              {!section.data.length && (
-                <Text accessibilityLiveRegion="polite" style={s.empty}>
-                  {offline
-                    ? t.listingsOfflineEmpty
-                    : feed.isPending
-                      ? t.listingsLoading
-                      : feed.isError
-                        ? ""
-                        : section.unavailable
-                          ? t.marketplaceNoUnavailable
-                          : search || category !== "all"
-                            ? t.noListingMatches
-                            : t.noListings}
-                </Text>
+              {!section.data.length && !(feed.isError && !offline) && (
+                <View accessibilityLiveRegion="polite" style={s.empty}>
+                  <StateMessage
+                    icon={
+                      offline
+                        ? "cloud-offline-outline"
+                        : feed.isPending
+                          ? "hourglass-outline"
+                          : "basket-outline"
+                    }
+                    title={
+                      offline
+                        ? t.listingsOfflineEmpty
+                        : feed.isPending
+                          ? t.listingsLoading
+                          : section.unavailable
+                            ? t.marketplaceNoUnavailable
+                            : search || category !== "all"
+                              ? t.noListingMatches
+                              : t.noListings
+                    }
+                  />
+                </View>
               )}
               {(loaded > section.visible || feed.hasNextPage) && (
                 <Button
@@ -440,7 +438,7 @@ export default function MarketplaceScreen() {
 }
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
-  content: { ...d.content, gap: 12 },
+  content: { ...d.content, gap: 8 },
   sectionTitle: {
     color: theme.colors.heading,
     fontSize: 16,
@@ -483,37 +481,5 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  category: {
-    minHeight: theme.layout.touchTarget,
-    minWidth: 88,
-    flexShrink: 0,
-    paddingHorizontal: 4,
-    alignItems: "center",
-    gap: 6,
-  },
-  categoryIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: "transparent",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  selectedCategory: { borderColor: theme.colors.primaryDark },
-  categoryEmoji: { fontSize: 26, lineHeight: 34 },
-  categoryText: {
-    color: theme.colors.muted,
-    fontSize: 13,
-    lineHeight: 20,
-    textAlign: "center",
-  },
-  selectedCategoryText: { color: theme.colors.text, fontWeight: "600" },
-  empty: {
-    color: theme.colors.muted,
-    fontSize: 14,
-    lineHeight: 22,
-    textAlign: "center",
-    paddingVertical: 24,
-  },
+  empty: { paddingVertical: 8 },
 });

@@ -5,6 +5,7 @@ import type { MobileListing, MobileListingPage } from "@gaavli/types";
 import type { mobileListingsQuerySchema } from "@gaavli/validation";
 import { LISTING_PRODUCT_GROUPS } from "@gaavli/constants";
 import { Listing, User, Village, Category } from "../models";
+import { ProductMaster } from "../models/product-master";
 import { activeStockFilter } from "./listing-mutations";
 import { discoveryVillageIds } from "./village-discovery";
 import { masterSearchMappings } from "./product-master";
@@ -69,6 +70,17 @@ export const visiblePipeline = (
   },
   { $match: { "categoryRecord.status": { $ne: "INACTIVE" } } },
 ];
+// Hindi names live only on the master product, so they are joined after
+// pagination instead of being copied onto every listing.
+export const productNameStage: PipelineStage.Lookup = {
+  $lookup: {
+    from: ProductMaster.collection.name,
+    localField: "productId",
+    foreignField: "_id",
+    as: "productRecord",
+    pipeline: [{ $project: { _id: 0, nameHi: 1 } }],
+  },
+};
 const dtoProjection = {
   _id: 0,
   id: { $toString: "$_id" },
@@ -77,6 +89,9 @@ const dtoProjection = {
   photoObjectKey: { $ifNull: ["$photoObjectKey", null] },
   isDemo: { $ifNull: ["$isDemo", false] },
   productNameMr: { $ifNull: ["$productNameMr", null] },
+  productNameHi: {
+    $ifNull: [{ $arrayElemAt: ["$productRecord.nameHi", 0] }, null],
+  },
   category: { $ifNull: ["$category", null] },
   categoryName: {
     $ifNull: [{ $arrayElemAt: ["$categoryRecord.name", 0] }, "$category", null],
@@ -183,6 +198,7 @@ export async function findMobileListings(
             { $sort: { createdAt: -1, _id: -1 } },
             { $skip: (query.page - 1) * query.limit },
             { $limit: query.limit },
+            productNameStage,
             { $project: dtoProjection },
           ],
           count: [
@@ -289,6 +305,7 @@ export async function findMobileListing(villageId: string, id: string) {
   >([
     { $match: { _id: new Types.ObjectId(id) } },
     ...visiblePipeline(await discoveryVillageIds(villageId), new Date()),
+    productNameStage,
     { $project: dtoProjection },
   ]);
   return listing || null;

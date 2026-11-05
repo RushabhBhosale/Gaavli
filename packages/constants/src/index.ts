@@ -8,7 +8,7 @@ export {
   type ProviderMasterType,
 } from "./provider-masters";
 
-export const MOBILE_LANGUAGES: readonly MobileLanguage[] = ["mr", "en"];
+export const MOBILE_LANGUAGES: readonly MobileLanguage[] = ["mr", "en", "hi"];
 export const DEFAULT_MOBILE_LANGUAGE: MobileLanguage = "mr";
 export const API_TIMEOUT_MS = 10000;
 
@@ -27,6 +27,16 @@ export const LISTING_PRODUCT_GROUPS = [
   "dairy",
   "eggs_poultry",
   "homemade",
+  "groceries",
+  "meat_fish",
+  "plants_garden",
+  "farm_inputs",
+  "livestock",
+  "puja",
+  "household",
+  "personal_care",
+  "clothing",
+  "handicrafts",
 ] as const;
 
 // Immutable stock photos shipped with both apps; never arbitrary client paths.

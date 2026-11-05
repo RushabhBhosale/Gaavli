@@ -93,6 +93,29 @@ export const productMasterCache = {
   },
 };
 
+// Last listings seen while online, so browsing keeps working offline.
+export const queryCacheStorage = {
+  async read() {
+    const db = await database();
+    return (
+      (
+        await db.getFirstAsync<{ value: string }>(
+          "SELECT value FROM settings WHERE key = ?",
+          "cache:queries:v1",
+        )
+      )?.value ?? null
+    );
+  },
+  async write(value: string) {
+    const db = await database();
+    await db.runAsync(
+      "INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+      "cache:queries:v1",
+      value,
+    );
+  },
+};
+
 // Namespaced by account and village. No token/contact data is stored here.
 export const listingDraftStorage = orderedDraftStorage({
   async list(prefix: string) {

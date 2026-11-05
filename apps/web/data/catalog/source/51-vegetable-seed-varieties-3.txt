@@ -1,0 +1,525 @@
+# Generated from curated specs; see data/catalog/README.md.
+@category|crop-varieties
+@sub|pod-bean-seeds|Pea, Bean and Pod Vegetable Seeds|मटर-फली बीज|वाटाणा-शेंगभाज्या बियाणे|kg,g,packet
+Arkel Green Peas Seeds|आर्केल मटर बीज|आर्केल वाटाणा बियाणे|arkel vatana biyane,arkel matar beej,arkel pea seed,arkel|kg,g,packet|^GREEN_PEAS_SEEDS
+Bonneville Green Peas Seeds|बॉनव्हिल मटर बीज|बॉनव्हिल वाटाणा बियाणे|bonneville vatana biyane,bonneville matar beej,bonneville pea seed,bonneville|kg,g,packet|^GREEN_PEAS_SEEDS
+Azad Pea 1 Green Peas Seeds|आजाद मटर 1 बीज|आजाद मटर 1 वाटाणा बियाणे|azad pea 1 vatana biyane,azad pea 1 matar beej,azad pea 1 pea seed,azad pea 1|kg,g,packet|^GREEN_PEAS_SEEDS
+Azad Pea 3 Green Peas Seeds|आजाद मटर 3 बीज|आजाद मटर 3 वाटाणा बियाणे|azad pea 3 vatana biyane,azad pea 3 matar beej,azad pea 3 pea seed,azad pea 3|kg,g,packet|^GREEN_PEAS_SEEDS
+Azad P-1 Green Peas Seeds|आजाद पी-1 मटर बीज|आजाद पी-1 वाटाणा बियाणे|azad p-1 vatana biyane,azad p-1 matar beej,azad p-1 pea seed,azad p-1|kg,g,packet|^GREEN_PEAS_SEEDS
+Azad P-3 Green Peas Seeds|आजाद पी-3 मटर बीज|आजाद पी-3 वाटाणा बियाणे|azad p-3 vatana biyane,azad p-3 matar beej,azad p-3 pea seed,azad p-3|kg,g,packet|^GREEN_PEAS_SEEDS
+Pusa Pragati Green Peas Seeds|पूसा प्रगती मटर बीज|पूसा प्रगती वाटाणा बियाणे|pusa pragati vatana biyane,pusa pragati matar beej,pusa pragati pea seed,pusa pragati|kg,g,packet|^GREEN_PEAS_SEEDS
+Pusa Shree Green Peas Seeds|पूसा श्री मटर बीज|पूसा श्री वाटाणा बियाणे|pusa shree vatana biyane,pusa shree matar beej,pusa shree pea seed,pusa shree|kg,g,packet|^GREEN_PEAS_SEEDS
+Pusa Mukti Green Peas Seeds|पूसा मुक्ती मटर बीज|पूसा मुक्ती वाटाणा बियाणे|pusa mukti vatana biyane,pusa mukti matar beej,pusa mukti pea seed,pusa mukti|kg,g,packet|^GREEN_PEAS_SEEDS
+Pusa Panna Green Peas Seeds|पूसा पन्ना मटर बीज|पूसा पन्ना वाटाणा बियाणे|pusa panna vatana biyane,pusa panna matar beej,pusa panna pea seed,pusa panna|kg,g,packet|^GREEN_PEAS_SEEDS
+Pusa Uphar Green Peas Seeds|पूसा उपहार मटर बीज|पूसा उपहार वाटाणा बियाणे|pusa uphar vatana biyane,pusa uphar matar beej,pusa uphar pea seed,pusa uphar|kg,g,packet|^GREEN_PEAS_SEEDS
+Arka Ajit Green Peas Seeds|अर्का अजित मटर बीज|अर्का अजित वाटाणा बियाणे|arka ajit vatana biyane,arka ajit matar beej,arka ajit pea seed,arka ajit|kg,g,packet|^GREEN_PEAS_SEEDS
+Arka Pramodh Green Peas Seeds|अर्का प्रमोद मटर बीज|अर्का प्रमोद वाटाणा बियाणे|arka pramodh vatana biyane,arka pramodh matar beej,arka pramodh pea seed,arka pramodh|kg,g,packet|^GREEN_PEAS_SEEDS
+Arka Priya Green Peas Seeds|अर्का प्रिया मटर बीज|अर्का प्रिया वाटाणा बियाणे|arka priya vatana biyane,arka priya matar beej,arka priya pea seed,arka priya|kg,g,packet|^GREEN_PEAS_SEEDS
+Arka Karthik Green Peas Seeds|अर्कार्तिक मटर बीज|अर्कार्तिक वाटाणा बियाणे|arka karthik vatana biyane,arka karthik matar beej,arka karthik pea seed,arka karthik|kg,g,packet|^GREEN_PEAS_SEEDS
+Arka Sampoorna Green Peas Seeds|अर्का संपूर्ण मटर बीज|अर्का संपूर्ण वाटाणा बियाणे|arka sampoorna vatana biyane,arka sampoorna matar beej,arka sampoorna pea seed,arka sampoorna|kg,g,packet|^GREEN_PEAS_SEEDS
+Arka Kartik Green Peas Seeds|अर्कार्तिक मटर बीज|अर्कार्तिक वाटाणा बियाणे|arka kartik vatana biyane,arka kartik matar beej,arka kartik pea seed,arka kartik|kg,g,packet|^GREEN_PEAS_SEEDS
+Punjab 88 Green Peas Seeds|पंजाब 88 मटर बीज|पंजाब 88 वाटाणा बियाणे|punjab 88 vatana biyane,punjab 88 matar beej,punjab 88 pea seed,punjab 88|kg,g,packet|^GREEN_PEAS_SEEDS
+Punjab 89 Green Peas Seeds|पंजाब 89 मटर बीज|पंजाब 89 वाटाणा बियाणे|punjab 89 vatana biyane,punjab 89 matar beej,punjab 89 pea seed,punjab 89|kg,g,packet|^GREEN_PEAS_SEEDS
+Lincoln Green Peas Seeds|लिंकन मटर बीज|लिंकन वाटाणा बियाणे|lincoln vatana biyane,lincoln matar beej,lincoln pea seed,lincoln|kg,g,packet|^GREEN_PEAS_SEEDS
+Early Badger Green Peas Seeds|अर्ली बॅजर मटर बीज|अर्ली बॅजर वाटाणा बियाणे|early badger vatana biyane,early badger matar beej,early badger pea seed,early badger|kg,g,packet|^GREEN_PEAS_SEEDS
+Early December Green Peas Seeds|अर्ली डिसेंबर मटर बीज|अर्ली डिसेंबर वाटाणा बियाणे|early december vatana biyane,early december matar beej,early december pea seed,early december|kg,g,packet|^GREEN_PEAS_SEEDS
+Meteor Green Peas Seeds|मेटिओर मटर बीज|मेटिओर वाटाणा बियाणे|meteor vatana biyane,meteor matar beej,meteor pea seed,meteor|kg,g,packet|^GREEN_PEAS_SEEDS
+Little Marvel Green Peas Seeds|लिटल मार्व्हल मटर बीज|लिटल मार्व्हल वाटाणा बियाणे|little marvel vatana biyane,little marvel matar beej,little marvel pea seed,little marvel|kg,g,packet|^GREEN_PEAS_SEEDS
+Alderman Green Peas Seeds|ऑल्डरमन मटर बीज|ऑल्डरमन वाटाणा बियाणे|alderman vatana biyane,alderman matar beej,alderman pea seed,alderman|kg,g,packet|^GREEN_PEAS_SEEDS
+Sugar Snap Green Peas Seeds|शुगर स्नॅप मटर बीज|शुगर स्नॅप वाटाणा बियाणे|sugar snap vatana biyane,sugar snap matar beej,sugar snap pea seed,sugar snap|kg,g,packet|^GREEN_PEAS_SEEDS
+Mangetout Green Peas Seeds|मांजटू मटर बीज|मांजटू वाटाणा बियाणे|mangetout vatana biyane,mangetout matar beej,mangetout pea seed,mangetout|kg,g,packet|^GREEN_PEAS_SEEDS
+Kashi Nandini Green Peas Seeds|काशी नंदिनी मटर बीज|काशी नंदिनी वाटाणा बियाणे|kashi nandini vatana biyane,kashi nandini matar beej,kashi nandini pea seed,kashi nandini|kg,g,packet|^GREEN_PEAS_SEEDS
+Kashi Udai Green Peas Seeds|काशी उदय मटर बीज|काशी उदय वाटाणा बियाणे|kashi udai vatana biyane,kashi udai matar beej,kashi udai pea seed,kashi udai|kg,g,packet|^GREEN_PEAS_SEEDS
+Kashi Mukti Green Peas Seeds|काशी मुक्ती मटर बीज|काशी मुक्ती वाटाणा बियाणे|kashi mukti vatana biyane,kashi mukti matar beej,kashi mukti pea seed,kashi mukti|kg,g,packet|^GREEN_PEAS_SEEDS
+Kashi Shakti Green Peas Seeds|काशी शक्ती मटर बीज|काशी शक्ती वाटाणा बियाणे|kashi shakti vatana biyane,kashi shakti matar beej,kashi shakti pea seed,kashi shakti|kg,g,packet|^GREEN_PEAS_SEEDS
+Kashi Samrat Green Peas Seeds|काशी सम्राट मटर बीज|काशी सम्राट वाटाणा बियाणे|kashi samrat vatana biyane,kashi samrat matar beej,kashi samrat pea seed,kashi samrat|kg,g,packet|^GREEN_PEAS_SEEDS
+Kashi Ageti Green Peas Seeds|काशी अगेती मटर बीज|काशी अगेती वाटाणा बियाणे|kashi ageti vatana biyane,kashi ageti matar beej,kashi ageti pea seed,kashi ageti|kg,g,packet|^GREEN_PEAS_SEEDS
+VL Ageti Matar 7 Green Peas Seeds|व्हीएल अगेती मटर 7 बीज|व्हीएल अगेती मटर 7 वाटाणा बियाणे|vl ageti matar 7 vatana biyane,vl ageti matar 7 matar beej,vl ageti matar 7 pea seed,vl ageti matar 7|kg,g,packet|^GREEN_PEAS_SEEDS
+VL Matar 42 Green Peas Seeds|व्हीएल मटर 42 बीज|व्हीएल मटर 42 वाटाणा बियाणे|vl matar 42 vatana biyane,vl matar 42 matar beej,vl matar 42 pea seed,vl matar 42|kg,g,packet|^GREEN_PEAS_SEEDS
+VL Matar 47 Green Peas Seeds|व्हीएल मटर 47 बीज|व्हीएल मटर 47 वाटाणा बियाणे|vl matar 47 vatana biyane,vl matar 47 matar beej,vl matar 47 pea seed,vl matar 47|kg,g,packet|^GREEN_PEAS_SEEDS
+VRP 5 Green Peas Seeds|व्हीआरपी 5 मटर बीज|व्हीआरपी 5 वाटाणा बियाणे|vrp 5 vatana biyane,vrp 5 matar beej,vrp 5 pea seed,vrp 5|kg,g,packet|^GREEN_PEAS_SEEDS
+Palam Priya Green Peas Seeds|पालम प्रिया मटर बीज|पालम प्रिया वाटाणा बियाणे|palam priya vatana biyane,palam priya matar beej,palam priya pea seed,palam priya|kg,g,packet|^GREEN_PEAS_SEEDS
+Palam Triloki Green Peas Seeds|पालम त्रिलोकी मटर बीज|पालम त्रिलोकी वाटाणा बियाणे|palam triloki vatana biyane,palam triloki matar beej,palam triloki pea seed,palam triloki|kg,g,packet|^GREEN_PEAS_SEEDS
+Prakash Green Peas Seeds|प्रकाश मटर बीज|प्रकाश वाटाणा बियाणे|prakash vatana biyane,prakash matar beej,prakash pea seed,prakash|kg,g,packet|^GREEN_PEAS_SEEDS
+Parvati Green Peas Seeds|पार्वती मटर बीज|पार्वती वाटाणा बियाणे|parvati vatana biyane,parvati matar beej,parvati pea seed,parvati|kg,g,packet|^GREEN_PEAS_SEEDS
+Sapphire Green Peas Seeds|सफायर मटर बीज|सफायर वाटाणा बियाणे|sapphire vatana biyane,sapphire matar beej,sapphire pea seed,sapphire|kg,g,packet|^GREEN_PEAS_SEEDS
+Hybrid Green Peas Seeds|संकरित मटर बीज|संकरित वाटाणा बियाणे|hybrid vatana biyane,hybrid matar beej,hybrid pea seed,hybrid|kg,g,packet|^GREEN_PEAS_SEEDS
+Desi Green Peas Seeds|गावरान मटर बीज|गावरान वाटाणा बियाणे|desi vatana biyane,desi matar beej,desi pea seed,desi|kg,g,packet|^GREEN_PEAS_SEEDS
+Dwarf Green Peas Seeds|बुटका मटर बीज|बुटका वाटाणा बियाणे|dwarf vatana biyane,dwarf matar beej,dwarf pea seed,dwarf|kg,g,packet|^GREEN_PEAS_SEEDS
+Tall Green Peas Seeds|उंच मटर बीज|उंच वाटाणा बियाणे|tall vatana biyane,tall matar beej,tall pea seed,tall|kg,g,packet|^GREEN_PEAS_SEEDS
+Early Green Peas Seeds|लवकर मटर बीज|लवकर वाटाणा बियाणे|early vatana biyane,early matar beej,early pea seed,early|kg,g,packet|^GREEN_PEAS_SEEDS
+Late Green Peas Seeds|उशिरा मटर बीज|उशिरा वाटाणा बियाणे|late vatana biyane,late matar beej,late pea seed,late|kg,g,packet|^GREEN_PEAS_SEEDS
+Wrinkled Seed Green Peas Seeds|सुरकुतलेले बी मटर बीज|सुरकुतलेले बी वाटाणा बियाणे|wrinkled seed vatana biyane,wrinkled seed matar beej,wrinkled seed pea seed,wrinkled seed|kg,g,packet|^GREEN_PEAS_SEEDS
+Round Seed Green Peas Seeds|गोल बी मटर बीज|गोल बी वाटाणा बियाणे|round seed vatana biyane,round seed matar beej,round seed pea seed,round seed|kg,g,packet|^GREEN_PEAS_SEEDS
+Edible Pod Green Peas Seeds|खाण्यायोग्य शेंग मटर बीज|खाण्यायोग्य शेंग वाटाणा बियाणे|edible pod vatana biyane,edible pod matar beej,edible pod pea seed,edible pod|kg,g,packet|^GREEN_PEAS_SEEDS
+Garden Pea Green Peas Seeds|गार्डन वाटाणा मटर बीज|गार्डन वाटाणा बियाणे|garden pea vatana biyane,garden pea matar beej,garden pea pea seed,garden pea|kg,g,packet|^GREEN_PEAS_SEEDS
+Field Pea Green Peas Seeds|शेतातील वाटाणा मटर बीज|शेतातील वाटाणा बियाणे|field pea vatana biyane,field pea matar beej,field pea pea seed,field pea|kg,g,packet|^GREEN_PEAS_SEEDS
+Dry Peas Green Peas Seeds|सुके वाटाणे मटर बीज|सुके वाटाणे वाटाणा बियाणे|dry peas vatana biyane,dry peas matar beej,dry peas pea seed,dry peas|kg,g,packet|^GREEN_PEAS_SEEDS
+Pusa Parvati French Beans Seeds|पूसा पार्वती फ्रेंच बीन्स बीज|पूसा पार्वती फरसबी बियाणे|pusa parvati farasbi biyane,pusa parvati french bean seed,pusa parvati beans beej,pusa parvati|kg,g,packet|^FRENCH_BEANS_SEEDS
+Pusa Himlata French Beans Seeds|पूसा हिमलता फ्रेंच बीन्स बीज|पूसा हिमलता फरसबी बियाणे|pusa himlata farasbi biyane,pusa himlata french bean seed,pusa himlata beans beej,pusa himlata|kg,g,packet|^FRENCH_BEANS_SEEDS
+Pusa Contender French Beans Seeds|पूसा कंटेंडर फ्रेंच बीन्स बीज|पूसा कंटेंडर फरसबी बियाणे|pusa contender farasbi biyane,pusa contender french bean seed,pusa contender beans beej,pusa contender|kg,g,packet|^FRENCH_BEANS_SEEDS
+Arka Komal French Beans Seeds|अर्का कोमल फ्रेंच बीन्स बीज|अर्का कोमल फरसबी बियाणे|arka komal farasbi biyane,arka komal french bean seed,arka komal beans beej,arka komal|kg,g,packet|^FRENCH_BEANS_SEEDS
+Arka Suvidha French Beans Seeds|अर्का सुविधा फ्रेंच बीन्स बीज|अर्का सुविधा फरसबी बियाणे|arka suvidha farasbi biyane,arka suvidha french bean seed,arka suvidha beans beej,arka suvidha|kg,g,packet|^FRENCH_BEANS_SEEDS
+Arka Anoop French Beans Seeds|अर्का अनूप फ्रेंच बीन्स बीज|अर्का अनूप फरसबी बियाणे|arka anoop farasbi biyane,arka anoop french bean seed,arka anoop beans beej,arka anoop|kg,g,packet|^FRENCH_BEANS_SEEDS
+Arka Sharath French Beans Seeds|अर्का शरत फ्रेंच बीन्स बीज|अर्का शरत फरसबी बियाणे|arka sharath farasbi biyane,arka sharath french bean seed,arka sharath beans beej,arka sharath|kg,g,packet|^FRENCH_BEANS_SEEDS
+Arka Bold French Beans Seeds|अर्का बोल्ड फ्रेंच बीन्स बीज|अर्का बोल्ड फरसबी बियाणे|arka bold farasbi biyane,arka bold french bean seed,arka bold beans beej,arka bold|kg,g,packet|^FRENCH_BEANS_SEEDS
+Arka Arjun French Beans Seeds|अर्का अर्जुन फ्रेंच बीन्स बीज|अर्का अर्जुन फरसबी बियाणे|arka arjun farasbi biyane,arka arjun french bean seed,arka arjun beans beej,arka arjun|kg,g,packet|^FRENCH_BEANS_SEEDS
+Contender French Beans Seeds|कंटेंडर फ्रेंच बीन्स बीज|कंटेंडर फरसबी बियाणे|contender farasbi biyane,contender french bean seed,contender beans beej,contender|kg,g,packet|^FRENCH_BEANS_SEEDS
+Kentucky Wonder French Beans Seeds|केंटकी वंडर फ्रेंच बीन्स बीज|केंटकी वंडर फरसबी बियाणे|kentucky wonder farasbi biyane,kentucky wonder french bean seed,kentucky wonder beans beej,kentucky wonder|kg,g,packet|^FRENCH_BEANS_SEEDS
+Blue Lake French Beans Seeds|ब्लू लेक फ्रेंच बीन्स बीज|ब्लू लेक फरसबी बियाणे|blue lake farasbi biyane,blue lake french bean seed,blue lake beans beej,blue lake|kg,g,packet|^FRENCH_BEANS_SEEDS
+Top Crop French Beans Seeds|टॉप क्रॉप फ्रेंच बीन्स बीज|टॉप क्रॉप फरसबी बियाणे|top crop farasbi biyane,top crop french bean seed,top crop beans beej,top crop|kg,g,packet|^FRENCH_BEANS_SEEDS
+Pant Anupama French Beans Seeds|पंत अनुपमा फ्रेंच बीन्स बीज|पंत अनुपमा फरसबी बियाणे|pant anupama farasbi biyane,pant anupama french bean seed,pant anupama beans beej,pant anupama|kg,g,packet|^FRENCH_BEANS_SEEDS
+Pant Bean 2 French Beans Seeds|पंत बीन 2 फ्रेंच बीन्स बीज|पंत बीन 2 फरसबी बियाणे|pant bean 2 farasbi biyane,pant bean 2 french bean seed,pant bean 2 beans beej,pant bean 2|kg,g,packet|^FRENCH_BEANS_SEEDS
+Pant Bean 4 French Beans Seeds|पंत बीन 4 फ्रेंच बीन्स बीज|पंत बीन 4 फरसबी बियाणे|pant bean 4 farasbi biyane,pant bean 4 french bean seed,pant bean 4 beans beej,pant bean 4|kg,g,packet|^FRENCH_BEANS_SEEDS
+Pant Bean 5 French Beans Seeds|पंत बीन 5 फ्रेंच बीन्स बीज|पंत बीन 5 फरसबी बियाणे|pant bean 5 farasbi biyane,pant bean 5 french bean seed,pant bean 5 beans beej,pant bean 5|kg,g,packet|^FRENCH_BEANS_SEEDS
+Premier French Beans Seeds|प्रीमियर फ्रेंच बीन्स बीज|प्रीमियर फरसबी बियाणे|premier farasbi biyane,premier french bean seed,premier beans beej,premier|kg,g,packet|^FRENCH_BEANS_SEEDS
+Selection 9 French Beans Seeds|सिलेक्शन 9 फ्रेंच बीन्स बीज|सिलेक्शन 9 फरसबी बियाणे|selection 9 farasbi biyane,selection 9 french bean seed,selection 9 beans beej,selection 9|kg,g,packet|^FRENCH_BEANS_SEEDS
+Kashi Param French Beans Seeds|काशी परम फ्रेंच बीन्स बीज|काशी परम फरसबी बियाणे|kashi param farasbi biyane,kashi param french bean seed,kashi param beans beej,kashi param|kg,g,packet|^FRENCH_BEANS_SEEDS
+Kashi Rajhans French Beans Seeds|काशी राजहंस फ्रेंच बीन्स बीज|काशी राजहंस फरसबी बियाणे|kashi rajhans farasbi biyane,kashi rajhans french bean seed,kashi rajhans beans beej,kashi rajhans|kg,g,packet|^FRENCH_BEANS_SEEDS
+Kashi Sampann French Beans Seeds|काशी संपन्न फ्रेंच बीन्स बीज|काशी संपन्न फरसबी बियाणे|kashi sampann farasbi biyane,kashi sampann french bean seed,kashi sampann beans beej,kashi sampann|kg,g,packet|^FRENCH_BEANS_SEEDS
+Kashi Khushi French Beans Seeds|काशी खुशी फ्रेंच बीन्स बीज|काशी खुशी फरसबी बियाणे|kashi khushi farasbi biyane,kashi khushi french bean seed,kashi khushi beans beej,kashi khushi|kg,g,packet|^FRENCH_BEANS_SEEDS
+Kashi Madhu French Beans Seeds|काशी मधू फ्रेंच बीन्स बीज|काशी मधू फरसबी बियाणे|kashi madhu farasbi biyane,kashi madhu french bean seed,kashi madhu beans beej,kashi madhu|kg,g,packet|^FRENCH_BEANS_SEEDS
+Phule Surekha French Beans Seeds|फुले सुरेखा फ्रेंच बीन्स बीज|फुले सुरेखा फरसबी बियाणे|phule surekha farasbi biyane,phule surekha french bean seed,phule surekha beans beej,phule surekha|kg,g,packet|^FRENCH_BEANS_SEEDS
+Phule Sharada French Beans Seeds|फुले शारदा फ्रेंच बीन्स बीज|फुले शारदा फरसबी बियाणे|phule sharada farasbi biyane,phule sharada french bean seed,phule sharada beans beej,phule sharada|kg,g,packet|^FRENCH_BEANS_SEEDS
+Hisar Bean French Beans Seeds|हिसार बीन फ्रेंच बीन्स बीज|हिसार बीन फरसबी बियाणे|hisar bean farasbi biyane,hisar bean french bean seed,hisar bean beans beej,hisar bean|kg,g,packet|^FRENCH_BEANS_SEEDS
+Punjab Bean French Beans Seeds|पंजाबीन फ्रेंच बीन्स बीज|पंजाबीन फरसबी बियाणे|punjab bean farasbi biyane,punjab bean french bean seed,punjab bean beans beej,punjab bean|kg,g,packet|^FRENCH_BEANS_SEEDS
+VL Boni 1 French Beans Seeds|व्हीएल बोनी 1 फ्रेंच बीन्स बीज|व्हीएल बोनी 1 फरसबी बियाणे|vl boni 1 farasbi biyane,vl boni 1 french bean seed,vl boni 1 beans beej,vl boni 1|kg,g,packet|^FRENCH_BEANS_SEEDS
+Bush Type French Beans Seeds|झुडूप्रकार फ्रेंच बीन्स बीज|झुडूप्रकार फरसबी बियाणे|bush type farasbi biyane,bush type french bean seed,bush type beans beej,bush type|kg,g,packet|^FRENCH_BEANS_SEEDS
+Pole Type French Beans Seeds|वेल प्रकार फ्रेंच बीन्स बीज|वेल प्रकार फरसबी बियाणे|pole type farasbi biyane,pole type french bean seed,pole type beans beej,pole type|kg,g,packet|^FRENCH_BEANS_SEEDS
+Stringless French Beans Seeds|बिन रेषेची फ्रेंच बीन्स बीज|बिन रेषेची फरसबी बियाणे|stringless farasbi biyane,stringless french bean seed,stringless beans beej,stringless|kg,g,packet|^FRENCH_BEANS_SEEDS
+Flat Pod French Beans Seeds|चपटी शेंग फ्रेंच बीन्स बीज|चपटी शेंग फरसबी बियाणे|flat pod farasbi biyane,flat pod french bean seed,flat pod beans beej,flat pod|kg,g,packet|^FRENCH_BEANS_SEEDS
+Round Pod French Beans Seeds|गोल शेंग फ्रेंच बीन्स बीज|गोल शेंग फरसबी बियाणे|round pod farasbi biyane,round pod french bean seed,round pod beans beej,round pod|kg,g,packet|^FRENCH_BEANS_SEEDS
+Purple Pod French Beans Seeds|जांभळी शेंग फ्रेंच बीन्स बीज|जांभळी शेंग फरसबी बियाणे|purple pod farasbi biyane,purple pod french bean seed,purple pod beans beej,purple pod|kg,g,packet|^FRENCH_BEANS_SEEDS
+Yellow Wax French Beans Seeds|पिवळी मेणी फ्रेंच बीन्स बीज|पिवळी मेणी फरसबी बियाणे|yellow wax farasbi biyane,yellow wax french bean seed,yellow wax beans beej,yellow wax|kg,g,packet|^FRENCH_BEANS_SEEDS
+Hybrid French Beans Seeds|संकरित फ्रेंच बीन्स बीज|संकरित फरसबी बियाणे|hybrid farasbi biyane,hybrid french bean seed,hybrid beans beej,hybrid|kg,g,packet|^FRENCH_BEANS_SEEDS
+Desi French Beans Seeds|गावरान फ्रेंच बीन्स बीज|गावरान फरसबी बियाणे|desi farasbi biyane,desi french bean seed,desi beans beej,desi|kg,g,packet|^FRENCH_BEANS_SEEDS
+Haricot French Beans Seeds|हरीकोट फ्रेंच बीन्स बीज|हरीकोट फरसबी बियाणे|haricot farasbi biyane,haricot french bean seed,haricot beans beej,haricot|kg,g,packet|^FRENCH_BEANS_SEEDS
+Rajma Type French Beans Seeds|राजमा प्रकार फ्रेंच बीन्स बीज|राजमा प्रकार फरसबी बियाणे|rajma type farasbi biyane,rajma type french bean seed,rajma type beans beej,rajma type|kg,g,packet|^FRENCH_BEANS_SEEDS
+Kidney Bean French Beans Seeds|राजमा फ्रेंच बीन्स बीज|राजमा फरसबी बियाणे|kidney bean farasbi biyane,kidney bean french bean seed,kidney bean beans beej,kidney bean|kg,g,packet|^FRENCH_BEANS_SEEDS
+Pusa Navbahar Cluster Beans Seeds|पूसा नवबहार ग्वार फली बीज|पूसा नवबहार गवार बियाणे|pusa navbahar gavar biyane,pusa navbahar guar phali beej,pusa navbahar cluster bean seed,pusa navbahar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Pusa Sadabahar Cluster Beans Seeds|पूसा सदाबहार ग्वार फली बीज|पूसा सदाबहार गवार बियाणे|pusa sadabahar gavar biyane,pusa sadabahar guar phali beej,pusa sadabahar cluster bean seed,pusa sadabahar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Pusa Mausami Cluster Beans Seeds|पूसा मौसमी ग्वार फली बीज|पूसा मौसमी गवार बियाणे|pusa mausami gavar biyane,pusa mausami guar phali beej,pusa mausami cluster bean seed,pusa mausami|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Durga Bahar Cluster Beans Seeds|दुर्गा बहार ग्वार फली बीज|दुर्गा बहार गवार बियाणे|durga bahar gavar biyane,durga bahar guar phali beej,durga bahar cluster bean seed,durga bahar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Durga Pratham Cluster Beans Seeds|दुर्गा प्रथम ग्वार फली बीज|दुर्गा प्रथम गवार बियाणे|durga pratham gavar biyane,durga pratham guar phali beej,durga pratham cluster bean seed,durga pratham|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Durgapura Safed Cluster Beans Seeds|दुर्गापुरा सफेद ग्वार फली बीज|दुर्गापुरा सफेद गवार बियाणे|durgapura safed gavar biyane,durgapura safed guar phali beej,durgapura safed cluster bean seed,durgapura safed|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Sharad Bahar Cluster Beans Seeds|शरद बहार ग्वार फली बीज|शरद बहार गवार बियाणे|sharad bahar gavar biyane,sharad bahar guar phali beej,sharad bahar cluster bean seed,sharad bahar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Pusa Sukomal Cluster Beans Seeds|पूसा सुकोमल ग्वार फली बीज|पूसा सुकोमल गवार बियाणे|pusa sukomal gavar biyane,pusa sukomal guar phali beej,pusa sukomal cluster bean seed,pusa sukomal|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Pusa Navbahar Guar Cluster Beans Seeds|पूसा नवबहार ग्वार फली बीज|पूसा नवबहार गवार बियाणे|pusa navbahar guar gavar biyane,pusa navbahar guar guar phali beej,pusa navbahar guar cluster bean seed,pusa navbahar guar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Pusa Mausami Guar Cluster Beans Seeds|पूसा मौसमी ग्वार फली बीज|पूसा मौसमी गवार बियाणे|pusa mausami guar gavar biyane,pusa mausami guar guar phali beej,pusa mausami guar cluster bean seed,pusa mausami guar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Arka Sharan Cluster Beans Seeds|अर्का शरण ग्वार फली बीज|अर्का शरण गवार बियाणे|arka sharan gavar biyane,arka sharan guar phali beej,arka sharan cluster bean seed,arka sharan|kg,g,packet|^CLUSTER_BEANS_SEEDS
+HG 365 Cluster Beans Seeds|एचजी 365 ग्वार फली बीज|एचजी 365 गवार बियाणे|hg 365 gavar biyane,hg 365 guar phali beej,hg 365 cluster bean seed,hg 365|kg,g,packet|^CLUSTER_BEANS_SEEDS
+HG 563 Cluster Beans Seeds|एचजी 563 ग्वार फली बीज|एचजी 563 गवार बियाणे|hg 563 gavar biyane,hg 563 guar phali beej,hg 563 cluster bean seed,hg 563|kg,g,packet|^CLUSTER_BEANS_SEEDS
+HG 870 Cluster Beans Seeds|एचजी 870 ग्वार फली बीज|एचजी 870 गवार बियाणे|hg 870 gavar biyane,hg 870 guar phali beej,hg 870 cluster bean seed,hg 870|kg,g,packet|^CLUSTER_BEANS_SEEDS
+HG 884 Cluster Beans Seeds|एचजी 884 ग्वार फली बीज|एचजी 884 गवार बियाणे|hg 884 gavar biyane,hg 884 guar phali beej,hg 884 cluster bean seed,hg 884|kg,g,packet|^CLUSTER_BEANS_SEEDS
+HG 2-20 Cluster Beans Seeds|एचजी 2-20 ग्वार फली बीज|एचजी 2-20 गवार बियाणे|hg 2-20 gavar biyane,hg 2-20 guar phali beej,hg 2-20 cluster bean seed,hg 2-20|kg,g,packet|^CLUSTER_BEANS_SEEDS
+RGC 936 Cluster Beans Seeds|आरजीसी 936 ग्वार फली बीज|आरजीसी 936 गवार बियाणे|rgc 936 gavar biyane,rgc 936 guar phali beej,rgc 936 cluster bean seed,rgc 936|kg,g,packet|^CLUSTER_BEANS_SEEDS
+RGC 986 Cluster Beans Seeds|आरजीसी 986 ग्वार फली बीज|आरजीसी 986 गवार बियाणे|rgc 986 gavar biyane,rgc 986 guar phali beej,rgc 986 cluster bean seed,rgc 986|kg,g,packet|^CLUSTER_BEANS_SEEDS
+RGC 1003 Cluster Beans Seeds|आरजीसी 1003 ग्वार फली बीज|आरजीसी 1003 गवार बियाणे|rgc 1003 gavar biyane,rgc 1003 guar phali beej,rgc 1003 cluster bean seed,rgc 1003|kg,g,packet|^CLUSTER_BEANS_SEEDS
+RGC 1017 Cluster Beans Seeds|आरजीसी 1017 ग्वार फली बीज|आरजीसी 1017 गवार बियाणे|rgc 1017 gavar biyane,rgc 1017 guar phali beej,rgc 1017 cluster bean seed,rgc 1017|kg,g,packet|^CLUSTER_BEANS_SEEDS
+RGC 1031 Cluster Beans Seeds|आरजीसी 1031 ग्वार फली बीज|आरजीसी 1031 गवार बियाणे|rgc 1031 gavar biyane,rgc 1031 guar phali beej,rgc 1031 cluster bean seed,rgc 1031|kg,g,packet|^CLUSTER_BEANS_SEEDS
+RGC 1066 Cluster Beans Seeds|आरजीसी 1066 ग्वार फली बीज|आरजीसी 1066 गवार बियाणे|rgc 1066 gavar biyane,rgc 1066 guar phali beej,rgc 1066 cluster bean seed,rgc 1066|kg,g,packet|^CLUSTER_BEANS_SEEDS
+RGC 1038 Cluster Beans Seeds|आरजीसी 1038 ग्वार फली बीज|आरजीसी 1038 गवार बियाणे|rgc 1038 gavar biyane,rgc 1038 guar phali beej,rgc 1038 cluster bean seed,rgc 1038|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Maru Guar Cluster Beans Seeds|मारू ग्वार फली बीज|मारू ग्वार गवार बियाणे|maru guar gavar biyane,maru guar guar phali beej,maru guar cluster bean seed,maru guar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Hisar Guar Cluster Beans Seeds|हिसार ग्वार फली बीज|हिसार ग्वार गवार बियाणे|hisar guar gavar biyane,hisar guar guar phali beej,hisar guar cluster bean seed,hisar guar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Local Gavar Cluster Beans Seeds|गावरान गवार ग्वार फली बीज|गावरान गवार बियाणे|local gavar gavar biyane,local gavar guar phali beej,local gavar cluster bean seed,local gavar|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Hybrid Cluster Beans Seeds|संकरित ग्वार फली बीज|संकरित गवार बियाणे|hybrid gavar biyane,hybrid guar phali beej,hybrid cluster bean seed,hybrid|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Seed Type Cluster Beans Seeds|बियांसाठी ग्वार फली बीज|बियांसाठी गवार बियाणे|seed type gavar biyane,seed type guar phali beej,seed type cluster bean seed,seed type|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Vegetable Type Cluster Beans Seeds|भाजीसाठी ग्वार फली बीज|भाजीसाठी गवार बियाणे|vegetable type gavar biyane,vegetable type guar phali beej,vegetable type cluster bean seed,vegetable type|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Dual Purpose Cluster Beans Seeds|दुहेरी उपयोग्वार फली बीज|दुहेरी उपयोग गवार बियाणे|dual purpose gavar biyane,dual purpose guar phali beej,dual purpose cluster bean seed,dual purpose|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Branched Cluster Beans Seeds|फांद्यांचा ग्वार फली बीज|फांद्यांचा गवार बियाणे|branched gavar biyane,branched guar phali beej,branched cluster bean seed,branched|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Non Branching Cluster Beans Seeds|फांद्या नसलेला ग्वार फली बीज|फांद्या नसलेला गवार बियाणे|non branching gavar biyane,non branching guar phali beej,non branching cluster bean seed,non branching|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Thick Pod Cluster Beans Seeds|जाड शेंग्वार फली बीज|जाड शेंग गवार बियाणे|thick pod gavar biyane,thick pod guar phali beej,thick pod cluster bean seed,thick pod|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Thin Pod Cluster Beans Seeds|बारीक शेंग्वार फली बीज|बारीक शेंग गवार बियाणे|thin pod gavar biyane,thin pod guar phali beej,thin pod cluster bean seed,thin pod|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Long Pod Cluster Beans Seeds|लांब शेंग्वार फली बीज|लांब शेंग गवार बियाणे|long pod gavar biyane,long pod guar phali beej,long pod cluster bean seed,long pod|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Short Pod Cluster Beans Seeds|आखूड शेंग्वार फली बीज|आखूड शेंग गवार बियाणे|short pod gavar biyane,short pod guar phali beej,short pod cluster bean seed,short pod|kg,g,packet|^CLUSTER_BEANS_SEEDS
+Pusa Komal Cowpea Seeds|पूसा कोमल लोबिया बीज|पूसा कोमल चवळी बियाणे|pusa komal chavli biyane,pusa komal lobia beej,pusa komal cowpea seed,pusa komal|kg,g,packet|^COWPEA_PODS_SEEDS
+Pusa Barsati Cowpea Seeds|पूसा बरसाती लोबिया बीज|पूसा बरसाती चवळी बियाणे|pusa barsati chavli biyane,pusa barsati lobia beej,pusa barsati cowpea seed,pusa barsati|kg,g,packet|^COWPEA_PODS_SEEDS
+Pusa Phalguni Cowpea Seeds|पूसा फाल्गुनी लोबिया बीज|पूसा फाल्गुनी चवळी बियाणे|pusa phalguni chavli biyane,pusa phalguni lobia beej,pusa phalguni cowpea seed,pusa phalguni|kg,g,packet|^COWPEA_PODS_SEEDS
+Pusa Dofasli Cowpea Seeds|पूसा दोफसली लोबिया बीज|पूसा दोफसली चवळी बियाणे|pusa dofasli chavli biyane,pusa dofasli lobia beej,pusa dofasli cowpea seed,pusa dofasli|kg,g,packet|^COWPEA_PODS_SEEDS
+Pusa Rituraj Cowpea Seeds|पूसा ऋतुराज लोबिया बीज|पूसा ऋतुराज चवळी बियाणे|pusa rituraj chavli biyane,pusa rituraj lobia beej,pusa rituraj cowpea seed,pusa rituraj|kg,g,packet|^COWPEA_PODS_SEEDS
+Pusa Sukomal Cowpea Seeds|पूसा सुकोमल लोबिया बीज|पूसा सुकोमल चवळी बियाणे|pusa sukomal chavli biyane,pusa sukomal lobia beej,pusa sukomal cowpea seed,pusa sukomal|kg,g,packet|^COWPEA_PODS_SEEDS
+Arka Garima Cowpea Seeds|अर्का गरिमा लोबिया बीज|अर्का गरिमा चवळी बियाणे|arka garima chavli biyane,arka garima lobia beej,arka garima cowpea seed,arka garima|kg,g,packet|^COWPEA_PODS_SEEDS
+Arka Samrudhi Cowpea Seeds|अर्का समृद्धी लोबिया बीज|अर्का समृद्धी चवळी बियाणे|arka samrudhi chavli biyane,arka samrudhi lobia beej,arka samrudhi cowpea seed,arka samrudhi|kg,g,packet|^COWPEA_PODS_SEEDS
+Arka Suman Cowpea Seeds|अर्का सुमन लोबिया बीज|अर्का सुमन चवळी बियाणे|arka suman chavli biyane,arka suman lobia beej,arka suman cowpea seed,arka suman|kg,g,packet|^COWPEA_PODS_SEEDS
+Arka Samrat Cowpea Seeds|अर्का सम्राट लोबिया बीज|अर्का सम्राट चवळी बियाणे|arka samrat chavli biyane,arka samrat lobia beej,arka samrat cowpea seed,arka samrat|kg,g,packet|^COWPEA_PODS_SEEDS
+Kashi Kanchan Cowpea Seeds|काशी कांचन लोबिया बीज|काशी कांचन चवळी बियाणे|kashi kanchan chavli biyane,kashi kanchan lobia beej,kashi kanchan cowpea seed,kashi kanchan|kg,g,packet|^COWPEA_PODS_SEEDS
+Kashi Gauri Cowpea Seeds|काशी गौरी लोबिया बीज|काशी गौरी चवळी बियाणे|kashi gauri chavli biyane,kashi gauri lobia beej,kashi gauri cowpea seed,kashi gauri|kg,g,packet|^COWPEA_PODS_SEEDS
+Kashi Unnati Cowpea Seeds|काशी उन्नती लोबिया बीज|काशी उन्नती चवळी बियाणे|kashi unnati chavli biyane,kashi unnati lobia beej,kashi unnati cowpea seed,kashi unnati|kg,g,packet|^COWPEA_PODS_SEEDS
+Kashi Shyamal Cowpea Seeds|काशी श्यामल लोबिया बीज|काशी श्यामल चवळी बियाणे|kashi shyamal chavli biyane,kashi shyamal lobia beej,kashi shyamal cowpea seed,kashi shyamal|kg,g,packet|^COWPEA_PODS_SEEDS
+Phule Rukmini Cowpea Seeds|फुले रुक्मिणी लोबिया बीज|फुले रुक्मिणी चवळी बियाणे|phule rukmini chavli biyane,phule rukmini lobia beej,phule rukmini cowpea seed,phule rukmini|kg,g,packet|^COWPEA_PODS_SEEDS
+Phule Vikram Cowpea Seeds|फुले विक्रम लोबिया बीज|फुले विक्रम चवळी बियाणे|phule vikram chavli biyane,phule vikram lobia beej,phule vikram cowpea seed,phule vikram|kg,g,packet|^COWPEA_PODS_SEEDS
+Konkan Safed Cowpea Seeds|कोकण सफेद लोबिया बीज|कोकण सफेद चवळी बियाणे|konkan safed chavli biyane,konkan safed lobia beej,konkan safed cowpea seed,konkan safed|kg,g,packet|^COWPEA_PODS_SEEDS
+Konkan Sadabahar Cowpea Seeds|कोकण सदाबहार लोबिया बीज|कोकण सदाबहार चवळी बियाणे|konkan sadabahar chavli biyane,konkan sadabahar lobia beej,konkan sadabahar cowpea seed,konkan sadabahar|kg,g,packet|^COWPEA_PODS_SEEDS
+Selection 263 Cowpea Seeds|सिलेक्शन 263 लोबिया बीज|सिलेक्शन 263 चवळी बियाणे|selection 263 chavli biyane,selection 263 lobia beej,selection 263 cowpea seed,selection 263|kg,g,packet|^COWPEA_PODS_SEEDS
+Ankur Gomati Cowpea Seeds|अंकुर गोमती लोबिया बीज|अंकुर गोमती चवळी बियाणे|ankur gomati chavli biyane,ankur gomati lobia beej,ankur gomati cowpea seed,ankur gomati|kg,g,packet|^COWPEA_PODS_SEEDS
+Gomati Cowpea Seeds|गोमती लोबिया बीज|गोमती चवळी बियाणे|gomati chavli biyane,gomati lobia beej,gomati cowpea seed,gomati|kg,g,packet|^COWPEA_PODS_SEEDS
+VRCP 1 Cowpea Seeds|व्हीआरसीपी 1 लोबिया बीज|व्हीआरसीपी 1 चवळी बियाणे|vrcp 1 chavli biyane,vrcp 1 lobia beej,vrcp 1 cowpea seed,vrcp 1|kg,g,packet|^COWPEA_PODS_SEEDS
+Sel 2 Cowpea Seeds|सेल 2 लोबिया बीज|सेल 2 चवळी बियाणे|sel 2 chavli biyane,sel 2 lobia beej,sel 2 cowpea seed,sel 2|kg,g,packet|^COWPEA_PODS_SEEDS
+Sel 3 Cowpea Seeds|सेल 3 लोबिया बीज|सेल 3 चवळी बियाणे|sel 3 chavli biyane,sel 3 lobia beej,sel 3 cowpea seed,sel 3|kg,g,packet|^COWPEA_PODS_SEEDS
+Mala Cowpea Seeds|माला लोबिया बीज|माला चवळी बियाणे|mala chavli biyane,mala lobia beej,mala cowpea seed,mala|kg,g,packet|^COWPEA_PODS_SEEDS
+Malika Cowpea Seeds|मालिका लोबिया बीज|मालिका चवळी बियाणे|malika chavli biyane,malika lobia beej,malika cowpea seed,malika|kg,g,packet|^COWPEA_PODS_SEEDS
+Lola Cowpea Seeds|लोला लोबिया बीज|लोला चवळी बियाणे|lola chavli biyane,lola lobia beej,lola cowpea seed,lola|kg,g,packet|^COWPEA_PODS_SEEDS
+Vellayani Jyothika Cowpea Seeds|वेल्लायनी ज्योतिका लोबिया बीज|वेल्लायनी ज्योतिका चवळी बियाणे|vellayani jyothika chavli biyane,vellayani jyothika lobia beej,vellayani jyothika cowpea seed,vellayani jyothika|kg,g,packet|^COWPEA_PODS_SEEDS
+Vyjayanthi Cowpea Seeds|वैजयंती लोबिया बीज|वैजयंती चवळी बियाणे|vyjayanthi chavli biyane,vyjayanthi lobia beej,vyjayanthi cowpea seed,vyjayanthi|kg,g,packet|^COWPEA_PODS_SEEDS
+Hridya Cowpea Seeds|हृद्या लोबिया बीज|हृद्या चवळी बियाणे|hridya chavli biyane,hridya lobia beej,hridya cowpea seed,hridya|kg,g,packet|^COWPEA_PODS_SEEDS
+Kanakamony Cowpea Seeds|कनकमणी लोबिया बीज|कनकमणी चवळी बियाणे|kanakamony chavli biyane,kanakamony lobia beej,kanakamony cowpea seed,kanakamony|kg,g,packet|^COWPEA_PODS_SEEDS
+Sreya Cowpea Seeds|श्रेया लोबिया बीज|श्रेया चवळी बियाणे|sreya chavli biyane,sreya lobia beej,sreya cowpea seed,sreya|kg,g,packet|^COWPEA_PODS_SEEDS
+Yardlong Green Cowpea Seeds|यार्डलॉंग्रीन लोबिया बीज|यार्डलॉंग्रीन चवळी बियाणे|yardlong green chavli biyane,yardlong green lobia beej,yardlong green cowpea seed,yardlong green|kg,g,packet|^COWPEA_PODS_SEEDS
+Yardlong Red Cowpea Seeds|यार्डलॉंग रेड लोबिया बीज|यार्डलॉंग रेड चवळी बियाणे|yardlong red chavli biyane,yardlong red lobia beej,yardlong red cowpea seed,yardlong red|kg,g,packet|^COWPEA_PODS_SEEDS
+Bush Chavli Cowpea Seeds|झुडूप चवळी लोबिया बीज|झुडूप चवळी बियाणे|bush chavli chavli biyane,bush chavli lobia beej,bush chavli cowpea seed,bush chavli|kg,g,packet|^COWPEA_PODS_SEEDS
+Pole Chavli Cowpea Seeds|वेल चवळी लोबिया बीज|वेल चवळी बियाणे|pole chavli chavli biyane,pole chavli lobia beej,pole chavli cowpea seed,pole chavli|kg,g,packet|^COWPEA_PODS_SEEDS
+Black Eyed Cowpea Seeds|काळ्या डोळ्याची लोबिया बीज|काळ्या डोळ्याची चवळी बियाणे|black eyed chavli biyane,black eyed lobia beej,black eyed cowpea seed,black eyed|kg,g,packet|^COWPEA_PODS_SEEDS
+Hybrid Cowpea Seeds|संकरित लोबिया बीज|संकरित चवळी बियाणे|hybrid chavli biyane,hybrid lobia beej,hybrid cowpea seed,hybrid|kg,g,packet|^COWPEA_PODS_SEEDS
+Desi Cowpea Seeds|गावरान लोबिया बीज|गावरान चवळी बियाणे|desi chavli biyane,desi lobia beej,desi cowpea seed,desi|kg,g,packet|^COWPEA_PODS_SEEDS
+White Seed Cowpea Seeds|पांढरे बी लोबिया बीज|पांढरे बी चवळी बियाणे|white seed chavli biyane,white seed lobia beej,white seed cowpea seed,white seed|kg,g,packet|^COWPEA_PODS_SEEDS
+Brown Seed Cowpea Seeds|तपकिरी बी लोबिया बीज|तपकिरी बी चवळी बियाणे|brown seed chavli biyane,brown seed lobia beej,brown seed cowpea seed,brown seed|kg,g,packet|^COWPEA_PODS_SEEDS
+Red Seed Cowpea Seeds|लाल बी लोबिया बीज|लाल बी चवळी बियाणे|red seed chavli biyane,red seed lobia beej,red seed cowpea seed,red seed|kg,g,packet|^COWPEA_PODS_SEEDS
+Pusa Early Prolific Lablab Bean Seeds|पूसा अर्ली प्रोलिफिक सेम बीज|पूसा अर्ली प्रोलिफिक घेवडा बियाणे|pusa early prolific ghevda biyane,pusa early prolific sem beej,pusa early prolific val seed,pusa early prolific|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Pusa Sem 2 Lablab Bean Seeds|पूसा सेम 2 बीज|पूसा सेम 2 घेवडा बियाणे|pusa sem 2 ghevda biyane,pusa sem 2 sem beej,pusa sem 2 val seed,pusa sem 2|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Pusa Sem 3 Lablab Bean Seeds|पूसा सेम 3 बीज|पूसा सेम 3 घेवडा बियाणे|pusa sem 3 ghevda biyane,pusa sem 3 sem beej,pusa sem 3 val seed,pusa sem 3|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Arka Jay Lablab Bean Seeds|अर्का जय सेम बीज|अर्का जय घेवडा बियाणे|arka jay ghevda biyane,arka jay sem beej,arka jay val seed,arka jay|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Arka Sambhram Lablab Bean Seeds|अर्का संभ्रम सेम बीज|अर्का संभ्रम घेवडा बियाणे|arka sambhram ghevda biyane,arka sambhram sem beej,arka sambhram val seed,arka sambhram|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Arka Soumya Lablab Bean Seeds|अर्का सौम्या सेम बीज|अर्का सौम्या घेवडा बियाणे|arka soumya ghevda biyane,arka soumya sem beej,arka soumya val seed,arka soumya|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Arka Jayant Lablab Bean Seeds|अर्का जयंत सेम बीज|अर्का जयंत घेवडा बियाणे|arka jayant ghevda biyane,arka jayant sem beej,arka jayant val seed,arka jayant|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Co-1 Lablab Bean Seeds|सीओ-1 सेम बीज|सीओ-1 घेवडा बियाणे|co-1 ghevda biyane,co-1 sem beej,co-1 val seed,co-1|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Co-2 Lablab Bean Seeds|सीओ-2 सेम बीज|सीओ-2 घेवडा बियाणे|co-2 ghevda biyane,co-2 sem beej,co-2 val seed,co-2|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Co-3 Lablab Bean Seeds|सीओ-3 सेम बीज|सीओ-3 घेवडा बियाणे|co-3 ghevda biyane,co-3 sem beej,co-3 val seed,co-3|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Co-4 Lablab Bean Seeds|सीओ-4 सेम बीज|सीओ-4 घेवडा बियाणे|co-4 ghevda biyane,co-4 sem beej,co-4 val seed,co-4|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Co-5 Lablab Bean Seeds|सीओ-5 सेम बीज|सीओ-5 घेवडा बियाणे|co-5 ghevda biyane,co-5 sem beej,co-5 val seed,co-5|kg,g,packet|^GHEVDA_BEANS_SEEDS
+HA 3 Lablab Bean Seeds|एचए 3 सेम बीज|एचए 3 घेवडा बियाणे|ha 3 ghevda biyane,ha 3 sem beej,ha 3 val seed,ha 3|kg,g,packet|^GHEVDA_BEANS_SEEDS
+HA 4 Lablab Bean Seeds|एचए 4 सेम बीज|एचए 4 घेवडा बियाणे|ha 4 ghevda biyane,ha 4 sem beej,ha 4 val seed,ha 4|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Konkan Wal Lablab Bean Seeds|कोकण वाल सेम बीज|कोकण वाल घेवडा बियाणे|konkan wal ghevda biyane,konkan wal sem beej,konkan wal val seed,konkan wal|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Konkan Bhushan Wal Lablab Bean Seeds|कोकण भूषण वाल सेम बीज|कोकण भूषण वाल घेवडा बियाणे|konkan bhushan wal ghevda biyane,konkan bhushan wal sem beej,konkan bhushan wal val seed,konkan bhushan wal|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Phule Ghevda Lablab Bean Seeds|फुले घेवडा सेम बीज|फुले घेवडा बियाणे|phule ghevda ghevda biyane,phule ghevda sem beej,phule ghevda val seed,phule ghevda|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Ghevda Pavta Lablab Bean Seeds|पावटा सेम बीज|पावटा घेवडा बियाणे|ghevda pavta ghevda biyane,ghevda pavta sem beej,ghevda pavta val seed,ghevda pavta|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Pavta Lablab Bean Seeds|पावटा सेम बीज|पावटा घेवडा बियाणे|pavta ghevda biyane,pavta sem beej,pavta val seed,pavta|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Wal Black Lablab Bean Seeds|काळा वाल सेम बीज|काळा वाल घेवडा बियाणे|wal black ghevda biyane,wal black sem beej,wal black val seed,wal black|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Wal Green Lablab Bean Seeds|हिरवा वाल सेम बीज|हिरवा वाल घेवडा बियाणे|wal green ghevda biyane,wal green sem beej,wal green val seed,wal green|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Val Papdi Lablab Bean Seeds|वाल पापडी सेम बीज|वाल पापडी घेवडा बियाणे|val papdi ghevda biyane,val papdi sem beej,val papdi val seed,val papdi|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Surti Papdi Lablab Bean Seeds|सुरती पापडी सेम बीज|सुरती पापडी घेवडा बियाणे|surti papdi ghevda biyane,surti papdi sem beej,surti papdi val seed,surti papdi|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Indian Bean Lablab Bean Seeds|भारतीय घेवडा सेम बीज|भारतीय घेवडा बियाणे|indian bean ghevda biyane,indian bean sem beej,indian bean val seed,indian bean|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Hyacinth Bean Lablab Bean Seeds|हायसिंथ बीन सेम बीज|हायसिंथ बीन घेवडा बियाणे|hyacinth bean ghevda biyane,hyacinth bean sem beej,hyacinth bean val seed,hyacinth bean|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Pole Type Lablab Bean Seeds|वेल प्रकार सेम बीज|वेल प्रकार घेवडा बियाणे|pole type ghevda biyane,pole type sem beej,pole type val seed,pole type|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Bush Type Lablab Bean Seeds|झुडूप्रकार सेम बीज|झुडूप्रकार घेवडा बियाणे|bush type ghevda biyane,bush type sem beej,bush type val seed,bush type|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Hybrid Lablab Bean Seeds|संकरित सेम बीज|संकरित घेवडा बियाणे|hybrid ghevda biyane,hybrid sem beej,hybrid val seed,hybrid|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Desi Lablab Bean Seeds|गावरान सेम बीज|गावरान घेवडा बियाणे|desi ghevda biyane,desi sem beej,desi val seed,desi|kg,g,packet|^GHEVDA_BEANS_SEEDS
+White Flower Lablab Bean Seeds|पांढरे फूल सेम बीज|पांढरे फूल घेवडा बियाणे|white flower ghevda biyane,white flower sem beej,white flower val seed,white flower|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Purple Flower Lablab Bean Seeds|जांभळे फूल सेम बीज|जांभळे फूल घेवडा बियाणे|purple flower ghevda biyane,purple flower sem beej,purple flower val seed,purple flower|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Flat Pod Lablab Bean Seeds|चपटी शेंग सेम बीज|चपटी शेंग घेवडा बियाणे|flat pod ghevda biyane,flat pod sem beej,flat pod val seed,flat pod|kg,g,packet|^GHEVDA_BEANS_SEEDS
+Winged Bean Seeds|शिमी बीज|चौधारी शेंग बियाणे|winged bean seed,goa bean seed|kg,g,packet|=WINGED_BEAN_SEEDS
+Goa Bean Winged Bean Seeds|गोवा बीन शिमी बीज|गोवा बीन चौधारी शेंग बियाणे|goa bean winged bean seed,goa bean goa bean seed,goa bean|kg,g,packet|^WINGED_BEAN_SEEDS
+Local Winged Bean Seeds|गावरान शिमी बीज|गावरान चौधारी शेंग बियाणे|local winged winged bean seed,local winged goa bean seed,local winged|kg,g,packet|^WINGED_BEAN_SEEDS
+Green Pod Winged Bean Seeds|हिरवी शेंग शिमी बीज|हिरवी शेंग चौधारी शेंग बियाणे|green pod winged bean seed,green pod goa bean seed,green pod|kg,g,packet|^WINGED_BEAN_SEEDS
+Purple Pod Winged Bean Seeds|जांभळी शेंग शिमी बीज|जांभळी शेंग चौधारी शेंग बियाणे|purple pod winged bean seed,purple pod goa bean seed,purple pod|kg,g,packet|^WINGED_BEAN_SEEDS
+Sword Bean Seeds|तलवार फली बीज|तलवार शेंग बियाणे|sword bean seed|kg,g,packet|=SWORD_BEAN_SEEDS
+White Sword Bean Seeds|पांढरी तलवार फली बीज|पांढरी तलवार शेंग बियाणे|white sword sword bean seed,white sword|kg,g,packet|^SWORD_BEAN_SEEDS
+Red Sword Bean Seeds|लाल तलवार फली बीज|लाल तलवार शेंग बियाणे|red sword sword bean seed,red sword|kg,g,packet|^SWORD_BEAN_SEEDS
+Local Sword Bean Seeds|गावरान तलवार फली बीज|गावरान तलवार शेंग बियाणे|local sword bean seed,local|kg,g,packet|^SWORD_BEAN_SEEDS
+Broad Beans Seeds|बाकला बीज|बाकला बियाणे|bakla seed,fava bean seed|kg,g,packet|=BROAD_BEANS_SEEDS
+Fava Broad Beans Seeds|फावा बाकला बीज|फावा बाकला बियाणे|fava bakla seed,fava fava bean seed,fava|kg,g,packet|^BROAD_BEANS_SEEDS
+Windsor Broad Beans Seeds|विंडसर बाकला बीज|विंडसर बाकला बियाणे|windsor bakla seed,windsor fava bean seed,windsor|kg,g,packet|^BROAD_BEANS_SEEDS
+Aquadulce Broad Beans Seeds|अॅक्वाडुल्से बाकला बीज|अॅक्वाडुल्से बाकला बियाणे|aquadulce bakla seed,aquadulce fava bean seed,aquadulce|kg,g,packet|^BROAD_BEANS_SEEDS
+Local Broad Beans Seeds|गावरान बाकला बीज|गावरान बाकला बियाणे|local bakla seed,local fava bean seed,local|kg,g,packet|^BROAD_BEANS_SEEDS
+Giant Broad Beans Seeds|जायंट बाकला बीज|जायंट बाकला बियाणे|giant bakla seed,giant fava bean seed,giant|kg,g,packet|^BROAD_BEANS_SEEDS
+@sub|tuber-vegetable-seed-material|Potato and Tuber Seed Material|आलू-कंद बीज सामग्री|बटाटा-कंद बियाणे सामग्री|kg,quintal,bag
+Kufri Jyoti Potato Seed Tubers|कुफरी ज्योती आलू बीज कंद|कुफरी ज्योती बटाटा बियाणे कंद|kufri jyoti batata biyane,kufri jyoti aloo beej,kufri jyoti potato seed,kufri jyoti|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Chipsona 1 Potato Seed Tubers|कुफरी चिपसोना 1 आलू बीज कंद|कुफरी चिपसोना 1 बटाटा बियाणे कंद|kufri chipsona 1 batata biyane,kufri chipsona 1 aloo beej,kufri chipsona 1 potato seed,kufri chipsona 1|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Chipsona 3 Potato Seed Tubers|कुफरी चिपसोना 3 आलू बीज कंद|कुफरी चिपसोना 3 बटाटा बियाणे कंद|kufri chipsona 3 batata biyane,kufri chipsona 3 aloo beej,kufri chipsona 3 potato seed,kufri chipsona 3|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Chipsona 4 Potato Seed Tubers|कुफरी चिपसोना 4 आलू बीज कंद|कुफरी चिपसोना 4 बटाटा बियाणे कंद|kufri chipsona 4 batata biyane,kufri chipsona 4 aloo beej,kufri chipsona 4 potato seed,kufri chipsona 4|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Pukhraj Potato Seed Tubers|कुफरी पुखराज आलू बीज कंद|कुफरी पुखराज बटाटा बियाणे कंद|kufri pukhraj batata biyane,kufri pukhraj aloo beej,kufri pukhraj potato seed,kufri pukhraj|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Badshah Potato Seed Tubers|कुफरी बादशाह आलू बीज कंद|कुफरी बादशाह बटाटा बियाणे कंद|kufri badshah batata biyane,kufri badshah aloo beej,kufri badshah potato seed,kufri badshah|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Bahar Potato Seed Tubers|कुफरी बहार आलू बीज कंद|कुफरी बहार बटाटा बियाणे कंद|kufri bahar batata biyane,kufri bahar aloo beej,kufri bahar potato seed,kufri bahar|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Anand Potato Seed Tubers|कुफरी आनंद आलू बीज कंद|कुफरी आनंद बटाटा बियाणे कंद|kufri anand batata biyane,kufri anand aloo beej,kufri anand potato seed,kufri anand|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Ashoka Potato Seed Tubers|कुफरी अशोका आलू बीज कंद|कुफरी अशोका बटाटा बियाणे कंद|kufri ashoka batata biyane,kufri ashoka aloo beej,kufri ashoka potato seed,kufri ashoka|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Arun Potato Seed Tubers|कुफरी अरुण आलू बीज कंद|कुफरी अरुण बटाटा बियाणे कंद|kufri arun batata biyane,kufri arun aloo beej,kufri arun potato seed,kufri arun|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Chandramukhi Potato Seed Tubers|कुफरी चंद्रमुखी आलू बीज कंद|कुफरी चंद्रमुखी बटाटा बियाणे कंद|kufri chandramukhi batata biyane,kufri chandramukhi aloo beej,kufri chandramukhi potato seed,kufri chandramukhi|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Lauvkar Potato Seed Tubers|कुफरी लौकर आलू बीज कंद|कुफरी लौकर बटाटा बियाणे कंद|kufri lauvkar batata biyane,kufri lauvkar aloo beej,kufri lauvkar potato seed,kufri lauvkar|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Pushkar Potato Seed Tubers|कुफरी पुष्कर आलू बीज कंद|कुफरी पुष्कर बटाटा बियाणे कंद|kufri pushkar batata biyane,kufri pushkar aloo beej,kufri pushkar potato seed,kufri pushkar|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Sutlej Potato Seed Tubers|कुफरी सतलज आलू बीज कंद|कुफरी सतलज बटाटा बियाणे कंद|kufri sutlej batata biyane,kufri sutlej aloo beej,kufri sutlej potato seed,kufri sutlej|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Surya Potato Seed Tubers|कुफरी सूर्या आलू बीज कंद|कुफरी सूर्या बटाटा बियाणे कंद|kufri surya batata biyane,kufri surya aloo beej,kufri surya potato seed,kufri surya|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Sindhuri Potato Seed Tubers|कुफरी सिंदूरी आलू बीज कंद|कुफरी सिंदूरी बटाटा बियाणे कंद|kufri sindhuri batata biyane,kufri sindhuri aloo beej,kufri sindhuri potato seed,kufri sindhuri|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Giriraj Potato Seed Tubers|कुफरी गिरिराज आलू बीज कंद|कुफरी गिरिराज बटाटा बियाणे कंद|kufri giriraj batata biyane,kufri giriraj aloo beej,kufri giriraj potato seed,kufri giriraj|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Khyati Potato Seed Tubers|कुफरी ख्याती आलू बीज कंद|कुफरी ख्याती बटाटा बियाणे कंद|kufri khyati batata biyane,kufri khyati aloo beej,kufri khyati potato seed,kufri khyati|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Himsona Potato Seed Tubers|कुफरी हिमसोना आलू बीज कंद|कुफरी हिमसोना बटाटा बियाणे कंद|kufri himsona batata biyane,kufri himsona aloo beej,kufri himsona potato seed,kufri himsona|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Chipsona 2 Potato Seed Tubers|कुफरी चिपसोना 2 आलू बीज कंद|कुफरी चिपसोना 2 बटाटा बियाणे कंद|kufri chipsona 2 batata biyane,kufri chipsona 2 aloo beej,kufri chipsona 2 potato seed,kufri chipsona 2|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Frysona Potato Seed Tubers|कुफरी फ्रायसोना आलू बीज कंद|कुफरी फ्रायसोना बटाटा बियाणे कंद|kufri frysona batata biyane,kufri frysona aloo beej,kufri frysona potato seed,kufri frysona|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Mohan Potato Seed Tubers|कुफरी मोहन आलू बीज कंद|कुफरी मोहन बटाटा बियाणे कंद|kufri mohan batata biyane,kufri mohan aloo beej,kufri mohan potato seed,kufri mohan|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Neelkanth Potato Seed Tubers|कुफरी नीलकंठ आलू बीज कंद|कुफरी नीलकंठ बटाटा बियाणे कंद|kufri neelkanth batata biyane,kufri neelkanth aloo beej,kufri neelkanth potato seed,kufri neelkanth|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Lalima Potato Seed Tubers|कुफरी लालिमा आलू बीज कंद|कुफरी लालिमा बटाटा बियाणे कंद|kufri lalima batata biyane,kufri lalima aloo beej,kufri lalima potato seed,kufri lalima|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Garima Potato Seed Tubers|कुफरी गरिमा आलू बीज कंद|कुफरी गरिमा बटाटा बियाणे कंद|kufri garima batata biyane,kufri garima aloo beej,kufri garima potato seed,kufri garima|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Gaurav Potato Seed Tubers|कुफरी गौरव आलू बीज कंद|कुफरी गौरव बटाटा बियाणे कंद|kufri gaurav batata biyane,kufri gaurav aloo beej,kufri gaurav potato seed,kufri gaurav|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Kanchan Potato Seed Tubers|कुफरी कांचन आलू बीज कंद|कुफरी कांचन बटाटा बियाणे कंद|kufri kanchan batata biyane,kufri kanchan aloo beej,kufri kanchan potato seed,kufri kanchan|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Girdhari Potato Seed Tubers|कुफरी गिरधारी आलू बीज कंद|कुफरी गिरधारी बटाटा बियाणे कंद|kufri girdhari batata biyane,kufri girdhari aloo beej,kufri girdhari potato seed,kufri girdhari|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Megha Potato Seed Tubers|कुफरी मेघा आलू बीज कंद|कुफरी मेघा बटाटा बियाणे कंद|kufri megha batata biyane,kufri megha aloo beej,kufri megha potato seed,kufri megha|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Pushpa Potato Seed Tubers|कुफरी पुष्पा आलू बीज कंद|कुफरी पुष्पा बटाटा बियाणे कंद|kufri pushpa batata biyane,kufri pushpa aloo beej,kufri pushpa potato seed,kufri pushpa|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Dewa Potato Seed Tubers|कुफरी देवा आलू बीज कंद|कुफरी देवा बटाटा बियाणे कंद|kufri dewa batata biyane,kufri dewa aloo beej,kufri dewa potato seed,kufri dewa|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Himalini Potato Seed Tubers|कुफरी हिमालिनी आलू बीज कंद|कुफरी हिमालिनी बटाटा बियाणे कंद|kufri himalini batata biyane,kufri himalini aloo beej,kufri himalini potato seed,kufri himalini|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Chamatkar Potato Seed Tubers|कुफरी चमत्कार आलू बीज कंद|कुफरी चमत्कार बटाटा बियाणे कंद|kufri chamatkar batata biyane,kufri chamatkar aloo beej,kufri chamatkar potato seed,kufri chamatkar|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Alankar Potato Seed Tubers|कुफरी अलंकार आलू बीज कंद|कुफरी अलंकार बटाटा बियाणे कंद|kufri alankar batata biyane,kufri alankar aloo beej,kufri alankar potato seed,kufri alankar|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Naveen Potato Seed Tubers|कुफरी नवीन आलू बीज कंद|कुफरी नवीन बटाटा बियाणे कंद|kufri naveen batata biyane,kufri naveen aloo beej,kufri naveen potato seed,kufri naveen|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Sheetman Potato Seed Tubers|कुफरी शीतमान आलू बीज कंद|कुफरी शीतमान बटाटा बियाणे कंद|kufri sheetman batata biyane,kufri sheetman aloo beej,kufri sheetman potato seed,kufri sheetman|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Swarna Potato Seed Tubers|कुफरी स्वर्ण आलू बीज कंद|कुफरी स्वर्ण बटाटा बियाणे कंद|kufri swarna batata biyane,kufri swarna aloo beej,kufri swarna potato seed,kufri swarna|kg,quintal,bag|^POTATO_SEED_TUBERS
+Kufri Bahar 3792 Potato Seed Tubers|कुफरी बहार 3792 आलू बीज कंद|कुफरी बहार 3792 बटाटा बियाणे कंद|kufri bahar 3792 batata biyane,kufri bahar 3792 aloo beej,kufri bahar 3792 potato seed,kufri bahar 3792|kg,quintal,bag|^POTATO_SEED_TUBERS
+Up To Date Potato Seed Tubers|अप टू डेट आलू बीज कंद|अप टू डेट बटाटा बियाणे कंद|up to date batata biyane,up to date aloo beej,up to date potato seed,up to date|kg,quintal,bag|^POTATO_SEED_TUBERS
+Desiree Potato Seed Tubers|डेझिरे आलू बीज कंद|डेझिरे बटाटा बियाणे कंद|desiree batata biyane,desiree aloo beej,desiree potato seed,desiree|kg,quintal,bag|^POTATO_SEED_TUBERS
+Atlantic Potato Seed Tubers|अटलांटिक आलू बीज कंद|अटलांटिक बटाटा बियाणे कंद|atlantic batata biyane,atlantic aloo beej,atlantic potato seed,atlantic|kg,quintal,bag|^POTATO_SEED_TUBERS
+Russet Potato Seed Tubers|रसेट आलू बीज कंद|रसेट बटाटा बियाणे कंद|russet batata biyane,russet aloo beej,russet potato seed,russet|kg,quintal,bag|^POTATO_SEED_TUBERS
+Red Skin Potato Seed Tubers|लाल साल आलू बीज कंद|लाल साल बटाटा बियाणे कंद|red skin batata biyane,red skin aloo beej,red skin potato seed,red skin|kg,quintal,bag|^POTATO_SEED_TUBERS
+White Skin Potato Seed Tubers|पांढरी साल आलू बीज कंद|पांढरी साल बटाटा बियाणे कंद|white skin batata biyane,white skin aloo beej,white skin potato seed,white skin|kg,quintal,bag|^POTATO_SEED_TUBERS
+Yellow Flesh Potato Seed Tubers|पिवळा गर आलू बीज कंद|पिवळा गर बटाटा बियाणे कंद|yellow flesh batata biyane,yellow flesh aloo beej,yellow flesh potato seed,yellow flesh|kg,quintal,bag|^POTATO_SEED_TUBERS
+Early Crop Potato Seed Tubers|लवकर पीक आलू बीज कंद|लवकर पीक बटाटा बियाणे कंद|early crop batata biyane,early crop aloo beej,early crop potato seed,early crop|kg,quintal,bag|^POTATO_SEED_TUBERS
+Late Crop Potato Seed Tubers|उशिरा पीक आलू बीज कंद|उशिरा पीक बटाटा बियाणे कंद|late crop batata biyane,late crop aloo beej,late crop potato seed,late crop|kg,quintal,bag|^POTATO_SEED_TUBERS
+Cut Seed Potato Seed Tubers|कापलेले बी आलू बीज कंद|कापलेले बी बटाटा बियाणे कंद|cut seed batata biyane,cut seed aloo beej,cut seed potato seed,cut seed|kg,quintal,bag|^POTATO_SEED_TUBERS
+Whole Seed Potato Seed Tubers|अखंड बी आलू बीज कंद|अखंड बी बटाटा बियाणे कंद|whole seed batata biyane,whole seed aloo beej,whole seed potato seed,whole seed|kg,quintal,bag|^POTATO_SEED_TUBERS
+Certified Potato Seed Tubers|प्रमाणित आलू बीज कंद|प्रमाणित बटाटा बियाणे कंद|certified batata biyane,certified aloo beej,certified potato seed,certified|kg,quintal,bag|^POTATO_SEED_TUBERS
+Foundation Potato Seed Tubers|पायाभूत आलू बीज कंद|पायाभूत बटाटा बियाणे कंद|foundation batata biyane,foundation aloo beej,foundation potato seed,foundation|kg,quintal,bag|^POTATO_SEED_TUBERS
+Table Potato Local Potato Seed Tubers|गावरान आलू बीज कंद|गावरान बटाटा बियाणे कंद|table potato local batata biyane,table potato local aloo beej,table potato local potato seed,table potato local|kg,quintal,bag|^POTATO_SEED_TUBERS
+Sweet Potato Vines|शकरकंद बेल|रताळ्याचे वेल|ratale vine,shakarkand cutting,sweet potato vine|bundle,piece|=SWEET_POTATO_VINE
+Sree Arun Sweet Potato Vines|श्री अरुण शकरकंद बेल|श्री अरुण रताळ्याचे वेल|sree arun ratale vine,sree arun shakarkand cutting,sree arun sweet potato vine,sree arun|bundle,piece|^SWEET_POTATO_VINE
+Sree Varun Sweet Potato Vines|श्री वरुण शकरकंद बेल|श्री वरुण रताळ्याचे वेल|sree varun ratale vine,sree varun shakarkand cutting,sree varun sweet potato vine,sree varun|bundle,piece|^SWEET_POTATO_VINE
+Sree Bhadra Sweet Potato Vines|श्री भद्रा शकरकंद बेल|श्री भद्रा रताळ्याचे वेल|sree bhadra ratale vine,sree bhadra shakarkand cutting,sree bhadra sweet potato vine,sree bhadra|bundle,piece|^SWEET_POTATO_VINE
+Sree Nandini Sweet Potato Vines|श्री नंदिनी शकरकंद बेल|श्री नंदिनी रताळ्याचे वेल|sree nandini ratale vine,sree nandini shakarkand cutting,sree nandini sweet potato vine,sree nandini|bundle,piece|^SWEET_POTATO_VINE
+Sree Kanaka Sweet Potato Vines|श्री कनक शकरकंद बेल|श्री कनक रताळ्याचे वेल|sree kanaka ratale vine,sree kanaka shakarkand cutting,sree kanaka sweet potato vine,sree kanaka|bundle,piece|^SWEET_POTATO_VINE
+Sree Vardhini Sweet Potato Vines|श्री वर्धिनी शकरकंद बेल|श्री वर्धिनी रताळ्याचे वेल|sree vardhini ratale vine,sree vardhini shakarkand cutting,sree vardhini sweet potato vine,sree vardhini|bundle,piece|^SWEET_POTATO_VINE
+Sree Ratna Sweet Potato Vines|श्री रत्ना शकरकंद बेल|श्री रत्ना रताळ्याचे वेल|sree ratna ratale vine,sree ratna shakarkand cutting,sree ratna sweet potato vine,sree ratna|bundle,piece|^SWEET_POTATO_VINE
+Sree Rethna Sweet Potato Vines|श्री रत्ना शकरकंद बेल|श्री रत्ना रताळ्याचे वेल|sree rethna ratale vine,sree rethna shakarkand cutting,sree rethna sweet potato vine,sree rethna|bundle,piece|^SWEET_POTATO_VINE
+Bhu Sona Sweet Potato Vines|भू सोना शकरकंद बेल|भू सोना रताळ्याचे वेल|bhu sona ratale vine,bhu sona shakarkand cutting,bhu sona sweet potato vine,bhu sona|bundle,piece|^SWEET_POTATO_VINE
+Bhu Krishna Sweet Potato Vines|भू कृष्णा शकरकंद बेल|भू कृष्णा रताळ्याचे वेल|bhu krishna ratale vine,bhu krishna shakarkand cutting,bhu krishna sweet potato vine,bhu krishna|bundle,piece|^SWEET_POTATO_VINE
+Bhu Swarna Sweet Potato Vines|भू स्वर्ण शकरकंद बेल|भू स्वर्ण रताळ्याचे वेल|bhu swarna ratale vine,bhu swarna shakarkand cutting,bhu swarna sweet potato vine,bhu swarna|bundle,piece|^SWEET_POTATO_VINE
+Gouri Sweet Potato Vines|गौरी शकरकंद बेल|गौरी रताळ्याचे वेल|gouri ratale vine,gouri shakarkand cutting,gouri sweet potato vine,gouri|bundle,piece|^SWEET_POTATO_VINE
+Samrat Sweet Potato Vines|सम्राट शकरकंद बेल|सम्राट रताळ्याचे वेल|samrat ratale vine,samrat shakarkand cutting,samrat sweet potato vine,samrat|bundle,piece|^SWEET_POTATO_VINE
+Kishan Sweet Potato Vines|किसान शकरकंद बेल|किसान रताळ्याचे वेल|kishan ratale vine,kishan shakarkand cutting,kishan sweet potato vine,kishan|bundle,piece|^SWEET_POTATO_VINE
+Pusa Safed Sweet Potato Vines|पूसा सफेद शकरकंद बेल|पूसा सफेद रताळ्याचे वेल|pusa safed ratale vine,pusa safed shakarkand cutting,pusa safed sweet potato vine,pusa safed|bundle,piece|^SWEET_POTATO_VINE
+Pusa Red Sweet Potato Vines|पूसा रेड शकरकंद बेल|पूसा रेड रताळ्याचे वेल|pusa red ratale vine,pusa red shakarkand cutting,pusa red sweet potato vine,pusa red|bundle,piece|^SWEET_POTATO_VINE
+Pusa Sunehri Sweet Potato Vines|पूसा सुनहरी शकरकंद बेल|पूसा सुनहरी रताळ्याचे वेल|pusa sunehri ratale vine,pusa sunehri shakarkand cutting,pusa sunehri sweet potato vine,pusa sunehri|bundle,piece|^SWEET_POTATO_VINE
+CO-1 Sweet Potato Vines|सीओ-1 शकरकंद बेल|सीओ-1 रताळ्याचे वेल|co-1 ratale vine,co-1 shakarkand cutting,co-1 sweet potato vine,co-1|bundle,piece|^SWEET_POTATO_VINE
+CO-2 Sweet Potato Vines|सीओ-2 शकरकंद बेल|सीओ-2 रताळ्याचे वेल|co-2 ratale vine,co-2 shakarkand cutting,co-2 sweet potato vine,co-2|bundle,piece|^SWEET_POTATO_VINE
+CO-3 Sweet Potato Vines|सीओ-3 शकरकंद बेल|सीओ-3 रताळ्याचे वेल|co-3 ratale vine,co-3 shakarkand cutting,co-3 sweet potato vine,co-3|bundle,piece|^SWEET_POTATO_VINE
+Orange Fleshed Sweet Potato Vines|केशरी गर शकरकंद बेल|केशरी गर रताळ्याचे वेल|orange fleshed ratale vine,orange fleshed shakarkand cutting,orange fleshed sweet potato vine,orange fleshed|bundle,piece|^SWEET_POTATO_VINE
+Purple Fleshed Sweet Potato Vines|जांभळा गर शकरकंद बेल|जांभळा गर रताळ्याचे वेल|purple fleshed ratale vine,purple fleshed shakarkand cutting,purple fleshed sweet potato vine,purple fleshed|bundle,piece|^SWEET_POTATO_VINE
+White Fleshed Sweet Potato Vines|पांढरा गर शकरकंद बेल|पांढरा गर रताळ्याचे वेल|white fleshed ratale vine,white fleshed shakarkand cutting,white fleshed sweet potato vine,white fleshed|bundle,piece|^SWEET_POTATO_VINE
+Red Skin Sweet Potato Vines|लाल साल शकरकंद बेल|लाल साल रताळ्याचे वेल|red skin ratale vine,red skin shakarkand cutting,red skin sweet potato vine,red skin|bundle,piece|^SWEET_POTATO_VINE
+Konkan Ashwini Sweet Potato Vines|कोकण अश्विनी शकरकंद बेल|कोकण अश्विनी रताळ्याचे वेल|konkan ashwini ratale vine,konkan ashwini shakarkand cutting,konkan ashwini sweet potato vine,konkan ashwini|bundle,piece|^SWEET_POTATO_VINE
+Konkan Ratale Sweet Potato Vines|कोकण रताळे शकरकंद बेल|कोकण रताळे रताळ्याचे वेल|konkan ratale ratale vine,konkan ratale shakarkand cutting,konkan ratale sweet potato vine,konkan ratale|bundle,piece|^SWEET_POTATO_VINE
+Local Ratale Sweet Potato Vines|गावरान रताळे शकरकंद बेल|गावरान रताळे रताळ्याचे वेल|local ratale ratale vine,local ratale shakarkand cutting,local ratale sweet potato vine,local ratale|bundle,piece|^SWEET_POTATO_VINE
+Chhatrapati Sweet Potato Vines|छत्रपती शकरकंद बेल|छत्रपती रताळ्याचे वेल|chhatrapati ratale vine,chhatrapati shakarkand cutting,chhatrapati sweet potato vine,chhatrapati|bundle,piece|^SWEET_POTATO_VINE
+Annapurna Sweet Potato Vines|अन्नपूर्णा शकरकंद बेल|अन्नपूर्णा रताळ्याचे वेल|annapurna ratale vine,annapurna shakarkand cutting,annapurna sweet potato vine,annapurna|bundle,piece|^SWEET_POTATO_VINE
+Cross 4 Sweet Potato Vines|क्रॉस 4 शकरकंद बेल|क्रॉस 4 रताळ्याचे वेल|cross 4 ratale vine,cross 4 shakarkand cutting,cross 4 sweet potato vine,cross 4|bundle,piece|^SWEET_POTATO_VINE
+ST 14 Sweet Potato Vines|एसटी 14 शकरकंद बेल|एसटी 14 रताळ्याचे वेल|st 14 ratale vine,st 14 shakarkand cutting,st 14 sweet potato vine,st 14|bundle,piece|^SWEET_POTATO_VINE
+Hybrid Sweet Potato Vines|संकरित शकरकंद बेल|संकरित रताळ्याचे वेल|hybrid ratale vine,hybrid shakarkand cutting,hybrid sweet potato vine,hybrid|bundle,piece|^SWEET_POTATO_VINE
+@sub|rhizome-seed-material|Ginger, Turmeric and Rhizome Seed Material|अदरक-हल्दी बीज कंद|आले-हळद बियाणे कंद|kg,quintal,bag
+Ginger Seed Rhizome|अदरक बीज|आले बियाणे|ale biyane,adrak beej,ginger seed,seed ginger|kg,quintal,bag|=GINGER_SEED_RHIZOME
+Maran Ginger Seed Rhizome|मारन अदरक बीज|मारन आले बियाणे|maran ale biyane,maran adrak beej,maran ginger seed,maran|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Rio de Janeiro Ginger Seed Rhizome|रिओ दि जानेरो अदरक बीज|रिओ दि जानेरो आले बियाणे|rio de janeiro ale biyane,rio de janeiro adrak beej,rio de janeiro ginger seed,rio de janeiro|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Himachal Ginger Seed Rhizome|हिमाचल अदरक बीज|हिमाचल आले बियाणे|himachal ale biyane,himachal adrak beej,himachal ginger seed,himachal|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Varada Ginger Seed Rhizome|वरदा अदरक बीज|वरदा आले बियाणे|varada ale biyane,varada adrak beej,varada ginger seed,varada|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Mahima Ginger Seed Rhizome|महिमा अदरक बीज|महिमा आले बियाणे|mahima ale biyane,mahima adrak beej,mahima ginger seed,mahima|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Rejatha Ginger Seed Rhizome|रेजाथा अदरक बीज|रेजाथा आले बियाणे|rejatha ale biyane,rejatha adrak beej,rejatha ginger seed,rejatha|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Suprabha Ginger Seed Rhizome|सुप्रभा अदरक बीज|सुप्रभा आले बियाणे|suprabha ale biyane,suprabha adrak beej,suprabha ginger seed,suprabha|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Suruchi Ginger Seed Rhizome|सुरुची अदरक बीज|सुरुची आले बियाणे|suruchi ale biyane,suruchi adrak beej,suruchi ginger seed,suruchi|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Suravi Ginger Seed Rhizome|सुरवी अदरक बीज|सुरवी आले बियाणे|suravi ale biyane,suravi adrak beej,suravi ginger seed,suravi|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Himgiri Ginger Seed Rhizome|हिमगिरी अदरक बीज|हिमगिरी आले बियाणे|himgiri ale biyane,himgiri adrak beej,himgiri ginger seed,himgiri|kg,quintal,bag|^GINGER_SEED_RHIZOME
+IISR Varada Ginger Seed Rhizome|आयआयएसआर वरदा अदरक बीज|आयआयएसआर वरदा आले बियाणे|iisr varada ale biyane,iisr varada adrak beej,iisr varada ginger seed,iisr varada|kg,quintal,bag|^GINGER_SEED_RHIZOME
+IISR Mahima Ginger Seed Rhizome|आयआयएसआर महिमा अदरक बीज|आयआयएसआर महिमा आले बियाणे|iisr mahima ale biyane,iisr mahima adrak beej,iisr mahima ginger seed,iisr mahima|kg,quintal,bag|^GINGER_SEED_RHIZOME
+IISR Rejatha Ginger Seed Rhizome|आयआयएसआर रेजाथा अदरक बीज|आयआयएसआर रेजाथा आले बियाणे|iisr rejatha ale biyane,iisr rejatha adrak beej,iisr rejatha ginger seed,iisr rejatha|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Nadia Ginger Seed Rhizome|नादिया अदरक बीज|नादिया आले बियाणे|nadia ale biyane,nadia adrak beej,nadia ginger seed,nadia|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Thingpui Ginger Seed Rhizome|थिंगपुई अदरक बीज|थिंगपुई आले बियाणे|thingpui ale biyane,thingpui adrak beej,thingpui ginger seed,thingpui|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Wynad Local Ginger Seed Rhizome|वायनाड लोकल अदरक बीज|वायनाड लोकल आले बियाणे|wynad local ale biyane,wynad local adrak beej,wynad local ginger seed,wynad local|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Kerala Local Ginger Seed Rhizome|केरळ लोकल अदरक बीज|केरळ लोकल आले बियाणे|kerala local ale biyane,kerala local adrak beej,kerala local ginger seed,kerala local|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Satara Local Ginger Seed Rhizome|सातारा स्थानिक अदरक बीज|सातारा स्थानिक आले बियाणे|satara local ale biyane,satara local adrak beej,satara local ginger seed,satara local|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Karad Local Ginger Seed Rhizome|कराड स्थानिक अदरक बीज|कराड स्थानिक आले बियाणे|karad local ale biyane,karad local adrak beej,karad local ginger seed,karad local|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Sangli Local Ginger Seed Rhizome|सांगली स्थानिक अदरक बीज|सांगली स्थानिक आले बियाणे|sangli local ale biyane,sangli local adrak beej,sangli local ginger seed,sangli local|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Assam Local Ginger Seed Rhizome|आसाम लोकल अदरक बीज|आसाम लोकल आले बियाणे|assam local ale biyane,assam local adrak beej,assam local ginger seed,assam local|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Jorhat Ginger Seed Rhizome|जोरहाट अदरक बीज|जोरहाट आले बियाणे|jorhat ale biyane,jorhat adrak beej,jorhat ginger seed,jorhat|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Gorubathan Ginger Seed Rhizome|गोरुबाथान अदरक बीज|गोरुबाथान आले बियाणे|gorubathan ale biyane,gorubathan adrak beej,gorubathan ginger seed,gorubathan|kg,quintal,bag|^GINGER_SEED_RHIZOME
+China Ginger Seed Rhizome|चायना अदरक बीज|चायना आले बियाणे|china ale biyane,china adrak beej,china ginger seed,china|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Jugijan Ginger Seed Rhizome|जुगीजान अदरक बीज|जुगीजान आले बियाणे|jugijan ale biyane,jugijan adrak beej,jugijan ginger seed,jugijan|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Bhaisey Ginger Seed Rhizome|भैसे अदरक बीज|भैसे आले बियाणे|bhaisey ale biyane,bhaisey adrak beej,bhaisey ginger seed,bhaisey|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Sikkim Local Ginger Seed Rhizome|सिक्कीम लोकल अदरक बीज|सिक्कीम लोकल आले बियाणे|sikkim local ale biyane,sikkim local adrak beej,sikkim local ginger seed,sikkim local|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Bold Rhizome Ginger Seed Rhizome|मोठा कंद अदरक बीज|मोठा कंद आले बियाणे|bold rhizome ale biyane,bold rhizome adrak beej,bold rhizome ginger seed,bold rhizome|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Medium Rhizome Ginger Seed Rhizome|मध्यम कंद अदरक बीज|मध्यम कंद आले बियाणे|medium rhizome ale biyane,medium rhizome adrak beej,medium rhizome ginger seed,medium rhizome|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Small Rhizome Ginger Seed Rhizome|लहान कंद अदरक बीज|लहान कंद आले बियाणे|small rhizome ale biyane,small rhizome adrak beej,small rhizome ginger seed,small rhizome|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Mother Rhizome Ginger Seed Rhizome|मातृ कंद अदरक बीज|मातृ कंद आले बियाणे|mother rhizome ale biyane,mother rhizome adrak beej,mother rhizome ginger seed,mother rhizome|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Treated Seed Ginger Seed Rhizome|प्रक्रिया केलेले बी अदरक बीज|प्रक्रिया केलेले बी आले बियाणे|treated seed ale biyane,treated seed adrak beej,treated seed ginger seed,treated seed|kg,quintal,bag|^GINGER_SEED_RHIZOME
+Turmeric Seed Rhizome|हल्दी बीज|हळद बियाणे|halad biyane,haldi beej,turmeric seed,seed turmeric|kg,quintal,bag|=TURMERIC_SEED_RHIZOME
+Salem Turmeric Seed Rhizome|सेलम हल्दी बीज|सेलम हळद बियाणे|salem halad biyane,salem haldi beej,salem turmeric seed,salem|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Erode Local Turmeric Seed Rhizome|इरोड लोकल हल्दी बीज|इरोड लोकल हळद बियाणे|erode local halad biyane,erode local haldi beej,erode local turmeric seed,erode local|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Rajapuri Turmeric Seed Rhizome|राजापुरी हल्दी बीज|राजापुरी हळद बियाणे|rajapuri halad biyane,rajapuri haldi beej,rajapuri turmeric seed,rajapuri|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Sangli Turmeric Seed Rhizome|सांगली हल्दी बीज|सांगली हळद बियाणे|sangli halad biyane,sangli haldi beej,sangli turmeric seed,sangli|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Waigaon Turmeric Seed Rhizome|वायगाव हल्दी बीज|वायगाव हळद बियाणे|waigaon halad biyane,waigaon haldi beej,waigaon turmeric seed,waigaon|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Selam Turmeric Seed Rhizome|सेलम हल्दी बीज|सेलम हळद बियाणे|selam halad biyane,selam haldi beej,selam turmeric seed,selam|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Alleppey Finger Turmeric Seed Rhizome|अलेप्पी फिंगर हल्दी बीज|अलेप्पी फिंगर हळद बियाणे|alleppey finger halad biyane,alleppey finger haldi beej,alleppey finger turmeric seed,alleppey finger|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Duggirala Red Turmeric Seed Rhizome|दुग्गिराला रेड हल्दी बीज|दुग्गिराला रेड हळद बियाणे|duggirala red halad biyane,duggirala red haldi beej,duggirala red turmeric seed,duggirala red|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Tekurpeta Turmeric Seed Rhizome|तेकुरपेटा हल्दी बीज|तेकुरपेटा हळद बियाणे|tekurpeta halad biyane,tekurpeta haldi beej,tekurpeta turmeric seed,tekurpeta|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Mydukur Turmeric Seed Rhizome|मैदुकुर हल्दी बीज|मैदुकुर हळद बियाणे|mydukur halad biyane,mydukur haldi beej,mydukur turmeric seed,mydukur|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Cuddapah Turmeric Seed Rhizome|कडप्पा हल्दी बीज|कडप्पा हळद बियाणे|cuddapah halad biyane,cuddapah haldi beej,cuddapah turmeric seed,cuddapah|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Roma Turmeric Seed Rhizome|रोमा हल्दी बीज|रोमा हळद बियाणे|roma halad biyane,roma haldi beej,roma turmeric seed,roma|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Suvarna Turmeric Seed Rhizome|सुवर्णा हल्दी बीज|सुवर्णा हळद बियाणे|suvarna halad biyane,suvarna haldi beej,suvarna turmeric seed,suvarna|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Suguna Turmeric Seed Rhizome|सुगुणा हल्दी बीज|सुगुणा हळद बियाणे|suguna halad biyane,suguna haldi beej,suguna turmeric seed,suguna|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Sudarshana Turmeric Seed Rhizome|सुदर्शना हल्दी बीज|सुदर्शना हळद बियाणे|sudarshana halad biyane,sudarshana haldi beej,sudarshana turmeric seed,sudarshana|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Prabha Turmeric Seed Rhizome|प्रभा हल्दी बीज|प्रभा हळद बियाणे|prabha halad biyane,prabha haldi beej,prabha turmeric seed,prabha|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Prathibha Turmeric Seed Rhizome|प्रतिभा हल्दी बीज|प्रतिभा हळद बियाणे|prathibha halad biyane,prathibha haldi beej,prathibha turmeric seed,prathibha|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Pragati Turmeric Seed Rhizome|प्रगती हल्दी बीज|प्रगती हळद बियाणे|pragati halad biyane,pragati haldi beej,pragati turmeric seed,pragati|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Kedaram Turmeric Seed Rhizome|केदारम हल्दी बीज|केदारम हळद बियाणे|kedaram halad biyane,kedaram haldi beej,kedaram turmeric seed,kedaram|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Kanthi Turmeric Seed Rhizome|कांथी हल्दी बीज|कांथी हळद बियाणे|kanthi halad biyane,kanthi haldi beej,kanthi turmeric seed,kanthi|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Rashmi Turmeric Seed Rhizome|रश्मी हल्दी बीज|रश्मी हळद बियाणे|rashmi halad biyane,rashmi haldi beej,rashmi turmeric seed,rashmi|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Rajendra Sonia Turmeric Seed Rhizome|राजेंद्र सोनिया हल्दी बीज|राजेंद्र सोनिया हळद बियाणे|rajendra sonia halad biyane,rajendra sonia haldi beej,rajendra sonia turmeric seed,rajendra sonia|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Rajendra Sonali Turmeric Seed Rhizome|राजेंद्र सोनाली हल्दी बीज|राजेंद्र सोनाली हळद बियाणे|rajendra sonali halad biyane,rajendra sonali haldi beej,rajendra sonali turmeric seed,rajendra sonali|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Narendra Haldi 1 Turmeric Seed Rhizome|नरेंद्र हळद 1 हल्दी बीज|नरेंद्र हळद 1 हळद बियाणे|narendra haldi 1 halad biyane,narendra haldi 1 haldi beej,narendra haldi 1 turmeric seed,narendra haldi 1|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Narendra Haldi 2 Turmeric Seed Rhizome|नरेंद्र हळद 2 हल्दी बीज|नरेंद्र हळद 2 हळद बियाणे|narendra haldi 2 halad biyane,narendra haldi 2 haldi beej,narendra haldi 2 turmeric seed,narendra haldi 2|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Narendra Haldi 98 Turmeric Seed Rhizome|नरेंद्र हळद 98 हल्दी बीज|नरेंद्र हळद 98 हळद बियाणे|narendra haldi 98 halad biyane,narendra haldi 98 haldi beej,narendra haldi 98 turmeric seed,narendra haldi 98|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+CO-1 Turmeric Seed Rhizome|सीओ-1 हल्दी बीज|सीओ-1 हळद बियाणे|co-1 halad biyane,co-1 haldi beej,co-1 turmeric seed,co-1|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+BSR-1 Turmeric Seed Rhizome|बीएसआर-1 हल्दी बीज|बीएसआर-1 हळद बियाणे|bsr-1 halad biyane,bsr-1 haldi beej,bsr-1 turmeric seed,bsr-1|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+BSR-2 Turmeric Seed Rhizome|बीएसआर-2 हल्दी बीज|बीएसआर-2 हळद बियाणे|bsr-2 halad biyane,bsr-2 haldi beej,bsr-2 turmeric seed,bsr-2|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Megha Turmeric Seed Rhizome|मेघा हळद हल्दी बीज|मेघा हळद बियाणे|megha turmeric halad biyane,megha turmeric haldi beej,megha turmeric turmeric seed,megha turmeric|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Lakadong Turmeric Seed Rhizome|लाकाडोंग हल्दी बीज|लाकाडोंग हळद बियाणे|lakadong halad biyane,lakadong haldi beej,lakadong turmeric seed,lakadong|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Lakadong Meghalaya Turmeric Seed Rhizome|लाकाडोंग मेघालय हल्दी बीज|लाकाडोंग मेघालय हळद बियाणे|lakadong meghalaya halad biyane,lakadong meghalaya haldi beej,lakadong meghalaya turmeric seed,lakadong meghalaya|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Krishna Turmeric Seed Rhizome|कृष्णा हल्दी बीज|कृष्णा हळद बियाणे|krishna halad biyane,krishna haldi beej,krishna turmeric seed,krishna|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Pant Peetabh Turmeric Seed Rhizome|पंत पीताभ हल्दी बीज|पंत पीताभ हळद बियाणे|pant peetabh halad biyane,pant peetabh haldi beej,pant peetabh turmeric seed,pant peetabh|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Rajapuri Sangli Turmeric Seed Rhizome|राजापुरी सांगली हल्दी बीज|राजापुरी सांगली हळद बियाणे|rajapuri sangli halad biyane,rajapuri sangli haldi beej,rajapuri sangli turmeric seed,rajapuri sangli|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Nizamabad Bulb Turmeric Seed Rhizome|निजामाबाद बल्ब हल्दी बीज|निजामाबाद बल्ब हळद बियाणे|nizamabad bulb halad biyane,nizamabad bulb haldi beej,nizamabad bulb turmeric seed,nizamabad bulb|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Kasturi Turmeric Seed Rhizome|कस्तुरी हल्दी बीज|कस्तुरी हळद बियाणे|kasturi halad biyane,kasturi haldi beej,kasturi turmeric seed,kasturi|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Black Turmeric Seed Rhizome|काळी हळद हल्दी बीज|काळी हळद बियाणे|black turmeric halad biyane,black turmeric haldi beej,black turmeric turmeric seed,black turmeric|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Mango Ginger Turmeric Seed Rhizome|आंबे हळद हल्दी बीज|आंबे हळद बियाणे|mango ginger halad biyane,mango ginger haldi beej,mango ginger turmeric seed,mango ginger|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Finger Turmeric Seed Rhizome|बोटं हल्दी बीज|बोटं हळद बियाणे|finger halad biyane,finger haldi beej,finger turmeric seed,finger|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Bulb Turmeric Seed Rhizome|गड्डा हल्दी बीज|गड्डा हळद बियाणे|bulb halad biyane,bulb haldi beej,bulb turmeric seed,bulb|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Treated Turmeric Seed Rhizome|प्रक्रिया केलेले हल्दी बीज|प्रक्रिया केलेले हळद बियाणे|treated halad biyane,treated haldi beej,treated turmeric seed,treated|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Local Turmeric Seed Rhizome|गावरान हल्दी बीज|गावरान हळद बियाणे|local halad biyane,local haldi beej,local turmeric seed,local|kg,quintal,bag|^TURMERIC_SEED_RHIZOME
+Colocasia Seed Corms|अरबी बीज कंद|अळू कंद|arbi seed,alu kand,taro corm|kg,quintal|=COLOCASIA_SEED_CORMS
+Sree Rashmi Colocasia Seed Corms|श्री रश्मी अरबी बीज कंद|श्री रश्मी अळू कंद|sree rashmi arbi seed,sree rashmi alu kand,sree rashmi taro corm,sree rashmi|kg,quintal|^COLOCASIA_SEED_CORMS
+Sree Pallavi Colocasia Seed Corms|श्री पल्लवी अरबी बीज कंद|श्री पल्लवी अळू कंद|sree pallavi arbi seed,sree pallavi alu kand,sree pallavi taro corm,sree pallavi|kg,quintal|^COLOCASIA_SEED_CORMS
+Sree Kiran Colocasia Seed Corms|श्री किरण अरबी बीज कंद|श्री किरण अळू कंद|sree kiran arbi seed,sree kiran alu kand,sree kiran taro corm,sree kiran|kg,quintal|^COLOCASIA_SEED_CORMS
+Muktakeshi Colocasia Seed Corms|मुक्तकेशी अरबी बीज कंद|मुक्तकेशी अळू कंद|muktakeshi colocasia arbi seed,muktakeshi colocasia alu kand,muktakeshi colocasia taro corm,muktakeshi colocasia|kg,quintal|^COLOCASIA_SEED_CORMS
+Satamukhi Colocasia Seed Corms|सतमुखी अरबी बीज कंद|सतमुखी अळू कंद|satamukhi arbi seed,satamukhi alu kand,satamukhi taro corm,satamukhi|kg,quintal|^COLOCASIA_SEED_CORMS
+Panchmukhi Colocasia Seed Corms|पंचमुखी अरबी बीज कंद|पंचमुखी अळू कंद|panchmukhi arbi seed,panchmukhi alu kand,panchmukhi taro corm,panchmukhi|kg,quintal|^COLOCASIA_SEED_CORMS
+Pusa Colocasia 1 Colocasia Seed Corms|पूसा अरबी 1 अरबी बीज कंद|पूसा अरबी 1 अळू कंद|pusa colocasia 1 arbi seed,pusa colocasia 1 alu kand,pusa colocasia 1 taro corm,pusa colocasia 1|kg,quintal|^COLOCASIA_SEED_CORMS
+Telia Colocasia Seed Corms|तेलिया अरबी बीज कंद|तेलिया अळू कंद|telia arbi seed,telia alu kand,telia taro corm,telia|kg,quintal|^COLOCASIA_SEED_CORMS
+Kachu Local Colocasia Seed Corms|कचू लोकल अरबी बीज कंद|कचू लोकल अळू कंद|kachu local arbi seed,kachu local alu kand,kachu local taro corm,kachu local|kg,quintal|^COLOCASIA_SEED_CORMS
+Bengal Local Colocasia Seed Corms|बंगालोकल अरबी बीज कंद|बंगालोकल अळू कंद|bengal local arbi seed,bengal local alu kand,bengal local taro corm,bengal local|kg,quintal|^COLOCASIA_SEED_CORMS
+Local Colocasia Seed Corms|गावरान अरबी बीज कंद|गावरान अळू कंद|local arbi seed,local alu kand,local taro corm,local|kg,quintal|^COLOCASIA_SEED_CORMS
+Dasheen Colocasia Seed Corms|दशीन अरबी बीज कंद|दशीन अळू कंद|dasheen arbi seed,dasheen alu kand,dasheen taro corm,dasheen|kg,quintal|^COLOCASIA_SEED_CORMS
+Eddoe Colocasia Seed Corms|एड्डो अरबी बीज कंद|एड्डो अळू कंद|eddoe arbi seed,eddoe alu kand,eddoe taro corm,eddoe|kg,quintal|^COLOCASIA_SEED_CORMS
+Elephant Foot Yam Seed|सूरन बीज|सुरण बियाणे|suran seed,zimikand seed,elephant yam seed|kg,quintal|=YAM_SEED_CORMS
+Gajendra Elephant Foot Yam Seed|गजेंद्र सूरन बीज|गजेंद्र सुरण बियाणे|gajendra suran seed,gajendra zimikand seed,gajendra elephant yam seed,gajendra|kg,quintal|^YAM_SEED_CORMS
+Sree Padma Elephant Foot Yam Seed|श्री पद्मा सूरन बीज|श्री पद्मा सुरण बियाणे|sree padma suran seed,sree padma zimikand seed,sree padma elephant yam seed,sree padma|kg,quintal|^YAM_SEED_CORMS
+Sree Athira Elephant Foot Yam Seed|श्री अथिरा सूरन बीज|श्री अथिरा सुरण बियाणे|sree athira suran seed,sree athira zimikand seed,sree athira elephant yam seed,sree athira|kg,quintal|^YAM_SEED_CORMS
+Santra Gachi Elephant Foot Yam Seed|संत्रा गाची सूरन बीज|संत्रा गाची सुरण बियाणे|santra gachi suran seed,santra gachi zimikand seed,santra gachi elephant yam seed,santra gachi|kg,quintal|^YAM_SEED_CORMS
+Bidhan Kusum Elephant Foot Yam Seed|बिधान कुसुम सूरन बीज|बिधान कुसुम सुरण बियाणे|bidhan kusum suran seed,bidhan kusum zimikand seed,bidhan kusum elephant yam seed,bidhan kusum|kg,quintal|^YAM_SEED_CORMS
+Gajendra Yam Elephant Foot Yam Seed|गजेंद्र सूरन बीज|गजेंद्र सुरण बियाणे|gajendra yam suran seed,gajendra yam zimikand seed,gajendra yam elephant yam seed,gajendra yam|kg,quintal|^YAM_SEED_CORMS
+Local Suran Elephant Foot Yam Seed|गावरान सुरण सूरन बीज|गावरान सुरण बियाणे|local suran suran seed,local suran zimikand seed,local suran elephant yam seed,local suran|kg,quintal|^YAM_SEED_CORMS
+Kerala Yam Elephant Foot Yam Seed|केरळ याम सूरन बीज|केरळ याम सुरण बियाणे|kerala yam suran seed,kerala yam zimikand seed,kerala yam elephant yam seed,kerala yam|kg,quintal|^YAM_SEED_CORMS
+Hybrid Elephant Foot Yam Seed|संकरित सूरन बीज|संकरित सुरण बियाणे|hybrid suran seed,hybrid zimikand seed,hybrid elephant yam seed,hybrid|kg,quintal|^YAM_SEED_CORMS
+Tapioca Stems|साबूदाना कंद|कसावा काड्या|cassava sett,tapioca cutting,sabudana kand cutting|bundle|=TAPIOCA_STEMS
+Sree Vijaya Tapioca Stems|श्री विजया साबूदाना कंद|श्री विजया कसावा काड्या|sree vijaya cassava sett,sree vijaya tapioca cutting,sree vijaya sabudana kand cutting,sree vijaya|bundle|^TAPIOCA_STEMS
+Sree Jaya Tapioca Stems|श्री जया साबूदाना कंद|श्री जया कसावा काड्या|sree jaya cassava sett,sree jaya tapioca cutting,sree jaya sabudana kand cutting,sree jaya|bundle|^TAPIOCA_STEMS
+Sree Visakham Tapioca Stems|श्री विशाखम साबूदाना कंद|श्री विशाखम कसावा काड्या|sree visakham cassava sett,sree visakham tapioca cutting,sree visakham sabudana kand cutting,sree visakham|bundle|^TAPIOCA_STEMS
+Sree Prakash Tapioca Stems|श्री प्रकाश साबूदाना कंद|श्री प्रकाश कसावा काड्या|sree prakash cassava sett,sree prakash tapioca cutting,sree prakash sabudana kand cutting,sree prakash|bundle|^TAPIOCA_STEMS
+Sree Prabha Tapioca Stems|श्री प्रभा साबूदाना कंद|श्री प्रभा कसावा काड्या|sree prabha cassava sett,sree prabha tapioca cutting,sree prabha sabudana kand cutting,sree prabha|bundle|^TAPIOCA_STEMS
+Sree Padmanabha Tapioca Stems|श्री पद्मनाभ साबूदाना कंद|श्री पद्मनाभ कसावा काड्या|sree padmanabha cassava sett,sree padmanabha tapioca cutting,sree padmanabha sabudana kand cutting,sree padmanabha|bundle|^TAPIOCA_STEMS
+Sree Sahya Tapioca Stems|श्री सह्या साबूदाना कंद|श्री सह्या कसावा काड्या|sree sahya cassava sett,sree sahya tapioca cutting,sree sahya sabudana kand cutting,sree sahya|bundle|^TAPIOCA_STEMS
+Sree Harsha Tapioca Stems|श्री हर्ष साबूदाना कंद|श्री हर्ष कसावा काड्या|sree harsha cassava sett,sree harsha tapioca cutting,sree harsha sabudana kand cutting,sree harsha|bundle|^TAPIOCA_STEMS
+Sree Athulya Tapioca Stems|श्री अतुल्या साबूदाना कंद|श्री अतुल्या कसावा काड्या|sree athulya cassava sett,sree athulya tapioca cutting,sree athulya sabudana kand cutting,sree athulya|bundle|^TAPIOCA_STEMS
+Sree Apoorva Tapioca Stems|श्री अपूर्वा साबूदाना कंद|श्री अपूर्वा कसावा काड्या|sree apoorva cassava sett,sree apoorva tapioca cutting,sree apoorva sabudana kand cutting,sree apoorva|bundle|^TAPIOCA_STEMS
+Vellayani Hraswa Tapioca Stems|वेल्लायनी ह्रस्व साबूदाना कंद|वेल्लायनी ह्रस्व कसावा काड्या|vellayani hraswa cassava sett,vellayani hraswa tapioca cutting,vellayani hraswa sabudana kand cutting,vellayani hraswa|bundle|^TAPIOCA_STEMS
+Nidhi Tapioca Stems|निधी साबूदाना कंद|निधी कसावा काड्या|nidhi cassava sett,nidhi tapioca cutting,nidhi sabudana kand cutting,nidhi|bundle|^TAPIOCA_STEMS
+Kalpaka Tapioca Stems|कल्पक साबूदाना कंद|कल्पक कसावा काड्या|kalpaka cassava sett,kalpaka tapioca cutting,kalpaka sabudana kand cutting,kalpaka|bundle|^TAPIOCA_STEMS
+H-97 Tapioca Stems|एच-97 साबूदाना कंद|एच-97 कसावा काड्या|h-97 cassava sett,h-97 tapioca cutting,h-97 sabudana kand cutting,h-97|bundle|^TAPIOCA_STEMS
+H-165 Tapioca Stems|एच-165 साबूदाना कंद|एच-165 कसावा काड्या|h-165 cassava sett,h-165 tapioca cutting,h-165 sabudana kand cutting,h-165|bundle|^TAPIOCA_STEMS
+H-226 Tapioca Stems|एच-226 साबूदाना कंद|एच-226 कसावा काड्या|h-226 cassava sett,h-226 tapioca cutting,h-226 sabudana kand cutting,h-226|bundle|^TAPIOCA_STEMS
+M-4 Tapioca Stems|एम-4 साबूदाना कंद|एम-4 कसावा काड्या|m-4 cassava sett,m-4 tapioca cutting,m-4 sabudana kand cutting,m-4|bundle|^TAPIOCA_STEMS
+CO-1 Tapioca Stems|सीओ-1 साबूदाना कंद|सीओ-1 कसावा काड्या|co-1 cassava sett,co-1 tapioca cutting,co-1 sabudana kand cutting,co-1|bundle|^TAPIOCA_STEMS
+CO-2 Tapioca Stems|सीओ-2 साबूदाना कंद|सीओ-2 कसावा काड्या|co-2 cassava sett,co-2 tapioca cutting,co-2 sabudana kand cutting,co-2|bundle|^TAPIOCA_STEMS
+CO-3 Tapioca Stems|सीओ-3 साबूदाना कंद|सीओ-3 कसावा काड्या|co-3 cassava sett,co-3 tapioca cutting,co-3 sabudana kand cutting,co-3|bundle|^TAPIOCA_STEMS
+CO-4 Tapioca Stems|सीओ-4 साबूदाना कंद|सीओ-4 कसावा काड्या|co-4 cassava sett,co-4 tapioca cutting,co-4 sabudana kand cutting,co-4|bundle|^TAPIOCA_STEMS
+CO-5 Tapioca Stems|सीओ-5 साबूदाना कंद|सीओ-5 कसावा काड्या|co-5 cassava sett,co-5 tapioca cutting,co-5 sabudana kand cutting,co-5|bundle|^TAPIOCA_STEMS
+Mulluvadi Tapioca Stems|मुल्लुवडी साबूदाना कंद|मुल्लुवडी कसावा काड्या|mulluvadi cassava sett,mulluvadi tapioca cutting,mulluvadi sabudana kand cutting,mulluvadi|bundle|^TAPIOCA_STEMS
+Local Tapioca Stems|गावरान साबूदाना कंद|गावरान कसावा काड्या|local tapioca cassava sett,local tapioca tapioca cutting,local tapioca sabudana kand cutting,local tapioca|bundle|^TAPIOCA_STEMS
+@sub|other-vegetable-seeds|Other Vegetable and Corn Seeds|इतर सब्ज़ी बीज|इतर भाजी बियाणे|kg,g,packet
+Madhuri Sweet Corn Seeds|माधुरी स्वीट कॉर्न बीज|माधुरी स्वीट कॉर्न बियाणे|madhuri sweet corn seed,madhuri makka beej,madhuri|kg,g,packet|^SWEET_CORN_SEEDS
+Priya Sweet Corn Seeds|प्रिया स्वीट कॉर्न बीज|प्रिया स्वीट कॉर्न बियाणे|priya sweet corn seed,priya makka beej,priya|kg,g,packet|^SWEET_CORN_SEEDS
+Sugar 75 Sweet Corn Seeds|शुगर 75 स्वीट कॉर्न बीज|शुगर 75 स्वीट कॉर्न बियाणे|sugar 75 sweet corn seed,sugar 75 makka beej,sugar 75|kg,g,packet|^SWEET_CORN_SEEDS
+Win Orange Sweet Corn Seeds|विन ऑरेंज स्वीट कॉर्न बीज|विन ऑरेंज स्वीट कॉर्न बियाणे|win orange sweet corn seed,win orange makka beej,win orange|kg,g,packet|^SWEET_CORN_SEEDS
+Bright Jewel Sweet Corn Seeds|ब्राइट ज्युवेल स्वीट कॉर्न बीज|ब्राइट ज्युवेल स्वीट कॉर्न बियाणे|bright jewel sweet corn seed,bright jewel makka beej,bright jewel|kg,g,packet|^SWEET_CORN_SEEDS
+Golden Bantam Sweet Corn Seeds|गोल्डन बँटम स्वीट कॉर्न बीज|गोल्डन बँटम स्वीट कॉर्न बियाणे|golden bantam sweet corn seed,golden bantam makka beej,golden bantam|kg,g,packet|^SWEET_CORN_SEEDS
+Honey and Cream Sweet Corn Seeds|हनी अँड क्रीम स्वीट कॉर्न बीज|हनी अँड क्रीम स्वीट कॉर्न बियाणे|honey and cream sweet corn seed,honey and cream makka beej,honey and cream|kg,g,packet|^SWEET_CORN_SEEDS
+Pusa Super Sweet Corn 1 Seeds|पूसा सुपर स्वीट कॉर्न 1 बीज|पूसा सुपर स्वीट कॉर्न 1 बियाणे|pusa super sweet corn 1 sweet corn seed,pusa super sweet corn 1 makka beej,pusa super sweet corn 1|kg,g,packet|^SWEET_CORN_SEEDS
+Vivek Sankar Makka 4 Sweet Corn Seeds|विवेक संकर मक्का 4 स्वीट कॉर्न बीज|विवेक संकर मक्का 4 स्वीट कॉर्न बियाणे|vivek sankar makka 4 sweet corn seed,vivek sankar makka 4 makka beej,vivek sankar makka 4|kg,g,packet|^SWEET_CORN_SEEDS
+Super Sweet Corn Seeds|सुपर स्वीट कॉर्न बीज|सुपर स्वीट कॉर्न बियाणे|super sweet sweet corn seed,super sweet makka beej,super sweet|kg,g,packet|^SWEET_CORN_SEEDS
+Bi-colour Sweet Corn Seeds|द्विरंगी स्वीट कॉर्न बीज|द्विरंगी स्वीट कॉर्न बियाणे|bi-colour sweet corn seed,bi-colour makka beej,bi-colour|kg,g,packet|^SWEET_CORN_SEEDS
+Yellow Hybrid Sweet Corn Seeds|पिवळा संकरित स्वीट कॉर्न बीज|पिवळा संकरित स्वीट कॉर्न बियाणे|yellow hybrid sweet corn seed,yellow hybrid makka beej,yellow hybrid|kg,g,packet|^SWEET_CORN_SEEDS
+White Hybrid Sweet Corn Seeds|पांढरा संकरित स्वीट कॉर्न बीज|पांढरा संकरित स्वीट कॉर्न बियाणे|white hybrid sweet corn seed,white hybrid makka beej,white hybrid|kg,g,packet|^SWEET_CORN_SEEDS
+Desi Sweet Corn Seeds|गावरान स्वीट कॉर्न बीज|गावरान स्वीट कॉर्न बियाणे|desi sweet corn seed,desi makka beej,desi|kg,g,packet|^SWEET_CORN_SEEDS
+Vivek Sankar Makka 17 Baby Corn Seeds|विवेक संकर मक्का 17 बेबी कॉर्न बीज|विवेक संकर मक्का 17 बेबी कॉर्न बियाणे|vivek sankar makka 17 baby corn seed,vivek sankar makka 17|kg,g,packet|^BABY_CORN_SEEDS
+Vivek Hybrid 27 Baby Corn Seeds|विवेक हायब्रीड 27 बेबी कॉर्न बीज|विवेक हायब्रीड 27 बेबी कॉर्न बियाणे|vivek hybrid 27 baby corn seed,vivek hybrid 27|kg,g,packet|^BABY_CORN_SEEDS
+Vivek Hybrid 5 Baby Corn Seeds|विवेक हायब्रीड 5 बेबी कॉर्न बीज|विवेक हायब्रीड 5 बेबी कॉर्न बियाणे|vivek hybrid 5 baby corn seed,vivek hybrid 5|kg,g,packet|^BABY_CORN_SEEDS
+Hybrid Baby Corn Seeds|संकरित बेबी कॉर्न बीज|संकरित बेबी कॉर्न बियाणे|hybrid baby corn seed,hybrid|kg,g,packet|^BABY_CORN_SEEDS
+Yellow Baby Corn Seeds|पिवळा बेबी कॉर्न बीज|पिवळा बेबी कॉर्न बियाणे|yellow baby corn seed,yellow|kg,g,packet|^BABY_CORN_SEEDS
+White Baby Corn Seeds|पांढरा बेबी कॉर्न बीज|पांढरा बेबी कॉर्न बियाणे|white baby corn seed,white|kg,g,packet|^BABY_CORN_SEEDS
+Pop Type Baby Corn Seeds|पॉप्रकार बेबी कॉर्न बीज|पॉप्रकार बेबी कॉर्न बियाणे|pop type baby corn seed,pop type|kg,g,packet|^BABY_CORN_SEEDS
+Popcorn Seeds|पॉपकॉर्न बीज|पॉपकॉर्न बियाणे|popcorn seed|kg,g,packet|=POPCORN_SEEDS
+Amber Pearl Popcorn Seeds|अंबर पर्ल पॉपकॉर्न बीज|अंबर पर्ल पॉपकॉर्न बियाणे|amber pearl popcorn seed,amber pearl|kg,g,packet|^POPCORN_SEEDS
+Yellow Butterfly Popcorn Seeds|यलो बटरफ्लाय पॉपकॉर्न बीज|यलो बटरफ्लाय पॉपकॉर्न बियाणे|yellow butterfly popcorn seed,yellow butterfly|kg,g,packet|^POPCORN_SEEDS
+White Pearl Popcorn Seeds|व्हाइट पर्ल पॉपकॉर्न बीज|व्हाइट पर्ल पॉपकॉर्न बियाणे|white pearl popcorn seed,white pearl|kg,g,packet|^POPCORN_SEEDS
+Red Dent Popcorn Seeds|रेडेंट पॉपकॉर्न बीज|रेडेंट पॉपकॉर्न बियाणे|red dent popcorn seed,red dent|kg,g,packet|^POPCORN_SEEDS
+Hybrid Pop Popcorn Seeds|संकरित पॉपॉपकॉर्न बीज|संकरित पॉपॉपकॉर्न बियाणे|hybrid pop popcorn seed,hybrid pop|kg,g,packet|^POPCORN_SEEDS
+Local Popcorn Seeds|गावरान पॉपकॉर्न बीज|गावरान पॉपकॉर्न बियाणे|local popcorn seed,local|kg,g,packet|^POPCORN_SEEDS
+PKM-2 Drumstick Seeds|पीकेएम-2 सहजन बीज|पीकेएम-2 शेवगा बियाणे|pkm-2 shevga biyane,pkm-2 sahjan beej,pkm-2 moringa seed,pkm-2|kg,g,packet|^DRUMSTICK_SEEDS
+Konkan Ruchira Drumstick Seeds|कोकण रुचिरा सहजन बीज|कोकण रुचिरा शेवगा बियाणे|konkan ruchira shevga biyane,konkan ruchira sahjan beej,konkan ruchira moringa seed,konkan ruchira|kg,g,packet|^DRUMSTICK_SEEDS
+Ruchira Drumstick Seeds|रुचिरा सहजन बीज|रुचिरा शेवगा बियाणे|ruchira shevga biyane,ruchira sahjan beej,ruchira moringa seed,ruchira|kg,g,packet|^DRUMSTICK_SEEDS
+Dhanraj Drumstick Seeds|धनराज सहजन बीज|धनराज शेवगा बियाणे|dhanraj shevga biyane,dhanraj sahjan beej,dhanraj moringa seed,dhanraj|kg,g,packet|^DRUMSTICK_SEEDS
+Rohit 1 Drumstick Seeds|रोहित 1 सहजन बीज|रोहित 1 शेवगा बियाणे|rohit 1 shevga biyane,rohit 1 sahjan beej,rohit 1 moringa seed,rohit 1|kg,g,packet|^DRUMSTICK_SEEDS
+Jaffna Drumstick Seeds|जाफना सहजन बीज|जाफना शेवगा बियाणे|jaffna shevga biyane,jaffna sahjan beej,jaffna moringa seed,jaffna|kg,g,packet|^DRUMSTICK_SEEDS
+Pusa Shevga Drumstick Seeds|पूसा शेवगा सहजन बीज|पूसा शेवगा बियाणे|pusa shevga shevga biyane,pusa shevga sahjan beej,pusa shevga moringa seed,pusa shevga|kg,g,packet|^DRUMSTICK_SEEDS
+Dhanraj Moringa Drumstick Seeds|धनराज सहजन बीज|धनराज शेवगा बियाणे|dhanraj moringa shevga biyane,dhanraj moringa sahjan beej,dhanraj moringa moringa seed,dhanraj moringa|kg,g,packet|^DRUMSTICK_SEEDS
+ODC-3 Drumstick Seeds|ओडीसी-3 सहजन बीज|ओडीसी-3 शेवगा बियाणे|odc-3 shevga biyane,odc-3 sahjan beej,odc-3 moringa seed,odc-3|kg,g,packet|^DRUMSTICK_SEEDS
+KM-1 Drumstick Seeds|केएम-1 सहजन बीज|केएम-1 शेवगा बियाणे|km-1 shevga biyane,km-1 sahjan beej,km-1 moringa seed,km-1|kg,g,packet|^DRUMSTICK_SEEDS
+Thar Harsha Drumstick Seeds|थार हर्ष सहजन बीज|थार हर्ष शेवगा बियाणे|thar harsha shevga biyane,thar harsha sahjan beej,thar harsha moringa seed,thar harsha|kg,g,packet|^DRUMSTICK_SEEDS
+Local Shevga Drumstick Seeds|गावरान शेवगा सहजन बीज|गावरान शेवगा बियाणे|local shevga shevga biyane,local shevga sahjan beej,local shevga moringa seed,local shevga|kg,g,packet|^DRUMSTICK_SEEDS
+Hybrid Drumstick Seeds|संकरित सहजन बीज|संकरित शेवगा बियाणे|hybrid shevga biyane,hybrid sahjan beej,hybrid moringa seed,hybrid|kg,g,packet|^DRUMSTICK_SEEDS
+Annual Drumstick Seeds|वार्षिक सहजन बीज|वार्षिक शेवगा बियाणे|annual shevga biyane,annual sahjan beej,annual moringa seed,annual|kg,g,packet|^DRUMSTICK_SEEDS
+Perennial Drumstick Seeds|बारमाही सहजन बीज|बारमाही शेवगा बियाणे|perennial shevga biyane,perennial sahjan beej,perennial moringa seed,perennial|kg,g,packet|^DRUMSTICK_SEEDS
+Long Pod Drumstick Seeds|लांब शेंग सहजन बीज|लांब शेंग शेवगा बियाणे|long pod shevga biyane,long pod sahjan beej,long pod moringa seed,long pod|kg,g,packet|^DRUMSTICK_SEEDS
+Short Pod Drumstick Seeds|आखूड शेंग सहजन बीज|आखूड शेंग शेवगा बियाणे|short pod shevga biyane,short pod sahjan beej,short pod moringa seed,short pod|kg,g,packet|^DRUMSTICK_SEEDS
+Green Pod Drumstick Seeds|हिरवी शेंग सहजन बीज|हिरवी शेंग शेवगा बियाणे|green pod shevga biyane,green pod sahjan beej,green pod moringa seed,green pod|kg,g,packet|^DRUMSTICK_SEEDS
+Red Pod Drumstick Seeds|लाल शेंग सहजन बीज|लाल शेंग शेवगा बियाणे|red pod shevga biyane,red pod sahjan beej,red pod moringa seed,red pod|kg,g,packet|^DRUMSTICK_SEEDS
+Curry Leaf Seeds|कढ़ी पत्ता बीज|कडीपत्ता बियाणे|kadipatta seed,curry patta seed|kg,g,packet|=CURRY_LEAF_SEEDS
+Suvasini Curry Leaf Seeds|सुवासिनी कढ़ी पत्ता बीज|सुवासिनी कडीपत्ता बियाणे|suvasini kadipatta seed,suvasini curry patta seed,suvasini|kg,g,packet|^CURRY_LEAF_SEEDS
+Senkambu Curry Leaf Seeds|सेनकांबू कढ़ी पत्ता बीज|सेनकांबू कडीपत्ता बियाणे|senkambu kadipatta seed,senkambu curry patta seed,senkambu|kg,g,packet|^CURRY_LEAF_SEEDS
+Dharwad 1 Curry Leaf Seeds|धारवाड 1 कढ़ी पत्ता बीज|धारवाड 1 कडीपत्ता बियाणे|dharwad 1 kadipatta seed,dharwad 1 curry patta seed,dharwad 1|kg,g,packet|^CURRY_LEAF_SEEDS
+Dharwad 2 Curry Leaf Seeds|धारवाड 2 कढ़ी पत्ता बीज|धारवाड 2 कडीपत्ता बियाणे|dharwad 2 kadipatta seed,dharwad 2 curry patta seed,dharwad 2|kg,g,packet|^CURRY_LEAF_SEEDS
+Dharwad 3 Curry Leaf Seeds|धारवाड 3 कढ़ी पत्ता बीज|धारवाड 3 कडीपत्ता बियाणे|dharwad 3 kadipatta seed,dharwad 3 curry patta seed,dharwad 3|kg,g,packet|^CURRY_LEAF_SEEDS
+Gamthi Curry Leaf Seeds|गामठी कढ़ी पत्ता बीज|गामठी कडीपत्ता बियाणे|gamthi kadipatta seed,gamthi curry patta seed,gamthi|kg,g,packet|^CURRY_LEAF_SEEDS
+Local Curry Leaf Seeds|गावरान कढ़ी पत्ता बीज|गावरान कडीपत्ता बियाणे|local kadipatta seed,local curry patta seed,local|kg,g,packet|^CURRY_LEAF_SEEDS
+Big Leaf Curry Leaf Seeds|मोठे पान कढ़ी पत्ता बीज|मोठे पान कडीपत्ता बियाणे|big leaf kadipatta seed,big leaf curry patta seed,big leaf|kg,g,packet|^CURRY_LEAF_SEEDS
+Small Leaf Curry Leaf Seeds|लहान पान कढ़ी पत्ता बीज|लहान पान कडीपत्ता बियाणे|small leaf kadipatta seed,small leaf curry patta seed,small leaf|kg,g,packet|^CURRY_LEAF_SEEDS
+Parwal Vines|परवल बेल|परवळाचे वेल|parwal cutting,pointed gourd vine|bundle,piece|=PARWAL_VINE
+Rajendra Parwal 1 Parwal Vines|राजेंद्र परवल 1 परवल बेल|राजेंद्र परवल 1 परवळाचे वेल|rajendra parwal 1 parwal cutting,rajendra parwal 1 pointed gourd vine,rajendra parwal 1|bundle,piece|^PARWAL_VINE
+Rajendra Parwal 2 Parwal Vines|राजेंद्र परवल 2 परवल बेल|राजेंद्र परवल 2 परवळाचे वेल|rajendra parwal 2 parwal cutting,rajendra parwal 2 pointed gourd vine,rajendra parwal 2|bundle,piece|^PARWAL_VINE
+Swarna Rekha Parwal Vines|स्वर्ण रेखा परवल बेल|स्वर्ण रेखा परवळाचे वेल|swarna rekha parwal cutting,swarna rekha pointed gourd vine,swarna rekha|bundle,piece|^PARWAL_VINE
+Swarna Alaukik Parwal Vines|स्वर्ण अलौकिक परवल बेल|स्वर्ण अलौकिक परवळाचे वेल|swarna alaukik parwal cutting,swarna alaukik pointed gourd vine,swarna alaukik|bundle,piece|^PARWAL_VINE
+Kakoria Parwal Vines|ककोरिया परवल बेल|ककोरिया परवल परवळाचे वेल|kakoria parwal parwal cutting,kakoria parwal pointed gourd vine,kakoria parwal|bundle,piece|^PARWAL_VINE
+Chhota Hilli Parwal Vines|छोटा हिल्ली परवल बेल|छोटा हिल्ली परवळाचे वेल|chhota hilli parwal cutting,chhota hilli pointed gourd vine,chhota hilli|bundle,piece|^PARWAL_VINE
+Santhia Parwal Vines|संथिया परवल बेल|संथिया परवळाचे वेल|santhia parwal cutting,santhia pointed gourd vine,santhia|bundle,piece|^PARWAL_VINE
+Dandali Parwal Vines|डंडाली परवल बेल|डंडाली परवळाचे वेल|dandali parwal cutting,dandali pointed gourd vine,dandali|bundle,piece|^PARWAL_VINE
+Bihar Sharif Parwal Vines|बिहार शरीफ परवल बेल|बिहार शरीफ परवळाचे वेल|bihar sharif parwal cutting,bihar sharif pointed gourd vine,bihar sharif|bundle,piece|^PARWAL_VINE
+Faizabadi Parwal Vines|फैजाबादी परवल बेल|फैजाबादी परवळाचे वेल|faizabadi parwal cutting,faizabadi pointed gourd vine,faizabadi|bundle,piece|^PARWAL_VINE
+Local Parwal Vines|गावरान परवल बेल|गावरान परवळाचे वेल|local parwal cutting,local pointed gourd vine,local|bundle,piece|^PARWAL_VINE
+Long Parwal Vines|लांब परवल बेल|लांब परवल परवळाचे वेल|long parwal parwal cutting,long parwal pointed gourd vine,long parwal|bundle,piece|^PARWAL_VINE
+Round Parwal Vines|गोल परवल बेल|गोल परवल परवळाचे वेल|round parwal parwal cutting,round parwal pointed gourd vine,round parwal|bundle,piece|^PARWAL_VINE
+Ivy Gourd Vines|तोंडली बेल|तोंडलीचे वेल|tondli cutting,kundru vine,ivy gourd cutting|bundle,piece|=IVY_GOURD_VINE
+Indira Kundru 5 Ivy Gourd Vines|इंदिरा कुंद्रू 5 तोंडली बेल|इंदिरा कुंद्रू 5 तोंडलीचे वेल|indira kundru 5 tondli cutting,indira kundru 5 kundru vine,indira kundru 5 ivy gourd cutting,indira kundru 5|bundle,piece|^IVY_GOURD_VINE
+Indira Kundru 35 Ivy Gourd Vines|इंदिरा कुंद्रू 35 तोंडली बेल|इंदिरा कुंद्रू 35 तोंडलीचे वेल|indira kundru 35 tondli cutting,indira kundru 35 kundru vine,indira kundru 35 ivy gourd cutting,indira kundru 35|bundle,piece|^IVY_GOURD_VINE
+Sulabha Ivy Gourd Vines|सुलभा तोंडली बेल|सुलभा तोंडलीचे वेल|sulabha tondli cutting,sulabha kundru vine,sulabha ivy gourd cutting,sulabha|bundle,piece|^IVY_GOURD_VINE
+Arka Neelachal Kundan Ivy Gourd Vines|अर्का नीलाचल कुंदन तोंडली बेल|अर्का नीलाचल कुंदन तोंडलीचे वेल|arka neelachal kundan tondli cutting,arka neelachal kundan kundru vine,arka neelachal kundan ivy gourd cutting,arka neelachal kundan|bundle,piece|^IVY_GOURD_VINE
+Local Tondli Ivy Gourd Vines|गावरान तोंडली तोंडली बेल|गावरान तोंडलीचे वेल|local tondli tondli cutting,local tondli kundru vine,local tondli ivy gourd cutting,local tondli|bundle,piece|^IVY_GOURD_VINE
+Long Tondli Ivy Gourd Vines|लांब तोंडली तोंडली बेल|लांब तोंडलीचे वेल|long tondli tondli cutting,long tondli kundru vine,long tondli ivy gourd cutting,long tondli|bundle,piece|^IVY_GOURD_VINE
+Short Tondli Ivy Gourd Vines|आखूड तोंडली तोंडली बेल|आखूड तोंडलीचे वेल|short tondli tondli cutting,short tondli kundru vine,short tondli ivy gourd cutting,short tondli|bundle,piece|^IVY_GOURD_VINE
+Hybrid Ivy Gourd Vines|संकरितोंडली बेल|संकरितोंडलीचे वेल|hybrid tondli cutting,hybrid kundru vine,hybrid ivy gourd cutting,hybrid|bundle,piece|^IVY_GOURD_VINE
+Spine Gourd|कंटोला|करटोली|kantola seed,kartoli seed,teasel gourd seed|kg,g|=SPINE_GOURD_SEED
+Indira Kankoda 1 Spine Gourd|इंदिरा कंकोडा 1 कंटोला|इंदिरा कंकोडा 1 करटोली|indira kankoda 1 kantola seed,indira kankoda 1 kartoli seed,indira kankoda 1 teasel gourd seed,indira kankoda 1|kg,g|^SPINE_GOURD_SEED
+RMF 37 Spine Gourd|आरएमएफ 37 कंटोला|आरएमएफ 37 करटोली|rmf 37 kantola seed,rmf 37 kartoli seed,rmf 37 teasel gourd seed,rmf 37|kg,g|^SPINE_GOURD_SEED
+RMF 14 Spine Gourd|आरएमएफ 14 कंटोला|आरएमएफ 14 करटोली|rmf 14 kantola seed,rmf 14 kartoli seed,rmf 14 teasel gourd seed,rmf 14|kg,g|^SPINE_GOURD_SEED
+Local Kartoli Spine Gourd|गावरान करटोली कंटोला|गावरान करटोली|local kartoli kantola seed,local kartoli kartoli seed,local kartoli teasel gourd seed,local kartoli|kg,g|^SPINE_GOURD_SEED
+Male Plant Spine Gourd|नर रोप कंटोला|नर रोप करटोली|male plant kantola seed,male plant kartoli seed,male plant teasel gourd seed,male plant|kg,g|^SPINE_GOURD_SEED
+Female Plant Spine Gourd|मादी रोप कंटोला|मादी रोप करटोली|female plant kantola seed,female plant kartoli seed,female plant teasel gourd seed,female plant|kg,g|^SPINE_GOURD_SEED
+Tuber Spine Gourd|कंद कंटोला|कंद करटोली|tuber kantola seed,tuber kartoli seed,tuber teasel gourd seed,tuber|kg,g|^SPINE_GOURD_SEED

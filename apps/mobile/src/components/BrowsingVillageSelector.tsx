@@ -15,7 +15,11 @@ import {
 import { preferenceStorage } from "../storage/sqlite";
 import { VillagePicker, useVillageSearch } from "./VillagePicker";
 
-export function BrowsingVillageSelector() {
+export function BrowsingVillageSelector({
+  onDark = false,
+}: {
+  onDark?: boolean;
+}) {
   const selected = useAppStore(browsingVillageFor);
   const language = useAppStore((state) => state.language);
   const offline = useAppStore((state) => state.offline);
@@ -59,7 +63,7 @@ export function BrowsingVillageSelector() {
     }
   }
   const name = selected
-    ? language === "mr"
+    ? language !== "en"
       ? selected.nameMr
       : selected.name
     : t.villageTitle;
@@ -75,15 +79,19 @@ export function BrowsingVillageSelector() {
           setFailure("");
           setOpen(true);
         }}
-        style={({ pressed }) => [s.control, pressed && s.pressed]}
+        style={({ pressed }) => [
+          s.control,
+          onDark && s.controlDark,
+          pressed && s.pressed,
+        ]}
       >
         <Ionicons
           accessible={false}
-          name="location-outline"
+          name="location"
           size={18}
-          color={theme.colors.primaryDark}
+          color={onDark ? theme.colors.heroText : theme.colors.primary}
         />
-        <Text numberOfLines={1} style={s.name}>
+        <Text numberOfLines={1} style={[s.name, onDark && s.nameDark]}>
           {name}
         </Text>
         {saving ? (
@@ -93,7 +101,7 @@ export function BrowsingVillageSelector() {
             accessible={false}
             name="chevron-down"
             size={16}
-            color={theme.colors.primaryDark}
+            color={onDark ? theme.colors.heroMuted : theme.colors.muted}
           />
         )}
       </Pressable>
@@ -118,23 +126,23 @@ export function BrowsingVillageSelector() {
 }
 const s = StyleSheet.create({
   control: {
-    minHeight: theme.layout.touchTarget,
+    minHeight: 44,
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.tint,
+    paddingHorizontal: 12,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
     flexShrink: 1,
     maxWidth: "100%",
   },
-  name: {
-    fontSize: 14,
-    lineHeight: 22,
-    color: theme.colors.text,
-    fontWeight: "600",
-    flexShrink: 1,
+  controlDark: {
+    backgroundColor: theme.colors.heroSurface,
+    borderColor: theme.colors.heroBorder,
   },
+  name: { ...theme.type.label, color: theme.colors.text, flexShrink: 1 },
+  nameDark: { color: theme.colors.heroText },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

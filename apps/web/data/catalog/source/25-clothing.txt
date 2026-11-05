@@ -1,0 +1,126 @@
+# Clothing, traditional wear, textiles, bedding and footwear.
+@category|clothing|clothing|Clothing and Textiles|कपड़े और वस्त्र|कपडे आणि वस्त्रे
+
+@sub|sarees|Sarees|साड़ियाँ|साड्या|piece
+Saree|साड़ी|साडी|sari,saree,sadi
+Paithani Saree|पैठणी साड़ी|पैठणी साडी|paithani,yeola paithani||^SAREE
+Nauvari Saree|नौवारी साड़ी|नऊवारी साडी|nauvari,navvari,kashta saree||^SAREE
+Cotton Saree|सूती साड़ी|सुती साडी|cotton sari||^SAREE
+Silk Saree|रेशमी साड़ी|रेशमी साडी|silk sari||^SAREE
+Narayan Peth Saree|नारायणपेठ साड़ी|नारायण पेठ साडी|narayanpeth||^SAREE
+Irkal Saree|इरकल साड़ी|इरकल साडी|ilkal,irkal||^SAREE
+Khun Saree|खण साड़ी|खणाची साडी|khan saree,khun||^SAREE
+Chanderi Saree|चंदेरी साड़ी|चंदेरी साडी|chanderi||^SAREE
+Banarasi Saree|बनारसी साड़ी|बनारसी साडी|banarasi||^SAREE
+Kanjeevaram Saree|कांजीवरम साड़ी|कांजीवरम साडी|kanchipuram||^SAREE
+Bandhani Saree|बांधनी साड़ी|बांधणी साडी|bandhej||^SAREE
+Georgette Saree|जॉर्जेट साड़ी|जॉर्जेट साडी|||^SAREE
+Chiffon Saree|शिफॉन साड़ी|शिफॉन साडी|||^SAREE
+Printed Saree|प्रिंटेड साड़ी|प्रिंटेड साडी|daily wear saree||^SAREE
+Blouse Piece|ब्लाउज़ पीस|ब्लाऊज पीस|khan,blouse kapad|piece,metre
+Readymade Blouse|रेडीमेड ब्लाउज़|रेडिमेड ब्लाऊज|blouse|piece
+Petticoat|पेटीकोट|परकर|parkar,petticoat,inskirt|piece
+Shawl|शॉल|शाल|shawl,shal|piece
+Dupatta|दुपट्टा|ओढणी|odhani,chunni,dupatta|piece
+Pheta|पगड़ी|फेटा|pheta,safa,pagdi|piece
+Kolhapuri Pheta|कोल्हापुरी फेटा|कोल्हापुरी फेटा|||^PHETA
+Puneri Pagadi|पुणेरी पगड़ी|पुणेरी पगडी|puneri pagdi|piece
+
+@sub|womens-wear|Women's Wear|महिलाओं के कपड़े|महिलांचे कपडे|piece,set
+Salwar Kameez|सलवार कमीज़|सलवार कमीज|salwar suit,punjabi dress,dress
+Kurti|कुर्ती|कुर्ती|kurti,top
+Leggings|लेगिंग्स|लेगिन्स|leggings
+Nightgown|नाइटी|गाऊन|nighty,gown,maxi
+Lehenga|लहंगा|लेहेंगा|lehenga choli,ghagra
+Parkar Polka|परकर पोलका|परकर पोलके|parkar polka,pavadai
+Dress Material|ड्रेस मटीरियल|ड्रेस मटेरियल|unstitched suit|piece,set
+Women's Innerwear|महिलाओं के अंतःवस्त्र|महिलांचे अंतर्वस्त्र|bra,panty,innerwear|piece,packet
+Stole|स्टोल|स्टोल|scarf|piece
+Burqa|बुर्का|बुरखा|burkha,abaya|piece
+
+@sub|mens-wear|Men's Wear|पुरुषों के कपड़े|पुरुषांचे कपडे|piece,set
+Shirt|शर्ट|शर्ट|shirt
+Trousers|पैंट|पँट|pant,trousers,full pant
+Jeans|जींस|जीन्स|denim
+T-Shirt|टी-शर्ट|टी-शर्ट|tshirt,t shirt
+Kurta Pyjama|कुर्ता पायजामा|कुर्ता पायजमा|kurta,pajama|set
+Kurta|कुर्ता|कुडता|kudta,kurta
+Dhoti|धोती|धोतर|dhotar,dhoti
+Lungi|लुंगी|लुंगी|lungi,mundu
+Banian|बनियान|बनियन|baniyan,vest
+Men's Innerwear|पुरुषों के अंतःवस्त्र|पुरुषांचे अंतर्वस्त्र|underwear,chaddi,brief|piece,packet
+Gandhi Topi|गांधी टोपी|गांधी टोपी|topi,white cap
+Nehru Jacket|नेहरू जैकेट|नेहरू जॅकेट|modi jacket,bandi
+Sherwani|शेरवानी|शेरवानी|sherwani
+Bandi|बंडी|बंडी|bandi,koti,waistcoat
+Shorts|शॉर्ट्स|हाफ पँट|half pant,chaddi,shorts
+Track Pants|ट्रैक पैंट|ट्रॅक पँट|lower,track suit
+Pyjama|पायजामा|पायजमा|pajama
+Safari Suit|सफ़ारी सूट|सफारी सूट
+Blazer|ब्लेज़र|ब्लेझर|coat,suit|piece
+Uniform|यूनिफ़ॉर्म|गणवेश|school uniform,ganvesh|piece,set
+
+@sub|kids-wear|Kids' Wear|बच्चों के कपड़े|लहान मुलांचे कपडे|piece,set
+Kids Frock|बच्चों की फ्रॉक|लहान मुलींचा फ्रॉक|frock
+Baby Romper|बेबी रोम्पर|बाळाचा रॉम्पर|romper,onesie
+
+@sub|winter-rain-wear|Winter and Rain Wear|सर्दी और बरसात के कपड़े|हिवाळी व पावसाळी कपडे|piece
+Sweater|स्वेटर|स्वेटर|sweater
+Jacket|जैकेट|जॅकेट|jacket
+Woollen Cap|ऊनी टोपी|लोकरीची टोपी|monkey cap,kantopi
+Kantopi|कनटोपी|कानटोपी|kantopi,monkey cap|piece|^WOOLLEN_CAP
+Muffler|मफ़लर|मफलर|muffler,scarf
+Gloves|दस्ताने|हातमोजे|hatmoje,gloves|pair
+Socks|मोज़े|मोजे|moje,socks|pair,packet
+Thermal Wear|थर्मल|थर्मल कपडे|thermals|piece,set
+Gongadi|कम्बल (गोंगड़ी)|घोंगडी|ghongadi,ghongdi,kambli,woollen blanket
+Irle|इरला|इरले|irle,irla,rain shield||
+
+@sub|home-textiles|Home Textiles and Bedding|घरेलू वस्त्र और बिस्तर|घरगुती वस्त्रे आणि अंथरूण|piece,set
+Bedsheet|चादर|चादर|chadar,bedsheet,bed sheet
+Blanket|कम्बल|ब्लँकेट|kambal,blanket
+Quilt|रज़ाई|रजई|razai,quilt
+Godhadi|गुदड़ी|गोधडी|godhadi,godhdi,patchwork quilt
+Mattress|गद्दा|गादी|gadi,gadda,mattress
+Cotton Mattress|रुई का गद्दा|कापसाची गादी|kapsachi gadi||^MATTRESS
+Pillow|तकिया|उशी|ushi,takiya,pillow
+Pillow Cover|तकिये का कवर|उशीचा अभ्रा|abhra,pillow cover
+Dhurrie|दरी|सतरंजी|satranji,dari,durrie
+Carpet|कालीन|गालिचा|galicha,carpet,rug
+Chatai|चटाई|चटई|chatai,mat
+Curtain|पर्दा|पडदा|parda,padda,curtain
+Towel|तौलिया|टॉवेल|toliya,towel,pancha
+Handkerchief|रूमाल|रुमाल|rumal,hanky|piece,packet
+Cotton Fabric|सूती कपड़ा|सुती कापड|kapda,cotton cloth|metre
+Khadi Fabric|खादी कपड़ा|खादी कापड|khadi|metre
+Shirting Fabric|शर्टिंग कपड़ा|शर्टिंग कापड|shirt piece|metre,piece
+Suiting Fabric|सूटिंग कपड़ा|सूटिंग कापड|pant piece|metre,piece
+Lining Cloth|अस्तर|अस्तर|astar,lining|metre
+Jute Fabric|जूट कपड़ा|ज्यूट कापड|gunny cloth|metre
+
+@sub|footwear|Footwear|जूते-चप्पल|पादत्राणे|pair
+Chappal|चप्पल|चप्पल|chappal,slipper,sandal
+Kolhapuri Chappal|कोल्हापुरी चप्पल|कोल्हापुरी चप्पल|kolhapuri,kapshi chappal||^CHAPPAL
+Hawai Chappal|हवाई चप्पल|स्लिपर|slipper,flip flops||^CHAPPAL
+Shoes|जूते|बूट|boot,shoes,joote
+School Shoes|स्कूल शूज़|शाळेचे बूट|||^SHOES
+Sports Shoes|स्पोर्ट्स शूज़|स्पोर्ट्स शूज|running shoes||^SHOES
+Gumboots|गमबूट|गमबूट|rain boots,gum boot
+Sandals|सैंडल|सँडल|sandal
+Ladies Sandals|महिलाओं की सैंडल|लेडीज सँडल|||^SANDALS
+Juttis|जूती|मोजडी|mojdi,jutti,mojari
+Leather Shoes|चमड़े के जूते|चामड्याचे बूट|formal shoes||^SHOES
+Safety Shoes|सेफ़्टी शूज़|सेफ्टी शूज
+Paduka|खड़ाऊ|पादुका|khadau,paduka|pair
+
+@sub|accessories|Bags and Accessories|बैग और एक्सेसरीज़|पिशव्या आणि अॅक्सेसरीज|piece
+School Bag|स्कूल बैग|शाळेची बॅग|dafter,school bag
+Handbag|हैंडबैग|हँडबॅग|purse,ladies bag
+Purse|पर्स|पर्स|wallet,purse
+Wallet|बटुआ|पाकीट|pakit,batua,wallet
+Travel Bag|ट्रैवल बैग|प्रवासी बॅग|luggage bag
+Belt|बेल्ट|बेल्ट|patta,belt
+Cap|टोपी|टोपी|cap
+Sunglasses|धूप का चश्मा|गॉगल|goggle
+Wrist Watch|घड़ी|घड्याळ|watch,ghadi
+Potli Bag|पोटली|पोटली|potli,batwa

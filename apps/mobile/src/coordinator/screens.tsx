@@ -1,3 +1,4 @@
+import { numberLocale, dateLocale } from "../locale";
 import { useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import type { MobileVillage } from "@gaavli/types";
@@ -185,9 +186,7 @@ function ManageSummary() {
     coordinatorUsersSchema,
     { filter: "buyers", limit: "1" },
   );
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-  );
+  const number = new Intl.NumberFormat(numberLocale(language));
   const cards = [
     {
       label: t.sellers,
@@ -354,7 +353,7 @@ function BuyerForm({
           label={`${t.village} *`}
           placeholder={t.village}
           value={
-            language === "mr" ? selectedVillage.nameMr : selectedVillage.name
+            language !== "en" ? selectedVillage.nameMr : selectedVillage.name
           }
           expanded={villageExpanded}
           disabled={locked || !!editUser}
@@ -371,7 +370,7 @@ function BuyerForm({
                 setSelectedVillage(village);
               }}
             >
-              {`${language === "mr" ? village.nameMr : village.name} · ${village.taluka}, ${village.district}`}
+              {`${language !== "en" ? village.nameMr : village.name} · ${village.taluka}, ${village.district}`}
             </Button>
           ))}
         {villageExpanded && (
@@ -407,7 +406,7 @@ function UserSummary({ user }: { user: User }) {
     <>
       <Text style={d.cardTitle}>{user.name}</Text>
       <Text style={d.description}>
-        {language === "mr" ? user.village.nameMr : user.village.name}
+        {language !== "en" ? user.village.nameMr : user.village.name}
       </Text>
       <Text style={d.description}>{user.mobile || t.unknown}</Text>
       <Text style={d.description}>
@@ -793,7 +792,7 @@ function Connections() {
         <View style={{ flex: 1, gap: 4 }}>
           <Text style={d.description}>{t.yourVillage}</Text>
           <Text style={d.cardTitle}>
-            {language === "mr" ? scope.village.nameMr : scope.village.name}
+            {language !== "en" ? scope.village.nameMr : scope.village.name}
           </Text>
           <Text style={d.description}>
             {scope.village.taluka}, {scope.village.district}
@@ -805,9 +804,7 @@ function Connections() {
           {t.connectedVillages} (
           {total === undefined || query.isError
             ? "—"
-            : new Intl.NumberFormat(
-                language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-              ).format(total)}
+            : new Intl.NumberFormat(numberLocale(language)).format(total)}
           )
         </Text>
         <Pressable
@@ -925,17 +922,17 @@ function Connections() {
             </View>
             <View style={{ flex: 1, gap: 2 }}>
               <Text style={d.cardTitle}>
-                {language === "mr" ? row.village.nameMr : row.village.name}
+                {language !== "en" ? row.village.nameMr : row.village.name}
               </Text>
               <Text style={d.description}>
                 {row.village.distanceKm === undefined
                   ? `${row.village.taluka} · ${row.village.district}`
-                  : `${new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN", { maximumFractionDigits: 1 }).format(row.village.distanceKm)} ${language === "mr" ? "किमी" : "km"}`}
+                  : `${new Intl.NumberFormat(dateLocale(language), { maximumFractionDigits: 1 }).format(row.village.distanceKm)} ${language !== "en" ? "किमी" : "km"}`}
               </Text>
             </View>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel={`${t.connectionOptions}: ${language === "mr" ? row.village.nameMr : row.village.name}`}
+              accessibilityLabel={`${t.connectionOptions}: ${language !== "en" ? row.village.nameMr : row.village.name}`}
               accessibilityState={{
                 disabled: locked,
                 expanded: menuId === row.id,
@@ -982,7 +979,7 @@ function Connections() {
                     setRemoveTarget({
                       id: row.id,
                       name:
-                        language === "mr"
+                        language !== "en"
                           ? row.village.nameMr
                           : row.village.name,
                     });
@@ -1137,10 +1134,9 @@ function AddConnection() {
   );
   const rows = query.data?.pages.flatMap((page) => page.villages) || [];
   const count = Object.keys(selected).length;
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-    { maximumFractionDigits: 1 },
-  );
+  const number = new Intl.NumberFormat(numberLocale(language), {
+    maximumFractionDigits: 1,
+  });
   const selectionLabel = number.format(count) + " " + t.selectedVillages;
   const back = () =>
     router.canGoBack()
@@ -1369,7 +1365,7 @@ function AddConnection() {
               key={row.id}
               accessibilityRole="checkbox"
               accessibilityLabel={
-                (language === "mr" ? row.nameMr : row.name) +
+                (language !== "en" ? row.nameMr : row.name) +
                 ", " +
                 row.taluka +
                 ", " +
@@ -1411,7 +1407,7 @@ function AddConnection() {
               />
               <View style={{ flex: 1, gap: 4 }}>
                 <Text style={d.cardTitle}>
-                  {language === "mr" ? row.nameMr : row.name}
+                  {language !== "en" ? row.nameMr : row.name}
                 </Text>
                 <Text style={d.description}>
                   {row.taluka}, {row.district}
@@ -1420,7 +1416,7 @@ function AddConnection() {
               {row.distanceKm !== undefined && (
                 <Text style={d.description}>
                   {number.format(row.distanceKm)}{" "}
-                  {language === "mr" ? "किमी" : "km"}
+                  {language !== "en" ? "किमी" : "km"}
                 </Text>
               )}
             </Pressable>
@@ -1488,7 +1484,7 @@ function Activity() {
             key={row.id}
             icon="time-outline"
             title={activityTitle(row.action, t)}
-            subtitle={`${row.name}\n${new Intl.DateTimeFormat(language === "mr" ? "mr-IN" : "en-IN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(row.createdAt))}`}
+            subtitle={`${row.name}\n${new Intl.DateTimeFormat(dateLocale(language), { dateStyle: "medium", timeStyle: "short" }).format(new Date(row.createdAt))}`}
             onPress={() => router.push(activityDestination(row) as Href)}
           />
         ))}

@@ -1,0 +1,131 @@
+# Fresh fruits, popular Maharashtra varieties, wild and exotic fruits.
+@category|fruits|fruits|Fruits|फल|फळे
+
+@sub|everyday-fruits|Everyday Fruits|रोज़ के फल|रोजची फळे|kg,dozen,piece
+Mango|आम|आंबा|aam,amba,ambe,mangoes|dozen,kg,piece,box|
+Banana|केला|केळी|kela,keli,kele,bananas|dozen,kg,piece|
+Apple|सेब|सफरचंद|seb,safarchand,apples|kg,piece,box|
+Orange|संतरा|संत्री|santra,santre,narangi,oranges|kg,dozen,piece|
+Sweet Lime|मौसमी|मोसंबी|mosambi,mausami,musambi,sathgudi
+Pomegranate|अनार|डाळिंब|anar,dalimb,dalimba
+Grapes|अंगूर|द्राक्षे|angoor,angur,draksha,drakshe|kg,g,box|
+Guava|अमरूद|पेरू|amrud,amrood,peru
+Papaya|पपीता|पपई|papita,papai|kg,piece|
+Watermelon|तरबूज|कलिंगड|tarbuj,tarbooj,kalingad|kg,piece
+Muskmelon|खरबूजा|खरबूज|kharbuja,kharbuj,cantaloupe|kg,piece
+Custard Apple|शरीफा|सीताफळ|sharifa,sitaphal,sitafal
+Sapota|चीकू|चिकू|chiku,chikoo,sapodilla
+Pineapple|अनानास|अननस|ananas,ananas|piece,kg|
+Coconut|नारियल|नारळ|nariyal,naral,shrifal|piece,dozen|
+Tender Coconut|हरा नारियल|शहाळे|nariyal pani,shahale,daab,green coconut|piece,dozen
+Lemon|नींबू|लिंबू|nimbu,neebu,limbu,lime|piece,kg,dozen|
+Indian Gooseberry|आंवला|आवळा|amla,awla,avla,aonla
+Indian Jujube|बेर|बोर|ber,bor,bore,jujube
+Jackfruit|कटहल|फणस|kathal,phanas,fanas|piece,kg|
+Java Plum|जामुन|जांभूळ|jamun,jambhul,jambool
+Karonda|करौंदा|करवंद|karonda,karvand,karvanda
+Fig|अंजीर|अंजीर|anjeer,anjir,figs|kg,box|
+Strawberry|स्ट्रॉबेरी|स्ट्रॉबेरी|strawberries,strawberry|kg,box,g|
+Tamarind|इमली|चिंच|imli,chinch,chincha
+Pear|नाशपाती|नासपती|nashpati,naspati,pears
+Peach|आड़ू|पीच|aadu,aru,peaches,peach
+Plum|आलूबुखारा|आलुबुखार|aloo bukhara,plums,alu bukhara,plum
+Litchi|लीची|लिची|lychee,lichi,litchi
+Cherry|चेरी|चेरी|cherries|kg,g,box
+Kiwi|कीवी|किवी|kiwi fruit|piece,kg,box
+Dragon Fruit|ड्रैगन फ्रूट|ड्रॅगन फ्रूट|pitaya,kamalam|piece,kg
+Avocado|एवोकाडो|अ‍ॅव्होकॅडो|butter fruit|piece,kg
+Pomelo|चकोतरा|पपनस|chakotra,papnas
+Mulberry|शहतूत|तुती|shahtoot,tuti,mulberries|kg,g,box
+Star Fruit|कमरख|कमरख|kamrakh,carambola
+Wood Apple|कैथ|कवठ|kaith,kavath,kavat|kg,piece
+Bael Fruit|बेल|बेल फळ|bel,bael,bilva fruit|piece,kg
+Cashew Apple|काजू फल|काजू बोंड|kaju bond,cashew fruit
+Kokum Fruit|कोकम|रातांबा|ratamba,kokam,kokum fresh
+Ice Apple|ताड़गोला|ताडगोळा|tadgola,tadgole,taal,palm fruit|piece,dozen
+Fresh Dates|ताज़ा खजूर|ओले खजूर|kharek fresh,khajur|kg,g
+Persimmon|जापानी फल|परसिमन|amlok||
+Passion Fruit|पैशन फ्रूट|पॅशन फ्रूट|krishna phal|piece,kg
+Mangosteen|मैंगोस्टीन|मँगोस्टीन||piece,kg
+Rambutan|रामबूटन|रामबुतान||kg,box
+Blueberry|ब्लूबेरी|ब्लूबेरी|blueberries|box,g
+Raspberry|रसभरी|रासबेरी|rasbhari|box,g
+Cape Gooseberry|रसभरी (मकोय)|रसभरी|golden berry,physalis|box,g|
+Phalsa|फालसा|फालसा|falsa,phalsa|kg,g
+Apricot|खुबानी|जर्दाळू|khubani,jardalu,apricot,zardalu|kg,g|
+Kinnow|किन्नू|किन्नू|kinu,kinnow|kg,dozen|^ORANGE
+Malta Orange|माल्टा|माल्टा संत्री|malta|kg,dozen|^ORANGE
+Green Apple|हरा सेब|हिरवे सफरचंद|hara seb,granny smith||^APPLE
+Grapefruit|ग्रेपफ्रूट|ग्रेपफ्रूट|chakotra
+
+@sub|mango-varieties|Mango Varieties|आम की किस्में|आंब्याच्या जाती|dozen,kg,piece,box
+Alphonso Mango|हापुस आम|हापूस आंबा|hapus,haapus,alphonso,hafus||^MANGO
+Devgad Alphonso Mango|देवगढ़ हापुस आम|देवगड हापूस|devgad hapus,devgad alphonso||^MANGO
+Ratnagiri Alphonso Mango|रत्नागिरी हापुस आम|रत्नागिरी हापूस|ratnagiri hapus,ratnagiri alphonso||^MANGO
+Kesar Mango|केसर आम|केशर आंबा|kesar,keshar||^MANGO
+Payri Mango|पायरी आम|पायरी आंबा|payri,pairi||^MANGO
+Totapuri Mango|तोतापुरी आम|तोतापुरी आंबा|totapuri,ginimoothi||^MANGO
+Langda Mango|लंगड़ा आम|लंगडा आंबा|langda,langra||^MANGO
+Dasheri Mango|दशहरी आम|दशेरी आंबा|dasheri,dussehri||^MANGO
+Banganapalli Mango|बंगनपल्ली आम|बदामी आंबा|badami,banganapalli,benishan||^MANGO
+Rajapuri Mango|राजापुरी आम|राजापुरी आंबा|rajapuri||^MANGO
+Neelam Mango|नीलम आम|नीलम आंबा|neelam||^MANGO
+Chausa Mango|चौसा आम|चौसा आंबा|chausa,chaunsa||^MANGO
+Mallika Mango|मल्लिका आम|मल्लिका आंबा|mallika||^MANGO
+Ratna Mango|रत्ना आम|रत्ना आंबा|ratna||^MANGO
+Sindhu Mango|सिंधु आम|सिंधू आंबा|sindhu,seedless mango||^MANGO
+Himsagar Mango|हिमसागर आम|हिमसागर आंबा|himsagar||^MANGO
+Kolhapuri Malgoba Mango|मालगोबा आम|माळगोबा आंबा|malgoba,mulgoba||^MANGO
+Desi Mango|देसी आम|गावरान आंबा|gavran amba,desi aam,raival,rayval||^MANGO
+Pickle Mango|अचार वाला आम|लोणच्याची कैरी|lonche kairi,achar aam,pickling mango|kg,dozen|^RAW_MANGO
+
+@sub|banana-varieties|Banana Varieties|केले की किस्में|केळीच्या जाती|dozen,kg
+Elaichi Banana|इलायची केला|वेलची केळी|velchi,yelakki,elaichi kela,small banana||^BANANA
+Robusta Banana|रोबस्टा केला|बसराई केळी|basrai,cavendish,grand naine,g9,jalgaon banana||^BANANA
+Red Banana|लाल केला|लाल केळी|lal kela,lal keli||^BANANA
+Rajeli Banana|राजेली केला|राजेळी केळी|rajeli,rajeli keli,konkan banana||^BANANA
+Nendran Banana|नेंद्रन केला|नेंद्रन केळी|nendran,kerala banana||^BANANA
+Safed Velchi Banana|सफ़ेद इलायची केला|सफेद वेलची केळी|safed velchi||^BANANA
+
+@sub|grape-varieties|Grape Varieties|अंगूर की किस्में|द्राक्षांच्या जाती|kg,box
+Thompson Seedless Grapes|थॉम्पसन बीजरहित अंगूर|थॉमसन सीडलेस द्राक्षे|thompson,green grapes||^GRAPES
+Sonaka Grapes|सोनाका अंगूर|सोनाका द्राक्षे|sonaka||^GRAPES
+Sharad Seedless Grapes|शरद बीजरहित अंगूर|शरद सीडलेस द्राक्षे|sharad,black grapes,kali draksha||^GRAPES
+Krishna Seedless Grapes|कृष्णा बीजरहित अंगूर|कृष्णा सीडलेस द्राक्षे|krishna grapes||^GRAPES
+Manik Chaman Grapes|माणिक चमन अंगूर|माणिक चमन द्राक्षे|manik chaman||^GRAPES
+Jumbo Black Grapes|जंबो काले अंगूर|जंबो काळी द्राक्षे|jumbo grapes||^GRAPES
+Red Globe Grapes|रेड ग्लोब अंगूर|रेड ग्लोब द्राक्षे|red grapes||^GRAPES
+
+@sub|regional-fruit-varieties|Regional Fruit Varieties|क्षेत्रीय फल किस्में|प्रादेशिक फळ जाती|kg,dozen,piece
+Bhagwa Pomegranate|भगवा अनार|भगवा डाळिंब|bhagwa,kesari anar||^POMEGRANATE
+Ganesh Pomegranate|गणेश अनार|गणेश डाळिंब|ganesh dalimb||^POMEGRANATE
+Arakta Pomegranate|आरक्ता अनार|आरक्ता डाळिंब|arakta||^POMEGRANATE
+Nagpur Orange|नागपुरी संतरा|नागपुरी संत्री|nagpur santra,nagpuri santri||^ORANGE
+Kashmiri Apple|कश्मीरी सेब|काश्मिरी सफरचंद|kashmiri seb||^APPLE
+Shimla Apple|शिमला सेब|शिमला सफरचंद|himachal apple,shimla seb||^APPLE
+Pink Guava|गुलाबी अमरूद|गुलाबी पेरू|lal peru,red guava,lalit guava||^GUAVA
+Allahabad Safeda Guava|इलाहाबादी सफ़ेदा अमरूद|अलाहाबाद सफेदा पेरू|safeda,white guava||^GUAVA
+Sardar Guava|सरदार अमरूद|सरदार पेरू|l-49,lucknow 49||^GUAVA
+Taiwan Papaya|ताइवान पपीता|तैवान पपई|red lady papaya,taiwan papai||^PAPAYA
+Kalipatti Sapota|कालीपत्ती चीकू|कालीपत्ती चिकू|kalipatti||^SAPOTA
+Balanagar Custard Apple|बालानगर शरीफा|बाळानगर सीताफळ|balanagar||^CUSTARD_APPLE
+Umran Ber|उमरान बेर|उमराण बोर|umran||^INDIAN_JUJUBE
+Apple Ber|एप्पल बेर|ॲपल बोर|thai apple ber,apple bor||^INDIAN_JUJUBE
+Kagzi Lime|कागज़ी नींबू|कागदी लिंबू|kagdi limbu,kagzi nimbu|piece,kg,dozen|^LEMON
+Mahabaleshwar Strawberry|महाबलेश्वर स्ट्रॉबेरी|महाबळेश्वर स्ट्रॉबेरी|mahabaleshwar strawberry|kg,box|^STRAWBERRY
+Poona Fig|पूना अंजीर|पुणेरी अंजीर|purandar anjeer,pune anjeer|kg,box|^FIG
+Yellow Watermelon|पीला तरबूज|पिवळे कलिंगड|yellow tarbuj||^WATERMELON
+
+@sub|wild-fruits|Wild and Seasonal Fruits|जंगली और मौसमी फल|रानमेवा|kg,g,dozen
+Jungle Jalebi|जंगल जलेबी|विलायती चिंच|vilayati chinch,ganga imli,goras imli
+Khirni|खिरनी|रायण|rayan,khirni
+Hog Plum|अमड़ा|आंबाडा|ambada,amra,hog plum
+Lasoda|लसोड़ा|भोकर|bhokar,lasoda,gunda
+Wild Fig|गूलर|उंबर|umbar,gular,audumbar
+Ramphal|रामफल|रामफळ|ramphal,bullock's heart
+Hanuman Phal|हनुमान फल|हनुमान फळ|soursop,lakshmanphal
+Toran Fruit|तोरण|तोरण|toran||
+Alu Fruit|आलू (जंगली)|आळू|alu fruit||
+Ripe Tamarind|पकी इमली|पिकलेली चिंच|pakki imli,piklele chinch||^TAMARIND
+Raw Tamarind Pods|कच्ची इमली|कच्ची चिंच|kachchi imli,hirvi chinch||^TAMARIND
+Ambadi Fruit|अम्बाड़ी फूल|अंबाडीची फुले|roselle,ambadi phule||

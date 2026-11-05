@@ -1,3 +1,4 @@
+import { dateLocale } from "../locale";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Linking,
@@ -7,7 +8,6 @@ import {
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
@@ -38,13 +38,12 @@ import { useListingClock } from "../hooks/useListingClock";
 import { ApiError } from "../api/client";
 import { listingName } from "../types/home";
 import { theme } from "../theme";
-import { Button, ErrorMessage, Input, Screen } from "../components/ui";
-import { Badge, Panel, d } from "../components/dashboard/primitives";
+import { Button, ErrorMessage, Input } from "../components/ui";
+import { Badge, d } from "../components/dashboard/primitives";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { ListingImage } from "../components/dashboard/ListingImage";
 import {
   listingPosted,
-  listingRate,
   listingQuantity,
   listingUnit,
 } from "../components/dashboard/listingText";
@@ -102,8 +101,6 @@ function ProductDetailsContent({ id }: { id: string }) {
   const t = messages(language);
   const query = useListing(id);
   const now = useListingClock();
-  const { width, fontScale } = useWindowDimensions();
-  const stacked = width < 340 || fontScale > 1.2;
   const invalid = !listingIdSchema.safeParse(id).success;
   const unavailable =
     invalid ||
@@ -112,7 +109,7 @@ function ProductDetailsContent({ id }: { id: string }) {
   const listing =
     query.data && !unavailable ? toHomeListing(query.data, now) : null;
   const quantityValue = (quantity: number) =>
-    `${new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(quantity)} ${listingUnit(listing?.unit ?? null, language)}`.trim();
+    `${new Intl.NumberFormat(dateLocale(language)).format(quantity)} ${listingUnit(listing?.unit ?? null, language)}`.trim();
   const contactKey = [
     "seller-contact",
     session?.user.id,
@@ -322,232 +319,241 @@ function ProductDetailsContent({ id }: { id: string }) {
       if (mounted.current) setNotifyBusy(false);
     }
   }
+  const village = listing
+    ? language !== "en"
+      ? listing.villageMr
+      : listing.village
+    : "";
+  const unit = listingUnit(listing?.unit ?? null, language);
+  function leave() {
+    if (router.canGoBack()) router.back();
+    else router.replace("/marketplace");
+  }
+  const footer = !listing ? null : !session ? (
+    <Button
+      onPress={() => {
+        showGuestSignUpPrompt(language, () => {
+          useAppStore.getState().setAuthMode("register");
+          useAppStore.getState().setContactReturn(id);
+          router.push("/register");
+        });
+      }}
+    >
+      {t.contactSeller}
+    </Button>
+  ) : seller ? (
+    <View style={s.actions}>
+      <View style={s.primaryAction}>
+        <Button
+          loading={contactBusy}
+          disabled={offline || contactBusy || notifyBusy}
+          icon={
+            <Ionicons
+              accessible={false}
+              name="call"
+              size={18}
+              color={theme.colors.onPrimary}
+            />
+          }
+          onPress={() => void revealContact(true)}
+        >
+          {t.call}
+        </Button>
+      </View>
+      <View style={s.secondaryAction}>
+        <Button
+          outlined
+          loading={notifyBusy}
+          disabled={offline || contactBusy || notifyBusy}
+          icon={
+            <Ionicons
+              accessible={false}
+              name="notifications-outline"
+              size={18}
+              color={theme.colors.heading}
+            />
+          }
+          onPress={() => void openNotify()}
+        >
+          {t.notify}
+        </Button>
+      </View>
+    </View>
+  ) : null;
   return (
     <ProtectedPage allowGuest>
-      <Screen>
-        <View style={s.header}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.back}
-            onPress={() =>
-              router.canGoBack()
-                ? router.back()
-                : router.replace("/marketplace")
-            }
-            style={({ pressed }) => [s.back, pressed && d.pressed]}
-          >
-            <Ionicons name="chevron-back" size={20} color={theme.colors.text} />
-          </Pressable>
-          <Text accessibilityRole="header" style={s.title}>
-            {t.productDetails}
-          </Text>
-        </View>
-        {offline && (
-          <Text style={d.description}>
-            {listing ? t.listingsOffline : t.listingsOfflineEmpty}
-          </Text>
-        )}
-        {!offline && query.isPending && !invalid && (
-          <Text style={d.description}>{t.listingsLoading}</Text>
-        )}
-        {query.isError && !unavailable && !offline && (
-          <>
-            <ErrorMessage message={t.listingsFailed} />
-            <Button secondary onPress={() => void query.refetch()}>
-              {t.retry}
-            </Button>
-          </>
-        )}
-        {listing ? (
-          <>
-            <View style={s.productSection}>
+      <View style={s.page}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={s.scroll}
+        >
+          <View style={s.hero}>
+            {listing ? (
               <ListingImage
                 listing={listing}
-                style={s.image}
+                style={s.heroImage}
                 resizeMode="cover"
+                iconSize={72}
               />
-              <Text accessibilityRole="header" style={s.name}>
-                {listingName(listing, language)}
+            ) : (
+              <View style={s.heroImage} />
+            )}
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t.back}
+              onPress={leave}
+              style={({ pressed }) => [
+                s.back,
+                { top: insets.top + 8 },
+                pressed && d.pressed,
+              ]}
+            >
+              <Ionicons
+                accessible={false}
+                name="chevron-back"
+                size={22}
+                color={theme.colors.heading}
+              />
+            </Pressable>
+          </View>
+          <View style={s.sheet}>
+            {offline && (
+              <Text style={d.description}>
+                {listing ? t.listingsOffline : t.listingsOfflineEmpty}
               </Text>
-              <View style={s.priceBadge}>
-                <Text style={s.price}>{listingRate(listing, language)}</Text>
-              </View>
-              {listing.isDemo && (
-                <>
-                  <Badge yellow>{t.demoListing}</Badge>
-                  <Text style={d.description}>{t.demoListingDescription}</Text>
-                </>
-              )}
-              <View style={s.details}>
-                {(
-                  [
-                    [
-                      t.availableQuantityLabel,
-                      listing.availableQuantity === null
-                        ? t.detailsNotProvided
-                        : quantityValue(listing.availableQuantity),
-                      "cube-outline",
-                    ],
-                    [
-                      t.villageLabel,
-                      language === "mr" ? listing.villageMr : listing.village,
-                      "location-outline",
-                    ],
-                    [
-                      t.postedLabel,
-                      listingPosted(listing, language),
-                      "time-outline",
-                    ],
-                  ] as const
-                ).map(([label, value, icon]) => (
-                  <View key={label} style={[s.detailRow, stacked && s.stacked]}>
-                    <View
-                      style={[s.detailLabelRow, stacked && s.stackedColumn]}
-                    >
-                      <Ionicons
-                        accessible={false}
-                        name={icon}
-                        size={16}
-                        color={theme.colors.icon}
-                      />
-                      <Text style={s.detailLabel}>{label}</Text>
-                    </View>
-                    <Text style={[s.detailValue, stacked && s.stackedColumn]}>
-                      {value}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-              <View style={s.descriptionSection}>
-                <Text accessibilityRole="header" style={s.descriptionTitle}>
-                  {t.productDescriptionLabel}
-                </Text>
-                <Text style={d.description}>
-                  {listing.description || t.detailsNotProvided}
-                </Text>
-              </View>
-            </View>
-            <Panel style={s.seller}>
-              <Text accessibilityRole="header" style={s.descriptionTitle}>
-                {t.sellerInformation}
-              </Text>
-              <View style={s.sellerRow}>
-                <View style={s.avatar}>
-                  <Ionicons
-                    name="person-outline"
-                    size={26}
-                    color={theme.colors.primary}
-                  />
-                </View>
-                <View style={s.sellerCopy}>
-                  <Text style={s.sellerName}>
-                    {seller ? seller.name : t.contactProtected}
+            )}
+            {!offline && query.isPending && !invalid && (
+              <Text style={d.description}>{t.listingsLoading}</Text>
+            )}
+            {query.isError && !unavailable && !offline && (
+              <>
+                <ErrorMessage message={t.listingsFailed} />
+                <Button secondary onPress={() => void query.refetch()}>
+                  {t.retry}
+                </Button>
+              </>
+            )}
+            {unavailable && !listing && (
+              <Text style={d.cardTitle}>{t.productUnavailable}</Text>
+            )}
+            {listing && (
+              <>
+                <View style={s.titleBlock}>
+                  <Text accessibilityRole="header" style={s.name}>
+                    {listingName(listing, language)}
                   </Text>
-                  <View style={s.villageRow}>
+                  <View style={s.metaRow}>
                     <Ionicons
+                      accessible={false}
                       name="location-outline"
-                      size={15}
+                      size={16}
                       color={theme.colors.muted}
                     />
-                    <Text style={s.villageText}>
-                      {[
-                        language === "mr" ? listing.villageMr : listing.village,
-                        query.data?.village.district,
-                      ]
+                    <Text style={s.meta}>
+                      {[village, listingPosted(listing, language)]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </Text>
+                  </View>
+                </View>
+                {listing.isDemo && (
+                  <View style={s.demo}>
+                    <Badge yellow>{t.demoListing}</Badge>
+                    <Text style={d.description}>
+                      {t.demoListingDescription}
+                    </Text>
+                  </View>
+                )}
+                <View style={s.priceCard}>
+                  <View style={s.priceCopy}>
+                    <Text style={s.price}>
+                      {listing.price === null
+                        ? t.rateNotProvided
+                        : `₹${listing.price}`}
+                    </Text>
+                    {listing.price !== null && !!unit && (
+                      <Text style={s.priceUnit}>/ {unit}</Text>
+                    )}
+                  </View>
+                  <View style={s.stock}>
+                    <Ionicons
+                      accessible={false}
+                      name="cube-outline"
+                      size={18}
+                      color={theme.colors.primary}
+                    />
+                    <Text style={s.stockText}>
+                      {listing.availableQuantity === null
+                        ? t.detailsNotProvided
+                        : quantityValue(listing.availableQuantity)}
+                    </Text>
+                  </View>
+                </View>
+                {!!listing.description && (
+                  <View style={s.block}>
+                    <Text accessibilityRole="header" style={s.blockTitle}>
+                      {t.productDescriptionLabel}
+                    </Text>
+                    <Text style={s.body}>{listing.description}</Text>
+                  </View>
+                )}
+                <View style={s.sellerCard}>
+                  <View style={s.avatar}>
+                    <Ionicons
+                      accessible={false}
+                      name="person"
+                      size={22}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+                  <View style={s.sellerCopy}>
+                    <Text style={s.sellerLabel}>{t.soldBy}</Text>
+                    <Text numberOfLines={1} style={s.sellerName}>
+                      {seller ? seller.name : t.contactProtected}
+                    </Text>
+                    <Text numberOfLines={1} style={s.meta}>
+                      {[village, query.data?.village.district]
                         .filter(Boolean)
                         .join(", ")}
                     </Text>
-                  </View>
-                  {seller && (
-                    <View style={s.contactRow}>
-                      <Ionicons
-                        name="call-outline"
-                        size={15}
-                        color={theme.colors.primary}
-                      />
-                      <Text style={s.phone}>{seller.mobile}</Text>
-                    </View>
-                  )}
-                </View>
-              </View>
-              {!!session && !seller && restoredContact.isPending && (
-                <Text style={d.description}>
-                  {offline ? t.offlineAction : t.listingsLoading}
-                </Text>
-              )}
-              {!seller && restoredContact.isError && (
-                <>
-                  <ErrorMessage
-                    message={errorMessage(restoredContact.error, language)}
-                  />
-                  <Button
-                    secondary
-                    disabled={offline}
-                    onPress={() => void restoredContact.refetch()}
-                  >
-                    {t.retry}
-                  </Button>
-                </>
-              )}
-              {contactError && <ErrorMessage message={contactError} />}
-              {seller && (
-                <View style={s.sellerActions}>
-                  <View style={s.sellerAction}>
-                    <Button
-                      outlined
-                      loading={contactBusy}
-                      disabled={offline || contactBusy || notifyBusy}
-                      icon={
+                    {seller && (
+                      <View style={s.metaRow}>
                         <Ionicons
                           accessible={false}
                           name="call-outline"
-                          size={18}
-                          color={theme.colors.heading}
+                          size={15}
+                          color={theme.colors.primary}
                         />
-                      }
-                      onPress={() => void revealContact(true)}
-                    >
-                      {t.call}
-                    </Button>
-                  </View>
-                  <View style={s.sellerAction}>
-                    <Button
-                      outlined
-                      loading={notifyBusy}
-                      disabled={offline || contactBusy || notifyBusy}
-                      icon={
-                        <Ionicons
-                          accessible={false}
-                          name="notifications-outline"
-                          size={18}
-                          color={theme.colors.heading}
-                        />
-                      }
-                      onPress={() => void openNotify()}
-                    >
-                      {t.notify}
-                    </Button>
+                        <Text style={s.phone}>{seller.mobile}</Text>
+                      </View>
+                    )}
                   </View>
                 </View>
-              )}
-              {!session && (
-                <Button
-                  onPress={() => {
-                    showGuestSignUpPrompt(language, () => {
-                      useAppStore.getState().setAuthMode("register");
-                      useAppStore.getState().setContactReturn(id);
-                      router.push("/register");
-                    });
-                  }}
-                >
-                  {t.contactSeller}
-                </Button>
-              )}
-            </Panel>
-          </>
-        ) : unavailable ? (
-          <Text style={d.cardTitle}>{t.productUnavailable}</Text>
-        ) : null}
+                {!!session && !seller && restoredContact.isPending && (
+                  <Text style={d.description}>
+                    {offline ? t.offlineAction : t.listingsLoading}
+                  </Text>
+                )}
+                {!seller && restoredContact.isError && (
+                  <>
+                    <ErrorMessage
+                      message={errorMessage(restoredContact.error, language)}
+                    />
+                    <Button
+                      secondary
+                      disabled={offline}
+                      onPress={() => void restoredContact.refetch()}
+                    >
+                      {t.retry}
+                    </Button>
+                  </>
+                )}
+                {contactError && <ErrorMessage message={contactError} />}
+              </>
+            )}
+          </View>
+        </ScrollView>
+        {footer && <View style={s.footer}>{footer}</View>}
         <Modal
           visible={notifyModal !== null}
           transparent
@@ -699,137 +705,118 @@ function ProductDetailsContent({ id }: { id: string }) {
             </View>
           </View>
         </Modal>
-      </Screen>
+      </View>
     </ProtectedPage>
   );
 }
 const s = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+  page: { flex: 1, backgroundColor: theme.colors.background },
+  scroll: { flexGrow: 1 },
+  hero: { height: 300, backgroundColor: theme.colors.tint },
+  heroImage: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: theme.colors.tint,
   },
   back: {
+    position: "absolute",
+    left: theme.layout.screenPadding,
     width: theme.layout.touchTarget,
     height: theme.layout.touchTarget,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.surface,
+  },
+  sheet: {
+    flex: 1,
+    marginTop: -24,
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingTop: 24,
+    paddingBottom: 32,
+    gap: 16,
+    borderTopLeftRadius: theme.radii.sheet,
+    borderTopRightRadius: theme.radii.sheet,
+    backgroundColor: theme.colors.background,
+    width: "100%",
+    maxWidth: theme.layout.contentWidth,
+    alignSelf: "center",
+  },
+  titleBlock: { gap: 4 },
+  name: { ...theme.type.display, color: theme.colors.heading },
+  metaRow: { flexDirection: "row", alignItems: "center", gap: 5 },
+  meta: { ...theme.type.caption, color: theme.colors.muted, flexShrink: 1 },
+  demo: { gap: 6 },
+  priceCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+    padding: 16,
+    borderRadius: theme.radii.card,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
   },
-  title: {
-    flex: 1,
-    color: theme.colors.heading,
-    fontSize: 20,
-    lineHeight: 28,
-    fontWeight: "700",
-  },
-  productSection: { gap: 12 },
-  stacked: { flexDirection: "column", gap: 8 },
-  stackedColumn: { flex: 0, width: "100%" },
-  image: {
-    width: "100%",
-    aspectRatio: 2,
-    maxHeight: 200,
-    backgroundColor: theme.colors.tint,
-    borderRadius: theme.radii.card,
-  },
-  name: {
-    color: theme.colors.heading,
-    fontSize: 25,
-    lineHeight: 34,
-    fontWeight: "700",
-  },
-  priceBadge: {
-    alignSelf: "flex-start",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.accentBackground,
+  priceCopy: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    gap: 6,
+    flexShrink: 1,
   },
   price: {
-    color: theme.colors.heading,
-    fontSize: 23,
-    lineHeight: 31,
+    fontSize: 30,
+    lineHeight: 38,
     fontWeight: "700",
+    color: theme.colors.primary,
   },
-  details: { gap: 14, paddingTop: 4 },
-  detailRow: { flexDirection: "row", alignItems: "flex-start", gap: 16 },
-  detailLabelRow: {
-    flex: 1,
+  priceUnit: { ...theme.type.body, color: theme.colors.muted },
+  stock: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: theme.radii.chip,
+    backgroundColor: theme.colors.tint,
+    flexShrink: 1,
   },
-  detailLabel: {
-    flex: 1,
-    color: theme.colors.muted,
-    fontSize: 14,
-    lineHeight: 22,
+  stockText: { ...theme.type.label, color: theme.colors.primaryDark },
+  block: { gap: 6 },
+  blockTitle: { ...theme.type.heading, color: theme.colors.heading },
+  body: { ...theme.type.body, color: theme.colors.text },
+  sellerCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    padding: 16,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
   },
-  detailValue: {
-    flex: 1,
-    color: theme.colors.heading,
-    fontSize: 14,
-    lineHeight: 22,
-    fontWeight: "600",
-  },
-  descriptionSection: {
-    borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
-    paddingTop: 16,
-    gap: 8,
-  },
-  descriptionTitle: {
-    color: theme.colors.heading,
-    fontSize: 18,
-    lineHeight: 26,
-    fontWeight: "700",
-  },
-  seller: { gap: 16 },
-  sellerActions: { flexDirection: "row", alignItems: "stretch", gap: 12 },
-  sellerAction: { flex: 1 },
-  sellerRow: { flexDirection: "row", alignItems: "center", gap: 12 },
   avatar: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.colors.tint,
   },
-  sellerCopy: { flex: 1, gap: 2 },
-  sellerName: {
-    color: theme.colors.heading,
-    fontSize: 18,
-    lineHeight: 24,
-    fontWeight: "700",
+  sellerCopy: { flex: 1, minWidth: 0, gap: 1 },
+  sellerLabel: { ...theme.type.micro, color: theme.colors.muted },
+  sellerName: { ...theme.type.subheading, color: theme.colors.heading },
+  phone: { ...theme.type.label, color: theme.colors.heading },
+  footer: {
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingVertical: 12,
+    backgroundColor: theme.colors.surface,
+    borderTopWidth: 1,
+    borderTopColor: theme.colors.border,
   },
-  villageRow: { flexDirection: "row", alignItems: "center", gap: 4 },
-  villageText: {
-    flex: 1,
-    color: theme.colors.muted,
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  phone: {
-    flex: 1,
-    color: theme.colors.heading,
-    fontSize: 16,
-    lineHeight: 22,
-    fontWeight: "600",
-  },
-  contactRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    marginTop: 4,
-  },
+  actions: { flexDirection: "row", gap: 12, alignItems: "stretch" },
+  primaryAction: { flex: 3 },
+  secondaryAction: { flex: 2 },
   modalOverlay: {
     flex: 1,
     justifyContent: "flex-end",

@@ -1,0 +1,137 @@
+# Additional exotic vegetables, fruit varieties, sun-dried vegetables, pulses, spices, pickles and raw herbs.
+@category|vegetables
+@sub|exotic-vegetables
+Kale|केल|केल|kale leaves|bunch,kg
+Swiss Chard|स्विस चार्ड|स्विस चार्ड|chard|bunch,kg
+Arugula|अरुगुला|अरुगुला|rocket leaves|bunch,g
+Romaine Lettuce|रोमेन लेट्यूस|रोमेन लेट्यूस|romaine||^LETTUCE
+Iceberg Lettuce|आइसबर्ग लेट्यूस|आईसबर्ग लेट्यूस|iceberg||^LETTUCE
+Yellow Zucchini|पीली ज़ुकीनी|पिवळी झुकिनी|||^ZUCCHINI
+Jalapeno|हालापेन्यो|हालापेनो|jalapeno pepper|kg,g
+Thai Chilli|थाई मिर्च|थाई मिरची|bird eye chilli|kg,g
+Galangal|कुलंजन|कुलिंजन|kulanjan,thai ginger|kg,g
+Kaffir Lime Leaves|काफ़िर लाइम पत्ते|काफिर लाइम पाने|||
+Thai Basil|थाई तुलसी|थाई तुळस|||
+Shallots|छोटे प्याज़ (शैलट)|शॅलट कांदे|shallot||^ONION
+Snow Peas|स्नो पीज़|स्नो पीज|||
+Cherry Radish|चेरी मूली|चेरी मुळा|||
+Red Radish|लाल मूली|लाल मुळा|||^RADISH
+Purple Sweet Potato|बैंगनी शकरकंद|जांभळे रताळे|||^SWEET_POTATO
+Edible Flowers|खाने योग्य फूल|खाण्यायोग्य फुले|||
+Shiitake Mushroom|शिटाके मशरूम|शिटाके अळिंबी|shiitake||^MUSHROOM
+Milky Mushroom|मिल्की मशरूम|मिल्की अळिंबी|milky mushroom||^MUSHROOM
+Dried Mushroom|सूखे मशरूम|सुकी अळिंबी|dry mushroom|g,packet|^MUSHROOM
+@sub|seasonal-vegetables
+Sun Dried Gavar|सूखी ग्वार फली|सुकी गवार (वाळवण)|vaalvan gavar,sukhi gavar|kg,g,packet
+Sun Dried Bhendi|सूखी भिंडी|सुकी भेंडी (वाळवण)|||
+Sun Dried Methi|सूखी मेथी|सुकी मेथी (वाळवण)|||
+Sun Dried Brinjal|सूखे बैंगन|सुकी वांगी (वाळवण)|||
+Sun Dried Kairi|आम की खटाई|कैरीच्या सुक्या फोडी|amchur slices,kairi kees|kg,g,packet
+Sun Dried Tomatoes|सूखे टमाटर|सुके टोमॅटो|||
+Ker|केर|केर|ker berries|kg,g|
+Sangri|सांगरी|सांगरी|sangri beans|kg,g
+Kachri|कचरी|कचरी|||
+Lotus Seeds Fresh|कमल ककड़ी बीज|कमळाच्या बिया|||
+
+@category|fruits
+@sub|regional-fruit-varieties
+Royal Delicious Apple|रॉयल डिलीशियस सेब|रॉयल डेलिशियस सफरचंद|royal apple||^APPLE
+Red Delicious Apple|रेड डिलीशियस सेब|रेड डेलिशियस सफरचंद|||^APPLE
+Fuji Apple|फ़ूजी सेब|फुजी सफरचंद|fuji||^APPLE
+Gala Apple|गाला सेब|गाला सफरचंद|gala||^APPLE
+Babugosha Pear|बाबूगोशा नाशपाती|बाबूगोशा|babugosha||^PEAR
+Honeydew Melon|हनीड्यू खरबूजा|हनीड्यू खरबूज|honeydew||^MUSKMELON
+Sharda Melon|शारदा खरबूजा|शारदा खरबूज|sharda||
+Valencia Orange|वेलेंसिया संतरा|व्हॅलेन्सिया संत्री|||^ORANGE
+Ratnagiri Alphonso Box|हापुस आम पेटी|हापूस आंबा पेटी|hapus peti,alphonso box|box|^ALPHONSO_MANGO
+Jalgaon Banana|जलगांव केला|जळगाव केळी|jalgaon keli||^ROBUSTA_BANANA
+Vasai Banana|वसई केला|वसई केळी|vasai keli,rajeli||^BANANA
+Solapur Pomegranate|सोलापुर अनार|सोलापूर डाळिंब|||^POMEGRANATE
+Nashik Grapes|नासिक अंगूर|नाशिक द्राक्षे|nashik draksha||^GRAPES
+Gholvad Chikoo|घोलवड चीकू|घोलवड चिकू|dahanu chikoo,gholvad||^SAPOTA
+Mahabaleshwar Mulberry|महाबलेश्वर शहतूत|महाबळेश्वर तुती|||^MULBERRY
+Bahadoli Jamun|बहाडोली जामुन|बहाडोली जांभूळ|bahadoli jambhul||^JAVA_PLUM
+
+@category|pulses
+@sub|split-dals
+Unpolished Toor Dal|बिना पॉलिश अरहर दाल|अनपॉलिश तूर डाळ|organic toor dal,unpolished||^TOOR_DAL
+Urad Gota|उड़द गोटा|अख्खी उडीद डाळ|urad gota,whole white urad||^URAD_DAL
+Masoor Whole Black|काली मसूर|काळा मसूर|black masoor||^LENTIL
+Chana Dal Unpolished|बिना पॉलिश चना दाल|अनपॉलिश हरभरा डाळ|||^CHANA_DAL
+Moong Mogar|मूंग मोगर|मूग मोगर|moong mogar,yellow moong whole skinless||^MOONG_DAL
+Horse Gram Sprouts|अंकुरित कुलथी|मोड आलेले कुळीथ|||
+Cowpea Sprouts|अंकुरित लोबिया|मोड आलेली चवळी|||
+Val Sprouts|अंकुरित वाल|मोड आलेले वाल|mod aalele val,birde||
+
+@category|grains
+@sub|rice-varieties
+Juna Tandul|पुराना चावल|जुना तांदूळ|old rice,juna tandul||^RICE
+Navin Tandul|नया चावल|नवीन तांदूळ|new rice||^RICE
+Hatsadi Rice|हाथ कूटा चावल|हातसडीचा तांदूळ|hand pounded rice,hatsadi||^RICE
+Kalajira Rice|कालाजीरा चावल|काळाजिरा तांदूळ|||
+Zini Rice|जिनी चावल|झिनी तांदूळ|zini||
+Chinnor Rice|चिन्नोर चावल|चिन्नोर तांदूळ|chinnor||
+
+@category|spices
+@sub|whole-spices
+Kokum Seeds|कोकम बीज|कोकम बिया|bhirand seeds||
+Javitri Whole|जावित्री साबुत|जायपत्री अख्खी|||^MACE
+Green Pepper Fresh|हरी काली मिर्च|हिरवी मिरी|fresh pepper corns|kg,g
+Dried Rose Buds|गुलाब कलियाँ|सुक्या गुलाब कळ्या|||
+Saffron Kashmiri|कश्मीरी केसर|काश्मिरी केशर|mongra kesar||^SAFFRON
+Ajwain Big|बड़ी अजवाइन|मोठा ओवा|||^CAROM_SEEDS
+Methi Kuriya|मेथी कुरिया|मेथी कुरिया|||^FENUGREEK_SPLIT
+Black Mustard|काली राई|काळी मोहरी|kali rai||^MUSTARD_SEEDS
+Bhut Jolokia|भूत जोलकिया|भूत जोलकिया|ghost pepper||^DRY_RED_CHILLI
+Ramnad Mundu Chilli|मुंडू मिर्च|मुंडू मिरची|||
+Kashmiri Garlic|कश्मीरी लहसुन|काश्मिरी लसूण|||^GARLIC
+
+@category|pickles-papad
+@sub|pickles
+@pattern|{en} Pickle|{hi} का अचार|{mr} लोणचे
++ONION
++BRINJAL
++CUCUMBER
++DRUMSTICK
++RAW_JACKFRUIT
++LOTUS_STEM
++MUSHROOM
++KACHRI
++BILIMBI
+Lime Ginger Pickle|नींबू अदरक अचार|लिंबू आले लोणचे|||^LEMON_PICKLE
+Lime Chilli Pickle|नींबू मिर्च अचार|लिंबू मिरची लोणचे|||^LEMON_PICKLE
+Mango Garlic Pickle|आम लहसुन अचार|कैरी लसूण लोणचे|||^MANGO_PICKLE
+Punjabi Mango Pickle|पंजाबी आम अचार|पंजाबी कैरी लोणचे|||^MANGO_PICKLE
+Kokani Mango Pickle|कोंकणी आम अचार|कोकणी कैरी लोणचे|||^MANGO_PICKLE
+Kolhapuri Mango Pickle|कोल्हापुरी आम अचार|कोल्हापुरी कैरी लोणचे|||^MANGO_PICKLE
+@sub|chutneys
+Tomato Thecha|टमाटर ठेचा|टोमॅटो ठेचा
+Peanut Garlic Chutney|मूंगफली लहसुन चटनी|शेंगदाणा लसूण चटणी|||^PEANUT_CHUTNEY_POWDER
+Kairi Chutney Sweet|मीठी कैरी चटनी|गोड कैरी चटणी|||^RAW_MANGO_CHUTNEY
+Dry Coconut Garlic Chutney|सूखी नारियल लहसुन चटनी|सुक्या खोबऱ्याची लसूण चटणी|||^COCONUT_CHUTNEY_POWDER
+Jawas Garlic Chutney|अलसी लहसुन चटनी|जवस लसूण चटणी|||^FLAXSEED_CHUTNEY
+Til Garlic Chutney|तिल लहसुन चटनी|तीळ लसूण चटणी|||^SESAME_CHUTNEY
+
+@category|herbs-forest
+@sub|jadibuti
+Guduchi Powder|गिलोय पाउडर|गुळवेल पावडर|giloy powder
+Brahmi Powder|ब्राह्मी पाउडर|ब्राह्मी पावडर|brahmi powder
+Bhringraj Powder|भृंगराज पाउडर|माका पावडर|maka powder
+Haritaki Powder|हरड़ पाउडर|हिरडा पावडर|harad powder
+Mulethi Powder|मुलेठी पाउडर|ज्येष्ठमध पावडर|jeshthamadh powder
+Vekhand Powder|वच पाउडर|वेखंड पावडर|vekhand powder
+Kalmegh Powder|कालमेघ पाउडर|कालमेघ पावडर
+Gokhru Powder|गोखरू पाउडर|गोखरू पावडर
+Punarnava Powder|पुनर्नवा पाउडर|पुनर्नवा पावडर
+Arjun Bark Powder|अर्जुन छाल पाउडर|अर्जुन साल पावडर|||
+Safed Musli Powder|सफ़ेद मूसली पाउडर|सफेद मुसळी पावडर
+Kaunch Beej Powder|कौंच बीज पाउडर|कुयरी बी पावडर|||
+Manjistha Powder|मंजिष्ठा पाउडर|मंजिष्ठा पावडर
+Nagkeshar Powder|नागकेसर पाउडर|नागकेशर पावडर
+Behada Powder|बहेड़ा पाउडर|बेहडा पावडर
+Hibiscus Powder|गुड़हल पाउडर|जास्वंद पावडर|||
+Rose Petal Powder|गुलाब पंखुड़ी पाउडर|गुलाब पाकळी पावडर|||
+Orange Peel Powder|संतरा छिलका पाउडर|संत्रा साल पावडर|||
+Kasturi Haldi|कस्तूरी हल्दी|कस्तुरी हळद|wild turmeric,kasturi manjal
+Ratanjot|रतनजोत|रतनजोत|ratanjot,alkanet
+Talis Patra|तालीस पत्र|तालीसपत्र|talispatra

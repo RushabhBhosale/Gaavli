@@ -49,23 +49,14 @@ export function Screen({
         >
           {children}
         </ScrollView>
-        {footer && (
-          <View
-            style={{
-              paddingHorizontal: theme.layout.screenPadding,
-              paddingVertical: 12,
-              backgroundColor: theme.colors.surface,
-              borderTopWidth: 1,
-              borderTopColor: theme.colors.border,
-            }}
-          >
-            {footer}
-          </View>
-        )}
+        {footer && <View style={styles.footer}>{footer}</View>}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
+
+// One primary action per screen: solid green. Secondary actions are tinted,
+// outlined or plain text, so the main choice is always obvious.
 export function Button({
   children,
   onPress,
@@ -73,6 +64,8 @@ export function Button({
   loading = false,
   secondary = false,
   outlined = false,
+  danger = false,
+  ghost = false,
   icon,
 }: {
   children: string;
@@ -81,8 +74,11 @@ export function Button({
   loading?: boolean;
   secondary?: boolean;
   outlined?: boolean;
+  danger?: boolean;
+  ghost?: boolean;
   icon?: ReactNode;
 }) {
+  const quiet = secondary || outlined || danger || ghost;
   return (
     <Pressable
       accessibilityRole="button"
@@ -93,24 +89,25 @@ export function Button({
         styles.button,
         secondary && styles.secondary,
         outlined && styles.outlined,
+        danger && styles.danger,
+        ghost && styles.ghost,
+        pressed && !quiet && styles.primaryPressed,
+        pressed && quiet && styles.pressed,
         (disabled || loading) && styles.disabled,
-        pressed && styles.pressed,
       ]}
     >
       {loading && (
         <ActivityIndicator
-          color={
-            secondary || outlined
-              ? theme.colors.primary
-              : theme.colors.onPrimary
-          }
+          color={quiet ? theme.colors.primary : theme.colors.onPrimary}
         />
       )}
       {icon}
       <Text
         style={[
           styles.buttonText,
-          (secondary || outlined) && styles.secondaryText,
+          (secondary || ghost) && styles.secondaryText,
+          outlined && styles.outlinedText,
+          danger && styles.dangerText,
         ]}
       >
         {children}
@@ -130,6 +127,12 @@ export function Card({
 export function OfflineBanner({ message }: { message: string }) {
   return (
     <View accessibilityLiveRegion="polite" style={styles.offline}>
+      <Ionicons
+        accessible={false}
+        name="cloud-offline-outline"
+        size={18}
+        color={theme.colors.warning}
+      />
       <Text style={styles.offlineText}>{message}</Text>
     </View>
   );
@@ -159,10 +162,41 @@ export function BackButton({
       <Ionicons
         accessible={false}
         name="chevron-back"
-        size={24}
-        color={theme.colors.text}
+        size={22}
+        color={theme.colors.heading}
       />
     </Pressable>
+  );
+}
+// Top bar for inner screens: where you are, and the way back.
+export function ScreenHeader({
+  title,
+  subtitle,
+  backLabel,
+  onBack,
+  right,
+}: {
+  title: string;
+  subtitle?: string;
+  backLabel?: string;
+  onBack?: () => void;
+  right?: ReactNode;
+}) {
+  return (
+    <View style={styles.header}>
+      {onBack && backLabel ? (
+        <BackButton label={backLabel} onPress={onBack} />
+      ) : null}
+      <View style={styles.headerCopy}>
+        <Text accessibilityRole="header" style={styles.headerTitle}>
+          {title}
+        </Text>
+        {subtitle ? (
+          <Text style={styles.headerSubtitle}>{subtitle}</Text>
+        ) : null}
+      </View>
+      {right}
+    </View>
   );
 }
 export function DropdownField({
@@ -192,16 +226,19 @@ export function DropdownField({
         style={({ pressed }) => [
           styles.input,
           styles.dropdown,
-          (expanded || pressed || !!value) && styles.inputFocused,
+          (expanded || pressed) && styles.inputFocused,
           disabled && styles.disabled,
         ]}
       >
         <Text style={[styles.dropdownValue, !value && styles.placeholder]}>
           {value || placeholder}
         </Text>
-        <Text accessible={false} style={styles.chevron}>
-          ⌄
-        </Text>
+        <Ionicons
+          accessible={false}
+          name={expanded ? "chevron-up" : "chevron-down"}
+          size={20}
+          color={theme.colors.muted}
+        />
       </Pressable>
     </View>
   );
@@ -281,6 +318,7 @@ export function Input({
         style={[
           styles.input,
           focused && styles.inputFocused,
+          !!error && styles.inputError,
           props.editable === false && styles.disabled,
           props.style,
         ]}
@@ -292,13 +330,22 @@ export function Input({
 }
 export function ErrorMessage({ message }: { message: string }) {
   return (
-    <Text
-      accessibilityRole="alert"
-      accessibilityLiveRegion="polite"
-      style={styles.error}
-    >
-      {message}
-    </Text>
+    <View style={styles.errorRow}>
+      <Ionicons
+        accessible={false}
+        name="alert-circle"
+        size={18}
+        color={theme.colors.error}
+        style={styles.errorIcon}
+      />
+      <Text
+        accessibilityRole="alert"
+        accessibilityLiveRegion="polite"
+        style={styles.error}
+      >
+        {message}
+      </Text>
+    </View>
   );
 }
 export function LoadingState({ label }: { label: string }) {
@@ -313,22 +360,99 @@ export function LoadingState({ label }: { label: string }) {
     </View>
   );
 }
+// An empty, failed or offline state: what happened, and what to do about it.
+export function StateMessage({
+  icon = "leaf-outline",
+  title,
+  body,
+  actionLabel,
+  onAction,
+}: {
+  icon?: React.ComponentProps<typeof Ionicons>["name"];
+  title: string;
+  body?: string;
+  actionLabel?: string;
+  onAction?: () => void;
+}) {
+  return (
+    <View style={styles.state}>
+      <View style={styles.stateIcon}>
+        <Ionicons
+          accessible={false}
+          name={icon}
+          size={26}
+          color={theme.colors.primary}
+        />
+      </View>
+      <Text style={styles.stateTitle}>{title}</Text>
+      {body ? <Text style={styles.stateBody}>{body}</Text> : null}
+      {actionLabel && onAction ? (
+        <Button secondary onPress={onAction}>
+          {actionLabel}
+        </Button>
+      ) : null}
+    </View>
+  );
+}
+// A filter or choice pill. Selected is solid green so the current filter is
+// never in doubt.
+export function Chip({
+  label,
+  selected = false,
+  onPress,
+  count,
+}: {
+  label: string;
+  selected?: boolean;
+  onPress: () => void;
+  count?: string;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ selected }}
+      accessibilityLabel={count ? `${label}, ${count}` : label}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.chip,
+        selected && styles.chipSelected,
+        pressed && styles.pressed,
+      ]}
+    >
+      <Text style={[styles.chipText, selected && styles.chipTextSelected]}>
+        {count ? `${label} (${count})` : label}
+      </Text>
+    </Pressable>
+  );
+}
+// The Gaavli mark: a bold "ग" tile with the wordmark in both scripts.
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
-    <View style={styles.brand}>
-      <View
-        accessibilityElementsHidden
-        importantForAccessibility="no-hide-descendants"
-        style={[styles.mark, compact && { transform: [{ scale: 0.75 }] }]}
-      >
-        <View style={styles.sun} />
-        <View style={[styles.leaf, styles.leftLeaf]} />
-        <View style={[styles.leaf, styles.rightLeaf]} />
-        <View style={styles.stem} />
+    <View
+      accessible
+      accessibilityRole="image"
+      accessibilityLabel="Gaavli"
+      style={styles.brand}
+    >
+      <View style={[styles.markTile, compact && styles.markTileCompact]}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.markGlyph, compact && styles.markGlyphCompact]}
+        >
+          ग
+        </Text>
       </View>
-      <Text style={[styles.brandText, compact && { fontSize: 28 }]}>
-        Gaavli
-      </Text>
+      <View style={styles.wordmark}>
+        <Text
+          allowFontScaling={false}
+          style={[styles.brandName, compact && styles.brandNameCompact]}
+        >
+          गावली
+        </Text>
+        <Text allowFontScaling={false} style={styles.brandLatin}>
+          G A A V L I
+        </Text>
+      </View>
     </View>
   );
 }
@@ -338,24 +462,30 @@ export const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     padding: theme.layout.screenPadding,
-    gap: theme.spacing,
+    gap: 16,
     width: "100%",
     maxWidth: theme.layout.contentWidth,
     alignSelf: "center",
   },
-  title: {
-    fontSize: 27,
-    lineHeight: 36,
-    fontWeight: "700",
-    color: theme.colors.heading,
+  footer: {
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingVertical: 12,
+    backgroundColor: theme.colors.surface,
+    borderTopWidth: 1,
+    borderTopColor: theme.colors.border,
   },
-  body: { fontSize: 16, lineHeight: 24, color: theme.colors.muted },
-  label: { fontSize: 16, fontWeight: "500", color: theme.colors.text },
+  title: { ...theme.type.title, color: theme.colors.heading },
+  body: { ...theme.type.body, color: theme.colors.muted },
+  label: { ...theme.type.label, color: theme.colors.text },
+  header: { flexDirection: "row", alignItems: "center", gap: 12 },
+  headerCopy: { flex: 1, gap: 1 },
+  headerTitle: { ...theme.type.title, color: theme.colors.heading },
+  headerSubtitle: { ...theme.type.caption, color: theme.colors.muted },
   button: {
-    minHeight: 54,
+    minHeight: 52,
     borderRadius: theme.radii.control,
     paddingHorizontal: 20,
-    paddingVertical: 14,
+    paddingVertical: 12,
     backgroundColor: theme.colors.primary,
     flexDirection: "row",
     alignItems: "center",
@@ -364,24 +494,33 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: theme.colors.onPrimary,
-    fontSize: 17,
+    fontSize: 16,
+    lineHeight: 24,
     includeFontPadding: true,
-    paddingVertical: 2,
     fontWeight: "600",
     textAlign: "center",
     flexShrink: 1,
   },
+  primaryPressed: { backgroundColor: theme.colors.primaryPressed },
   secondary: {
     backgroundColor: theme.colors.tint,
     borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-  secondaryText: { color: theme.colors.primaryDark },
-  outlined: {
-    backgroundColor: "transparent",
-    borderWidth: 1,
     borderColor: theme.colors.softGreen,
   },
+  secondaryText: { color: theme.colors.primary },
+  outlined: {
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.borderStrong,
+  },
+  outlinedText: { color: theme.colors.text },
+  danger: {
+    backgroundColor: theme.colors.errorBackground,
+    borderWidth: 1,
+    borderColor: "transparent",
+  },
+  dangerText: { color: theme.colors.error },
+  ghost: { backgroundColor: "transparent", minHeight: 44 },
   disabled: { opacity: theme.interaction.disabledOpacity },
   pressed: { opacity: theme.interaction.pressedOpacity },
   card: {
@@ -389,23 +528,24 @@ export const styles = StyleSheet.create({
     borderRadius: theme.radii.card,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    padding: 20,
+    padding: 16,
     gap: 12,
   },
-  field: { gap: 10 },
+  field: { gap: 8 },
   input: {
-    minHeight: 56,
+    minHeight: 52,
     borderRadius: theme.radii.control,
     borderWidth: 1,
-    borderColor: theme.colors.border,
-    paddingHorizontal: 16,
+    borderColor: theme.colors.borderStrong,
+    paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 16,
     lineHeight: 24,
     color: theme.colors.text,
     backgroundColor: theme.colors.surface,
   },
-  inputFocused: { borderColor: theme.colors.focusBorder },
+  inputFocused: { borderColor: theme.colors.focusBorder, borderWidth: 1.5 },
+  inputError: { borderColor: theme.colors.error },
   placeholder: { color: theme.colors.placeholder },
   dropdown: { flexDirection: "row", alignItems: "center", gap: 12 },
   dropdownValue: {
@@ -414,12 +554,16 @@ export const styles = StyleSheet.create({
     lineHeight: 24,
     color: theme.colors.text,
   },
-  chevron: { color: theme.colors.icon, fontSize: 25 },
   back: {
-    minHeight: theme.layout.touchTarget,
-    minWidth: theme.layout.touchTarget,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     alignSelf: "flex-start",
+    alignItems: "center",
     justifyContent: "center",
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
   },
   actionCard: {
     backgroundColor: theme.colors.tint,
@@ -427,18 +571,13 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 16,
-    paddingHorizontal: 18,
-    paddingVertical: 16,
-    minHeight: 80,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    minHeight: 76,
   },
-  actionCopy: { flex: 1, gap: 5 },
-  actionTitle: {
-    color: theme.colors.text,
-    fontSize: 16,
-    lineHeight: 23,
-    fontWeight: "600",
-  },
-  actionSubtitle: { color: theme.colors.muted, fontSize: 13, lineHeight: 20 },
+  actionCopy: { flex: 1, gap: 4 },
+  actionTitle: { ...theme.type.subheading, color: theme.colors.text },
+  actionSubtitle: { ...theme.type.caption, color: theme.colors.muted },
   pinArea: {
     width: 30,
     height: 38,
@@ -461,48 +600,101 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: theme.colors.tint,
   },
-  error: { color: theme.colors.error, fontSize: 16, lineHeight: 25 },
+  errorRow: { flexDirection: "row", alignItems: "flex-start", gap: 6 },
+  errorIcon: { marginTop: 2 },
+  error: { flex: 1, color: theme.colors.error, fontSize: 14, lineHeight: 21 },
   loading: {
     alignItems: "center",
     justifyContent: "center",
     gap: 16,
     paddingVertical: 32,
   },
+  state: {
+    alignItems: "center",
+    gap: 10,
+    paddingVertical: 28,
+    paddingHorizontal: 12,
+  },
+  stateIcon: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: theme.colors.tint,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stateTitle: {
+    ...theme.type.subheading,
+    color: theme.colors.heading,
+    textAlign: "center",
+  },
+  stateBody: {
+    ...theme.type.caption,
+    color: theme.colors.muted,
+    textAlign: "center",
+  },
+  chip: {
+    minHeight: 40,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: theme.radii.chip,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.borderStrong,
+    justifyContent: "center",
+  },
+  chipSelected: {
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
+  },
+  chipText: { ...theme.type.label, color: theme.colors.text },
+  chipTextSelected: { color: theme.colors.onPrimary },
   offline: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
     backgroundColor: theme.colors.warningBackground,
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
-  offlineText: { color: theme.colors.warning, fontSize: 14, lineHeight: 22 },
-  brand: { alignItems: "center", gap: 4 },
-  brandText: { fontSize: 40, fontWeight: "800", color: theme.colors.brand },
-  mark: { width: 80, height: 65 },
-  sun: {
-    position: "absolute",
-    right: 6,
-    top: 0,
-    width: 27,
-    height: 27,
-    borderRadius: 14,
-    backgroundColor: theme.colors.accent,
+  offlineText: {
+    flex: 1,
+    color: theme.colors.warning,
+    fontSize: 14,
+    lineHeight: 21,
   },
-  leaf: {
-    position: "absolute",
-    width: 34,
-    height: 22,
+  brand: { alignItems: "center", gap: 14 },
+  markTile: {
+    width: 84,
+    height: 84,
+    borderRadius: 24,
     backgroundColor: theme.colors.primary,
-    borderTopLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  leftLeaf: { top: 19, left: 5, transform: [{ rotate: "32deg" }] },
-  rightLeaf: { top: 30, right: 4, transform: [{ rotate: "-25deg" }] },
-  stem: {
-    position: "absolute",
-    left: 38,
-    top: 32,
-    width: 4,
-    height: 31,
-    backgroundColor: theme.colors.primaryDark,
-    transform: [{ rotate: "12deg" }],
+  markTileCompact: { width: 52, height: 52, borderRadius: 15 },
+  markGlyph: {
+    fontSize: 54,
+    lineHeight: 74,
+    fontWeight: "800",
+    color: theme.colors.onPrimary,
+    includeFontPadding: true,
+  },
+  markGlyphCompact: { fontSize: 32, lineHeight: 46 },
+  wordmark: { alignItems: "center", gap: 2 },
+  brandName: {
+    fontSize: 34,
+    lineHeight: 48,
+    fontWeight: "800",
+    color: theme.colors.primaryDark,
+    includeFontPadding: true,
+  },
+  brandNameCompact: { fontSize: 24, lineHeight: 34 },
+  brandLatin: {
+    fontSize: 12,
+    lineHeight: 17,
+    fontWeight: "600",
+    letterSpacing: 2,
+    color: theme.colors.muted,
   },
 });

@@ -1,0 +1,103 @@
+# Additional festival, jewellery, clothing, cleaning, personal care and grocery items.
+@category|puja
+@sub|idols-frames
+Mahalakshmi Idol|महालक्ष्मी मूर्ति|महालक्ष्मी मूर्ती|mahalaxmi murti||^LAKSHMI_IDOL
+Ganpati Idol Small|छोटी गणेश मूर्ति|लहान गणपती मूर्ती|||^GANPATI_IDOL
+Ganpati Idol Big|बड़ी गणेश मूर्ति|मोठी गणपती मूर्ती|||^GANPATI_IDOL
+Brass Ganesh Idol|पीतल गणेश मूर्ति|पितळी गणपती मूर्ती|||^GANPATI_IDOL
+Vitthal Photo|विट्ठल फोटो|विठ्ठल फोटो|vithoba photo||^GOD_PHOTO_FRAME
+Shiv Parvati Idol|शिव पार्वती मूर्ति|शिव पार्वती मूर्ती|||
+Ram Darbar Idol|राम दरबार मूर्ति|राम दरबार मूर्ती|||
+Jyotiba Photo|ज्योतिबा फोटो|ज्योतिबा फोटो
+Tuljabhavani Photo|तुलजाभवानी फोटो|तुळजाभवानी फोटो
+Gajanan Maharaj Photo|गजानन महाराज फोटो|गजानन महाराज फोटो|shegaon
+@sub|puja-samagri
+Sankranti Sugad|संक्रांति सुगड़|संक्रांतीचे सुगड|sugad,sankranti pots|set
+Diwali Pantya Set|दिवाली दीया सेट|दिवाळी पणत्या संच|||^CLAY_DIYA
+Designer Diya|डिज़ाइनर दीया|डिझायनर पणती|||^CLAY_DIYA
+Rangoli Colours Set|रंगोली रंग सेट|रांगोळी रंग संच|||^RANGOLI_POWDER
+Diwali Faral Box|दिवाली फराल डिब्बा|दिवाळी फराळ बॉक्स|faral box|box,kg
+Navratri Chunri|नवरात्रि चुनरी|नवरात्र चुनरी|chunri,devi odhani|piece
+Devi Saree|देवी साड़ी|देवीची साडी|||
+
+@category|jewellery
+@sub|traditional-jewellery
+Silver Payal|चांदी की पायल|चांदीचे पैंजण|||^PAYAL
+Silver Jodvi|चांदी की बिछिया|चांदीची जोडवी|||^JODVI
+Silver Kada|चांदी का कड़ा|चांदीचे कडे|||^KADA
+Gold Plated Necklace|गोल्ड प्लेटेड हार|गोल्ड प्लेटेड हार|||^NECKLACE
+Pearl Necklace|मोती का हार|मोत्यांचा हार|moti har||^NECKLACE
+Bridal Jewellery Set|दुल्हन आभूषण सेट|वधू दागिने संच|||^NECKLACE
+Nath Pearl|मोती नथ|मोत्याची नथ|||^NATH
+Brahmani Nath|ब्राह्मणी नथ|ब्राह्मणी नथ|||^NATH
+Peshwai Nath|पेशवाई नथ|पेशवाई नथ|||^NATH
+Kolhapuri Thushi|कोल्हापुरी ठुशी|कोल्हापुरी ठुशी|||^THUSHI
+Black Bead Necklace|काले मोती का हार|काळ्या मण्यांची पोत|pot,mani mala
+Gents Ring|पुरुषों की अंगूठी|पुरुषांची अंगठी|||^RING
+Ladies Ring|महिलाओं की अंगूठी|महिलांची अंगठी|||^RING
+Nose Pin|नाक की कील|चमकी (नाक)|nose stud,chamki|piece
+Hair Juda Pin|जूड़ा पिन|अंबाडा पिन|ambada pin|piece,packet
+
+@category|clothing
+@sub|home-textiles
+Ghongadi Small|छोटी गोंगड़ी|लहान घोंगडी|||^GONGADI
+Jute Rug|जूट गलीचा|ज्यूट गालिचा|||^CARPET
+Prayer Mat|नमाज़ चटाई|नमाज चटई|janamaz||
+Bedsheet Double|डबल चादर|डबल बेडशीट|||^BEDSHEET
+Bedsheet Single|सिंगल चादर|सिंगल बेडशीट|||^BEDSHEET
+Cotton Blanket|सूती कम्बल|सुती ब्लँकेट|||^BLANKET
+Woollen Blanket|ऊनी कम्बल|लोकरी ब्लँकेट|||^BLANKET
+Fleece Blanket|फ़्लीस कम्बल|फ्लीस ब्लँकेट|||^BLANKET
+Coir Mattress|नारियल जटा गद्दा|काथ्याची गादी|||^MATTRESS
+Foam Mattress|फोम गद्दा|फोम गादी|||^MATTRESS
+Pillow Cotton|रुई तकिया|कापसाची उशी|||^PILLOW
+Mosquito Net Double|डबल मच्छरदानी|डबल मच्छरदाणी|||^MOSQUITO_NET
+
+@category|household-cleaning
+@sub|cleaning
+Lemon Dishwash Bar|नींबू बर्तन साबुन|लिंबू भांडी साबण|||^DISHWASH_BAR
+Ash Dishwash Powder|राख बर्तन पाउडर|राख (भांडी घासण्यासाठी)|rakh,ash for utensils|kg,packet
+Brass Cleaner Powder|पीतल साफ़ करने का पाउडर|पितळ साफ करण्याची पावडर|brass polish|g,packet
+Drain Cleaner|नाली क्लीनर|ड्रेन क्लीनर|||
+Sponge|स्पंज|स्पंज|sponge|piece,packet
+Bottle Cleaning Brush|बोतल साफ़ करने का ब्रश|बाटली साफ करण्याचा ब्रश|bottle brush
+Floor Brush|फ़र्श ब्रश|फरशी ब्रश|scrubbing brush
+Toilet Plunger|प्लंजर|प्लंजर|||
+Dish Drying Rack|बर्तन सुखाने का स्टैंड|भांडी वाळवणी स्टँड|||^KITCHEN_RACK
+
+@category|personal-care
+@sub|hair-care
+Hibiscus Hair Oil|गुड़हल हेयर ऑयल|जास्वंद केस तेल|jaswand tel||^HAIR_OIL
+Onion Hair Oil|प्याज हेयर ऑयल|कांदा केस तेल|||^HAIR_OIL
+Neelibhringadi Oil|नीलीभृंगादि तेल|नीलीभृंगादी तेल|||
+Henna Natural|प्राकृतिक मेहंदी|नैसर्गिक मेंदी|||^MEHENDI_POWDER
+Indigo Powder|नील पाउडर|नीळ पावडर (केस)|||
+Lice Comb|जूँ कंघी|उवांचा कंगवा|lice comb|piece
+@sub|oral-care
+Herbal Toothpaste|हर्बल टूथपेस्ट|हर्बल टूथपेस्ट|||^TOOTHPASTE
+Charcoal Toothpaste|चारकोल टूथपेस्ट|चारकोल टूथपेस्ट|||^TOOTHPASTE
+Kids Toothpaste|बच्चों का टूथपेस्ट|मुलांची टूथपेस्ट|||^TOOTHPASTE
+Kids Toothbrush|बच्चों का टूथब्रश|मुलांचा टूथब्रश|||^TOOTHBRUSH
+Bamboo Toothbrush|बांस का टूथब्रश|बांबू टूथब्रश|||^TOOTHBRUSH
+Electric Toothbrush|इलेक्ट्रिक टूथब्रश|इलेक्ट्रिक टूथब्रश|||^TOOTHBRUSH
+
+@category|groceries
+@sub|staples-misc
+Sabudana Small|छोटा साबूदाना|बारीक साबुदाणा|||^SAGO
+Rava Upma|उपमा रवा|उपम्याचा रवा|||^SEMOLINA
+Kokum Syrup|कोकम सिरप|कोकम सरबत सिरप|||^KOKUM_SHARBAT
+Amla Candy Masala|मसाला आंवला कैंडी|मसाला आवळा कँडी|||^AMLA_CANDY
+Tamarind Candy|इमली कैंडी (बर्फी)|चिंच कँडी|||^IMLI_CANDY
+@sub|condiments
+Garlic Paste|लहसुन पेस्ट|लसूण पेस्ट|lahsun paste|g,jar,bottle
+Ginger Paste|अदरक पेस्ट|आले पेस्ट|adrak paste|g,jar,bottle
+Tomato Puree|टमाटर प्यूरी|टोमॅटो प्युरी|tomato puree|g,packet,bottle
+
+@category|beverages
+@sub|juices-drinks
+Buttermilk Pouch|छाछ पाउच|ताक पिशवी|taak pishvi||^BUTTERMILK
+Lassi Pouch|लस्सी पाउच|लस्सी पिशवी|||^LASSI
+Flavoured Soda|फ़्लेवर्ड सोडा|फ्लेवर्ड सोडा|||^SODA
+Lemon Soda|नींबू सोडा|लिंबू सोडा|nimbu soda||^SODA
+Jeera Soda|जीरा सोडा|जिरा सोडा|||^SODA
+Herbal Kadha Drink|हर्बल काढ़ा|हर्बल काढा|||^KADHA_MIX

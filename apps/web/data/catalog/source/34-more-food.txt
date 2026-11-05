@@ -1,0 +1,133 @@
+# More regional dishes, sweets, snacks and fresh juices sold by home cooks and local stalls.
+@category|homemade-food
+
+@sub|maharashtrian-dishes|Maharashtrian Dishes|महाराष्ट्रीयन व्यंजन|महाराष्ट्रीय पदार्थ|plate,kg,piece
+Bharli Bhendi|भरवां भिंडी|भरली भेंडी|stuffed bhindi|plate,kg
+Batata Bhaji|आलू की सूखी सब्ज़ी|बटाट्याची भाजी|aloo sabzi,batata bhaji|plate,kg
+Matar Usal|मटर उसल|वाटाण्याची उसळ|vatana usal|plate,kg
+Chawli Usal|लोबिया उसल|चवळीची उसळ|chavli usal|plate,kg
+Kat Vada|कट वड़ा|कट वडा|kat vada,kolhapuri kat vada|plate
+Kolambi Bhat|झींगा भात|कोळंबी भात|prawn pulao|plate
+Tisrya Masala|सीपी मसाला|तिसऱ्या मसाला|clams masala|plate
+Khekda Curry|केकड़ा करी|खेकडा रस्सा|crab curry|plate
+Bombil Fry|बोंबिल फ्राई|बोंबील फ्राय|bombil fry|plate
+Surmai Fry|सुरमई फ्राई|सुरमई फ्राय|surmai fry|plate
+Bangda Fry|बांगड़ा फ्राई|बांगडा फ्राय|bangda fry|plate
+Saoji Chicken|सावजी चिकन|सावजी चिकन|saoji chicken|plate,kg
+Saoji Mutton|सावजी मटन|सावजी मटण|saoji mutton|plate,kg
+Mutton Kolhapuri|मटन कोल्हापुरी|कोल्हापुरी मटण|kolhapuri mutton|plate,kg
+Patodi|पाटोड़ी|पाटवडी|patvadi,patodi
+Valache Birde|वाल का बिरड़ा|वालाचे बिरडे|birde,dalimbi usal|plate,kg
+Upvas Thali|व्रत थाली|उपवासाची थाळी|fasting thali|plate
+Ukad|उकड|उकड|ukad,tandalachi ukad|plate
+Kombdi Rassa|मुर्गी रस्सा|कोंबडी रस्सा|chicken rassa gavran|plate,kg
+Gavran Chicken Thali|देसी चिकन थाली|गावरान चिकन थाळी|gavran thali|plate
+Mutton Thali|मटन थाली|मटण थाळी|mutton thali|plate
+Chicken Thali|चिकन थाली|चिकन थाळी|chicken thali|plate
+Bhaji Pav|भजी पाव|भजी पाव|bhajji pav
+Vada Usal|वड़ा उसल|वडा उसळ|vada usal|plate
+Sambar|सांभर|सांबार|sambar|litre,plate
+Rasam|रसम|सार|saar,rasam|litre,plate
+Kokum Saar|कोकम सार|कोकम सार|kokum saar|litre,plate
+Tomato Saar|टमाटर सार|टोमॅटो सार|tomato saar|litre,plate
+Taak Bhat|छाछ चावल|ताकभात|curd rice,dahi bhat|plate
+Dahi Bhat|दही चावल|दहीभात|curd rice|plate
+Fodnicha Bhat|तड़का चावल|फोडणीचा भात|fried rice maharashtrian|plate
+Zunka Bhakar|झुनका भाकर|झुणका भाकर|zunka bhakar|plate
+Ambadi Bhaji|अम्बाड़ी सब्ज़ी|अंबाडीची भाजी|||
+
+@sub|indian-dishes|Popular Indian Dishes|लोकप्रिय भारतीय व्यंजन|लोकप्रिय भारतीय पदार्थ|plate,kg
+Paneer Butter Masala|पनीर बटर मसाला|पनीर बटर मसाला|paneer makhani
+Palak Paneer|पालक पनीर|पालक पनीर|palak paneer
+Shahi Paneer|शाही पनीर|शाही पनीर|shahi paneer
+Kadai Paneer|कड़ाही पनीर|कढाई पनीर|kadai paneer
+Mix Veg|मिक्स वेज|मिक्स व्हेज|mixed vegetable
+Dal Makhani|दाल मखनी|दाल मखनी|dal makhani
+Butter Chicken|बटर चिकन|बटर चिकन|murgh makhani
+Chicken Tikka|चिकन टिक्का|चिकन टिक्का|tikka
+Tandoori Chicken|तंदूरी चिकन|तंदुरी चिकन|tandoori
+Chicken Lollipop|चिकन लॉलीपॉप|चिकन लॉलीपॉप|lollipop
+Fried Rice|फ्राइड राइस|फ्राईड राईस|veg fried rice
+Hakka Noodles|हक्का नूडल्स|हक्का नूडल्स|chowmein
+Manchurian|मंचूरियन|मंचुरियन|gobi manchurian,veg manchurian
+Pizza|पिज़्ज़ा|पिझ्झा|pizza
+Burger|बर्गर|बर्गर|burger
+Chole Bhature|छोले भटूरे|छोले भटुरे|chole bhature
+Pani Puri Kit|पानी पूरी किट|पाणीपुरी किट|panipuri kit|set,packet
+Kebab|कबाब|कबाब|seekh kebab
+Shawarma|शवरमा|शवर्मा|shawarma
+Egg Roll|अंडा रोल|अंडा रोल|egg frankie
+Omelette Pav|ऑमलेट पाव|ऑम्लेट पाव|amlet pav
+Bhurji Pav|भुर्जी पाव|भुर्जी पाव|anda bhurji pav
+Chicken Soup|चिकन सूप|चिकन सूप
+Mutton Soup|मटन सूप|मटण सूप|paya soup
+Tomato Soup|टमाटर सूप|टोमॅटो सूप
+
+@category|sweets
+@sub|barfi-halwa
+Doda Barfi|डोडा बर्फी|डोडा बर्फी|doda burfi
+Bal Mithai|बाल मिठाई|बाल मिठाई|bal mithai
+Malai Sandwich|मलाई सैंडविच|मलाई सँडविच
+Rasmadhuri|रसमाधुरी|रसमाधुरी
+Kaju Pista Roll|काजू पिस्ता रोल|काजू पिस्ता रोल|||^KAJU_ROLL
+Coconut Ladoo Jaggery|गुड़ नारियल लड्डू|गुळ खोबरे लाडू|||^COCONUT_LADOO
+Narali Vadi|नारियल वड़ी|नारळ वडी|naral vadi,coconut vadi
+Khobra Vadi|खोपरा वड़ी|खोबरा वडी|khobra vadi
+Rava Coconut Ladoo|रवा नारियल लड्डू|रवा नारळ लाडू|||^RAVA_LADOO
+Shrikhand Puri|श्रीखंड पूरी|श्रीखंड पुरी|shrikhand puri|plate
+Aamras Puri|आमरस पूरी|आमरस पुरी|aamras puri|plate
+Gul Ladoo|गुड़ लड्डू|गुळाचे लाडू|||
+Kaju Barfi|काजू बर्फी|काजू बर्फी|||^KAJU_KATLI
+Pista Barfi|पिस्ता बर्फी|पिस्ता बर्फी|pistachio burfi
+Badam Barfi|बादाम बर्फी|बदाम बर्फी|almond burfi
+Walnut Barfi|अखरोट बर्फी|अक्रोड बर्फी|||
+Apple Barfi|सेब बर्फी|सफरचंद बर्फी|||
+Carrot Barfi|गाजर बर्फी|गाजर बर्फी|||
+Kheer Kadam|खीर कदम|खीर कदम
+Sutarfeni|सुतरफेनी|सुतरफेणी|sutarfeni,feni
+Phenya|फेनी|फेण्या|pheni,phenya
+Dudhi Barfi|लौकी बर्फी|दुधी बर्फी|||
+Rajbhog|राजभोग|राजभोग
+Tilachi Vadi|तिल की वड़ी|तिळाची वडी|til vadi
+Shengdana Vadi|मूंगफली वड़ी|शेंगदाणा वडी|||
+Rava Barfi|रवा बर्फी|रवा बर्फी
+Kesari Halwa|केसरी हलवा|केशरी शिरा|||
+
+@category|farsan-snacks
+@sub|diwali-faral
+Aloo Bhujia|आलू भुजिया|आलू भुजिया|bhujia
+Navratan Mix|नवरत्न मिक्सचर|नवरत्न मिक्सचर|navrattan
+Khatta Meetha Mix|खट्टा मीठा|खट्टा मीठा|khatta meetha
+Chana Choor|चना चूर|चणा चूर|chana chur
+Diet Chivda|डाइट चिवड़ा|डाएट चिवडा
+Corn Mixture|मक्का मिक्सचर|मका मिक्सचर|||
+Kaju Mixture|काजू मिक्सचर|काजू मिक्सचर
+Soya Chivda|सोया चिवड़ा|सोया चिवडा
+Lasun Chivda|लहसुन चिवड़ा|लसूण चिवडा|garlic chivda||^POHA_CHIVDA
+Bhel Puri Mix Dry|भेल मिक्स सूखा|सुकी भेळ|sukhi bhel||^BHEL_MIX
+Chakli Mini|मिनी चकली|छोटी चकली|||^CHAKLI
+Methi Mathri|मेथी मठरी|मेथी मठरी|||^MATHRI
+Masala Khakhra|मसाला खाखरा|मसाला खाकरा|||^KHAKHRA
+Jeera Khakhra|जीरा खाखरा|जिरे खाकरा|||^KHAKHRA
+Banana Chips Masala|मसाला केले चिप्स|मसाला केळी वेफर्स|||^BANANA_CHIPS
+Sweet Banana Chips|मीठे केले चिप्स|गोड केळी वेफर्स|sharkara varatti||^BANANA_CHIPS
+Karela Chips|करेला चिप्स|कारले चिप्स
+Bhindi Kurkuri|कुरकुरी भिंडी|कुरकुरीत भेंडी|kurkuri bhindi
+
+@category|beverages
+@sub|fresh-juices|Fresh Juices|ताज़ा जूस|ताजे ज्यूस|bottle,litre,ml
+@pattern|{en} Juice|{hi} का जूस|{mr} ज्यूस
++PINEAPPLE
++PAPAYA
++MUSKMELON
++GRAPES
++APPLE
++GUAVA
++SAPOTA
++STRAWBERRY
++CARROT
++BEETROOT
++CUCUMBER
++TOMATO
++LITCHI
++DRAGON_FRUIT

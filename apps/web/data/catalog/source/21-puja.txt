@@ -1,0 +1,113 @@
+# Puja essentials, idols, festival ritual items.
+@category|puja|puja|Puja Essentials|पूजा सामग्री|पूजा साहित्य
+
+@sub|puja-samagri|Puja Samagri|पूजा सामग्री|पूजा साहित्य|piece,packet,g
+Agarbatti|अगरबत्ती|अगरबत्ती|agarbatti,incense sticks,udbatti|packet,box,piece
+Dhoop|धूप|धूप|dhoop sticks,dhoop batti|packet,box
+Dhoop Cones|धूप कोन|धूप कोन|||^DHOOP
+Sambrani|सांब्राणी|सांब्राणी|loban,sambrani cups|packet,box
+Loban|लोबान|ऊद|loban,benzoin|g,packet
+Camphor|कपूर|कापूर|kapur,kapoor,camphor|g,packet,box
+Bhimseni Camphor|भीमसेनी कपूर|भीमसेनी कापूर|edible camphor||^CAMPHOR
+Kumkum|कुमकुम|कुंकू|kumkum,kunku,roli,sindoor|g,packet,box
+Haldi Kumkum Set|हल्दी कुमकुम सेट|हळद कुंकू संच|haldi kunku|set,box
+Sindoor|सिंदूर|शेंदूर|sindoor,shendur|g,packet,box
+Gulal|गुलाल|गुलाल|gulal|kg,g,packet
+Bukka|बुक्का|बुक्का|bukka,black abir|g,packet
+Abir|अबीर|अबीर|abir|g,packet
+Ashtagandha|अष्टगंध|अष्टगंध|ashtagandh|g,packet,box
+Chandan Powder|चंदन पाउडर|चंदन पावडर|sandalwood powder,gandh|g,packet,box
+Sandalwood Stick|चंदन की लकड़ी|चंदनाचे खोड|chandan khod,gandh khod|piece,g
+Vibhuti|विभूति|विभूती|bhasma,vibhuti|g,packet
+Akshata|अक्षत|अक्षता|akshat,akshata|g,packet
+Cotton Wicks|रुई की बत्ती|कापसाच्या वाती|vati,batti,diya wicks,phulvat|packet,box
+Long Wicks|लंबी बत्ती|फुलवाती|phulvati,long vati||^COTTON_WICKS
+Ghee Wicks|घी की बत्ती|तुपाच्या वाती|tupachya vati|packet,box
+Janeu|जनेऊ|जानवे|janeu,janve,sacred thread|piece,packet
+Kalava|कलावा|नाडापुडी|mauli,kalawa,nadapudi,raksha sutra|piece,packet
+Supari for Puja|पूजा सुपारी|पूजेची सुपारी|puja supari|piece,packet,g
+Shrifal|श्रीफल|श्रीफळ|shriphal,puja coconut|piece
+Gangajal|गंगाजल|गंगाजल|ganga jal|bottle,ml
+Havan Samagri|हवन सामग्री|होम साहित्य|havan samagri,hom|packet,kg
+Havan Wood|हवन लकड़ी|होमाच्या समिधा|samidha,havan lakdi|bundle,kg
+Guggul|गुग्गुल|गुग्गुळ|guggul|g,packet
+Puja Kit|पूजा किट|पूजा साहित्य संच|puja samagri kit|set,box
+Satyanarayan Puja Kit|सत्यनारायण पूजा किट|सत्यनारायण पूजा साहित्य|||^PUJA_KIT
+Ganpati Puja Kit|गणपति पूजा किट|गणपती पूजा साहित्य|||^PUJA_KIT
+Lakshmi Puja Kit|लक्ष्मी पूजा किट|लक्ष्मीपूजन साहित्य|||^PUJA_KIT
+Griha Pravesh Puja Kit|गृह प्रवेश पूजा किट|गृहप्रवेश पूजा साहित्य|||^PUJA_KIT
+Navratri Puja Kit|नवरात्रि पूजा किट|नवरात्र पूजा साहित्य|ghatasthapana kit||^PUJA_KIT
+Rangoli Powder|रंगोली|रांगोळी|rangoli,rangoli colours|kg,g,packet
+White Rangoli|सफ़ेद रंगोली|पांढरी रांगोळी|white rangoli powder||^RANGOLI_POWDER
+Rangoli Stencil|रंगोली स्टेंसिल|रांगोळी छापा|rangoli chapa,rangoli sancha|piece,set
+Puja Flowers Mix|पूजा फूल|पूजेची फुले|puja phool|packet,kg
+Tulsi Mala|तुलसी माला|तुळशीची माळ|tulsi beads|piece
+Rudraksha Mala|रुद्राक्ष माला|रुद्राक्ष माळ|rudraksh|piece
+Rudraksha Bead|रुद्राक्ष|रुद्राक्ष|ek mukhi,panch mukhi|piece
+Japa Mala|जप माला|जपमाळ|jaap mala|piece
+Sphatik Mala|स्फटिक माला|स्फटिक माळ|crystal mala|piece
+Gomutra Ark|गोमूत्र अर्क|गोमूत्र अर्क|gomutra ark|bottle
+Cotton Vastra|कापस वस्त्र|कापसाचे वस्त्र|kapus vastra,vastra mala|piece,packet
+Bhog Prasad Box|प्रसाद डिब्बा|प्रसाद बॉक्स|prasad box|piece,packet
+
+@sub|idols-frames|Idols and Frames|मूर्तियाँ और फ्रेम|मूर्ती आणि फोटो फ्रेम|piece
+Ganpati Idol|गणेश मूर्ति|गणपती मूर्ती|ganesh murti,ganpati bappa,ganesh idol
+Shadu Clay Ganpati|शाडू मिट्टी गणपति|शाडू मातीचा गणपती|shadu ganpati,eco friendly ganpati||^GANPATI_IDOL
+POP Ganpati|पीओपी गणपति|पीओपी गणपती|plaster of paris ganpati||^GANPATI_IDOL
+Gauri Idol|गौरी मूर्ति|गौरी मुखवटे|gauri mukhavte,mahalakshmi mukhavte|piece,pair,set
+Lakshmi Idol|लक्ष्मी मूर्ति|लक्ष्मी मूर्ती|laxmi murti
+Durga Idol|दुर्गा मूर्ति|दुर्गा देवी मूर्ती|devi murti,navratri devi
+Krishna Idol|कृष्ण मूर्ति|कृष्ण मूर्ती|bal gopal,laddu gopal
+Hanuman Idol|हनुमान मूर्ति|हनुमान मूर्ती|maruti murti
+Shivling|शिवलिंग|शिवलिंग|shivling,shiv pind
+Nandi Idol|नंदी मूर्ति|नंदी मूर्ती|nandi
+Vitthal Rukmini Idol|विट्ठल रुक्मिणी मूर्ति|विठ्ठल रखुमाई मूर्ती|vithoba,vitthal murti|piece,set
+Sai Baba Idol|साईं बाबा मूर्ति|साईबाबा मूर्ती|sai baba murti
+Khandoba Idol|खंडोबा मूर्ति|खंडोबा मूर्ती|khandoba,malhari
+Balaji Idol|बालाजी मूर्ति|बालाजी मूर्ती|venkateshwara
+Buddha Statue|बुद्ध मूर्ति|बुद्ध मूर्ती|buddha murti
+Panchdhatu Idol|पंचधातु मूर्ति|पंचधातू मूर्ती|panchdhatu
+Annapurna Idol|अन्नपूर्णा मूर्ति|अन्नपूर्णा मूर्ती|annapurna
+Dattatreya Idol|दत्तात्रेय मूर्ति|दत्त मूर्ती|datta murti
+God Photo Frame|भगवान की फोटो फ्रेम|देवाचा फोटो|devacha photo,god frame
+Swami Samarth Photo|स्वामी समर्थ फोटो|स्वामी समर्थ फोटो|swami samarth
+Shivaji Maharaj Statue|शिवाजी महाराज मूर्ति|शिवाजी महाराज पुतळा|shivaji maharaj murti,shivray
+Dr Ambedkar Statue|डॉ आंबेडकर मूर्ति|डॉ. आंबेडकर पुतळा|babasaheb murti
+Kalash|कलश|कलश|kalash,tambya kalash
+Shankh|शंख|शंख|shankh,conch
+Puja Ghanti|पूजा घंटी|पूजेची घंटा|ghanti,bell
+Tamhan|ताम्हन|ताम्हण|tamhan,copper plate
+Panchpatra Achamani|पंचपात्र आचमनी|पळी पंचपात्र|pali panchpatra|set
+Puja Thali|पूजा थाली|पूजेचे ताट|puja tat,aarti thali
+Aarti Diya|आरती दीया|निरांजन|niranjan,aarti diya
+Samai|समई|समई|samai,brass lamp
+Panchaarti|पंचआरती|पंचारती|panch aarti
+Brass Diya|पीतल दीया|पितळी दिवा|brass diva
+Clay Diya|मिट्टी के दीये|मातीच्या पणत्या|panti,panati,diya,diwali diya|piece,dozen,packet
+Akhand Diya|अखंड दीया|अखंड दीप|nanda deep,akhand jyot
+Puja Chowki|पूजा चौकी|पाट|pat,chowrang,puja chouki
+Chourang|चौरंग|चौरंग|chaurang
+Devghar|मंदिर|देव्हारा|devhara,home temple,mandir
+Wooden Mandir|लकड़ी का मंदिर|लाकडी देव्हारा|||^DEVGHAR
+Agarbatti Stand|अगरबत्ती स्टैंड|अगरबत्ती स्टँड|udbatti ghar
+Toran|तोरण|तोरण|toran,door toran
+Ganpati Makhar|गणपति मखर|गणपती मखर|makhar,ganpati decoration
+Mukut|मुकुट|मुकुट|god crown|piece
+Deity Clothes|भगवान के वस्त्र|देवांचे कपडे|god dress,poshak|piece,set
+Bal Gopal Jhula|लड्डू गोपाल झूला|बाळकृष्ण पाळणा|krishna palna,jhula
+Bhagwa Flag|भगवा झंडा|भगवा झेंडा|bhagwa dhwaj,saffron flag|piece
+Gudi Kit|गुढ़ी सामग्री|गुढी साहित्य|gudi padwa,gudi|set
+Gathi Garland|शक्कर की माला|साखरेची गाठी|gathi,sakharechi gathi|piece,kg
+Tulsi Vrindavan|तुलसी वृंदावन|तुळशी वृंदावन|tulsi kunda,tulsi pot
+Rakhi|राखी|राखी|rakhi,rakshabandhan|piece,dozen
+Hartalika Puja Set|हरतालिका सामग्री|हरतालिका साहित्य|hartalika||
+Vat Purnima Puja Kit|वट पूर्णिमा सामग्री|वटपौर्णिमा साहित्य|vat savitri||
+Holi Colours|होली के रंग|होळीचे रंग|holi rang,herbal gulal|kg,g,packet
+Pichkari|पिचकारी|पिचकारी|water gun|piece
+Diwali Kandil|आकाश कंदील|आकाशकंदील|akash kandil,kandil,lantern|piece
+Paper Lantern|कागज़ की लालटेन|कागदी कंदील|||^DIWALI_KANDIL
+Diwali Lights|दिवाली लाइट्स|दिवाळी लाइटिंग|serial lights,tora lights|piece,metre
+Firecrackers|पटाखे|फटाके|phatake,crackers,fataka|box,packet
+Sparklers|फुलझड़ी|फुलबाजी|phuljhadi,phulbaji|box,packet|^FIRECRACKERS
+Anar Crackers|अनार पटाखा|अनार (फटाका)|flower pot crackers|box,piece|^FIRECRACKERS
+Chakri Crackers|चकरी पटाखा|भुईचक्र|bhuichakra,chakri|box|^FIRECRACKERS

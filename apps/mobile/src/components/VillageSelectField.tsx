@@ -39,7 +39,7 @@ export function VillageSelectField({
     enabled: open && !offline,
   });
   const villageName = (village: MobileVillage) =>
-    language === "mr" ? village.nameMr : village.name;
+    language !== "en" ? village.nameMr : village.name;
   return (
     <>
       <DropdownField

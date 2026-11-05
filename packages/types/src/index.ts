@@ -1,4 +1,4 @@
-export type MobileLanguage = "mr" | "en";
+export type MobileLanguage = "mr" | "en" | "hi";
 export type ApiSuccess<T> = { success: true; data: T };
 export type ApiFailure = {
   success: false;
@@ -57,6 +57,7 @@ export type MobileListing = {
   id: string;
   productName: string;
   productNameMr: string | null;
+  productNameHi: string | null;
   description: string | null;
   photoUrl: string | null;
   isDemo: boolean;
@@ -98,12 +99,23 @@ export type ListingProductGroup =
   | "farm_products"
   | "dairy"
   | "eggs_poultry"
-  | "homemade";
+  | "homemade"
+  | "groceries"
+  | "meat_fish"
+  | "plants_garden"
+  | "farm_inputs"
+  | "livestock"
+  | "puja"
+  | "household"
+  | "personal_care"
+  | "clothing"
+  | "handicrafts";
 export type MasterProduct = {
   productId: string;
   code: string;
   nameMr: string;
   nameEn: string;
+  nameHi: string | null;
   productGroup: ListingProductGroup;
   defaultUnit: string;
   status: "ACTIVE" | "INACTIVE";
@@ -136,6 +148,7 @@ export type OwnedListing = {
   productId?: string | null;
   productName: string;
   productNameMr: string | null;
+  productNameHi: string | null;
   description: string | null;
   categoryId: string | null;
   category: string | null;

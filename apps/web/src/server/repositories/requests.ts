@@ -4,6 +4,7 @@ import type { requestsQuerySchema } from "@gaavli/validation";
 import { indianMobileSchema } from "@gaavli/validation";
 import { ListingInterest } from "../models/listing-interest";
 import { Notification, User, Village, Listing, Category } from "../models";
+import { ProductMaster } from "../models/product-master";
 import { listingPhotoUrl } from "../providers/listing-photos";
 
 export function requestState(row: {
@@ -49,7 +50,7 @@ export async function findActivityRequests(
       .lean(),
     Listing.find({ _id: { $in: rows.map((row) => row.data!.listingId!) } })
       .select(
-        "productName productNameMr photoObjectKey unit seller village status quantity expiresAt category isDemo",
+        "productId productName productNameMr photoObjectKey unit seller village status quantity expiresAt category isDemo",
       )
       .lean(),
   ]);
@@ -63,6 +64,15 @@ export async function findActivityRequests(
   })
     .select("nameEn nameMr isActive")
     .lean();
+  const hindiNames = new Map(
+    (
+      await ProductMaster.find({
+        _id: { $in: listings.flatMap((row) => row.productId || []) },
+      })
+        .select("nameHi")
+        .lean()
+    ).map((product) => [String(product._id), product.nameHi || null]),
+  );
   const categories = await Category.find({ status: "INACTIVE" })
     .select("code")
     .lean();
@@ -135,6 +145,10 @@ export async function findActivityRequests(
             data.productName !== undefined
               ? data.productNameMr || null
               : listing?.productNameMr || null,
+          // Hindi is always read from the current master product.
+          nameHi: listing?.productId
+            ? hindiNames.get(String(listing.productId)) || null
+            : null,
           photoUrl: listingPhotoUrl(
             data.productName !== undefined
               ? data.photoObjectKey

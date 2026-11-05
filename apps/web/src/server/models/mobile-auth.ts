@@ -1,11 +1,12 @@
 import mongoose, { Schema, type InferSchemaType } from "mongoose";
+import { MOBILE_LANGUAGES } from "@gaavli/constants";
 
 const challengeSchema = new Schema({
   mobile: { type: String, required: true, unique: true },
   challengeId: { type: String, required: true, unique: true },
   firstName: { type: String, default: null },
   lastName: { type: String, default: null },
-  language: { type: String, enum: ["mr", "en"], required: true },
+  language: { type: String, enum: MOBILE_LANGUAGES, required: true },
   codeHash: { type: String, required: true },
   attempts: { type: Number, required: true, default: 0 },
   expiresAt: { type: Date, required: true },

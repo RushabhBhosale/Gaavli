@@ -205,6 +205,8 @@ const notificationSchema = new Schema(
     body: { type: String, required: true },
     titleMr: String,
     bodyMr: String,
+    titleHi: String,
+    bodyHi: String,
     data: {
       listingId: { type: Schema.Types.ObjectId, ref: "Listing" },
       buyerId: { type: Schema.Types.ObjectId, ref: "User" },

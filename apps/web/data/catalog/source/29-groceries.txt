@@ -1,0 +1,74 @@
+# Packaged groceries, condiments, confectionery, frozen and ready-to-eat items (generic).
+@category|groceries|groceries|Groceries and Packaged Food|किराना और पैकेज्ड खाद्य|किराणा आणि पॅकबंद खाद्य
+
+@sub|condiments|Sauces and Condiments|सॉस और मसालेदार चीज़ें|सॉस आणि चटण्या (पॅकबंद)|bottle,g,ml,packet
+Tomato Ketchup|टमाटर केचप|टोमॅटो केचप|ketchup,tomato sauce
+Chilli Sauce|चिली सॉस|चिली सॉस|red chilli sauce,green chilli sauce
+Soy Sauce|सोया सॉस|सोया सॉस|soya sauce
+Schezwan Chutney|शेज़वान चटनी|शेजवान चटणी|schezwan sauce
+Vinegar|सिरका|व्हिनेगर|sirka,vinegar
+Mayonnaise|मेयोनेज़|मेयोनीज|mayo
+Peanut Butter|पीनट बटर|पीनट बटर|peanut butter
+Chocolate Spread|चॉकलेट स्प्रेड|चॉकलेट स्प्रेड
+Mustard Sauce|मस्टर्ड सॉस|मस्टर्ड सॉस|kasundi
+Pizza Sauce|पिज़्ज़ा सॉस|पिझ्झा सॉस
+Green Chilli Paste|हरी मिर्च पेस्ट|हिरवी मिरची पेस्ट|||
+Tamarind Concentrate|इमली गाढ़ा रस|चिंचेचा कोळ|chinch kol,imli concentrate
+Gulkand|गुलकंद|गुलकंद|gulkand,rose petal jam|g,jar
+Rose Syrup|रोज़ सिरप|गुलाब सिरप|gulab sharbat syrup
+Chocolate Syrup|चॉकलेट सिरप|चॉकलेट सिरप
+
+@sub|confectionery|Chocolates and Confectionery|चॉकलेट और मिठाइयाँ|चॉकलेट आणि गोळ्या|piece,packet,box
+Chocolate|चॉकलेट|चॉकलेट|chocolate bar,chocolates
+Homemade Chocolate|घर की बनी चॉकलेट|घरगुती चॉकलेट|handmade chocolate||^CHOCOLATE
+Toffee|टॉफ़ी|गोळ्या|goli,toffee,candy
+Orange Candy|संतरा गोली|संत्र्याच्या गोळ्या|santra goli,orange goli||^TOFFEE
+Lollipop|लॉलीपॉप|लॉलीपॉप|lolly
+Chewing Gum|च्युइंग गम|च्युइंगम|bubble gum
+Mint Candy|पिपरमिंट|पेपरमिंट गोळी|peppermint,mint goli
+Imli Candy|इमली कैंडी|चिंचेची गोळी|imli goli,chinch goli
+Jelly Candy|जेली कैंडी|जेली गोळ्या|jelly sweets
+Cotton Candy|बुढ़िया के बाल|म्हातारीचे केस|cotton candy,budhiya ke baal,mhatariche kes
+Sugar Coated Saunf|रंगीन सौंफ|रंगीत बडीशेप|colour saunf||^MUKHWAS
+Rewdi|रेवड़ी|रेवडी|revdi,rewri
+Gajak|गजक|गजक|gajak,til gajak
+Murmura Chikki|मुरमुरा चिक्की|चुरमुरे चिक्की
+
+@sub|biscuits-packaged-snacks|Biscuits and Packaged Snacks|बिस्किट और पैकेज्ड स्नैक्स|बिस्किटे आणि पॅकबंद स्नॅक्स|packet,box
+Marie Biscuits|मैरी बिस्किट|मारी बिस्किट|marie
+Digestive Biscuits|डाइजेस्टिव बिस्किट|डायजेस्टिव्ह बिस्किट
+Cream Crackers|क्रीम क्रैकर|क्रीम क्रॅकर|crackers
+Wafers Biscuits|वेफ़र बिस्किट|वेफर बिस्किट
+Packaged Namkeen|पैकेट नमकीन|पॅकबंद नमकीन|namkeen packet
+Puffed Corn Snacks|मक्का पफ्स|मका पफ्स|corn puffs
+Popcorn|पॉपकॉर्न|पॉपकॉर्न|popcorn|packet,g
+Nachos|नाचोज़|नाचोस|||
+Protein Bar|प्रोटीन बार|प्रोटीन बार|energy bar
+Granola|ग्रेनोला|ग्रॅनोला
+
+@sub|ready-to-eat-frozen|Ready-to-Eat and Frozen|रेडी टू ईट और फ्रोज़न|रेडी टू ईट आणि गोठवलेले|packet,g,kg
+Frozen Green Peas|फ्रोज़न मटर|गोठवलेला वाटाणा|frozen matar,frozen peas
+Frozen Sweet Corn|फ्रोज़न स्वीट कॉर्न|गोठवलेले स्वीट कॉर्न|||
+Frozen Paratha|फ्रोज़न पराठा|गोठवलेला पराठा|||
+Frozen French Fries|फ्रोज़न फ्रेंच फ्राइज़|गोठवलेले फ्रेंच फ्राईज|fries
+Frozen Snacks|फ्रोज़न स्नैक्स|गोठवलेले स्नॅक्स|nuggets,frozen samosa||
+Ready to Eat Meal|रेडी टू ईट भोजन|रेडी टू ईट जेवण|rte meal
+Peeled Garlic|छिला लहसुन|सोललेला लसूण|peeled lahsun|kg,g,packet
+Peeled Green Peas|छिली मटर|सोललेला वाटाणा|matar dane|kg,g,packet
+Chopped Vegetables|कटी सब्ज़ियाँ|चिरलेल्या भाज्या|cut vegetables|kg,g,packet
+Ice Cubes|बर्फ़|बर्फ|barf,ice|kg,packet
+Ice Block|बर्फ़ की सिल्ली|बर्फाची लादी|barf ladi,ice slab|piece
+
+@sub|staples-misc|Kirana Staples|किराना सामान|किराणा माल|kg,g,packet
+Kattha|कत्था|काथ|kattha,katha,catechu
+Paan Chuna|चूना (पान)|चुना (पानासाठी)|chuna,slaked lime|g,packet,box
+Meetha Paan|मीठा पान|मसाला पान|paan,meetha paan|piece
+Til Gul Vadi|तिल गुड़ वड़ी|तिळगूळ वडी|||^TILGUL
+Puffed Jowar|ज्वार की लाई|ज्वारीच्या लाह्या|jowar lahya||^LAJA_LAHYA
+Honey Comb|शहद का छत्ता|मधाचे पोळे|madhache pole|piece,kg
+Kokum Agal|कोकम आगळ|कोकम आगळ|agal,kokum agal|litre,bottle
+Coconut Milk|नारियल का दूध|नारळाचे दूध|coconut milk|ml,litre,packet
+Coconut Milk Powder|नारियल दूध पाउडर|नारळ दूध पावडर|||
+Silver Varq|चांदी का वर्क|चांदीचा वर्ख|varakh,varq,silver leaf|packet,piece
+Saffron Milk Masala|केसर दूध मसाला|केशर दूध मसाला|kesar milk masala,doodh masala
+Kokum Butter|कोकम बटर|कोकम तेल|kokum oil,bhirand tel

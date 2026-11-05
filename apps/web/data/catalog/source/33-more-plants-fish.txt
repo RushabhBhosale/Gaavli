@@ -1,0 +1,100 @@
+# Additional nursery species and coastal/freshwater fish. Appends to existing subcategories.
+@category|plants
+
+@sub|ornamental-shrubs-climbers|Ornamental Shrubs and Climbers|सजावटी झाड़ियाँ और बेलें|शोभेची झुडपे आणि वेली|piece,pot
+Duranta|डुरंटा|ड्युरांटा|golden duranta,hedge duranta
+Acalypha|एकेलिफा|अकॅलिफा|acalypha
+Tecoma|टेकोमा|टेकोमा|yellow bells,tecoma stans
+Thunbergia|थनबर्जिया|थनबर्जिया|clock vine
+Bignonia|बिग्नोनिया|बिग्नोनिया
+Passion Flower Vine|कृष्ण कमल बेल|कृष्णकमळ वेल|krishna kamal
+Garlic Vine|लहसुन बेल|लसूण वेल|mansoa||
+Coral Creeper|कोरल बेल|कोरल वेल|antigonon||
+Ice Cream Creeper|आइसक्रीम बेल|आईस्क्रीम वेल|||
+Morning Glory|मॉर्निंग ग्लोरी|मॉर्निंग ग्लोरी|ipomoea
+Hamelia|हेमेलिया|हॅमेलिया|firebush
+Cuphea|कफ़िया|कुफिया|false heather||
+Tabernaemontana|चांदनी|तगर (चांदणी)|chandni,pinwheel flower||
+Jatropha Ornamental|जेट्रोफा|जट्रोफा|peregrina||
+Nerium Yellow|पीला कनेर|पिवळा कण्हेर|yellow oleander,bitti
+Golden Cypress|गोल्डन साइप्रस|गोल्डन सायप्रस
+Thuja|थूजा|थुजा|thuja,morpankhi
+Morpankhi|मोरपंखी|मोरपंखी|morpankhi,platycladus
+Bottle Palm|बोतल पाम|बॉटल पाम
+Foxtail Palm|फॉक्सटेल पाम|फॉक्सटेल पाम
+Date Palm Ornamental|खजूर पाम|खजूर पाम|phoenix palm||
+Travellers Palm|ट्रैवलर्स पाम|ट्रॅव्हलर्स पाम|ravenala
+Heliconia|हेलिकोनिया|हेलिकोनिया|heliconia
+Bird of Paradise Plant|बर्ड ऑफ पैराडाइज़ पौधा|बर्ड ऑफ पॅराडाईज रोप|||
+Canna|कैना|कर्दळ|kardal,canna lily
+Spider Lily|स्पाइडर लिली|स्पायडर लिली|hymenocallis
+Rain Lily|रेन लिली|रेन लिली|zephyranthes
+Amaryllis|एमेरिलिस|अॅमरेलिस
+Agave|एगेव|घायपात|ghaypat,agave
+Yucca|युक्का|युक्का|||
+Euphorbia Tirucalli|सेहुंड|शेर|sher,tirucalli||
+Sedum|सेडम|सेडम
+Echeveria|एचेवेरिया|एचेवेरिया
+Haworthia|हावर्थिया|हॉवर्थिया
+Kalanchoe Pinnata|पत्थरचट्टा|पानफुटी|panphuti,patharchatta,bryophyllum
+Coleus|कोलियस|कोलियस|coleus
+Pothos Marble Queen|मार्बल क्वीन मनी प्लांट|मार्बल क्वीन मनी प्लांट|||^MONEY_PLANT
+Golden Money Plant|गोल्डन मनी प्लांट|गोल्डन मनी प्लांट|||^MONEY_PLANT
+Monstera|मॉन्स्टेरा|मॉन्स्टेरा|swiss cheese plant
+Dieffenbachia|डाइफ़नबेकिया|डायफेनबॅकिया|dumb cane
+Alocasia|एलोकेसिया|अलोकेशिया|elephant ear
+Fittonia|फिटोनिया|फिटोनिया|nerve plant
+Peperomia|पेपरोमिया|पेपरोमिया
+Tradescantia|ट्रेडस्कैंटिया|ट्रेडस्कँटिया|wandering jew
+Asparagus Fern|एस्परैगस फ़र्न|अॅस्पॅरॅगस फर्न
+Boston Fern|बोस्टन फ़र्न|बोस्टन फर्न|||^FERN
+Bamboo Palm|बैम्बू पाम|बांबू पाम|||
+Raphis Palm|रैफ़िस पाम|रॅफिस पाम|lady palm
+Ficus Panda|फ़ाइकस पांडा|फायकस पांडा|||^FICUS_PLANT
+Ficus Bonsai|फ़ाइकस बोनसाई|फायकस बोन्साय|||^BONSAI
+Jade Bonsai|जेड बोनसाई|जेड बोन्साय|||^BONSAI
+Adenium Grafted|ग्राफ्टेड एडेनियम|कलम अडेनियम|||^ADENIUM
+Rose Hybrid Tea|हाइब्रिड टी गुलाब|हायब्रीड टी गुलाब|||^ROSE_PLANT
+Rose Miniature|मिनिएचर गुलाब|लघु गुलाब|button rose||^ROSE_PLANT
+Damask Rose Plant|दमस्क गुलाब पौधा|डमास्क गुलाब रोप|paneer gulab plant||^ROSE_PLANT
+Climbing Rose|बेल गुलाब|वेली गुलाब|||^ROSE_PLANT
+
+@sub|herb-spice-plants|Herb and Spice Plants|जड़ी-बूटी और मसाला पौधे|औषधी व मसाला रोपे|piece,pot
+Cardamom Plant|इलायची का पौधा|वेलची रोप|elaichi plant
+Cinnamon Plant|दालचीनी का पौधा|दालचिनी रोप|||
+Clove Plant|लौंग का पौधा|लवंग रोप|||
+Nutmeg Plant|जायफल का पौधा|जायफळ रोप|||
+Allspice Plant|ऑलस्पाइस पौधा|ऑलस्पाईस रोप|||
+Bay Leaf Plant|तेजपत्ता पौधा|तमालपत्र रोप|tej patta plant
+Turmeric Plant|हल्दी का पौधा|हळद रोप|||
+Ginger Plant|अदरक का पौधा|आले रोप|||
+Rosemary Plant|रोज़मेरी पौधा|रोझमेरी रोप|||
+Oregano Plant|ओरेगैनो पौधा|ओरेगॅनो रोप|||
+Basil Plant|तुलसी (स्वीट बेसिल) पौधा|सब्जा रोप|sweet basil plant
+Citronella Plant|सिट्रोनेला पौधा|सिट्रोनेला रोप|||
+Patchouli Plant|पचौली पौधा|पचौली रोप|||
+Khus Grass Plant|खस घास|वाळा गवत|||
+Sarpagandha Plant|सर्पगंधा पौधा|सर्पगंधा रोप|||
+Gudmar Plant|गुड़मार पौधा|गुडमार रोप|gymnema||
+
+@category|meat-fish
+@sub|fish
+Indian Halibut|भाकस|भाकस|bhakas,halibut||
+Grey Mullet|बोई|बोयरा|boi,grey mullet||
+Threadfin|रावस (दाढ़ा)|दाढा|dadha,threadfin
+Pearl Spot|करीमीन|कालुंद्र|karimeen,pearl spot||
+Sole Fish|सोल|लेप|lep,sole,repti
+Croaker|क्रोकर|घोळ (लहान)|dhoma,croaker||
+Dhoma|धोमा|धोमा|dhoma,silver jewfish
+Goby|गोबी|खरबी|kharbi||
+Bangda Dry|सूखा बांगड़ा|सुका बांगडा|dry bangda,sukha bangda||^DRIED_FISH
+Surmai Steaks|सुरमई टुकड़े|सुरमई तुकडे|surmai slices||^SEER_FISH
+Prawns Cleaned|साफ़ झींगा|साफ केलेली कोळंबी|deveined prawns||^PRAWNS
+Freshwater Crab|मीठे पानी का केकड़ा|नदीतील खेकडा|river crab,nadi khekda||^CRAB
+Sea Crab|समुद्री केकड़ा|समुद्री खेकडा|||^CRAB
+Silver Pomfret|सफ़ेद पॉम्फ्रेट|सफेद पापलेट|white pomfret||^POMFRET
+Fish Eggs|मछली के अंडे|माशांची अंडी|gaboli,roe,fish roe
+Catla Fingerlings|कतला बीज|कटला बीज|||^FISH_SEED
+Rohu Fingerlings|रोहू बीज|रोहू बीज|||^FISH_SEED
+Pangasius Fingerlings|पंगास बीज|पंगास बीज|||^FISH_SEED
+Shrimp Seed|झींगा बीज|कोळंबी बीज|vannamei seed,prawn seed||^FISH_SEED

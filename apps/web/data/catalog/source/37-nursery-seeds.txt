@@ -1,0 +1,139 @@
+# Additional nursery plants and seed packets.
+@category|plants
+@sub|flowering-plants
+Jasmine Sambac Plant|मोगरा बेला पौधा|बेला मोगरा रोप|bela||^MOGRA_PLANT
+Kunda Plant|कुंद का पौधा|कुंद रोप|kunda jasmine||
+Hibiscus Red|लाल गुड़हल|लाल जास्वंद|||^HIBISCUS_PLANT
+Hibiscus Yellow|पीला गुड़हल|पिवळी जास्वंद|||^HIBISCUS_PLANT
+Hibiscus White|सफ़ेद गुड़हल|पांढरी जास्वंद|||^HIBISCUS_PLANT
+Hibiscus Ganpati Red|गणपति गुड़हल|गणपती जास्वंद|ganpati jaswand||^HIBISCUS_PLANT
+Rose Red Plant|लाल गुलाब पौधा|लाल गुलाब रोप|||^ROSE_PLANT
+Rose Yellow Plant|पीला गुलाब पौधा|पिवळा गुलाब रोप|||^ROSE_PLANT
+Rose White Plant|सफ़ेद गुलाब पौधा|पांढरा गुलाब रोप|||^ROSE_PLANT
+Rose Pink Plant|गुलाबी गुलाब पौधा|गुलाबी गुलाब रोप|||^ROSE_PLANT
+Bougainvillea Pink|गुलाबी बोगनवेलिया|गुलाबी बोगनवेल|||^BOUGAINVILLEA
+Bougainvillea White|सफ़ेद बोगनवेलिया|पांढरी बोगनवेल|||^BOUGAINVILLEA
+Bougainvillea Orange|नारंगी बोगनवेलिया|केशरी बोगनवेल|||^BOUGAINVILLEA
+Champa White|सफ़ेद चंपा|पांढरा चाफा|||^CHAMPA_PLANT
+Nagchampa Plant|नागचंपा पौधा|नागचाफा रोप|nagchafa||
+Kavathi Champa|कवठी चंपा|कवठी चाफा|kavathi chafa||
+Hirva Chafa Plant|हरा चंपा पौधा|हिरवा चाफा रोप|hirva chafa,ylang ylang||
+Gardenia|गंधराज|गंधराज|gandhraj,gardenia
+Tuberose Double|डबल रजनीगंधा|डबल निशिगंध|||^TUBEROSE_BULBS
+Crossandra Yellow|पीली अबोली|पिवळी अबोली|||^ABOLI_PLANT
+Marigold African|अफ़्रीकी गेंदा|आफ्रिकन झेंडू|||
+Marigold French|फ्रेंच गेंदा|फ्रेंच झेंडू|||
+Aparajita Plant|अपराजिता पौधा|गोकर्ण वेल|gokarna vel||
+Shankhpushpi Plant|शंखपुष्पी पौधा|शंखपुष्पी रोप|||
+Kaner White|सफ़ेद कनेर|पांढरी कण्हेर|||^KANHER_PLANT
+Parijatak Dwarf|बौना पारिजात|बुटका पारिजातक|||
+Mussaenda Pink|गुलाबी मुसेंडा|गुलाबी मुसांडा|||
+Lily White|सफ़ेद लिली|पांढरी लिली|||
+Water Hyacinth Ornamental|जलकुंभी|जलपर्णी|||
+@sub|indoor-ornamental
+Snake Plant Laurentii|स्नेक प्लांट लॉरेंटी|स्नेक प्लांट लॉरेंटी|||^SNAKE_PLANT
+Snake Plant Dwarf|बौना स्नेक प्लांट|बुटका स्नेक प्लांट|||^SNAKE_PLANT
+Areca Palm Large|बड़ा एरेका पाम|मोठा अरेका पाम|||^ARECA_PALM
+Lucky Bamboo 3 Layer|लकी बांस 3 परत|लकी बांबू 3 थर|||^LUCKY_BAMBOO
+Jade Plant Large|बड़ा जेड प्लांट|मोठा जेड प्लांट|||^JADE_PLANT
+Croton Petra|क्रोटन पेट्रा|क्रोटन पेट्रा|||^CROTON
+Croton Gold Dust|क्रोटन गोल्ड डस्ट|क्रोटन गोल्ड डस्ट|||^CROTON
+Dracaena Massangeana|ड्रैसीना मसांजियाना|ड्रासेना मसांजियाना|corn plant||
+Ficus Benjamina|फ़ाइकस बेंजामिना|फायकस बेंजामिना|||^FICUS_PLANT
+Rubber Plant Variegated|चितकबरा रबर प्लांट|चित्रित रबर प्लांट|||^RUBBER_PLANT
+Aloe Vera Large|बड़ा एलोवेरा|मोठी कोरफड|||^ALOE_VERA_PLANT
+Cactus Assorted|मिश्रित कैक्टस|विविध निवडुंग|||^CACTUS
+Succulent Assorted|मिश्रित सकुलेंट|विविध सक्युलंट|||^SUCCULENTS
+Terrarium|टेरेरियम|टेरारियम
+Air Plant|एयर प्लांट|एअर प्लांट|tillandsia
+Hanging Basket Plant|लटकती टोकरी पौधा|टांगती टोपली रोप|||
+@sub|trees-saplings
+Neem Tree Large|बड़ा नीम पौधा|मोठे कडुलिंब रोप|||^NEEM_SAPLING
+Peepal Large|बड़ा पीपल पौधा|मोठे पिंपळ रोप|||^PEEPAL_SAPLING
+Mango Grafted Large|बड़ा आम कलम|मोठी आंबा कलम|||^MANGO_PLANT
+Coconut Hybrid Seedling|संकर नारियल पौधा|संकरित नारळ रोप|t x d coconut||^COCONUT_SEEDLING
+Bakul Sapling|बकुल पौधा|बकुळ रोप|bakul tree
+Parijat Tree|पारिजात पेड़|पारिजातक झाड|||^PARIJAT_PLANT
+Sita Ashok Sapling|सीता अशोक पौधा|सीता अशोक रोप|sita ashok
+Kadamba Large|बड़ा कदंब पौधा|मोठे कदंब रोप|||^KADAMBA_SAPLING
+Bamboo Manvel|मानवेल बांस|मानवेल बांबू|manvel,dendrocalamus strictus||^BAMBOO_PLANT
+Bamboo Balcooa|बल्कू बांस|बल्कू बांबू|balcooa||^BAMBOO_PLANT
+Bamboo Tulda|तुल्डा बांस|तुल्डा बांबू|tulda||^BAMBOO_PLANT
+Tamarind Grafted|इमली कलम|चिंच कलम|||^TAMARIND_PLANT
+Jamun Grafted|जामुन कलम|जांभूळ कलम|||^JAVA_PLUM_PLANT
+Amla Grafted|आंवला कलम|आवळा कलम|||^INDIAN_GOOSEBERRY_PLANT
+Chikoo Grafted|चीकू कलम|चिकू कलम|||^SAPOTA_PLANT
+Jackfruit Grafted|कटहल कलम|फणस कलम|||^JACKFRUIT_PLANT
+Avocado Grafted|एवोकाडो कलम|अ‍ॅव्होकॅडो कलम|||^AVOCADO_PLANT
+Rambutan Plant|रामबूटन पौधा|रामबुतान रोप|||
+Mangosteen Plant|मैंगोस्टीन पौधा|मँगोस्टीन रोप|||
+Miracle Fruit Plant|मिरेकल फ्रूट पौधा|मिरॅकल फ्रूट रोप
+Barbados Cherry Plant|बारबाडोस चेरी पौधा|बार्बाडोस चेरी रोप
+Water Apple Plant|जामरूल पौधा|जाम फळ रोप|||
+Bilimbi Plant|बिलिंबी पौधा|बिलिंबी रोप|||
+Karonda Grafted|करौंदा कलम|करवंद कलम|||^KARONDA_PLANT
+Sweet Tamarind Plant|मीठी इमली पौधा|गोड चिंच रोप|||
+Wood Apple Grafted|कैथ कलम|कवठ कलम|||^WOOD_APPLE_PLANT
+Bael Grafted|बेल कलम|बेल कलम|||^BAEL_FRUIT_PLANT
+Fig Tissue Culture|अंजीर टिश्यू कल्चर|अंजीर टिश्यू कल्चर|||^FIG_PLANT
+Strawberry Runners|स्ट्रॉबेरी रनर|स्ट्रॉबेरी रोपे|strawberry plants|piece,tray|^STRAWBERRY_PLANT
+Dragon Fruit Cuttings|ड्रैगन फ्रूट कलम|ड्रॅगन फ्रूट कटिंग|dragon fruit plant cutting||^DRAGON_FRUIT_PLANT
+
+@category|farm-inputs
+@sub|vegetable-seeds
+@pattern|{en} Seeds|{hi} बीज|{mr} बियाणे
++MINT
++PURSLANE
++MALABAR_SPINACH
++YELLOW_CAPSICUM
++RED_CAPSICUM
++DESI_CUCUMBER
++ENGLISH_CUCUMBER
++POINTED_GOURD
++SPINY_GOURD
++BOK_CHOY
++ROSEMARY
++THYME
++OREGANO
++MICROGREENS
++BHAVNAGRI_CHILLI
++GREEN_BRINJAL
++BHARIT_BRINJAL
++DOUBLE_BEANS
++YELLOW_WATERMELON
+@sub|flower-seeds
+@pattern|{en} Seeds|{hi} बीज|{mr} बियाणे
++ORANGE_MARIGOLD
++YELLOW_MARIGOLD
++GERBERA
++CARNATION
++PANSY
++CALENDULA
++SNAPDRAGON
++VERBENA
++PHLOX
++GAILLARDIA
++KOCHIA
++NASTURTIUM
++HOLLYHOCK
++LARKSPUR
++SWEET_WILLIAM
++MORNING_GLORY
++COLEUS
+
+@category|plants
+@sub|flowering-plants
+Pansy|पैंज़ी|पॅन्सी|pansy|piece,pot
+Calendula|कैलेंडुला|कॅलेंडुला|pot marigold|piece,pot
+Snapdragon|स्नैपड्रैगन|स्नॅपड्रॅगन|antirrhinum|piece,pot
+Verbena|वर्बेना|व्हर्बेना||piece,pot
+Phlox|फ़्लॉक्स|फ्लॉक्स||piece,pot
+Kochia|कोचिया|कोचिया|summer cypress|piece,pot
+Nasturtium|नैस्टर्शियम|नॅस्टर्शियम||piece,pot
+Hollyhock|हॉलीहॉक|हॉलीहॉक||piece,pot
+Larkspur|लार्कस्पर|लार्कस्पर||piece,pot
+Sweet William|स्वीट विलियम|स्वीट विल्यम||piece,pot
+
+@category|flowers
+@sub|loose-flowers
+Gaillardia|गेलार्डिया|गेलार्डिया|gaillardia,blanket flower|kg,piece

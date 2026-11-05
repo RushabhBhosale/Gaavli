@@ -1,0 +1,92 @@
+# Cereals, millets, rice varieties and processed grains.
+@category|grains|grains|Grains and Cereals|अनाज|धान्य
+
+@sub|cereals|Cereals|अनाज|तृणधान्ये|kg,quintal,bag
+Rice|चावल|तांदूळ|chawal,chaval,tandul,rice
+Wheat|गेहूं|गहू|gehu,gahu,gehun,wheat
+Sorghum|ज्वार|ज्वारी|jowar,jwari,jowari,sorghum
+Pearl Millet|बाजरा|बाजरी|bajra,bajri
+Finger Millet|रागी|नाचणी|ragi,nachni,nachani,mandua
+Maize|मक्का|मका|makka,maka,corn,makai
+Barnyard Millet|सांवा|वरई|varai,vari,samvat,sanwa,moraiyo
+Processed Barnyard Millet|भगर|भगर|bhagar,varai tandul,vrat ke chawal,sama rice
+Little Millet|कुटकी|सावा|sava,kutki,little millet
+Kodo Millet|कोदो|कोद्रा|kodo,kodra,harik
+Foxtail Millet|कंगनी|राळा|rala,kangni,kakum,navane
+Proso Millet|चीना|वरी (चेना)|chena,proso,barri||
+Browntop Millet|हरी कंगनी|ब्राउनटॉप मिलेट|korale,browntop||
+Paddy|धान|भात (धान)|dhan,bhat,paddy,bhat dhan
+Barley|जौ|जव|jau,jav,barley
+Oats|जई|ओट्स|oats,jai
+Amaranth Grain|राजगिरा|राजगिरा|rajgira,ramdana,amaranth seeds
+Buckwheat|कुट्टू|कुट्टू|kuttu,buckwheat
+Quinoa|क्विनोआ|क्विनोआ|quinoa|kg,g
+Popcorn Maize|पॉपकॉर्न मक्का|पॉपकॉर्न मका|popcorn kernel|kg,g,packet|^MAIZE
+Dagadi Jowar|दगड़ी ज्वार|दगडी ज्वारी|dagadi jowar,maldandi||^SORGHUM
+Shalu Jowar|शालू ज्वार|शाळू ज्वारी|shalu jowar,rabi jowar||^SORGHUM
+Hybrid Jowar|हाइब्रिड ज्वार|हायब्रीड ज्वारी|kharif jowar||^SORGHUM
+Khapli Wheat|खपली गेहूं|खपली गहू|khapli,emmer wheat,jod gahu||^WHEAT
+Lokwan Wheat|लोकवन गेहूं|लोकवन गहू|lokwan,lok 1||^WHEAT
+Sharbati Wheat|शरबती गेहूं|शरबती गहू|sharbati,mp wheat||^WHEAT
+Bansi Wheat|बंसी गेहूं|बन्सी गहू|bansi gahu||^WHEAT
+Durum Wheat|कठिया गेहूं|बक्षी गहू|kathia gehu,durum||
+
+@sub|rice-varieties|Rice Varieties|चावल की किस्में|तांदळाच्या जाती|kg,quintal,bag
+Indrayani Rice|इंद्रायणी चावल|इंद्रायणी तांदूळ|indrayani,indrayani tandul||^RICE
+Ambemohar Rice|आंबेमोहर चावल|आंबेमोहोर तांदूळ|ambemohar,ambe mohar||^RICE
+Kolam Rice|कोलम चावल|कोलम तांदूळ|kolam,wada kolam,jai shriram||^RICE
+Wada Kolam Rice|वाडा कोलम चावल|वाडा कोलम तांदूळ|wada kolam||^RICE
+Basmati Rice|बासमती चावल|बासमती तांदूळ|basmati||^RICE
+Sona Masoori Rice|सोना मसूरी चावल|सोना मसुरी तांदूळ|sona masuri,sona masoori||^RICE
+Surti Kolam Rice|सूरती कोलम चावल|सुरती कोलम तांदूळ|surti kolam||^RICE
+HMT Rice|एचएमटी चावल|एचएमटी तांदूळ|hmt||^RICE
+Lachkari Kolam Rice|लचकारी कोलम चावल|लचकारी कोलम तांदूळ|lachkari||^RICE
+Kali Kamod Rice|काली कमोद चावल|काळी कमोद तांदूळ|kali kamod||^RICE
+Red Rice|लाल चावल|लाल तांदूळ|lal tandul,lal chawal||^RICE
+Brown Rice|ब्राउन चावल|ब्राऊन तांदूळ|brown rice||^RICE
+Black Rice|काला चावल|काळा तांदूळ|black rice,chak hao||^RICE
+Broken Rice|टूटा चावल|तुकडा तांदूळ|tukda,kanki,broken rice||^RICE
+Parboiled Rice|उसना चावल|उकडा तांदूळ|ukda tandul,usna chawal,boiled rice||^RICE
+Jeerakasala Rice|जीरा चावल|जिरगा तांदूळ|jeera samba,jirga||
+Kala Namak Rice|काला नमक चावल|काळा नमक तांदूळ|kalanamak||^RICE
+Gobindobhog Rice|गोविंदभोग चावल|गोविंदभोग तांदूळ|gobindobhog||^RICE
+Masuri Rice|मसूरी चावल|मसुरी तांदूळ|masuri||^RICE
+Basmati Tukda Rice|बासमती टुकड़ा|बासमती तुकडा|basmati broken||^BASMATI_RICE
+Steam Basmati Rice|स्टीम बासमती चावल|स्टीम बासमती तांदूळ|steam basmati||^BASMATI_RICE
+Sella Basmati Rice|सेला बासमती चावल|सेला बासमती तांदूळ|golden sella,sella||^BASMATI_RICE
+Ghansal Rice|घनसाळ चावल|घनसाळ तांदूळ|ghansal,ajara ghansal||^RICE
+Kalbhat Rice|कालभात चावल|काळभात तांदूळ|kalbhat||^RICE
+Ratnagiri 24 Rice|रत्नागिरी 24 चावल|रत्नागिरी 24 तांदूळ|r24||
+
+@sub|processed-grains|Poha, Rava and Processed Grains|पोहा, सूजी और प्रसंस्कृत अनाज|पोहे, रवा आणि प्रक्रिया केलेले धान्य|kg,g,packet
+Poha|पोहा|पोहे|poha,pohe,flattened rice,beaten rice,chivda
+Thick Poha|मोटा पोहा|जाड पोहे|jade pohe,mota poha||^POHA
+Thin Poha|पतला पोहा|पातळ पोहे|patal pohe,patla poha,nylon poha||^POHA
+Red Poha|लाल पोहा|लाल पोहे|red rice poha||^POHA
+Dagadi Poha|दगड़ी पोहा|दगडी पोहे|dagdi pohe,diwali poha||^POHA
+Bhajke Pohe|भुना पोहा|भाजके पोहे|bhajke pohe,roasted poha||^POHA
+Semolina|सूजी|रवा|suji,sooji,rava,rawa,semolina
+Fine Rava|बारीक सूजी|बारीक रवा|barik rava,fine sooji||^SEMOLINA
+Bombay Rava|बॉम्बे रवा|बॉम्बे रवा|upma rava||^SEMOLINA
+Idli Rava|इडली रवा|इडली रवा|rice rava,idli rava
+Dalia|दलिया|दलिया|daliya,broken wheat,godhuma rava,lapsi rava
+Puffed Rice|मुरमुरा|चुरमुरे|murmura,churmure,kurmure,mamra,puffed rice
+Bhadang Murmure|मसाला मुरमुरा|भडंग|bhadang,masala murmure|kg,g,packet|
+Laja (Lahya)|लाई|लाह्या|lahya,lai,jowar lahya,popped sorghum
+Rajgira Lahya|राजगीरा लाई|राजगिऱ्याच्या लाह्या|rajgira puffed,ramdana lai
+Sago|साबूदाना|साबुदाणा|sabudana,sabudana,sago,tapioca pearls
+Nylon Sabudana|बड़ा साबूदाना|मोठा साबुदाणा|nylon sabudana||^SAGO
+Vermicelli|सेवई|शेवया|sevai,seviyan,shevaya,vermicelli
+Roasted Vermicelli|भुनी सेवई|भाजलेल्या शेवया|roasted sevai||^VERMICELLI
+Rice Vermicelli|चावल की सेवई|तांदळाच्या शेवया|rice sevai|kg,g,packet
+Kurdai|कुरडई|कुरडई|kurdai,wheat kurdai
+Sargudya|सरगुड्या|सरगुंडे|sargunde,sargudya
+Corn Flakes|कॉर्न फ्लेक्स|कॉर्न फ्लेक्स|cornflakes|packet,g
+Muesli|मुसली|म्युसली|muesli|packet,g
+Rolled Oats|रोल्ड ओट्स|रोल्ड ओट्स|oats flakes|packet,g,kg|^OATS
+Corn Grits|मक्के का दलिया|मक्याचा रवा|makka rava,corn rava|kg,g,packet
+Ragi Flakes|रागी फ्लेक्स|नाचणी पोहे|nachni pohe|kg,g,packet
+Jowar Flakes|ज्वार फ्लेक्स|ज्वारी पोहे|jowar pohe|kg,g,packet
+Pasta|पास्ता|पास्ता|macaroni,penne|packet,g,kg
+Noodles|नूडल्स|नूडल्स|noodles,chowmein|packet,g
+Instant Noodles|इंस्टेंट नूडल्स|इन्स्टंट नूडल्स|instant noodles|packet

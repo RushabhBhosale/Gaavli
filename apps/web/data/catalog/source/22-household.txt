@@ -1,0 +1,112 @@
+# Household cleaning, laundry, pest control and daily-use products (generic).
+@category|household-cleaning|household|Household Cleaning|घरेलू सफ़ाई|घरगुती स्वच्छता
+
+@sub|laundry|Laundry|कपड़े धोने का सामान|कपडे धुण्याचे साहित्य|piece,packet,kg
+Detergent Powder|कपड़े धोने का पाउडर|कपडे धुण्याची पावडर|surf,washing powder,detergent|kg,g,packet
+Detergent Bar|कपड़े धोने का साबुन|कपडे धुण्याचा साबण|washing soap,detergent cake|piece,packet
+Liquid Detergent|लिक्विड डिटर्जेंट|लिक्विड डिटर्जंट|liquid detergent|litre,ml,bottle
+Fabric Softener|फ़ैब्रिक सॉफ़्टनर|फॅब्रिक सॉफ्टनर|softener|litre,ml,bottle
+Fabric Whitener|नील|नीळ|neel,blue,whitener|ml,bottle,packet
+Washing Soda|कपड़े धोने का सोडा|धुण्याचा सोडा|soda,khar,sodium carbonate|kg,g,packet
+Starch Powder|कलफ़|कांजी|kalaf,kanji,starch|g,packet
+Bleach|ब्लीच|ब्लीच|bleaching powder liquid|litre,ml,bottle
+Stain Remover|दाग हटाने वाला|डाग काढणारे|stain remover|ml,bottle
+Clothes Brush|कपड़े का ब्रश|कपड्यांचा ब्रश|washing brush|piece
+Clothes Clips|कपड़े की चिमटी|कपड्यांचे चिमटे|cloth clips,pegs|packet,dozen
+Clothes Line Rope|कपड़े सुखाने की रस्सी|कपडे वाळत घालण्याची दोरी|dori,cloth line|piece,metre
+Cloth Drying Stand|कपड़े सुखाने का स्टैंड|कपडे वाळवण्याचे स्टँड|drying rack|piece
+Hangers|हैंगर|हँगर|cloth hanger|piece,dozen,packet
+Laundry Basket|कपड़ों की टोकरी|कपड्यांची टोपली|laundry bag|piece
+Ritha|रीठा|रिठा|reetha,soapnut|kg,g,packet
+Shikakai|शिकाकाई|शिकेकाई|shikakai|kg,g,packet
+
+@sub|cleaning|Home Cleaning|घर की सफ़ाई|घराची स्वच्छता|piece,packet,bottle
+Dishwash Bar|बर्तन धोने का साबुन|भांडी घासण्याचा साबण|dish bar,bartan sabun|piece,packet
+Dishwash Liquid|बर्तन धोने का लिक्विड|भांडी घासण्याचे लिक्विड|dish wash gel|litre,ml,bottle
+Dishwash Powder|बर्तन धोने का पाउडर|भांडी घासण्याची पावडर|bartan powder|kg,g,packet
+Scrubber|बर्तन घिसनी|घासणी|ghasni,scrub pad,steel wool|piece,packet
+Steel Scrubber|स्टील घिसनी|स्टील घासणी|steel ghasni,jali||^SCRUBBER
+Coconut Coir Scrubber|नारियल जटा घिसनी|काथ्याची घासणी|kathya,coir ghasni||^SCRUBBER
+Floor Cleaner|फ़र्श क्लीनर|फरशी क्लीनर|phenyl,floor cleaner|litre,ml,bottle
+Phenyl|फिनाइल|फिनाईल|phenyl,phenol|litre,ml,bottle
+Toilet Cleaner|टॉयलेट क्लीनर|टॉयलेट क्लीनर|toilet acid|ml,bottle
+Bathroom Cleaner|बाथरूम क्लीनर|बाथरूम क्लीनर|tile cleaner|ml,bottle
+Glass Cleaner|कांच क्लीनर|काच क्लीनर|glass cleaner|ml,bottle
+Hydrochloric Acid Cleaner|तेज़ाब|अॅसिड (स्वच्छतेसाठी)|acid,tejab,muriatic acid|litre,bottle
+Naphthalene Balls|फिनाइल की गोलियाँ|डांबर गोळ्या|dambar goli,naphthalene,moth balls|packet,g
+Broom|झाड़ू|झाडू|jhadu,broom,kharata
+Grass Broom|फूल झाड़ू|फुलझाडू|phool jhadu,soft broom||^BROOM
+Coconut Broom|नारियल झाड़ू|खराटा|kharata,coconut stick broom||^BROOM
+Hard Broom|सींक झाड़ू|शिंदीचा झाडू|hard jhadu||^BROOM
+Mop|पोछा|पोछा|pocha,mop,floor mop
+Spin Mop|स्पिन मॉप|स्पिन मॉप|bucket mop||^MOP
+Floor Wiper|फ़र्श वाइपर|फरशी वायपर|wiper,squeegee
+Duster|डस्टर|डस्टर|cleaning cloth,fadka
+Microfiber Cloth|माइक्रोफ़ाइबर कपड़ा|मायक्रोफायबर कापड|||^DUSTER
+Toilet Brush|टॉयलेट ब्रश|टॉयलेट ब्रश|commode brush
+Cobweb Brush|जाला साफ़ करने का ब्रश|जळमट झाडू|jalmat jhadu,ceiling broom
+Dustpan|कूड़ा उठाने का|सुपली|supli,dust pan
+Dustbin|कूड़ेदान|कचऱ्याचा डबा|dustbin,kachra dabba
+Garbage Bags|कूड़े की थैली|कचऱ्याच्या पिशव्या|garbage bag,dustbin bag|packet,roll
+Bucket|बाल्टी|बादली|balti,badli,bucket
+Mug|मग|मग|bathroom mug,tambya|piece
+Hand Gloves Rubber|रबर दस्ताने|रबरी हातमोजे|cleaning gloves|pair
+Air Freshener|एयर फ्रेशनर|एअर फ्रेशनर|room freshener|piece,bottle
+Toilet Freshener Block|टॉयलेट ब्लॉक|टॉयलेट ब्लॉक|urinal cubes|piece,packet
+Kitchen Towel Roll|किचन टॉवल|किचन टॉवेल|paper towel|roll,packet
+Tissue Paper|टिशू पेपर|टिश्यू पेपर|napkin,tissue|packet,box
+Toilet Paper|टॉयलेट पेपर|टॉयलेट पेपर|toilet roll|roll,packet
+Aluminium Foil|एल्युमिनियम फ़ॉइल|अॅल्युमिनियम फॉईल|foil paper|roll
+Cling Film|क्लिंग फ़िल्म|क्लिंग फिल्म|plastic wrap|roll
+Butter Paper|बटर पेपर|बटर पेपर|baking paper|roll,packet
+Zip Lock Bags|ज़िप लॉक बैग|झिप लॉक पिशव्या|ziplock|packet
+Hand Wash|हैंड वॉश|हँडवॉश|handwash,liquid soap|ml,bottle,litre
+Sanitizer|सैनिटाइज़र|सॅनिटायझर|hand sanitizer|ml,bottle,litre
+Disinfectant Liquid|कीटाणुनाशक|जंतुनाशक|antiseptic liquid|ml,bottle,litre
+
+@sub|pest-control|Pest Control|कीट नियंत्रण|कीटक नियंत्रण|piece,packet,bottle
+Mosquito Coil|मच्छर अगरबत्ती|डास अगरबत्ती|mosquito coil|packet,box
+Mosquito Repellent Liquid|मच्छर भगाने का लिक्विड|डास प्रतिबंधक लिक्विड|liquid vaporizer|piece,bottle
+Mosquito Repellent Machine|मच्छर मशीन|डास मशीन|vaporizer machine|piece
+Mosquito Net|मच्छरदानी|मच्छरदाणी|machhardani,mosquito net|piece
+Mosquito Bat|मच्छर मारने का बैट|डास मारण्याची बॅट|electric bat,racket|piece
+Insect Spray|कीड़े मारने का स्प्रे|कीटकनाशक स्प्रे|cockroach spray|bottle
+Cockroach Gel|कॉकरोच जेल|झुरळ जेल|zural gel|piece
+Cockroach Chalk|कॉकरोच चॉक|झुरळ खडू|zural khadu|piece,packet
+Rat Trap|चूहेदानी|उंदराचा सापळा|undir sapla,chuhedani|piece
+Rat Glue Pad|चूहे का गोंद पैड|उंदीर चिकट पॅड|glue trap|piece
+Ant Powder|चींटी पाउडर|मुंग्यांची पावडर|ant killer,mungi powder|packet,g
+Termite Treatment|दीमक दवा|वाळवी औषध|valvi,deemak|bottle,litre
+Fly Trap|मक्खी पकड़ने वाला|माशी सापळा|fly catcher|piece
+Lizard Repellent|छिपकली भगाने वाला|पाल प्रतिबंधक|||
+Bed Bug Spray|खटमल स्प्रे|ढेकूण फवारणी|dhekun,khatmal|bottle
+
+@sub|home-essentials|Home Essentials|घरेलू आवश्यक सामान|घरगुती गरजेच्या वस्तू|piece
+Matchbox|माचिस|काडेपेटी|machis,kadepeti,match box|piece,packet,dozen
+Gas Lighter|गैस लाइटर|गॅस लायटर|lighter|piece
+Candles|मोमबत्ती|मेणबत्ती|mombatti,menbatti,candle|piece,packet
+Emergency Lamp|इमरजेंसी लाइट|इमर्जन्सी लाईट|emergency light|piece
+Kerosene Lantern|लालटेन|कंदील|kandil,lalten,hurricane lamp|piece
+Torch|टॉर्च|बॅटरी (टॉर्च)|torch,flashlight|piece
+Umbrella|छाता|छत्री|chhatri,chhata,umbrella|piece
+Raincoat|रेनकोट|रेनकोट|rain coat|piece
+Plastic Sheet|प्लास्टिक शीट|प्लास्टिक कागद|plastic kagad,polythene sheet|metre,piece
+Door Mat|पायदान|पायपुसणे|paypusne,doormat|piece
+Shoe Rack|जूते का रैक|चप्पल स्टँड|chappal stand|piece
+Wall Clock|दीवार घड़ी|भिंतीवरचे घड्याळ|ghadyal,clock|piece
+Alarm Clock|अलार्म घड़ी|गजराचे घड्याळ|alarm|piece
+Mirror|आईना|आरसा|aarsa,aaina,mirror|piece
+Comb|कंघी|कंगवा|kangva,kanghi,comb|piece
+Plastic Chair|प्लास्टिक कुर्सी|प्लास्टिक खुर्ची|khurchi,chair|piece
+Plastic Stool|प्लास्टिक स्टूल|प्लास्टिक स्टूल|stool|piece
+Storage Box|स्टोरेज बॉक्स|साठवण डबा|plastic box|piece
+Water Bottle|पानी की बोतल|पाण्याची बाटली|bottle,water bottle|piece
+Lunch Box|टिफ़िन बॉक्स|डबा|tiffin,dabba,lunch box|piece
+Thermos Flask|थर्मस|थर्मास|thermos,flask|piece
+Shopping Bag|थैला|पिशवी|thaila,pishvi,carry bag|piece,dozen
+Cloth Bag|कपड़े का थैला|कापडी पिशवी|kapdi pishvi,jute bag|piece,dozen
+Paper Bags|कागज़ की थैलियाँ|कागदी पिशव्या|paper bag|packet,dozen,kg
+Sewing Needle|सुई|सुई|sui,needle|packet,piece
+Sewing Thread|धागा|दोरा|dhaga,dora,thread|piece,packet
+Safety Pins|सेफ़्टी पिन|सेफ्टी पिन|pin|packet,box
+Batteries|बैटरी सेल|सेल|cell,aa battery,battery cell|piece,packet

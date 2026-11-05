@@ -5,14 +5,16 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
 import { theme } from "../../theme";
 import { messages } from "../../i18n";
 import { listingName, type HomeListing } from "../../types/home";
 import { ListingImage } from "./ListingImage";
-import { listingRate, listingQuantity, listingUnit } from "./listingText";
+import { listingQuantity, listingUnit } from "./listingText";
 import { Badge } from "./primitives";
 
+// Photo first, then name, then price: the three things a buyer scans for.
 export function ProductCard({
   listing,
   language,
@@ -31,91 +33,92 @@ export function ProductCard({
   const cardWidth = wide
     ? undefined
     : Math.max(
-        140,
-        Math.min(190, (width - 56) * 0.44 * Math.min(fontScale, 1.4)),
+        150,
+        Math.min(180, (width - 56) * 0.46 * Math.min(fontScale, 1.4)),
       );
   const name = listingName(listing, language);
-  const rate = listingRate(listing, language);
   const unit = listingUnit(listing.unit, language);
+  const village = language !== "en" ? listing.villageMr : listing.village;
+  const isService = listing.module === "services";
+  const isTransport = listing.module === "transport";
+  const isDirectory = isService || isTransport;
+  const kind = isService
+    ? t.dashboardServices
+    : isTransport
+      ? t.dashboardTransport
+      : t.dashboardMarketplace;
+  const hasPrice = listing.price !== null;
+  const rate = hasPrice
+    ? `₹${listing.price}${unit ? ` / ${unit}` : ""}`
+    : t.rateNotProvided;
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={
-        compact
-          ? [
-              listing.module === "services"
-                ? t.dashboardServices
-                : listing.module === "transport"
-                  ? t.dashboardTransport
-                  : t.dashboardMarketplace,
-              name,
-              rate,
-              language === "mr" ? listing.villageMr : listing.village,
-            ].join(", ")
-          : `${name}, ${rate}`
+        compact ? [kind, name, rate, village].join(", ") : `${name}, ${rate}`
       }
       onPress={onPress}
       style={({ pressed }) => [
         s.card,
         { width: cardWidth },
+        compact && s.compactCard,
         pressed && s.pressed,
       ]}
     >
-      {!compact && (
-        <ListingImage listing={listing} style={s.image} resizeMode="contain" />
+      {isDirectory ? (
+        <View style={[s.image, s.directoryTile]}>
+          <Ionicons
+            accessible={false}
+            name={isService ? "construct-outline" : "car-outline"}
+            size={34}
+            color={theme.colors.primary}
+          />
+        </View>
+      ) : (
+        <View style={[s.image, compact && s.imageCompact]}>
+          <ListingImage listing={listing} style={s.photo} iconSize={40} />
+          {hasPrice && (
+            <View style={s.priceChip}>
+              <Text numberOfLines={1} style={s.priceChipText}>
+                {rate}
+              </Text>
+            </View>
+          )}
+        </View>
       )}
       <View style={s.body}>
-        {compact && (
-          <Badge
-            tone={
-              listing.module === "services"
-                ? "blue"
-                : listing.module === "transport"
-                  ? "green"
-                  : "yellow"
-            }
-          >
-            {listing.module === "services"
-              ? t.dashboardServices
-              : listing.module === "transport"
-                ? t.dashboardTransport
-                : t.dashboardMarketplace}
-          </Badge>
+        {isDirectory && (
+          <Badge tone={isService ? "blue" : "green"}>{kind}</Badge>
         )}
-        {listing.isDemo && <Badge yellow>{t.demoListing}</Badge>}
-        <Text style={s.name}>{name}</Text>
-        {compact ? (
-          <View
-            style={[
-              s.priceBadge,
-              listing.module === "services" && s.servicePriceBadge,
-              listing.module === "transport" && s.transportPriceBadge,
-              listing.price === null && s.missingPriceBadge,
-            ]}
-          >
-            <Text style={[s.price, s.compactPrice]}>
-              {listing.price === null ? t.rateNotProvided : `₹${listing.price}`}
-            </Text>
-            {listing.price !== null && !!unit && (
-              <Text style={[s.price, s.compactPrice]}>{`/ ${unit}`}</Text>
-            )}
-          </View>
+        {listing.isDemo && !compact && <Badge yellow>{t.demoListing}</Badge>}
+        <Text numberOfLines={compact ? 1 : 2} style={s.name}>
+          {name}
+        </Text>
+        {!hasPrice && !isDirectory && (
+          <Text numberOfLines={1} style={s.noPrice}>
+            {rate}
+          </Text>
+        )}
+        {isDirectory ? (
+          <Text numberOfLines={1} style={s.meta}>
+            {t.directoryAvailable}
+          </Text>
         ) : (
-          <Text style={s.price}>{rate}</Text>
-        )}
-        {compact && (
           <>
-            <Text style={s.meta}>
-              {!listing.module || listing.module === "marketplace"
-                ? listingQuantity(listing, language)
-                : t.directoryAvailable}
+            <Text numberOfLines={1} style={s.meta}>
+              {listingQuantity(listing, language)}
             </Text>
-            <Text style={s.meta}>
-              {language === "mr" ? listing.villageMr : listing.village}
-            </Text>
-            {listing.module === "services" && (
-              <Text style={s.meta}>{t.directorySelfDeclared}</Text>
-            )}
+            <View style={s.locationRow}>
+              <Ionicons
+                accessible={false}
+                name="location-outline"
+                size={13}
+                color={theme.colors.muted}
+              />
+              <Text numberOfLines={1} style={[s.meta, s.village]}>
+                {village}
+              </Text>
+            </View>
           </>
         )}
       </View>
@@ -125,46 +128,38 @@ export function ProductCard({
 const s = StyleSheet.create({
   card: {
     backgroundColor: theme.colors.surface,
-    borderRadius: 16,
+    borderRadius: theme.radii.card,
     borderWidth: 1,
     borderColor: theme.colors.border,
     overflow: "hidden",
-    shadowColor: theme.shadow.color,
-    shadowOpacity: theme.shadow.opacity,
-    shadowRadius: theme.shadow.radius,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 1,
   },
-  image: { height: 120, width: "100%", backgroundColor: theme.colors.tint },
-  body: { paddingHorizontal: 10, paddingTop: 8, paddingBottom: 6, gap: 4 },
-  meta: { color: theme.colors.muted, fontSize: 11, lineHeight: 16 },
-  name: {
-    color: theme.colors.text,
-    fontSize: 15,
-    lineHeight: 22,
-    fontWeight: "600",
+  image: {
+    height: 124,
+    width: "100%",
+    backgroundColor: theme.colors.tint,
+    overflow: "hidden",
   },
-  price: {
-    color: theme.colors.text,
-    fontSize: 16,
-    lineHeight: 23,
-    fontWeight: "700",
+  // Same size for every card in the row, whatever the name or photo.
+  compactCard: { height: 232 },
+  imageCompact: { height: 136 },
+  photo: { width: "100%", height: "100%" },
+  directoryTile: { alignItems: "center", justifyContent: "center" },
+  priceChip: {
+    position: "absolute",
+    left: 8,
+    bottom: 8,
+    maxWidth: "90%",
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderRadius: theme.radii.chip,
+    backgroundColor: theme.colors.primary,
   },
-  priceBadge: {
-    alignSelf: "flex-start",
-    maxWidth: "100%",
-    backgroundColor: theme.colors.accentBackground,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    flexDirection: "row",
-    alignItems: "center",
-    flexWrap: "wrap",
-    gap: 4,
-  },
-  compactPrice: { fontSize: 15, lineHeight: 24, flexShrink: 1 },
-  servicePriceBadge: { backgroundColor: theme.colors.softBlue },
-  transportPriceBadge: { backgroundColor: theme.colors.tint },
-  missingPriceBadge: { backgroundColor: theme.colors.border },
+  priceChipText: { ...theme.type.micro, color: theme.colors.onPrimary },
+  body: { paddingHorizontal: 12, paddingVertical: 10, gap: 2 },
+  name: { ...theme.type.subheading, color: theme.colors.heading },
+  noPrice: { ...theme.type.caption, color: theme.colors.muted },
+  meta: { fontSize: 14, lineHeight: 20, color: theme.colors.muted },
+  locationRow: { flexDirection: "row", alignItems: "center", gap: 3 },
+  village: { flex: 1 },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

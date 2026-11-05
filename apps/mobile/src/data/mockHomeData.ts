@@ -123,7 +123,7 @@ export function dashboardForAccount(
       firstName: account.firstName || account.name,
       lastName: account.lastName || "",
       village: account.village
-        ? language === "mr"
+        ? language !== "en"
           ? account.village.nameMr
           : account.village.name
         : "",

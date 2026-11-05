@@ -1,3 +1,4 @@
+import { numberLocale } from "../../locale";
 import {
   ActivityIndicator,
   Pressable,
@@ -18,9 +19,11 @@ import { d } from "./primitives";
 export function NotificationBell({
   language,
   disabled = false,
+  onDark = false,
 }: {
   language: MobileLanguage;
   disabled?: boolean;
+  onDark?: boolean;
 }) {
   const session = useAppStore((state) => state.session);
   const offline = useAppStore((state) => state.offline);
@@ -36,9 +39,7 @@ export function NotificationBell({
   );
   if (!session) return null;
   const count = unread.data?.unreadCount;
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-  );
+  const number = new Intl.NumberFormat(numberLocale(language));
   return (
     <Pressable
       accessibilityRole="button"
@@ -63,7 +64,7 @@ export function NotificationBell({
         accessible={false}
         name="notifications-outline"
         size={24}
-        color={theme.colors.heading}
+        color={onDark ? theme.colors.heroText : theme.colors.heading}
       />
       {unread.isLoading && (
         <ActivityIndicator
@@ -106,9 +107,9 @@ const s = StyleSheet.create({
     position: "absolute",
     top: 2,
     right: 0,
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+    minWidth: 20,
+    height: 20,
+    borderRadius: 10,
     backgroundColor: theme.colors.error,
     borderWidth: 1,
     borderColor: theme.colors.surface,
@@ -117,7 +118,8 @@ const s = StyleSheet.create({
   },
   count: {
     color: theme.colors.surface,
-    fontSize: 10,
+    fontSize: 12,
+    lineHeight: 16,
     fontWeight: "700",
     textAlign: "center",
     paddingHorizontal: 1,

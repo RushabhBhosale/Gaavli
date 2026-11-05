@@ -1,3 +1,4 @@
+import { productDisplayName } from "../locale";
 import type { MobileLanguage } from "@gaavli/types";
 
 export type ProductImageKey = "tomato" | "onion" | "potato" | "rice" | "mango";
@@ -6,6 +7,7 @@ export type HomeListing = {
   id: string;
   name: string;
   nameMr: string;
+  nameHi?: string | null;
   description?: string | null;
   category: string;
   categoryMr: string;
@@ -62,5 +64,9 @@ export type HomeDestination =
   | "/transport"
   | "/village-information";
 export function listingName(listing: HomeListing, language: MobileLanguage) {
-  return language === "mr" ? listing.nameMr : listing.name;
+  return productDisplayName(language, {
+    en: listing.name,
+    mr: listing.nameMr,
+    hi: listing.nameHi,
+  });
 }

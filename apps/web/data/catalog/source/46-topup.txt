@@ -1,0 +1,151 @@
+# Top-up: seed and seedling packets for more cultivated bases, regional flowers, fish, machinery, dry fruit and oil variants.
+@category|farm-inputs
+@sub|vegetable-seeds
+@pattern|{en} Seeds|{hi} बीज|{mr} बियाणे
++KALE
++SWISS_CHARD
++ARUGULA
++JALAPENO
++THAI_CHILLI
++SNOW_PEAS
++CHERRY_RADISH
++RED_RADISH
++YELLOW_ZUCCHINI
++ROMAINE_LETTUCE
++ICEBERG_LETTUCE
++LAVANGI_CHILLI
++DESI_TOMATO
++PURPLE_BRINJAL
++SMALL_BRINJAL
++RED_CARROT
++WHITE_ONION
++RED_ONION
++GAVRAN_OKRA
++GAVRAN_BRINJAL
++YELLOW_CUCUMBER
++SMALL_BITTER_GOURD
++CHUKA
++BATHUA
+@sub|flower-seeds
+@pattern|{en} Seeds|{hi} बीज|{mr} बियाणे
++IMPATIENS
++TORENIA
+@sub|farm-machinery
+Paddy Thresher|धान थ्रेशर|भात मळणी यंत्र|||^THRESHER
+Multi Crop Thresher|मल्टी क्रॉप थ्रेशर|बहुपीक मळणी यंत्र|||^THRESHER
+Power Weeder|पावर वीडर|पॉवर वीडर|power weeder
+Raised Bed Maker|बेड मेकर|गादी वाफा यंत्र|bed former
+Ridger|रिजर|सरी यंत्र|sari yantra,ridger
+MB Plough|एमबी हल|एमबी नांगर|mould board plough||^PLOUGH
+Disc Harrow|डिस्क हैरो|डिस्क हॅरो|disc harrow
+Leveller|लेवलर|सपाटीकरण यंत्र|land leveller
+Potato Planter|आलू प्लांटर|बटाटा लागवड यंत्र|||
+Sugarcane Planter|गन्ना प्लांटर|ऊस लागवड यंत्र|||
+Mulch Laying Machine|मल्च बिछाने की मशीन|मल्चिंग अंथरणी यंत्र|||
+@sub|irrigation
+Sprinkler Nozzle|स्प्रिंकलर नोज़ल|तुषार नोझल|nozzle|piece,packet
+Air Release Valve|एयर रिलीज़ वाल्व|एअर रिलीज व्हॉल्व्ह|||
+Pressure Gauge|प्रेशर गेज|प्रेशर गेज
+Flush Valve Drip|फ़्लश वाल्व|फ्लश व्हॉल्व्ह|||
+
+@category|plants
+@sub|vegetable-seedlings
+@pattern|{en} Seedlings|{hi} की पौध|{mr} रोपे
++BHAVNAGRI_CHILLI
++RED_CAPSICUM
++YELLOW_CAPSICUM
++ZUCCHINI
++CELERY
++RIDGE_GOURD
++SPONGE_GOURD
++PUMPKIN
++ASH_GOURD
++SNAKE_GOURD
++KALE
++BOK_CHOY
++PURPLE_BRINJAL
++GREEN_BRINJAL
++BHARIT_BRINJAL
++LAVANGI_CHILLI
+@sub|flowering-plants
+Sontakka Plant|सोनटक्का पौधा|सोनटक्का रोप|butterfly ginger lily,hedychium
+Surangi Plant|सुरंगी पौधा|सुरंगी रोप|surangi||
+Bhui Champa Plant|भुई चंपा पौधा|भुईचाफा रोप|bhuichafa||
+Sayali Plant|सायली पौधा|सायली रोप|sayali jasmine||
+Kailaspati Sapling|कैलाशपति पौधा|कैलासपती रोप|cannonball tree,nagalinga
+@sub|fruit-plants
+@pattern|{en} Plant|{hi} का पौधा|{mr} रोप
++WAX_APPLE
++ROSE_APPLE
++JUNGLE_JALEBI
++LASODA
++GRAPEFRUIT
++CAPE_GOOSEBERRY
+
+@category|flowers
+@sub|loose-flowers
+Surangi Flowers|सुरंगी फूल|सुरंगीची फुले|surangi gajra||
+Sontakka Flowers|सोनटक्का फूल|सोनटक्क्याची फुले|sontakka
+Sayali Flowers|सायली फूल|सायलीची फुले|sayali||
+
+@category|meat-fish
+@sub|fish
+Common Carp|कॉमन कार्प|कॉमन कार्प|carp,cyprinus
+Grass Carp|ग्रास कार्प|ग्रास कार्प|grass carp
+Silver Carp|सिल्वर कार्प|सिल्व्हर कार्प|silver carp
+Mahseer|महाशीर|महासीर|mahseer
+Kalbasu|कालबासु|काळबासू|kalbasu
+Vannamei Shrimp|वन्नामेई झींगा|व्हॅनामी कोळंबी|vannamei,white leg shrimp||^PRAWNS
+
+@category|dry-fruits
+@sub|nuts
+California Almonds|कैलिफ़ोर्निया बादाम|कॅलिफोर्निया बदाम|american almonds||^ALMONDS
+Gurbandi Almonds|गुरबंदी बादाम|गुरबंदी बदाम|gurbandi||^ALMONDS
+Kashmiri Walnuts|कश्मीरी अखरोट|काश्मिरी अक्रोड|||^WALNUTS
+@sub|dried-fruits
+Kimia Dates|कीमिया खजूर|किमिया खजूर|kimia||^DATES
+Ajwa Dates|अजवा खजूर|अजवा खजूर|ajwa||^DATES
+Safawi Dates|सफ़ावी खजूर|सफावी खजूर|safawi||^DATES
+Dry Fruit Powder|मेवा पाउडर|सुकामेवा पावडर|dry fruit milk powder|g,packet
+Kharik Powder|छुहारा पाउडर|खारीक पावडर|kharik pith|g,packet
+
+@category|oils-ghee
+@sub|edible-oils
+Kachi Ghani Mustard Oil|कच्ची घानी सरसों तेल|कच्ची घाणी मोहरी तेल|||^MUSTARD_OIL
+Virgin Coconut Oil|वर्जिन नारियल तेल|व्हर्जिन खोबरेल तेल|vco||^COCONUT_OIL
+Refined Groundnut Oil|रिफ़ाइंड मूंगफली तेल|रिफाईंड शेंगदाणा तेल|||^GROUNDNUT_OIL
+Filtered Groundnut Oil|फ़िल्टर्ड मूंगफली तेल|फिल्टर्ड शेंगदाणा तेल|||^GROUNDNUT_OIL
+Refined Sunflower Oil|रिफ़ाइंड सूरजमुखी तेल|रिफाईंड सूर्यफूल तेल|||^SUNFLOWER_OIL
+
+@category|dairy
+@sub|curd-buttermilk
+Danedar Ghee|दानेदार घी|रवाळ तूप|ravaal tup,granular ghee|kg,litre,g,jar|^GHEE
+
+@category|pulses
+@sub|whole-pulses
+Kala Vatana|काली मटर|काळा वाटाणा|black peas,malvani vatana||^DRY_PEAS
+Polished Moong|चमकी मूंग|चमकी मूग|chamki moong||^GREEN_GRAM
+
+@category|spices
+@sub|whole-spices
+Unjha Jeera|ऊंझा जीरा|ऊंझा जिरे|unjha cumin||^CUMIN_SEEDS
+Bold Cardamom|मोटी इलायची हरी|मोठी हिरवी वेलची|8mm elaichi||^CARDAMOM
+Kandhari Hing|कंधारी हींग|कंधारी हिंग|kandhari||^ASAFOETIDA
+Wheatgrass Powder|गेहूं घास पाउडर|गव्हांकुर पावडर|wheat grass powder|g,packet
+
+@category|puja
+@sub|idols-frames
+Gauri Stand|गौरी स्टैंड|गौरीचे स्टँड|gauri stand|piece,set
+Gauri Hands|गौरी के हाथ|गौरीचे हात|gauri haat|pair,set
+Ganpati Shela|गणपति शेला|गणपतीचा शेला
+
+@category|bakery
+@sub|breads
+Masala Bun|मसाला बन|मसाला बन|||^SWEET_BUN
+Cream Bun|क्रीम बन|क्रीम बन|||^SWEET_BUN
+Dilkhush|दिलखुश|दिलखुश|dilkush,dilpasand
+
+@category|clothing
+@sub|winter-rain-wear
+Woollen Shawl|ऊनी शॉल|लोकरीची शाल|||^SHAWL
+Pashmina Shawl|पश्मीना शॉल|पश्मीना शाल|||^SHAWL

@@ -1,38 +1,127 @@
-import { useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { useCallback, useState } from "react";
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { theme } from "../theme";
 import { BecomeSellerDialog } from "../components/BecomeSellerDialog";
 import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import type { MobileLanguage } from "@gaavli/types";
 import { useAppStore } from "../store";
-import { formatMessage, messages } from "../i18n";
+import { messages } from "../i18n";
 import { liveDashboard } from "../data/listings";
+import { directoryPreview } from "../data/directory";
 import { useHomeListings } from "../listings";
 import { useDashboardDirectory } from "../directory";
-import { directoryPreview } from "../data/directory";
 import { useListingClock } from "../hooks/useListingClock";
-import { Button, ErrorMessage } from "../components/ui";
+import {
+  Button,
+  ErrorMessage,
+  OfflineBanner,
+  StateMessage,
+} from "../components/ui";
 import type {
   HomeDashboardData,
   HomeDestination,
   HomeListing,
 } from "../types/home";
-import { AccountHeader } from "../components/dashboard/AccountHeader";
-import { DashboardTabs } from "../components/dashboard/DashboardTabs";
-import { BrowsingVillageSelector } from "../components/BrowsingVillageSelector";
+import { HomeHero } from "../components/dashboard/HomeHero";
 import { browsingVillageFor } from "../storage/browsingVillage";
 import { ProductCard } from "../components/dashboard/ProductCard";
-import { MarketplaceCard } from "../components/dashboard/MarketplaceCard";
-// Restore with the coordinator banner when it is enabled again.
-// import { CoordinatorInfo } from "../components/dashboard/CoordinatorInfo";
+import { ServiceCard } from "../components/dashboard/ServiceCard";
+import { CoordinatorInfo } from "../components/dashboard/CoordinatorInfo";
 import { BecomeSellerCard } from "../components/dashboard/SellerCards";
-import { VillageActionCard } from "../components/dashboard/VillageActionCard";
 import {
-  DashboardScreen,
   PreviewBanner,
   SectionHeader,
   d,
+  type IconName,
 } from "../components/dashboard/primitives";
+
+const h = StyleSheet.create({
+  content: {
+    flexGrow: 1,
+    paddingBottom: 32,
+    width: "100%",
+    maxWidth: theme.layout.contentWidth,
+    alignSelf: "center",
+  },
+  statusBackdrop: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 2,
+    backgroundColor: theme.colors.primaryDark,
+  },
+  body: { paddingHorizontal: theme.layout.screenPadding, gap: 16 },
+  // One white card of four destinations, overlapping the dark hero.
+  quick: {
+    flexDirection: "row",
+    marginTop: -24,
+    paddingVertical: 14,
+    paddingHorizontal: 4,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+  },
+  action: { flex: 1, alignItems: "center", gap: 6, paddingHorizontal: 2 },
+  actionIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: theme.colors.tint,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  actionLabel: {
+    ...theme.type.micro,
+    color: theme.colors.heading,
+    textAlign: "center",
+    minHeight: 34,
+  },
+  pressed: { opacity: theme.interaction.pressedOpacity },
+});
+
+function QuickAction({
+  icon,
+  title,
+  onPress,
+}: {
+  icon: IconName;
+  title: string;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={title}
+      onPress={onPress}
+      style={({ pressed }) => [h.action, pressed && h.pressed]}
+    >
+      <View style={h.actionIcon}>
+        <Ionicons
+          accessible={false}
+          name={icon}
+          size={24}
+          color={theme.colors.primary}
+        />
+      </View>
+      <Text numberOfLines={2} style={h.actionLabel}>
+        {title}
+      </Text>
+    </Pressable>
+  );
+}
 
 export function HomeDashboard({
   data,
@@ -40,7 +129,8 @@ export function HomeDashboard({
   onNavigate,
   onProductPress,
   listingStatus,
-  listingsReady = true,
+  services = [],
+  transport = [],
 }: {
   data: HomeDashboardData;
   language: MobileLanguage;
@@ -48,100 +138,133 @@ export function HomeDashboard({
   onProductPress: (listing: HomeListing) => void;
   listingStatus?: React.ReactNode;
   listingsReady?: boolean;
+  services?: HomeListing[];
+  transport?: HomeListing[];
 }) {
   const t = messages(language);
   const signedIn = useAppStore((state) => !!state.session);
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
+  const offline = useAppStore((state) => state.offline);
+  const insets = useSafeAreaInsets();
+  const [focused, setFocused] = useState(true);
+  useFocusEffect(
+    useCallback(() => {
+      setFocused(true);
+      return () => setFocused(false);
+    }, []),
   );
   return (
-    <DashboardScreen>
-      <AccountHeader
-        language={language}
-        browsingVillageControl={<BrowsingVillageSelector />}
+    <View style={d.safe}>
+      {focused && <StatusBar style="light" />}
+      <View
+        pointerEvents="none"
+        style={[h.statusBackdrop, { height: offline ? 0 : insets.top }]}
       />
-      <DashboardTabs selected="buyer" />
-      {data.isPreview && <PreviewBanner />}
-      {/* Temporarily hidden; retained for future use.
-      <CoordinatorInfo coordinator={data.coordinator} language={language} />
-      */}
-      <View style={d.section}>
-        <SectionHeader
-          title={t.dashboardLiveAvailability}
-          badge={formatMessage(t.dashboardFreshCount, {
-            count: number.format(data.listings.length),
-          })}
+      {offline && (
+        <View style={{ paddingTop: insets.top }}>
+          <OfflineBanner message={t.offline} />
+        </View>
+      )}
+      <ScrollView
+        contentContainerStyle={h.content}
+        showsVerticalScrollIndicator={false}
+      >
+        <HomeHero
+          language={language}
+          topInset={offline ? 0 : insets.top}
+          onSearch={() => onNavigate("/marketplace")}
         />
-        {listingStatus}
-        <FlatList
-          horizontal
-          data={data.listings}
-          keyExtractor={(item) => `${item.module ?? "marketplace"}:${item.id}`}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
-          renderItem={({ item }) => (
-            <ProductCard
-              listing={item}
+        <View style={h.body}>
+          <View style={h.quick}>
+            <QuickAction
+              icon="storefront-outline"
+              title={t.dashboardMarketplace}
+              onPress={() => onNavigate("/marketplace")}
+            />
+            <QuickAction
+              icon="build-outline"
+              title={t.dashboardServices}
+              onPress={() => onNavigate("/services")}
+            />
+            <QuickAction
+              icon="car-outline"
+              title={t.dashboardTransport}
+              onPress={() => onNavigate("/transport")}
+            />
+            <QuickAction
+              icon="megaphone-outline"
+              title={t.villageInformation}
+              onPress={() => onNavigate("/village-information")}
+            />
+          </View>
+          {data.isPreview && <PreviewBanner />}
+          <CoordinatorInfo coordinator={data.coordinator} language={language} />
+          <View style={d.section}>
+            <SectionHeader
+              icon="storefront-outline"
+              title={t.dashboardMarketplace}
+              action={t.viewAll}
+              onPress={() => onNavigate("/marketplace")}
+            />
+            {listingStatus}
+            <FlatList
+              horizontal
+              data={data.listings}
+              keyExtractor={(item) =>
+                `${item.module ?? "marketplace"}:${item.id}`
+              }
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
+              renderItem={({ item }) => (
+                <ProductCard
+                  listing={item}
+                  language={language}
+                  compact
+                  onPress={() => onProductPress(item)}
+                />
+              )}
+            />
+          </View>
+          {(
+            [
+              [services, t.dashboardServices, "/services", "build-outline"],
+              [transport, t.dashboardTransport, "/transport", "car-outline"],
+            ] as const
+          ).map(
+            ([entries, title, route, icon]) =>
+              entries.length > 0 && (
+                <View key={route} style={d.section}>
+                  <SectionHeader
+                    icon={icon}
+                    title={title}
+                    action={t.viewAll}
+                    onPress={() => onNavigate(route)}
+                  />
+                  <FlatList
+                    horizontal
+                    data={entries}
+                    keyExtractor={(item) => item.id}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
+                    renderItem={({ item }) => (
+                      <ServiceCard
+                        listing={item}
+                        language={language}
+                        onPress={() => onProductPress(item)}
+                      />
+                    )}
+                  />
+                </View>
+              ),
+          )}
+          {signedIn && data.user.isBuyer && !data.user.isSeller && (
+            <BecomeSellerCard
               language={language}
-              compact
-              onPress={() => onProductPress(item)}
+              onPress={() => onNavigate("/become-seller")}
             />
           )}
-        />
-      </View>
-      <View style={d.section}>
-        <SectionHeader title={t.dashboardCategories} />
-        <MarketplaceCard
-          count={listingsReady ? data.listingCount : undefined}
-          language={language}
-          onPress={() => onNavigate("/marketplace")}
-        />
-        {/* Services count badge temporarily hidden; retain for future use:
-          badge={
-            data.serviceCount === undefined
-              ? t.dashboardCountUnavailable
-              : formatMessage(t.dashboardProviderCount, {
-                  count: number.format(data.serviceCount),
-                })
-          }
-          badgeTone="blue"
-        */}
-        <VillageActionCard
-          icon="build-outline"
-          title={t.dashboardServices}
-          subtitle={t.dashboardServicesDescription}
-          onPress={() => onNavigate("/services")}
-        />
-        {/* Transport count badge temporarily hidden; retain for future use:
-          badge={
-            data.transportCount === undefined
-              ? t.dashboardCountUnavailable
-              : formatMessage(t.dashboardVehicleCount, {
-                  count: number.format(data.transportCount),
-                })
-          }
-          badgeTone="green"
-        */}
-        <VillageActionCard
-          icon="car-outline"
-          title={t.dashboardTransport}
-          subtitle={t.dashboardTransportDescription}
-          onPress={() => onNavigate("/transport")}
-        />
-        <VillageActionCard
-          icon="megaphone-outline"
-          title={t.villageInformation}
-          subtitle={t.villageInformationDescription}
-          onPress={() => onNavigate("/village-information")}
-        />
-      </View>
-      {signedIn && data.user.isBuyer && !data.user.isSeller && (
-        <BecomeSellerCard
-          language={language}
-          onPress={() => onNavigate("/become-seller")}
-        />
-      )}
-    </DashboardScreen>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 export default function HomeScreen() {
@@ -178,18 +301,6 @@ export default function HomeScreen() {
   );
   data.serviceCount = directory.data?.services.total;
   data.transportCount = directory.data?.transport.total;
-  data.listings = [
-    ...data.listings,
-    ...(directory.data?.services.entries ?? []).map((entry) =>
-      directoryPreview(entry, now),
-    ),
-    ...(directory.data?.transport.entries ?? []).map((entry) =>
-      directoryPreview(entry, now),
-    ),
-  ].sort(
-    (a, b) =>
-      a.postedMinutesAgo - b.postedMinutesAgo || b.id.localeCompare(a.id),
-  );
   const coordinator = directory.data?.coordinator;
   data.coordinator = coordinator
     ? {
@@ -206,7 +317,7 @@ export default function HomeScreen() {
     <>
       {offline && (
         <Text style={d.description}>
-          {page || directory.data ? t.listingsOffline : t.listingsOfflineEmpty}
+          {page ? t.listingsOffline : t.listingsOfflineEmpty}
         </Text>
       )}
       {!offline && query.isPending && (
@@ -220,24 +331,9 @@ export default function HomeScreen() {
           </Button>
         </>
       )}
-      {directory.isError && !offline && (
-        <>
-          <ErrorMessage message={t.dashboardDirectoryFailed} />
-          <Button secondary onPress={() => void directory.refetch()}>
-            {t.retry}
-          </Button>
-        </>
+      {page && !query.isError && !data.listings.length && (
+        <StateMessage icon="basket-outline" title={t.dashboardDirectoryEmpty} />
       )}
-      {!offline && directory.isPending && !query.isPending && (
-        <Text style={d.description}>{t.listingsLoading}</Text>
-      )}
-      {page &&
-        directory.data &&
-        !query.isError &&
-        !directory.isError &&
-        !data.listings.length && (
-          <Text style={d.description}>{t.dashboardDirectoryEmpty}</Text>
-        )}
     </>
   );
   return (
@@ -247,6 +343,12 @@ export default function HomeScreen() {
         language={language}
         listingStatus={listingStatus}
         listingsReady={!!page}
+        services={(directory.data?.services.entries ?? []).map((entry) =>
+          directoryPreview(entry, now),
+        )}
+        transport={(directory.data?.transport.entries ?? []).map((entry) =>
+          directoryPreview(entry, now),
+        )}
         onNavigate={(route) => {
           if (route === "/become-seller") {
             if (session) setSellerDialog(true);

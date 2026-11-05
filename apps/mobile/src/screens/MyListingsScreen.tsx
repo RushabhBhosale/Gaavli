@@ -1,3 +1,4 @@
+import { productDisplayName, numberLocale, dateLocale } from "../locale";
 import { useEffect, useRef, useState } from "react";
 import {
   Alert,
@@ -87,7 +88,7 @@ export default function MyListingsScreen() {
       .join(" ") || session.user.name;
   const registeredVillage = session.user.village;
   const sellerVillage = registeredVillage
-    ? language === "mr"
+    ? language !== "en"
       ? registeredVillage.nameMr
       : registeredVillage.name
     : "";
@@ -101,9 +102,7 @@ export default function MyListingsScreen() {
   );
   const pending = pendingQuery.data;
   const summary = query.data?.pages[0]?.summary;
-  const number = new Intl.NumberFormat(
-    language === "mr" ? "mr-IN-u-nu-deva" : "en-IN",
-  );
+  const number = new Intl.NumberFormat(numberLocale(language));
   const count = (value: number | undefined) =>
     value === undefined ? "—" : number.format(value);
   const ready = !!query.data && !query.isError;
@@ -449,10 +448,11 @@ export default function MyListingsScreen() {
                 ? t.activeProducts
                 : null;
           const canMarkSold = item.status === "active" && !expired;
-          const name =
-            language === "mr"
-              ? item.productNameMr || item.productName
-              : item.productName;
+          const name = productDisplayName(language, {
+            en: item.productName,
+            mr: item.productNameMr,
+            hi: item.productNameHi,
+          });
           return (
             <View style={s.card}>
               <ListingImage
@@ -466,7 +466,7 @@ export default function MyListingsScreen() {
                 <Text style={s.rate} numberOfLines={1}>
                   {item.price === null
                     ? t.rateNotProvided
-                    : `₹${new Intl.NumberFormat(language === "mr" ? "mr-IN" : "en-IN").format(item.price)} / ${listingUnit(item.unit, language)}`}
+                    : `₹${new Intl.NumberFormat(dateLocale(language)).format(item.price)} / ${listingUnit(item.unit, language)}`}
                 </Text>
               </View>
               <View style={s.actions}>

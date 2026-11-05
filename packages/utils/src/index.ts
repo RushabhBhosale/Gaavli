@@ -1,3 +1,4 @@
+export * from "./search";
 /** Local HTTP is development-only; shipped apps must use HTTPS. */
 export function validateApiBaseUrl(
   value: string | undefined,

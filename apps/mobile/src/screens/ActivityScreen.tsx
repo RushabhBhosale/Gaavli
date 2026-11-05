@@ -1,3 +1,4 @@
+import { productDisplayName, dateLocale } from "../locale";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   FlatList,
@@ -188,7 +189,7 @@ function ActivityContent({
             tab === "received" && row.seenAt === null ? row.id : undefined,
         }));
   const date = (value: string) =>
-    new Intl.DateTimeFormat(language === "mr" ? "mr-IN" : "en-IN", {
+    new Intl.DateTimeFormat(dateLocale(language), {
       dateStyle: "medium",
       timeStyle: "short",
     }).format(new Date(value));
@@ -324,9 +325,11 @@ function ActivityContent({
             />
             <View style={s.copy}>
               <Text style={s.productName}>
-                {(language === "mr"
-                  ? row.product.nameMr || row.product.name
-                  : row.product.name) || t.productUnavailable}
+                {productDisplayName(language, {
+                  en: row.product.name,
+                  mr: row.product.nameMr,
+                  hi: row.product.nameHi,
+                }) || t.productUnavailable}
               </Text>
               <Text style={s.personName}>
                 {row.person.name || t.requestPersonUnavailable}
@@ -343,7 +346,7 @@ function ActivityContent({
               )}
               {!!row.person.village && (
                 <Text style={s.muted}>
-                  {language === "mr"
+                  {language !== "en"
                     ? row.person.village.nameMr
                     : row.person.village.name}
                 </Text>
@@ -353,9 +356,9 @@ function ActivityContent({
           {row.quantity !== null && (
             <Text style={s.muted}>
               {formatMessage(t.requestQuantityText, {
-                quantity: new Intl.NumberFormat(
-                  language === "mr" ? "mr-IN" : "en-IN",
-                ).format(row.quantity),
+                quantity: new Intl.NumberFormat(dateLocale(language)).format(
+                  row.quantity,
+                ),
                 unit: listingUnit(row.product.unit, language),
               })}
             </Text>

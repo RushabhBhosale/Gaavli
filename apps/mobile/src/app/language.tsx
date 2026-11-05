@@ -1,26 +1,17 @@
+import { LANGUAGE_LABELS } from "../locale";
 import { theme } from "../theme";
 import { useRef, useState } from "react";
 import { Redirect, useRouter } from "expo-router";
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { MOBILE_LANGUAGES } from "@gaavli/constants";
 import type { MobileVillage } from "@gaavli/types";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { confirmLanguage, postAuthHref } from "../storage/preferences";
 import { preferenceStorage } from "../storage/sqlite";
-import { Button, ErrorMessage } from "../components/ui";
+import { Brand, Button, ErrorMessage } from "../components/ui";
 import { VillageSelectField } from "../components/VillageSelectField";
 import {
   clearBrowsingVillage,
@@ -42,12 +33,6 @@ export default function LanguageScreen() {
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
   const submitting = useRef(false);
-  const { height } = useWindowDimensions();
-  const insets = useSafeAreaInsets();
-  const illustrationHeight = Math.max(
-    170,
-    Math.min(340, (height - insets.top - insets.bottom) * 0.33),
-  );
   if (session)
     return (
       <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
@@ -87,60 +72,45 @@ export default function LanguageScreen() {
 
   return (
     <SafeAreaView style={s.screen}>
-      <View
-        style={s.languages}
-        accessibilityRole="radiogroup"
-        accessibilityLabel={t.languageTitle}
-      >
-        {MOBILE_LANGUAGES.map((value) => (
-          <Pressable
-            key={value}
-            accessibilityRole="radio"
-            accessibilityLabel={value === "mr" ? "मराठी" : "English"}
-            accessibilityState={{ checked: language === value, disabled: busy }}
-            disabled={busy}
-            onPress={() => useAppStore.getState().setLanguage(value)}
-            style={s.languageTarget}
-          >
-            <View style={[s.pill, language === value && s.pillSelected]}>
-              <Text
-                style={[
-                  s.languageText,
-                  language === value && s.languageSelected,
-                ]}
-              >
-                {value === "mr" ? "मराठी" : "English"}
-              </Text>
-            </View>
-          </Pressable>
-        ))}
-      </View>
       <ScrollView
-        style={s.scroll}
         contentContainerStyle={s.content}
+        keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
+        <View
+          style={s.languages}
+          accessibilityRole="radiogroup"
+          accessibilityLabel={t.languageTitle}
+        >
+          {MOBILE_LANGUAGES.map((value) => (
+            <Pressable
+              key={value}
+              accessibilityRole="radio"
+              accessibilityLabel={LANGUAGE_LABELS[value]}
+              accessibilityState={{
+                checked: language === value,
+                disabled: busy,
+              }}
+              disabled={busy}
+              onPress={() => useAppStore.getState().setLanguage(value)}
+              style={[s.segment, language === value && s.segmentSelected]}
+            >
+              <Text
+                style={[s.segmentText, language === value && s.segmentTextOn]}
+              >
+                {LANGUAGE_LABELS[value]}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
         <View style={s.brandSection}>
-          <Image
-            source={require("../../assets/gaavli-welcome-mark.png")}
-            style={s.mark}
-            resizeMode="contain"
-            accessible={false}
-          />
-          <Text accessibilityRole="header" style={s.title}>
-            Gaavli
-          </Text>
-          <Text style={s.tagline}>{t.splashTagline}</Text>
-          <View
-            style={s.divider}
-            accessibilityElementsHidden
-            importantForAccessibility="no-hide-descendants"
-          >
-            <View style={s.dividerLine} />
-            <View style={s.leaf} />
-            <View style={s.dividerLine} />
+          <Brand />
+          <View style={s.copy}>
+            <Text accessibilityRole="header" style={s.tagline}>
+              {t.splashTagline}
+            </Text>
+            <Text style={s.support}>{t.splashDescription}</Text>
           </View>
-          <Text style={s.support}>{t.splashDescription}</Text>
         </View>
         <View style={s.action}>
           <VillageSelectField
@@ -148,7 +118,6 @@ export default function LanguageScreen() {
             disabled={busy}
             onSelect={setSelected}
           />
-          <Text style={s.villageHelp}>{t.villageRequired}</Text>
           {failed && <ErrorMessage message={t.storageError} />}
           <Button
             loading={busy}
@@ -175,13 +144,24 @@ export default function LanguageScreen() {
             </Text>
           </Pressable>
         </View>
-        <View style={[s.illustration, { height: illustrationHeight }]}>
-          <Image
-            source={require("../../assets/farm-welcome.webp")}
-            resizeMode="cover"
-            style={StyleSheet.absoluteFill}
-            accessible={false}
-          />
+        <View style={s.trust}>
+          {(
+            [
+              ["eye-outline", t.trustBrowse],
+              ["call-outline", t.trustContact],
+              ["shield-checkmark-outline", t.trustLocal],
+            ] as const
+          ).map(([icon, label]) => (
+            <View key={icon} style={s.trustItem}>
+              <Ionicons
+                accessible={false}
+                name={icon}
+                size={20}
+                color={theme.colors.primary}
+              />
+              <Text style={s.trustText}>{label}</Text>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -189,124 +169,91 @@ export default function LanguageScreen() {
 }
 
 const s = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: theme.colors.background },
+  content: {
+    flexGrow: 1,
+    width: "100%",
+    maxWidth: 480,
+    alignSelf: "center",
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingBottom: 24,
+    gap: 28,
+  },
+  languages: {
+    flexDirection: "row",
+    alignSelf: "center",
+    marginTop: 8,
+    padding: 4,
+    gap: 4,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.surfaceMuted,
+  },
+  segment: {
+    minHeight: 40,
+    minWidth: 92,
+    paddingHorizontal: 16,
+    borderRadius: theme.radii.pill,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  segmentSelected: {
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  segmentText: { ...theme.type.label, color: theme.colors.muted },
+  segmentTextOn: { color: theme.colors.primaryDark, fontWeight: "700" },
+  brandSection: {
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 24,
+    paddingVertical: 12,
+  },
+  copy: { alignItems: "center", gap: 6 },
+  tagline: {
+    ...theme.type.heading,
+    color: theme.colors.primaryDark,
+    textAlign: "center",
+  },
+  support: {
+    ...theme.type.body,
+    color: theme.colors.muted,
+    textAlign: "center",
+    maxWidth: 320,
+  },
+  action: {
+    gap: 12,
+    padding: 16,
+    borderRadius: 20,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
   loginLink: {
     minHeight: theme.layout.touchTarget,
     alignItems: "center",
     justifyContent: "center",
   },
   loginText: {
+    ...theme.type.caption,
     fontSize: 14,
-    lineHeight: 22,
+    lineHeight: 21,
     textAlign: "center",
-    color: theme.colors.text,
+    color: theme.colors.muted,
   },
   loginHighlight: {
-    color: theme.illustration.tree,
+    color: theme.colors.primary,
     fontWeight: "700",
-    textDecorationLine: "underline",
   },
   loginDisabled: { opacity: theme.interaction.disabledOpacity },
   loginPressed: { opacity: theme.interaction.pressedOpacity },
-  screen: { flex: 1, backgroundColor: theme.colors.background },
-  languages: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    flexWrap: "wrap",
-    gap: 8,
-    paddingHorizontal: 18,
-    paddingTop: 4,
-    paddingBottom: 4,
-  },
-  languageTarget: {
-    minHeight: theme.layout.touchTarget,
-    minWidth: 72,
-    justifyContent: "center",
-  },
-  pill: {
-    borderRadius: theme.radii.pill,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    backgroundColor: theme.colors.background,
-  },
-  pillSelected: {
-    backgroundColor: theme.colors.tint,
-    borderColor: theme.colors.tint,
-  },
-  languageText: {
-    color: theme.colors.primaryDark,
-    fontSize: 14,
-    textAlign: "center",
-  },
-  languageSelected: { color: theme.colors.primaryDark, fontWeight: "700" },
-  scroll: { flex: 1 },
-  content: { flexGrow: 1, paddingBottom: 8 },
-  brandSection: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: theme.layout.screenPadding,
-    paddingTop: 20,
-    paddingBottom: 24,
-  },
-  mark: { width: 116, height: 116 },
-  title: {
-    color: theme.colors.brand,
-    fontSize: 48,
-    fontWeight: "800",
-    letterSpacing: -1.5,
-    textAlign: "center",
-    marginTop: 2,
-  },
-  tagline: {
-    color: theme.colors.text,
-    fontSize: 16,
-    lineHeight: 24,
-    textAlign: "center",
-    marginTop: 2,
-  },
-  divider: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    marginVertical: 20,
-  },
-  dividerLine: { height: 1, width: 25, backgroundColor: theme.colors.border },
-  leaf: {
-    height: 9,
-    width: 17,
-    borderTopLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    transform: [{ rotate: "-25deg" }],
-    backgroundColor: theme.colors.icon,
-  },
-  support: {
-    color: theme.colors.text,
-    fontSize: 16,
-    lineHeight: 24,
-    textAlign: "center",
-    maxWidth: 350,
-  },
-  villageHelp: {
+  trust: { flexDirection: "row", justifyContent: "space-between", gap: 8 },
+  trustItem: { flex: 1, alignItems: "center", gap: 6 },
+  trustText: {
+    ...theme.type.micro,
+    fontWeight: "500",
     color: theme.colors.muted,
-    fontSize: 14,
-    lineHeight: 20,
     textAlign: "center",
-  },
-  action: {
-    paddingHorizontal: 28,
-    paddingBottom: 16,
-    gap: 10,
-    width: "100%",
-    maxWidth: 480,
-    alignSelf: "center",
-  },
-  illustration: {
-    marginHorizontal: 10,
-    borderRadius: theme.radii.artwork,
-    overflow: "hidden",
-    backgroundColor: theme.colors.background,
   },
 });

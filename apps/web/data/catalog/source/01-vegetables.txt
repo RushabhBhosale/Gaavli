@@ -1,0 +1,112 @@
+# Fresh vegetables. Columns: English|Hindi|Marathi|aliases|units|flags
+@category|vegetables|vegetables|Vegetables|सब्ज़ियाँ|भाजीपाला
+
+@sub|everyday-vegetables|Everyday Vegetables|रोज़ की सब्ज़ियाँ|रोजच्या भाज्या|kg,g,piece
+Tomato|टमाटर|टोमॅटो|tamatar,tamater,tomatoes,tomato
+Desi Tomato|देसी टमाटर|गावरान टोमॅटो|gavran tomato,desi tamatar||^TOMATO
+Green Tomato|हरा टमाटर|हिरवा टोमॅटो|kaccha tamatar,hirva tomato||^TOMATO
+Cherry Tomato|चेरी टमाटर|चेरी टोमॅटो|cherry tamatar|kg,g,box|^TOMATO
+Onion|प्याज|कांदा|pyaz,pyaaz,pyaj,kanda,kande,onions
+Red Onion|लाल प्याज|लाल कांदा|lal kanda,lal pyaz||^ONION
+White Onion|सफ़ेद प्याज|पांढरा कांदा|pandhra kanda,safed pyaz||^ONION
+Small Onion|छोटा प्याज|लहान कांदा|sambar onion,chota pyaz||^ONION
+Potato|आलू|बटाटा|aloo,alu,batata,batate,potatoes
+Baby Potato|छोटे आलू|लहान बटाटे|baby aloo,chote aloo||^POTATO
+Brinjal|बैंगन|वांगी|baingan,bengan,vangi,vange,eggplant,aubergine
+Bharit Brinjal|भर्ता बैंगन|भरताची वांगी|bharit vange,bharta baingan,bada baingan||^BRINJAL
+Green Brinjal|हरा बैंगन|हिरवी वांगी|hirvi vangi,hara baingan||^BRINJAL
+Purple Brinjal|जामुनी बैंगन|जांभळी वांगी|jambhali vangi,kala baingan||^BRINJAL
+Small Brinjal|छोटे बैंगन|लहान वांगी|bharli vangi,chote baingan||^BRINJAL
+Okra|भिंडी|भेंडी|bhindi,bhendi,ladies finger,lady finger
+Cauliflower|फूलगोभी|फ्लॉवर|phool gobhi,phool gobi,gobi,gobhi,flower,fulkobi|piece,kg
+Cabbage|पत्ता गोभी|कोबी|patta gobhi,band gobhi,kobi,kobee|piece,kg
+Carrot|गाजर|गाजर|gajar,carrots
+Red Carrot|लाल गाजर|लाल गाजर|delhi gajar,desi gajar,lal gajar||^CARROT
+Radish|मूली|मुळा|mooli,muli,mula
+Beetroot|चुकंदर|बीट|chukandar,beet,beetroot
+Turnip|शलजम|शलगम|shalgam,shaljam
+Cucumber|खीरा|काकडी|kheera,khira,kakdi,kakadi
+Desi Cucumber|देसी खीरा|गावरान काकडी|gavran kakdi,desi kheera||^CUCUMBER
+English Cucumber|अंग्रेज़ी खीरा|इंग्लिश काकडी|english kakdi,hybrid cucumber||^CUCUMBER
+Yellow Cucumber|पीला खीरा|पिवळी काकडी|mangalore cucumber,dosakai,pivli kakdi||^CUCUMBER
+Green Chilli|हरी मिर्च|हिरवी मिरची|hari mirch,mirchi,mirch,hirvi mirchi,chilli
+Bhavnagri Chilli|भावनगरी मिर्च|भावनगरी मिरची|bhaji mirchi,pakoda mirchi,bhavnagari||^GREEN_CHILLI
+Lavangi Chilli|लवंगी मिर्च|लवंगी मिरची|lavangi mirchi,teekhi mirchi||^GREEN_CHILLI
+Capsicum|शिमला मिर्च|ढोबळी मिरची|shimla mirch,bell pepper,dhobli mirchi,simla mirchi
+Red Capsicum|लाल शिमला मिर्च|लाल ढोबळी मिरची|red bell pepper||^CAPSICUM
+Yellow Capsicum|पीली शिमला मिर्च|पिवळी ढोबळी मिरची|yellow bell pepper||^CAPSICUM
+Garlic|लहसुन|लसूण|lahsun,lehsun,lasun,lasoon
+Desi Garlic|देसी लहसुन|गावरान लसूण|gavran lasun,desi lahsun||^GARLIC
+Ginger|अदरक|आले|adrak,adrakh,ale,aale
+Raw Mango|कच्चा आम|कैरी|kairi,keri,kachcha aam,kacchi kairi
+Raw Banana|कच्चा केला|कच्ची केळी|kachcha kela,plantain,kachchi keli,bhajichi keli
+Raw Papaya|कच्चा पपीता|कच्ची पपई|kachcha papita,kachchi papai
+Raw Jackfruit|कच्चा कटहल|कच्चा फणस|kathal,kachcha phanas|kg,piece
+Lemon Grass|लेमन ग्रास|गवती चहा|gavti chaha,lemongrass,hari chai|bunch,kg
+
+@sub|gourds|Gourds|लौकी-तोरई वर्ग|वेलवर्गीय भाज्या|kg,g,piece
+Ridge Gourd|तोरई|दोडका|turai,tori,toori,dodka,dodke
+Bottle Gourd|लौकी|दुधी भोपळा|lauki,ghiya,dudhi,doodhi,dudhi bhopla
+Bitter Gourd|करेला|कारले|karela,karle,karli,karela
+Small Bitter Gourd|छोटा करेला|लहान कारली|chota karela,baramasi karle||^BITTER_GOURD
+Sponge Gourd|गिल्की|घोसाळे|gilki,nenua,ghosale,ghosali
+Pumpkin|कद्दू|लाल भोपळा|kaddu,kashiphal,bhopla,lal bhopla,red pumpkin
+Ash Gourd|पेठा|कोहळा|petha,kohla,white pumpkin,winter melon
+Snake Gourd|चिचिंडा|पडवळ|chichinda,padwal,padval
+Ivy Gourd|कुंदरू|तोंडली|kundru,tondli,tondale,tindora,tendli
+Round Gourd|टिंडा|ढेमसे|tinda,dhemse,indian round gourd
+Pointed Gourd|परवल|परवल|parwal,parval,patol
+Spiny Gourd|ककोड़ा|करटोली|kakoda,kantola,kartoli,spine gourd
+Zucchini|ज़ुकीनी|झुकिनी|courgette
+
+@sub|beans-pods|Beans and Pods|फलियाँ|शेंगभाज्या|kg,g
+Drumstick|सहजन|शेवगा शेंगा|sahjan,sahijan,saijan,shevga,shevgyachya shenga,moringa pods|kg,bunch,piece
+Cluster Beans|ग्वार फली|गवार|gawar,guar,gavar,gavar shenga
+French Beans|फ्रेंच बीन्स|फरसबी|farasbi,fansi,beans,french bean
+Field Bean Pods|सेम की फली|वालाच्या शेंगा|sem,papdi,val papdi,valachya shenga
+Ghevda Beans|सेम फली|घेवडा|ghevda,ghevada,indian beans,sem phali
+Pavta Beans|पावटा फली|पावटा|pavta,pavte,lablab beans||
+Double Beans|डबल बीन्स|डबल बी|double bee,lima beans
+Cowpea Pods|लोबिया फली|चवळीच्या शेंगा|chavli shenga,lobia phali,barbati,long beans
+Green Peas|हरी मटर|वाटाणा|matar,mattar,hari matar,vatana,hirva vatana,peas
+Green Chickpeas|हरा चना|हरभऱ्याचे घाटे|hara chana,choliya,ghate,ola harbhara|kg,bunch
+Green Pigeon Peas|हरी तुअर|तुरीच्या शेंगा|hari tuvar,lilva tuvar,turichya shenga
+Fresh Groundnut Pods|कच्ची मूंगफली|ओल्या शेंगा|kachchi mungfali,olya shenga,ole shengdane
+Hurda|हुरडा|हुरडा|hurda,tender jowar,tender sorghum
+Corn Cob|भुट्टा|मका कणीस|bhutta,makka,kanis,makyacha kanis|piece,kg
+Sweet Corn|स्वीट कॉर्न|स्वीट कॉर्न|american corn,sweetcorn,makka|piece,kg
+Baby Corn|बेबी कॉर्न|बेबी कॉर्न|babycorn|kg,g,packet
+
+@sub|roots-tubers|Roots and Tubers|कंद-मूल|कंदमुळे|kg,g
+Sweet Potato|शकरकंद|रताळे|shakarkand,shakarkandi,ratale,ratali
+Elephant Foot Yam|जिमीकंद|सुरण|suran,jimikand,oal,yam
+Taro Root|अरबी|अळूचे कंद|arbi,arvi,alu kand,colocasia root
+Purple Yam|रतालू|कोनफळ|konfal,ratalu,kand
+Fresh Turmeric|कच्ची हल्दी|ओली हळद|kachchi haldi,oli halad,raw turmeric
+Mango Ginger|आमा हल्दी|आंबे हळद|amba haldi,ambe halad
+Water Chestnut|सिंघाड़ा|शिंगाडा|singhara,singada,shingada
+Kohlrabi|गांठ गोभी|नवलकोल|ganth gobhi,knol khol,navalkol|kg,piece
+Tapioca|कसावा|टॅपिओका कंद|cassava,kasava,sabudana kand||
+
+@sub|exotic-vegetables|Exotic Vegetables|विदेशी सब्ज़ियाँ|परदेशी भाज्या|kg,g,piece
+Mushroom|मशरूम|मशरूम|mushroom,khumbi,alimbi,alambi|kg,g,packet
+Button Mushroom|बटन मशरूम|बटन मशरूम|button khumbi|kg,g,packet|^MUSHROOM
+Oyster Mushroom|ढींगरी मशरूम|धिंगरी अळिंबी|dhingri,oyster khumbi|kg,g,packet|^MUSHROOM
+Broccoli|ब्रोकली|ब्रोकोली|brocoli,hari gobhi|piece,kg
+Red Cabbage|लाल पत्ता गोभी|लाल कोबी|red kobi|piece,kg|^CABBAGE
+Chinese Cabbage|चाइनीज़ पत्ता गोभी|चायनीज कोबी|napa cabbage|piece,kg
+Lettuce|सलाद पत्ता|लेट्यूस|salad patta,iceberg lettuce|piece,kg
+Celery|अजमोद|सेलरी|ajmod|bunch,kg
+Leek|लीक|लीक|leeks|kg,piece
+Bok Choy|बोक चॉय|बोक चॉय|pak choi|kg,piece
+Asparagus|शतावरी|शतावरी|asparagus|kg,bunch
+
+@sub|seasonal-vegetables|Seasonal and Special Vegetables|मौसमी सब्ज़ियाँ|हंगामी भाज्या|kg,g,piece
+Banana Flower|केले का फूल|केळफूल|kele ka phool,kelphul,banana blossom|piece
+Banana Stem|केले का तना|केळीचे खोड|kele ka tana,keliche khod|piece,kg|
+Lotus Stem|कमल ककड़ी|कमळाचे देठ|kamal kakdi,bhein,lotus root||
+Bamboo Shoot|बांस का करील|बांबूचे कोंब|kirla,karil,bamboo shoots||
+Green Garlic|हरा लहसुन|ओली लसूण|hara lahsun,oli lasun,green garlic|bunch,kg
+Spring Onion|हरा प्याज|कांद्याची पात|hara pyaz,kandyachi paat,kanda paat,scallion|bunch,kg
+Moringa Flowers|सहजन के फूल|शेवग्याची फुले|shevgyachi phule,sahjan phool|kg,g|
+Jackfruit Seeds|कटहल के बीज|फणसाच्या आठळ्या|athalya,kathal beej|kg,g

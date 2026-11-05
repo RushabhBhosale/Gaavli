@@ -1,0 +1,289 @@
+# Seeds, fertilizers, crop protection (generic), tools, irrigation and farm equipment.
+@category|farm-inputs|farm_inputs|Farm Inputs and Tools|कृषि सामग्री और औज़ार|शेती निविष्ठा आणि अवजारे
+
+@sub|vegetable-seeds|Vegetable Seeds|सब्ज़ी के बीज|भाजीपाला बियाणे|packet,g,kg
+@pattern|{en} Seeds|{hi} बीज|{mr} बियाणे
++TOMATO
++CHERRY_TOMATO
++ONION
++BRINJAL
++OKRA
++CAULIFLOWER
++CABBAGE
++CARROT
++RADISH
++BEETROOT
++TURNIP
++CUCUMBER
++RIDGE_GOURD
++BOTTLE_GOURD
++BITTER_GOURD
++SPONGE_GOURD
++ASH_GOURD
++SNAKE_GOURD
++ROUND_GOURD
++GREEN_CHILLI
++CAPSICUM
++CLUSTER_BEANS
++FRENCH_BEANS
++GHEVDA_BEANS
++COWPEA_PODS
++GREEN_PEAS
++DRUMSTICK
++BROCCOLI
++RED_CABBAGE
++CHINESE_CABBAGE
++LETTUCE
++ZUCCHINI
++KOHLRABI
++SWEET_CORN
++BABY_CORN
++MUSKMELON
++PAPAYA
++SPINACH
++RED_AMARANTH
++GREEN_AMARANTH
++CELERY
++PARSLEY
++BASIL
++SPRING_ONION
++LEEK
+
+Pumpkin Sowing Seeds|कद्दू बीज (बुवाई)|लाल भोपळा बियाणे|kaddu seeds sowing,bhopla biyane,kaddu beej,pumpkin seed
+Watermelon Sowing Seeds|तरबूज बीज (बुवाई)|कलिंगड बियाणे|tarbuj seeds sowing,kalingad biyane,tarbooj beej,watermelon seed
+Methi Sowing Seeds|मेथी बीज (बुवाई)|मेथी बियाणे|methi seeds for sowing,fenugreek seed,methi beej,methi biyane
+Shepu Sowing Seeds|सोआ बीज (बुवाई)|शेपू बियाणे|dill sowing seeds
+Coriander Sowing Seeds|धनिया बीज (बुवाई)|कोथिंबीर बियाणे|dhane perni,coriander seeds sowing,coriander seed,dhaniya biyane,kothimbir biyane
+Ambadi Sowing Seeds|अम्बाड़ी बीज|अंबाडी बियाणे|gongura seeds
+
+@sub|flower-seeds|Flower Seeds|फूलों के बीज|फुलांचे बियाणे|packet,g
+@pattern|{en} Seeds|{hi} बीज|{mr} बियाणे
++MARIGOLD
++ASTER
++ZINNIA
++COSMOS
++PETUNIA
++SALVIA
++BALSAM
++CELOSIA
++DAHLIA
++DIANTHUS
++GOMPHRENA
++PORTULACA
++PERIWINKLE
++CHRYSANTHEMUM
+
+@sub|field-crop-seeds|Field Crop Seeds|फसल के बीज|पीक बियाणे|kg,packet,bag
+@pattern|{en} Seeds|{hi} बीज|{mr} बियाणे
++SOYBEAN
++COTTON
++MAIZE
++SORGHUM
++PEARL_MILLET
++WHEAT
++PADDY
++GROUNDNUT
++CHICKPEA
++PIGEON_PEA
++GREEN_GRAM
++BLACK_GRAM
++SAFFLOWER
++FINGER_MILLET
++COWPEA
++MOTH_BEAN
++HORSE_GRAM
++LENTIL
++BARLEY
++OATS
+Sunflower Sowing Seeds|सूरजमुखी बीज (बुवाई)|सूर्यफूल बियाणे|sunflower hybrid seeds,sunflower seed,surajmukhi beej,suryaful biyane
+Sesame Sowing Seeds|तिल बीज (बुवाई)|तीळ बियाणे|til seeds sowing
+Castor Sowing Seeds|अरंडी बीज (बुवाई)|एरंडी बियाणे|castor hybrid seeds
+Niger Sowing Seeds|रामतिल बीज (बुवाई)|कारळे बियाणे|karale perni
+Flax Sowing Seeds|अलसी बीज (बुवाई)|जवस बियाणे|linseed sowing seeds
+Onion Seed Bulbs|प्याज की गांठें|कांद्याचे गोळे (बीजोत्पादन)|kanda gole,onion sets,kanda gadde,onion bulbils|kg,bag|
+Potato Seed Tubers|आलू बीज|बटाटा बेणे|batata bene,seed potato,aloo beej,batata biyane,potato seed|kg,bag|
+Sugarcane Setts|गन्ने के बीज (कलम)|उसाचे बेणे|us bene,sugarcane seed|ton,quintal,bundle
+Turmeric Seed Rhizomes|हल्दी बीज|हळद बेणे|halad bene,turmeric seed|kg,quintal
+Ginger Seed Rhizomes|अदरक बीज|आले बेणे|ale bene,ginger seed|kg,quintal
+Garlic Seed Cloves|लहसुन बीज|लसूण बेणे|lasun bene,garlic seed|kg
+Napier Grass Slips|नेपियर घास की कलम|नेपियर गवताचे ठोंब|napier,hybrid napier,co4,elephant grass|bundle,piece
+Lucerne Seeds|रिजका बीज|लसूण घास बियाणे|lucerne,alfalfa,lasun ghas|kg,packet
+Berseem Seeds|बरसीम बीज|बरसीम बियाणे|berseem|kg,packet
+Fodder Maize Seeds|चारा मक्का बीज|चारा मका बियाणे|african tall||
+Fodder Sorghum Seeds|चारा ज्वार बीज|चारा ज्वारी बियाणे|multicut jowar,ssg||
+Stylo Grass Seeds|स्टाइलो घास बीज|स्टायलो गवत बियाणे|||
+Marvel Grass Slips|मारवेल घास|मारवेल गवत|marvel||
+Dhaincha Seeds|ढैंचा बीज|ढेंचा बियाणे|dhaincha,green manure seeds|kg
+Sunhemp Seeds|सनई बीज|ताग बियाणे|sunhemp,sunn hemp|kg
+
+@sub|fertilizers|Fertilizers and Manures|उर्वरक और खाद|खते|kg,bag
+Urea|यूरिया|युरिया|urea,yuria
+DAP|डीएपी|डीएपी|dap,di ammonium phosphate
+Muriate of Potash|पोटाश (एमओपी)|पोटॅश (एमओपी)|potash,muriate of potash,mop
+SSP|सिंगल सुपर फॉस्फेट|सिंगल सुपर फॉस्फेट|ssp,single super phosphate
+NPK 10:26:26|एनपीके 10:26:26|एनपीके 10:26:26|10 26 26
+NPK 12:32:16|एनपीके 12:32:16|एनपीके 12:32:16|12 32 16
+NPK 19:19:19|एनपीके 19:19:19|एनपीके 19:19:19|19 19 19,water soluble|kg,bag,packet
+NPK 20:20:0:13|एनपीके 20:20:0:13|एनपीके 20:20:0:13|20 20 0 13
+NPK 15:15:15|एनपीके 15:15:15|एनपीके 15:15:15|15 15 15
+Ammonium Sulphate|अमोनियम सल्फेट|अमोनियम सल्फेट|ammonium sulphate
+Calcium Nitrate|कैल्शियम नाइट्रेट|कॅल्शियम नायट्रेट|calcium nitrate|kg,bag,packet
+Potassium Nitrate|पोटैशियम नाइट्रेट|पोटॅशियम नायट्रेट|13 0 45|kg,bag,packet
+Mono Ammonium Phosphate|मोनो अमोनियम फॉस्फेट|मोनो अमोनियम फॉस्फेट|map 12 61 0|kg,bag,packet
+Mono Potassium Phosphate|मोनो पोटैशियम फॉस्फेट|मोनो पोटॅशियम फॉस्फेट|mkp 0 52 34|kg,bag,packet
+Sulphate of Potash|सल्फेट ऑफ़ पोटाश|सल्फेट ऑफ पोटॅश|sop 0 0 50|kg,bag,packet
+Magnesium Sulphate|मैग्नीशियम सल्फेट|मॅग्नेशियम सल्फेट|magnesium sulphate|kg,bag
+Zinc Sulphate|जिंक सल्फेट|झिंक सल्फेट|zinc sulphate|kg,bag,packet
+Ferrous Sulphate|फेरस सल्फेट|फेरस सल्फेट|hirakas,ferrous sulphate|kg,bag
+Boron|बोरॉन|बोरॉन|borax,boron fertilizer|kg,packet
+Gypsum|जिप्सम|जिप्सम|gypsum,calcium sulphate|kg,bag
+Bentonite Sulphur|बेंटोनाइट सल्फर|बेंटोनाइट सल्फर|sulphur 90|kg,bag
+Micronutrient Mixture|सूक्ष्म पोषक मिश्रण|सूक्ष्म अन्नद्रव्ये मिश्रण|micronutrient,grade 2|kg,packet,bag
+Agricultural Lime|कृषि चूना|शेतीसाठी चुना|chuna,lime|kg,bag
+Farmyard Manure|गोबर की खाद|शेणखत|shenkhat,gobar khad,fym,manure|kg,ton,bag
+Vermicompost|केंचुआ खाद|गांडूळखत|gandul khat,vermi compost,kechua khad
+Compost|कम्पोस्ट|कंपोस्ट खत|compost khat
+Poultry Manure|मुर्गी की खाद|कोंबडी खत|kombdi khat,chicken manure|kg,ton,bag
+Goat Manure|बकरी की खाद|शेळीचे लेंडी खत|lendi khat|kg,ton,bag
+Press Mud|प्रेस मड|प्रेसमड|press mud,sugar factory mud|ton
+Bio Fertilizer|जैव उर्वरक|जैविक खत|azotobacter,rhizobium,psb|litre,kg,packet
+Trichoderma|ट्राइकोडर्मा|ट्रायकोडर्मा|trichoderma viride|kg,packet,litre
+Pseudomonas|स्यूडोमोनास|स्युडोमोनास|pseudomonas fluorescens|kg,litre,packet
+Humic Acid|ह्यूमिक एसिड|ह्युमिक अॅसिड|humic|kg,litre
+Seaweed Extract|समुद्री शैवाल अर्क|सी-वीड अर्क|seaweed|litre,kg
+Vermiwash|वर्मीवॉश|व्हर्मीवॉश|vermi wash|litre
+Earthworms|केंचुए|गांडूळ|gandul,kechua,earthworms for compost|kg
+
+@sub|crop-protection|Crop Protection (Generic)|फसल सुरक्षा|पीक संरक्षण|litre,ml,kg,g,packet,bottle
+Neem Oil Pesticide|नीम तेल कीटनाशक|निंबोळी तेल कीटकनाशक|neem oil spray,azadirachtin
+Imidacloprid|इमिडाक्लोप्रिड|इमिडाक्लोप्रिड|imida
+Chlorpyrifos|क्लोरपायरीफॉस|क्लोरपायरीफॉस|chlorpyriphos
+Cypermethrin|साइपरमेथ्रिन|सायपरमेथ्रीन|cyper
+Lambda Cyhalothrin|लैम्ब्डा साइहेलोथ्रिन|लॅम्बडा सायहॅलोथ्रिन|lambda
+Emamectin Benzoate|इमामेक्टिन बेंजोएट|इमामेक्टीन बेंझोएट|emamectin
+Thiamethoxam|थायमेथोक्साम|थायामेथोक्झाम|thiamethoxam
+Acephate|एसीफेट|असिफेट|acephate
+Profenofos|प्रोफेनोफॉस|प्रोफेनोफॉस|profex
+Fipronil|फिप्रोनिल|फिप्रोनील|fipronil
+Chlorantraniliprole|क्लोरएंट्रानिलिप्रोल|क्लोरॅन्ट्रानिलीप्रोल|
+Spinosad|स्पिनोसैड|स्पिनोसॅड|spinosad
+Mancozeb|मैनकोज़ेब|मँकोझेब|m45,mancozeb
+Carbendazim|कार्बेन्डाज़िम|कार्बेन्डाझिम|
+Copper Oxychloride|कॉपर ऑक्सीक्लोराइड|कॉपर ऑक्सिक्लोराईड|coc
+Sulphur Wettable Powder|गंधक घुलनशील चूर्ण|गंधक (पाण्यात विरघळणारे)|sulphur 80 wp
+Hexaconazole|हेक्साकोनाज़ोल|हेक्साकोनाझोल|
+Tebuconazole|टेबुकोनाज़ोल|टेब्युकोनाझोल|
+Metalaxyl Mancozeb|मेटालैक्सिल मैनकोज़ेब|मेटॅलॅक्झिल मॅन्कोझेब|
+Azoxystrobin|एज़ोक्सीस्ट्रोबिन|अॅझोक्सिस्ट्रोबिन|
+Streptocycline|स्ट्रेप्टोसाइक्लिन|स्ट्रेप्टोसायक्लिन|streptocycline
+Bordeaux Mixture|बोर्डो मिश्रण|बोर्डो मिश्रण|bordo,copper sulphate lime
+Copper Sulphate|नीला थोथा|मोरचूद|morchud,neela thotha,blue vitriol|kg,g
+Glyphosate|ग्लाइफोसेट|ग्लायफोसेट|glyphosate
+Herbicide 2,4-D|2,4-डी तणनाशक|2,4-डी तणनाशक|2 4 d
+Atrazine|एट्राज़िन|अॅट्राझिन|atrazine
+Pendimethalin|पेंडीमेथालिन|पेंडिमिथॅलिन|
+Paraquat|पैराक्वाट|पॅराक्वॅट|
+Imazethapyr|इमाज़ेथापायर|इमॅझेथापायर|
+Quizalofop|क्विज़ालोफॉप|क्विझालोफॉप|
+Pyrazosulfuron|पाइराज़ोसल्फ्यूरॉन|पायराझोसल्फ्युरॉन
+Metsulfuron|मेटसल्फ्यूरॉन|मेटसल्फ्युरॉन|
+Gibberellic Acid|जिब्रेलिक एसिड|जिबरेलिक अॅसिड|ga3,gibberellic
+Ethephon|इथेफॉन|इथेफॉन|
+Paclobutrazol|पैक्लोब्यूट्राज़ोल|पॅक्लोब्युट्राझॉल|
+Sticker Spreader|स्टिकर|स्टिकर|wetting agent,sticker
+Pheromone Trap|फेरोमोन ट्रैप|कामगंध सापळा|kamgandh sapla,funnel trap|piece,set
+Yellow Sticky Trap|पीला चिपचिपा जाल|पिवळा चिकट सापळा|yellow trap|piece,packet
+Blue Sticky Trap|नीला चिपचिपा जाल|निळा चिकट सापळा|blue trap|piece,packet
+Fruit Fly Trap|फल मक्खी जाल|फळमाशी सापळा|methyl eugenol trap|piece
+Rat Poison|चूहे की दवा|उंदीर मारण्याचे औषध|zinc phosphide,rat kill|packet,g
+Bird Scare Tape|पक्षी भगाने वाली पट्टी|पक्षी हाकलणारी पट्टी|reflective ribbon|roll
+Light Trap|लाइट ट्रैप|प्रकाश सापळा|solar light trap|piece
+
+@sub|farm-tools|Farm Hand Tools|कृषि हस्त उपकरण|शेती हत्यारे|piece
+Sickle|हंसिया|विळा|vila,hansiya,daranti
+Spade|फावड़ा|फावडे|phavda,fawda,shovel
+Pickaxe|गैंती|टिकाव|tikav,gainti,kudal
+Hoe|कुदाल|कुदळ|kudal,kudali
+Axe|कुल्हाड़ी|कुऱ्हाड|kurhad,kulhadi
+Machete|दरांती|कोयता|koyta,machete
+Crowbar|सब्बल|पहार|pahar,sabbal
+Rake|पंजा|दंताळे|dantale,rake
+Weeder|निराई यंत्र|कोळपे|kolpe,hand weeder
+Khurpi|खुरपी|खुरपे|khurpi,khurpe
+Plough|हल|नांगर|nangar,hal,plough
+Bullock Cart|बैलगाड़ी|बैलगाडी|bailgadi
+Yoke|जुआ|जू|ju,juwa
+Pitchfork|पंजा (भूसा)|आकडी|akdi||
+Iron Pan|तसला|घमेले|ghamela,tasla,ghamelle
+Bamboo Basket|बांस की टोकरी|टोपली|topli,tokri,dalla
+Winnowing Fan|सूप|सूप|soop,supa
+Gunny Bag|बोरी|पोते|gonpat,pote,bori,jute bag|piece,dozen,bundle
+HDPE Bag|प्लास्टिक बोरी|प्लास्टिक पोते|hdpe bori|piece,dozen,bundle
+Tarpaulin|तिरपाल|ताडपत्री|tadpatri,tirpal,tarpaulin|piece
+Rope|रस्सी|दोरी|dori,rassi,rope|metre,kg,piece
+Coir Rope|नारियल रस्सी|काथ्याची दोरी|kathya dori||^ROPE
+Nylon Rope|नायलॉन रस्सी|नायलॉन दोरी|||^ROPE
+Barbed Wire|कांटेदार तार|काटेरी तार|kateri tar,fencing wire|kg,roll
+Chain Link Fencing|जाली तार|जाळीचे कुंपण|wire mesh,fencing jali|roll,metre
+Fencing Pole|बाड़ खंभा|कुंपणाचे खांब|cement pole,angle|piece
+Grafting Knife|ग्राफ्टिंग चाकू|कलम चाकू|kalam chaku
+Grafting Tape|ग्राफ्टिंग टेप|कलम पट्टी|||
+Hand Sprayer Pump|हैंड स्प्रे पंप|हात फवारणी पंप|knapsack sprayer,spray pump
+Battery Sprayer Pump|बैटरी स्प्रे पंप|बॅटरी फवारणी पंप|battery pump,electric sprayer
+Power Sprayer|पावर स्प्रेयर|पॉवर स्प्रेयर|htp pump,petrol sprayer
+Mulching Paper|मल्चिंग पेपर|मल्चिंग पेपर|mulching film,plastic mulch|roll
+Crop Cover|फसल कवर|पीक आच्छादन|crop cover bag,fruit cover|piece,packet
+Grape Bunch Cover|अंगूर गुच्छ कवर|द्राक्ष घड पिशवी|||
+Pomegranate Fruit Cover|अनार फल कवर|डाळिंब फळ पिशवी|||
+Silage Bag|साइलेज बैग|मुरघास पिशवी|silage bag,murghas bag|piece
+Crates|प्लास्टिक कैरेट|प्लास्टिक क्रेट|crate,carat|piece,dozen
+Weighing Scale|तराजू|वजनकाटा|tarazu,vajan kata,weighing machine
+Digital Weighing Scale|डिजिटल तराजू|डिजिटल वजनकाटा|electronic kata||^WEIGHING_SCALE
+Soil Testing Kit|मृदा परीक्षण किट|माती परीक्षण किट|||
+Moisture Meter|नमी मीटर|ओलावा मीटर|||
+
+@sub|irrigation|Irrigation|सिंचाई|सिंचन|piece,metre,roll
+Drip Pipe|ड्रिप पाइप|ठिबक पाईप|drip lateral,thibak|roll,metre
+Drip Kit|ड्रिप किट|ठिबक संच|drip system,thibak sanch|set
+Dripper|ड्रिपर|ड्रिपर|emitter|piece,packet
+Sprinkler|स्प्रिंकलर|तुषार|tushar,sprinkler set|piece,set
+Rain Pipe|रेन पाइप|रेन पाईप|rainpipe|roll,metre
+HDPE Pipe|एचडीपीई पाइप|एचडीपीई पाईप|hdpe|metre,roll
+PVC Pipe|पीवीसी पाइप|पीव्हीसी पाईप|pvc|piece,metre
+Suction Pipe|सक्शन पाइप|सक्शन पाईप
+Lay Flat Pipe|ले फ्लैट पाइप|लेफ्लॅट पाईप|layflat hose|roll,metre
+Water Pump|पानी का पंप|पाण्याचा पंप|pump,motor pump
+Submersible Pump|सबमर्सिबल पंप|सबमर्सिबल पंप|borewell pump,submersible
+Monoblock Pump|मोनोब्लॉक पंप|मोनोब्लॉक पंप|centrifugal pump
+Diesel Engine Pump|डीज़ल इंजन पंप|डिझेल इंजिन पंप|engine pump
+Solar Pump|सोलर पंप|सौर पंप|solar water pump
+Starter|स्टार्टर|स्टार्टर|motor starter,dol starter
+Foot Valve|फुट वाल्व|फूट व्हॉल्व्ह|foot valve
+Screen Filter|स्क्रीन फ़िल्टर|स्क्रीन फिल्टर|drip filter
+Venturi|वेंचुरी|व्हेंचुरी|fertigation venturi
+Water Tank|पानी की टंकी|पाण्याची टाकी|tank|piece
+Farm Pond Lining|शेत तालाब अस्तर|शेततळे अस्तरीकरण|shettale plastic,pond liner|sheet,metre
+Pipe Fittings|पाइप फिटिंग|पाईप फिटिंग|elbow,tee,coupler|piece,set
+
+@sub|farm-machinery|Farm Machinery and Equipment|कृषि मशीनरी|शेती यंत्रे|piece
+Tractor|ट्रैक्टर|ट्रॅक्टर|tractor
+Mini Tractor|मिनी ट्रैक्टर|मिनी ट्रॅक्टर|small tractor||^TRACTOR
+Power Tiller|पावर टिलर|पॉवर टिलर|tiller
+Rotavator|रोटावेटर|रोटाव्हेटर|rotavator
+Cultivator|कल्टीवेटर|कल्टीव्हेटर|tiller attachment
+Seed Drill|सीड ड्रिल|पेरणी यंत्र|perni yantra,seed cum fertilizer drill
+Tractor Trolley|ट्रैक्टर ट्रॉली|ट्रॅक्टर ट्रॉली|trolley
+Thresher|थ्रेशर|मळणी यंत्र|malni yantra,thresher
+Chaff Cutter|चारा काटने की मशीन|कडबा कुट्टी यंत्र|kadba kutti,chaff cutter,kutti machine
+Brush Cutter|ब्रश कटर|ब्रश कटर|grass cutter
+Reaper|रीपर|रीपर|reaper binder
+Harvester|हार्वेस्टर|हार्वेस्टर|combine harvester
+Blower|ब्लोअर|ब्लोअर
+Flour Mill Machine|आटा चक्की|पिठाची गिरणी|ghar ghanti,atta chakki,flour mill
+Oil Expeller|तेल घानी मशीन|तेल घाणा यंत्र|oil ghani machine
+Milking Machine|दूध निकालने की मशीन|दूध काढणी यंत्र|milking machine
+Egg Incubator|अंडा इनक्यूबेटर|अंडी उबवणी यंत्र|incubator
+Earth Auger|गड्ढा खोदने की मशीन|खड्डा खोदणी यंत्र|post hole digger
+Paddy Transplanter|धान रोपाई मशीन|भात लावणी यंत्र|||
+Maize Sheller|मक्का छीलने की मशीन|मका सोलणी यंत्र|corn sheller
+Groundnut Decorticator|मूंगफली छीलने की मशीन|शेंगा फोडणी यंत्र|||

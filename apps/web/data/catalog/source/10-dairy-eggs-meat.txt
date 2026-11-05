@@ -1,0 +1,145 @@
+# Dairy, ghee, eggs, poultry, meat and fish.
+@category|dairy|dairy|Dairy|डेयरी उत्पाद|दुग्धजन्य पदार्थ
+
+@sub|milk|Milk|दूध|दूध|litre,ml
+Desi Milk|देसी दूध|गावठी दूध|gavthi dudh,desi doodh
+Cow Milk|गाय का दूध|गायीचे दूध|gay dudh,gaay ka doodh,cow milk
+Buffalo Milk|भैंस का दूध|म्हशीचे दूध|mhashiche dudh,bhains ka doodh,buffalo milk
+A2 Gir Cow Milk|ए2 गिर गाय का दूध|ए2 गीर गायीचे दूध|a2 milk,gir cow milk||^COW_MILK
+Goat Milk|बकरी का दूध|शेळीचे दूध|sheliche dudh,bakri ka doodh
+Toned Milk|टोन्ड दूध|टोन्ड दूध|toned milk|litre,ml,packet
+Full Cream Milk|फुल क्रीम दूध|फुल क्रीम दूध|full cream|litre,ml,packet
+Colostrum Milk|खीस|चीक|cheek,kharvas milk,khees,first milk|litre,ml
+Flavoured Milk|फ्लेवर्ड दूध|फ्लेवर्ड दूध|masala milk|bottle,ml
+Milk Powder|दूध पाउडर|दूध पावडर|milk powder|kg,g,packet
+Condensed Milk|कंडेंस्ड मिल्क|कंडेन्स्ड मिल्क|condensed milk|g,packet,box
+
+@sub|curd-buttermilk|Curd, Buttermilk and Cream|दही, छाछ और मलाई|दही, ताक आणि साय|kg,litre,g
+Curd|दही|दही|dahi,curd,yogurt
+Buffalo Milk Curd|भैंस के दूध का दही|म्हशीच्या दुधाचे दही|mhashiche dahi||^CURD
+Buttermilk|छाछ|ताक|chaas,chhachh,taak,tak
+Masala Buttermilk|मसाला छाछ|मसाला ताक|masala chaas,masala taak|litre,bottle,packet|^BUTTERMILK
+Lassi|लस्सी|लस्सी|lassi,sweet lassi|litre,bottle,ml
+Cream|मलाई|साय|malai,say,cream|kg,g
+Fresh Cream|फ्रेश क्रीम|फ्रेश क्रीम|whipping cream|ml,litre,packet
+Butter|मक्खन|लोणी|makhan,loni,white butter,safed makhan
+Table Butter|टेबल बटर|बटर|salted butter|g,packet
+Ghee|घी|तूप|ghee,ghi,tup,toop
+Cow Ghee|गाय का घी|गायीचे तूप|gay tup,cow ghee,desi ghee|kg,litre,g,jar|^GHEE
+Buffalo Ghee|भैंस का घी|म्हशीचे तूप|mhashiche tup,buffalo ghee|kg,litre,g,jar|^GHEE
+A2 Gir Cow Ghee|ए2 गिर गाय का घी|ए2 गीर गायीचे तूप|a2 ghee,gir ghee|kg,litre,g,jar|^GHEE
+Bilona Ghee|बिलोना घी|बिलोना तूप|bilona,hand churned ghee|kg,litre,g,jar|^GHEE
+
+@sub|milk-products|Paneer, Khoya and Milk Products|पनीर, खोया और दुग्ध उत्पाद|पनीर, खवा आणि दुग्धपदार्थ|kg,g
+Paneer|पनीर|पनीर|paneer,cottage cheese
+Malai Paneer|मलाई पनीर|मलई पनीर|soft paneer||^PANEER
+Khoya|खोया|खवा|khoya,khava,mawa,khowa
+Chakka|चक्का|चक्का|chakka,hung curd
+Shrikhand|श्रीखंड|श्रीखंड|shrikhand,kesar shrikhand,elaichi shrikhand
+Amrakhand|आम्रखंड|आम्रखंड|amrakhand,mango shrikhand
+Basundi|बासुंदी|बासुंदी|basundi
+Rabdi|रबड़ी|रबडी|rabri,rabdi
+Kharvas|खरवस|खरवस|kharvas,colostrum pudding
+Kulfi|कुल्फ़ी|कुल्फी|kulfi,malai kulfi|piece,box
+Ice Cream|आइसक्रीम|आईस्क्रीम|icecream|litre,ml,piece,box
+Cheese|चीज़|चीज|cheese slices,cheese block|g,packet
+Mozzarella Cheese|मोज़रेला चीज़|मोझरेला चीज|pizza cheese|g,packet|^CHEESE
+Chhena|छेना|छेना|chena,chhena
+Pedha|पेड़ा|पेढा|peda,pedha,kandi pedha|kg,g,box,piece
+Kunda|कुंदा|कुंदा|belgaum kunda|kg,g,box
+Milk Cake|मिल्क केक|मिल्क केक|alwar milk cake|kg,g,box
+Kalakand|कलाकंद|कलाकंद|kalakand|kg,g,box
+Mishti Doi|मिष्टी दोई|मिष्टी दोई|sweet curd|kg,g,pot
+Piyush|पीयूष|पियुष|piyush,shrikhand drink|bottle,ml,litre
+
+@category|eggs-poultry|eggs_poultry|Eggs and Poultry|अंडे और मुर्गी पालन|अंडी आणि कुक्कुटपालन
+@sub|eggs|Eggs|अंडे|अंडी|piece,dozen,tray
+Country Eggs|देसी अंडे|गावठी अंडी|gavthi andi,desi anda,desi eggs
+Chicken Eggs|मुर्गी के अंडे|कोंबडीची अंडी|anda,andi,eggs,poultry eggs
+Duck Eggs|बत्तख के अंडे|बदकाची अंडी|duck anda
+Quail Eggs|बटेर के अंडे|लावा पक्ष्याची अंडी|bater anda,quail
+Kadaknath Eggs|कड़कनाथ अंडे|कडकनाथ अंडी|kadaknath anda
+Brown Eggs|भूरे अंडे|तपकिरी अंडी|brown anda||^CHICKEN_EGGS
+Boiled Eggs|उबले अंडे|उकडलेली अंडी|boiled anda|piece,dozen|
+Hatching Eggs|अंडे सेने के लिए|उबवणीची अंडी|fertile eggs,hatching eggs|piece,dozen,tray
+
+@sub|live-poultry|Live Poultry|जीवित मुर्गी|जिवंत पक्षी|piece,kg
+Country Chicken|देसी मुर्गी|गावठी कोंबडी|gavthi kombdi,desi murgi,live country chicken
+Broiler Chicken (Live)|ब्रॉयलर मुर्गी|ब्रॉयलर कोंबडी|broiler,live broiler
+Kadaknath Chicken|कड़कनाथ मुर्गी|कडकनाथ कोंबडी|kadaknath,black chicken
+Giriraja Chicken|गिरिराज मुर्गी|गिरिराज कोंबडी|giriraja
+Vanaraja Chicken|वनराज मुर्गी|वनराज कोंबडी|vanaraja
+Rooster|मुर्गा|कोंबडा|murga,kombda,cock
+Duck|बत्तख|बदक|batakh,badak
+Quail|बटेर|लावा पक्षी|bater,lava
+Turkey|टर्की|टर्की कोंबडी|turkey bird
+Guinea Fowl|तीतर|गिनी फाउल|titar,guinea fowl||
+Pigeon|कबूतर|कबूतर|kabutar,pigeon
+Day Old Chicks|चूज़े|कोंबडीची पिल्ले|chicks,pille,day old chicks|piece,box
+
+@category|meat-fish|meat_fish|Meat and Fish|मांस और मछली|मांस आणि मासे
+@sub|meat|Meat and Chicken|मांस और चिकन|मटण आणि चिकन|kg,g
+Chicken|चिकन|चिकन|chicken,murgi,kombdi
+Chicken Curry Cut|चिकन करी कट|चिकन करी कट|curry cut||^CHICKEN
+Boneless Chicken|बोनलेस चिकन|बोनलेस चिकन|chicken boneless||^CHICKEN
+Chicken Breast|चिकन ब्रेस्ट|चिकन ब्रेस्ट|||^CHICKEN
+Chicken Leg|चिकन लेग|चिकन लेग पीस|drumstick chicken,leg piece||^CHICKEN
+Chicken Wings|चिकन विंग्स|चिकन विंग्स|||^CHICKEN
+Chicken Liver|चिकन कलेजी|चिकन कलेजी|kaleji||^CHICKEN
+Chicken Keema|चिकन कीमा|चिकन खिमा|chicken mince||^CHICKEN
+Country Chicken Meat|देसी चिकन|गावरान चिकन|gavran chicken,desi chicken||^CHICKEN
+Mutton|मटन|मटण|mutton,goat meat,bakra
+Mutton Curry Cut|मटन करी कट|मटण करी कट|||^MUTTON
+Mutton Keema|मटन कीमा|मटण खिमा|keema,mutton mince||^MUTTON
+Mutton Liver|मटन कलेजी|मटण कलेजी|kaleji,liver||^MUTTON
+Mutton Paya|पाया|पाया|paya,trotters||^MUTTON
+Mutton Boti|बोटी|बोटी|boti,intestine||^MUTTON
+Mutton Bheja|भेजा|भेजा|brain||^MUTTON
+Mutton Chops|मटन चॉप्स|मटण चॉप्स|||^MUTTON
+Sheep Meat|भेड़ का मांस|मेंढीचे मटण|lamb,mendhi mutton
+Pork|सूअर का मांस|डुकराचे मांस|pork
+Duck Meat|बत्तख का मांस|बदकाचे मांस|duck meat
+Quail Meat|बटेर का मांस|लावा मांस|bater meat||
+Kadaknath Chicken Meat|कड़कनाथ चिकन|कडकनाथ चिकन|kadaknath meat||^CHICKEN
+
+@sub|fish|Fresh Fish|ताज़ी मछली|ताजे मासे|kg,g,piece
+Pomfret|पॉम्फ्रेट|पापलेट|paplet,pomfret,silver pomfret,saranga
+Black Pomfret|काला पॉम्फ्रेट|हलवा|halwa,black paplet||^POMFRET
+Seer Fish|सुरमई|सुरमई|surmai,surmayi,king fish,vanjaram
+Indian Mackerel|बांगड़ा|बांगडा|bangda,bangude,mackerel
+Bombay Duck|बॉम्बे डक|बोंबील|bombil,bombay duck
+Dried Bombay Duck|सूखा बोंबिल|सुके बोंबील|sukha bombil,dry bombil||^BOMBAY_DUCK
+Prawns|झींगा|कोळंबी|jhinga,kolambi,prawn,shrimp
+Tiger Prawns|टाइगर झींगा|टायगर कोळंबी|tiger kolambi,jumbo prawns||^PRAWNS
+Small Prawns|छोटा झींगा|करंदी|karandi,javla||^PRAWNS
+Dried Shrimp|सूखी झींगा|सुका जवळा|javla,sukat,dry prawns
+Crab|केकड़ा|खेकडा|kekda,khekda,crabs
+Lobster|लॉबस्टर|शेवंड|shevand,lobster
+Squid|स्क्विड|माकुळ|makul,squid,calamari
+Sardine|सार्डीन|तारली|tarli,pedvey,sardines
+Ladyfish|लेडी फ़िश|मुडदुशी|mudushi,kane,ladyfish
+Indian Salmon|रावस|रावस|rawas,ravas,indian salmon
+Ribbon Fish|रिबन फ़िश|बळा|bala,ribbonfish
+Catla|कतला|कटला|katla,catla
+Rohu|रोहू|रोहू|rohu,rohu machhi
+Mrigal|मृगल|मृगळ|mrigal
+Tilapia|तिलापिया|तिलापिया|tilapia
+Basa|बासा|बासा|basa fillet
+Pangasius|पंगास|पंगास|pangas
+Murrel|सौल मछली|मरळ|maral,murrel,snakehead,dok
+Freshwater Prawns|मीठे पानी का झींगा|गोड्या पाण्यातील कोळंबी|scampi||^PRAWNS
+Mandeli|मांदेली|मांदेली|mandeli,golden anchovy
+Ghol Fish|घोल|घोळ|ghol,blackspotted croaker
+Jitada|जिताड़ा|जिताडा|jitada,barramundi,asian seabass
+Shark|शार्क|मुशी|mushi,shark
+Tuna|टूना|कुपा|kupa,tuna
+Reef Cod|कोड|गोबरा|gobra,grouper,hamour
+Clams|सीपी|तिसऱ्या|tisrya,tisrya,clams
+Mussels|सीप|शिंपल्या|shimplya,mussels
+Oysters|कस्तूरा|कालवे|kalve,oysters
+Kolim|कोलिम|कोलीम|kolim,tiny shrimp
+Catfish|मांगुर|शिंगाळा|shingala,singhara fish,catfish,magur
+Eel|बाम मछली|वाम|vaam,baam,eel
+Dried Fish|सूखी मछली|सुकी मासळी|sukat,sukhi machhi,dry fish|kg,g,packet
+Dried Mandeli|सूखी मांदेली|सुकी मांदेली|dry mandeli||^DRIED_FISH
+Fish Fillet|फ़िश फ़िले|माशाचे फिले|boneless fish|kg,g,packet

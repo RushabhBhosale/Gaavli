@@ -25,7 +25,11 @@ export function IconTile({
 }) {
   return (
     <View style={[d.iconTile, yellow && d.yellow]}>
-      <Ionicons name={name} size={24} color={theme.colors.primary} />
+      <Ionicons
+        name={name}
+        size={24}
+        color={yellow ? theme.colors.accent : theme.colors.primary}
+      />
     </View>
   );
 }
@@ -46,7 +50,15 @@ export function Badge({
         tone === "blue" && d.blue,
       ]}
     >
-      <Text style={d.badgeText}>{children}</Text>
+      <Text
+        style={[
+          d.badgeText,
+          (yellow || tone === "yellow") && d.yellowText,
+          tone === "blue" && d.blueText,
+        ]}
+      >
+        {children}
+      </Text>
     </View>
   );
 }
@@ -55,14 +67,21 @@ export function SectionHeader({
   action,
   onPress,
   badge,
+  icon,
 }: {
   title: string;
+  icon?: IconName;
   action?: string;
   onPress?: () => void;
   badge?: string;
 }) {
   return (
     <View style={d.sectionHeader}>
+      {icon && (
+        <View accessible={false} style={d.sectionIcon}>
+          <Ionicons name={icon} size={18} color={theme.colors.primary} />
+        </View>
+      )}
       <Text accessibilityRole="header" style={d.sectionTitle}>
         {title}
       </Text>
@@ -74,6 +93,12 @@ export function SectionHeader({
           style={d.textAction}
         >
           <Text style={d.textActionLabel}>{action}</Text>
+          <Ionicons
+            accessible={false}
+            name="chevron-forward"
+            size={16}
+            color={theme.colors.primary}
+          />
         </Pressable>
       )}
     </View>
@@ -140,8 +165,9 @@ export function NavigationCard({
         )}
       </View>
       <Ionicons
+        accessible={false}
         name="chevron-forward"
-        size={18}
+        size={20}
         color={theme.colors.inactive}
       />
     </Pressable>
@@ -178,10 +204,10 @@ export const d = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
   content: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 14,
-    paddingBottom: 28,
-    gap: 22,
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingTop: 12,
+    paddingBottom: 32,
+    gap: 24,
     width: "100%",
     maxWidth: theme.layout.contentWidth,
     alignSelf: "center",
@@ -193,92 +219,75 @@ export const d = StyleSheet.create({
     justifyContent: "space-between",
     gap: 10,
   },
+  sectionIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: theme.colors.tint,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   sectionTitle: {
     flex: 1,
     color: theme.colors.heading,
-    fontSize: 18,
-    lineHeight: 26,
-    fontWeight: "700",
+    ...theme.type.heading,
   },
   textAction: {
     minHeight: theme.layout.touchTarget,
-    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 2,
     paddingLeft: 8,
   },
   textActionLabel: {
-    fontSize: 13,
-    lineHeight: 20,
-    color: theme.colors.text,
-    fontWeight: "600",
+    ...theme.type.label,
+    color: theme.colors.primary,
   },
   panel: {
-    borderRadius: 16,
+    borderRadius: theme.radii.card,
     padding: 16,
     gap: 14,
-    shadowColor: theme.shadow.color,
-    shadowOpacity: theme.shadow.opacity,
-    shadowRadius: theme.shadow.radius,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 1,
   },
   navCard: {
-    minHeight: 96,
+    minHeight: 80,
     flexDirection: "row",
     alignItems: "center",
     gap: 14,
     backgroundColor: theme.colors.surface,
-    borderRadius: 16,
+    borderRadius: theme.radii.card,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    padding: 16,
-    shadowColor: theme.shadow.color,
-    shadowOpacity: theme.shadow.opacity,
-    shadowRadius: theme.shadow.radius,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 1,
+    padding: 14,
   },
-  navCopy: { flex: 1, gap: 5 },
-  dashboardNavCard: { padding: 12, gap: 10 },
+  navCopy: { flex: 1, gap: 4 },
+  dashboardNavCard: { padding: 14, gap: 14 },
   navTitleRow: { flexDirection: "row", alignItems: "flex-start", gap: 6 },
   navTitle: { flex: 1 },
   navStatus: { maxWidth: "48%", flexShrink: 1 },
-  cardTitle: {
-    fontSize: 16,
-    lineHeight: 23,
-    fontWeight: "600",
-    color: theme.colors.text,
-  },
-  description: { fontSize: 13, lineHeight: 20, color: theme.colors.muted },
+  cardTitle: { ...theme.type.subheading, color: theme.colors.text },
+  description: { ...theme.type.caption, color: theme.colors.muted },
   iconTile: {
-    width: 44,
-    height: 44,
-    borderRadius: 13,
+    width: 48,
+    height: 48,
+    borderRadius: 14,
     backgroundColor: theme.colors.tint,
     alignItems: "center",
     justifyContent: "center",
   },
   badge: {
     backgroundColor: theme.colors.tint,
-    borderRadius: 9,
-    paddingHorizontal: 9,
-    paddingVertical: 5,
+    borderRadius: theme.radii.chip,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
     alignSelf: "flex-start",
   },
-  badgeText: {
-    color: theme.colors.text,
-    fontSize: 11,
-    lineHeight: 16,
-    fontWeight: "600",
-  },
-  badgeRow: { paddingTop: 5 },
+  badgeText: { ...theme.type.micro, color: theme.colors.primaryDark },
+  badgeRow: { paddingTop: 4 },
   yellow: { backgroundColor: theme.colors.accentBackground },
+  yellowText: { color: theme.colors.warning },
   blue: { backgroundColor: theme.colors.softBlue },
+  blueText: { color: theme.colors.info },
   pressed: { opacity: theme.interaction.pressedOpacity },
   preview: { flexDirection: "row", alignItems: "center", gap: 8 },
-  previewText: {
-    flex: 1,
-    color: theme.colors.muted,
-    fontSize: 12,
-    lineHeight: 18,
-  },
+  previewText: { flex: 1, ...theme.type.caption, color: theme.colors.muted },
 });

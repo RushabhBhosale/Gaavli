@@ -1,0 +1,101 @@
+# Local handicrafts, home decor, festival decorations, jewellery and wedding items.
+@category|handicrafts|handicrafts|Handicrafts and Decor|हस्तशिल्प और सजावट|हस्तकला आणि सजावट
+
+@sub|handicrafts|Local Handicrafts|स्थानीय हस्तशिल्प|स्थानिक हस्तकला|piece,set
+Warli Painting|वारली चित्रकला|वारली चित्र|warli art,warli
+Paithani Pouch|पैठणी पाउच|पैठणी पाऊच|paithani purse
+Bamboo Craft|बांस शिल्प|बांबू हस्तकला|bamboo items
+Cane Furniture|बेंत का फर्नीचर|वेताचे फर्निचर|cane chair,vet
+Terracotta Items|टेराकोटा|टेराकोटा वस्तू|terracotta,matiche shilp
+Clay Pots Decorative|सजावटी मिट्टी के बर्तन|सजावटी मातीची भांडी|pottery
+Coconut Shell Craft|नारियल खोल शिल्प|करवंटी हस्तकला|karvanti craft
+Coir Products|नारियल जटा उत्पाद|काथ्या उत्पादने|coir mat,coir craft
+Jute Craft|जूट हस्तशिल्प|ज्यूट हस्तकला|jute items
+Wooden Handicraft|लकड़ी का हस्तशिल्प|लाकडी हस्तकला|wood craft,carving
+Bidriware|बीदरी शिल्प|बिद्री कला|bidri
+Brass Handicraft|पीतल शिल्प|पितळी हस्तकला|brass decor
+Copper Handicraft|तांबे का शिल्प|तांब्याची हस्तकला|||
+Kolhapuri Leather Craft|कोल्हापुरी चमड़ा शिल्प|कोल्हापुरी चामडी हस्तकला|||
+Ganjifa Cards|गंजीफ़ा पत्ते|गंजिफा|ganjifa,sawantwadi ganjifa
+Hand Embroidery Work|कढ़ाई काम|भरतकाम|bhartkam,kadhai,embroidery
+Crochet Items|क्रोशिया वस्तुएँ|क्रोशाच्या वस्तू|crochet,kroshiya
+Macrame|मैक्रेम|मॅक्रमे|macrame
+Quilling Art|क्विलिंग|क्विलिंग|||
+Handmade Candles|हस्तनिर्मित मोमबत्तियाँ|हाताने बनवलेल्या मेणबत्त्या|designer candles
+Handmade Greeting Cards|हस्तनिर्मित कार्ड|हस्तनिर्मित शुभेच्छापत्र|||
+Painting|चित्र|चित्र|painting,canvas painting
+Madhubani Painting|मधुबनी चित्रकला|मधुबनी चित्र|madhubani
+Glass Painting|कांच चित्रकला|काचेवरील चित्र|||
+Mural|भित्ति चित्र|भित्तिचित्र|wall mural||
+Paper Mache Items|पेपर मेशी|कागदी लगदा वस्तू|||
+Shell Craft|सीप शिल्प|शिंपल्यांची हस्तकला|seashell craft
+Stone Carving|पत्थर की नक्काशी|दगडी कोरीवकाम|stone murti
+Handloom Fabric|हथकरघा कपड़ा|हातमाग कापड|handloom|metre,piece
+Kasuti Embroidery|कसूती कढ़ाई|कसूती भरतकाम|kasuti||
+
+@sub|home-decor|Home Decor|घर की सजावट|गृहसजावट|piece,set
+Wall Hanging|दीवार लटकन|भिंतीवरील सजावट|wall hanging
+Door Toran Decorative|सजावटी तोरण|सजावटी तोरण|bead toran,fabric toran
+Artificial Flowers|कृत्रिम फूल|कृत्रिम फुले|plastic flowers,artificial flower
+Flower Vase|फूलदान|फुलदाणी|phooldan,vase
+Photo Frame|फ़ोटो फ़्रेम|फोटो फ्रेम|frame
+Showpiece|शोपीस|शोपीस|decor item
+Wind Chime|विंड चाइम|विंड चाइम
+Cushion Cover|कुशन कवर|कुशन कव्हर
+Table Lamp|टेबल लैंप|टेबल लॅम्प
+Jhumar|झूमर|झुंबर|jhumbar,chandelier
+Wall Sticker|दीवार स्टिकर|भिंतीचे स्टिकर|||
+Urli|उरली|उरळी|urli,brass urli
+Dreamcatcher|ड्रीमकैचर|ड्रीमकॅचर
+Name Plate|नेम प्लेट|नावाची पाटी|nameplate
+Clock Decorative|सजावटी घड़ी|सजावटी घड्याळ|||
+
+@sub|festival-decor|Festival and Party Decorations|त्योहार और पार्टी सजावट|सण आणि समारंभ सजावट|piece,packet,set
+Ganpati Decoration|गणपति सजावट|गणपती सजावट|makhar decoration,thermocol makhar
+Eco Friendly Makhar|पर्यावरण अनुकूल मखर|पर्यावरणपूरक मखर|paper makhar,cardboard makhar||^GANPATI_DECORATION
+Paper Garland Decoration|कागज़ की माला|कागदी माळा|paper toran
+Birthday Decoration Kit|जन्मदिन सजावट|वाढदिवस सजावट|birthday kit
+Christmas Tree|क्रिसमस ट्री|ख्रिसमस ट्री
+Christmas Star|क्रिसमस स्टार|ख्रिसमस स्टार
+Dahi Handi Matki|दही हांडी मटकी|दहीहंडी मडके|dahi handi pot
+Mundavalya|मुंडावली|मुंडावळ्या|mundavalya,mundavali,wedding forehead string|pair,piece
+Basing|बासिंग|बाशिंग|bashing,basing|pair
+Gift Hamper|उपहार टोकरी|भेटवस्तू संच|gift basket,hamper
+
+@category|jewellery|handicrafts|Jewellery and Accessories|आभूषण|दागिने
+@sub|traditional-jewellery|Traditional and Artificial Jewellery|पारंपरिक और कृत्रिम आभूषण|पारंपरिक आणि इमिटेशन दागिने|piece,set,pair
+Nath|नथ|नथ|nath,nose ring,marathi nath
+Thushi|ठुशी|ठुशी|thushi,choker
+Kolhapuri Saaj|कोल्हापुरी साज|कोल्हापुरी साज|kolhapuri saj
+Mangalsutra|मंगलसूत्र|मंगळसूत्र|mangalsutra,mani mangalsutra
+Vajratik|वज्रटीक|वज्रटीक|vajratik
+Chinchpeti|चिंचपेटी|चिंचपेटी|chinchpeti
+Bormal|बोरमाळ|बोरमाळ|bormal
+Laxmi Haar|लक्ष्मी हार|लक्ष्मीहार|laxmi har,coin necklace
+Putali Haar|पुतली हार|पुतळी हार|putli har
+Mohan Mal|मोहन माला|मोहनमाळ|mohanmal
+Tanmani|तनमणि|तनमणी|tanmani
+Kudi Earrings|कुड़ी बाली|कुडी|kudi
+Bugadi|बुगड़ी|बुगडी|bugadi,ear cuff
+Zumka|झुमका|झुमके|jhumka,zumke,earrings|pair
+Earrings|कान की बाली|कानातले|kanatle,earrings|pair
+Bangles|चूड़ियाँ|बांगड्या|bangdya,chudiyan,bangles|set,dozen,pair
+Green Glass Bangles|हरी कांच की चूड़ियाँ|हिरव्या काचेच्या बांगड्या|hirva chuda,green bangles||^BANGLES
+Glass Bangles|कांच की चूड़ियाँ|काचेच्या बांगड्या|kanchi bangdya||^BANGLES
+Lac Bangles|लाख की चूड़ियाँ|लाखेच्या बांगड्या|lakh bangles||^BANGLES
+Patlya|पटली|पाटल्या|patlya,gold bangles
+Tode|तोड़े|तोडे|tode,kada||
+Kada|कड़ा|कडे|kade,kada,bracelet
+Bajuband|बाजूबंद|वाकी|vaki,bajuband,armlet|pair,piece
+Kamarpatta|कमरबंद|कमरपट्टा|kambarpatta,waist belt
+Payal|पायल|पैंजण|painjan,payal,anklet|pair
+Jodvi|बिछिया|जोडवी|jodvi,bichiya,toe ring|pair
+Ring|अंगूठी|अंगठी|angthi,ring
+Necklace|हार|हार (दागिना)|necklace,har||
+Chain Jewellery|चेन|चेन (दागिना)|gold chain,silver chain
+Maang Tikka|मांग टीका|बिंदी (दागिना)|tikka,bindi jewellery
+Hair Ornaments|बालों के गहने|केसांचे दागिने|ambada pin,veni pin
+Silver Jewellery|चांदी के गहने|चांदीचे दागिने|chandi,silver
+Oxidised Jewellery|ऑक्सीडाइज़्ड गहने|ऑक्सिडाइज्ड दागिने|oxidized
+Imitation Jewellery Set|इमिटेशन ज्वेलरी सेट|इमिटेशन दागिने संच|artificial jewellery||^NECKLACE
+Jewellery Box|गहनों का डिब्बा|दागिन्यांचा डबा|||

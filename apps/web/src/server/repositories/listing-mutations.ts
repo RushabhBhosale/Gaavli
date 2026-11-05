@@ -7,6 +7,7 @@ import {
   type ownListingsQuerySchema,
 } from "@gaavli/validation";
 import { Listing, User, Village, Category } from "../models";
+import { ProductMaster } from "../models/product-master";
 import {
   ListingOperation,
   ListingEvent,
@@ -44,6 +45,12 @@ export async function ownedListingDto(
   session: ClientSession | null = null,
 ) {
   const village = await Village.findById(row.village).session(session).lean();
+  const product = row.productId
+    ? await ProductMaster.findById(row.productId)
+        .select("nameHi")
+        .session(session)
+        .lean()
+    : null;
   const category = row.categoryId
     ? await Category.findById(row.categoryId).session(session).lean()
     : await Category.findOne({ code: row.category }).session(session).lean();
@@ -52,6 +59,7 @@ export async function ownedListingDto(
     productId: row.productId ? String(row.productId) : null,
     productName: row.productName,
     productNameMr: row.productNameMr || null,
+    productNameHi: product?.nameHi || null,
     description: row.description || null,
     categoryId: category ? String(category._id) : null,
     category: row.category || null,
@@ -151,20 +159,20 @@ export async function findOwnListings(
     lowStockCount,
     expiredCount,
   ] = await Promise.all([
-      Listing.find(filter)
-        .sort(sort)
-        .skip((query.page - 1) * query.limit)
-        .limit(query.limit),
-      Listing.countDocuments(filter),
-      Listing.countDocuments({
-        seller: userId,
-        status: { $ne: "deactivated" },
-      }),
-      Listing.countDocuments({ seller: userId, ...activeStockFilter(now) }),
-      Listing.countDocuments({ seller: userId, status: "sold_out" }),
-      Listing.countDocuments({ seller: userId, ...lowStock }),
-      Listing.countDocuments({ seller: userId, ...expired }),
-    ]);
+    Listing.find(filter)
+      .sort(sort)
+      .skip((query.page - 1) * query.limit)
+      .limit(query.limit),
+    Listing.countDocuments(filter),
+    Listing.countDocuments({
+      seller: userId,
+      status: { $ne: "deactivated" },
+    }),
+    Listing.countDocuments({ seller: userId, ...activeStockFilter(now) }),
+    Listing.countDocuments({ seller: userId, status: "sold_out" }),
+    Listing.countDocuments({ seller: userId, ...lowStock }),
+    Listing.countDocuments({ seller: userId, ...expired }),
+  ]);
   return {
     listings: await Promise.all(rows.map((row) => ownedListingDto(row))),
     summary: {

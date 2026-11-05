@@ -1,0 +1,104 @@
+# Sweets (mithai), Diwali faral sweets and festival sweets.
+@category|sweets|homemade|Sweets and Mithai|मिठाई|मिठाई आणि गोड पदार्थ
+
+@sub|ladoo|Ladoo|लड्डू|लाडू|kg,g,piece,box
+Besan Ladoo|बेसन लड्डू|बेसन लाडू|besan laddu,besan ladu
+Rava Ladoo|रवा लड्डू|रवा लाडू|rava laddu,suji ladoo
+Motichoor Ladoo|मोतीचूर लड्डू|मोतीचूर लाडू|motichur,motichoor
+Boondi Ladoo|बूंदी लड्डू|बुंदी लाडू|bundi ladoo,boondi laddu
+Coconut Ladoo|नारियल लड्डू|नारळाचे लाडू|naral ladoo,nariyal laddu
+Til Ladoo|तिल के लड्डू|तिळाचे लाडू|til ladoo,tilgul ladoo,sesame ladoo
+Tilgul|तिलगुड़|तिळगूळ|tilgul,til gul,sankranti tilgul
+Dink Ladoo|गोंद के लड्डू|डिंकाचे लाडू|dink ladoo,gond laddu
+Methi Ladoo|मेथी के लड्डू|मेथीचे लाडू|methi ladoo
+Aliv Ladoo|हलीम के लड्डू|अळिवाचे लाडू|aliv ladoo,halim ladoo
+Dry Fruit Ladoo|ड्राई फ्रूट लड्डू|सुकामेवा लाडू|dryfruit laddu,khajur ladoo
+Dates Ladoo|खजूर लड्डू|खजुराचे लाडू|khajur ladoo
+Ragi Ladoo|रागी लड्डू|नाचणीचे लाडू|nachni ladoo,ragi laddu
+Peanut Ladoo|मूंगफली के लड्डू|शेंगदाण्याचे लाडू|shengdana ladoo
+Rajgira Ladoo|राजगीरा लड्डू|राजगिरा लाडू|ramdana ladoo,rajgira chikki ladoo
+Churma Ladoo|चूरमा लड्डू|चुरमा लाडू|churma
+Moong Dal Ladoo|मूंग दाल लड्डू|मूग डाळ लाडू|moong ladoo
+Poha Ladoo|पोहे के लड्डू|पोह्यांचे लाडू|pohe ladoo
+Kurmura Ladoo|मुरमुरे के लड्डू|चुरमुऱ्याचे लाडू|murmura ladoo,kurmura ladoo
+Bundi|बूंदी|बुंदी|boondi,sweet boondi|kg,g
+
+@sub|barfi-halwa|Barfi, Halwa and Pedha|बर्फी, हलवा और पेड़ा|बर्फी, हलवा आणि पेढे|kg,g,piece,box
+Kaju Katli|काजू कतली|काजू कतली|kaju barfi,kaju katli
+Coconut Barfi|नारियल बर्फी|नारळ बर्फी|naral barfi,nariyal burfi
+Besan Barfi|बेसन बर्फी|बेसन बर्फी|besan burfi
+Milk Barfi|दूध बर्फी|दूध बर्फी|mawa barfi,khoya burfi
+Kesar Pedha|केसर पेड़ा|केशर पेढा|kesar peda||^PEDHA
+Kandi Pedha|कंदी पेड़ा|कंदी पेढे|satara kandi pedha||^PEDHA
+Dharwad Pedha|धारवाड़ पेड़ा|धारवाड पेढा|dharwad peda||^PEDHA
+Mathura Pedha|मथुरा पेड़ा|मथुरा पेढा|mathura peda||^PEDHA
+Gajar Halwa|गाजर का हलवा|गाजर हलवा|gajar halwa,carrot halwa
+Dudhi Halwa|लौकी का हलवा|दुधी हलवा|lauki halwa
+Moong Dal Halwa|मूंग दाल हलवा|मूग डाळ हलवा|moong halwa
+Sheera|सूजी हलवा|शिरा|sheera,shira,suji halwa,rava sheera
+Bombay Halwa|बॉम्बे हलवा|बॉम्बे हलवा|karachi halwa,corn flour halwa
+Anjeer Barfi|अंजीर बर्फी|अंजीर बर्फी|fig barfi
+Dry Fruit Barfi|ड्राई फ्रूट बर्फी|सुकामेवा बर्फी|kaju anjeer barfi
+Chocolate Barfi|चॉकलेट बर्फी|चॉकलेट बर्फी|choco barfi
+Mango Barfi|आम बर्फी|आंबा बर्फी|aam barfi
+Kaju Roll|काजू रोल|काजू रोल|kaju pista roll
+Soan Papdi|सोन पापड़ी|सोनपापडी|soan papdi,patisa
+Mysore Pak|मैसूर पाक|म्हैसूर पाक|mysorepak
+Kesar Barfi|केसर बर्फी|केशर बर्फी
+Ghee Mysore Pak|घी मैसूर पाक|तुपातला म्हैसूर पाक|||^MYSORE_PAK
+Amba Wadi|आम वड़ी|आंबा वडी|amba vadi,mango vadi
+Kaju Modak|काजू मोदक|काजू मोदक|kaju modak|piece,box,kg
+Khava Modak|खोया मोदक|खव्याचे मोदक|mawa modak|piece,box,kg
+Ukadiche Modak|उकडीचे मोदक|उकडीचे मोदक|steamed modak,ukadi modak|piece,dozen
+Fried Modak|तला मोदक|तळलेले मोदक|talniche modak|piece,dozen
+Chocolate Modak|चॉकलेट मोदक|चॉकलेट मोदक|choco modak|piece,box
+Santra Barfi|संतरा बर्फी|संत्रा बर्फी|nagpur santra barfi,orange barfi
+Agra Petha|आगरा पेठा|आग्रा पेठा|petha,angoori petha
+Gul Papdi|गुड़ पापड़ी|गुळपापडी|gul papdi,sukhdi
+Til Chikki|तिल चिक्की|तिळाची चिक्की|til chikki
+Peanut Chikki|मूंगफली चिक्की|शेंगदाणा चिक्की|groundnut chikki,chikki
+Rajgira Chikki|राजगीरा चिक्की|राजगिरा चिक्की|ramdana chikki
+Dry Fruit Chikki|ड्राई फ्रूट चिक्की|सुकामेवा चिक्की|||^PEANUT_CHIKKI
+Lonavala Chikki|लोनावला चिक्की|लोणावळा चिक्की|lonavla chikki||^PEANUT_CHIKKI
+Coconut Chikki|नारियल चिक्की|नारळ चिक्की|||
+Fudge|फज|फज|chocolate fudge|g,box,piece
+
+@sub|syrup-sweets|Syrup Sweets and Bengali Sweets|चाशनी वाली मिठाई|पाकातील मिठाई|kg,g,piece,box
+Gulab Jamun|गुलाब जामुन|गुलाबजाम|gulab jamun,gulabjam
+Kala Jamun|काला जामुन|काळा जाम|kala jam||^GULAB_JAMUN
+Rasgulla|रसगुल्ला|रसगुल्ला|rosogolla,rasgula
+Rasmalai|रसमलाई|रसमलाई|ras malai
+Jalebi|जलेबी|जिलेबी|jalebi,jilebi,jilbi
+Imarti|इमरती|इमरती|jangiri,imarti
+Chamcham|चमचम|चमचम|cham cham
+Sandesh|संदेश|संदेश|sondesh
+Malpua|मालपुआ|मालपुवा|malpua
+Balushahi|बालूशाही|बालूशाही|badusha
+Ghevar|घेवर|घेवर|ghevar
+Shahi Tukda|शाही टुकड़ा|शाही तुकडा|double ka meetha
+Anarsa|अनरसा|अनारसे|anarse,anarasa
+Chirote|चिरोटे|चिरोटे|chirote,chiroti
+Karanji|गुझिया|करंजी|karanji,gujiya,gujia,neureos
+Shankarpali|शक्करपारे|शंकरपाळे|shankarpali,shakarpare,shakkarpare
+Puran Poli|पूरन पोली|पुरणपोळी|puranpoli,holige,obbattu|piece,dozen
+Gulachi Poli|गुड़ की पोली|गुळाची पोळी|gul poli,gulpoli|piece,dozen
+Khavyachi Poli|खोया पोली|खव्याची पोळी|khava poli|piece,dozen
+Sakharbhat|मीठे चावल|साखरभात|sakhar bhat,meethe chawal|kg,plate
+Kheer|खीर|खीर|kheer,payasam|litre,kg,plate
+Gavhachi Kheer|गेहूं की खीर|गव्हाची खीर|wheat kheer||^KHEER
+Shevayachi Kheer|सेवई की खीर|शेवयांची खीर|sevai kheer,kheer kurma||^KHEER
+Sabudana Kheer|साबूदाना खीर|साबुदाणा खीर|sago kheer||^KHEER
+Rice Kheer|चावल की खीर|तांदळाची खीर|chawal kheer||^KHEER
+Narali Bhat|नारियल भात|नारळीभात|narali bhat,coconut rice|kg,plate
+Satori|सातोरी|सातोरी|satori,satori poli|piece,dozen
+Dudh Pak|दूध पाक|दूधपाक|doodh pak
+Phirni|फिरनी|फिरनी|firni|piece,kg,pot
+Kesari Bhat|केसरी भात|केशरी भात|kesari bath,sweet rice|kg,plate
+Panchamrut|पंचामृत|पंचामृत|panchamrut,panchamrit|ml,litre,bottle
+Mohanthal|मोहनथाल|मोहनथाळ|mohanthal
+Sohan Halwa|सोहन हलवा|सोहन हलवा|sohan halwa
+Kesar Jalebi|केसर जलेबी|केशर जिलेबी|||^JALEBI
+Mawa Cake|मावा केक|मावा केक|mava cake|piece,box,kg
+Mithai Assorted Box|मिठाई का डिब्बा|मिठाई बॉक्स|sweet box,mithai box|box,kg
+Sugar Free Sweets|शुगर फ्री मिठाई|शुगर फ्री मिठाई|diabetic sweets|kg,g,box
+Aamras|आमरस|आमरस|aamras,mango pulp,amras|kg,litre

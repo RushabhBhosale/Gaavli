@@ -244,7 +244,7 @@ function MyProfileContent() {
     __DEV__,
   );
   const village = session!.user.village!;
-  const villageName = language === "mr" ? village.nameMr : village.name;
+  const villageName = language !== "en" ? village.nameMr : village.name;
   const readOnly = {
     backgroundColor: theme.colors.tint,
     color: theme.colors.muted,

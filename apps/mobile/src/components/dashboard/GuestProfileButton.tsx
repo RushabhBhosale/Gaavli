@@ -11,9 +11,11 @@ import { showGuestSignUpPrompt } from "../guestSignUpPrompt";
 export function GuestProfileButton({
   language,
   disabled = false,
+  onDark = false,
 }: {
   language: MobileLanguage;
   disabled?: boolean;
+  onDark?: boolean;
 }) {
   const router = useRouter();
   const t = messages(language);
@@ -37,12 +39,12 @@ export function GuestProfileButton({
         disabled && s.disabled,
       ]}
     >
-      <View style={s.avatar}>
+      <View style={[s.avatar, onDark && s.avatarDark]}>
         <Ionicons
           accessible={false}
           name="person-outline"
           size={20}
-          color={theme.colors.heading}
+          color={onDark ? theme.colors.heroText : theme.colors.primaryDark}
         />
       </View>
     </Pressable>
@@ -57,12 +59,18 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   avatar: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: theme.colors.softGreen,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: theme.colors.tint,
+    borderWidth: 1,
+    borderColor: theme.colors.softGreen,
     alignItems: "center",
     justifyContent: "center",
+  },
+  avatarDark: {
+    backgroundColor: theme.colors.heroSurface,
+    borderColor: theme.colors.heroBorder,
   },
   disabled: { opacity: theme.interaction.disabledOpacity },
 });

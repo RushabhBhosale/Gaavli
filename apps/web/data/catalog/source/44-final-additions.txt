@@ -1,0 +1,125 @@
+# Final additions: ornamental plants, bulbs, tree/herb seeds, agri inputs, dairy, kansa ware, stationery, toys.
+@category|plants
+@sub|indoor-ornamental
+Caladium|कैलेडियम|कॅलेडियम|caladium
+Maranta|मरांटा|मारांटा|prayer plant
+Rhoeo|रियो|रिओ|moses in cradle,rhoeo
+Wedelia|वेडेलिया|वेडेलिया|ground cover
+Alternanthera|आल्टरनैंथेरा|अल्टरनॅन्थेरा|joyweed
+Purple Heart Plant|पर्पल हार्ट|पर्पल हार्ट|setcreasea
+Pilea|पाइलिया|पायलिया|||
+Bromeliad|ब्रोमेलियाड|ब्रोमेलियाड
+Hoya|होया|होया|wax plant
+Lipstick Plant|लिपस्टिक प्लांट|लिपस्टिक प्लांट|aeschynanthus
+String of Pearls|स्ट्रिंग ऑफ़ पर्ल्स|स्ट्रिंग ऑफ पर्ल्स
+Christmas Cactus|क्रिसमस कैक्टस|ख्रिसमस कॅक्टस|||^CACTUS
+Opuntia|नागफनी|फड्या निवडुंग|phadya nivdung,prickly pear||^CACTUS
+Zamia Palm|ज़ामिया पाम|झामिया पाम
+Juniper|जुनिपर|ज्युनिपर
+Podocarpus|पोडोकार्पस|पोडोकार्पस
+Golden Pothos|गोल्डन पोथोस|गोल्डन पोथोस|||^MONEY_PLANT
+Philodendron Xanadu|फिलोडेंड्रोन ज़ानाडु|फिलोडेंड्रॉन झनाडू|||
+Aglaonema Red|लाल एग्लोनिमा|लाल अग्लोनेमा|||
+Ponytail Palm|पोनीटेल पाम|पोनीटेल पाम
+@sub|flowering-plants
+Dahlia Tubers|डहेलिया कंद|डेलिया कंद|||
+Amaryllis Bulbs|एमेरिलिस कंद|अॅमरेलिस कंद|||
+Rain Lily Bulbs|रेन लिली कंद|रेन लिली कंद|zephyranthes bulbs
+Caladium Tubers|कैलेडियम कंद|कॅलेडियम कंद|||
+Spider Lily Bulbs|स्पाइडर लिली कंद|स्पायडर लिली कंद|||
+Apple HRMN 99 Plant|सेब एचआरएमएन 99 पौधा|सफरचंद एचआरएमएन 99 रोप|hrmn 99,low chill apple||^APPLE_PLANT
+Dwarf Coconut Seedling|बौना नारियल पौधा|बुटका नारळ रोप|dwarf coconut||^COCONUT_SEEDLING
+
+@category|farm-inputs
+@sub|field-crop-seeds
+Teak Seeds|सागौन बीज|साग बियाणे|teak seed|kg
+Bamboo Seeds|बांस बीज|बांबू बियाणे|||
+Subabul Seeds|सुबबूल बीज|सुबाभूळ बियाणे|subabul seed|kg
+Gliricidia Seeds|ग्लिरिसिडिया बीज|गिरीपुष्प बियाणे|||
+Casuarina Seeds|सरू बीज|सुरू बियाणे|||
+Melia Dubia Seeds|मेलिया डुबिया बीज|मलबार नीम बियाणे|||
+Ashwagandha Seeds|अश्वगंधा बीज|अश्वगंधा बियाणे|||
+Kalmegh Seeds|कालमेघ बीज|कालमेघ बियाणे|||
+Shatavari Seeds|शतावरी बीज|शतावरी बियाणे|||
+@sub|fertilizers
+Neem Coated Urea|नीम लेपित यूरिया|निंबोळी लेपित युरिया|neem urea||^UREA
+Nano Urea|नैनो यूरिया|नॅनो युरिया|nano urea liquid|bottle,litre|^UREA
+Nano DAP|नैनो डीएपी|नॅनो डीएपी|||^DAP
+Amino Acid Fertilizer|अमीनो एसिड खाद|अमिनो अॅसिड खत|amino acid|litre,kg
+Fulvic Acid|फुल्विक एसिड|फुल्विक अॅसिड
+Potassium Humate|पोटैशियम ह्यूमेट|पोटॅशियम ह्युमेट|humate|kg,packet
+Biochar|बायोचार|बायोचार|biochar|kg,bag
+Mushroom Spawn|मशरूम बीज|अळिंबी बीज|mushroom seed,spawn|kg,packet
+Vermibed|वर्मी बेड|गांडूळ खत बेड|hdpe vermibed|piece
+Compost Bin|कम्पोस्ट बिन|कंपोस्ट डबा|composter|piece
+Hydroponic Kit|हाइड्रोपोनिक किट|हायड्रोपोनिक किट
+Grow Light|ग्रो लाइट|ग्रो लाईट|||
+
+@category|livestock
+@sub|livestock-animals
+Buffalo Bull|भैंसा|रेडा|reda,bhainsa,he buffalo
+Hen|मुर्गी|कोंबडी|kombdi,murgi,hen
+Broiler Chicks|ब्रॉयलर चूज़े|ब्रॉयलर पिल्ले|||^DAY_OLD_CHICKS
+Layer Chicks|लेयर चूज़े|लेयर पिल्ले|||^DAY_OLD_CHICKS
+Kadaknath Chicks|कड़कनाथ चूज़े|कडकनाथ पिल्ले|||^DAY_OLD_CHICKS
+Duck Chicks|बत्तख के चूज़े|बदकाची पिल्ले|||
+
+@category|dairy
+@sub|milk-products
+Kesar Shrikhand|केसर श्रीखंड|केशर श्रीखंड|||^SHRIKHAND
+Elaichi Shrikhand|इलायची श्रीखंड|वेलची श्रीखंड|||^SHRIKHAND
+Dry Fruit Shrikhand|ड्राई फ्रूट श्रीखंड|सुकामेवा श्रीखंड|||^SHRIKHAND
+Sitaphal Basundi|सीताफल बासुंदी|सीताफळ बासुंदी|||^BASUNDI
+Angoor Basundi|अंगूर बासुंदी|अंगूर बासुंदी|||^BASUNDI
+Cheese Spread|चीज़ स्प्रेड|चीज स्प्रेड|||^CHEESE
+Flavoured Yogurt|फ़्लेवर्ड दही|फ्लेवर्ड दही|||^CURD
+Matka Dahi|मटका दही|मडक्यातील दही|matka curd||^CURD
+
+@category|kitchen
+@sub|tableware
+Kansa Thali|कांसे की थाली|काशाचे ताट|kansa,bell metal plate||^STEEL_THALI
+Kansa Vati|कांसे की कटोरी|काशाची वाटी|kashachi vati,foot massage bowl||^STEEL_BOWL
+Kansa Glass|कांसे का गिलास|काशाचा पेला|||^STEEL_GLASS
+Clay Water Bottle|मिट्टी की बोतल|मातीची बाटली|matichi batli|piece
+Clay Kadhai|मिट्टी की कड़ाही|मातीची कढई|||^KADHAI
+Dahi Matka|दही की मटकी|दह्याचे मडके|dahi handi pot||
+Cast Iron Kadhai|कच्चे लोहे की कड़ाही|ओतीव लोखंडी कढई|||^KADHAI
+Steel Tiffin 3 Tier|स्टील टिफ़िन 3 डिब्बे|स्टील डबा 3 कप्पे|||^LUNCH_BOX
+Insulated Tiffin|इंसुलेटेड टिफ़िन|इन्सुलेटेड डबा|||^LUNCH_BOX
+Coconut Breaker|नारियल तोड़ने वाला|नारळ फोडणी|||
+
+@category|stationery
+@sub|school-supplies
+Sketchbook|स्केचबुक|स्केचबुक|sketch book
+Easel|ईज़ल|इझेल|drawing stand||
+Acrylic Colours|एक्रेलिक रंग|अॅक्रेलिक रंग|acrylic paint
+Glass Colours|ग्लास कलर|काचेचे रंग|||
+Calligraphy Pen|कैलीग्राफ़ी पेन|कॅलिग्राफी पेन
+Board Pins|बोर्ड पिन|बोर्ड पिना|thumb pins|box
+Spiral Notebook|स्पाइरल नोटबुक|स्पायरल वही|||^NOTEBOOK
+Charcoal Pencils|चारकोल पेंसिल|चारकोल पेन्सिल|||
+Art Brush Set|आर्ट ब्रश सेट|चित्रकला ब्रश संच|||
+
+@category|toys-sports
+@sub|toys
+Toy Tractor|खिलौना ट्रैक्टर|खेळण्यातील ट्रॅक्टर|tractor toy
+Toy Mobile|खिलौना मोबाइल|खेळण्यातील मोबाईल|||
+Toy Bus|खिलौना बस|खेळण्यातील बस|||
+Paper Kite|कागज़ की पतंग|कागदी पतंग|||^KITE
+Plastic Kite|प्लास्टिक पतंग|प्लास्टिक पतंग|||^KITE
+Bow and Arrow Toy|धनुष बाण खिलौना|धनुष्यबाण खेळणे|||
+
+@category|sweets
+@sub|syrup-sweets
+Khawa Jalebi|खोया जलेबी|खवा जिलेबी|mawa jalebi||^JALEBI
+Mawa Kachori|मावा कचौरी|मावा कचोरी
+Kesar Modak|केसर मोदक|केशर मोदक|||^KHAVA_MODAK
+Coconut Modak|नारियल मोदक|नारळाचे मोदक|||^UKADICHE_MODAK
+
+@category|farsan-snacks
+@sub|diwali-faral
+Kolhapuri Chivda|कोल्हापुरी चिवड़ा|कोल्हापुरी चिवडा|||^POHA_CHIVDA
+Moong Dal Chakli|मूंग दाल चकली|मूग डाळ चकली|||^CHAKLI
+Methi Chakli|मेथी चकली|मेथी चकली|||^CHAKLI
+Jowar Chakli|ज्वार चकली|ज्वारी चकली|||^CHAKLI
+Palak Puri|पालक पूरी|पालक पुरी

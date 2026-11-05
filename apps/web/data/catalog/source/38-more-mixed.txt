@@ -1,0 +1,181 @@
+# Additional puja, livestock, farm tools, building, packaging, home-baking and menu items.
+@category|puja
+@sub|puja-samagri
+Bhandara Turmeric|भंडारा हल्दी|भंडारा|bhandara,jejuri bhandara,khandoba haldi|kg,g,packet
+Darbha Grass|कुशा घास|दर्भ|darbha,kusha,kush grass|bundle,piece
+Puja Asan|पूजा आसन|पूजेचे आसन|asan,aasan|piece
+Sahan Stone|चंदन घिसने का पत्थर|सहाण|sahan,chandan stone|piece
+Dhoop Dani|धूपदानी|धुपाटणे|dhupatne,dhoop dani|piece
+Chamar|चंवर|चवरी|chavri,chamar|piece
+Shri Yantra|श्री यंत्र|श्री यंत्र|shree yantra|piece
+Swastik Sticker|स्वस्तिक स्टिकर|स्वस्तिक स्टिकर|shubh labh sticker|piece,packet
+Laxmi Footprints Sticker|लक्ष्मी चरण स्टिकर|लक्ष्मीची पावले|laxmi paul,laxmi charan|packet
+Dandiya Sticks|डांडिया|दांडिया|dandiya,garba sticks|pair
+Navratri Ghat|नवरात्रि घट|घट|ghat,ghatasthapana pot|piece
+Palkhi|पालकी|पालखी|palkhi,palanquin|piece
+Dindi Flag|पताका|पताका|pataka,dindi zenda|piece
+Veena|वीणा|वीणा|veena,vina|piece
+Kavad|कावड़|कावड|kavad,kavadi|piece
+Kumkum Karanda|कुमकुम डिब्बी|कुंकवाचा करंडा|karanda,kunku dabi|piece
+Haldi Kunku Karanda|हल्दी कुमकुम डिब्बी|हळदीकुंकवाचा करंडा|||^KUMKUM_KARANDA
+Diya Stand|दीया स्टैंड|दिव्याचे स्टँड|deep stand|piece
+
+@category|livestock
+@sub|animal-care
+Cattle Ear Tag|पशु कान टैग|जनावरांचा कान बिल्ला|ear tag|piece,packet
+Molasses|शीरा|मळी|molasses,mali,kakvi for cattle|kg,litre
+Urea Molasses Block|यूरिया मोलासेस ब्लॉक|युरिया मळी विट|umb|piece
+Chick Brooder|चूज़ा ब्रूडर|पिल्ले ब्रूडर|brooder|piece
+Bee Smoker|मधुमक्खी धुआं यंत्र|मधमाशी धूर यंत्र|smoker|piece
+Bee Veil|मधुमक्खी जाली टोपी|मधमाशी जाळी टोपी|bee hat|piece
+Honey Extractor|शहद निकालने की मशीन|मध काढणी यंत्र|||
+Silkworm Rearing Tray|रेशम कीट ट्रे|रेशीम किडे ट्रे|||
+Chandrika|चंद्रिका|चंद्रिका|mountage,sericulture chandrika|piece
+Silkworm Eggs|रेशम कीट अंडे|रेशीम अंडीपुंज|dfl,silkworm dfls|packet,box
+Fishing Net|मछली पकड़ने का जाल|मासेमारी जाळे|jal,jale|piece,kg
+Fishing Hook|मछली का काँटा|गळ|gal,fishing hook|packet
+Fishing Rod|मछली पकड़ने की छड़|गळ काठी|fishing rod|piece
+Aerator|एरेटर|एरेटर|pond aerator|piece
+
+@category|farm-inputs
+@sub|farm-tools
+Tifan|तिफन|तिफण|tifan,bullock seed drill
+Vakhar|वखर|वखर|vakhar,blade harrow
+Pabhar|पाभर|पाभर|pabhar,seed drill bullock
+Iron Plough|लोहे का हल|लोखंडी नांगर|||^PLOUGH
+Mango Picker|आम तोड़ने का झेला|झेला|zela,mango harvester|piece
+Coconut Tree Climber|नारियल पेड़ चढ़ने का यंत्र|नारळ झाडावर चढण्याचे यंत्र|||
+Tree Pruner|पेड़ छंटाई औज़ार|झाड छाटणी यंत्र|lopper|piece
+Dibbler|डिबलर|टोकणी यंत्र|tokan yantra,seed dibbler|piece
+Hand Seed Drill|हाथ बीज ड्रिल|हात पेरणी यंत्र|||
+Serrated Sickle|दांतेदार हंसिया|दातेरी विळा|||^SICKLE
+Grass Cutter Sickle|घास काटने की हंसिया|गवत कापणी विळा|||^SICKLE
+Bullock Yoke Iron|लोहे का जुआ|लोखंडी जू|||^YOKE
+Hand Pump|हैंड पंप|हातपंप|hand pump,borewell hand pump|piece
+Rope Bucket|रस्सी बाल्टी|पोहरा|pohra,well bucket|piece
+Pulley|घिरनी|रहाट|rahat,pulley,well pulley|piece
+@sub|irrigation
+Drip Connector|ड्रिप कनेक्टर|ठिबक कनेक्टर|joiner,start connector|piece,packet
+Drip End Cap|ड्रिप एंड कैप|ठिबक एंड कॅप|end stop|piece,packet
+Drip Punch|ड्रिप पंच|ठिबक पंच|hole punch drip|piece
+Inline Drip Pipe|इनलाइन ड्रिप पाइप|इनलाईन ठिबक पाईप|inline lateral|roll,metre
+Micro Sprinkler|माइक्रो स्प्रिंकलर|मायक्रो स्प्रिंकलर|micro sprinkler|piece,packet
+Rain Gun|रेन गन|रेन गन|raingun|piece
+Fogger|फॉगर|फॉगर|mist fogger|piece
+Borewell Casing Pipe|बोरवेल केसिंग पाइप|बोअरवेल केसिंग पाईप|casing pipe|piece,metre
+@sub|crop-protection
+Bird Net|पक्षी जाल|पक्षी जाळी|anti bird net|piece,roll
+Anti Hail Net|ओला रोधी जाल|गारपीट प्रतिबंधक जाळी|hail net|roll,metre
+Insect Net|कीट जाल|कीटक प्रतिबंधक जाळी|insect proof net|roll,metre
+Greenhouse Film|ग्रीनहाउस फ़िल्म|पॉलिहाऊस फिल्म|poly film,uv film|roll,metre
+Solar Fence Machine|सोलर बाड़ मशीन|सौर कुंपण मशीन|zatka machine,electric fence|piece
+Scarecrow|बिजूका|बुजगावणे|bujgavne,bijuka|piece
+
+@category|plumbing-building
+@sub|building-materials
+Paver Blocks|पेवर ब्लॉक|पेव्हर ब्लॉक|paver|piece
+RCC Hume Pipe|आरसीसी पाइप|आरसीसी पाईप|hume pipe|piece
+Gate|गेट|गेट|main gate,iron gate|piece
+MS Angle|एमएस एंगल|एमएस अँगल|angle iron|kg,piece
+MS Pipe|एमएस पाइप|एमएस पाईप|iron pipe|kg,piece
+Wire Rope|वायर रोप|वायर रोप|steel rope|metre
+Thatch Grass|छप्पर घास|छपराचे गवत|chhappar|bundle
+Bamboo Mat|बांस चटाई|बांबू तट्टा|tatta,bamboo mat|piece
+Wooden Door Frame|लकड़ी की चौखट|लाकडी चौकट|chaukat|piece
+PVC Door|पीवीसी दरवाज़ा|पीव्हीसी दरवाजा|bathroom door|piece
+Aluminium Window|एल्युमिनियम खिड़की|अॅल्युमिनियम खिडकी|sliding window|piece
+
+@category|vehicles
+@sub|vehicle-accessories
+Car Tyre|कार टायर|कार टायर
+Truck Tyre|ट्रक टायर|ट्रक टायर
+Battery Distilled Water|बैटरी पानी|बॅटरी पाणी|distilled water|litre,bottle
+Brake Oil|ब्रेक ऑयल|ब्रेक ऑईल
+Chain Lubricant|चेन लुब्रिकेंट|चेन ल्युब|chain spray|bottle
+Vehicle Horn|हॉर्न|हॉर्न|horn|piece
+Leg Guard|लेग गार्ड|लेग गार्ड|crash guard|piece
+Car Cover|कार कवर|कार कव्हर
+Tractor Seat Cover|ट्रैक्टर सीट कवर|ट्रॅक्टर सीट कव्हर
+
+@category|household-cleaning
+@sub|home-essentials
+Mango Box|आम की पेटी|आंब्याची पेटी|amba peti,mango crate|piece,dozen
+Egg Tray|अंडा ट्रे|अंड्यांचा ट्रे|egg tray|piece,dozen,bundle
+Corrugated Box|गत्ते का डिब्बा|पुठ्ठ्याचा खोका|carton,cardboard box,khoka|piece,dozen
+Leno Bag|लेनो बैग|लेनो पिशवी|onion bag,mesh bag|piece,bundle
+Stretch Film|स्ट्रेच फ़िल्म|स्ट्रेच फिल्म|wrapping film|roll
+Sweet Box|खाली मिठाई डिब्बा|रिकामा मिठाई बॉक्स|mithai box,sweet box empty|piece,dozen,packet
+Cake Box|केक बॉक्स|केक बॉक्स
+Disposable Food Container|डिस्पोज़ेबल डिब्बा|डिस्पोजेबल डबा|parcel box|packet,piece
+Aluminium Foil Container|फ़ॉइल डिब्बा|फॉईल डबा|foil container|packet,piece
+Packing Twine|सुतली|सुतळी|sutli,twine|piece,kg
+Measuring Weights|बाट|वजने|baat,vajane,weights|set,piece
+Measuring Mug|माप|माप|liter maap,measure|piece,set
+Vendor Umbrella|बड़ा छाता|मोठी छत्री (विक्रेता)|big umbrella,market umbrella|piece
+Cash Box|गल्ला|गल्ला|galla,cash box|piece
+Deep Freezer|डीप फ्रीज़र|डीप फ्रीझर|freezer|piece
+Visi Cooler|विज़ी कूलर|व्हिसी कूलर|bottle cooler
+Water Cooler|वॉटर कूलर|वॉटर कूलर|drinking water cooler|piece
+Air Conditioner|एयर कंडीशनर|एअर कंडिशनर|ac|piece
+
+@category|bakery
+@sub|cakes
+Chocolate Cake|चॉकलेट केक|चॉकलेट केक|||^CAKE
+Black Forest Cake|ब्लैक फ़ॉरेस्ट केक|ब्लॅक फॉरेस्ट केक|||^CAKE
+Pineapple Cake|अनानास केक|पायनॅपल केक|||^CAKE
+Butterscotch Cake|बटरस्कॉच केक|बटरस्कॉच केक|||^CAKE
+Vanilla Cake|वनीला केक|व्हॅनिला केक|||^CAKE
+Red Velvet Cake|रेड वेलवेट केक|रेड वेल्व्हेट केक|||^CAKE
+Fresh Fruit Cake|फ्रेश फ्रूट केक|फ्रेश फ्रूट केक|||^CAKE
+Mango Cake|आम केक|आंबा केक|||^CAKE
+Photo Cake|फ़ोटो केक|फोटो केक|||^CAKE
+Chocolate Chips|चॉकलेट चिप्स|चॉकलेट चिप्स|choco chips|g,packet
+Sprinkles|स्प्रिंकल्स|स्प्रिंकल्स
+Whipping Cream Powder|व्हिपिंग क्रीम पाउडर|व्हिपिंग क्रीम पावडर
+Fondant|फ़ोंडेंट|फॉन्डंट|||
+Cake Board|केक बोर्ड|केक बोर्ड
+Gelatin|जिलेटिन|जिलेटिन|||
+Ice Cream Cone|आइसक्रीम कोन|आईस्क्रीम कोन|wafer cone|packet,piece
+
+@category|dairy
+@sub|milk-products
+Mango Ice Cream|आम आइसक्रीम|आंबा आईस्क्रीम|||^ICE_CREAM
+Sitaphal Ice Cream|सीताफल आइसक्रीम|सीताफळ आईस्क्रीम|custard apple ice cream||^ICE_CREAM
+Strawberry Ice Cream|स्ट्रॉबेरी आइसक्रीम|स्ट्रॉबेरी आईस्क्रीम|||^ICE_CREAM
+Chocolate Ice Cream|चॉकलेट आइसक्रीम|चॉकलेट आईस्क्रीम|||^ICE_CREAM
+Vanilla Ice Cream|वनीला आइसक्रीम|व्हॅनिला आईस्क्रीम|||^ICE_CREAM
+Butterscotch Ice Cream|बटरस्कॉच आइसक्रीम|बटरस्कॉच आईस्क्रीम|||^ICE_CREAM
+Kesar Pista Ice Cream|केसर पिस्ता आइसक्रीम|केशर पिस्ता आईस्क्रीम|||^ICE_CREAM
+Anjeer Ice Cream|अंजीर आइसक्रीम|अंजीर आईस्क्रीम|||^ICE_CREAM
+Chikoo Ice Cream|चीकू आइसक्रीम|चिकू आईस्क्रीम|||^ICE_CREAM
+Tender Coconut Ice Cream|नारियल पानी आइसक्रीम|शहाळे आईस्क्रीम|||^ICE_CREAM
+Malai Kulfi|मलाई कुल्फ़ी|मलई कुल्फी|||^KULFI
+Kesar Kulfi|केसर कुल्फ़ी|केशर कुल्फी|||^KULFI
+Mango Kulfi|आम कुल्फ़ी|आंबा कुल्फी|||^KULFI
+Pista Kulfi|पिस्ता कुल्फ़ी|पिस्ता कुल्फी|||^KULFI
+Matka Kulfi|मटका कुल्फ़ी|मटका कुल्फी|||^KULFI
+Tofu|टोफ़ू|टोफू|soya paneer|g,kg,packet
+Soya Milk|सोया दूध|सोया दूध|||
+Almond Milk|बादाम का दूध (वनस्पति)|बदाम दूध (वनस्पती)|||
+Kesar Lassi|केसर लस्सी|केशर लस्सी|||^LASSI
+Rose Lassi|गुलाब लस्सी|गुलाब लस्सी|||^LASSI
+Mango Milkshake|आम मिल्कशेक|आंबा मिल्कशेक|||^MILKSHAKE
+Chikoo Milkshake|चीकू मिल्कशेक|चिकू मिल्कशेक|||^MILKSHAKE
+Strawberry Milkshake|स्ट्रॉबेरी मिल्कशेक|स्ट्रॉबेरी मिल्कशेक|||^MILKSHAKE
+Banana Milkshake|केला मिल्कशेक|केळी मिल्कशेक|||^MILKSHAKE
+Sitaphal Milkshake|सीताफल मिल्कशेक|सीताफळ मिल्कशेक|||^MILKSHAKE
+Chocolate Milkshake|चॉकलेट मिल्कशेक|चॉकलेट मिल्कशेक|||^MILKSHAKE
+
+@category|clothing
+@sub|sarees
+Readymade Nauvari Saree|रेडीमेड नौवारी साड़ी|रेडिमेड नऊवारी साडी|||^NAUVARI_SAREE
+Himroo Shawl|हिमरू शॉल|हिमरू शाल|himroo|piece
+Kosa Silk Saree|कोसा सिल्क साड़ी|कोसा सिल्क साडी|kosa,tussar||^SAREE
+Handloom Cotton Saree|हथकरघा सूती साड़ी|हातमाग सुती साडी|||^SAREE
+Warli Print Saree|वारली प्रिंट साड़ी|वारली प्रिंट साडी|||^SAREE
+Shalu|शालू|शालू|shalu,bridal saree,lagnacha shalu||^SAREE
+
+@category|handicrafts
+@sub|handicrafts
+Dhokra Art|ढोकरा कला|ढोकरा कला|dokra,dhokra
+Tribal Jewellery|आदिवासी आभूषण|आदिवासी दागिने|||

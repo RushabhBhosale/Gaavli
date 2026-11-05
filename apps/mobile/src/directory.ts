@@ -19,7 +19,6 @@ export function useDashboardDirectory() {
   return useQuery({
     queryKey: ["dashboard-directory", session?.user.id ?? "guest", village?.id],
     enabled: !!village && (!session || !!session.user.village),
-    refetchOnMount: "always",
     queryFn: ({ signal }) =>
       (session ? authenticatedApi : api)(
         `/dashboard?sourceVillageId=${village!.id}`,
@@ -42,7 +41,6 @@ export function useDirectory(module: "services" | "transport", search: string) {
     ],
     enabled: !!village && (!session || !!session.user.village),
     initialPageParam: 1,
-    refetchOnMount: "always",
     queryFn: ({ signal, pageParam }) =>
       (session ? authenticatedApi : api)(
         `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, page: String(pageParam), limit: "5" })}`,
@@ -63,7 +61,6 @@ export function useDirectoryEntry(id: string) {
       !!village &&
       /^[a-f0-9]{24}$/i.test(id) &&
       (!session || !!session.user.village),
-    refetchOnMount: "always",
     queryFn: ({ signal }) =>
       (session ? authenticatedApi : api)(
         `/directory/${id}?sourceVillageId=${village!.id}`,

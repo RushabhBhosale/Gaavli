@@ -81,7 +81,7 @@ export function VillagePicker({
   const offline = useAppStore((state) => state.offline);
   const t = messages(language);
   const villageName = (village: MobileVillage) =>
-    language === "mr" ? village.nameMr : village.name;
+    language !== "en" ? village.nameMr : village.name;
   const villages = searchPending
     ? []
     : [

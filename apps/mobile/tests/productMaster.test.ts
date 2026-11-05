@@ -2,12 +2,14 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { MasterProduct, OwnedListing } from "@gaavli/types";
 import {
+  catalogSearchResponseSchema,
   productMasterImportSchema,
   productMasterPageSchema,
 } from "@gaavli/validation";
 import {
   loadMasterProducts,
   matchesProductSearch,
+  searchMasterProducts,
 } from "../src/data/productMaster";
 import {
   emptyListingDraft,
@@ -24,6 +26,7 @@ const rice: MasterProduct = {
   code: "RICE",
   nameMr: "तांदूळ",
   nameEn: "Rice",
+  nameHi: "चावल",
   productGroup: "grains",
   defaultUnit: "kg",
   status: "ACTIVE",
@@ -34,6 +37,7 @@ const legacy: OwnedListing = {
   id: "b".repeat(24),
   productName: "Saved English name",
   productNameMr: "जुने उत्पादन",
+  productNameHi: null,
   description: null,
   categoryId: "c".repeat(24),
   category: "PERISHABLE",
@@ -200,4 +204,67 @@ test("reference cache supports offline selection, validates records and does not
   );
   const { productId: _id, ...row } = rice;
   assert.equal(productMasterImportSchema.safeParse([row, row]).success, false);
+});
+
+test("offline search tolerates typos and any word order", () => {
+  const names = "Mango Pickle आम का अचार";
+  for (const search of [
+    "mango pickle",
+    "pickle mango",
+    "pickel",
+    "mnago pickle",
+    "अचार आम",
+    "अचारा",
+  ])
+    assert.equal(matchesProductSearch(names, search), true, search);
+  for (const search of ["potato", "pickle potato", "ab", "टमाटर"])
+    assert.equal(matchesProductSearch(names, search), false, search);
+});
+
+test("online search carries a corrected spelling and tolerates older servers", async () => {
+  const stored: string[] = [];
+  const storage = {
+    read: async () => null,
+    write: async (value: string) => void stored.push(value),
+  };
+  const withHint = await searchMasterProducts({
+    storage,
+    offline: false,
+    search: "tomoto",
+    fetch: async () => ({ products: [rice], didYouMean: "tomato" }),
+  });
+  assert.equal(withHint.didYouMean, "tomato");
+  assert.equal(withHint.cached, false);
+  const older = await searchMasterProducts({
+    storage,
+    offline: false,
+    search: "rice",
+    fetch: async () => ({ products: [rice] }),
+  });
+  assert.equal(older.didYouMean, null);
+  assert.equal(older.products.length, 1);
+});
+
+test("the catalog search response with a corrected spelling is accepted", () => {
+  const product = {
+    productId: "6a1111111111111111111111",
+    code: "ONION_SEEDS",
+    nameMr: "कांदा बियाणे",
+    nameEn: "Onion Seeds",
+    nameHi: "प्याज बीज",
+    productGroup: "farm_inputs",
+    defaultUnit: "kg",
+    status: "ACTIVE",
+    sortOrder: 1,
+  };
+  for (const didYouMean of [null, "kanda biyane", undefined]) {
+    const response = catalogSearchResponseSchema.parse({
+      products: [product],
+      ...(didYouMean === undefined ? {} : { didYouMean }),
+    });
+    assert.equal(response.products.length, 1);
+  }
+  assert.throws(() =>
+    catalogSearchResponseSchema.parse({ products: [], extra: 1 }),
+  );
 });

@@ -1,0 +1,207 @@
+# Hardware, tools, electrical, plumbing, paint and building materials (generic).
+@category|hardware|household|Hardware and Tools|हार्डवेयर और औज़ार|हार्डवेअर आणि हत्यारे
+
+@sub|fasteners|Fasteners and Fittings|कील, पेंच और फिटिंग|खिळे, स्क्रू आणि फिटिंग|kg,packet,piece
+Wire Nails|तार की कील|तारेचे खिळे|khile,keel,nails
+Concrete Nails|कंक्रीट कील|काँक्रीट खिळे|steel nails
+Roofing Nails|छत की कील|पत्र्याचे खिळे|umbrella nails,patra khile
+Wood Screws|लकड़ी के पेंच|लाकडी स्क्रू|screw,pench
+Self Tapping Screws|सेल्फ टैपिंग पेंच|सेल्फ टॅपिंग स्क्रू|||
+Nut Bolt|नट बोल्ट|नट बोल्ट|nut bolt
+Washers|वॉशर|वॉशर|washer
+Anchor Fasteners|एंकर फास्टनर|अँकर फास्टनर|anchor bolt
+Wall Plugs|रॉल प्लग|गुट्टी|gitti,gutti,rawl plug,wall plug
+Hinges|कब्ज़ा|बिजागरी|bijagari,kabja,hinge|piece,pair
+Tower Bolt|टावर बोल्ट|टॉवर बोल्ट|kadi,stopper
+Aldrop|आल्ड्रॉप|आल्ड्रॉप|door latch
+Door Handle|दरवाज़े का हैंडल|दरवाज्याचे हँडल|handle|piece,pair
+Door Lock|दरवाज़े का ताला|दरवाज्याचे कुलूप|mortise lock,door lock|piece
+Padlock|ताला|कुलूप|kulup,tala,lock|piece
+Door Stopper|डोर स्टॉपर|डोअर स्टॉपर
+Door Closer|डोर क्लोज़र|डोअर क्लोजर
+Drawer Channel|ड्रॉअर चैनल|ड्रॉवर चॅनल|telescopic channel|pair
+Curtain Rod|पर्दे की रॉड|पडद्याचा रॉड|curtain pipe|piece
+Curtain Brackets|पर्दा ब्रैकेट|पडदा ब्रॅकेट|||
+Wall Hooks|दीवार हुक|भिंतीचे हुक|khunti,hook|piece,packet
+Chain|ज़ंजीर|साखळी|sakhli,zanjeer,chain|metre,kg,piece
+Wire Mesh|जाली|जाळी|jali,mesh|metre,roll
+Binding Wire|बाइंडिंग तार|बाईंडिंग तार|tar,binding wire|kg
+GI Wire|जीआई तार|जीआय तार|galvanized wire|kg
+Welding Rod|वेल्डिंग रॉड|वेल्डिंग रॉड|electrode|packet,kg
+Rivets|रिवेट|रिव्हेट|||
+
+@sub|hand-tools|Hand Tools|हस्त उपकरण|हत्यारे|piece,set
+Hammer|हथौड़ा|हातोडा|hathoda,hatoda,hammer
+Screwdriver|पेचकस|स्क्रूड्रायव्हर|pechkas,screw driver
+Plier|प्लास|पकड|pakkad,plas,plier
+Spanner Set|स्पैनर सेट|पाना संच|pana,spanner|set,piece
+Adjustable Wrench|एडजस्टेबल पाना|अॅडजस्टेबल पाना|pipe wrench
+Hacksaw|हैक्सॉ|हॅक्सॉ|hacksaw blade,karvat
+Wood Saw|आरी|करवत|karvat,aari,saw
+Chisel|छेनी|छिन्नी|chhini,chheni,chisel
+Measuring Tape|नापने का फीता|मोजपट्टी|inch tape,measure tape
+Spirit Level|स्पिरिट लेवल|स्पिरिट लेव्हल|level|piece
+Plumb Bob|साहुल|ओळंबा|olamba,sahul
+Trowel Masonry|करनी|थापी|karni,thapi,trowel
+Wheelbarrow|हाथ गाड़ी|हातगाडी (बांधकाम)|wheel barrow
+Ladder|सीढ़ी|शिडी|shidi,sidhi,ladder
+Bamboo Ladder|बांस की सीढ़ी|बांबूची शिडी|||^LADDER
+Aluminium Ladder|एल्यूमीनियम सीढ़ी|अॅल्युमिनियम शिडी|||^LADDER
+File Tool|रेती|कानस|kanas,reti,file
+Drill Machine|ड्रिल मशीन|ड्रिल मशीन|drill
+Drill Bits|ड्रिल बिट|ड्रिल बिट|bit|set,piece
+Angle Grinder|ग्राइंडर|ग्राइंडर|cutter,grinder machine
+Cutting Wheel|कटिंग व्हील|कटिंग व्हील|cutting disc|piece
+Glue Gun|ग्लू गन|ग्लू गन
+Allen Key Set|एलन की सेट|अॅलन की संच
+Tool Kit|टूल किट|हत्यारांचा संच|toolbox|set
+Paint Brush|पेंट ब्रश|रंगाचा ब्रश|brush|piece
+Paint Roller|पेंट रोलर|रंगाचा रोलर|roller|piece
+Sandpaper|रेगमाल|पॉलिश पेपर|regmal,emery paper|sheet,packet
+Putty Knife|पुट्टी चाकू|पुट्टी पत्रा|patti|piece
+Cutter Knife|कटर|कटर|paper cutter,blade cutter|piece
+Safety Helmet|सेफ़्टी हेलमेट|सेफ्टी हेल्मेट
+Welding Machine|वेल्डिंग मशीन|वेल्डिंग मशीन
+
+@sub|electrical|Electrical|बिजली का सामान|इलेक्ट्रिकल साहित्य|piece,packet
+LED Bulb|एलईडी बल्ब|एलईडी बल्ब|bulb,led
+Tube Light|ट्यूब लाइट|ट्यूबलाईट|led tube,batten
+Zero Watt Bulb|ज़ीरो वॉट बल्ब|झिरो बल्ब|night bulb
+Bulb Holder|बल्ब होल्डर|बल्ब होल्डर|holder
+Switch|स्विच|बटण|switch,batan
+Socket|सॉकेट|सॉकेट|plug point,socket
+Switch Board|स्विच बोर्ड|स्विच बोर्ड|board
+Modular Switch|मॉड्यूलर स्विच|मॉड्युलर स्विच|||^SWITCH
+Extension Board|एक्सटेंशन बोर्ड|एक्सटेंशन बोर्ड|extension cord,spike guard
+Plug Top|प्लग टॉप|प्लग पिन|3 pin plug,2 pin plug
+Electric Wire|बिजली का तार|विजेची वायर|wire,cable|metre,roll
+Service Wire|सर्विस वायर|सर्व्हिस वायर|||^ELECTRIC_WIRE
+Flexible Wire|फ्लेक्सिबल तार|फ्लेक्सिबल वायर|||^ELECTRIC_WIRE
+Insulation Tape|इंसुलेशन टेप|इन्सुलेशन टेप|tape,black tape|piece,packet
+MCB|एमसीबी|एमसीबी|mcb,circuit breaker
+Fuse|फ्यूज़|फ्यूज|fuse wire,kitkat fuse
+Distribution Box|डिस्ट्रीब्यूशन बॉक्स|डिस्ट्रिब्युशन बॉक्स|db box
+Ceiling Fan|छत का पंखा|सीलिंग फॅन|pankha,fan
+Table Fan|टेबल पंखा|टेबल फॅन|||^CEILING_FAN
+Wall Fan|दीवार पंखा|भिंतीचा पंखा|||^CEILING_FAN
+Exhaust Fan|एग्ज़ॉस्ट फैन|एक्झॉस्ट फॅन|exhaust
+Fan Regulator|पंखा रेगुलेटर|पंखा रेग्युलेटर|regulator
+Fan Capacitor|पंखा कंडेंसर|पंखा कॅपॅसिटर|condenser,capacitor
+Air Cooler|कूलर|कूलर|cooler
+Electric Iron|इस्त्री|इस्त्री|iron,press,istri
+Inverter|इन्वर्टर|इन्व्हर्टर|ups
+Inverter Battery|इन्वर्टर बैटरी|इन्व्हर्टर बॅटरी|tubular battery
+Stabilizer|स्टेबलाइज़र|स्टॅबिलायझर|voltage stabilizer
+Solar Panel|सोलर पैनल|सौर पॅनल|solar plate
+Solar Light|सोलर लाइट|सौर दिवा|solar lamp,solar street light
+Solar Water Heater|सोलर वॉटर हीटर|सौर वॉटर हीटर
+Doorbell|दरवाज़े की घंटी|दारावरची बेल|calling bell,bell
+Electric Tester|टेस्टर|टेस्टर|line tester
+Multimeter|मल्टीमीटर|मल्टीमीटर
+Rechargeable Torch|रिचार्जेबल टॉर्च|रिचार्जेबल टॉर्च|||^TORCH
+Decorative Light|सजावटी लाइट|सजावटी दिवा|jhoomar,chandelier||
+Street Light|स्ट्रीट लाइट|पथदिवा|||
+Television|टीवी|टीव्ही|tv,led tv
+Set Top Box|सेट टॉप बॉक्स|सेट टॉप बॉक्स|dish tv box|piece
+Dish Antenna|डिश एंटीना|डिश अँटेना|dish|piece
+Radio|रेडियो|रेडिओ|transistor|piece
+Speaker|स्पीकर|स्पीकर|bluetooth speaker,music system|piece
+Washing Machine|वॉशिंग मशीन|वॉशिंग मशीन|||
+Sewing Machine|सिलाई मशीन|शिलाई मशीन|silai machine
+Electric Motor|इलेक्ट्रिक मोटर|इलेक्ट्रिक मोटर|motor
+Motor Winding Wire|वाइंडिंग तार|वाइंडिंग वायर|||
+
+@sub|mobile-electronics|Mobile and Electronics|मोबाइल और इलेक्ट्रॉनिक्स|मोबाईल आणि इलेक्ट्रॉनिक्स|piece
+Mobile Phone|मोबाइल फ़ोन|मोबाईल फोन|phone,smartphone
+Keypad Phone|कीपैड फ़ोन|साधा मोबाईल|feature phone||^MOBILE_PHONE
+Mobile Charger|मोबाइल चार्जर|मोबाईल चार्जर|charger
+Charging Cable|चार्जिंग केबल|चार्जिंग केबल|usb cable,data cable
+Earphones|ईयरफ़ोन|इअरफोन|headphone,earphone
+Power Bank|पावर बैंक|पॉवर बँक|powerbank
+Mobile Cover|मोबाइल कवर|मोबाईल कव्हर|back cover,case
+Screen Guard|स्क्रीन गार्ड|स्क्रीन गार्ड|tempered glass
+Memory Card|मेमोरी कार्ड|मेमरी कार्ड|sd card
+Pen Drive|पेन ड्राइव|पेन ड्राइव्ह|usb drive
+Bluetooth Earbuds|ब्लूटूथ ईयरबड्स|ब्लूटूथ इअरबड्स|earbuds,tws
+Smart Watch|स्मार्ट वॉच|स्मार्ट वॉच
+Mobile Stand|मोबाइल स्टैंड|मोबाईल स्टँड
+Computer Mouse|माउस|माउस|mouse
+Keyboard|कीबोर्ड|कीबोर्ड
+Laptop|लैपटॉप|लॅपटॉप
+CCTV Camera|सीसीटीवी कैमरा|सीसीटीव्ही कॅमेरा|cctv
+Calculator|कैलकुलेटर|कॅल्क्युलेटर|calculator
+
+@category|plumbing-building|household|Plumbing and Building Materials|प्लंबिंग और निर्माण सामग्री|प्लंबिंग आणि बांधकाम साहित्य
+@sub|plumbing|Plumbing and Sanitary|प्लंबिंग और सैनिटरी|प्लंबिंग आणि सॅनिटरी|piece
+Water Tap|नल|नळ|nal,tap,tota
+Bib Cock|बिब कॉक|बिब कॉक|||^WATER_TAP
+Ball Valve|बॉल वाल्व|बॉल व्हॉल्व्ह|valve
+Shower|शावर|शॉवर|shower head
+Health Faucet|हेल्थ फ़ॉसेट|हेल्थ फॉसेट|jet spray
+Wash Basin|वॉश बेसिन|वॉश बेसिन|basin
+Kitchen Sink|किचन सिंक|किचन सिंक|sink
+Western Toilet|वेस्टर्न टॉयलेट|वेस्टर्न टॉयलेट|commode
+Indian Toilet Pan|इंडियन टॉयलेट|इंडियन संडास भांडे|toilet pan
+Flush Tank|फ्लश टैंक|फ्लश टाकी
+Waste Pipe|वेस्ट पाइप|वेस्ट पाईप|drain pipe|piece,metre
+CPVC Pipe|सीपीवीसी पाइप|सीपीव्हीसी पाईप|cpvc|piece,metre
+GI Pipe|जीआई पाइप|जीआय पाईप|galvanized pipe|piece,metre
+Pipe Elbow|पाइप एल्बो|पाईप एल्बो|elbow|piece,packet
+Pipe Tee|पाइप टी|पाईप टी|tee|piece,packet
+Pipe Coupler|पाइप कपलर|पाईप कपलर|coupler,socket|piece,packet
+PVC Solvent|पीवीसी सॉल्वेंट|पीव्हीसी सॉल्व्हंट|pipe glue|piece
+Teflon Tape|टेफ़्लॉन टेप|टेफ्लॉन टेप|thread tape|piece
+Water Tank Float Valve|फ्लोट वाल्व|फ्लोट व्हॉल्व्ह|ball cock|piece
+Water Level Controller|पानी स्तर नियंत्रक|पाणी पातळी नियंत्रक|automatic water controller||
+Floor Trap|फ़्लोर ट्रैप|फ्लोअर ट्रॅप|nahani trap|piece
+Water Meter|पानी मीटर|पाणी मीटर|||
+
+@sub|building-materials|Building Materials|निर्माण सामग्री|बांधकाम साहित्य|piece,bag,ton
+Cement|सीमेंट|सिमेंट|cement|bag
+White Cement|सफ़ेद सीमेंट|पांढरे सिमेंट|||^CEMENT
+Sand|रेत|वाळू|valu,ret,sand|ton,bag
+Crushed Sand|क्रश सैंड|क्रश वाळू|m sand,artificial sand|ton,bag
+Aggregate|गिट्टी|खडी|khadi,gitti,stone chips|ton,bag
+Bricks|ईंट|वीट|vit,eent,bricks|piece
+Fly Ash Bricks|फ्लाई ऐश ईंट|फ्लाय अॅश वीट|||^BRICKS
+Cement Blocks|सीमेंट ब्लॉक|सिमेंट ब्लॉक|blocks|piece
+AAC Blocks|एएसी ब्लॉक|एएसी ब्लॉक|aac|piece
+Steel TMT Bars|सरिया|सळई|sariya,salai,tmt bar,rod|kg,ton
+Roof Tiles|खपरैल|कौले|kaule,mangalore tiles,khaprail|piece
+Cement Sheet|सीमेंट की चादर|सिमेंट पत्रा|ac sheet,asbestos sheet|sheet
+GI Roofing Sheet|टीन की चादर|पत्रा|patra,tin sheet,galvanized sheet|sheet
+Plastic Roofing Sheet|प्लास्टिक शीट (छत)|प्लास्टिक पत्रा|fiber sheet||
+Floor Tiles|फ़र्श टाइल्स|फरशी टाईल्स|tiles,farshi|piece,box
+Wall Tiles|दीवार टाइल्स|भिंतीच्या टाईल्स|||^FLOOR_TILES
+Shahabad Stone|शहाबादी पत्थर|शहाबादी फरशी|shahabadi farshi
+Kota Stone|कोटा पत्थर|कोटा फरशी|kota|piece,sheet
+Granite|ग्रेनाइट|ग्रॅनाईट|granite|sheet,piece
+Marble|संगमरमर|संगमरवर|marble|sheet,piece
+Stone|पत्थर|दगड|dagad,patthar,building stone|ton,piece
+Lime Plaster|चूना|चुना|chuna,lime|kg,bag
+Murum|मुरुम|मुरूम|murum,red earth|ton
+Wood Planks|लकड़ी के तख्ते|लाकडी फळ्या|lakdi,phali,wood plank|piece
+Plywood|प्लाईवुड|प्लायवूड|ply|sheet
+Bamboo Poles|बांस|बांबू|bamboo,kalak,vasa|piece,bundle
+Wooden Beam|लकड़ी की बीम|लाकडी वासे|vase,wooden pole|piece
+Door|दरवाज़ा|दरवाजा|darwaja,door|piece
+Window|खिड़की|खिडकी|khidki,window|piece
+Window Grill|खिड़की ग्रिल|खिडकी ग्रिल|grill|piece
+Shutter|शटर|शटर|rolling shutter|piece
+Glass Sheet|कांच की शीट|काचेचा पत्रा|kanch,glass|sheet
+Water Proofing Chemical|वॉटरप्रूफ़िंग|वॉटरप्रूफिंग केमिकल|waterproofing|litre,kg
+Tile Adhesive|टाइल चिपकाने वाला|टाईल अॅडहेसिव्ह|||
+
+@sub|paint|Paint and Polish|पेंट और पॉलिश|रंग आणि पॉलिश|litre,kg,piece
+Wall Paint|दीवार का पेंट|भिंतीचा रंग|paint,rang,emulsion
+Enamel Paint|इनामेल पेंट|इनॅमल पेंट|oil paint
+Distemper|डिस्टेंपर|डिस्टेंपर|distemper
+Lime Wash|चूना पुताई|चुना (रंगकाम)|chuna rang,whitewash
+Primer|प्राइमर|प्रायमर|primer
+Wall Putty|वॉल पुट्टी|वॉल पुट्टी|putty|kg,bag
+Wood Polish|लकड़ी की पॉलिश|लाकडी पॉलिश|varnish,polish
+Turpentine|तारपीन|टर्पेन्टाईन|thinner,tarpin
+Geru|गेरू|काव|kav,geru,red ochre|kg,g
+Spray Paint|स्प्रे पेंट|स्प्रे पेंट
+Wood Glue|लकड़ी का गोंद|लाकडी डिंक|wood glue,adhesive|kg,g,piece
+Epoxy Putty|एपॉक्सी पुट्टी|इपॉक्सी पुट्टी|mseal,epoxy|piece
