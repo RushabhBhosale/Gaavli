@@ -1,3 +1,12 @@
+# Provider masters — 2026-11-04 (user approved)
+
+Phase 1 adds Super Admin reference-option CRUD/status routes under
+`/api/v1/admin/provider-masters` and active-only public GET
+`/api/v1/provider-masters`. Fixed provider types, validated master-group mapping,
+multilingual names, immutable codes, versioned edits, pagination and insert-only
+seed behavior are documented in [PROVIDER_MASTERS.md](PROVIDER_MASTERS.md).
+No provider profiles/registration or mobile API integration is part of this phase.
+
 # Coordinator mapped-village user directory - 2026-11-03 (user approved)
 
 `GET /api/v1/coordinator/users` and `/coordinator/users/:id` accept

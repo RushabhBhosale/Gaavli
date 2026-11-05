@@ -77,7 +77,10 @@ export function AdminShell({
             <X size={20} />
           </button>
         </div>
-        <nav aria-label="Main navigation" className="space-y-1 px-3">
+        <nav
+          aria-label="Main navigation"
+          className="min-h-0 space-y-1 overflow-y-auto px-3"
+        >
           {links.map(({ name, href, icon: Icon }) => (
             <Link
               key={href}
@@ -90,6 +93,18 @@ export function AdminShell({
               {name}
             </Link>
           ))}
+          <p className="px-4 pb-1 pt-5 text-[10px] font-semibold uppercase tracking-wider text-emerald-200">
+            Service Providers
+          </p>
+          <Link
+            href="/provider-masters"
+            onClick={() => setOpen(false)}
+            aria-current={path === "/provider-masters" ? "page" : undefined}
+            className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === "/provider-masters" ? "bg-emerald-600/60 text-white shadow-sm" : "text-emerald-50/80 hover:bg-white/10"}`}
+          >
+            <Tags size={17} />
+            Master Management
+          </Link>
         </nav>
         <div className="mt-auto flex items-center gap-3 border-t border-white/10 px-6 py-5">
           <span className="flex size-9 items-center justify-center rounded-full border-2 border-emerald-200 bg-emerald-100 text-sm font-bold text-emerald-900">

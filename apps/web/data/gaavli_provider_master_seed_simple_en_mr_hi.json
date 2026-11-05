@@ -1,0 +1,1190 @@
+[
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "GROCERY",
+    "name": {
+      "en": "Grocery",
+      "mr": "किराणा",
+      "hi": "किराना"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "KIRANA_GENERAL_STORE",
+    "name": {
+      "en": "Kirana / General Store",
+      "mr": "किराणा / जनरल स्टोअर",
+      "hi": "किराना / जनरल स्टोर"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "HARDWARE",
+    "name": {
+      "en": "Hardware",
+      "mr": "हार्डवेअर",
+      "hi": "हार्डवेयर"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "AGRI_INPUTS",
+    "name": {
+      "en": "Agri Inputs (seeds, fertilizer, pesticide)",
+      "mr": "कृषी निविष्ठा (बियाणे, खते, कीटकनाशके)",
+      "hi": "कृषि सामग्री (बीज, उर्वरक, कीटनाशक)"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "VEGETABLE_FRUIT_SHOP",
+    "name": {
+      "en": "Vegetable / Fruit Shop",
+      "mr": "भाजीपाला / फळांचे दुकान",
+      "hi": "सब्ज़ी / फलों की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "DAIRY_MILK_BOOTH",
+    "name": {
+      "en": "Dairy / Milk Booth",
+      "mr": "दुग्धालय / दूध विक्री केंद्र",
+      "hi": "डेयरी / दूध बिक्री केंद्र"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "BAKERY_SWEETS",
+    "name": {
+      "en": "Bakery / Sweets",
+      "mr": "बेकरी / मिठाईचे दुकान",
+      "hi": "बेकरी / मिठाई की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "CLOTHING_TAILORING_STORE",
+    "name": {
+      "en": "Clothing / Tailoring Store",
+      "mr": "कपड्यांचे / शिलाईचे दुकान",
+      "hi": "कपड़ों / सिलाई की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "FOOTWEAR",
+    "name": {
+      "en": "Footwear",
+      "mr": "पादत्राणांचे दुकान",
+      "hi": "जूते-चप्पल की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 9
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "ELECTRONICS_MOBILE",
+    "name": {
+      "en": "Electronics / Mobile",
+      "mr": "इलेक्ट्रॉनिक्स / मोबाईल दुकान",
+      "hi": "इलेक्ट्रॉनिक्स / मोबाइल की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 10
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "STATIONERY",
+    "name": {
+      "en": "Stationery",
+      "mr": "स्टेशनरीचे दुकान",
+      "hi": "स्टेशनरी की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 11
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "MEDICAL_STORE",
+    "name": {
+      "en": "Medical Store",
+      "mr": "औषधांचे दुकान",
+      "hi": "दवा की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 12
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "POULTRY_MEAT",
+    "name": {
+      "en": "Poultry / Meat",
+      "mr": "कोंबडीपालन उत्पादने / मांसाचे दुकान",
+      "hi": "पोल्ट्री / मांस की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 13
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "FLOUR_MILL_GRAIN",
+    "name": {
+      "en": "Flour Mill / Grain",
+      "mr": "पीठ गिरणी / धान्य दुकान",
+      "hi": "आटा चक्की / अनाज की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 14
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "FURNITURE",
+    "name": {
+      "en": "Furniture",
+      "mr": "फर्निचरचे दुकान",
+      "hi": "फर्नीचर की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 15
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 16
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "ELECTRICIAN",
+    "name": {
+      "en": "Electrician",
+      "mr": "इलेक्ट्रिशियन",
+      "hi": "इलेक्ट्रिशियन"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "PLUMBER",
+    "name": {
+      "en": "Plumber",
+      "mr": "प्लंबर",
+      "hi": "प्लंबर"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "CARPENTER",
+    "name": {
+      "en": "Carpenter",
+      "mr": "कारपेंटर",
+      "hi": "कारपेंटर"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "PAINTER",
+    "name": {
+      "en": "Painter",
+      "mr": "पेंटर",
+      "hi": "पेंटर"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "MECHANIC",
+    "name": {
+      "en": "Mechanic",
+      "mr": "मेकॅनिक",
+      "hi": "मैकेनिक"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "TAILOR",
+    "name": {
+      "en": "Tailor",
+      "mr": "टेलर",
+      "hi": "टेलर"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "PHOTOGRAPHER",
+    "name": {
+      "en": "Photographer",
+      "mr": "फोटोग्राफर",
+      "hi": "फोटोग्राफर"
+    },
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "MASON_CONSTRUCTION_WORKER",
+    "name": {
+      "en": "Mason / Construction Worker",
+      "mr": "गवंडी / बांधकाम कामगार",
+      "hi": "राजमिस्त्री / निर्माण श्रमिक"
+    },
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "WELDER",
+    "name": {
+      "en": "Welder",
+      "mr": "वेल्डर",
+      "hi": "वेल्डर"
+    },
+    "isActive": true,
+    "sortOrder": 9
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "BARBER_SALON",
+    "name": {
+      "en": "Barber / Salon",
+      "mr": "बार्बर / सलून",
+      "hi": "बार्बर / सैलून"
+    },
+    "isActive": true,
+    "sortOrder": 10
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "BEAUTICIAN",
+    "name": {
+      "en": "Beautician",
+      "mr": "ब्युटिशियन",
+      "hi": "ब्यूटीशियन"
+    },
+    "isActive": true,
+    "sortOrder": 11
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "DRIVER",
+    "name": {
+      "en": "Driver",
+      "mr": "ड्रायव्हर",
+      "hi": "ड्राइवर"
+    },
+    "isActive": true,
+    "sortOrder": 12
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "TRACTOR_OPERATOR",
+    "name": {
+      "en": "Tractor Operator",
+      "mr": "ट्रॅक्टर ऑपरेटर",
+      "hi": "ट्रैक्टर ऑपरेटर"
+    },
+    "isActive": true,
+    "sortOrder": 13
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "PUMP_MOTOR_REPAIR",
+    "name": {
+      "en": "Pump / Motor Repair",
+      "mr": "पंप / मोटार दुरुस्ती",
+      "hi": "पंप / मोटर मरम्मत"
+    },
+    "isActive": true,
+    "sortOrder": 14
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "AC_FRIDGE_REPAIR",
+    "name": {
+      "en": "AC / Fridge Repair",
+      "mr": "एसी / फ्रिज दुरुस्ती",
+      "hi": "एसी / फ्रिज मरम्मत"
+    },
+    "isActive": true,
+    "sortOrder": 15
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "MOBILE_REPAIR",
+    "name": {
+      "en": "Mobile Repair",
+      "mr": "मोबाईल दुरुस्ती",
+      "hi": "मोबाइल मरम्मत"
+    },
+    "isActive": true,
+    "sortOrder": 16
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "COMPUTER_CCTV_TECHNICIAN",
+    "name": {
+      "en": "Computer / CCTV Technician",
+      "mr": "कॉम्प्युटर / सीसीटीव्ही टेक्निशियन",
+      "hi": "कंप्यूटर / सीसीटीवी टेक्नीशियन"
+    },
+    "isActive": true,
+    "sortOrder": 17
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "BLACKSMITH",
+    "name": {
+      "en": "Blacksmith",
+      "mr": "लोहार",
+      "hi": "लोहार"
+    },
+    "isActive": true,
+    "sortOrder": 18
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "POTTER",
+    "name": {
+      "en": "Potter",
+      "mr": "कुंभार",
+      "hi": "कुम्हार"
+    },
+    "isActive": true,
+    "sortOrder": 19
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "COOK_CATERER",
+    "name": {
+      "en": "Cook / Caterer",
+      "mr": "कुक / केटरर",
+      "hi": "कुक / कैटरर"
+    },
+    "isActive": true,
+    "sortOrder": 20
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "TENT_DECORATION",
+    "name": {
+      "en": "Tent / Decoration",
+      "mr": "मंडप / सजावट सेवा",
+      "hi": "टेंट / सजावट सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 21
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "TUTOR_TEACHER",
+    "name": {
+      "en": "Tutor / Teacher",
+      "mr": "ट्यूटर / टीचर",
+      "hi": "ट्यूटर / टीचर"
+    },
+    "isActive": true,
+    "sortOrder": 22
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "VETERINARY_HELPER",
+    "name": {
+      "en": "Veterinary Helper",
+      "mr": "पशुवैद्यकीय सहाय्यक",
+      "hi": "पशु चिकित्सा सहायक"
+    },
+    "isActive": true,
+    "sortOrder": 23
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "FARM_LABOUR",
+    "name": {
+      "en": "Farm Labour",
+      "mr": "शेतमजूर",
+      "hi": "खेतिहर मज़दूर"
+    },
+    "isActive": true,
+    "sortOrder": 24
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 25
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "GENERAL_PHYSICIAN",
+    "name": {
+      "en": "General Physician",
+      "mr": "जनरल फिजिशियन",
+      "hi": "जनरल फिजिशियन"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "PEDIATRICIAN",
+    "name": {
+      "en": "Pediatrician",
+      "mr": "पेडियाट्रिशियन",
+      "hi": "पीडियाट्रिशियन"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "GYNECOLOGIST",
+    "name": {
+      "en": "Gynecologist",
+      "mr": "गायनॅकॉलॉजिस्ट",
+      "hi": "गायनेकोलॉजिस्ट"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "ORTHOPEDIC",
+    "name": {
+      "en": "Orthopedic",
+      "mr": "ऑर्थोपेडिक",
+      "hi": "ऑर्थोपेडिक"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "DENTIST",
+    "name": {
+      "en": "Dentist",
+      "mr": "डेंटिस्ट",
+      "hi": "डेंटिस्ट"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "EYE_SPECIALIST",
+    "name": {
+      "en": "Eye Specialist",
+      "mr": "नेत्ररोगतज्ज्ञ",
+      "hi": "नेत्र रोग विशेषज्ञ"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "ENT",
+    "name": {
+      "en": "ENT",
+      "mr": "कान, नाक व घसा तज्ज्ञ",
+      "hi": "कान, नाक और गला विशेषज्ञ"
+    },
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "SKIN_SPECIALIST",
+    "name": {
+      "en": "Skin Specialist",
+      "mr": "त्वचारोगतज्ज्ञ",
+      "hi": "त्वचा रोग विशेषज्ञ"
+    },
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "AYURVEDIC",
+    "name": {
+      "en": "Ayurvedic",
+      "mr": "आयुर्वेदिक चिकित्सक",
+      "hi": "आयुर्वेदिक चिकित्सक"
+    },
+    "isActive": true,
+    "sortOrder": 9
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "HOMEOPATHIC",
+    "name": {
+      "en": "Homeopathic",
+      "mr": "होमिओपॅथिक चिकित्सक",
+      "hi": "होम्योपैथिक चिकित्सक"
+    },
+    "isActive": true,
+    "sortOrder": 10
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "PHYSIOTHERAPIST",
+    "name": {
+      "en": "Physiotherapist",
+      "mr": "फिजिओथेरपिस्ट",
+      "hi": "फिजियोथेरेपिस्ट"
+    },
+    "isActive": true,
+    "sortOrder": 11
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "CARDIOLOGIST",
+    "name": {
+      "en": "Cardiologist",
+      "mr": "कार्डिओलॉजिस्ट",
+      "hi": "कार्डियोलॉजिस्ट"
+    },
+    "isActive": true,
+    "sortOrder": 12
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "VETERINARY_DOCTOR",
+    "name": {
+      "en": "Veterinary Doctor",
+      "mr": "पशुवैद्यकीय डॉक्टर",
+      "hi": "पशु चिकित्सक"
+    },
+    "isActive": true,
+    "sortOrder": 13
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 14
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "MBBS",
+    "name": {
+      "en": "MBBS",
+      "mr": "एमबीबीएस",
+      "hi": "एमबीबीएस"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "MD",
+    "name": {
+      "en": "MD",
+      "mr": "एमडी",
+      "hi": "एमडी"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "MS",
+    "name": {
+      "en": "MS",
+      "mr": "एमएस",
+      "hi": "एमएस"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "BAMS",
+    "name": {
+      "en": "BAMS",
+      "mr": "बीएएमएस",
+      "hi": "बीएएमएस"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "BHMS",
+    "name": {
+      "en": "BHMS",
+      "mr": "बीएचएमएस",
+      "hi": "बीएचएमएस"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "BDS",
+    "name": {
+      "en": "BDS",
+      "mr": "बीडीएस",
+      "hi": "बीडीएस"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "BPT",
+    "name": {
+      "en": "BPT",
+      "mr": "बीपीटी",
+      "hi": "बीपीटी"
+    },
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "BUMS",
+    "name": {
+      "en": "BUMS",
+      "mr": "बीयूएमएस",
+      "hi": "बीयूएमएस"
+    },
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "BVSC",
+    "name": {
+      "en": "BVSc",
+      "mr": "बीव्हीएससी",
+      "hi": "बीवीएससी"
+    },
+    "isActive": true,
+    "sortOrder": 9
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "DIPLOMA",
+    "name": {
+      "en": "Diploma",
+      "mr": "डिप्लोमा",
+      "hi": "डिप्लोमा"
+    },
+    "isActive": true,
+    "sortOrder": 10
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_QUALIFICATION",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 11
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "MEDICAL_SHOP",
+    "name": {
+      "en": "Medical Shop",
+      "mr": "औषधांचे दुकान",
+      "hi": "दवा की दुकान"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "CLINIC",
+    "name": {
+      "en": "Clinic",
+      "mr": "दवाखाना",
+      "hi": "क्लिनिक"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "HOSPITAL",
+    "name": {
+      "en": "Hospital",
+      "mr": "रुग्णालय",
+      "hi": "अस्पताल"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "DISPENSARY",
+    "name": {
+      "en": "Dispensary",
+      "mr": "औषधालय",
+      "hi": "औषधालय"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "DIAGNOSTIC_LAB",
+    "name": {
+      "en": "Diagnostic Lab",
+      "mr": "निदान प्रयोगशाळा",
+      "hi": "जाँच प्रयोगशाला"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "VETERINARY_CLINIC",
+    "name": {
+      "en": "Veterinary Clinic",
+      "mr": "पशुवैद्यकीय दवाखाना",
+      "hi": "पशु चिकित्सालय"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "TRANSPORT_TYPE",
+    "code": "PASSENGER",
+    "name": {
+      "en": "Passenger",
+      "mr": "प्रवासी वाहतूक",
+      "hi": "यात्री परिवहन"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "TRANSPORT_TYPE",
+    "code": "GOODS",
+    "name": {
+      "en": "Goods",
+      "mr": "मालवाहतूक",
+      "hi": "माल परिवहन"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "TRANSPORT_TYPE",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "AUTO",
+    "name": {
+      "en": "Auto",
+      "mr": "रिक्षा",
+      "hi": "ऑटो रिक्शा"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "TEMPO",
+    "name": {
+      "en": "Tempo",
+      "mr": "टेम्पो",
+      "hi": "टेम्पो"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "BUS",
+    "name": {
+      "en": "Bus",
+      "mr": "बस",
+      "hi": "बस"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "TRUCK",
+    "name": {
+      "en": "Truck",
+      "mr": "ट्रक",
+      "hi": "ट्रक"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "JEEP_MARUTI_VAN",
+    "name": {
+      "en": "Jeep / Maruti Van",
+      "mr": "जीप / मारुती व्हॅन",
+      "hi": "जीप / मारुति वैन"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "CAR_TAXI",
+    "name": {
+      "en": "Car / Taxi",
+      "mr": "कार / टॅक्सी",
+      "hi": "कार / टैक्सी"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "TRACTOR_TROLLEY",
+    "name": {
+      "en": "Tractor / Trolley",
+      "mr": "ट्रॅक्टर / ट्रॉली",
+      "hi": "ट्रैक्टर / ट्रॉली"
+    },
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "PICKUP",
+    "name": {
+      "en": "Pickup",
+      "mr": "पिकअप वाहन",
+      "hi": "पिकअप वाहन"
+    },
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "MINI_TRUCK",
+    "name": {
+      "en": "Mini Truck",
+      "mr": "मिनी ट्रक",
+      "hi": "मिनी ट्रक"
+    },
+    "isActive": true,
+    "sortOrder": 9
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "BIKE",
+    "name": {
+      "en": "Bike",
+      "mr": "दुचाकी",
+      "hi": "मोटरसाइकिल"
+    },
+    "isActive": true,
+    "sortOrder": 10
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "AMBULANCE",
+    "name": {
+      "en": "Ambulance",
+      "mr": "रुग्णवाहिका",
+      "hi": "एम्बुलेंस"
+    },
+    "isActive": true,
+    "sortOrder": 11
+  },
+  {
+    "providerType": "TRANSPORT_DRIVER",
+    "masterType": "VEHICLE_TYPE",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 12
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "TENT_CATERING",
+    "name": {
+      "en": "Tent and Catering",
+      "mr": "मंडप व केटरिंग",
+      "hi": "टेंट और कैटरिंग"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "EVENT_DECORATION",
+    "name": {
+      "en": "Event / Decoration",
+      "mr": "कार्यक्रम / सजावट",
+      "hi": "आयोजन / सजावट"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "MOBILE_RECHARGE_CSC_CENTRE",
+    "name": {
+      "en": "Mobile Recharge / CSC Centre",
+      "mr": "मोबाईल रिचार्ज / सीएससी केंद्र",
+      "hi": "मोबाइल रिचार्ज / सीएससी केंद्र"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "PRINTING_FLEX",
+    "name": {
+      "en": "Printing / Flex",
+      "mr": "छपाई / फ्लेक्स",
+      "hi": "प्रिंटिंग / फ्लेक्स"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "FARM_EQUIPMENT_RENTAL",
+    "name": {
+      "en": "Farm Equipment Rental",
+      "mr": "शेती उपकरणे भाड्याने",
+      "hi": "कृषि उपकरण किराये पर"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "WATER_TANKER",
+    "name": {
+      "en": "Water Tanker",
+      "mr": "पाण्याचा टँकर",
+      "hi": "पानी का टैंकर"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "GAS_CYLINDER_DELIVERY",
+    "name": {
+      "en": "Gas Cylinder Delivery",
+      "mr": "गॅस सिलिंडर घरपोच सेवा",
+      "hi": "गैस सिलेंडर डिलीवरी"
+    },
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "COURIER",
+    "name": {
+      "en": "Courier",
+      "mr": "कुरिअर सेवा",
+      "hi": "कूरियर सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "PANDIT_RELIGIOUS_SERVICES",
+    "name": {
+      "en": "Pandit / Religious Services",
+      "mr": "पुरोहित / धार्मिक सेवा",
+      "hi": "पंडित / धार्मिक सेवाएँ"
+    },
+    "isActive": true,
+    "sortOrder": 9
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "CLEANING",
+    "name": {
+      "en": "Cleaning",
+      "mr": "स्वच्छता सेवा",
+      "hi": "सफ़ाई सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 10
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 11
+  }
+]

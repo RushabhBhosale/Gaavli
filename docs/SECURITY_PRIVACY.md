@@ -1,3 +1,13 @@
+## Provider master reference options — 2026-11-04 (user approved)
+
+Admin master reads/writes require the existing active Super Admin cookie/session;
+all writes check same-origin and validate strict bodies, IDs and provider/group
+mapping. Version checks prevent stale edits; unique indexes enforce group-scoped
+code/name uniqueness under concurrency. Mutations use existing AuditLog records.
+Public reads expose only active requested-group IDs/codes/multilingual labels,
+with no admin fields or mutation actions. No personal provider data or mobile
+registration is added. Seeding is explicit and insert-only; see PROVIDER_MASTERS.md.
+
 ## Coordinator mapped-directory reads - 2026-11-03 (user approved)
 
 The authenticated coordinator User Directory may include names, roles, mobile

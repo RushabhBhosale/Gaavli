@@ -8,6 +8,7 @@ export function ConfirmDialog({
   title,
   busy,
   error,
+  description = "This changes the user’s access to Gaavli. Their history will be retained.",
 }: {
   open: boolean;
   onClose: () => void;
@@ -15,6 +16,7 @@ export function ConfirmDialog({
   title: string;
   busy: boolean;
   error?: string;
+  description?: string;
 }) {
   return (
     <Alert.Root
@@ -28,8 +30,7 @@ export function ConfirmDialog({
         <Alert.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6 shadow-xl">
           <Alert.Title className="text-lg font-bold">{title}</Alert.Title>
           <Alert.Description className="mt-2 text-sm text-slate-500">
-            This changes the user’s access to Gaavli. Their history will be
-            retained.
+            {description}
           </Alert.Description>
           {error && (
             <p role="alert" className="mt-3 text-sm text-red-700">
