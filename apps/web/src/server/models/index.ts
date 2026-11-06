@@ -1,5 +1,5 @@
 import mongoose, { Schema, type InferSchemaType } from "mongoose";
-import { LISTING_PRODUCT_GROUPS } from "@gaavli/constants";
+import { LISTING_PRODUCT_GROUPS, LISTING_TAG_IDS } from "@gaavli/constants";
 const userSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -112,6 +112,7 @@ const listingSchema = new Schema(
       enum: ["farm_pickup", "local_transport"],
       default: [],
     },
+    tags: { type: [String], enum: LISTING_TAG_IDS, default: [] },
     deactivatedAt: Date,
     moderationFlaggedAt: Date,
     quantity: { type: Number, min: 0, max: 1e9 },

@@ -38,6 +38,7 @@ import { useListingClock } from "../hooks/useListingClock";
 import { ApiError } from "../api/client";
 import { listingName } from "../types/home";
 import { theme } from "../theme";
+import { listingTagLabel } from "@gaavli/constants";
 import { Button, ErrorMessage, Input, SkeletonList } from "../components/ui";
 import { Badge, d } from "../components/dashboard/primitives";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
@@ -455,6 +456,24 @@ function ProductDetailsContent({ id }: { id: string }) {
                         .join(" · ")}
                     </Text>
                   </View>
+                  {!!listing.tags?.length && (
+                    <View style={s.tags}>
+                      {listing.tags.map((tag) => {
+                        const label = listingTagLabel(tag, language);
+                        return label ? (
+                          <View key={tag} style={s.tag}>
+                            <Ionicons
+                              accessible={false}
+                              name="checkmark-circle"
+                              size={15}
+                              color={theme.colors.success}
+                            />
+                            <Text style={s.tagText}>{label}</Text>
+                          </View>
+                        ) : null;
+                      })}
+                    </View>
+                  )}
                 </View>
                 {listing.isDemo && (
                   <View style={s.demo}>
@@ -747,6 +766,17 @@ const s = StyleSheet.create({
   metaRow: { flexDirection: "row", alignItems: "center", gap: 5 },
   meta: { ...theme.type.caption, color: theme.colors.muted, flexShrink: 1 },
   demo: { gap: 6 },
+  tags: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 6 },
+  tag: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.successBackground,
+  },
+  tagText: { ...theme.type.micro, color: theme.colors.success },
   priceCard: {
     flexDirection: "row",
     alignItems: "center",

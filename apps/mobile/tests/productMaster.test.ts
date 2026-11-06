@@ -49,6 +49,7 @@ const legacy: OwnedListing = {
   photoUrl: null,
   minimumPurchaseQuantity: null,
   fulfillmentOptions: ["farm_pickup"],
+  tags: [],
   villageId: "d".repeat(24),
   village: null,
   status: "active",

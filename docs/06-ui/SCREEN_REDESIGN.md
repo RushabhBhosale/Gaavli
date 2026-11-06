@@ -30,9 +30,9 @@ are saffron text; loading shows placeholder cards (`SkeletonList`), not text.
 | 4 | OTP | `/otp` | Saffron verify, saffron focus ring on code boxes. |
 | 5 | Home | `/(tabs)/home` | Steel banner with soft circles and a solid saffron mic; saffron icon tiles; skeleton listings while loading. |
 | 6 | Marketplace | `/(tabs)/marketplace` | Saffron category selection and prices; skeleton feed instead of "Loading…"; no full-catalogue download (speed). |
-| 7 | Product details | `/(tabs)/product/[id]` | Saffron call button, saffron price, steel seller card; skeleton while loading. |
+| 7 | Product details | `/(tabs)/product/[id]` | Saffron call button, saffron price, steel seller card; skeleton while loading; seller tags as small green chips under the title. |
 | 8 | My listings (seller) | `/(tabs)/my-listings` | Saffron Add product, turmeric "sold" status, steel tabs. |
-| 9 | Add / edit listing | `/add-listing` | Saffron save, steel secondary actions, saffron focus on fields. |
+| 9 | Add / edit listing | `/add-listing` | Rebuilt 2026-11-06: one tap-to-change photo tile (camera, gallery and remove in a bottom sheet, no photo buttons on the page); three white step cards (product and freshness, quantity and price, tags); freshness and unit as tappable pills; ₹ price field showing "per kg"; description removed (old descriptions still show to buyers); up to 5 product-group tags such as Organic, Desi, Desi cow; save button pinned at the bottom. |
 | 10 | Activity and notifications | `/(tabs)/activity`, `/notifications` | Saffron-bordered unread cards, steel unread dot; skeleton while loading. |
 | 11 | Profile (settings) | `/(tabs)/profile` | Steel action cards, saffron primary. |
 | 12 | My profile | `/my-profile` | Saffron save; notice strip uses the saffron border. |

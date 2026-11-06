@@ -3,6 +3,7 @@ import { z } from "zod";
 import {
   LISTING_ASSET_PHOTOS,
   LISTING_PRODUCT_GROUPS,
+  listingTagsForGroup,
 } from "@gaavli/constants";
 import {
   createListingSchema,
@@ -10,6 +11,7 @@ import {
   listingPhotoKeySchema,
   updateListingSchema,
   ownedListingSchema,
+  listingTagsSchema,
   mobileLanguageSchema,
 } from "@gaavli/validation";
 import type {
@@ -49,6 +51,7 @@ export const listingFormSchema = z.object({
   localPhoto: localListingPhotoSchema.nullable().default(null),
   farmPickup: z.boolean(),
   localTransport: z.boolean(),
+  tags: listingTagsSchema.default([]),
 });
 export type ListingForm = z.infer<typeof listingFormSchema>;
 export const pendingListingSchema = z.object({
@@ -86,6 +89,7 @@ export const emptyListingDraft: ListingDraft = {
     localPhoto: null,
     farmPickup: true,
     localTransport: false,
+    tags: [],
   },
   pending: null,
   editBase: null,
@@ -146,6 +150,7 @@ export function prepareListing(
       ...(form.farmPickup ? ["farm_pickup"] : []),
       ...(form.localTransport ? ["local_transport"] : []),
     ],
+    tags: form.tags,
   });
   if (!parsed.success)
     throw new ListingFormError(
@@ -202,6 +207,7 @@ export function formFromListing(
     existingPhotoKey: row.photoObjectKey,
     farmPickup: row.fulfillmentOptions.includes("farm_pickup"),
     localTransport: row.fulfillmentOptions.includes("local_transport"),
+    tags: row.tags,
   });
 }
 export function prepareListingEdit(
@@ -269,5 +275,9 @@ export function selectMasterProduct(
     }),
     group: product.productGroup,
     unit: product.defaultUnit,
+    // Keep only the tags the new product's group still offers.
+    tags: form.tags.filter((tag) =>
+      listingTagsForGroup(product.productGroup).includes(tag),
+    ),
   };
 }

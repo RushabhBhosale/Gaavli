@@ -73,6 +73,7 @@ export type MobileListing = {
   expiresAt: string | null;
   minimumPurchaseQuantity?: number | null;
   fulfillmentOptions?: ("farm_pickup" | "local_transport")[];
+  tags?: string[];
 };
 export type MobileListingPage = {
   listings: MobileListing[];
@@ -139,6 +140,7 @@ export type CreateListingInput = {
   photoObjectKey?: string | null;
   minimumPurchaseQuantity?: number | null;
   fulfillmentOptions?: ListingFulfillmentOption[];
+  tags?: string[];
 };
 export type UpdateListingInput = Partial<
   Omit<CreateListingInput, "villageId">
@@ -160,6 +162,7 @@ export type OwnedListing = {
   photoUrl: string | null;
   minimumPurchaseQuantity: number | null;
   fulfillmentOptions: ListingFulfillmentOption[];
+  tags: string[];
   villageId: string;
   village: MobileVillage | null;
   status: ListingStatus;

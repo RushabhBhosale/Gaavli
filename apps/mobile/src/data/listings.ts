@@ -33,6 +33,7 @@ export function toHomeListing(
     isDemo: listing.isDemo,
     minimumPurchaseQuantity: listing.minimumPurchaseQuantity,
     fulfillmentOptions: listing.fulfillmentOptions,
+    tags: listing.tags,
   };
 }
 export function liveDashboard(

@@ -104,6 +104,7 @@ const dtoProjection = {
   price: { $ifNull: ["$price", null] },
   minimumPurchaseQuantity: { $ifNull: ["$minimumPurchaseQuantity", null] },
   fulfillmentOptions: { $ifNull: ["$fulfillmentOptions", []] },
+  tags: { $ifNull: ["$tags", []] },
   village: {
     id: { $toString: "$villageRecord._id" },
     name: "$villageRecord.nameEn",

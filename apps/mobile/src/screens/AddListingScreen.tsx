@@ -1,5 +1,5 @@
 import { productDisplayName } from "../locale";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentProps } from "react";
 import {
   Image,
   Alert,
@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 import {
@@ -19,7 +20,13 @@ import {
 import { Redirect, useRouter, useLocalSearchParams } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { LISTING_ASSET_PHOTOS } from "@gaavli/constants";
+import {
+  LISTING_ASSET_PHOTOS,
+  MAX_LISTING_TAGS,
+  listingTagLabel,
+  listingTagsForGroup,
+  type ListingTag,
+} from "@gaavli/constants";
 import {
   mobileCategoriesSchema,
   mobileUserSchema,
@@ -118,6 +125,8 @@ function ListingFormScreen({
   const [conflict, setConflict] = useState(false);
   const [productSearch, setProductSearch] = useState("");
   const [debouncedProductSearch, setDebouncedProductSearch] = useState("");
+  const [photoSheet, setPhotoSheet] = useState(false);
+  const [priceFocused, setPriceFocused] = useState(false);
   const key = `${accountId}:${villageId}${editId ? `:edit:${editId}` : ""}`;
   const categories = useQuery({
     queryKey: ["listing-categories", accountId],
@@ -510,27 +519,96 @@ function ListingFormScreen({
   }
   const locked = busy || !!draft.pending || !!draft.editPending || !ready;
   const form = draft.form;
+  const village = session?.user.village;
+  const villageName = village
+    ? language !== "en"
+      ? village.nameMr
+      : village.name
+    : "";
+  const localDigits = (value: string) =>
+    language === "en"
+      ? value
+      : value.replace(/[0-9]/g, (digit) => "०१२३४५६७८९"[Number(digit)]);
+  const hasPhoto = !!(form.localPhoto || form.existingPhotoKey || form.photo);
+  const unitNames: Record<string, string> = {
+    kg: t.unitKg,
+    litre: t.unitLitre,
+    dozen: t.unitDozen,
+    bunch: t.unitBunch,
+    pieces: t.unitPieces,
+    piece: t.unitPieces,
+    ton: t.unitTon,
+    bundle: t.unitBundle,
+  };
+  const units = [
+    ...UNITS,
+    ...((UNITS as readonly string[]).includes(form.unit) ? [] : [form.unit]),
+  ];
+  const unitLabel = unitNames[form.unit] || form.unit;
+  // The group's own tags, plus any older tag this listing already carries.
+  const tagChoices = [
+    ...listingTagsForGroup(form.group),
+    ...form.tags.filter(
+      (tag) => !listingTagsForGroup(form.group).includes(tag),
+    ),
+  ];
+  const tagsFull = form.tags.length >= MAX_LISTING_TAGS;
+  function toggleTag(tag: ListingTag) {
+    const current = latest.current.form.tags;
+    if (current.includes(tag))
+      update(
+        "tags",
+        current.filter((item) => item !== tag),
+      );
+    else if (current.length < MAX_LISTING_TAGS)
+      update("tags", [...current, tag]);
+  }
+  function pickPhoto(source: "camera" | "gallery") {
+    setPhotoSheet(false);
+    void choosePhonePhoto(source);
+  }
   return (
-    <Screen>
+    <Screen
+      footer={
+        ready ? (
+          <Button
+            loading={busy}
+            disabled={offline || saveFailed || conflict}
+            onPress={() => void publish()}
+          >
+            {draft.pending || draft.editPending
+              ? t.listingRetryPublish
+              : editId
+                ? t.saveListingChanges
+                : t.listingPublish}
+          </Button>
+        ) : undefined
+      }
+    >
       <View style={s.header}>
         <BackButton
           label={t.back}
           disabled={busy}
           onPress={() => void leave()}
         />
-        <Text accessibilityRole="header" style={d.sectionTitle}>
-          {editId ? t.editListing : t.addListing}
-        </Text>
-      </View>
-      <View style={s.panel}>
-        <Text style={d.cardTitle}>
-          {session?.user.village
-            ? language !== "en"
-              ? session.user.village.nameMr
-              : session.user.village.name
-            : ""}
-        </Text>
-        <Text style={d.description}>{t.listingVillageHelp}</Text>
+        <View style={s.headerCopy}>
+          <Text accessibilityRole="header" style={s.title}>
+            {editId ? t.editListing : t.addListing}
+          </Text>
+          {!!villageName && (
+            <View style={s.village}>
+              <Ionicons
+                accessible={false}
+                name="location-outline"
+                size={14}
+                color={theme.colors.muted}
+              />
+              <Text numberOfLines={1} style={s.villageText}>
+                {formatMessage(t.listingSellingIn, { village: villageName })}
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
       {!ready ? (
         <>
@@ -563,257 +641,339 @@ function ListingFormScreen({
           {!!(draft.pending || draft.editPending) && (
             <Text style={s.warning}>{t.listingPending}</Text>
           )}
-          <ListingDropdown
-            label={t.listingProductName}
-            value={form.productId || ""}
+          {/* One big photo tile: tap it to take, pick or remove a photo. */}
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={
+              hasPhoto ? t.listingPhotoChange : t.listingPhotoAdd
+            }
+            accessibilityHint={t.listingPhotoAddHint}
             disabled={locked}
-            selectedLabel={
-              form.productId
-                ? productDisplayName(language, {
-                    en: form.productNameEn,
-                    mr: form.productNameMr,
-                    hi: form.productNameHi,
-                  }) || form.name
-                : form.name
-            }
-            searchable
-            remoteSearch
-            searchPlaceholder={t.productMasterSearch}
-            searchValue={productSearch}
-            onSearchChange={setProductSearch}
-            searchMessage={productSearchMessage}
-            searchSuggestion={
-              productSearchWaiting ? undefined : products.data?.didYouMean
-            }
-            searchError={
-              !productSearchWaiting &&
-              !!productSearch.trim() &&
-              products.isError
-            }
-            onSearchRetry={() => void products.refetch()}
-            searchTexts={Object.fromEntries(
-              (products.data?.products || []).map((product) => [
-                product.productId,
-                [product.nameMr, product.nameEn, product.nameHi]
-                  .filter(Boolean)
-                  .join(" "),
-              ]),
+            onPress={() => setPhotoSheet(true)}
+            style={({ pressed }) => [
+              s.photo,
+              !hasPhoto && s.photoEmpty,
+              pressed && s.pressed,
+            ]}
+          >
+            {hasPhoto ? (
+              <>
+                {form.localPhoto ? (
+                  <Image
+                    source={{
+                      uri: localListingPhotoUri(
+                        form.localPhoto,
+                        accountId,
+                        villageId,
+                      ),
+                    }}
+                    style={s.photoImage}
+                    resizeMode="cover"
+                    accessible={false}
+                  />
+                ) : (
+                  <ListingImage
+                    listing={{
+                      photoUrl: form.existingPhotoKey
+                        ? draft.editBase?.photoUrl || null
+                        : null,
+                      image:
+                        LISTING_ASSET_PHOTOS.find(
+                          (photo) => photo.id === form.photo,
+                        )?.id || null,
+                    }}
+                    style={s.photoImage}
+                    iconSize={40}
+                  />
+                )}
+                <View style={s.photoBadge}>
+                  <Ionicons
+                    accessible={false}
+                    name="camera"
+                    size={16}
+                    color={theme.colors.onPrimary}
+                  />
+                  <Text style={s.photoBadgeText}>{t.listingPhotoChange}</Text>
+                </View>
+              </>
+            ) : (
+              <View style={s.photoPrompt}>
+                <View style={s.photoIcon}>
+                  <Ionicons
+                    accessible={false}
+                    name="camera-outline"
+                    size={30}
+                    color={theme.colors.primary}
+                  />
+                </View>
+                <Text style={s.photoTitle}>{t.listingPhotoAdd}</Text>
+                <Text style={s.hint}>{t.listingPhotoAddHint}</Text>
+              </View>
             )}
-            options={(productSearchWaiting
-              ? []
-              : products.data?.products || []
-            ).map(
-              (product) =>
-                [
-                  product.productId,
-                  productDisplayName(language, {
-                    en: product.nameEn,
-                    mr: product.nameMr,
-                    hi: product.nameHi,
-                  }),
-                ] as const,
-            )}
-            onChange={(id) => {
-              const product = products.data?.products.find(
-                (item) => item.productId === id,
-              );
-              if (
-                !product ||
-                submitting.current ||
-                latest.current.pending ||
-                latest.current.editPending
-              )
-                return;
-              const next = {
-                ...latest.current,
-                form: selectMasterProduct(
-                  latest.current.form,
-                  product,
-                  language,
-                ),
-              };
-              latest.current = next;
-              setDraft(next);
-              setFailure(null);
-              void persist(next).catch(() => undefined);
-            }}
-          />
-          {editId && !form.productId && (
-            <Text style={d.description}>{t.productMasterLegacy}</Text>
-          )}
-          <Text style={s.label}>{t.listingPhoto}</Text>
-          <View style={s.photoRow}>
-            <View style={s.photoSlot}>
-              {form.localPhoto ? (
-                <Image
-                  source={{
-                    uri: localListingPhotoUri(
-                      form.localPhoto,
-                      accountId,
-                      villageId,
-                    ),
-                  }}
-                  style={s.photoPreview}
-                  resizeMode="contain"
-                  accessibilityLabel={t.listingPhoto}
-                />
-              ) : (
-                <ListingImage
-                  listing={{
-                    photoUrl: form.existingPhotoKey
-                      ? draft.editBase?.photoUrl || null
-                      : null,
-                    image:
-                      LISTING_ASSET_PHOTOS.find(
-                        (photo) => photo.id === form.photo,
-                      )?.id || null,
-                  }}
-                  style={s.photoPreview}
-                  resizeMode="contain"
-                />
-              )}
-            </View>
-            <View style={s.photoActions}>
-              <Text style={d.description}>{t.listingPhotoHelp}</Text>
-              <Button
-                secondary
-                disabled={locked}
-                onPress={() => void choosePhonePhoto("camera")}
-              >
-                {t.takeListingPhoto}
-              </Button>
-              <Button
-                secondary
-                disabled={locked}
-                onPress={() => void choosePhonePhoto("gallery")}
-              >
-                {t.chooseListingGallery}
-              </Button>
-              {(form.localPhoto || form.existingPhotoKey || form.photo) && (
-                <Button
-                  secondary
-                  disabled={locked}
-                  onPress={() => update("photo", "")}
-                >
-                  {t.removeListingPhoto}
-                </Button>
-              )}
-            </View>
-          </View>
-          {editId && !form.productId ? (
+          </Pressable>
+          <View style={s.section}>
+            <Text style={s.sectionTitle}>{t.listingStepProduct}</Text>
             <ListingDropdown
-              label={t.listingGroup}
-              value={form.group}
+              label={t.listingProductName}
+              value={form.productId || ""}
               disabled={locked}
-              onChange={(value) => update("group", value)}
-              options={
-                [
-                  ["vegetables", t.vegetables],
-                  ["fruits", t.fruits],
-                  ["grain", t.grains],
-                  ["dairy", t.dairy],
-                  ["homemade", t.homemade],
-                  ["other", t.listingOtherGroup],
-                ] as const
+              selectedLabel={
+                form.productId
+                  ? productDisplayName(language, {
+                      en: form.productNameEn,
+                      mr: form.productNameMr,
+                      hi: form.productNameHi,
+                    }) || form.name
+                  : form.name
               }
-            />
-          ) : null}
-          {categories.isPending && (
-            <Text style={d.description}>{t.listingsLoading}</Text>
-          )}
-          {categories.isError && (
-            <>
-              <ErrorMessage message={t.listingCategoryMissing} />
-              <Button secondary onPress={() => void categories.refetch()}>
-                {t.retry}
-              </Button>
-            </>
-          )}
-          <ListingDropdown
-            label={t.listingCategory}
-            value={form.categoryId}
-            disabled={locked}
-            placeholder={t.listingCategoryMissing}
-            onChange={(value) => update("categoryId", value)}
-            options={
-              categories.data?.categories.map((item) => {
-                const name = language !== "en" ? item.nameMr : item.name;
-                const life =
-                  language !== "en"
-                    ? item.defaultShelfLife
-                        .trim()
-                        .replace(/\bdays?\b/gi, t.shelfDaysUnit)
-                        .replace(/\bstanding\b/gi, t.shelfStandingLabel)
-                        .replace(
-                          /[0-9]/g,
-                          (digit) => "०१२३४५६७८९"[Number(digit)],
-                        )
-                    : item.defaultShelfLife.trim();
-                return [item.id, life ? `${name} (${life})` : name] as const;
-              }) ?? []
-            }
-          />
-          <View style={s.quantityRow}>
-            <View style={s.quantityField}>
-              <Input
-                label={t.listingQuantityLabel}
-                value={form.quantity}
-                editable={!locked}
-                keyboardType="decimal-pad"
-                maxLength={40}
-                onChangeText={(value) => update("quantity", value)}
-              />
-            </View>
-            <View style={s.unitField}>
-              <ListingDropdown
-                label={t.listingUnit}
-                value={form.unit}
-                disabled={locked}
-                onChange={(value) => update("unit", value)}
-                options={
+              searchable
+              remoteSearch
+              searchPlaceholder={t.productMasterSearch}
+              searchValue={productSearch}
+              onSearchChange={setProductSearch}
+              searchMessage={productSearchMessage}
+              searchSuggestion={
+                productSearchWaiting ? undefined : products.data?.didYouMean
+              }
+              searchError={
+                !productSearchWaiting &&
+                !!productSearch.trim() &&
+                products.isError
+              }
+              onSearchRetry={() => void products.refetch()}
+              searchTexts={Object.fromEntries(
+                (products.data?.products || []).map((product) => [
+                  product.productId,
+                  [product.nameMr, product.nameEn, product.nameHi]
+                    .filter(Boolean)
+                    .join(" "),
+                ]),
+              )}
+              options={(productSearchWaiting
+                ? []
+                : products.data?.products || []
+              ).map(
+                (product) =>
                   [
-                    ["kg", t.unitKg],
-                    ["litre", t.unitLitre],
-                    ["dozen", t.unitDozen],
-                    ["bunch", t.unitBunch],
-                    ["pieces", t.unitPieces],
-                    ["piece", t.unitPieces],
-                    ["ton", t.unitTon],
-                    ["bundle", t.unitBundle],
-                    ...(![
-                      "kg",
-                      "litre",
-                      "dozen",
-                      "bunch",
-                      "pieces",
-                      "piece",
-                      "ton",
-                      "bundle",
-                    ].includes(form.unit)
-                      ? [[form.unit, form.unit] as const]
-                      : []),
-                  ] as const
-                }
-              />
+                    product.productId,
+                    productDisplayName(language, {
+                      en: product.nameEn,
+                      mr: product.nameMr,
+                      hi: product.nameHi,
+                    }),
+                  ] as const,
+              )}
+              onChange={(id) => {
+                const product = products.data?.products.find(
+                  (item) => item.productId === id,
+                );
+                if (
+                  !product ||
+                  submitting.current ||
+                  latest.current.pending ||
+                  latest.current.editPending
+                )
+                  return;
+                const next = {
+                  ...latest.current,
+                  form: selectMasterProduct(
+                    latest.current.form,
+                    product,
+                    language,
+                  ),
+                };
+                latest.current = next;
+                setDraft(next);
+                setFailure(null);
+                void persist(next).catch(() => undefined);
+              }}
+            />
+            {editId && !form.productId && (
+              <>
+                <Text style={s.hint}>{t.productMasterLegacy}</Text>
+                <ListingDropdown
+                  label={t.listingGroup}
+                  value={form.group}
+                  disabled={locked}
+                  onChange={(value) => update("group", value)}
+                  options={
+                    [
+                      ["vegetables", t.vegetables],
+                      ["fruits", t.fruits],
+                      ["grain", t.grains],
+                      ["dairy", t.dairy],
+                      ["homemade", t.homemade],
+                      ["other", t.listingOtherGroup],
+                    ] as const
+                  }
+                />
+              </>
+            )}
+            <Text style={s.label}>{t.listingFreshness}</Text>
+            {categories.isPending && (
+              <Text style={s.hint}>{t.listingsLoading}</Text>
+            )}
+            {categories.isError && (
+              <>
+                <ErrorMessage message={t.listingCategoryMissing} />
+                <Button secondary onPress={() => void categories.refetch()}>
+                  {t.retry}
+                </Button>
+              </>
+            )}
+            <View style={s.wrap}>
+              {categories.data?.categories.map((item) => {
+                const on = item.id === form.categoryId;
+                const life = item.defaultShelfLife.trim();
+                return (
+                  <Pressable
+                    key={item.id}
+                    accessibilityRole="radio"
+                    accessibilityState={{ checked: on, disabled: locked }}
+                    disabled={locked}
+                    onPress={() => update("categoryId", item.id)}
+                    style={({ pressed }) => [
+                      s.choice,
+                      on && s.choiceOn,
+                      pressed && s.pressed,
+                    ]}
+                  >
+                    <Text style={[s.choiceText, on && s.choiceTextOn]}>
+                      {language !== "en" ? item.nameMr : item.name}
+                    </Text>
+                    {!!life && (
+                      <Text style={[s.choiceSub, on && s.choiceTextOn]}>
+                        {language !== "en"
+                          ? localDigits(
+                              life
+                                .replace(/\bdays?\b/gi, t.shelfDaysUnit)
+                                .replace(
+                                  /\bstanding\b/gi,
+                                  t.shelfStandingLabel,
+                                ),
+                            )
+                          : life}
+                      </Text>
+                    )}
+                  </Pressable>
+                );
+              })}
             </View>
           </View>
-          <Input
-            label={t.listingPrice}
-            value={form.price}
-            editable={!locked}
-            keyboardType="decimal-pad"
-            maxLength={40}
-            onChangeText={(value) => update("price", value)}
-          />
-          <Input
-            label={t.listingDescription}
-            value={form.description}
-            editable={!locked}
-            multiline
-            maxLength={2000}
-            style={{ minHeight: 110, textAlignVertical: "top" }}
-            onChangeText={(value) => update("description", value)}
-          />
+          <View style={s.section}>
+            <Text style={s.sectionTitle}>{t.listingStepStock}</Text>
+            <Input
+              label={t.listingQuantityLabel}
+              value={form.quantity}
+              editable={!locked}
+              keyboardType="decimal-pad"
+              maxLength={40}
+              placeholder={localDigits("0")}
+              onChangeText={(value) => update("quantity", value)}
+            />
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              accessibilityLabel={t.listingUnit}
+              contentContainerStyle={s.units}
+            >
+              {units.map((unit) => {
+                const on = unit === form.unit;
+                return (
+                  <Pressable
+                    key={unit}
+                    accessibilityRole="radio"
+                    accessibilityState={{ checked: on, disabled: locked }}
+                    disabled={locked}
+                    onPress={() => update("unit", unit)}
+                    style={({ pressed }) => [
+                      s.unit,
+                      on && s.choiceOn,
+                      pressed && s.pressed,
+                    ]}
+                  >
+                    <Text style={[s.choiceText, on && s.choiceTextOn]}>
+                      {unitNames[unit] || unit}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
+            <View style={s.field}>
+              <Text style={s.label}>{t.listingPrice}</Text>
+              <View
+                style={[
+                  s.price,
+                  priceFocused && s.priceFocused,
+                  locked && s.dim,
+                ]}
+              >
+                <Text style={s.rupee}>₹</Text>
+                <TextInput
+                  accessibilityLabel={t.listingPrice}
+                  value={form.price}
+                  editable={!locked}
+                  keyboardType="decimal-pad"
+                  maxLength={40}
+                  placeholder={localDigits("0")}
+                  placeholderTextColor={theme.colors.placeholder}
+                  onFocus={() => setPriceFocused(true)}
+                  onBlur={() => setPriceFocused(false)}
+                  onChangeText={(value) => update("price", value)}
+                  style={s.priceInput}
+                />
+                <Text numberOfLines={1} style={s.per}>
+                  {formatMessage(t.listingPricePer, { unit: unitLabel })}
+                </Text>
+              </View>
+            </View>
+          </View>
+          {(!!form.productId || !!editId) && (
+            <View style={s.section}>
+              <View>
+                <Text style={s.sectionTitle}>{t.listingTagsTitle}</Text>
+                <Text style={s.hint}>
+                  {formatMessage(t.listingTagsHint, {
+                    count: localDigits(String(MAX_LISTING_TAGS)),
+                  })}
+                </Text>
+              </View>
+              <View style={s.wrap}>
+                {tagChoices.map((tag) => {
+                  const on = form.tags.includes(tag);
+                  const unavailable = locked || (!on && tagsFull);
+                  return (
+                    <Pressable
+                      key={tag}
+                      accessibilityRole="checkbox"
+                      accessibilityState={{
+                        checked: on,
+                        disabled: unavailable,
+                      }}
+                      disabled={unavailable}
+                      onPress={() => toggleTag(tag)}
+                      style={({ pressed }) => [
+                        s.tag,
+                        on && s.choiceOn,
+                        !on && tagsFull && s.dim,
+                        pressed && s.pressed,
+                      ]}
+                    >
+                      <Ionicons
+                        accessible={false}
+                        name={on ? "checkmark-circle" : "add"}
+                        size={18}
+                        color={on ? theme.colors.primary : theme.colors.steel}
+                      />
+                      <Text style={[s.choiceText, on && s.choiceTextOn]}>
+                        {listingTagLabel(tag, language)}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
+          )}
           {failure && <ErrorMessage message={failure} />}
           {editId && conflict && !draft.editPending && (
             <Button
@@ -835,25 +995,90 @@ function ListingFormScreen({
               {t.reloadListing}
             </Button>
           )}
-          <Button
-            loading={busy}
-            disabled={offline || !ready || saveFailed || conflict}
-            onPress={() => void publish()}
-          >
-            {draft.pending || draft.editPending
-              ? t.listingRetryPublish
-              : editId
-                ? t.saveListingChanges
-                : t.listingPublish}
-          </Button>
-          {editId && (
-            <Button secondary disabled={busy} onPress={() => void leave()}>
-              {t.cancel}
-            </Button>
-          )}
         </>
       )}
+      <Modal
+        visible={photoSheet}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setPhotoSheet(false)}
+      >
+        <Pressable
+          accessibilityLabel={t.cancel}
+          style={s.sheetOverlay}
+          onPress={() => setPhotoSheet(false)}
+        >
+          <Pressable accessibilityViewIsModal style={s.sheet}>
+            <View style={s.sheetHandle} />
+            <Text accessibilityRole="header" style={s.sectionTitle}>
+              {hasPhoto ? t.listingPhotoChange : t.listingPhotoAdd}
+            </Text>
+            <SheetAction
+              icon="camera-outline"
+              label={t.takeListingPhoto}
+              onPress={() => pickPhoto("camera")}
+            />
+            <SheetAction
+              icon="images-outline"
+              label={t.chooseListingGallery}
+              onPress={() => pickPhoto("gallery")}
+            />
+            {hasPhoto && (
+              <SheetAction
+                danger
+                icon="trash-outline"
+                label={t.removeListingPhoto}
+                onPress={() => {
+                  setPhotoSheet(false);
+                  update("photo", "");
+                }}
+              />
+            )}
+            <Button ghost onPress={() => setPhotoSheet(false)}>
+              {t.cancel}
+            </Button>
+          </Pressable>
+        </Pressable>
+      </Modal>
     </Screen>
+  );
+}
+const UNITS = [
+  "kg",
+  "litre",
+  "dozen",
+  "bunch",
+  "pieces",
+  "ton",
+  "bundle",
+] as const;
+function SheetAction({
+  icon,
+  label,
+  onPress,
+  danger = false,
+}: {
+  icon: ComponentProps<typeof Ionicons>["name"];
+  label: string;
+  onPress: () => void;
+  danger?: boolean;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      onPress={onPress}
+      style={({ pressed }) => [s.sheetRow, pressed && s.pressed]}
+    >
+      <View style={[s.sheetIcon, danger && s.sheetIconDanger]}>
+        <Ionicons
+          accessible={false}
+          name={icon}
+          size={22}
+          color={danger ? theme.colors.error : theme.colors.steel}
+        />
+      </View>
+      <Text style={[s.sheetText, danger && s.sheetTextDanger]}>{label}</Text>
+    </Pressable>
   );
 }
 function ListingDropdown<T extends string>({
@@ -1020,9 +1245,183 @@ function ListingDropdown<T extends string>({
 }
 const s = StyleSheet.create({
   header: { flexDirection: "row", alignItems: "center", gap: 8 },
-  quantityRow: { flexDirection: "row", alignItems: "flex-end", gap: 12 },
-  quantityField: { flex: 1.3, minWidth: 0 },
-  unitField: { flex: 1, minWidth: 0 },
+  headerCopy: { flex: 1, minWidth: 0 },
+  title: { ...theme.type.title, color: theme.colors.heading },
+  village: { flexDirection: "row", alignItems: "center", gap: 4 },
+  villageText: {
+    ...theme.type.caption,
+    color: theme.colors.muted,
+    flexShrink: 1,
+  },
+  // White cards group the form into three short steps.
+  section: {
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    padding: 16,
+    gap: 14,
+  },
+  sectionTitle: { ...theme.type.heading, color: theme.colors.heading },
+  label: { ...theme.type.label, color: theme.colors.text },
+  hint: { ...theme.type.caption, color: theme.colors.muted },
+  field: { gap: 8 },
+  wrap: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  // Photo tile: the picture itself, or a dashed saffron prompt.
+  photo: {
+    width: "100%",
+    aspectRatio: 16 / 10,
+    borderRadius: theme.radii.artwork,
+    overflow: "hidden",
+    backgroundColor: theme.colors.surfaceMuted,
+  },
+  photoEmpty: {
+    backgroundColor: theme.colors.tint,
+    borderWidth: 1.5,
+    borderStyle: "dashed",
+    borderColor: theme.colors.saffronBorder,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  photoImage: { width: "100%", height: "100%" },
+  photoPrompt: { alignItems: "center", gap: 6, padding: 16 },
+  photoIcon: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: theme.colors.surface,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 4,
+  },
+  photoTitle: { ...theme.type.subheading, color: theme.colors.saffronText },
+  photoBadge: {
+    position: "absolute",
+    right: 12,
+    bottom: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.overlay,
+  },
+  photoBadgeText: {
+    ...theme.type.micro,
+    color: theme.colors.onPrimary,
+  },
+  // Selectable pills shared by freshness, unit and tags.
+  choice: {
+    minHeight: theme.layout.touchTarget,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: theme.radii.control,
+    borderWidth: 1,
+    borderColor: theme.colors.borderStrong,
+    backgroundColor: theme.colors.surface,
+    justifyContent: "center",
+  },
+  choiceOn: {
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.tint,
+  },
+  choiceText: { ...theme.type.label, color: theme.colors.text },
+  choiceSub: { ...theme.type.caption, color: theme.colors.muted },
+  choiceTextOn: { color: theme.colors.saffronText },
+  units: { gap: 8, paddingRight: 4 },
+  unit: {
+    minHeight: 44,
+    minWidth: 56,
+    paddingHorizontal: 14,
+    borderRadius: theme.radii.pill,
+    borderWidth: 1,
+    borderColor: theme.colors.borderStrong,
+    backgroundColor: theme.colors.surface,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tag: {
+    minHeight: 44,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingLeft: 10,
+    paddingRight: 14,
+    borderRadius: theme.radii.pill,
+    borderWidth: 1,
+    borderColor: theme.colors.borderStrong,
+    backgroundColor: theme.colors.surface,
+  },
+  price: {
+    minHeight: 52,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 14,
+    borderRadius: theme.radii.control,
+    borderWidth: 1,
+    borderColor: theme.colors.borderStrong,
+    backgroundColor: theme.colors.surface,
+  },
+  priceFocused: { borderColor: theme.colors.focusBorder, borderWidth: 1.5 },
+  rupee: { ...theme.type.heading, color: theme.colors.saffronText },
+  priceInput: {
+    flex: 1,
+    minWidth: 0,
+    paddingVertical: 12,
+    fontSize: 18,
+    lineHeight: 26,
+    fontWeight: "700",
+    color: theme.colors.heading,
+  },
+  per: { ...theme.type.caption, color: theme.colors.muted, maxWidth: "45%" },
+  dim: { opacity: theme.interaction.disabledOpacity },
+  // Bottom sheet for the photo options.
+  sheetOverlay: {
+    flex: 1,
+    backgroundColor: theme.colors.overlay,
+    justifyContent: "flex-end",
+  },
+  sheet: {
+    width: "100%",
+    maxWidth: theme.layout.contentWidth,
+    alignSelf: "center",
+    backgroundColor: theme.colors.surface,
+    borderTopLeftRadius: theme.radii.sheet,
+    borderTopRightRadius: theme.radii.sheet,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 24,
+    gap: 6,
+  },
+  sheetHandle: {
+    alignSelf: "center",
+    width: 40,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: theme.colors.borderStrong,
+    marginBottom: 8,
+  },
+  sheetRow: {
+    minHeight: 56,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    paddingVertical: 6,
+  },
+  sheetIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 14,
+    backgroundColor: theme.colors.steelTint,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sheetIconDanger: { backgroundColor: theme.colors.errorBackground },
+  sheetText: { ...theme.type.subheading, color: theme.colors.text },
+  sheetTextDanger: { color: theme.colors.error },
+  // Product search sheet.
   dropdownOverlay: {
     flex: 1,
     backgroundColor: theme.colors.overlay,
@@ -1047,31 +1446,11 @@ const s = StyleSheet.create({
     padding: 14,
     borderRadius: theme.radii.control,
   },
-  panel: {
-    backgroundColor: theme.colors.tint,
-    borderRadius: theme.radii.card,
-    padding: 16,
-    gap: 8,
-  },
-  label: { fontSize: 16, fontWeight: "600", color: theme.colors.heading },
   selected: {
     backgroundColor: theme.colors.tint,
     borderColor: theme.colors.primary,
   },
   optionText: { color: theme.colors.text, fontSize: 14, flexShrink: 1 },
-  photoRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  photoSlot: { flex: 1, minWidth: 0 },
-  photoPreview: {
-    width: "100%",
-    aspectRatio: 1,
-    borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.tint,
-  },
-  photoActions: { flex: 1, minWidth: 0, gap: 8 },
   warning: {
     backgroundColor: theme.colors.warningBackground,
     color: theme.colors.warning,

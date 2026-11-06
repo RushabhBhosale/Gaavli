@@ -26,6 +26,7 @@ export type HomeListing = {
   isDemo?: boolean;
   minimumPurchaseQuantity?: number | null;
   fulfillmentOptions?: ("farm_pickup" | "local_transport")[];
+  tags?: string[];
 };
 export type HomeUser = {
   firstName: string;

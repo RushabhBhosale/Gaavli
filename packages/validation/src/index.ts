@@ -44,8 +44,13 @@ export {
   coordinatorListingSchema,
   coordinatorMutationSchema,
 } from "./coordinator";
-import { MOBILE_LANGUAGES } from "@gaavli/constants";
+import {
+  LISTING_TAG_IDS,
+  MAX_LISTING_TAGS,
+  MOBILE_LANGUAGES,
+} from "@gaavli/constants";
 
+export const listingTagsSchema = z.array(z.enum(LISTING_TAG_IDS));
 export const mobileLanguageSchema = z.enum(MOBILE_LANGUAGES);
 export const healthStatusSchema = z
   .object({ status: z.literal("ok") })
@@ -403,6 +408,7 @@ export const mobileListingSchema = z
     fulfillmentOptions: z
       .array(z.enum(["farm_pickup", "local_transport"]))
       .default([]),
+    tags: listingTagsSchema.default([]),
   })
   .strict();
 export const mobileListingPageSchema = z
@@ -493,6 +499,10 @@ const listingFields = {
     .max(2)
     .refine((values) => new Set(values).size === values.length)
     .optional(),
+  tags: listingTagsSchema
+    .max(MAX_LISTING_TAGS)
+    .refine((values) => new Set(values).size === values.length)
+    .optional(),
 };
 export const createListingSchema = z
   .object({ ...listingFields, villageId: listingIdSchema })
@@ -567,6 +577,7 @@ export const ownedListingSchema = z
     photoUrl: mobileListingSchema.shape.photoUrl,
     minimumPurchaseQuantity: z.number().nullable(),
     fulfillmentOptions: z.array(z.enum(["farm_pickup", "local_transport"])),
+    tags: listingTagsSchema.default([]),
     villageId: listingIdSchema,
     village: mobileVillageSchema.nullable(),
     status: listingStatusSchema,

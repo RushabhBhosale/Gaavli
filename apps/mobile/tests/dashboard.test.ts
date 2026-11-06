@@ -17,7 +17,15 @@ import {
   ListingFormError,
   formFromListing,
   prepareListingEdit,
+  selectMasterProduct,
 } from "../src/data/listingForm";
+import {
+  LISTING_PRODUCT_GROUPS,
+  LISTING_TAGS,
+  LISTING_TAG_IDS,
+  listingTagLabel,
+  listingTagsForGroup,
+} from "@gaavli/constants";
 import assert from "node:assert/strict";
 import type { MobileUser, MobileListing, OwnedListing } from "@gaavli/types";
 import {
@@ -40,6 +48,7 @@ import {
   listingCountLabel,
 } from "../src/components/dashboard/listingText";
 import {
+  createListingSchema,
   mobileListingSchema,
   mobileListingsQuerySchema,
   sellerContactSchema,
@@ -908,6 +917,7 @@ function ownedProduct(now: number): OwnedListing {
     photoUrl: null,
     minimumPurchaseQuantity: 2,
     fulfillmentOptions: ["local_transport", "farm_pickup"],
+    tags: ["organic"],
     villageId: "e".repeat(24),
     village: null,
     status: "active",
@@ -1174,4 +1184,95 @@ test("bottom bar keeps the mic in the middle and follows the account", () => {
     tabSlots({ signedIn: true, seller: true, coordinator: true }),
     ["manage", "activity"],
   );
+});
+
+test("every product group offers only known tags, and every group has some", () => {
+  const known = new Set<string>(LISTING_TAG_IDS);
+  for (const group of [...LISTING_PRODUCT_GROUPS, "other"]) {
+    const tags = listingTagsForGroup(group);
+    assert.ok(tags.length >= 3, group);
+    assert.equal(new Set(tags).size, tags.length, group);
+    for (const tag of tags) assert.ok(known.has(tag), `${group}: ${tag}`);
+  }
+  for (const tag of LISTING_TAGS)
+    for (const language of ["mr", "en", "hi"] as const)
+      assert.ok(listingTagLabel(tag.id, language), `${tag.id} ${language}`);
+  assert.deepEqual(
+    listingTagsForGroup("unknown"),
+    listingTagsForGroup("other"),
+  );
+});
+
+test("tags reach the listing payload, patch only when changed and are capped", () => {
+  const row = ownedProduct(Date.now());
+  const initial = formFromListing(row, "en");
+  assert.deepEqual(initial.tags, ["organic"]);
+  const next = { ...initial, tags: ["organic", "fresh_today"] as const };
+  const body = prepareListing(
+    { ...next, tags: [...next.tags] },
+    row.villageId,
+    "en",
+    "PERISHABLE",
+  );
+  assert.deepEqual(body.tags, ["organic", "fresh_today"]);
+  assert.deepEqual(
+    prepareListingEdit(
+      { ...initial, tags: ["fresh_today", "organic"] },
+      row,
+      initial,
+      "en",
+      "PERISHABLE",
+    ),
+    { version: row.version, tags: ["fresh_today", "organic"] },
+  );
+  assert.throws(
+    () =>
+      prepareListingEdit(
+        { ...initial, tags: ["organic"] },
+        row,
+        initial,
+        "en",
+        "PERISHABLE",
+      ),
+    ListingFormError,
+  );
+  assert.throws(
+    () =>
+      prepareListing(
+        {
+          ...initial,
+          tags: ["organic", "natural", "desi", "sorted", "bulk", "washed"],
+        },
+        row.villageId,
+        "en",
+        "PERISHABLE",
+      ),
+    ListingFormError,
+  );
+  assert.equal(
+    createListingSchema.safeParse({ ...body, tags: ["made_up"] }).success,
+    false,
+  );
+});
+
+test("choosing a product from another group drops tags that group does not offer", () => {
+  const form = {
+    ...emptyListingDraft.form,
+    tags: ["organic", "desi_cow"] as ("organic" | "desi_cow")[],
+  };
+  const picked = selectMasterProduct(
+    form,
+    {
+      productId: "f".repeat(24),
+      nameEn: "Rice",
+      nameMr: "तांदूळ",
+      nameHi: null,
+      productGroup: "grains",
+      defaultUnit: "kg",
+      status: "ACTIVE",
+      sortOrder: 1,
+    } as Parameters<typeof selectMasterProduct>[1],
+    "en",
+  );
+  assert.deepEqual(picked.tags, ["organic"]);
 });

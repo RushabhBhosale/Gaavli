@@ -71,6 +71,7 @@ export async function ownedListingDto(
     photoUrl: listingPhotoUrl(row.photoObjectKey),
     minimumPurchaseQuantity: row.minimumPurchaseQuantity ?? null,
     fulfillmentOptions: row.fulfillmentOptions || [],
+    tags: row.tags || [],
     villageId: String(row.village),
     village: village ? mobileVillageDto(village) : null,
     status: effectiveListingStatus(row),
