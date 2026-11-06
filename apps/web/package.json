@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "seed:provider-masters": "node --conditions=react-server --import tsx scripts/seed-provider-masters.mts",
+    "test:provider-masters": "node --conditions=react-server --import tsx tests/provider-masters.integration.mts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

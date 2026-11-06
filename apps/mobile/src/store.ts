@@ -9,12 +9,15 @@ import type {
 } from "@gaavli/types";
 import type { OnboardingPreferences } from "./storage/preferences";
 import { initialBrowsingVillage } from "./storage/browsingVillage";
+import { availableDashboardTab, type DashboardTab } from "./data/dashboardTabs";
 
 type AppState = OnboardingPreferences & {
   setBrowsingVillage: (village: MobileVillage | null) => void;
   hydrated: boolean;
   offline: boolean;
   session: MobileSession | null;
+  dashboardTab: DashboardTab | null;
+  setDashboardTab: (tab: DashboardTab) => void;
   draft: RegistrationDraft;
   challenge: OtpChallenge | null;
   authMode: "login" | "register";
@@ -39,6 +42,11 @@ export const useAppStore = create<AppState>((set) => ({
   hydrated: false,
   offline: false,
   session: null,
+  dashboardTab: null,
+  setDashboardTab: (tab) =>
+    set((state) => ({
+      dashboardTab: availableDashboardTab(state.session?.user, tab),
+    })),
   draft: { firstName: "", lastName: "", mobile: "" },
   challenge: null,
   authMode: "register",
@@ -48,6 +56,8 @@ export const useAppStore = create<AppState>((set) => ({
   setSession: (session) =>
     set((state) => ({
       session,
+      dashboardTab:
+        state.session?.user.id === session?.user.id ? state.dashboardTab : null,
       browsingVillage: initialBrowsingVillage(state.browsingVillage, session),
     })),
   setDraft: (draft) => set({ draft }),
@@ -61,6 +71,7 @@ export const useAppStore = create<AppState>((set) => ({
   clearAuthenticatedState: () =>
     set({
       session: null,
+      dashboardTab: null,
       browsingVillage: null,
       draft: { firstName: "", lastName: "", mobile: "" },
       challenge: null,

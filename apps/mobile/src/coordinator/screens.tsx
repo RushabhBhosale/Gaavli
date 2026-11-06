@@ -31,11 +31,9 @@ import {
   coordinatorConnectionsSchema,
   villagePageSchema,
   coordinatorActivityPageSchema,
-  coordinatorDashboardSchema,
   coordinatorReportsSchema,
   coordinatorReportSchema,
   coordinatorListingSchema,
-  coordinatorQuerySchema,
   type coordinatorActivitySchema,
   type coordinatorUserSchema,
 } from "@gaavli/validation";
@@ -73,25 +71,6 @@ const useCopy = () => {
   };
 };
 type User = z.infer<typeof coordinatorUserSchema>;
-function Chips({
-  choices,
-  value,
-  onChange,
-}: {
-  choices: [string, string][];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}>
-      {choices.map(([id, label]) => (
-        <Button key={id} secondary={value !== id} onPress={() => onChange(id)}>
-          {label}
-        </Button>
-      ))}
-    </View>
-  );
-}
 function More({
   query,
 }: {
@@ -1491,7 +1470,7 @@ function activityDestination(row: z.infer<typeof coordinatorActivitySchema>) {
 export function CoordinatorActivityScreen() {
   const { t } = useCopy();
   return (
-    <CoordinatorPage title={t.activity} showSceneHeader>
+    <CoordinatorPage title={t.activity} form>
       <Activity />
     </CoordinatorPage>
   );
@@ -1499,89 +1478,13 @@ export function CoordinatorActivityScreen() {
 function Activity() {
   const { language, t } = useCopy();
   const router = useRouter();
-  const [from, setFrom] = useState(() =>
-      new Date(Date.now() - 29 * 86400000).toISOString().slice(0, 10),
-    ),
-    [to, setTo] = useState(() => new Date().toISOString().slice(0, 10));
-  const [range, setRange] = useState({ from, to }),
-    [invalid, setInvalid] = useState(false),
-    [type, setType] = useState("all");
-  const [action, setAction] = useState("all"),
-    [reportStatusFilter, setReportStatusFilter] = useState("all");
   const query = useCoordinatorPages(
     "/coordinator/activity",
     coordinatorActivityPageSchema,
-    { ...range, type, action, reportStatus: reportStatusFilter },
-  );
-  const summary = useCoordinatorQuery(
-    "/coordinator/dashboard",
-    coordinatorDashboardSchema,
-    range,
   );
   const rows = query.data?.pages.flatMap((page) => page.activities) || [];
-  const countLabels = {
-    users: t.newUsers,
-    buyers: t.newBuyers,
-    sellers: t.newSellers,
-    listings: t.newListings,
-    mapping: t.newConnections,
-    reports: t.pendingReports,
-  };
   return (
     <>
-      <Input
-        label={t.from}
-        value={from}
-        onChangeText={setFrom}
-        maxLength={10}
-      />
-      <Input label={t.to} value={to} onChangeText={setTo} maxLength={10} />
-      <Text style={d.description}>{t.datesHelp}</Text>
-      <Button
-        secondary
-        onPress={() => {
-          const parsed = coordinatorQuerySchema.safeParse({ from, to });
-          setInvalid(!parsed.success);
-          if (parsed.success) setRange({ from, to });
-        }}
-      >
-        {t.apply}
-      </Button>
-      {invalid && <ErrorMessage message={t.invalid} />}
-      <QueryStatus query={summary} />
-      {!summary.isError && summary.data && (
-        <View style={{ gap: 8 }}>
-          {Object.entries(summary.data.counts).map(([key, count]) => (
-            <NavigationCard
-              key={key}
-              icon="stats-chart-outline"
-              title={`${count} · ${countLabels[key as keyof typeof countLabels]}`}
-              subtitle={t.activity}
-              onPress={() => {
-                setType(key);
-                setAction(key === "users" ? "registered" : "all");
-                setReportStatusFilter(key === "reports" ? "open" : "all");
-              }}
-            />
-          ))}
-        </View>
-      )}
-      <Chips
-        choices={[
-          ["all", t.all],
-          ["users", t.users],
-          ["listings", t.listings],
-          ["mapping", t.mapping],
-          ["reports", t.reports],
-        ]}
-        value={type}
-        onChange={(value) => {
-          setType(value);
-          setAction("all");
-          setReportStatusFilter("all");
-        }}
-      />
-      <Refresh query={query} />
       <QueryStatus query={query} empty={!rows.length} />
       {!query.isError &&
         rows.map((row) => (
@@ -1594,22 +1497,6 @@ function Activity() {
           />
         ))}
       <More query={query} />
-      <Button
-        secondary
-        onPress={() =>
-          router.push(`/coordinator/reports?from=${range.from}&to=${range.to}`)
-        }
-      >
-        {t.reports}
-      </Button>
-      <Button secondary onPress={() => router.push("/coordinator/requests")}>
-        {t.personalRequests}
-      </Button>
-      {useAppStore.getState().session?.user.isSeller && (
-        <Button secondary onPress={() => router.push("/my-listings")}>
-          {t.ownListings}
-        </Button>
-      )}
     </>
   );
 }

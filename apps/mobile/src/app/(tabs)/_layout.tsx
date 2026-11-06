@@ -7,9 +7,12 @@ import { hasCoordinatorRole } from "../../data/accountAccess";
 import { GaavliTabBar } from "../../components/GaavliTabBar";
 
 export default function BuyerTabs() {
-  const { session, language, browsingVillage } = useAppStore();
+  const { session, language, browsingVillage, dashboardTab } = useAppStore();
   const t = messages(language);
   const coordinator = hasCoordinatorRole(session?.user);
+  const coordinatorActivity =
+    coordinator &&
+    availableDashboardTab(session?.user, dashboardTab) === "coordinator";
   const c = coordinatorMessages(language);
   if (session && !session.user.village) return <Redirect href="/village" />;
   if (!session && !browsingVillage) return <Redirect href="/language" />;

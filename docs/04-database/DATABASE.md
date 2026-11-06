@@ -1,3 +1,13 @@
+# Provider masters — 2026-11-04 (user approved)
+
+New `providerMasters` stores providerType, masterType, immutable code, required
+name.en/mr/hi, internal normalizedName.en/mr/hi, isActive, sortOrder, timestamps
+and version. Unique compound indexes cover providerType + masterType + code and
+each normalized language name within the same group. Six provider types are
+code-owned constants, not a collection. Seed inserts missing identities only;
+existing records/references are preserved. No provider-profile/category collection
+or unrelated migration is introduced. See docs/03-api/PROVIDER_MASTERS.md.
+
 # Notification unread badges - 2026-10-28 (user approved)
 
 Reuse the existing Notification collection, recipient userId and nullable readAt.

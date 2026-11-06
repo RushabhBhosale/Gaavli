@@ -1,3 +1,46 @@
+## 2026-11-04 - Service Provider Master Management Phase 1
+
+- IMPLEMENTED — VERIFICATION PENDING (visual/deployment): Service Providers →
+  Master Management, six fixed provider types, eight validated master groups,
+  Doctor/Transport tabs, multilingual table, search/status/sorting/pagination,
+  counts, Add/Edit, immutable generated codes and confirmed deactivation.
+- Added server-only providerMasters model/repository/service, existing-cookie
+  Super Admin APIs and active-only public reference GET using /api/v1 conventions.
+  Names/IDs/mapping are validated; unique compound code/normalized-name indexes,
+  version checks and existing audit transactions protect writes. No mobile or
+  provider registration/management changes; no new dependencies.
+- Copied all 99 supplied records byte-for-byte; added explicit validate/apply seed
+  commands with insert-only upserts preserving admin changes/status/order. Default
+  command validates without DB access. Application database was not seeded.
+- Passed: provider-master integration against a guarded isolated database,
+  web TypeScript, shared-package TypeScript, full web ESLint, existing 14 web and
+  82 mobile tests. Integration covers exact seed labels/counts/groups, auth/origin,
+  names/IDs, CRUD/status, immutable codes, duplicate/concurrent creation, public
+  exclusions, search/filter/paging and seed rerun preservation.
+- Production compilation/type checking/page generation succeeded; full build
+  exited on the current Next.js security advisory. Existing legacy-photo tracing
+  warning also remains. Browser QA stopped because Computer Use could not identify
+  the current browser URL confidently. Visual acceptance and deployment pending.
+- Contract, schema and exact commands: docs/03-api/PROVIDER_MASTERS.md.
+
+## 2026-11-04 - Role-specific coordinator Activity
+
+- Coordinator accounts retain their dashboards while bottom Activity follows
+  the focused top role: Buyer opens Sent requests, Seller opens Received
+  requests, and Coordinator opens its assigned-village event feed. Role-specific
+  request views hide the other request tabs; standalone request screens and
+  non-coordinator accounts retain their existing behavior.
+- Removed coordinator Activity village controls, dates/Apply, summary cards,
+  filters, Refresh and personal request/listing/report shortcut buttons. Kept
+  event details, pagination, loading/errors/retry and existing server date/scope
+  rules. No push notification or backend notification changes were introduced.
+- Dashboard selection is session-local, follows dashboard focus/back navigation,
+  preserves same-account refresh, resets on account change/logout, and falls
+  back when a role is unavailable.
+- Mobile TypeScript, all 82 mobile tests, targeted ESLint, Prettier and whitespace
+  checks passed. Device navigation/visual checks remain pending.
+
+## 2026-11-03 - Buyer/Seller dashboard tabs after identity
 ## 2026-11-03 - Generated search words for every product (indexed)
 
 - Added `scripts/generate-catalog-aliases.mts` and `source/58-generated-aliases.txt`:
