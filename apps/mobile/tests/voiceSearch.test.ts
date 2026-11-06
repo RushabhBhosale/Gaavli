@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { productMasterImportSchema } from "@gaavli/validation";
 import { messages } from "../src/i18n";
 import {
+  marketplaceSearchRoute,
   voiceProductSearch,
   voiceFailure,
   VoiceSearchSession,
@@ -360,4 +361,36 @@ test("village names for produce find the product in the app language", () => {
   // A close spelling still finds it, an unrelated word does not.
   assert.equal(voiceProductSearch("kaanda", "en").text, "Onion");
   assert.equal(voiceProductSearch("steel pipe", "en").text, "steel pipe");
+});
+
+test("releasing a held mic stops listening and submits what was heard", async () => {
+  let stops = 0;
+  const f = fixture({
+    stop: () => {
+      ++stops;
+    },
+  });
+  f.session.finish();
+  assert.equal(stops, 0, "finish before start does nothing");
+  await f.session.start("mr");
+  f.session.finish();
+  assert.equal(stops, 1);
+  assert.equal(f.statuses.at(-1), "processing");
+  f.session.finish();
+  assert.equal(stops, 1, "a second release is ignored");
+  f.events().result("कांदा", true);
+  assert.deepEqual(f.results, ["कांदा"]);
+  assert.equal(f.statuses.at(-1), "idle");
+});
+
+test("searches from Home and the bottom-bar mic open the right Marketplace filter", () => {
+  const route = marketplaceSearchRoute("  कांदा  ", "vegetables");
+  assert.equal(route.pathname, "/marketplace");
+  assert.equal(route.params.q, "कांदा");
+  assert.equal(route.params.category, "vegetables");
+  assert.equal(
+    marketplaceSearchRoute("साबण", "personal_care").params.category,
+    "all",
+  );
+  assert.notEqual(route.params.v, "");
 });

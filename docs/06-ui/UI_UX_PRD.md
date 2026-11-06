@@ -1,3 +1,9 @@
+> Saffron and steel blue theme - 2026-11-05 (user approved): saffron #B9520A for
+> actions and prices, steel blue #35546E for headers, icons and trust signals, on
+> a #F8F9FA page. Supersedes the green palette in §10 and earlier green notes. Status
+> colours are unchanged. Launcher icon and splash logo stay until a new mark is
+> approved. See docs/06-ui/SCREEN_REDESIGN.md.
+
 > Marketplace All filter - 2026-10-29 (user approved): shorten All Products to
 > All / सर्व and show its localized count on the same line, like Vegetables/Fruits.
 > Count covers all matching visible products in the browsing village, including

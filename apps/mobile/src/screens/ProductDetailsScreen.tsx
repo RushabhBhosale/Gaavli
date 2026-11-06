@@ -38,7 +38,7 @@ import { useListingClock } from "../hooks/useListingClock";
 import { ApiError } from "../api/client";
 import { listingName } from "../types/home";
 import { theme } from "../theme";
-import { Button, ErrorMessage, Input } from "../components/ui";
+import { Button, ErrorMessage, Input, SkeletonList } from "../components/ui";
 import { Badge, d } from "../components/dashboard/primitives";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { ListingImage } from "../components/dashboard/ListingImage";
@@ -423,7 +423,7 @@ function ProductDetailsContent({ id }: { id: string }) {
               </Text>
             )}
             {!offline && query.isPending && !invalid && (
-              <Text style={d.description}>{t.listingsLoading}</Text>
+              <SkeletonList rows={1} label={t.listingsLoading} />
             )}
             {query.isError && !unavailable && !offline && (
               <>

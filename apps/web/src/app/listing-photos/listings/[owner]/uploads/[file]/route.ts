@@ -32,7 +32,10 @@ export async function GET(
       headers: {
         "Content-Type": "image/webp",
         "X-Content-Type-Options": "nosniff",
-        "Cache-Control": "no-store",
+        // A photo is written once and never edited, so phones and the CDN can
+        // keep it. A removed photo may stay visible for up to a day.
+        "Cache-Control":
+          "public, max-age=86400, stale-while-revalidate=604800",
       },
     });
   });

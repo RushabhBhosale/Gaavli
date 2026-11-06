@@ -1,4 +1,4 @@
-import { productDisplayName, numberLocale } from "../locale";
+import { numberLocale } from "../locale";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { toHomeListing } from "../data/listings";
@@ -25,21 +25,26 @@ import {
   Chip,
   ErrorMessage,
   OfflineBanner,
+  SkeletonList,
   StateMessage,
 } from "../components/ui";
 import { MarketplaceListingCard } from "../components/dashboard/MarketplaceListingCard";
 import { MarketplaceHeader } from "../components/dashboard/MarketplaceHeader";
 import { d } from "../components/dashboard/primitives";
-import { useQuery } from "@tanstack/react-query";
-import { productMasterPageSchema } from "@gaavli/validation";
-import { loadMasterProducts } from "../data/productMaster";
-import { produceVoiceHints, voiceProductSearch } from "../data/voiceSearch";
-import { productMasterCache } from "../storage/sqlite";
-import { api } from "../api";
-import { authenticatedApi } from "../session";
+import {
+  marketplaceCategory,
+  produceVoiceHints,
+  voiceProductSearch,
+} from "../data/voiceSearch";
+import {
+  VoiceMicButton,
+  voiceErrorText,
+  voiceStatusText,
+} from "../components/VoiceMicButton";
 import { useVoiceSearch } from "../hooks/useVoiceSearch";
 import { browsingVillageFor } from "../storage/browsingVillage";
 
+const VOICE_HINTS = produceVoiceHints();
 export default function MarketplaceScreen() {
   const router = useRouter();
   const { language, offline, session } = useAppStore();
@@ -48,6 +53,20 @@ export default function MarketplaceScreen() {
   const [category, setCategory] = useState("all");
   const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState("");
+  // A search typed or spoken on Home or the bottom-bar mic arrives here.
+  const incoming = useLocalSearchParams<{
+    q?: string;
+    category?: string;
+    v?: string;
+  }>();
+  const [applied, setApplied] = useState<string | undefined>(undefined);
+  if (incoming.v && incoming.v !== applied) {
+    setApplied(incoming.v);
+    const text = (incoming.q ?? "").trim();
+    setQuery(text);
+    setSearch(text);
+    setCategory(marketplaceCategory(incoming.category));
+  }
   const browsingVillage = useAppStore(browsingVillageFor);
   const sourceId = browsingVillage?.id;
   const scope = `${session?.user.id ?? "guest"}:${sourceId}`;
@@ -97,67 +116,23 @@ export default function MarketplaceScreen() {
       void unavailableResult.refetch();
     }
   }
-  const products = useQuery({
-    queryKey: ["product-master", session?.user.id ?? "guest", offline],
-    enabled: !!sourceId && (!session || !!session.user.village),
-    queryFn: () =>
-      loadMasterProducts({
-        storage: productMasterCache,
-        offline,
-        fetch: () =>
-          (session ? authenticatedApi : api)(
-            "/product-master",
-            productMasterPageSchema,
-          ),
-      }),
-    networkMode: "always",
-    retry: false,
-  });
   const voice = useVoiceSearch({
     language,
     scope,
-    hints: [
-      ...produceVoiceHints(),
-      ...(products.data?.products.map((product) =>
-        productDisplayName(language, {
-          en: product.nameEn,
-          mr: product.nameMr,
-          hi: product.nameHi,
-        }),
-      ) || []),
-    ],
+    // Common produce names steer recognition; the server search matches
+    // everything else, including typos and other spellings.
+    hints: VOICE_HINTS,
     onResult: (transcript) => {
-      const normalized = voiceProductSearch(
-        transcript,
-        language,
-        products.data?.products,
-      );
+      const normalized = voiceProductSearch(transcript, language);
       if (!normalized.text) return;
       setQuery(normalized.text);
       setSearch(normalized.text);
-      if (normalized.productGroup) {
-        setCategory(
-          ["vegetables", "fruits", "grain", "dairy", "homemade"].includes(
-            normalized.productGroup,
-          )
-            ? normalized.productGroup
-            : "all",
-        );
-      }
+      if (normalized.productGroup)
+        setCategory(marketplaceCategory(normalized.productGroup));
     },
   });
   const voiceBusy = voice.status !== "idle";
-  const voiceError = voice.error
-    ? {
-        permission: t.voicePermission,
-        unavailable: t.voiceService,
-        noSpeech: t.voiceNoSpeech,
-        network: t.voiceNetwork,
-        language: t.voiceLanguage,
-        failed: t.voiceFailed,
-        build: t.voiceBuild,
-      }[voice.error]
-    : null;
+  const voiceError = voiceErrorText(t, voice.error);
   const now = useListingClock();
   const page = result.data?.pages[0];
   const number = new Intl.NumberFormat(numberLocale(language));
@@ -285,23 +260,13 @@ export default function MarketplaceScreen() {
                   onSubmitEditing={submitSearch}
                   style={s.searchInput}
                 />
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={voiceBusy ? t.voiceCancel : t.voiceSearch}
-                  accessibilityState={{ selected: voiceBusy }}
-                  onPress={voiceBusy ? voice.cancel : voice.start}
-                  style={({ pressed }) => [
-                    s.voiceSearch,
-                    voiceBusy && s.voiceActive,
-                    pressed && d.pressed,
-                  ]}
-                >
-                  <Ionicons
-                    name={voiceBusy ? "stop-circle-outline" : "mic-outline"}
-                    size={22}
-                    color={theme.colors.primary}
-                  />
-                </Pressable>
+                <VoiceMicButton
+                  status={voice.status}
+                  onStart={voice.start}
+                  onFinish={voice.finish}
+                  onCancel={voice.cancel}
+                  t={t}
+                />
               </View>
               {voiceBusy && (
                 <View style={s.voiceStatus}>
@@ -313,11 +278,7 @@ export default function MarketplaceScreen() {
                     accessibilityLiveRegion="polite"
                     style={s.voiceStatusText}
                   >
-                    {voice.status === "requesting"
-                      ? t.voiceRequesting
-                      : voice.status === "processing"
-                        ? t.voiceProcessing
-                        : t.voiceListening}
+                    {voiceStatusText(t, voice.status)}
                   </Text>
                   <Pressable
                     accessibilityRole="button"
@@ -382,30 +343,38 @@ export default function MarketplaceScreen() {
                   </Button>
                 </>
               )}
-              {!section.data.length && !(feed.isError && !offline) && (
-                <View accessibilityLiveRegion="polite" style={s.empty}>
-                  <StateMessage
-                    icon={
-                      offline
-                        ? "cloud-offline-outline"
-                        : feed.isPending
-                          ? "hourglass-outline"
-                          : "basket-outline"
-                    }
-                    title={
-                      offline
-                        ? t.listingsOfflineEmpty
-                        : feed.isPending
-                          ? t.listingsLoading
-                          : section.unavailable
-                            ? t.marketplaceNoUnavailable
-                            : search || category !== "all"
-                              ? t.noListingMatches
-                              : t.noListings
-                    }
-                  />
-                </View>
-              )}
+              {!section.data.length &&
+                !offline &&
+                feed.isPending &&
+                !feed.isError && (
+                  <SkeletonList rows={4} label={t.listingsLoading} />
+                )}
+              {!section.data.length &&
+                !(feed.isError && !offline) &&
+                !(feed.isPending && !offline) && (
+                  <View accessibilityLiveRegion="polite" style={s.empty}>
+                    <StateMessage
+                      icon={
+                        offline
+                          ? "cloud-offline-outline"
+                          : feed.isPending
+                            ? "hourglass-outline"
+                            : "basket-outline"
+                      }
+                      title={
+                        offline
+                          ? t.listingsOfflineEmpty
+                          : feed.isPending
+                            ? t.listingsLoading
+                            : section.unavailable
+                              ? t.marketplaceNoUnavailable
+                              : search || category !== "all"
+                                ? t.noListingMatches
+                                : t.noListings
+                      }
+                    />
+                  </View>
+                )}
               {(loaded > section.visible || feed.hasNextPage) && (
                 <Button
                   secondary

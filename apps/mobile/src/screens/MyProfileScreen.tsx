@@ -508,7 +508,7 @@ const s = StyleSheet.create({
     fontWeight: "600",
     color: theme.colors.heading,
     borderLeftWidth: 4,
-    borderLeftColor: theme.colors.softGreen,
+    borderLeftColor: theme.colors.saffronBorder,
     paddingLeft: 10,
   },
   mobileRow: { flexDirection: "row", alignItems: "flex-end", gap: 10 },

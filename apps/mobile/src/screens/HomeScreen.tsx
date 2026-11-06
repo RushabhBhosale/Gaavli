@@ -27,6 +27,7 @@ import {
   ErrorMessage,
   OfflineBanner,
   StateMessage,
+  SkeletonList,
 } from "../components/ui";
 import type {
   HomeDashboardData,
@@ -321,7 +322,7 @@ export default function HomeScreen() {
         </Text>
       )}
       {!offline && query.isPending && (
-        <Text style={d.description}>{t.listingsLoading}</Text>
+        <SkeletonList rows={3} label={t.listingsLoading} />
       )}
       {query.isError && !offline && (
         <>

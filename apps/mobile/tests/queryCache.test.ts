@@ -64,3 +64,51 @@ test("an old or damaged cache is ignored", async () => {
     false,
   );
 });
+
+test("categories are kept and searched lists are not", async () => {
+  const store = storage();
+  const client = new QueryClient();
+  const stop = persistQueryCache(client, store, 0);
+  client.setQueryData(["listing-categories", "u1"], { categories: [1] });
+  client.setQueryData(
+    ["marketplace-listings", "available", "guest", "v1", "", "all"],
+    { pages: [] },
+  );
+  client.setQueryData(
+    ["marketplace-listings", "available", "guest", "v1", "onion", "all"],
+    { pages: [] },
+  );
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  stop();
+  assert.ok(store.box.value?.includes("listing-categories"));
+  assert.ok(!store.box.value?.includes("onion"));
+  assert.ok(store.box.value?.includes('"all"'));
+});
+
+test("a full cache drops the oldest lists instead of saving nothing", async () => {
+  const store = storage();
+  const client = new QueryClient();
+  const stop = persistQueryCache(client, store, 0);
+  const big = "x".repeat(900_000);
+  client.setQueryData(
+    ["listing", "guest", "v1", "old"],
+    { big },
+    { updatedAt: 1000 },
+  );
+  client.setQueryData(
+    ["listing", "guest", "v1", "mid"],
+    { big },
+    { updatedAt: 2000 },
+  );
+  client.setQueryData(
+    ["listing", "guest", "v1", "new"],
+    { big },
+    { updatedAt: 3000 },
+  );
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  stop();
+  assert.ok(store.box.value);
+  assert.ok(store.box.value.includes('"new"'));
+  assert.ok(store.box.value.includes('"mid"'));
+  assert.ok(!store.box.value.includes('"old"'));
+});

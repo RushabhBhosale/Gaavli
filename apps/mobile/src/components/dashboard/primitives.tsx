@@ -270,7 +270,7 @@ export const d = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 14,
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.saffronTint,
     alignItems: "center",
     justifyContent: "center",
   },

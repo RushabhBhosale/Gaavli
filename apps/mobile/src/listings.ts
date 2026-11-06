@@ -22,7 +22,7 @@ import {
   browsingVillageFor,
 } from "./storage/browsingVillage";
 
-export const MARKETPLACE_PAGE_SIZE = 20;
+export const MARKETPLACE_PAGE_SIZE = 4;
 const retry = (count: number, error: unknown) =>
   count < 1 &&
   !(error instanceof ApiError && error.status && error.status < 500);

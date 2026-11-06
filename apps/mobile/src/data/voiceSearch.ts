@@ -207,6 +207,7 @@ export class VoiceSearchSession {
   private requestingPermission = false;
   private resume?: (foreground: boolean) => void;
   private resumeTimer?: ReturnType<typeof setTimeout>;
+  private finishNow?: () => void;
   constructor(
     private driver: SpeechDriver | null,
     private callbacks: {
@@ -222,8 +223,14 @@ export class VoiceSearchSession {
     // recording exists yet; wait for permission and foreground before starting.
     else if (!this.requestingPermission) this.cancel();
   }
+  // Stop listening now and use what was heard (press-and-hold release). Does
+  // nothing before listening starts, so a quick release acts like a tap.
+  finish() {
+    this.finishNow?.();
+  }
   cancel() {
     ++this.generation;
+    this.finishNow = undefined;
     this.requestingPermission = false;
     this.resume?.(false);
     this.resume = undefined;
@@ -294,8 +301,10 @@ export class VoiceSearchSession {
       driver.start(speechLocale(language), hints.slice(0, 100));
       // Bound recording and finalization, including devices that never emit end.
       if (!current()) return;
-      this.timer = setTimeout(() => {
-        if (!current()) return;
+      const finish = () => {
+        if (!current() || this.finishNow !== finish) return;
+        this.finishNow = undefined;
+        clearTimeout(this.timer);
         this.callbacks.status("processing");
         try {
           driver.stop();
@@ -303,9 +312,42 @@ export class VoiceSearchSession {
           return fail("failed");
         }
         if (current()) this.timer = setTimeout(() => fail("noSpeech"), 5000);
-      }, 15000);
+      };
+      this.finishNow = finish;
+      this.timer = setTimeout(finish, 15000);
     } catch {
       fail("failed");
     }
   }
+}
+
+// Marketplace filters that a product group can open directly; others show All.
+const MARKETPLACE_CATEGORIES = new Set([
+  "vegetables",
+  "fruits",
+  "grain",
+  "dairy",
+  "homemade",
+]);
+export function marketplaceCategory(productGroup: string | null | undefined) {
+  return productGroup && MARKETPLACE_CATEGORIES.has(productGroup)
+    ? productGroup
+    : "all";
+}
+
+// Opens the Marketplace already searching for what was typed or spoken
+// elsewhere (Home search box, bottom-bar mic). "v" makes a repeat search for
+// the same words apply again.
+export function marketplaceSearchRoute(
+  text: string,
+  productGroup?: string | null,
+) {
+  return {
+    pathname: "/marketplace" as const,
+    params: {
+      q: text.trim().slice(0, 100),
+      category: marketplaceCategory(productGroup),
+      v: String(Date.now()),
+    },
+  };
 }

@@ -21,3 +21,17 @@ export function homeDashboardTab(
     ? "coordinator"
     : "buyer";
 }
+
+// Five slots with the mic always in the middle. The second and fourth slots
+// follow the account: guests get the market and Gram Seva; once signed in,
+// sellers get their products and everyone gets their requests.
+export function tabSlots(account: {
+  signedIn: boolean;
+  seller: boolean;
+  coordinator: boolean;
+}): [string, string] {
+  if (!account.signedIn) return ["marketplace", "services"];
+  if (account.coordinator) return ["manage", "activity"];
+  if (account.seller) return ["my-listings", "activity"];
+  return ["marketplace", "activity"];
+}

@@ -27,7 +27,11 @@ import {
 import { toHomeListing, liveDashboard } from "../src/data/listings";
 import { accountHeaderIdentity } from "../src/data/accountHeader";
 import { hasCoordinatorRole } from "../src/data/accountAccess";
-import { dashboardTabs, homeDashboardTab } from "../src/data/dashboardTabs";
+import {
+  dashboardTabs,
+  homeDashboardTab,
+  tabSlots,
+} from "../src/data/dashboardTabs";
 import { resolveListingPhotoUrl } from "../src/data/listingPhotos";
 import {
   listingRate,
@@ -1150,5 +1154,24 @@ test("optional product photos can be omitted, preserved, replaced and explicitly
   assert.equal(
     toHomeListing({ ...databaseListing, photoUrl: null }).photoUrl,
     null,
+  );
+});
+
+test("bottom bar keeps the mic in the middle and follows the account", () => {
+  assert.deepEqual(
+    tabSlots({ signedIn: false, seller: false, coordinator: false }),
+    ["marketplace", "services"],
+  );
+  assert.deepEqual(
+    tabSlots({ signedIn: true, seller: true, coordinator: false }),
+    ["my-listings", "activity"],
+  );
+  assert.deepEqual(
+    tabSlots({ signedIn: true, seller: false, coordinator: false }),
+    ["marketplace", "activity"],
+  );
+  assert.deepEqual(
+    tabSlots({ signedIn: true, seller: true, coordinator: true }),
+    ["manage", "activity"],
   );
 });

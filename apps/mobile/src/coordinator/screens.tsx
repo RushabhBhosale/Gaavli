@@ -155,7 +155,7 @@ export function CoordinatorManageScreen() {
               accessible={false}
               name="flash-outline"
               size={16}
-              color="#153F2B"
+              color={theme.colors.primaryDark}
             />
             <Text accessibilityRole="header" style={d.cardTitle}>
               {t.quickActions}
@@ -212,14 +212,18 @@ function ManageSummary() {
     {
       label: t.sellers,
       value: !sellers.isError ? sellers.data?.total : undefined,
-      color: "#E0F5EA",
+      color: theme.colors.saffronTint,
     },
     {
       label: t.buyers,
       value: !buyers.isError ? buyers.data?.total : undefined,
-      color: "#EEE8FF",
+      color: theme.colors.steelTint,
     },
-    { label: t.villages, value: villageCount, color: "#E1EEFF" },
+    {
+      label: t.villages,
+      value: villageCount,
+      color: theme.colors.accentBackground,
+    },
   ];
   return (
     <View style={{ gap: 8 }}>
@@ -790,7 +794,7 @@ function Connections() {
           gap: 14,
           padding: 16,
           borderRadius: 14,
-          backgroundColor: "#EAF4E6",
+          backgroundColor: theme.colors.steelTint,
         }}
       >
         <View
@@ -800,14 +804,14 @@ function Connections() {
             borderRadius: 12,
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#D4E9CA",
+            backgroundColor: theme.colors.surface,
           }}
         >
           <Ionicons
             accessible={false}
             name="location-outline"
             size={24}
-            color="#4B8A36"
+            color={theme.colors.steel}
           />
         </View>
         <View style={{ flex: 1, gap: 4 }}>
@@ -842,12 +846,12 @@ function Connections() {
           <View
             style={{
               borderRadius: 9,
-              backgroundColor: "#FFF1C5",
+              backgroundColor: theme.colors.warningBackground,
               paddingHorizontal: 12,
               paddingVertical: 7,
             }}
           >
-            <Text style={[d.description, { color: "#805B16" }]}>
+            <Text style={[d.description, { color: theme.colors.warning }]}>
               + {t.addVillage}
             </Text>
           </View>
@@ -869,7 +873,7 @@ function Connections() {
               width: 88,
               height: 88,
               borderRadius: 44,
-              backgroundColor: "#EAF4E6",
+              backgroundColor: theme.colors.steelTint,
               alignItems: "center",
               justifyContent: "center",
             }}
@@ -878,7 +882,7 @@ function Connections() {
               accessible={false}
               name="git-network-outline"
               size={38}
-              color="#658F42"
+              color={theme.colors.primary}
             />
           </View>
           <Text
@@ -899,13 +903,13 @@ function Connections() {
               minHeight: 54,
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "#658F42",
+              backgroundColor: theme.colors.primary,
               borderRadius: 12,
               padding: 12,
               opacity: locked ? 0.6 : 1,
             }}
           >
-            <Text style={[ui.buttonText, { color: "#FFFFFF" }]}>
+            <Text style={[ui.buttonText, { color: theme.colors.onPrimary }]}>
               + {t.addFirstVillage}
             </Text>
           </Pressable>
@@ -931,14 +935,14 @@ function Connections() {
                 borderRadius: 10,
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "#FFF8DF",
+                backgroundColor: theme.colors.accentBackground,
               }}
             >
               <Ionicons
                 accessible={false}
                 name="location"
                 size={20}
-                color="#E4A018"
+                color={theme.colors.accent}
               />
             </View>
             <View style={{ flex: 1, gap: 2 }}>
@@ -1071,7 +1075,7 @@ function Connections() {
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 32,
-                  backgroundColor: "#FDEAEA",
+                  backgroundColor: theme.colors.errorBackground,
                 }}
               >
                 <Ionicons
@@ -1110,8 +1114,12 @@ function Connections() {
                   },
                 ]}
               >
-                {removing && <ActivityIndicator color="#FFFFFF" />}
-                <Text style={[ui.buttonText, { color: "#FFFFFF" }]}>
+                {removing && (
+                  <ActivityIndicator color={theme.colors.onPrimary} />
+                )}
+                <Text
+                  style={[ui.buttonText, { color: theme.colors.onPrimary }]}
+                >
                   {t.yes}
                 </Text>
               </Pressable>

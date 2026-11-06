@@ -42,6 +42,7 @@ import {
   type PendingCoordinator,
 } from "../data/coordinator";
 import { coordinatorMessages } from "./i18n";
+import { theme } from "../theme";
 
 const useSelection = create<{
   id: string | null;
@@ -160,13 +161,17 @@ export function CoordinatorPage({
                   borderRadius: 20,
                   alignItems: "center",
                   justifyContent: "center",
-                  backgroundColor: "#153F2B",
+                  backgroundColor: theme.colors.primaryDark,
                   borderWidth: 2,
-                  borderColor: "#D9E9DC",
+                  borderColor: theme.colors.heroBorder,
                 }}
               >
                 <Text
-                  style={{ color: "#FFFFFF", fontWeight: "700", fontSize: 16 }}
+                  style={{
+                    color: theme.colors.onPrimary,
+                    fontWeight: "700",
+                    fontSize: 16,
+                  }}
                 >
                   {language !== "en" ? "सं" : "VC"}
                 </Text>
@@ -206,22 +211,22 @@ export function CoordinatorPage({
                     paddingVertical: 6,
                     borderRadius: 12,
                     borderWidth: 1,
-                    borderColor: "#CDE4CF",
-                    backgroundColor: "#EDF6EB",
+                    borderColor: theme.colors.border,
+                    backgroundColor: theme.colors.steelTint,
                   }}
                 >
                   <Ionicons
                     accessible={false}
                     name="location-outline"
                     size={12}
-                    color="#397243"
+                    color={theme.colors.steel}
                   />
                   <Text
                     style={[
                       d.badgeText,
                       {
                         flexShrink: 1,
-                        color: "#397243",
+                        color: theme.colors.steel,
                         fontWeight: "400",
                       },
                     ]}
@@ -232,7 +237,7 @@ export function CoordinatorPage({
                     <Ionicons
                       name={expanded ? "chevron-up" : "chevron-down"}
                       size={12}
-                      color="#397243"
+                      color={theme.colors.steel}
                     />
                   )}
                 </View>

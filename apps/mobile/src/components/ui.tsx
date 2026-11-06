@@ -1,6 +1,7 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   ActivityIndicator,
+  Animated,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -55,8 +56,8 @@ export function Screen({
   );
 }
 
-// One primary action per screen: solid green. Secondary actions are tinted,
-// outlined or plain text, so the main choice is always obvious.
+// One primary action per screen: solid saffron. Secondary actions are steel
+// blue tints, outlines or plain text, so the main choice is always obvious.
 export function Button({
   children,
   onPress,
@@ -394,7 +395,7 @@ export function StateMessage({
     </View>
   );
 }
-// A filter or choice pill. Selected is solid green so the current filter is
+// A filter or choice pill. Selected is solid saffron so the current filter is
 // never in doubt.
 export function Chip({
   label,
@@ -423,6 +424,64 @@ export function Chip({
         {count ? `${label} (${count})` : label}
       </Text>
     </Pressable>
+  );
+}
+// Grey placeholder cards in the shape of the content that is on its way, so a
+// slow connection feels like a page filling in rather than a spinner. Screen
+// readers hear the label once instead of empty boxes.
+export function SkeletonList({
+  rows = 3,
+  label,
+}: {
+  rows?: number;
+  label: string;
+}) {
+  const [pulse] = useState(() => new Animated.Value(0.55));
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 0.55,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+  return (
+    <View
+      accessible
+      accessibilityLabel={label}
+      accessibilityLiveRegion="polite"
+      style={styles.skeletonList}
+    >
+      {Array.from({ length: rows }, (_, index) => (
+        <Animated.View
+          key={index}
+          style={[styles.skeletonCard, { opacity: pulse }]}
+        >
+          <View style={styles.skeletonImage} />
+          <View style={styles.skeletonLines}>
+            <View style={[styles.skeletonBar, { width: "62%" }]} />
+            <View style={[styles.skeletonBar, { width: "40%" }]} />
+            <View
+              style={[
+                styles.skeletonBar,
+                styles.skeletonPrice,
+                { width: "28%" },
+              ]}
+            />
+          </View>
+        </Animated.View>
+      ))}
+    </View>
   );
 }
 // The Gaavli mark: a bold "ग" tile with the wordmark in both scripts.
@@ -457,6 +516,29 @@ export function Brand({ compact = false }: { compact?: boolean }) {
   );
 }
 export const styles = StyleSheet.create({
+  skeletonList: { gap: 10 },
+  skeletonCard: {
+    flexDirection: "row",
+    gap: 12,
+    padding: 10,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+  },
+  skeletonImage: {
+    width: 64,
+    height: 64,
+    borderRadius: 12,
+    backgroundColor: theme.colors.skeleton,
+  },
+  skeletonLines: { flex: 1, justifyContent: "center", gap: 8 },
+  skeletonBar: {
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: theme.colors.skeleton,
+  },
+  skeletonPrice: { height: 14, backgroundColor: theme.colors.saffronTint },
   flex: { flex: 1 },
   safe: { flex: 1, backgroundColor: theme.colors.background },
   content: {
@@ -497,23 +579,23 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     includeFontPadding: true,
-    fontWeight: "600",
+    fontWeight: "700",
     textAlign: "center",
     flexShrink: 1,
   },
   primaryPressed: { backgroundColor: theme.colors.primaryPressed },
   secondary: {
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.steelTint,
     borderWidth: 1,
-    borderColor: theme.colors.softGreen,
+    borderColor: "transparent",
   },
-  secondaryText: { color: theme.colors.primary },
+  secondaryText: { color: theme.colors.steel },
   outlined: {
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.borderStrong,
   },
-  outlinedText: { color: theme.colors.text },
+  outlinedText: { color: theme.colors.steel },
   danger: {
     backgroundColor: theme.colors.errorBackground,
     borderWidth: 1,
@@ -566,7 +648,7 @@ export const styles = StyleSheet.create({
     borderColor: theme.colors.border,
   },
   actionCard: {
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.steelTint,
     borderRadius: theme.radii.card,
     flexDirection: "row",
     alignItems: "center",
@@ -598,7 +680,7 @@ export const styles = StyleSheet.create({
     width: 9,
     height: 9,
     borderRadius: 5,
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.steelTint,
   },
   errorRow: { flexDirection: "row", alignItems: "flex-start", gap: 6 },
   errorIcon: { marginTop: 2 },
@@ -619,7 +701,7 @@ export const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.saffronTint,
     alignItems: "center",
     justifyContent: "center",
   },

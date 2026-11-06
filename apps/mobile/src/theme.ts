@@ -1,50 +1,61 @@
-// Gaavli design tokens. One calm palette, one type scale, borders before shadows.
+// Gaavli design tokens: saffron and steel blue, one type scale, borders before shadows.
 // Every colour in the app comes from here; the legacy keys below keep their
 // names so existing screens pick up the new look without code changes.
 export const theme = {
   colors: {
+    // Saffron and steel blue. Saffron marks what you can tap or should notice;
+    // steel blue is the calm base for headers, icons and trust signals.
     // Surfaces
-    background: "#F6F7F3",
+    background: "#F8F9FA",
     surface: "#FFFFFF",
-    surfaceMuted: "#EFF2EA",
-    // Brand green. White text on primary passes AA (5.3:1).
-    primary: "#1B7A4A",
+    surfaceMuted: "#F1F3F5",
+    // Saffron for actions. White text on primary passes AA (4.9:1), and
+    // primary text on tint passes AA (4.5:1).
+    primary: "#B9520A",
     onPrimary: "#FFFFFF",
-    primaryPressed: "#156B3F",
-    primaryDark: "#0F3D2B",
-    // On the dark green hero
+    primaryPressed: "#9E4508",
+    // Steel blue: headers, heroes and strong text on tinted surfaces.
+    primaryDark: "#35546E",
+    // On the steel hero
     heroText: "#FFFFFF",
-    heroMuted: "#BFDCCB",
+    heroMuted: "#D6E2EC",
     heroSurface: "#FFFFFF1F",
     heroBorder: "#FFFFFF33",
-    icon: "#1B7A4A",
-    brand: "#1B7A4A",
-    tint: "#EAF4EE",
-    softGreen: "#BFDCCB",
+    icon: "#35546E",
+    brand: "#B9520A",
+    tint: "#FEF3EA",
+    saffronBorder: "#F3D2B8",
+    // Named palette for new work
+    saffron: "#E0701A",
+    saffronTint: "#FCEBDD",
+    saffronText: "#A84E0D",
+    steel: "#35546E",
+    steelSoft: "#476C8A",
+    steelTint: "#E6EDF3",
     // Text
-    heading: "#14241B",
-    text: "#1E2B23",
-    muted: "#5B685F",
-    placeholder: "#7B877F",
-    inactive: "#66736B",
+    heading: "#16222D",
+    text: "#1E2A35",
+    muted: "#5D6B77",
+    placeholder: "#7A8692",
+    inactive: "#66727E",
     // Lines
-    border: "#E2E7DE",
-    borderStrong: "#CBD3C8",
-    focusBorder: "#1B7A4A",
-    overlay: "#14241B66",
-    // Warm accent, used sparingly for highlights and warnings
-    accent: "#B7791F",
-    accentBackground: "#FFF3D6",
-    // Status
+    border: "#E4E7EA",
+    borderStrong: "#CDD3D9",
+    focusBorder: "#B9520A",
+    overlay: "#16222D66",
+    // Turmeric accent for highlights such as "sold" and featured badges
+    accent: "#9A6B0F",
+    accentBackground: "#FBF0D6",
+    // Status (success stays green so it never reads as an action)
     success: "#1B7A4A",
-    successBackground: "#EAF4EE",
+    successBackground: "#E8F4EC",
     error: "#B3261E",
     errorBackground: "#FDECEA",
     warning: "#7A4E0C",
     warningBackground: "#FFF3D6",
-    info: "#1F5FA8",
-    softBlue: "#E8F0FA",
-    skeleton: "#E9EDE5",
+    info: "#35546E",
+    softBlue: "#E6EDF3",
+    skeleton: "#ECEEF0",
   },
   radii: {
     control: 12,
@@ -54,7 +65,7 @@ export const theme = {
     artwork: 20,
     sheet: 24,
   },
-  shadow: { color: "#14241B", opacity: 0.05, radius: 10 },
+  shadow: { color: "#16222D", opacity: 0.06, radius: 12 },
   interaction: { disabledOpacity: 0.5, pressedOpacity: 0.85 },
   layout: { screenPadding: 20, contentWidth: 560, touchTarget: 48 },
   spacing: 20,
@@ -71,15 +82,16 @@ export const theme = {
     caption: { fontSize: 13, lineHeight: 19, fontWeight: "400" as const },
     micro: { fontSize: 12, lineHeight: 17, fontWeight: "600" as const },
   },
-  // Decorative native artwork is kept separate from control colours.
+  // Decorative artwork: a village at dawn with golden fields, kept apart
+  // from control colours.
   illustration: {
-    sky: "#F4F2D9",
-    farHill: "#C7D9BA",
-    hill: "#A6C785",
-    field: "#7EA84B",
-    house: "#F7EAC0",
-    roof: "#B97145",
-    wood: "#795634",
-    tree: "#488633",
+    sky: "#FDEBD8",
+    farHill: "#B9C9D6",
+    hill: "#8FA9BE",
+    field: "#D9A441",
+    house: "#FFF4E6",
+    roof: "#B9520A",
+    wood: "#6B4A2E",
+    tree: "#4F7A5A",
   },
 };

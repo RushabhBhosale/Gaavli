@@ -11,6 +11,7 @@ import {
   ErrorMessage,
   Input,
   Screen,
+  SkeletonList,
 } from "../components/ui";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { ProductCard } from "../components/dashboard/ProductCard";
@@ -18,8 +19,11 @@ import { SectionHeader, d } from "../components/dashboard/primitives";
 
 export default function DirectoryScreen({
   module,
+  asTab = false,
 }: {
   module: "services" | "transport";
+  // Opened from the bottom bar, where the bar itself is the way back.
+  asTab?: boolean;
 }) {
   const router = useRouter();
   const { language, offline } = useAppStore();
@@ -42,12 +46,14 @@ export default function DirectoryScreen({
   return (
     <ProtectedPage allowGuest>
       <Screen>
-        <BackButton
-          label={t.back}
-          onPress={() =>
-            router.canGoBack() ? router.back() : router.replace("/home")
-          }
-        />
+        {!asTab && (
+          <BackButton
+            label={t.back}
+            onPress={() =>
+              router.canGoBack() ? router.back() : router.replace("/home")
+            }
+          />
+        )}
         <SectionHeader
           title={
             module === "services" ? t.dashboardServices : t.dashboardTransport
@@ -66,7 +72,7 @@ export default function DirectoryScreen({
           </Text>
         )}
         {!offline && query.isPending && (
-          <Text style={d.description}>{t.listingsLoading}</Text>
+          <SkeletonList rows={4} label={t.listingsLoading} />
         )}
         {query.isError && !offline && (
           <>

@@ -296,6 +296,7 @@ const mr: Record<keyof typeof en, string> = {
 };
 const hi: Record<keyof typeof en, string> = {
   reportAlreadyExists: "इस उत्पाद की शिकायत पहले से खुली है।",
+  directoryEdit: "बदलें",
   userCorrected: "खरीदार के नाम सुधारे गए",
   manage: "प्रबंधन",
   quickActions: "त्वरित कार्य",

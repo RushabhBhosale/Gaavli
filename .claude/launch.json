@@ -4,7 +4,11 @@
     {
       "name": "web-api",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--workspace=@gaavli/web"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--workspace=@gaavli/web"
+      ],
       "port": 3000
     },
     {
@@ -22,6 +26,21 @@
         "--ios"
       ],
       "port": 8082
+    },
+    {
+      "name": "mobile-android-dev",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PATH=/Users/mac/.nvm/versions/node/v24.16.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "npm",
+        "run",
+        "start",
+        "--workspace=@gaavli/mobile",
+        "--",
+        "--port",
+        "8081"
+      ],
+      "port": 8081
     }
   ]
 }

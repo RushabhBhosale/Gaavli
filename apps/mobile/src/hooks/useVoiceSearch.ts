@@ -77,11 +77,15 @@ export function useVoiceSearch({
   scope,
   onResult,
   hints,
+  alwaysOn = false,
 }: {
   language: MobileLanguage;
   scope: string;
   onResult: (text: string) => void;
   hints: string[];
+  // For controls outside any screen (the bottom-bar mic), which never get
+  // screen focus events: keep a session for as long as the control is shown.
+  alwaysOn?: boolean;
 }) {
   const [status, setStatus] = useState<VoiceStatus>("idle");
   const [error, setError] = useState<VoiceFailure | null>(null);
@@ -93,40 +97,47 @@ export function useVoiceSearch({
   useEffect(() => {
     controller.current?.cancel();
   }, [language, scope]);
+  const setup = useCallback(() => {
+    let active = true;
+    const session = new VoiceSearchSession(speechDriver(), {
+      status: (value) => {
+        if (active) setStatus(value);
+      },
+      error: (value) => {
+        if (active) setError(value);
+      },
+      result: (text) => {
+        if (active) callback.current(text);
+      },
+    });
+    controller.current = session;
+    session.setForeground(AppState.currentState === "active");
+    const subscription = AppState.addEventListener("change", (state) => {
+      if (state === "active") session.setForeground(true);
+      else if (state === "background") session.setForeground(false);
+    });
+    return () => {
+      active = false;
+      session.cancel();
+      controller.current = null;
+      subscription.remove();
+    };
+  }, []);
   useFocusEffect(
     useCallback(() => {
-      let active = true;
-      const session = new VoiceSearchSession(speechDriver(), {
-        status: (value) => {
-          if (active) setStatus(value);
-        },
-        error: (value) => {
-          if (active) setError(value);
-        },
-        result: (text) => {
-          if (active) callback.current(text);
-        },
-      });
-      controller.current = session;
+      if (alwaysOn) return;
+      // A screen coming back into view starts from a clean state.
       setStatus("idle");
       setError(null);
-      session.setForeground(AppState.currentState === "active");
-      const subscription = AppState.addEventListener("change", (state) => {
-        if (state === "active") session.setForeground(true);
-        else if (state === "background") session.setForeground(false);
-      });
-      return () => {
-        active = false;
-        session.cancel();
-        controller.current = null;
-        subscription.remove();
-      };
-    }, []),
+      return setup();
+    }, [alwaysOn, setup]),
   );
+  useEffect(() => (alwaysOn ? setup() : undefined), [alwaysOn, setup]);
   return {
     status,
     error,
     cancel: () => controller.current?.cancel(),
+    finish: () => controller.current?.finish(),
     start: () => {
       setError(null);
       void controller.current?.start(language, hints);

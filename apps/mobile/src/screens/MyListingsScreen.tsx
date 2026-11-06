@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import {
   Alert,
   FlatList,
-  Image,
   Modal,
   Pressable,
   ScrollView,
@@ -23,7 +22,6 @@ import { useOwnListings } from "../listings";
 import { messages } from "../i18n";
 import { theme } from "../theme";
 import {
-  BackButton,
   Button,
   ErrorMessage,
   OfflineBanner,
@@ -42,7 +40,6 @@ import { ApiError } from "../api/client";
 import { errorMessage } from "../errors";
 import { showToast } from "../toast";
 import { useListingClock } from "../hooks/useListingClock";
-import { DashboardTabs } from "../components/dashboard/DashboardTabs";
 
 export default function MyListingsScreen() {
   const router = useRouter();
@@ -311,33 +308,16 @@ export default function MyListingsScreen() {
   return (
     <SafeAreaView edges={["top", "left", "right"]} style={s.safe}>
       {offline && <OfflineBanner message={t.offline} />}
-      <View style={s.banner}>
-        <View
-          pointerEvents="none"
-          accessibilityElementsHidden
-          importantForAccessibility="no-hide-descendants"
-          style={s.headerArt}
-        >
-          <Image
-            source={require("../../assets/seller-products-header.png")}
-            style={s.sceneImage}
-            resizeMode="cover"
-          />
-        </View>
-        <View style={s.headerRow}>
-          <BackButton label={t.back} onPress={() => router.replace("/home")} />
-          <View style={s.headerCopy}>
-            <Text accessibilityRole="header" style={s.headerTitle}>
-              {t.myProducts}
-            </Text>
-            <Text style={s.sellerName}>{sellerName}</Text>
-            {!!sellerVillage && (
-              <Text style={s.headerSubtitle}>{sellerVillage}</Text>
-            )}
-          </View>
+      <View style={s.header}>
+        <View style={s.headerCopy}>
+          <Text accessibilityRole="header" style={s.headerTitle}>
+            {t.myProducts}
+          </Text>
+          <Text numberOfLines={1} style={s.headerSubtitle}>
+            {[sellerName, sellerVillage].filter(Boolean).join(" · ")}
+          </Text>
         </View>
       </View>
-      <DashboardTabs selected="seller" />
       <View style={s.searchRow}>
         <View style={s.searchBox}>
           <Ionicons
@@ -370,19 +350,6 @@ export default function MyListingsScreen() {
               />
             </Pressable>
           )}
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.voiceSearch}
-            accessibilityHint={t.voiceSearchUnavailable}
-            onPress={() => Alert.alert(t.voiceSearch, t.voiceSearchUnavailable)}
-            style={s.voiceSearch}
-          >
-            <Ionicons
-              name="mic-outline"
-              size={22}
-              color={theme.colors.primary}
-            />
-          </Pressable>
         </View>
       </View>
       <View style={s.tabsContainer}>
@@ -416,18 +383,6 @@ export default function MyListingsScreen() {
           ))}
         </ScrollView>
       </View>
-      {!showingFirstProduct && (
-        <View style={s.addActions}>
-          <Pressable
-            accessibilityRole="button"
-            onPress={add}
-            style={s.addButton}
-          >
-            <Ionicons name="add" size={20} color={theme.colors.onPrimary} />
-            <Text style={s.addText}>{t.newProduct}</Text>
-          </Pressable>
-        </View>
-      )}
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
@@ -548,9 +503,9 @@ export default function MyListingsScreen() {
                     ]}
                   >
                     <Ionicons
-                      name="cart-outline"
+                      name="checkmark-done-outline"
                       size={16}
-                      color={theme.colors.primaryDark}
+                      color={theme.colors.steel}
                     />
                     <Text style={s.soldText} numberOfLines={1}>
                       {t.markAsSold}
@@ -575,6 +530,17 @@ export default function MyListingsScreen() {
         refreshing={query.isRefetching && !query.isFetchingNextPage}
         onRefresh={() => void query.refetch()}
       />
+      {!showingFirstProduct && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t.newProduct}
+          onPress={add}
+          style={({ pressed }) => [s.fab, pressed && s.fabPressed]}
+        >
+          <Ionicons name="add" size={24} color={theme.colors.onPrimary} />
+          <Text style={s.fabText}>{t.newProduct}</Text>
+        </Pressable>
+      )}
       <Modal
         visible={!!menu}
         transparent
@@ -671,67 +637,39 @@ export default function MyListingsScreen() {
 }
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
-  banner: {
+  header: {
     width: "100%",
     maxWidth: theme.layout.contentWidth,
     alignSelf: "center",
-    minHeight: 84,
-    backgroundColor: theme.colors.background,
-    borderBottomLeftRadius: theme.radii.card,
-    borderBottomRightRadius: theme.radii.card,
-    overflow: "hidden",
-    paddingVertical: 6,
-    paddingLeft: 4,
-    paddingRight: 110,
-    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 10,
   },
-  headerRow: { flexDirection: "row", alignItems: "flex-start", gap: 6 },
-  headerCopy: { flex: 1, minWidth: 0, gap: 2 },
+  headerCopy: { minWidth: 0, gap: 2 },
   headerTitle: {
-    fontSize: 22,
+    fontSize: 24,
     lineHeight: 34,
     fontWeight: "700",
     color: theme.colors.heading,
     includeFontPadding: true,
   },
   headerSubtitle: {
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 21,
     color: theme.colors.muted,
-  },
-  sellerName: {
-    fontSize: 14,
-    lineHeight: 22,
-    fontWeight: "600",
-    color: theme.colors.heading,
-  },
-  headerArt: {
-    position: "absolute",
-    width: 190,
-    height: 92,
-    right: 0,
-    bottom: 0,
-    overflow: "hidden",
-  },
-  sceneImage: {
-    position: "absolute",
-    width: 260,
-    height: 173,
-    right: -20,
-    bottom: -20,
   },
   searchRow: {
     flexDirection: "row",
     gap: 8,
-    paddingHorizontal: 12,
-    paddingBottom: 6,
+    paddingHorizontal: 16,
+    paddingBottom: 4,
   },
   searchBox: {
     flex: 1,
     minWidth: 0,
     flexDirection: "row",
     alignItems: "center",
-    paddingLeft: 10,
+    paddingLeft: 12,
     gap: 6,
     borderWidth: 1,
     borderColor: theme.colors.border,
@@ -741,9 +679,9 @@ const s = StyleSheet.create({
   searchInput: {
     flex: 1,
     minWidth: 0,
-    minHeight: 46,
+    minHeight: 48,
     paddingVertical: 8,
-    fontSize: 14,
+    fontSize: 16,
     color: theme.colors.text,
   },
   clearSearch: {
@@ -752,25 +690,8 @@ const s = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  voiceSearch: {
-    minWidth: theme.layout.touchTarget,
-    minHeight: 46,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   tabsContainer: { flexShrink: 0 },
-  selectedText: { color: theme.colors.surface, fontWeight: "600" },
-  addActions: {
-    width: "100%",
-    maxWidth: theme.layout.contentWidth,
-    alignSelf: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    gap: 8,
-  },
+  selectedText: { color: theme.colors.onPrimary, fontWeight: "700" },
   heading: {
     flexShrink: 1,
     fontSize: 19,
@@ -779,52 +700,64 @@ const s = StyleSheet.create({
     fontWeight: "700",
     color: theme.colors.heading,
   },
-  addButton: {
-    minHeight: theme.layout.touchTarget,
-    flexShrink: 1,
+  // Add product floats above the list, always one tap away.
+  fab: {
+    position: "absolute",
+    right: 20,
+    bottom: 20,
+    minHeight: 56,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 4,
+    gap: 6,
+    paddingLeft: 16,
+    paddingRight: 20,
+    borderRadius: 28,
     backgroundColor: theme.colors.primary,
-    borderRadius: theme.radii.control,
-    paddingHorizontal: 12,
+    shadowColor: theme.shadow.color,
+    shadowOpacity: 0.18,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 6,
   },
-  addText: {
-    flexShrink: 1,
-    fontSize: 14,
+  fabPressed: { backgroundColor: theme.colors.primaryPressed },
+  fabText: {
+    fontSize: 16,
+    lineHeight: 22,
     fontWeight: "700",
     color: theme.colors.onPrimary,
   },
   tabs: {
     flexDirection: "row",
-    gap: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    gap: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
   tab: {
-    minHeight: theme.layout.touchTarget,
+    minHeight: 40,
     justifyContent: "center",
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
     borderRadius: theme.radii.pill,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
   },
   selected: {
-    backgroundColor: theme.illustration.tree,
-    borderColor: theme.illustration.tree,
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
   },
   tabText: {
     color: theme.colors.text,
     fontSize: 14,
+    fontWeight: "600",
     includeFontPadding: true,
     paddingVertical: 2,
   },
   content: {
     flexGrow: 1,
-    padding: 20,
-    paddingTop: 6,
+    padding: 16,
+    paddingTop: 8,
+    // Room for the floating Add product button.
+    paddingBottom: 96,
     width: "100%",
     maxWidth: theme.layout.contentWidth,
     alignSelf: "center",
@@ -841,10 +774,10 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.surface,
   },
   image: {
-    width: 64,
-    height: 64,
+    width: 72,
+    height: 72,
     borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.saffronTint,
   },
   info: { flex: 1, minWidth: 0, gap: 4 },
   productTitle: {
@@ -853,7 +786,7 @@ const s = StyleSheet.create({
     fontWeight: "700",
     color: theme.colors.heading,
   },
-  rate: { color: theme.colors.heading, fontSize: 16, fontWeight: "700" },
+  rate: { color: theme.colors.saffronText, fontSize: 16, fontWeight: "700" },
   actions: { alignItems: "flex-end", gap: 8, maxWidth: "46%" },
   actionRow: { flexDirection: "row", alignItems: "center", gap: 2 },
   statusPill: {
@@ -865,11 +798,11 @@ const s = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: theme.radii.pill,
   },
-  statusActive: { backgroundColor: theme.colors.tint },
+  statusActive: { backgroundColor: theme.colors.successBackground },
   statusExpired: { backgroundColor: theme.colors.warningBackground },
   statusSold: { backgroundColor: theme.colors.accentBackground },
   statusDot: { width: 8, height: 8, borderRadius: 4 },
-  dotActive: { backgroundColor: theme.colors.primary },
+  dotActive: { backgroundColor: theme.colors.success },
   dotExpired: { backgroundColor: theme.colors.warning },
   dotSold: { backgroundColor: theme.colors.accent },
   statusText: {
@@ -878,7 +811,7 @@ const s = StyleSheet.create({
     lineHeight: 16,
     fontWeight: "700",
   },
-  statusTextActive: { color: theme.colors.heading },
+  statusTextActive: { color: theme.colors.success },
   statusTextExpired: { color: theme.colors.warning },
   statusTextSold: { color: theme.colors.heading },
   soldButton: {
@@ -889,15 +822,15 @@ const s = StyleSheet.create({
     minHeight: 36,
     paddingHorizontal: 10,
     borderRadius: theme.radii.control,
-    borderWidth: 2,
-    borderColor: theme.colors.primary,
-    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: theme.colors.borderStrong,
+    backgroundColor: theme.colors.surface,
   },
   soldDisabled: { opacity: theme.interaction.disabledOpacity },
   soldPressed: { opacity: theme.interaction.pressedOpacity },
   soldText: {
     flexShrink: 1,
-    color: theme.colors.primaryDark,
+    color: theme.colors.steel,
     fontSize: 13,
     lineHeight: 18,
     fontWeight: "700",
@@ -922,7 +855,7 @@ const s = StyleSheet.create({
     borderRadius: 53,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.saffronTint,
   },
   sprout: { fontSize: 56 },
   emptyTitle: {

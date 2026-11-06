@@ -234,6 +234,10 @@ const en = {
   dairy: "Dairy products",
   homemade: "Homemade products",
   voiceSearch: "Voice search",
+  voiceHoldHint: "Tap to speak, or press and hold while you speak.",
+  voiceTab: "Speak",
+  voiceListeningShort: "Listening…",
+  voiceProcessingShort: "Wait…",
   voiceListening: "Listening… Say a product name.",
   voiceRequesting:
     "Allow microphone and speech recognition access to continue.",
@@ -758,6 +762,10 @@ const mr: Messages = {
   dairy: "दुग्धजन्य पदार्थ",
   homemade: "घरगुती उत्पादने",
   voiceSearch: "आवाजाने शोधा",
+  voiceHoldHint: "टॅप करा, किंवा बोलताना दाबून ठेवा.",
+  voiceTab: "बोला",
+  voiceListeningShort: "ऐकत आहे…",
+  voiceProcessingShort: "थांबा…",
   voiceListening: "ऐकत आहे… उत्पादनाचे नाव सांगा.",
   voiceRequesting:
     "पुढे जाण्यासाठी मायक्रोफोन आणि आवाज ओळखण्याची परवानगी द्या.",

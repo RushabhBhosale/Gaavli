@@ -16,7 +16,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { requestPageSchema, notificationPageSchema } from "@gaavli/validation";
 import { authenticatedApi } from "../session";
-import { Button, ErrorMessage, OfflineBanner } from "../components/ui";
+import {
+  Button,
+  ErrorMessage,
+  OfflineBanner,
+  SkeletonList,
+} from "../components/ui";
 import { useAppStore } from "../store";
 import { formatMessage, messages } from "../i18n";
 import { theme } from "../theme";
@@ -272,7 +277,7 @@ function ActivityContent({
         </>
       )}
       {active.isPending && !offline && (
-        <Text style={d.description}>{t.loading}</Text>
+        <SkeletonList rows={4} label={t.loading} />
       )}
       {active.isError && (
         <>
@@ -502,7 +507,7 @@ const s = StyleSheet.create({
   },
   muted: { color: theme.colors.muted, fontSize: 13, lineHeight: 20 },
   unread: {
-    borderColor: theme.colors.softGreen,
+    borderColor: theme.colors.saffronBorder,
     backgroundColor: theme.colors.tint,
   },
   dot: {
