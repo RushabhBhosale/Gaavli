@@ -74,6 +74,9 @@ export type MobileListing = {
   minimumPurchaseQuantity?: number | null;
   fulfillmentOptions?: ("farm_pickup" | "local_transport")[];
   tags?: string[];
+  offerCount?: number;
+  minPrice?: number | null;
+  maxPrice?: number | null;
 };
 export type MobileListingPage = {
   listings: MobileListing[];

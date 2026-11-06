@@ -1,8 +1,10 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import type { DirectoryGroupId } from "@gaavli/constants";
 import {
   dashboardDirectorySchema,
   directoryEntrySchema,
   directoryPageSchema,
+  directorySummarySchema,
 } from "@gaavli/validation";
 import { useAppStore } from "./store";
 import { browsingVillageFor } from "./storage/browsingVillage";
@@ -28,7 +30,31 @@ export function useDashboardDirectory() {
     retry,
   });
 }
-export function useDirectory(module: "services" | "transport", search: string) {
+export function useDirectorySummary(module: "services" | "transport") {
+  const session = useAppStore((state) => state.session);
+  const village = useAppStore(browsingVillageFor);
+  return useQuery({
+    queryKey: [
+      "directory-summary",
+      session?.user.id ?? "guest",
+      village?.id,
+      module,
+    ],
+    enabled: !!village && (!session || !!session.user.village),
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/directory/summary?${new URLSearchParams({ sourceVillageId: village!.id, module })}`,
+        directorySummarySchema,
+        { signal },
+      ),
+    retry,
+  });
+}
+export function useDirectory(
+  module: "services" | "transport",
+  search: string,
+  category: DirectoryGroupId | null = null,
+) {
   const session = useAppStore((state) => state.session);
   const village = useAppStore(browsingVillageFor);
   return useInfiniteQuery({
@@ -38,12 +64,13 @@ export function useDirectory(module: "services" | "transport", search: string) {
       village?.id,
       module,
       search,
+      category,
     ],
     enabled: !!village && (!session || !!session.user.village),
     initialPageParam: 1,
     queryFn: ({ signal, pageParam }) =>
       (session ? authenticatedApi : api)(
-        `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, page: String(pageParam), limit: "5" })}`,
+        `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, ...(category ? { category } : {}), page: String(pageParam), limit: "5" })}`,
         directoryPageSchema,
         { signal },
       ),

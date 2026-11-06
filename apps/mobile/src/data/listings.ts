@@ -34,6 +34,9 @@ export function toHomeListing(
     minimumPurchaseQuantity: listing.minimumPurchaseQuantity,
     fulfillmentOptions: listing.fulfillmentOptions,
     tags: listing.tags,
+    offerCount: listing.offerCount,
+    minPrice: listing.minPrice,
+    maxPrice: listing.maxPrice,
   };
 }
 export function liveDashboard(

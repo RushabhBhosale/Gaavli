@@ -1276,3 +1276,41 @@ test("choosing a product from another group drops tags that group does not offer
   );
   assert.deepEqual(picked.tags, ["organic"]);
 });
+
+test("recent searches keep the newest first, drop repeats and stay short", async () => {
+  const {
+    addRecentSearch,
+    parseRecentSearches,
+    splitMatch,
+    MAX_RECENT_SEARCHES,
+  } = await import("../src/data/recentSearches");
+  assert.deepEqual(addRecentSearch(["onion", "milk"], "  Tomato "), [
+    "Tomato",
+    "onion",
+    "milk",
+  ]);
+  assert.deepEqual(addRecentSearch(["Tomato", "onion"], "tomato"), [
+    "tomato",
+    "onion",
+  ]);
+  assert.deepEqual(addRecentSearch(["onion"], "   "), ["onion"]);
+  const many = Array.from({ length: 20 }, (_, i) => `item ${i}`).reduce(
+    (list, word) => addRecentSearch(list, word),
+    [] as string[],
+  );
+  assert.equal(many.length, MAX_RECENT_SEARCHES);
+  assert.equal(many[0], "item 19");
+  assert.deepEqual(parseRecentSearches('["a",1,"b"]'), ["a", "b"]);
+  assert.deepEqual(parseRecentSearches("not json"), []);
+  assert.deepEqual(parseRecentSearches(null), []);
+  assert.deepEqual(splitMatch("Tomato", "mat"), {
+    before: "To",
+    match: "mat",
+    after: "o",
+  });
+  assert.deepEqual(splitMatch("Tomato", ""), {
+    before: "Tomato",
+    match: "",
+    after: "",
+  });
+});

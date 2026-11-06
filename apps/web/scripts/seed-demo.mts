@@ -163,6 +163,14 @@ try {
     coordinatorId = id("coordinator"),
     growerId = id("grower"),
     makerId = id("maker");
+  // More sellers of the same products, so the market shows one card per
+  // product with a price range and "Seller 1, Seller 2 ..." on its details.
+  const extraSellers = [
+    ["ramesh", "Ramesh", "Kale", "9000000444"],
+    ["sunita", "Sunita", "Gaikwad", "9000000555"],
+    ["prakash", "Prakash", "Deshmukh", "9000000666"],
+    ["lata", "Lata", "Bhosale", "9000000777"],
+  ] as const;
   const categories = [
     {
       _id: id("category-perishable"),
@@ -220,6 +228,14 @@ try {
       lastName: "More",
       roles: ["buyer", "seller"],
     },
+    ...extraSellers.map(([key, firstName, lastName, mobile]) => ({
+      _id: id(key),
+      name: `${firstName} ${lastName}`,
+      firstName,
+      lastName,
+      mobile,
+      roles: ["buyer", "seller"],
+    })),
   ].map((u) => ({
     ...u,
     village: villageId,
@@ -263,6 +279,36 @@ try {
       version: 1,
     };
   });
+  // [product, seller, price, quantity]: every product also sold by Meera,
+  // Anand or Vasudha above, at a different price.
+  const extraOffers = [
+    ["TOMATO", "ramesh", 25, 60],
+    ["TOMATO", "sunita", 28, 35],
+    ["TOMATO", "prakash", 36, 20],
+    ["ONION", "ramesh", 24, 90],
+    ["ONION", "lata", 31, 45],
+    ["POTATO", "sunita", 34, 30],
+    ["RICE", "prakash", 68, 120],
+    ["RICE", "lata", 78, 50],
+    ["COW_MILK", "ramesh", 55, 30],
+    ["COW_MILK", "sunita", 62, 18],
+    ["BANANA", "lata", 60, 25],
+    ["MANGO", "prakash", 160, 20],
+    ["MANGO", "ramesh", 205, 10],
+  ] as const;
+  for (const [code, seller, price, quantity] of extraOffers) {
+    const base = listingRows.find((row) =>
+      row._id.equals(id(`listing-${code}`)),
+    )!;
+    listingRows.push({
+      ...base,
+      _id: id(`listing-${code}-${seller}`),
+      price,
+      quantity,
+      seller: id(seller),
+      status: "active",
+    });
+  }
   const services = serviceItems.map(
     ([module, profession, professionMr, serviceCategory, price, unit], i) => ({
       _id: id(`service-${i}`),

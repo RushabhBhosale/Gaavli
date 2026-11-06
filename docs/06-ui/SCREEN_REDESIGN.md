@@ -29,8 +29,9 @@ are saffron text; loading shows placeholder cards (`SkeletonList`), not text.
 | 3 | Register / login | `/register` | Saffron submit, steel back and links. |
 | 4 | OTP | `/otp` | Saffron verify, saffron focus ring on code boxes. |
 | 5 | Home | `/(tabs)/home` | Steel banner with soft circles and a solid saffron mic; saffron icon tiles; skeleton listings while loading. |
-| 6 | Marketplace | `/(tabs)/marketplace` | Saffron category selection and prices; skeleton feed instead of "Loading…"; no full-catalogue download (speed). |
-| 7 | Product details | `/(tabs)/product/[id]` | Saffron call button, saffron price, steel seller card; skeleton while loading; seller tags as small green chips under the title. |
+| 6 | Marketplace | `/(tabs)/marketplace` | Saffron category selection and prices; skeleton feed instead of "Loading…"; no full-catalogue download (speed). One row per product and unit with a price range and seller count. |
+| 6a | Search | `/search` | Full-screen search opened from Home: live product suggestions with price range, recent searches, popular picks, category tiles and a mic. |
+| 7 | Product details | `/(tabs)/product/[id]` | Saffron call button, saffron price, steel seller card; skeleton while loading; seller tags as small green chips under the title; "Sellers offering this" lists every seller with name, phone, price and a Call button (guests are asked to sign in). |
 | 8 | My listings (seller) | `/(tabs)/my-listings` | Saffron Add product, turmeric "sold" status, steel tabs. |
 | 9 | Add / edit listing | `/add-listing` | Rebuilt 2026-11-06: one tap-to-change photo tile (camera, gallery and remove in a bottom sheet, no photo buttons on the page); three white step cards (product and freshness, quantity and price, tags); freshness and unit as tappable pills; ₹ price field showing "per kg"; description removed (old descriptions still show to buyers); up to 5 product-group tags such as Organic, Desi, Desi cow; save button pinned at the bottom. |
 | 10 | Activity and notifications | `/(tabs)/activity`, `/notifications` | Saffron-bordered unread cards, steel unread dot; skeleton while loading. |
@@ -39,9 +40,9 @@ are saffron text; loading shows placeholder cards (`SkeletonList`), not text.
 | 13 | Become seller | `/become-seller` | Saffron confirm. |
 | 14 | Seller contact | `/seller-contact/[id]` | Saffron call. |
 | 15 | Report product | `/report-product/[id]` | Steel secondary, red stays for the report action. |
-| 16 | Services / Transport directory | `/services`, `/transport` | Saffron selection; skeleton list while loading. |
+| 16 | Services / Transport directory | `/services`, `/transport` | Category dashboard (2026-11-06): two-column tiles with icon, name and live count (8 service groups, 7 vehicle groups, greyed when empty); tap a tile for its list, or search / "See all". |
 | 17 | Directory entry | `/directory/[id]` | Saffron call, steel details. |
-| 18 | Village information / Insights | `/village-information`, `/insights` | Upcoming placeholder in the new palette. |
+| 18 | Village coordinator / Insights | `/village-coordinator`, `/insights` | Village information removed. New coordinator page: name, village, what to ask them, big Call button. Insights is still the upcoming placeholder. |
 | 19 | Coordinator manage | `/(tabs)/manage` | Hardcoded greens replaced by theme tokens (steel stats, saffron actions). |
 | 20 | Coordinator activity and requests | `/coordinator/requests` | Same tokens as Activity. |
 | 21 | Coordinator tools | `/coordinator/[...path]` | Hardcoded greens replaced; saffron primary, steel tints. |

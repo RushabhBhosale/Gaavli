@@ -4,6 +4,7 @@ import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { coordinatorMessages } from "../../coordinator/i18n";
 import { hasCoordinatorRole } from "../../data/accountAccess";
+import { availableDashboardTab } from "../../data/dashboardTabs";
 import { GaavliTabBar } from "../../components/GaavliTabBar";
 
 export default function BuyerTabs() {
@@ -34,7 +35,7 @@ export default function BuyerTabs() {
       <Tabs.Screen name="services" options={{ title: t.dashboardServices }} />
       <Tabs.Screen
         name="activity"
-        options={{ title: coordinator ? c.activity : t.myActivity }}
+        options={{ title: coordinatorActivity ? c.activity : t.myActivity }}
       />
       <Tabs.Screen name="profile" options={{ title: t.settings }} />
       <Tabs.Screen name="product/[id]" options={{ href: null }} />

@@ -8,6 +8,7 @@ import {
   directoryPageSchema,
   directoryEntrySchema,
   directoryQuerySchema,
+  directorySummarySchema,
 } from "@gaavli/validation";
 nextEnv.loadEnvConfig(process.cwd());
 if (!process.env.MONGODB_URI) throw new Error("MONGODB_URI is required.");
@@ -28,6 +29,8 @@ const { saveVillage } = await import("../src/server/services/villages");
 const { GET: dashboard } = await import("../src/app/api/v1/dashboard/route");
 const { GET: directory } = await import("../src/app/api/v1/directory/route");
 const { GET: detail } = await import("../src/app/api/v1/directory/[id]/route");
+const { GET: summary } =
+  await import("../src/app/api/v1/directory/summary/route");
 try {
   await connectMobileDb();
   // Transactions must not race automatic collection/index creation.
@@ -209,6 +212,72 @@ try {
   );
   assert.equal((await page({ search: "Utility" })).total, 7);
   assert.equal((await page({ sourceVillageId: String(other._id) })).total, 1);
+  // Category tiles: filter by tile, and per-tile counts that match the filter.
+  await Service.create({
+    ...base,
+    profession: "Dr. Rao Clinic",
+    professionMr: "डॉ. राव दवाखाना",
+    keywords: [],
+    serviceCategory: "Medical",
+  });
+  const counts = async (
+    module: string,
+    params: Record<string, string> = {},
+  ) => {
+    const response = await summary(
+      request("directory/summary", { module, ...params }, true),
+    );
+    assert.equal(response.status, 200);
+    const data = directorySummarySchema.parse((await response.json()).data);
+    return {
+      total: data.total,
+      byGroup: Object.fromEntries(data.groups.map((g) => [g.id, g.count])),
+    };
+  };
+  const servicesTiles = await counts("services");
+  assert.equal(servicesTiles.total, 8);
+  assert.equal(servicesTiles.byGroup.repairs, 7);
+  assert.equal(servicesTiles.byGroup.health, 1);
+  assert.equal(servicesTiles.byGroup.other, 0);
+  for (const [id, count] of Object.entries(servicesTiles.byGroup))
+    assert.equal(
+      (await page({ category: id })).total,
+      count,
+      `tile ${id} count matches its list`,
+    );
+  const transportTiles = await counts("transport");
+  assert.deepEqual(
+    [
+      transportTiles.total,
+      transportTiles.byGroup.goods,
+      transportTiles.byGroup.other_transport,
+    ],
+    [2, 1, 1],
+  );
+  assert.equal(
+    (await page({ category: "repairs", search: "wiring" })).total,
+    7,
+    "category and search combine",
+  );
+  assert.equal((await page({ category: "health", search: "wiring" })).total, 0);
+  assert.equal(
+    (
+      await directory(
+        request("directory", { module: "services", category: "nope" }, true),
+      )
+    ).status,
+    422,
+  );
+  assert.equal(
+    (await summary(request("directory/summary", {}, true))).status,
+    422,
+    "module is required",
+  );
+  assert.equal(
+    (await summary(request("directory/summary", { module: "services" })))
+      .status,
+    200,
+  );
   const itemResponse = await detail(request(`directory/${rows[0]._id}`), {
     params: Promise.resolve({ id: String(rows[0]._id) }),
   });
@@ -262,7 +331,7 @@ try {
   );
   assert.equal((await home()).coordinator, null);
   console.log(
-    "PASS: dashboard and directory routes, real counts, bounded previews, pagination/search, exact-village scope, owner/inactive exclusion, public contact opt-in/revocation, privacy, validation and auth.",
+    "PASS: dashboard and directory routes, category tiles and counts, real counts, bounded previews, pagination/search, exact-village scope, owner/inactive exclusion, public contact opt-in/revocation, privacy, validation and auth.",
   );
 } finally {
   if (

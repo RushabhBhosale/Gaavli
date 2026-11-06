@@ -9,7 +9,7 @@ import { coordinatorMessages } from "../coordinator/i18n";
 import { hasCoordinatorRole } from "../data/accountAccess";
 import { theme } from "../theme";
 import { VoiceTabButton } from "./VoiceTabButton";
-import { tabSlots } from "../data/dashboardTabs";
+import { availableDashboardTab, tabSlots } from "../data/dashboardTabs";
 
 type TabBarProps = Parameters<
   NonNullable<ComponentProps<typeof Tabs>["tabBar"]>
@@ -18,11 +18,15 @@ type IconName = ComponentProps<typeof Ionicons>["name"];
 type Slot = { route: string; label: string; icon: IconName; active: IconName };
 
 export function GaavliTabBar({ state, navigation }: TabBarProps) {
-  const { session, language } = useAppStore();
+  const { session, language, dashboardTab } = useAppStore();
   const t = messages(language);
   const c = coordinatorMessages(language);
   const insets = useSafeAreaInsets();
   const coordinator = hasCoordinatorRole(session?.user);
+  // A coordinator who switched to the buyer or seller view sees "My activity".
+  const coordinatorActivity =
+    coordinator &&
+    availableDashboardTab(session?.user, dashboardTab) === "coordinator";
   const slots: Record<string, Slot> = {
     home: {
       route: "home",
@@ -56,7 +60,7 @@ export function GaavliTabBar({ state, navigation }: TabBarProps) {
     },
     activity: {
       route: "activity",
-      label: coordinator ? c.activity : t.myActivity,
+      label: coordinatorActivity ? c.activity : t.myActivity,
       icon: "chatbubbles-outline",
       active: "chatbubbles",
     },

@@ -49,8 +49,8 @@ try {
   assert.equal(await User.countDocuments(), 0);
   assert.match(seed("--apply"), /Demo data is ready/);
   seed("--apply");
-  assert.equal(await User.countDocuments(), 5);
-  assert.equal(await Listing.countDocuments(), 28);
+  assert.equal(await User.countDocuments(), 9);
+  assert.equal(await Listing.countDocuments(), 41);
   assert.equal(await Service.countDocuments(), 5);
   assert.equal(await Notification.countDocuments(), 1);
   const village = await Village.findOne({ nameEn: "Kalamb" }).lean();
@@ -65,9 +65,20 @@ try {
     return data.data;
   };
   const feed = await body(
-    await listings.GET(request(`listings?sourceVillageId=${village._id}`)),
+    await listings.GET(
+      request(`listings?sourceVillageId=${village._id}&limit=50`),
+    ),
   );
-  assert.equal(feed.total, 26);
+  assert.equal(feed.total, 26, "26 products, however many sellers offer them");
+  const tomato = feed.listings.find(
+    (row: { productName: string }) => row.productName === "Tomato",
+  );
+  assert.ok(tomato);
+  assert.deepEqual(
+    [tomato.offerCount, tomato.minPrice, tomato.maxPrice, tomato.price],
+    [4, 25, 36, 25],
+    "four sellers of tomato show as one card with a price range",
+  );
   assert.ok(feed.listings.every((row: { isDemo: boolean }) => !row.isDemo));
   const directory = await body(
     await dashboard.GET(request(`dashboard?sourceVillageId=${village._id}`)),

@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
-import { messages } from "../../i18n";
+import { formatMessage, messages } from "../../i18n";
 import { theme } from "../../theme";
 import { listingName, type HomeListing } from "../../types/home";
 import { Badge } from "./primitives";
@@ -59,9 +59,13 @@ export function MarketplaceListingCard({
             {rate}
             <Text style={s.quantity}>
               {"  ·  "}
-              {listing.availableQuantity === null
-                ? listingQuantity(listing, language)
-                : `${listing.availableQuantity} ${listingUnit(listing.unit, language)}`.trim()}
+              {(listing.offerCount ?? 1) > 1
+                ? formatMessage(t.sellerCount, {
+                    count: String(listing.offerCount),
+                  })
+                : listing.availableQuantity === null
+                  ? listingQuantity(listing, language)
+                  : `${listing.availableQuantity} ${listingUnit(listing.unit, language)}`.trim()}
             </Text>
           </Text>
           <View style={s.metaRow}>

@@ -15,6 +15,8 @@ export {
   directoryQuerySchema,
   directoryEntrySchema,
   directoryPageSchema,
+  directorySummaryQuerySchema,
+  directorySummarySchema,
   dashboardDirectorySchema,
 } from "./directory";
 export {
@@ -421,7 +423,30 @@ export const mobileListingSchema = z
       .array(z.enum(["farm_pickup", "local_transport"]))
       .default([]),
     tags: listingTagsSchema.default([]),
+    // Sellers offering this same product and unit; the price shown is the
+    // cheapest, and min/max span all of them.
+    offerCount: z.number().int().positive().default(1),
+    minPrice: z.number().finite().nonnegative().nullable().default(null),
+    maxPrice: z.number().finite().nonnegative().nullable().default(null),
   })
+  .strict();
+// One seller's offer. Name and phone are filled in only for a signed-in
+// buyer, the same details the contact "view" route already returns.
+export const listingOfferSchema = mobileListingSchema.extend({
+  seller: z
+    .object({
+      name: z.string().trim().min(1).max(100),
+      mobile: z
+        .string()
+        .regex(/^\+91[6-9]\d{9}$/)
+        .nullable(),
+    })
+    .strict()
+    .nullable()
+    .default(null),
+});
+export const listingOffersSchema = z
+  .object({ offers: z.array(listingOfferSchema) })
   .strict();
 export const mobileListingPageSchema = z
   .object({

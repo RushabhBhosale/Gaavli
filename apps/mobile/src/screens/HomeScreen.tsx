@@ -38,7 +38,6 @@ import { HomeHero } from "../components/dashboard/HomeHero";
 import { browsingVillageFor } from "../storage/browsingVillage";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { ServiceCard } from "../components/dashboard/ServiceCard";
-import { CoordinatorInfo } from "../components/dashboard/CoordinatorInfo";
 import { BecomeSellerCard } from "../components/dashboard/SellerCards";
 import {
   PreviewBanner,
@@ -192,13 +191,12 @@ export function HomeDashboard({
               onPress={() => onNavigate("/transport")}
             />
             <QuickAction
-              icon="megaphone-outline"
-              title={t.villageInformation}
-              onPress={() => onNavigate("/village-information")}
+              icon="people-outline"
+              title={t.villageCoordinator}
+              onPress={() => onNavigate("/village-coordinator")}
             />
           </View>
           {data.isPreview && <PreviewBanner />}
-          <CoordinatorInfo coordinator={data.coordinator} language={language} />
           <View style={d.section}>
             <SectionHeader
               icon="storefront-outline"

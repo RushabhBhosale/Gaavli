@@ -51,6 +51,13 @@ import {
 } from "../components/ui";
 import { d } from "../components/dashboard/primitives";
 import { ListingImage } from "../components/dashboard/ListingImage";
+import {
+  VoiceMicButton,
+  voiceErrorText,
+  voiceStatusText,
+} from "../components/VoiceMicButton";
+import { useVoiceSearch } from "../hooks/useVoiceSearch";
+import { produceVoiceHints, voiceProductSearch } from "../data/voiceSearch";
 import { listingDraftStorage, productMasterCache } from "../storage/sqlite";
 import {
   matchesProductSearch,
@@ -1043,6 +1050,40 @@ function ListingFormScreen({
     </Screen>
   );
 }
+const VOICE_HINTS = produceVoiceHints();
+// Say the product instead of typing it: tap the mic, or hold it while speaking.
+function DropdownVoice({ onText }: { onText: (text: string) => void }) {
+  const language = useAppStore((state) => state.language);
+  const t = messages(language);
+  const voice = useVoiceSearch({
+    language,
+    scope: "add-product",
+    hints: VOICE_HINTS,
+    onResult: (transcript) => {
+      const spoken = voiceProductSearch(transcript, language);
+      if (spoken.text) onText(spoken.text);
+    },
+  });
+  const note =
+    voiceErrorText(t, voice.error) ?? voiceStatusText(t, voice.status);
+  return (
+    <View style={s.voice}>
+      <VoiceMicButton
+        status={voice.status}
+        onStart={voice.start}
+        onFinish={voice.finish}
+        onCancel={voice.cancel}
+        t={t}
+        style={s.voiceButton}
+      />
+      {!!note && (
+        <Text accessibilityLiveRegion="polite" style={s.voiceNote}>
+          {note}
+        </Text>
+      )}
+    </View>
+  );
+}
 const UNITS = [
   "kg",
   "litre",
@@ -1164,16 +1205,26 @@ function ListingDropdown<T extends string>({
               {label}
             </Text>
             {searchable && (
-              <Input
-                label={searchPlaceholder || label}
-                value={currentSearch}
-                onChangeText={(value) => {
-                  setSearch(value);
-                  onSearchChange?.(value);
-                }}
-                maxLength={80}
-                autoCapitalize="none"
-              />
+              <View style={s.searchRow}>
+                <View style={s.searchField}>
+                  <Input
+                    label={searchPlaceholder || label}
+                    value={currentSearch}
+                    onChangeText={(value) => {
+                      setSearch(value);
+                      onSearchChange?.(value);
+                    }}
+                    maxLength={80}
+                    autoCapitalize="none"
+                  />
+                </View>
+                <DropdownVoice
+                  onText={(text) => {
+                    setSearch(text);
+                    onSearchChange?.(text);
+                  }}
+                />
+              </View>
             )}
             <ScrollView keyboardShouldPersistTaps="handled">
               {searchMessage &&
@@ -1245,6 +1296,11 @@ function ListingDropdown<T extends string>({
 }
 const s = StyleSheet.create({
   header: { flexDirection: "row", alignItems: "center", gap: 8 },
+  searchRow: { flexDirection: "row", alignItems: "flex-end", gap: 10 },
+  searchField: { flex: 1, minWidth: 0 },
+  voice: { alignItems: "center", gap: 2 },
+  voiceButton: { width: 52, height: 52, borderRadius: 12 },
+  voiceNote: { ...theme.type.micro, color: theme.colors.saffronText },
   headerCopy: { flex: 1, minWidth: 0 },
   title: { ...theme.type.title, color: theme.colors.heading },
   village: { flexDirection: "row", alignItems: "center", gap: 4 },

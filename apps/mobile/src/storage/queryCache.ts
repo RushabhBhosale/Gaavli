@@ -14,6 +14,7 @@ const PERSISTED_QUERIES = new Set([
   "listing",
   "dashboard-directory",
   "directory",
+  "directory-summary",
   "directory-entry",
   "browse-villages",
   "guest-villages",

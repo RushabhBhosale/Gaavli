@@ -5,17 +5,75 @@ import {
   indianMobileSchema,
   directoryEntrySchema,
   type directoryQuerySchema,
+  type directorySummaryQuerySchema,
 } from "@gaavli/validation";
+import {
+  directoryGroup,
+  directoryGroupPattern,
+  directoryGroupsFor,
+  directoryGroupsOf,
+  isCatchAllGroup,
+  type DirectoryGroup,
+} from "@gaavli/constants";
 import { Service } from "../models/service";
 import { User, Village, VillageCoordinator } from "../models";
 
-export async function findDirectory(
-  query: z.infer<typeof directoryQuerySchema>,
+const escapeRegex = (term: string) =>
+  term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+// What a category tile means in a query: a provider code, an older category,
+// or a word in the name. The catch-all is everything the other tiles skip.
+function groupFilter(group: DirectoryGroup): Record<string, unknown> {
+  if (isCatchAllGroup(group.id))
+    return {
+      $nor: directoryGroupsFor(group.module)
+        .filter((item) => !isCatchAllGroup(item.id))
+        .map(groupFilter),
+    };
+  const pattern = directoryGroupPattern(group);
+  return {
+    $or: [
+      ...(group.codes.length
+        ? [{ professionCode: { $in: [...group.codes] } }]
+        : []),
+      ...(group.categories.length
+        ? [{ serviceCategory: { $in: [...group.categories] } }]
+        : []),
+      ...(pattern
+        ? ["profession", "professionMr"].map((field) => ({
+            [field]: { $regex: pattern, $options: "i" },
+          }))
+        : []),
+    ],
+  };
+}
+
+// Active entries a villager may see: live provider, live village, not their own.
+function visibleEntries(
+  query: Pick<
+    z.infer<typeof directoryQuerySchema>,
+    "sourceVillageId" | "module" | "category" | "search"
+  >,
   viewerId: string | null,
   id?: string,
-) {
+): PipelineStage[] {
   const terms = query.search.split(/\s+/).filter(Boolean);
-  const pipeline: PipelineStage[] = [
+  const group = query.category ? directoryGroup(query.category) : undefined;
+  const filters = [
+    ...(group ? [groupFilter(group)] : []),
+    ...terms.map((term) => ({
+      $or: [
+        "profession",
+        "professionMr",
+        "description",
+        "serviceCategory",
+        "keywords",
+      ].map((field) => ({
+        [field]: { $regex: escapeRegex(term), $options: "i" },
+      })),
+    })),
+  ];
+  return [
     {
       $match: {
         villageId: new Types.ObjectId(query.sourceVillageId),
@@ -28,24 +86,7 @@ export async function findDirectory(
           : query.module === "services"
             ? { module: { $in: ["services", null] } }
             : { module: { $in: ["services", "transport", null] } }),
-        ...(terms.length
-          ? {
-              $and: terms.map((term) => ({
-                $or: [
-                  "profession",
-                  "professionMr",
-                  "description",
-                  "serviceCategory",
-                  "keywords",
-                ].map((field) => ({
-                  [field]: {
-                    $regex: term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-                    $options: "i",
-                  },
-                })),
-              })),
-            }
-          : {}),
+        ...(filters.length ? { $and: filters } : {}),
       },
     },
     {
@@ -67,6 +108,16 @@ export async function findDirectory(
     },
     { $unwind: "$village" },
     { $match: { "village.isActive": true } },
+  ];
+}
+
+export async function findDirectory(
+  query: z.infer<typeof directoryQuerySchema>,
+  viewerId: string | null,
+  id?: string,
+) {
+  const pipeline: PipelineStage[] = [
+    ...visibleEntries(query, viewerId, id),
     {
       $facet: {
         entries: [
@@ -119,6 +170,41 @@ export async function findDirectory(
     total: page?.count[0]?.total ?? 0,
     page: query.page,
     limit: query.limit,
+  };
+}
+
+// How many entries each category tile of one module holds.
+export async function directorySummary(
+  query: z.infer<typeof directorySummaryQuerySchema>,
+  viewerId: string | null,
+) {
+  const rows = await Service.aggregate<{
+    profession: string;
+    professionMr?: string | null;
+    professionCode?: string | null;
+    serviceCategory?: string | null;
+  }>([
+    ...visibleEntries({ ...query, search: "" }, viewerId),
+    {
+      $project: {
+        _id: 0,
+        profession: 1,
+        professionMr: 1,
+        professionCode: 1,
+        serviceCategory: 1,
+      },
+    },
+  ]);
+  const counts = new Map<string, number>();
+  for (const row of rows)
+    for (const group of directoryGroupsOf(query.module, row))
+      counts.set(group, (counts.get(group) ?? 0) + 1);
+  return {
+    total: rows.length,
+    groups: directoryGroupsFor(query.module).map((group) => ({
+      id: group.id,
+      count: counts.get(group.id) ?? 0,
+    })),
   };
 }
 

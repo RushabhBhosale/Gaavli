@@ -74,3 +74,4 @@ export const LISTING_ASSET_PHOTOS = [
 ] as const;
 
 export * from "./listingTags";
+export * from "./directoryGroups";

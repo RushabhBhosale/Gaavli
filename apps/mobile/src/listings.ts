@@ -11,6 +11,7 @@ import {
   mobileListingPageSchema,
   mobileListingSchema,
   listingIdSchema,
+  listingOffersSchema,
   ownListingPageSchema,
 } from "@gaavli/validation";
 import { api } from "./api";
@@ -45,6 +46,48 @@ export function useOwnListings(
       ),
     getNextPageParam: (last) =>
       last.page * last.limit < last.total ? last.page + 1 : undefined,
+    retry,
+  });
+}
+// Every seller offering the same product and unit as listing `id`.
+export function useListingOffers(id: string, enabled: boolean) {
+  const session = useAppStore((state) => state.session);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
+  return useQuery({
+    queryKey: ["listing-offers", session?.user.id ?? "guest", sourceId, id],
+    enabled:
+      enabled &&
+      !!sourceId &&
+      listingIdSchema.safeParse(id).success &&
+      (!session || !!session.user.village),
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/listings/${id}/offers?${new URLSearchParams({ sourceVillageId: sourceId! })}`,
+        listingOffersSchema,
+        { signal },
+      ),
+    retry,
+  });
+}
+// Instant results while typing in the search page: a few products, one card
+// per product, not remembered after the app closes.
+export function useSearchSuggestions(text: string) {
+  const session = useAppStore((state) => state.session);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
+  const search = text.trim();
+  return useQuery({
+    queryKey: ["search-suggest", session?.user.id ?? "guest", sourceId, search],
+    enabled: !!sourceId && !!search && (!session || !!session.user.village),
+    placeholderData: keepPreviousData,
+    staleTime: 30_000,
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/listings?${browsingListingsQuery(sourceId!, { search, limit: "8" })}`,
+        mobileListingPageSchema,
+        { signal },
+      ),
     retry,
   });
 }

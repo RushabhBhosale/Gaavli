@@ -16,7 +16,6 @@ import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 export type UpcomingFeature =
   | "services"
   | "transport"
-  | "village-information"
   | "add-listing"
   | "my-listings"
   | "insights"
@@ -41,11 +40,6 @@ export default function UpcomingScreen({
       title: t.transport,
       icon: "car-outline",
       description: t.transportDescription,
-    },
-    "village-information": {
-      title: t.villageInformation,
-      icon: "megaphone-outline",
-      description: t.villageInformationDescription,
     },
     "add-listing": {
       title: t.addListing,

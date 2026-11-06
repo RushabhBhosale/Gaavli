@@ -1,8 +1,12 @@
 import "server-only";
 import type { z } from "zod";
-import type { directoryQuerySchema } from "@gaavli/validation";
+import type {
+  directoryQuerySchema,
+  directorySummaryQuerySchema,
+} from "@gaavli/validation";
 import { Village, type UserRecord } from "../models";
 import {
+  directorySummary,
   findDirectory,
   findPublicCoordinator,
 } from "../repositories/directory";
@@ -38,6 +42,13 @@ export async function listDirectory(
     return page.entries[0];
   }
   return page;
+}
+export async function directoryCategoryCounts(
+  user: UserRecord | null,
+  query: z.infer<typeof directorySummaryQuerySchema>,
+) {
+  await requireBrowsingVillage(user, query.sourceVillageId);
+  return directorySummary(query, user ? String(user._id) : null);
 }
 export async function dashboardDirectory(
   user: UserRecord | null,

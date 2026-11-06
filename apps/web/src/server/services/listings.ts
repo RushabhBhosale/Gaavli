@@ -1,8 +1,12 @@
 import "server-only";
 import type { z } from "zod";
-import type { mobileListingsQuerySchema } from "@gaavli/validation";
+import {
+  indianMobileSchema,
+  type mobileListingsQuerySchema,
+} from "@gaavli/validation";
 import { Village, type UserRecord } from "../models";
 import {
+  findListingOffers,
   findMobileListing,
   findMobileListings,
 } from "../repositories/listings";
@@ -110,4 +114,48 @@ function publishListing(
     );
   const { photoObjectKey, ...dto } = listing;
   return { ...dto, photoUrl: listingPhotoUrl(photoObjectKey) };
+}
+
+// All sellers offering the same product, for the details page.
+export async function listingOffers(
+  user: UserRecord | null,
+  id: string,
+  sourceVillageId: string | undefined,
+) {
+  const villageId = user
+    ? await activeBrowsingVillage(user, sourceVillageId)
+    : sourceVillageId;
+  if (!villageId || !(await Village.exists({ _id: villageId, isActive: true })))
+    throw new AppError(422, "VILLAGE_UNAVAILABLE", "Select an active village.");
+  const offers = await findListingOffers(
+    villageId,
+    id,
+    user ? String(user._id) : null,
+  );
+  if (!offers)
+    throw new AppError(
+      404,
+      "LISTING_UNAVAILABLE",
+      "This listing is unavailable.",
+    );
+  return {
+    offers: offers.map(
+      ({ photoObjectKey, sellerName, sellerMobile, ...offer }) => {
+        const name = (sellerName || "").trim();
+        const mobile = indianMobileSchema.safeParse(sellerMobile);
+        return {
+          ...offer,
+          photoUrl: listingPhotoUrl(photoObjectKey),
+          // Personal details only for a signed-in buyer; guests get none.
+          seller:
+            user && name
+              ? {
+                  name,
+                  mobile: mobile.success ? `+91${mobile.data}` : null,
+                }
+              : null,
+        };
+      },
+    ),
+  };
 }

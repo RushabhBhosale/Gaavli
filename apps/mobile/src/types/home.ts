@@ -27,6 +27,10 @@ export type HomeListing = {
   minimumPurchaseQuantity?: number | null;
   fulfillmentOptions?: ("farm_pickup" | "local_transport")[];
   tags?: string[];
+  // Sellers of this same product and unit; price is the cheapest of them.
+  offerCount?: number;
+  minPrice?: number | null;
+  maxPrice?: number | null;
 };
 export type HomeUser = {
   firstName: string;
@@ -63,7 +67,7 @@ export type HomeDestination =
   | "/insights"
   | "/services"
   | "/transport"
-  | "/village-information";
+  | "/village-coordinator";
 export function listingName(listing: HomeListing, language: MobileLanguage) {
   return productDisplayName(language, {
     en: listing.name,

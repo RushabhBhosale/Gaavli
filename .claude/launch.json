@@ -41,6 +41,36 @@
         "8081"
       ],
       "port": 8081
+    },
+    {
+      "name": "demo-api",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PATH=/Users/mac/.nvm/versions/node/v24.16.0/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
+        "npm",
+        "run",
+        "demo:server",
+        "--workspace=@gaavli/web"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "mobile-ios-demo",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PATH=/Users/mac/.nvm/versions/node/v24.16.0/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
+        "LANG=en_US.UTF-8",
+        "EXPO_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1",
+        "npm",
+        "run",
+        "start",
+        "--workspace=@gaavli/mobile",
+        "--",
+        "--port",
+        "8081",
+        "--clear"
+      ],
+      "port": 8081
     }
   ]
 }

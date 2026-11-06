@@ -8,10 +8,10 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
 import { theme } from "../../theme";
-import { messages } from "../../i18n";
+import { formatMessage, messages } from "../../i18n";
 import { listingName, type HomeListing } from "../../types/home";
 import { ListingImage } from "./ListingImage";
-import { listingQuantity, listingUnit } from "./listingText";
+import { listingQuantity, listingRate } from "./listingText";
 import { Badge } from "./primitives";
 
 // Photo first, then name, then price: the three things a buyer scans for.
@@ -37,7 +37,6 @@ export function ProductCard({
         Math.min(180, (width - 56) * 0.46 * Math.min(fontScale, 1.4)),
       );
   const name = listingName(listing, language);
-  const unit = listingUnit(listing.unit, language);
   const village = language !== "en" ? listing.villageMr : listing.village;
   const isService = listing.module === "services";
   const isTransport = listing.module === "transport";
@@ -48,9 +47,8 @@ export function ProductCard({
       ? t.dashboardTransport
       : t.dashboardMarketplace;
   const hasPrice = listing.price !== null;
-  const rate = hasPrice
-    ? `₹${listing.price}${unit ? ` / ${unit}` : ""}`
-    : t.rateNotProvided;
+  const sellers = listing.offerCount ?? 1;
+  const rate = listingRate(listing, language);
   return (
     <Pressable
       accessibilityRole="button"
@@ -105,9 +103,17 @@ export function ProductCard({
           </Text>
         ) : (
           <>
-            <Text numberOfLines={1} style={s.meta}>
-              {listingQuantity(listing, language)}
-            </Text>
+            {sellers > 1 ? (
+              <Text numberOfLines={1} style={s.sellers}>
+                {formatMessage(t.sellerCount, {
+                  count: String(sellers),
+                })}
+              </Text>
+            ) : (
+              <Text numberOfLines={1} style={s.meta}>
+                {listingQuantity(listing, language)}
+              </Text>
+            )}
             <View style={s.locationRow}>
               <Ionicons
                 accessible={false}
@@ -157,6 +163,11 @@ const s = StyleSheet.create({
   priceChipText: { ...theme.type.micro, color: theme.colors.onPrimary },
   body: { paddingHorizontal: 12, paddingVertical: 10, gap: 2 },
   name: { ...theme.type.subheading, color: theme.colors.heading },
+  sellers: {
+    ...theme.type.caption,
+    color: theme.colors.saffronText,
+    fontWeight: "600",
+  },
   noPrice: { ...theme.type.caption, color: theme.colors.muted },
   meta: { fontSize: 14, lineHeight: 20, color: theme.colors.muted },
   locationRow: { flexDirection: "row", alignItems: "center", gap: 3 },

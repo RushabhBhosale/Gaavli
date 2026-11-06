@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import type { MobileLanguage } from "@gaavli/types";
@@ -43,12 +42,10 @@ export function HomeHero({
   const name = session
     ? accountHeaderIdentity(session.user, language).name
     : t.guest;
-  const [text, setText] = useState("");
-  // Typing here and pressing search, or speaking, opens the Marketplace with
-  // results already showing: one step instead of two.
+  // Tapping the box opens the search page; speaking opens the Marketplace
+  // with results already showing: one step instead of two.
   const open = (value: string, productGroup?: string | null) => {
     if (!value.trim()) return onSearch();
-    setText("");
     router.navigate(marketplaceSearchRoute(value, productGroup));
   };
   const voice = useVoiceSearch({
@@ -101,21 +98,16 @@ export function HomeHero({
           size={20}
           color={theme.colors.muted}
         />
-        <TextInput
-          value={text}
-          onChangeText={(value) => {
-            if (voice.status !== "idle") voice.cancel();
-            voice.clearError();
-            setText(value);
-          }}
-          placeholder={t.homeSearchHint}
-          placeholderTextColor={theme.colors.placeholder}
+        <Pressable
+          accessibilityRole="search"
           accessibilityLabel={t.marketplaceSearchPlaceholder}
-          returnKeyType="search"
-          maxLength={100}
-          onSubmitEditing={() => open(text)}
-          style={s.searchInput}
-        />
+          onPress={() => router.push("/search")}
+          style={s.searchTap}
+        >
+          <Text numberOfLines={1} style={s.searchHint}>
+            {t.homeSearchHint}
+          </Text>
+        </Pressable>
         <VoiceMicButton
           solid
           status={voice.status}
@@ -175,6 +167,8 @@ const s = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: theme.colors.surface,
   },
+  searchTap: { flex: 1, minWidth: 0, minHeight: 48, justifyContent: "center" },
+  searchHint: { fontSize: 16, color: theme.colors.placeholder },
   searchInput: {
     flex: 1,
     minWidth: 0,
