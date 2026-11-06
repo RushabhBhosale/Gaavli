@@ -7,6 +7,7 @@ import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { coordinatorMessages } from "../../coordinator/i18n";
 import { hasCoordinatorRole } from "../../data/accountAccess";
+import { availableDashboardTab } from "../../data/dashboardTabs";
 
 const tabLabel = (text: string) =>
   function TabLabel({
@@ -127,8 +128,8 @@ export default function BuyerTabs() {
         name="activity"
         options={{
           href: session ? undefined : null,
-          title: coordinator ? c.activity : t.myActivity,
-          tabBarLabel: tabLabel(coordinator ? c.activity : t.myActivity),
+          title: coordinatorActivity ? c.activity : t.myActivity,
+          tabBarLabel: tabLabel(coordinatorActivity ? c.activity : t.myActivity),
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
               name={focused ? "receipt" : "receipt-outline"}

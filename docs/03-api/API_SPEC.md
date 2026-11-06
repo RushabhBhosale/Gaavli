@@ -1,3 +1,14 @@
+# Coordinator cross-district village mapping — 2026-11-05
+
+Coordinator candidate discovery opens on All Talukas, searching active villages
+across districts with no initial location filter. My Taluka stays scoped to the
+assigned village's district and taluka. All Talukas supports optional District /
+Taluka filters and global search. Nearby GPS supports 10, 25,
+50 or 100 km around either stored base-village coordinates or explicitly permitted
+device coordinates. Source/connected villages remain excluded and results remain
+database-paginated. Existing connection writes, history and marketplace behavior
+are unchanged. See [COORDINATOR_MOBILE.md](COORDINATOR_MOBILE.md).
+
 # Provider masters — 2026-11-04 (user approved)
 
 Phase 1 adds Super Admin reference-option CRUD/status routes under
@@ -227,6 +238,11 @@ user database fields, roles, listings or provider dependencies were introduced.
 > Requires the actor's existing active coordinator assignment; the target selects
 > only the new buyer's village and grants no management scope. Active target is
 > rechecked on writes/replays. Omission keeps the assigned-village default.
+
+> Add Buyer assignment revision — 2026-11-05: `targetVillageId` may only match the
+> selected active coordinator assignment. The mobile form displays that village
+> read-only and sends its ID; the server rejects other active village IDs. Omission
+> still uses the selected assignment for older clients.
 
 > Coordinator revision — 2026-10-19: `/api/v1/coordinator` now provides dashboard,
 > pre-registration, scoped directory/corrections, connections/candidates, activity,

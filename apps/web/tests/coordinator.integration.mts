@@ -114,6 +114,7 @@ try {
       taluka: "Karjat",
       district: "Other district",
       isActive: true,
+      location: { type: "Point", coordinates: [73.3, 19.1] },
     },
   ]);
   const [coordinator, buyer, seller] = await User.create([
@@ -371,7 +372,6 @@ try {
     ),
     422,
   );
-  await Village.updateOne({ _id: c._id }, { $set: { district: "Raigad" } });
   const allCandidates = await check(
     await call(scoped(`villages/${aid}/candidates?area=all`)),
   );
@@ -384,12 +384,41 @@ try {
   const districtCandidates = await check(
     await call(scoped(`villages/${aid}/candidates?area=district`)),
   );
-  assert.equal(districtCandidates.total, 2);
+  assert.equal(districtCandidates.total, 1);
   const otherTalukas = await check(
     await call(scoped(`villages/${aid}/candidates?area=other_talukas`)),
   );
-  assert.equal(otherTalukas.total, 1);
-  assert.equal(otherTalukas.villages[0].id, String(c._id));
+  assert.equal(otherTalukas.total, 2);
+  assert.equal(
+    otherTalukas.villages.some(
+      (village: { id: string }) => village.id === String(c._id),
+    ),
+    true,
+  );
+  assert.equal(
+    (
+      await check(
+        await call(
+          scoped(
+            `villages/${aid}/candidates?area=other_talukas&districtFilter=Other%20district&talukaFilter=Karjat&page=1&limit=1`,
+          ),
+        ),
+      )
+    ).total,
+    1,
+  );
+  assert.equal(
+    (
+      await check(
+        await call(
+          scoped(
+            `villages/${aid}/candidates?area=other_talukas&districtFilter=Raigad&talukaFilter=Karjat`,
+          ),
+        ),
+      )
+    ).total,
+    0,
+  );
   assert.equal(
     (
       await check(
@@ -398,15 +427,15 @@ try {
         ),
       )
     ).total,
-    0,
+    1,
   );
   const otherPage = await check(
     await call(
       scoped(`villages/${aid}/candidates?area=other_talukas&page=2&limit=1`),
     ),
   );
-  assert.equal(otherPage.total, 1);
-  assert.equal(otherPage.villages.length, 0);
+  assert.equal(otherPage.total, 2);
+  assert.equal(otherPage.villages.length, 1);
   assert.equal(
     (
       await check(
@@ -424,17 +453,13 @@ try {
     await call(scoped(`villages/${aid}/candidates?area=invalid`)),
     422,
   );
-  await Village.updateOne(
-    { _id: c._id },
-    { $set: { district: "Other district" } },
-  );
   assert.equal(
     (
       await check(
         await call(scoped(`villages/${aid}/candidates?area=other_talukas`)),
       )
     ).total,
-    0,
+    2,
   );
   const connection = await check(
     await call(
@@ -662,13 +687,176 @@ try {
     (
       await check(
         await call(
-          scoped(`villages/${aid}/candidates?latitude=18.9&longitude=73.1`),
+          scoped(
+            `villages/${aid}/candidates?area=gps&locationSource=device&latitude=18.9&longitude=73.1&maxDistanceKm=50`,
+          ),
         ),
       )
     ).villages.some((v: { id: string }) => v.id === bid),
     false,
     "existing connection is not suggested again",
   );
+  const baseGps = await check(
+    await call(
+      scoped(
+        `villages/${aid}/candidates?area=gps&locationSource=base&maxDistanceKm=50`,
+      ),
+    ),
+  );
+  assert.equal(baseGps.locationAvailable, true);
+  assert.equal(baseGps.total, 1);
+  const shortGps = await check(
+    await call(
+      scoped(
+        `villages/${aid}/candidates?area=gps&locationSource=device&latitude=18.9&longitude=73.1&maxDistanceKm=10`,
+      ),
+    ),
+  );
+  assert.equal(shortGps.total, 0);
+  const mediumGps = await check(
+    await call(
+      scoped(
+        `villages/${aid}/candidates?area=gps&locationSource=device&latitude=18.9&longitude=73.1&maxDistanceKm=25`,
+      ),
+    ),
+  );
+  assert.equal(mediumGps.total, 0);
+  const wideGps = await check(
+    await call(
+      scoped(
+        `villages/${aid}/candidates?area=gps&locationSource=device&latitude=18.9&longitude=73.1&maxDistanceKm=100`,
+      ),
+    ),
+  );
+  assert.equal(wideGps.total, 1);
+  const missingBaseLocation = await Village.create({
+    nameEn: "No coordinates base",
+    nameMr: "à¤¨à¤¿à¤°à¤‚à¤• à¤¸à¥à¤¥à¤¾à¤¨",
+    taluka: "Panvel",
+    district: "Raigad",
+    isActive: true,
+  });
+  await VillageCoordinator.create({
+    userId: coordinator._id,
+    villageId: missingBaseLocation._id,
+  });
+  const missingBase = await check(
+    await call(
+      scoped(
+        `villages/${missingBaseLocation._id}/candidates?area=gps&locationSource=base&maxDistanceKm=25`,
+      ),
+    ),
+  );
+  assert.equal(missingBase.locationAvailable, false);
+  assert.equal(missingBase.total, 0);
+  const villagesWithoutCoordinates = await check(
+    await call(
+      scoped(
+        `villages/${aid}/candidates?area=gps&locationSource=device&latitude=18.9&longitude=73.1&maxDistanceKm=100`,
+      ),
+    ),
+  );
+  assert.equal(
+    villagesWithoutCoordinates.villages.some(
+      (village: { id: string }) =>
+        village.id === String(missingBaseLocation._id),
+    ),
+    false,
+  );
+  const puneBase = await Village.create({
+    nameEn: "Pune coordinator base",
+    nameMr: "पुणे समन्वयक गाव",
+    taluka: "Haveli",
+    district: "Pune",
+    isActive: true,
+  });
+  const crossDistrictVillages = await Village.create([
+    {
+      nameEn: "Nashik target",
+      nameMr: "नाशिक गाव",
+      taluka: "Nashik",
+      district: "Nashik",
+      isActive: true,
+    },
+    {
+      nameEn: "Ahmednagar target",
+      nameMr: "अहमदनगर गाव",
+      taluka: "Nagar",
+      district: "Ahmednagar",
+      isActive: true,
+    },
+    {
+      nameEn: "Mumbai target",
+      nameMr: "मुंबई गाव",
+      taluka: "Mumbai",
+      district: "Mumbai",
+      isActive: true,
+    },
+  ]);
+  await VillageCoordinator.create({
+    userId: coordinator._id,
+    villageId: puneBase._id,
+  });
+  const puneCandidates = await check(
+    await call(
+      scoped(`villages/${puneBase._id}/candidates?area=other_talukas`),
+    ),
+  );
+  assert.ok(puneCandidates.total >= 3);
+  const districtsAvailableToPune = new Set(
+    puneCandidates.villages.map(
+      (village: { district: string }) => village.district,
+    ),
+  );
+  for (const district of ["Ahmednagar", "Mumbai", "Nashik"])
+    assert.equal(districtsAvailableToPune.has(district), true);
+  assert.equal(
+    (
+      await check(
+        await call(
+          scoped(
+            `villages/${puneBase._id}/candidates?area=other_talukas&districtFilter=Nashik`,
+          ),
+        ),
+      )
+    ).total,
+    1,
+  );
+  assert.equal(
+    (
+      await check(
+        await call(
+          scoped(
+            `villages/${puneBase._id}/candidates?area=other_talukas&search=Ahmednagar`,
+          ),
+        ),
+      )
+    ).total,
+    1,
+  );
+  const crossDistrictPage = await check(
+    await call(
+      scoped(
+        `villages/${puneBase._id}/candidates?area=other_talukas&page=2&limit=1`,
+      ),
+    ),
+  );
+  assert.equal(crossDistrictPage.total, puneCandidates.total);
+  assert.equal(crossDistrictPage.villages.length, 1);
+  await VillageCoordinator.deleteOne({
+    userId: coordinator._id,
+    villageId: puneBase._id,
+  });
+  await Village.deleteMany({
+    _id: {
+      $in: [puneBase._id, ...crossDistrictVillages.map((row) => row._id)],
+    },
+  });
+  await VillageCoordinator.deleteOne({
+    userId: coordinator._id,
+    villageId: missingBaseLocation._id,
+  });
+  await Village.deleteOne({ _id: missingBaseLocation._id });
   assert.equal(
     (
       await check(

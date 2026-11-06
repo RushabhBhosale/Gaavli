@@ -55,9 +55,25 @@ export function DashboardTabs({ selected }: { selected: DashboardTab }) {
             accessible={false}
             name={icons[tab]}
             size={18}
-            color={theme.colors.heading}
+            color={
+              selected === tab
+                ? theme.colors.primaryDark
+                : theme.colors.heading
+            }
           />
-          <Text style={s.label}>{labels[tab]}</Text>
+          <Text
+            style={[
+              s.label,
+              {
+                color:
+                  selected === tab
+                    ? theme.colors.primaryDark
+                    : theme.colors.heading,
+              },
+            ]}
+          >
+            {labels[tab]}
+          </Text>
         </Pressable>
       ))}
     </View>
@@ -73,7 +89,8 @@ const s = StyleSheet.create({
     alignSelf: "center",
     width: "94%",
     maxWidth: theme.layout.contentWidth,
-    backgroundColor: theme.colors.accentBackground,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
     borderRadius: theme.radii.control,
   },
   tab: {
@@ -87,8 +104,10 @@ const s = StyleSheet.create({
     justifyContent: "center",
     gap: 4,
     borderRadius: 9,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
   },
-  selected: { backgroundColor: theme.colors.primary },
+  selected: { borderColor: theme.colors.focusBorder },
   label: {
     fontSize: 13,
     fontWeight: "600",

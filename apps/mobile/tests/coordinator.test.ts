@@ -42,6 +42,51 @@ test("multi-village addition stops on uncertain results and confirms only comple
     coordinatorQuerySchema.parse({ area: "other_talukas" }).area,
     "other_talukas",
   );
+  const mappingQuery = coordinatorQuerySchema.parse({
+    area: "other_talukas",
+    districtFilter: "Nashik",
+    talukaFilter: "Sinnar",
+    search: "village",
+  });
+  assert.equal(mappingQuery.districtFilter, "Nashik");
+  assert.equal(mappingQuery.talukaFilter, "Sinnar");
+  assert.equal(
+    coordinatorQuerySchema.parse({
+      area: "gps",
+      locationSource: "base",
+      maxDistanceKm: "25",
+    }).maxDistanceKm,
+    25,
+  );
+  for (const maxDistanceKm of [10, 25, 50, 100])
+    assert.equal(
+      coordinatorQuerySchema.safeParse({
+        area: "gps",
+        locationSource: "base",
+        maxDistanceKm,
+      }).success,
+      true,
+    );
+  for (const maxDistanceKm of [5, 75, 101])
+    assert.equal(
+      coordinatorQuerySchema.safeParse({
+        area: "gps",
+        locationSource: "device",
+        latitude: 18,
+        longitude: 73,
+        maxDistanceKm,
+      }).success,
+      false,
+    );
+  assert.deepEqual(
+    ["en", "mr", "hi"]
+      .map(
+        (language) =>
+          coordinatorTranslations[language as "en" | "mr" | "hi"].allTalukas,
+      )
+      .every(Boolean),
+    true,
+  );
   assert.equal(
     coordinatorQuerySchema.safeParse({ area: "other" }).success,
     false,
@@ -215,10 +260,14 @@ test("account or assignment changes stop request and UI side effects", async () 
   assert.equal(calls, 0);
   assert.ok(raw);
 });
-test("coordinator Marathi and English copy is complete and nonempty", () => {
+test("coordinator English, Marathi and Hindi copy is complete and nonempty", () => {
   assert.deepEqual(
     Object.keys(coordinatorTranslations.en).sort(),
     Object.keys(coordinatorTranslations.mr).sort(),
+  );
+  assert.deepEqual(
+    Object.keys(coordinatorTranslations.en).sort(),
+    Object.keys(coordinatorTranslations.hi).sort(),
   );
   for (const values of Object.values(coordinatorTranslations))
     for (const value of Object.values(values)) assert.ok(value.trim());

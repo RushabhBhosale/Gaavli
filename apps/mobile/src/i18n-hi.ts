@@ -1,6 +1,8 @@
 import type { Messages } from "./i18n";
 
 export const hi: Messages = {
+  dashboardCoordinator: "समन्वयक",
+  dashboardSeller: "विक्रेता",
   dashboardLiveAvailability: "आज की ताज़ा उपलब्धता",
   dashboardFreshCount: "{count} ताज़ा लिस्टिंग",
   dashboardCategories: "गाँव की सेवाएँ और बाज़ार",

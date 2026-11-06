@@ -106,17 +106,24 @@ export async function searchMobileVillages(
     district?: string;
     taluka?: string;
     excludeTaluka?: string;
+    districtFilter?: string;
+    talukaFilter?: string;
   } = {},
 ) {
   const search = query.search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const districtFilter = areaFilter.districtFilter;
+  const talukaFilter = areaFilter.talukaFilter;
   const filter = {
     isActive: true,
     ...(areaFilter.district ? { district: areaFilter.district } : {}),
+    ...(districtFilter ? { district: districtFilter } : {}),
     ...(areaFilter.taluka
       ? { taluka: areaFilter.taluka }
       : areaFilter.excludeTaluka
         ? { taluka: { $nin: [areaFilter.excludeTaluka, "", null] } }
-        : {}),
+        : talukaFilter
+          ? { taluka: talukaFilter }
+          : {}),
     ...(excludedVillageIds.length
       ? {
           _id: { $nin: excludedVillageIds.map((id) => new Types.ObjectId(id)) },
@@ -146,7 +153,7 @@ export async function searchMobileVillages(
           key: "location",
           distanceField: "distance",
           spherical: true,
-          maxDistance: 50_000,
+          maxDistance: (query.maxDistanceKm ?? 50) * 1000,
           query: filter,
         },
       },

@@ -1,3 +1,31 @@
+## 2026-11-05 - Cross-district coordinator village mapping
+
+- Updated coordinator Add Village discovery to open on All Talukas: My Taluka
+  keeps its source-district and taluka boundary; All Talukas searches across
+  districts using global search without separate district/taluka inputs. Source
+  and active connected villages stay excluded in the paginated database query.
+- Nearby GPS uses current device location only, with 10/25/50/100 km radius
+  selection, missing-location handling and localized English/Marathi/Hindi labels.
+  Existing 2dsphere index, connection writes, audit and marketplace mapping are
+  reused; no model or data migration.
+- Passed: mobile and web TypeScript checks; all 93 mobile tests, including
+  coordinator query validation and English/Marathi/Hindi copy completeness;
+  isolated coordinator API integration verifies cross-district candidates,
+  optional filters, pagination, source-Taluka scope, both GPS origins/radii,
+  missing base coordinates, connected-village exclusion and duplicate prevention.
+- Device permission/visual behavior and production API deployment remain untested.
+- The 2026-11-05 follow-up removed the district/taluka UI filters and base-village
+  GPS origin. The earlier checks above predate this follow-up; it has not been
+  rechecked yet.
+
+## 2026-11-05 - Coordinator Add Buyer assigned-village scope
+
+- Add Buyer now displays the selected coordinator assignment as read-only and
+  sends that assigned village ID. The server rejects buyer creation targeting a
+  different village; older clients may omit the target and use the assignment.
+- Existing coordinator editing, other buyer registration flows and connection
+  mapping are unchanged. Checks were not run for this follow-up.
+
 ## 2026-11-04 - Service Provider Master Management Phase 1
 
 - IMPLEMENTED — VERIFICATION PENDING (visual/deployment): Service Providers →
@@ -1262,7 +1290,7 @@ Status: IMPLEMENTED - DEVICE VERIFICATION PENDING.
   Actual distance is shown only when available, otherwise taluka/district.
   Native visual/overflow/add-remove transition acceptance remains pending.
   Verification: mobile TypeScript, focused ESLint and all 37 mobile tests passed.
-- Village-list follow-up: Add Buyer now lists all active villages from the
+- Village-list follow-up (superseded 2026-11-05): Add Buyer now lists all active villages from the
   existing paginated village API, with Load more/loading/error/empty handling.
   Optional targetVillageId saves the selected buyer village; server assignment
   checks remain on the actor's source scope and active target is checked during

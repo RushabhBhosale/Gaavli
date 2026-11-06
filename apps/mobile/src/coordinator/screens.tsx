@@ -1,8 +1,6 @@
 import { numberLocale, dateLocale } from "../locale";
 import { useRef, useState } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import type { MobileVillage } from "@gaavli/types";
-import { authenticatedApi } from "../session";
 import {
   ActivityIndicator,
   Alert,
@@ -44,7 +42,6 @@ import {
   Button,
   Input,
   ErrorMessage,
-  DropdownField,
   Screen,
   styles as ui,
 } from "../components/ui";
@@ -245,26 +242,7 @@ function BuyerForm({
   const setFirst = (value: string) => setDraft({ ...draft, firstName: value });
   const setLast = (value: string) => setDraft({ ...draft, lastName: value });
   const setMobile = (value: string) => setDraft({ ...draft, mobile: value });
-  const [villageExpanded, setVillageExpanded] = useState(false);
-  const offline = useAppStore((state) => state.offline);
-  const [selectedVillage, setSelectedVillage] = useState<MobileVillage>(
-    editUser?.village ?? scope.village,
-  );
-  const villageQuery = useInfiniteQuery({
-    queryKey: ["buyer-registration-villages", scope.actorId],
-    initialPageParam: 1,
-    queryFn: ({ pageParam, signal }) =>
-      authenticatedApi(
-        `/villages?page=${pageParam}&limit=50`,
-        villagePageSchema,
-        { signal },
-      ),
-    getNextPageParam: (last) =>
-      last.page * last.limit < last.total ? last.page + 1 : undefined,
-    enabled: !editUser && villageExpanded && !offline,
-  });
-  const villages =
-    villageQuery.data?.pages.flatMap((page) => page.villages) ?? [];
+  const selectedVillage = editUser?.village ?? scope.village;
   const [invalid, setInvalid] = useState(false);
   const locked =
     scope.busy ||
@@ -305,7 +283,7 @@ function BuyerForm({
       firstName,
       lastName,
       mobile,
-      targetVillageId: selectedVillage.id,
+      targetVillageId: scope.village.id,
     });
     setInvalid(!parsed.success);
     if (!parsed.success) return;
@@ -348,38 +326,16 @@ function BuyerForm({
         onChangeText={setMobile}
         keyboardType="phone-pad"
       />
-      <View style={{ gap: 8 }}>
-        <DropdownField
-          label={`${t.village} *`}
-          placeholder={t.village}
-          value={
-            language !== "en" ? selectedVillage.nameMr : selectedVillage.name
-          }
-          expanded={villageExpanded}
-          disabled={locked || !!editUser}
-          onPress={() => setVillageExpanded(!villageExpanded)}
-        />
-        {villageExpanded &&
-          villages.map((village) => (
-            <Button
-              key={village.id}
-              secondary={village.id !== selectedVillage.id}
-              disabled={locked}
-              onPress={() => {
-                setVillageExpanded(false);
-                setSelectedVillage(village);
-              }}
-            >
-              {`${language !== "en" ? village.nameMr : village.name} · ${village.taluka}, ${village.district}`}
-            </Button>
-          ))}
-        {villageExpanded && (
-          <>
-            <QueryStatus query={villageQuery} empty={!villages.length} />
-            <More query={villageQuery} />
-          </>
-        )}
-      </View>
+      <Input
+        label={`${t.village} *`}
+        value={
+          language !== "en" ? selectedVillage.nameMr : selectedVillage.name
+        }
+        editable={false}
+      />
+      <Text style={d.description}>
+        {selectedVillage.taluka}, {selectedVillage.district}
+      </Text>
       {invalid && <ErrorMessage message={t.invalid} />}
       <Text style={d.description}>
         {editUser ? t.editHelp : t.buyerSuccessHelp}
@@ -1114,7 +1070,8 @@ function AddConnection() {
   const router = useRouter();
   const offline = useAppStore((state) => state.offline);
   const [search, setSearch] = useState("");
-  const [area, setArea] = useState("taluka");
+  const [area, setArea] = useState("all_talukas");
+  const [distanceRange, setDistanceRange] = useState(25);
   const [selected, setSelected] = useState<Record<string, MobileVillage>>({});
   const [saving, setSaving] = useState(false);
   const submitting = useRef(false);
@@ -1129,7 +1086,10 @@ function AddConnection() {
     {
       ...(area === "gps" ? coordinates : {}),
       search,
-      area: area === "gps" ? "all" : area,
+      area: area === "all_talukas" ? "other_talukas" : area,
+      ...(area === "gps"
+        ? { locationSource: "device", maxDistanceKm: String(distanceRange) }
+        : {}),
     },
   );
   const rows = query.data?.pages.flatMap((page) => page.villages) || [];
@@ -1144,6 +1104,8 @@ function AddConnection() {
       : router.replace("/coordinator/connections");
   async function locate() {
     setLocationFailure(false);
+    setArea("gps");
+    setCoordinates({});
     setLocating(true);
     try {
       const permission = await Location.requestForegroundPermissionsAsync();
@@ -1278,7 +1240,7 @@ function AddConnection() {
               ? `${scope.village.taluka} ${t.taluka}`
               : t.byTaluka,
           ],
-          ["other_talukas", t.otherTalukas],
+          ["all_talukas", t.allTalukas],
           ["gps", t.nearbyGps],
         ].map(([value, label]) => (
           <Pressable
@@ -1349,6 +1311,53 @@ function AddConnection() {
           </Pressable>
         ))}
       </View>
+      {area === "gps" && (
+        <View style={{ gap: 8 }}>
+          <Text style={d.description}>
+            {t.locationSource}: {t.currentLocation}
+          </Text>
+          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
+            <Button
+              disabled={saving || locating || offline}
+              loading={locating}
+              onPress={() => void locate()}
+            >
+              {t.refreshLocation}
+            </Button>
+          </View>
+          <View style={{ flexDirection: "row", gap: 6 }}>
+            {[10, 25, 50, 100].map((distance) => (
+              <Pressable
+                key={distance}
+                accessibilityRole="button"
+                accessibilityState={{ selected: distanceRange === distance }}
+                disabled={saving || offline}
+                onPress={() => setDistanceRange(distance)}
+                style={[
+                  d.badge,
+                  {
+                    minHeight: 42,
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor:
+                      distanceRange === distance
+                        ? theme.colors.tint
+                        : theme.colors.surface,
+                  },
+                ]}
+              >
+                <Text style={d.description}>{distance} km</Text>
+              </Pressable>
+            ))}
+          </View>
+          {!locating &&
+            !locationFailure &&
+            query.data?.pages[0]?.locationAvailable === false && (
+              <ErrorMessage message={t.locationUnavailable} />
+            )}
+        </View>
+      )}
       {area !== "gps" && (
         <Text style={d.description}>
           {area === "taluka"

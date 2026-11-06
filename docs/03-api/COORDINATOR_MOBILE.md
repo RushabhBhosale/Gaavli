@@ -52,6 +52,13 @@ clear the buyer draft and return directly to Manage. Do not render the former
 Add another buyer / View buyer / Return to Manage confirmation screen. Failed
 or uncertain writes retain the form and existing recovery behavior.
 
+Coordinator Add Buyer village revision — 2026-11-05: new buyers are added only
+to the coordinator's currently selected active assignment. The form displays
+that village read-only and sends its ID as `targetVillageId`. The server rejects
+a different target village; omitted `targetVillageId` retains the selected
+assignment default for older clients. This supersedes the 2026-10-19 village
+picker exception below. Other buyer registration flows are unchanged.
+
 Directory follow-up — 2026-11-03 (user approved): show one role followed by
 the user's localized village (`Seller - Kalamb`, `Buyer - Narayangaon`), with
 seller taking precedence for buyer/seller accounts. Hide the signed-in
@@ -133,9 +140,9 @@ idempotent replay. Role revocation does not change buyer/seller data or sessions
 Every protected operation requires the existing native bearer session, an active
 user with coordinator role and an explicit `VillageCoordinator` assignment to an
 active village. Multiple assignments are selectable; a caller cannot choose an
-unassigned management scope through queries or path IDs. The Add Buyer-only
-`targetVillageId` exception below chooses a new buyer's village without granting
-management access. Admin cookies do
+unassigned management scope through queries or path IDs. For Add Buyer,
+`targetVillageId` may only match the selected assignment; it grants no additional
+management scope. Admin cookies do
 not authorize coordinator routes. Mobile tokens do not authorize admin reports.
 Responses are JSON envelopes with `Cache-Control: no-store`; foreign browser
 origins are rejected by the existing mobile endpoint adapter.
@@ -184,20 +191,12 @@ selection opens the authorized user, listing, mapping or report detail.
 
 ## Pre-registration and identity
 
-Add Buyer layout revision — 2026-10-19: combine Back and title in a compact row;
-omit the assigned-village heading/buttons above the form. Place a Village dropdown
-after Mobile. The user's follow-up village-list revision supersedes the earlier
-assigned-villages-only dropdown: load all active villages through the existing
-paginated `/villages` API, with Load more and loading/error/empty handling.
-Selecting a village sets optional `targetVillageId` without changing the actor's
-assigned request scope or clearing entered name/mobile. Missing targetVillageId
-retains the existing assigned-village default for older clients. The server checks
-the target is active, including mutation replay, and audits the actual buyer village.
-This permits only new buyer creation in that village; directory/corrections remain
-assignment-scoped, and success hides View Buyer for unassigned target villages.
-Pending or in-flight operations lock village selection; village-specific recovery
-keys and server-side authorization remain unchanged. Manage distributes its action
-tiles over available height while retaining scrolling on shorter screens.
+Add Buyer layout revision — 2026-10-19 (village picker superseded 2026-11-05):
+combine Back and title in a compact row;
+omit the assigned-village heading/buttons above the form. The historical village
+dropdown and cross-village target selection are superseded by the 2026-11-05
+assigned-village revision above. Manage distributes its action tiles over
+available height while retaining scrolling on shorter screens.
 
 The existing User collection gains optional `mobileVerified`, `registeredAt`,
 `preRegisteredAt`, `createdByCoordinator` and `sellerActivatedAt`. No parallel buyer
@@ -231,17 +230,26 @@ No/cancel sends
 no write; Yes uses the existing authorized idempotent DELETE, which removes only
 the connection and preserves both villages and their listings.
 
-Filter-pill revision — 2026-10-19: the Add Village picker now shows the actual
-source Taluka name (selected by default), Other Talukas, and Nearby by GPS. This
-supersedes the All/Taluka/District controls below. Pills reuse existing theme and
-button typography. Other Talukas uses `area=other_talukas`: active villages in the
-source district excluding the source taluka and missing/empty talukas, before
-search/count/pagination. Source and connected villages remain excluded. Nearby
-by GPS explicitly requests permission and switches only after location succeeds;
-it reuses `area=all` with coordinates and the existing 50 km suggestions. Denial
-keeps the previous filter. Selecting either regional pill clears GPS coordinates.
-Names and labels continue to use the selected language; the Taluka name comes
-from saved village data. Legacy `all`/`district` API area values remain supported.
+Village discovery revision — 2026-11-05: the Add Village picker opens on All
+Talukas and also offers My Taluka and Nearby GPS. My Taluka remains scoped to the source village's
+district and taluka. All Talukas uses `area=other_talukas` without source-district
+or source-taluka restrictions; optional exact `districtFilter` and `talukaFilter`
+parameters narrow the Mongo query before pagination. Search remains global across
+village name, Marathi name, taluka, district and PIN code. Source and active
+connected villages are excluded before search/count/pagination.
+
+Nearby GPS uses `area=gps`, `locationSource=base|device`, and
+`maxDistanceKm=10|25|50|100`. Base uses the assigned village's stored GeoJSON
+coordinates server-side and does not request device permission. Device location
+requests permission only when selected and sends latitude/longitude. Searches use
+the existing 2dsphere index with no district/taluka restriction; villages without
+coordinates are naturally omitted. The response includes `locationAvailable:false`
+when the chosen origin has no usable coordinates. GPS suggestions remain manual;
+they do not create links automatically. Candidate paging, selection across filter
+changes, selected count and confirmation remain in place. Connection POST/DELETE,
+authorization, audit history and bidirectional marketplace mapping are unchanged.
+District/taluka labels and source location labels are localized in English,
+Marathi and Hindi.
 
 Typography/language revision — 2026-10-19: reuse existing mobile heading,
 card-title, description, input and button styles in the village screens. Display
@@ -256,11 +264,11 @@ Add Village picker revision — 2026-10-19: compact centered title and selected
 count, search, All / By taluka / By district filters, accessible checkbox rows,
 and a footer fixed below the scrolling list with selected count and Add (N).
 Selection survives searches, filters and pagination during the current visit.
-The candidate API accepts `area=all|taluka|district` (default all); narrower
-filters use the authorized source village's district and taluka before pagination
-and counting. Unknown source area returns an empty narrowed result. Source and
-already-connected villages remain excluded. A locate icon explicitly requests
-GPS suggestions; only returned distances are displayed. No popularity is inferred.
+The candidate API accepts legacy `area=all|taluka|district`, plus
+`area=other_talukas|gps`. `taluka` and `district` preserve the authorized source
+village scope. `other_talukas` is retained as a compatibility value but now
+defaults to all active villages across districts; optional filters may narrow it.
+GPS uses the selected origin and radius described above. No popularity is inferred.
 Confirming selected villages sends the existing idempotent connection writes
 sequentially. Only confirmed selections are removed; a failed/uncertain operation
 stops the sequence and preserves remaining selections for retry. Each operation
