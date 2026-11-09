@@ -7,6 +7,7 @@ import {
   Users,
   ClipboardList,
   Tags,
+  Store,
   House,
   ChartNoAxesCombined,
   Bell,
@@ -104,6 +105,15 @@ export function AdminShell({
           >
             <Tags size={17} />
             Master Management
+          </Link>
+          <Link
+            href="/provider-profiles"
+            onClick={() => setOpen(false)}
+            aria-current={path === "/provider-profiles" ? "page" : undefined}
+            className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === "/provider-profiles" ? "bg-emerald-600/60 text-white shadow-sm" : "text-emerald-50/80 hover:bg-white/10"}`}
+          >
+            <Store size={17} />
+            Provider Profiles
           </Link>
         </nav>
         <div className="mt-auto flex items-center gap-3 border-t border-white/10 px-6 py-5">

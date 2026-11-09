@@ -216,6 +216,7 @@ export function DropdownField({
   placeholder,
   expanded,
   disabled = false,
+  error,
   onPress,
 }: {
   label: string;
@@ -223,6 +224,7 @@ export function DropdownField({
   placeholder: string;
   expanded: boolean;
   disabled?: boolean;
+  error?: string;
   onPress: () => void;
 }) {
   return (
@@ -238,6 +240,7 @@ export function DropdownField({
           styles.input,
           styles.dropdown,
           (expanded || pressed) && styles.inputFocused,
+          !!error && styles.inputError,
           disabled && styles.disabled,
         ]}
       >
@@ -251,6 +254,7 @@ export function DropdownField({
           color={theme.colors.muted}
         />
       </Pressable>
+      {error && <ErrorMessage message={error} />}
     </View>
   );
 }

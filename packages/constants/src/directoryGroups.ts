@@ -18,6 +18,8 @@ type DirectoryGroupDef = {
   codes: readonly string[];
   categories: readonly string[];
   words: readonly string[];
+  // Registered providers of these kinds (ProviderType values) belong here.
+  providerTypes?: readonly string[];
 };
 
 export const DIRECTORY_GROUPS = [
@@ -270,6 +272,50 @@ export const DIRECTORY_GROUPS = [
     ],
   },
   {
+    id: "public",
+    module: "services",
+    en: "Government & public offices",
+    mr: "शासकीय व सार्वजनिक कार्यालये",
+    hi: "सरकारी और सार्वजनिक कार्यालय",
+    codes: [],
+    categories: [],
+    words: [],
+    providerTypes: ["PUBLIC_INSTITUTION"],
+  },
+  {
+    id: "community",
+    module: "services",
+    en: "NGOs & community helpers",
+    mr: "एनजीओ व समाजसेवक",
+    hi: "एनजीओ और समाजसेवी",
+    codes: [],
+    categories: [],
+    words: [],
+    providerTypes: ["COMMUNITY_ORGANISATION", "SOCIAL_HELPER"],
+  },
+  {
+    id: "emergency",
+    module: "services",
+    en: "Emergency help",
+    mr: "आपत्कालीन मदत",
+    hi: "आपातकालीन सहायता",
+    codes: [],
+    categories: [],
+    words: [],
+    providerTypes: ["EMERGENCY_ASSISTANCE"],
+  },
+  {
+    id: "political",
+    module: "services",
+    en: "Party offices",
+    mr: "पक्ष कार्यालये",
+    hi: "पार्टी कार्यालय",
+    codes: [],
+    categories: [],
+    words: [],
+    providerTypes: ["POLITICAL_OFFICE"],
+  },
+  {
     id: "other",
     module: "services",
     en: "Other services",
@@ -381,7 +427,10 @@ export const DIRECTORY_GROUPS = [
   },
 ] as const satisfies readonly DirectoryGroupDef[];
 
-export type DirectoryGroup = (typeof DIRECTORY_GROUPS)[number];
+// Each group, with the optional provider-kind list present on all of them.
+export type DirectoryGroup = (typeof DIRECTORY_GROUPS)[number] & {
+  readonly providerTypes?: readonly string[];
+};
 export type DirectoryGroupId = DirectoryGroup["id"];
 export const DIRECTORY_GROUP_IDS = DIRECTORY_GROUPS.map(
   (group) => group.id,
@@ -392,6 +441,7 @@ export type DirectoryEntryFields = {
   professionMr?: string | null;
   professionCode?: string | null;
   serviceCategory?: string | null;
+  providerType?: string | null;
 };
 
 export function directoryGroupsFor(module: DirectoryModule) {
@@ -414,6 +464,13 @@ export function directoryGroupPattern(group: DirectoryGroup) {
 }
 
 function matchesGroup(group: DirectoryGroup, entry: DirectoryEntryFields) {
+  if (
+    entry.providerType &&
+    (group.providerTypes as readonly string[] | undefined)?.includes(
+      entry.providerType,
+    )
+  )
+    return true;
   if (
     entry.professionCode &&
     group.codes.some((c) => c === entry.professionCode)

@@ -22,6 +22,20 @@ export const directoryEntrySchema = z
     nameMr: z.string().nullable(),
     description: z.string().nullable(),
     category: z.enum(["Utility", "Medical", "Shop", "Other"]),
+    // Public phone numbers in the order villagers should try them, and the
+    // kind of registered provider (null for older entries).
+    contacts: z
+      .array(
+        z
+          .object({
+            label: z.string(),
+            mobile: z.string().regex(/^[6-9]\d{9}$/),
+            whatsapp: z.boolean().default(false),
+          })
+          .strict(),
+      )
+      .default([]),
+    providerType: z.string().nullable().default(null),
     price: z.number().nonnegative().nullable(),
     unit: z.string().nullable(),
     village: z.object({ id, name: z.string(), nameMr: z.string() }).strict(),

@@ -3,9 +3,8 @@ import type { DirectoryGroupId } from "@gaavli/constants";
 
 // Backdrop picture for each Services and Transport tile. Original artwork,
 // see assets/directory/README.md.
-export const directoryGroupImages: Record<
-  DirectoryGroupId,
-  ImageSourcePropType
+export const directoryGroupImages: Partial<
+  Record<DirectoryGroupId, ImageSourcePropType>
 > = {
   repairs: require("../../../assets/directory/repairs.jpg"),
   building: require("../../../assets/directory/building.jpg"),
@@ -24,4 +23,14 @@ export const directoryGroupImages: Record<
   bike: require("../../../assets/directory/bike.jpg"),
   ambulance: require("../../../assets/directory/ambulance.jpg"),
   other_transport: require("../../../assets/directory/other_transport.jpg"),
+};
+
+// Tiles without a photo yet: a colour and an icon.
+export const directoryGroupFallbacks: Partial<
+  Record<DirectoryGroupId, { color: string; icon: string }>
+> = {
+  public: { color: "#35546E", icon: "business-outline" },
+  community: { color: "#B9520A", icon: "people-outline" },
+  emergency: { color: "#A93226", icon: "alert-circle-outline" },
+  political: { color: "#476C8A", icon: "flag-outline" },
 };

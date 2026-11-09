@@ -9,6 +9,26 @@ import type {
 } from "@gaavli/types";
 import type { OnboardingPreferences } from "./storage/preferences";
 import { initialBrowsingVillage } from "./storage/browsingVillage";
+import { emptyContact, type ContactDraft } from "./data/contactNumbers";
+
+// What the new registration screen collects beyond the OTP request. It is
+// applied once the number is verified.
+export type RegistrationExtras = {
+  fullName: string;
+  village: MobileVillage | null;
+  contacts: ContactDraft[];
+  email: string;
+  promoWhatsapp: boolean;
+  providerIntent: boolean;
+};
+export const emptyRegistrationExtras = (): RegistrationExtras => ({
+  fullName: "",
+  village: null,
+  contacts: [{ ...emptyContact("primary"), whatsapp: false, isPublic: true }],
+  email: "",
+  promoWhatsapp: false,
+  providerIntent: false,
+});
 
 type AppState = OnboardingPreferences & {
   setBrowsingVillage: (village: MobileVillage | null) => void;
@@ -16,6 +36,8 @@ type AppState = OnboardingPreferences & {
   offline: boolean;
   session: MobileSession | null;
   draft: RegistrationDraft;
+  registration: RegistrationExtras;
+  setRegistration: (patch: Partial<RegistrationExtras>) => void;
   challenge: OtpChallenge | null;
   authMode: "login" | "register";
   contactReturnListingId: string | null;
@@ -40,6 +62,9 @@ export const useAppStore = create<AppState>((set) => ({
   offline: false,
   session: null,
   draft: { firstName: "", lastName: "", mobile: "" },
+  registration: emptyRegistrationExtras(),
+  setRegistration: (patch) =>
+    set((state) => ({ registration: { ...state.registration, ...patch } })),
   challenge: null,
   authMode: "register",
   contactReturnListingId: null,
@@ -55,6 +80,7 @@ export const useAppStore = create<AppState>((set) => ({
   clearRegistration: () =>
     set({
       draft: { firstName: "", lastName: "", mobile: "" },
+      registration: emptyRegistrationExtras(),
       challenge: null,
       authMode: "login",
     }),
@@ -63,6 +89,7 @@ export const useAppStore = create<AppState>((set) => ({
       session: null,
       browsingVillage: null,
       draft: { firstName: "", lastName: "", mobile: "" },
+      registration: emptyRegistrationExtras(),
       challenge: null,
       authMode: "login",
       contactReturnListingId: null,

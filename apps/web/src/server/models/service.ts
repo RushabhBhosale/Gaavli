@@ -19,6 +19,23 @@ const serviceSchema = new Schema(
       enum: ["Utility", "Medical", "Shop", "Other"],
       default: "Other",
     },
+    // Set when the entry is the public face of a registered provider profile.
+    profileId: { type: Schema.Types.ObjectId, ref: "ProviderProfile" },
+    providerType: String,
+    // Public phone numbers, in the order villagers should try them.
+    contacts: {
+      type: [
+        new Schema(
+          {
+            label: String,
+            mobile: String,
+            whatsapp: { type: Boolean, default: false },
+          },
+          { _id: false },
+        ),
+      ],
+      default: [],
+    },
     description: { type: String, trim: true, maxlength: 2000 },
     keywords: [String],
     price: { type: Number, min: 0 },
@@ -36,6 +53,7 @@ serviceSchema.index({
   _id: -1,
 });
 serviceSchema.index({ userId: 1 });
+serviceSchema.index({ profileId: 1 }, { unique: true, sparse: true });
 export const Service =
   (mongoose.models.Service as mongoose.Model<
     InferSchemaType<typeof serviceSchema>

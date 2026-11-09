@@ -4,6 +4,7 @@ import type {
   directoryQuerySchema,
   directorySummaryQuerySchema,
 } from "@gaavli/validation";
+import { SHOWN_AS_HOME_EXCLUDED } from "@gaavli/constants";
 import { Village, type UserRecord } from "../models";
 import {
   directorySummary,
@@ -57,7 +58,12 @@ export async function dashboardDirectory(
   await requireBrowsingVillage(user, query.sourceVillageId);
   const viewer = user ? String(user._id) : null;
   const [services, transport, coordinator] = await Promise.all([
-    findDirectory({ ...query, module: "services", page: 1, limit: 3 }, viewer),
+    findDirectory(
+      { ...query, module: "services", page: 1, limit: 3 },
+      viewer,
+      undefined,
+      [...SHOWN_AS_HOME_EXCLUDED],
+    ),
     findDirectory({ ...query, module: "transport", page: 1, limit: 3 }, viewer),
     findPublicCoordinator(query.sourceVillageId),
   ]);

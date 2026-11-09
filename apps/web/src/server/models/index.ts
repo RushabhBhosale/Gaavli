@@ -7,6 +7,23 @@ const userSchema = new Schema(
     lastName: { type: String, trim: true },
     address: { type: String, trim: true, maxlength: 300 },
     alternativeMobile: { type: String, trim: true },
+    // The numbers the user chose to share (the first is the verified mobile).
+    contacts: {
+      type: [
+        new Schema(
+          {
+            label: String,
+            mobile: String,
+            whatsapp: { type: Boolean, default: false },
+            isPublic: { type: Boolean, default: true },
+            verified: { type: Boolean, default: false },
+          },
+          { _id: false },
+        ),
+      ],
+      default: [],
+    },
+    promoWhatsapp: { type: Boolean, default: false },
     occupation: { type: String, trim: true, maxlength: 100 },
     profilePhotoObjectKey: String,
     mobileVerified: Boolean,

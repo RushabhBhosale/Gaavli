@@ -23,6 +23,7 @@
     "test:listing-counts": "node --conditions=react-server --import tsx tests/listing-counts.integration.mts",
     "test:dashboard-directory": "node --conditions=react-server --import tsx tests/dashboard-directory.integration.mts",
     "test:coordinator-integration": "node --conditions=react-server --import tsx tests/coordinator.integration.mts",
+    "test:provider-profiles": "node --conditions=react-server --import tsx tests/provider-profiles.integration.mts",
     "test:product-master": "node --conditions=react-server --import tsx tests/product-master.integration.mts",
     "test:catalog-search": "node --conditions=react-server --import tsx tests/catalog-search.integration.mts",
     "test:demo-seed": "node --conditions=react-server --import tsx tests/demo-seed.integration.mts",

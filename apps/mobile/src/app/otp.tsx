@@ -21,6 +21,7 @@ import { api } from "../api";
 import { errorMessage } from "../errors";
 import { ApiError } from "../api/client";
 import { saveSession, authenticatedApi } from "../session";
+import { finishRegistration } from "../data/finishRegistration";
 import { postAuthHref } from "../storage/preferences";
 import { parseOtpRequest } from "../data/otpRequest";
 
@@ -102,9 +103,16 @@ export default function OtpScreen() {
         }
       }
       const listingId = useAppStore.getState().contactReturnListingId;
+      const extras = useAppStore.getState().registration;
+      if (authMode === "register")
+        user = await finishRegistration(user, extras);
       pendingSession.current = null;
       useAppStore.getState().clearRegistration();
-      router.replace(postAuthHref(user, listingId, authMode === "login"));
+      router.replace(
+        authMode === "register" && extras.providerIntent && user.village
+          ? "/provider/type"
+          : postAuthHref(user, listingId, authMode === "login"),
+      );
     } catch (failure) {
       setNeedsRegistration(
         failure instanceof ApiError && failure.code === "REGISTRATION_REQUIRED",

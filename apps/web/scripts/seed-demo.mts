@@ -2,7 +2,11 @@ import nextEnv from "@next/env";
 import mongoose from "mongoose";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import { productMasterImportSchema } from "@gaavli/validation";
+import {
+  productMasterImportSchema,
+  providerMasterSeedSchema,
+} from "@gaavli/validation";
+import { seedProviderMasters } from "../src/server/repositories/provider-masters";
 import { connectDb } from "../src/server/db/connect";
 import {
   Category,
@@ -399,6 +403,19 @@ try {
         );
       }
     }
+    // The select lists the provider registration forms draw from.
+    const masterRows = providerMasterSeedSchema.parse(
+      JSON.parse(
+        await readFile(
+          new URL(
+            "../data/gaavli_provider_master_seed_simple_en_mr_hi.json",
+            import.meta.url,
+          ),
+          "utf8",
+        ),
+      ),
+    );
+    await seedProviderMasters(masterRows);
     console.log(
       "Demo data is ready. Existing demo records were not overwritten.",
     );

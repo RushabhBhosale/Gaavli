@@ -33,6 +33,9 @@ function groupFilter(group: DirectoryGroup): Record<string, unknown> {
   const pattern = directoryGroupPattern(group);
   return {
     $or: [
+      ...(group.providerTypes?.length
+        ? [{ providerType: { $in: [...group.providerTypes] } }]
+        : []),
       ...(group.codes.length
         ? [{ professionCode: { $in: [...group.codes] } }]
         : []),
@@ -56,6 +59,7 @@ function visibleEntries(
   >,
   viewerId: string | null,
   id?: string,
+  excludeProviderTypes: readonly string[] = [],
 ): PipelineStage[] {
   const terms = query.search.split(/\s+/).filter(Boolean);
   const group = query.category ? directoryGroup(query.category) : undefined;
@@ -80,6 +84,9 @@ function visibleEntries(
         status: "ACTIVE",
         available: { $ne: false },
         ...(id ? { _id: new Types.ObjectId(id) } : {}),
+        ...(excludeProviderTypes.length
+          ? { providerType: { $nin: [...excludeProviderTypes] } }
+          : {}),
         ...(viewerId ? { userId: { $ne: new Types.ObjectId(viewerId) } } : {}),
         ...(query.module === "transport"
           ? { module: "transport" }
@@ -115,9 +122,11 @@ export async function findDirectory(
   query: z.infer<typeof directoryQuerySchema>,
   viewerId: string | null,
   id?: string,
+  // Kinds of provider to leave out of this listing (party offices stay off Home).
+  excludeProviderTypes: readonly string[] = [],
 ) {
   const pipeline: PipelineStage[] = [
-    ...visibleEntries(query, viewerId, id),
+    ...visibleEntries(query, viewerId, id, excludeProviderTypes),
     {
       $facet: {
         entries: [
@@ -139,6 +148,8 @@ export async function findDirectory(
               nameMr: { $ifNull: ["$professionMr", null] },
               description: { $ifNull: ["$description", null] },
               category: { $ifNull: ["$serviceCategory", "Other"] },
+              contacts: { $ifNull: ["$contacts", []] },
+              providerType: { $ifNull: ["$providerType", null] },
               price: { $ifNull: ["$price", null] },
               unit: { $ifNull: ["$unit", null] },
               village: {
@@ -183,6 +194,7 @@ export async function directorySummary(
     professionMr?: string | null;
     professionCode?: string | null;
     serviceCategory?: string | null;
+    providerType?: string | null;
   }>([
     ...visibleEntries({ ...query, search: "" }, viewerId),
     {
@@ -192,6 +204,7 @@ export async function directorySummary(
         professionMr: 1,
         professionCode: 1,
         serviceCategory: 1,
+        providerType: 1,
       },
     },
   ]);

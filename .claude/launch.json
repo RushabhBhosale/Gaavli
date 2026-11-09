@@ -49,7 +49,7 @@
         "PATH=/Users/mac/.nvm/versions/node/v24.16.0/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
         "npm",
         "run",
-        "demo:server",
+        "dev",
         "--workspace=@gaavli/web"
       ],
       "port": 3000

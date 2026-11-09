@@ -24,7 +24,10 @@ import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { d } from "../components/dashboard/primitives";
-import { directoryGroupImages } from "../components/dashboard/directoryGroupImages";
+import {
+  directoryGroupFallbacks,
+  directoryGroupImages,
+} from "../components/dashboard/directoryGroupImages";
 
 // Services and Transport: category tiles first, so a villager sees what is
 // on offer at a glance; tap a tile (or type in the search box) for the list.
@@ -142,28 +145,71 @@ export default function DirectoryScreen({
                       onPress={() => setCategory(group.id)}
                       style={({ pressed }) => [s.tile, pressed && s.pressed]}
                     >
-                      <ImageBackground
-                        source={directoryGroupImages[group.id]}
-                        resizeMode="cover"
-                        accessible={false}
-                        style={s.tileImage}
-                        imageStyle={!count ? s.tileImageEmpty : undefined}
-                      >
-                        <View style={s.tileBar}>
-                          <Text numberOfLines={2} style={s.tileLabel}>
-                            {group[language]}
-                          </Text>
-                          <View style={[s.tileCount, !!count && s.tileCountOn]}>
-                            <Text style={s.tileCountText}>
-                              {count
-                                ? formatMessage(t.dashboardAvailableCount, {
-                                    count: String(count),
-                                  })
-                                : t.directoryNoneYet}
+                      {directoryGroupImages[group.id] ? (
+                        <ImageBackground
+                          source={directoryGroupImages[group.id]!}
+                          resizeMode="cover"
+                          accessible={false}
+                          style={s.tileImage}
+                          imageStyle={!count ? s.tileImageEmpty : undefined}
+                        >
+                          <View style={s.tileBar}>
+                            <Text numberOfLines={2} style={s.tileLabel}>
+                              {group[language]}
                             </Text>
+                            <View
+                              style={[s.tileCount, !!count && s.tileCountOn]}
+                            >
+                              <Text style={s.tileCountText}>
+                                {count
+                                  ? formatMessage(t.dashboardAvailableCount, {
+                                      count: String(count),
+                                    })
+                                  : t.directoryNoneYet}
+                              </Text>
+                            </View>
+                          </View>
+                        </ImageBackground>
+                      ) : (
+                        <View
+                          accessible={false}
+                          style={[
+                            s.tileImage,
+                            {
+                              backgroundColor:
+                                directoryGroupFallbacks[group.id]?.color ??
+                                theme.colors.steel,
+                            },
+                          ]}
+                        >
+                          <Ionicons
+                            accessible={false}
+                            name={
+                              (directoryGroupFallbacks[group.id]?.icon ??
+                                "apps-outline") as never
+                            }
+                            size={56}
+                            color="rgba(255,255,255,0.35)"
+                            style={s.tileGlyph}
+                          />
+                          <View style={s.tileBar}>
+                            <Text numberOfLines={2} style={s.tileLabel}>
+                              {group[language]}
+                            </Text>
+                            <View
+                              style={[s.tileCount, !!count && s.tileCountOn]}
+                            >
+                              <Text style={s.tileCountText}>
+                                {count
+                                  ? formatMessage(t.dashboardAvailableCount, {
+                                      count: String(count),
+                                    })
+                                  : t.directoryNoneYet}
+                              </Text>
+                            </View>
                           </View>
                         </View>
-                      </ImageBackground>
+                      )}
                     </Pressable>
                   );
                 })}
@@ -246,6 +292,7 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.steel,
   },
   tileImage: { flex: 1, justifyContent: "flex-end" },
+  tileGlyph: { position: "absolute", top: 18, right: 18 },
   tileImageEmpty: { opacity: 0.9 },
   tileBar: {
     paddingHorizontal: 12,

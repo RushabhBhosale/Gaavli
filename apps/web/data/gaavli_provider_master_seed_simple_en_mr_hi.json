@@ -1186,5 +1186,305 @@
     },
     "isActive": true,
     "sortOrder": 11
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "GRAM_PANCHAYAT",
+    "name": {
+      "en": "Gram Panchayat",
+      "mr": "ग्रामपंचायत",
+      "hi": "ग्राम पंचायत"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "POST_OFFICE",
+    "name": {
+      "en": "Post Office",
+      "mr": "टपाल कार्यालय",
+      "hi": "डाकघर"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "BANK",
+    "name": {
+      "en": "Bank",
+      "mr": "बँक",
+      "hi": "बैंक"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "SCHOOL",
+    "name": {
+      "en": "School",
+      "mr": "शाळा",
+      "hi": "स्कूल"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "RATION_OFFICE",
+    "name": {
+      "en": "Ration Office",
+      "mr": "रेशन कार्यालय",
+      "hi": "राशन कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "ANGANWADI",
+    "name": {
+      "en": "Anganwadi",
+      "mr": "अंगणवाडी",
+      "hi": "आंगनवाड़ी"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "POLICE_STATION",
+    "name": {
+      "en": "Police Station",
+      "mr": "पोलीस ठाणे",
+      "hi": "पुलिस थाना"
+    },
+    "isActive": true,
+    "sortOrder": 7
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 8
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "NGO",
+    "name": {
+      "en": "NGO",
+      "mr": "एनजीओ",
+      "hi": "एनजीओ"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "VILLAGE_GROUP",
+    "name": {
+      "en": "Village Group",
+      "mr": "गावातील गट",
+      "hi": "गाँव का समूह"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "WELFARE",
+    "name": {
+      "en": "Welfare Organisation",
+      "mr": "कल्याणकारी संस्था",
+      "hi": "कल्याण संगठन"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "SOCIAL_HELPER",
+    "masterType": "HELPER_CATEGORY",
+    "code": "EDUCATION",
+    "name": {
+      "en": "Education",
+      "mr": "शिक्षण",
+      "hi": "शिक्षा"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "SOCIAL_HELPER",
+    "masterType": "HELPER_CATEGORY",
+    "code": "SENIOR_SUPPORT",
+    "name": {
+      "en": "Senior Citizen Support",
+      "mr": "ज्येष्ठ नागरिक मदत",
+      "hi": "वरिष्ठ नागरिक सहायता"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "SOCIAL_HELPER",
+    "masterType": "HELPER_CATEGORY",
+    "code": "BLOOD_DONATION",
+    "name": {
+      "en": "Blood Donation",
+      "mr": "रक्तदान",
+      "hi": "रक्तदान"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "SOCIAL_HELPER",
+    "masterType": "HELPER_CATEGORY",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "SNAKE_RESCUER",
+    "name": {
+      "en": "Snake Rescuer",
+      "mr": "सर्पमित्र",
+      "hi": "साँप बचावकर्ता"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "ANIMAL_RESCUE",
+    "name": {
+      "en": "Animal Rescue",
+      "mr": "प्राणी बचाव",
+      "hi": "पशु बचाव"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "FIRST_AID",
+    "name": {
+      "en": "First Aid",
+      "mr": "प्राथमिक उपचार",
+      "hi": "प्राथमिक उपचार"
+    },
+    "isActive": true,
+    "sortOrder": 3
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "HELP_DESK",
+    "name": {
+      "en": "Help Desk",
+      "mr": "मदत केंद्र",
+      "hi": "हेल्प डेस्क"
+    },
+    "isActive": true,
+    "sortOrder": 4
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "DISASTER_HELP",
+    "name": {
+      "en": "Disaster Help",
+      "mr": "आपत्ती मदत",
+      "hi": "आपदा सहायता"
+    },
+    "isActive": true,
+    "sortOrder": 5
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "OTHER",
+    "name": {
+      "en": "Other",
+      "mr": "इतर",
+      "hi": "अन्य"
+    },
+    "isActive": true,
+    "sortOrder": 6
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "PARTY_OFFICE",
+    "name": {
+      "en": "Party Office",
+      "mr": "पक्ष कार्यालय",
+      "hi": "पार्टी कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 1
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "CONSTITUENCY_OFFICE",
+    "name": {
+      "en": "Constituency Office",
+      "mr": "मतदारसंघ कार्यालय",
+      "hi": "निर्वाचन क्षेत्र कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 2
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "REPRESENTATIVE_OFFICE",
+    "name": {
+      "en": "Representative Office",
+      "mr": "प्रतिनिधी कार्यालय",
+      "hi": "प्रतिनिधि कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 3
   }
 ]

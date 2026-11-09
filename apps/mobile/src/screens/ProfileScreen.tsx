@@ -179,6 +179,13 @@ export default function ProfileScreen() {
             onPress={() => router.push("/my-profile")}
           />
           <SettingRow
+            icon="briefcase-outline"
+            title={t.actTitle}
+            subtitle={t.actSubtitle}
+            disabled={!!busy}
+            onPress={() => router.push("/activities")}
+          />
+          <SettingRow
             icon="location-outline"
             title={t.changeVillage}
             subtitle={villageName}

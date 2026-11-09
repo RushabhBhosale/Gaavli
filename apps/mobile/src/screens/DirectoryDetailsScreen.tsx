@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Linking, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
@@ -10,6 +10,7 @@ import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { Panel, d } from "../components/dashboard/primitives";
 import { listingRate } from "../components/dashboard/listingText";
 import { ApiError } from "../api/client";
+import { CONTACT_LABELS } from "@gaavli/constants";
 
 export default function DirectoryDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -69,6 +70,40 @@ export default function DirectoryDetailsScreen() {
             </Panel>
             {entry.description && (
               <Text style={d.description}>{entry.description}</Text>
+            )}
+            {entry.contacts.map((contact) => (
+              <Panel key={contact.mobile}>
+                <Text style={d.description}>
+                  {CONTACT_LABELS.find((item) => item.id === contact.label)?.[
+                    language
+                  ] ?? contact.label}
+                </Text>
+                <Text style={d.cardTitle}>{contact.mobile}</Text>
+                <Button
+                  onPress={() =>
+                    void Linking.openURL(`tel:+91${contact.mobile}`)
+                  }
+                >
+                  {t.dirCall}
+                </Button>
+                {contact.whatsapp && (
+                  <Button
+                    secondary
+                    onPress={() =>
+                      void Linking.openURL(`https://wa.me/91${contact.mobile}`)
+                    }
+                  >
+                    {t.dirWhatsApp}
+                  </Button>
+                )}
+              </Panel>
+            ))}
+            {entry.contacts.length > 1 && (
+              <Text style={d.description}>{t.dirTryNext}</Text>
+            )}
+            {(entry.providerType === "EMERGENCY_ASSISTANCE" ||
+              entry.providerType === "POLITICAL_OFFICE") && (
+              <Text style={d.description}>{t.dirEmergencyNote}</Text>
             )}
             <Text
               style={entry.category === "Medical" ? d.cardTitle : d.description}
