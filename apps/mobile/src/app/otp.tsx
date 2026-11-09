@@ -163,8 +163,10 @@ export default function OtpScreen() {
         disabled={!!busy || hasPendingSession}
         onPress={() => router.replace("/register")}
       />
-      <Text style={styles.title}>{t.verifyTitle}</Text>
-      <Text style={styles.body}>
+      <Text style={[styles.title, { textAlign: "center" }]}>
+        {t.verifyTitle}
+      </Text>
+      <Text style={[styles.body, { textAlign: "center" }]}>
         {t.verifyDescription}
         {"\n"}+91 {draft.mobile}
       </Text>

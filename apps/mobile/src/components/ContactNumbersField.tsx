@@ -31,6 +31,7 @@ export function ContactNumbersField({
   showErrors = false,
   disabled = false,
   showOrderNote = false,
+  hidePrimary = false,
 }: {
   contacts: readonly ContactDraft[];
   onChange: (next: ContactDraft[]) => void;
@@ -39,6 +40,8 @@ export function ContactNumbersField({
   showErrors?: boolean;
   disabled?: boolean;
   showOrderNote?: boolean;
+  // The primary number is edited elsewhere; show only the extra numbers.
+  hidePrimary?: boolean;
 }) {
   const language = useAppStore((state) => state.language);
   const t = messages(language);
@@ -51,6 +54,7 @@ export function ContactNumbersField({
   return (
     <View style={s.root}>
       {contacts.map((row, index) => {
+        if (hidePrimary && index === 0) return null;
         const error = showErrors ? errors[index] : undefined;
         const locked = primaryLocked && index === 0;
         return (
@@ -177,9 +181,11 @@ export function ContactNumbersField({
       {showOrderNote && contacts.length > 1 && (
         <Text style={s.note}>{t.regOrderNote}</Text>
       )}
-      <Text style={s.count}>
-        {contacts.length}/{MAX_PROVIDER_CONTACTS}
-      </Text>
+      {!hidePrimary && (
+        <Text style={s.count}>
+          {contacts.length}/{MAX_PROVIDER_CONTACTS}
+        </Text>
+      )}
     </View>
   );
 }

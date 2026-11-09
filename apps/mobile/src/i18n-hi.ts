@@ -58,6 +58,10 @@ export const hi: Messages = {
     "दुकान, सेवा, संस्था या संगठन पंजीकृत करना है? यह बाद में मेरी गतिविधियों से भी कर सकते हैं।",
   regAddProvider: "+ प्रदाता प्रोफ़ाइल जोड़ें",
   regSkipProvider: "अभी नहीं",
+  regMoreDetails: "और जानकारी (वैकल्पिक)",
+  regLessDetails: "वैकल्पिक जानकारी छिपाएँ",
+  regWhatsappOnNumber: "इस नंबर पर मैं व्हाट्सऐप इस्तेमाल करता/करती हूँ",
+  provStep: "चरण {n} / {total}",
   regProviderAdded:
     "✓ नंबर सत्यापित होते ही प्रदाता प्रोफ़ाइल जोड़ेंगे। हटाने के लिए टैप करें।",
   regContinueOtp: "OTP के साथ आगे बढ़ें",

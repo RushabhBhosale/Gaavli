@@ -16,10 +16,15 @@ export default function ProviderWelcomeScreen() {
   return (
     <Screen>
       <Brand compact />
-      <Text accessibilityRole="header" style={styles.title}>
+      <Text
+        accessibilityRole="header"
+        style={[styles.title, { textAlign: "center" }]}
+      >
         {t.regProviderTitle}
       </Text>
-      <Text style={styles.body}>{t.regProviderText}</Text>
+      <Text style={[styles.body, { textAlign: "center" }]}>
+        {t.regProviderText}
+      </Text>
       <Button onPress={() => router.replace("/provider/type")}>
         {t.regAddProvider}
       </Button>

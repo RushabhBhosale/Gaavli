@@ -9,7 +9,7 @@ import {
 } from "@gaavli/constants";
 import type { MobileVillage } from "@gaavli/types";
 import { useAppStore } from "../../store";
-import { messages } from "../../i18n";
+import { formatMessage, messages } from "../../i18n";
 import { theme } from "../../theme";
 import { ApiError } from "../../api/client";
 import { errorMessage } from "../../errors";
@@ -225,6 +225,12 @@ export default function ProviderFormScreen() {
       <View style={s.badge}>
         <Text style={s.badgeText}>{`${kind.title[language]}`}</Text>
       </View>
+      <Text style={s.hint}>
+        {formatMessage(t.provStep, {
+          n: step === "category" ? 2 : 1,
+          total: 2,
+        })}
+      </Text>
 
       {step === "details" && (
         <>

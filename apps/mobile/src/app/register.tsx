@@ -1,11 +1,17 @@
 import { useState, useRef } from "react";
 import { Redirect, useRouter } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { MOBILE_LANGUAGES } from "@gaavli/constants";
 import { preferenceStorage } from "../storage/sqlite";
 import { ContactNumbersField } from "../components/ContactNumbersField";
 import { VillageField } from "../components/VillageField";
-import { activeContacts, contactErrors } from "../data/contactNumbers";
+import {
+  activeContacts,
+  cleanMobile,
+  contactErrors,
+  setContact,
+} from "../data/contactNumbers";
 import { splitFullName } from "../data/finishRegistration";
 import { theme } from "../theme";
 import { otpChallengeSchema } from "@gaavli/validation";
@@ -48,6 +54,7 @@ export default function RegistrationScreen() {
   const [busy, setBusy] = useState(false);
   const submitting = useRef(false);
   const [showErrors, setShowErrors] = useState(false);
+  const [more, setMore] = useState(false);
   const set = useAppStore.getState().setRegistration;
   if (session)
     return (
@@ -172,10 +179,10 @@ export default function RegistrationScreen() {
         onPress={() => router.replace(browsingVillage ? "/home" : "/language")}
       />
       <Brand compact />
-      <Text style={styles.title}>
+      <Text style={[styles.title, st.center]}>
         {registering ? t.regCreateTitle : t.loginTitle}
       </Text>
-      <Text style={styles.body}>
+      <Text style={[styles.body, st.center]}>
         {contactReturnListingId
           ? t.contactSellerReason
           : registering
@@ -194,15 +201,45 @@ export default function RegistrationScreen() {
             maxLength={110}
             editable={!busy}
           />
-          <Text style={st.section}>{t.regBasicDetails}</Text>
-          <ContactNumbersField
-            contacts={registration.contacts}
-            onChange={setPrimary}
-            showErrors={showErrors}
-            disabled={busy}
-            showOrderNote
-          />
-          {!!errors.mobile && <ErrorMessage message={errors.mobile} />}
+          <View style={st.group}>
+            <Input
+              label={`${t.mobile} *`}
+              value={registration.contacts[0]?.mobile ?? ""}
+              onChangeText={(value) =>
+                setPrimary(
+                  setContact(registration.contacts, 0, {
+                    mobile: cleanMobile(value),
+                  }),
+                )
+              }
+              error={errors.mobile}
+              placeholder={t.regMobilePlaceholder}
+              keyboardType="number-pad"
+              autoComplete="tel"
+              maxLength={10}
+              editable={!busy}
+            />
+            <View style={st.switchRow}>
+              <Text style={st.switchText}>{t.regWhatsappOnNumber}</Text>
+              <Switch
+                accessibilityLabel={t.regWhatsappOnNumber}
+                value={!!registration.contacts[0]?.whatsapp}
+                disabled={busy}
+                onValueChange={(value) =>
+                  set({
+                    contacts: setContact(registration.contacts, 0, {
+                      whatsapp: value,
+                    }),
+                  })
+                }
+                trackColor={{
+                  false: theme.colors.border,
+                  true: theme.colors.primary,
+                }}
+                thumbColor={theme.colors.surface}
+              />
+            </View>
+          </View>
           <VillageField
             label={`${t.regVillage} *`}
             value={registration.village}
@@ -226,31 +263,61 @@ export default function RegistrationScreen() {
               ))}
             </View>
           </View>
-          <Input
-            label={t.regEmail}
-            value={registration.email}
-            onChangeText={(value) => {
-              set({ email: value });
-              setErrors((previous) => ({ ...previous, email: "" }));
-            }}
-            error={errors.email}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoComplete="email"
-            maxLength={120}
-            editable={!busy}
-          />
           <Pressable
-            accessibilityRole="checkbox"
-            accessibilityState={{ checked: registration.promoWhatsapp }}
-            onPress={() => set({ promoWhatsapp: !registration.promoWhatsapp })}
-            style={st.check}
+            accessibilityRole="button"
+            accessibilityState={{ expanded: more }}
+            onPress={() => setMore(!more)}
+            style={st.more}
           >
-            <View style={[st.box, registration.promoWhatsapp && st.boxOn]}>
-              {registration.promoWhatsapp && <Text style={st.tick}>✓</Text>}
-            </View>
-            <Text style={st.checkText}>{t.regPromo}</Text>
+            <Text style={st.moreText}>
+              {more ? t.regLessDetails : t.regMoreDetails}
+            </Text>
+            <Ionicons
+              accessible={false}
+              name={more ? "chevron-up" : "chevron-down"}
+              size={18}
+              color={theme.colors.steel}
+            />
           </Pressable>
+          {more && (
+            <View style={st.group}>
+              <ContactNumbersField
+                contacts={registration.contacts}
+                onChange={(contacts) => set({ contacts })}
+                showErrors={showErrors}
+                disabled={busy}
+                hidePrimary
+                showOrderNote
+              />
+              <Input
+                label={t.regEmail}
+                value={registration.email}
+                onChangeText={(value) => {
+                  set({ email: value });
+                  setErrors((previous) => ({ ...previous, email: "" }));
+                }}
+                error={errors.email}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoComplete="email"
+                maxLength={120}
+                editable={!busy}
+              />
+              <Pressable
+                accessibilityRole="checkbox"
+                accessibilityState={{ checked: registration.promoWhatsapp }}
+                onPress={() =>
+                  set({ promoWhatsapp: !registration.promoWhatsapp })
+                }
+                style={st.check}
+              >
+                <View style={[st.box, registration.promoWhatsapp && st.boxOn]}>
+                  {registration.promoWhatsapp && <Text style={st.tick}>✓</Text>}
+                </View>
+                <Text style={st.checkText}>{t.regPromo}</Text>
+              </Pressable>
+            </View>
+          )}
         </>
       ) : (
         <Input
@@ -284,7 +351,9 @@ export default function RegistrationScreen() {
       >
         {registering ? t.switchToLogin : t.switchToRegister}
       </Button>
-      <Text style={styles.body}>{registering ? t.regTerms : t.privacy}</Text>
+      <Text style={[styles.body, st.center, st.small]}>
+        {registering ? t.regTerms : t.privacy}
+      </Text>
     </Screen>
   );
 }
@@ -321,15 +390,22 @@ const st = StyleSheet.create({
   },
   tick: { color: theme.colors.onPrimary, fontWeight: "700" },
   checkText: { ...theme.type.body, color: theme.colors.text, flex: 1 },
-  provider: {
-    gap: 4,
-    padding: 14,
-    borderRadius: theme.radii.card,
-    borderWidth: 1.5,
-    borderStyle: "dashed",
-    borderColor: theme.colors.borderStrong,
-    backgroundColor: theme.colors.surfaceMuted,
+  center: { textAlign: "center" },
+  small: { ...theme.type.caption },
+  group: { gap: 12 },
+  switchRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
   },
-  providerTitle: { ...theme.type.micro, color: theme.colors.muted },
-  providerText: { ...theme.type.body, color: theme.colors.text },
+  switchText: { ...theme.type.label, color: theme.colors.text, flex: 1 },
+  more: {
+    minHeight: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+  },
+  moreText: { ...theme.type.subheading, color: theme.colors.steel },
 });

@@ -60,6 +60,10 @@ const en = {
     "Want to register a shop, service, institution or organisation? You can do this later from My Activities.",
   regAddProvider: "+ Add Provider Profile",
   regSkipProvider: "Skip for now",
+  regMoreDetails: "More details (optional)",
+  regLessDetails: "Hide optional details",
+  regWhatsappOnNumber: "I use WhatsApp on this number",
+  provStep: "Step {n} of {total}",
   regProviderAdded:
     "✓ You'll add a provider profile right after verifying your number. Tap to undo.",
   regContinueOtp: "Continue with OTP",
@@ -759,6 +763,10 @@ const mr: Messages = {
     "दुकान, सेवा, संस्था किंवा संघटना नोंदवायची आहे? हे नंतर माझ्या उपक्रमांमधून करता येते.",
   regAddProvider: "+ प्रदाता प्रोफाइल जोडा",
   regSkipProvider: "आत्ता नको",
+  regMoreDetails: "अधिक माहिती (ऐच्छिक)",
+  regLessDetails: "ऐच्छिक माहिती लपवा",
+  regWhatsappOnNumber: "या नंबरवर मी व्हॉट्सअ‍ॅप वापरतो/वापरते",
+  provStep: "पायरी {n} / {total}",
   regProviderAdded:
     "✓ नंबर पडताळल्यावर लगेच प्रदाता प्रोफाइल जोडाल. रद्द करण्यासाठी टॅप करा.",
   regContinueOtp: "OTP सह पुढे जा",
