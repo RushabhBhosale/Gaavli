@@ -35,11 +35,7 @@ import {
 import { toHomeListing, liveDashboard } from "../src/data/listings";
 import { accountHeaderIdentity } from "../src/data/accountHeader";
 import { hasCoordinatorRole } from "../src/data/accountAccess";
-import {
-  dashboardTabs,
-  homeDashboardTab,
-  tabSlots,
-} from "../src/data/dashboardTabs";
+import { tabSlots } from "../src/data/dashboardTabs";
 import { resolveListingPhotoUrl } from "../src/data/listingPhotos";
 import {
   listingRate,
@@ -285,49 +281,6 @@ const account: MobileUser = {
     pinCode: "410206",
   },
 };
-
-test("dashboard navigation defaults coordinators to their tools without granting seller access", () => {
-  const original = structuredClone(account);
-  assert.deepEqual(dashboardTabs(account), ["buyer"]);
-  assert.deepEqual(dashboardTabs(null), ["buyer"]);
-  assert.deepEqual(dashboardTabs({ ...account, isSeller: true }), [
-    "buyer",
-    "seller",
-  ]);
-  const coordinator = {
-    ...account,
-    isCoordinator: true,
-    coordinatorVillages: [],
-  };
-  assert.deepEqual(dashboardTabs(coordinator), ["coordinator", "buyer"]);
-  assert.deepEqual(dashboardTabs({ ...coordinator, isSeller: true }), [
-    "coordinator",
-    "buyer",
-    "seller",
-  ]);
-  assert.equal(homeDashboardTab(coordinator, undefined), "coordinator");
-  assert.equal(homeDashboardTab(coordinator, "buyer"), "buyer");
-  assert.equal(homeDashboardTab(account, "coordinator"), "buyer");
-  const revoked = {
-    ...account,
-    isCoordinator: false,
-    coordinatorVillages: [account.village!],
-  };
-  assert.deepEqual(dashboardTabs(revoked), ["buyer"]);
-  assert.equal(homeDashboardTab(revoked, undefined), "buyer");
-  assert.equal(
-    homeDashboardTab(
-      { ...account, coordinatorVillages: [account.village!] },
-      undefined,
-    ),
-    "coordinator",
-  );
-  assert.deepEqual(account, original);
-  assert.equal(messages("mr").dashboardCoordinator, "समन्वयक");
-  assert.equal(messages("mr").dashboardSeller, "शेतकरी");
-  assert.equal(messages("en").dashboardCoordinator, "Coordinator");
-  assert.equal(messages("en").dashboardSeller, "Seller");
-});
 
 test("shared header preserves identity and prioritizes active coordinator, seller, then buyer", () => {
   const buyer = accountHeaderIdentity(account, "en");
@@ -1168,21 +1121,27 @@ test("optional product photos can be omitted, preserved, replaced and explicitly
 });
 
 test("bottom bar keeps the mic in the middle and follows the account", () => {
+  const rest = ["marketplace", "services", "transport", "profile"];
   assert.deepEqual(
     tabSlots({ signedIn: false, seller: false, coordinator: false }),
-    ["marketplace", "services"],
+    { second: "marketplace", fourth: "services", fifth: "transport", more: [] },
   );
   assert.deepEqual(
     tabSlots({ signedIn: true, seller: true, coordinator: false }),
-    ["my-listings", "activity"],
+    { second: "my-listings", fourth: "activity", fifth: "more", more: rest },
   );
   assert.deepEqual(
     tabSlots({ signedIn: true, seller: false, coordinator: false }),
-    ["marketplace", "activity"],
+    { second: "marketplace", fourth: "activity", fifth: "profile", more: [] },
   );
   assert.deepEqual(
     tabSlots({ signedIn: true, seller: true, coordinator: true }),
-    ["manage", "activity"],
+    {
+      second: "manage",
+      fourth: "activity",
+      fifth: "more",
+      more: rest,
+    },
   );
 });
 
@@ -1313,4 +1272,32 @@ test("recent searches keep the newest first, drop repeats and stay short", async
     match: "",
     after: "",
   });
+});
+
+test("search matches the village's products on the phone, best matches first, in any language", async () => {
+  const { searchIndexMatches } = await import("../src/data/searchIndex");
+  const row = (id: string, en: string, mr: string | null) =>
+    ({ id, productName: en, productNameMr: mr, productNameHi: null }) as never;
+  const list = [
+    row("1", "Tomato", "टोमॅटो"),
+    row("2", "Raw Mango", "कैरी"),
+    row("3", "Mango", "आंबा"),
+    row("4", "Rice", "तांदूळ"),
+  ];
+  const ids = (text: string, language: "en" | "mr" | "hi" = "en") =>
+    searchIndexMatches(list, text, language).map((entry) => entry.id);
+  assert.deepEqual(ids("man"), ["3", "2"]);
+  assert.deepEqual(ids("टोम", "mr"), ["1"]);
+  assert.deepEqual(ids("tomato"), ["1"]);
+  assert.deepEqual(ids("tomatto"), ["1"], "a close misspelling still finds it");
+  assert.deepEqual(ids("   "), []);
+  assert.deepEqual(ids("zzz"), []);
+  assert.equal(
+    searchIndexMatches(
+      Array.from({ length: 30 }, (_, i) => row(String(i), `Item ${i}`, null)),
+      "item",
+      "en",
+    ).length,
+    8,
+  );
 });

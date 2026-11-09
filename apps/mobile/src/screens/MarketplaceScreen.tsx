@@ -11,7 +11,9 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { AppHeader } from "../components/AppHeader";
+import { BrowsingVillageSelector } from "../components/BrowsingVillageSelector";
+import { NotificationBell } from "../components/dashboard/NotificationBell";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useAppStore } from "../store";
@@ -29,7 +31,6 @@ import {
   StateMessage,
 } from "../components/ui";
 import { MarketplaceListingCard } from "../components/dashboard/MarketplaceListingCard";
-import { MarketplaceHeader } from "../components/dashboard/MarketplaceHeader";
 import { d } from "../components/dashboard/primitives";
 import {
   marketplaceCategory,
@@ -202,7 +203,56 @@ export default function MarketplaceScreen() {
   }
 
   return (
-    <SafeAreaView edges={["top", "left", "right"]} style={s.safe}>
+    <View style={s.safe}>
+      <AppHeader
+        title={t.marketplace}
+        right={
+          <>
+            <BrowsingVillageSelector onDark />
+            {session && <NotificationBell language={language} onDark />}
+          </>
+        }
+      >
+        <View style={[s.search, focused && s.searchFocused]}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t.search}
+            onPress={submitSearch}
+            style={({ pressed }) => [s.voiceSearch, pressed && d.pressed]}
+          >
+            <Ionicons
+              name="search-outline"
+              size={20}
+              color={theme.colors.primary}
+            />
+          </Pressable>
+          <TextInput
+            multiline={false}
+            value={query}
+            maxLength={100}
+            onChangeText={(value) => {
+              voice.cancel();
+              voice.clearError();
+              setQuery(value);
+            }}
+            placeholder={t.marketplaceSearchPlaceholder}
+            placeholderTextColor={theme.colors.placeholder}
+            accessibilityLabel={t.marketplaceSearchPlaceholder}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            returnKeyType="search"
+            onSubmitEditing={submitSearch}
+            style={s.searchInput}
+          />
+          <VoiceMicButton
+            status={voice.status}
+            onStart={voice.start}
+            onFinish={voice.finish}
+            onCancel={voice.cancel}
+            t={t}
+          />
+        </View>
+      </AppHeader>
       {offline && (
         <OfflineBanner
           message={
@@ -228,46 +278,7 @@ export default function MarketplaceScreen() {
         onRefresh={refresh}
         ListHeaderComponent={
           <View style={s.header}>
-            <MarketplaceHeader language={language}>
-              <View style={[s.search, focused && s.searchFocused]}>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={t.search}
-                  onPress={submitSearch}
-                  style={({ pressed }) => [s.voiceSearch, pressed && d.pressed]}
-                >
-                  <Ionicons
-                    name="search-outline"
-                    size={20}
-                    color={theme.colors.primary}
-                  />
-                </Pressable>
-                <TextInput
-                  multiline={false}
-                  value={query}
-                  maxLength={100}
-                  onChangeText={(value) => {
-                    voice.cancel();
-                    voice.clearError();
-                    setQuery(value);
-                  }}
-                  placeholder={t.marketplaceSearchPlaceholder}
-                  placeholderTextColor={theme.colors.placeholder}
-                  accessibilityLabel={t.marketplaceSearchPlaceholder}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
-                  returnKeyType="search"
-                  onSubmitEditing={submitSearch}
-                  style={s.searchInput}
-                />
-                <VoiceMicButton
-                  status={voice.status}
-                  onStart={voice.start}
-                  onFinish={voice.finish}
-                  onCancel={voice.cancel}
-                  t={t}
-                />
-              </View>
+            <>
               {voiceBusy && (
                 <View style={s.voiceStatus}>
                   <ActivityIndicator
@@ -305,7 +316,7 @@ export default function MarketplaceScreen() {
                   {t.voiceSettings}
                 </Button>
               )}
-            </MarketplaceHeader>
+            </>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -402,7 +413,7 @@ export default function MarketplaceScreen() {
           />
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 const s = StyleSheet.create({

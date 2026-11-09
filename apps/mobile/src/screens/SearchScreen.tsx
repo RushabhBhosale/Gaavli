@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   FlatList,
   Keyboard,
@@ -8,14 +8,15 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useAppStore } from "../store";
 import { formatMessage, messages } from "../i18n";
 import { theme } from "../theme";
 import { toHomeListing } from "../data/listings";
-import { useSearchSuggestions } from "../listings";
+import { useSearchIndex, useSearchSuggestions } from "../listings";
+import { searchIndexMatches } from "../data/searchIndex";
 import { listingName, type HomeListing } from "../types/home";
 import { recentSearchStorage } from "../storage/sqlite";
 import {
@@ -72,11 +73,27 @@ export default function SearchScreen() {
       active = false;
     };
   }, []);
-  const suggestions = useSearchSuggestions(typed);
+  // The village's products are on the phone already, so matches appear as
+  // you type. The server is asked only if the village has more products than
+  // the phone holds, and then only to fill in the rest.
+  const index = useSearchIndex();
+  const complete =
+    !!index.data && index.data.listings.length >= index.data.total;
+  const suggestions = useSearchSuggestions(complete ? "" : typed);
   const [now] = useState(() => Date.now());
-  const products = typed
-    ? (suggestions.data?.listings ?? []).map((row) => toHomeListing(row, now))
-    : [];
+  const products = useMemo(() => {
+    const local = index.data
+      ? searchIndexMatches(index.data.listings, text, language)
+      : [];
+    const seen = new Set(local.map((row) => row.id));
+    const more = complete
+      ? []
+      : (suggestions.data?.listings ?? []).filter((row) => !seen.has(row.id));
+    return text.trim()
+      ? [...local, ...more].slice(0, 8).map((row) => toHomeListing(row, now))
+      : [];
+  }, [index.data, complete, suggestions.data, text, language, now]);
+  const loading = !complete && (index.isPending || suggestions.isFetching);
 
   function remember(value: string) {
     const next = addRecentSearch(recent, value);
@@ -224,88 +241,70 @@ export default function SearchScreen() {
   );
 
   return (
-    <SafeAreaView style={s.safe}>
-      <View style={s.bar}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t.searchBack}
-          hitSlop={8}
-          onPress={close}
-          style={({ pressed }) => [s.back, pressed && s.pressed]}
-        >
-          <Ionicons
-            accessible={false}
-            name="arrow-back"
-            size={24}
-            color={theme.colors.heading}
-          />
-        </Pressable>
-        <View style={s.field}>
-          <Ionicons
-            accessible={false}
-            name="search"
-            size={20}
-            color={theme.colors.muted}
-          />
-          <TextInput
-            ref={input}
-            autoFocus
-            value={text}
-            onChangeText={(value) => {
-              if (voice.status !== "idle") voice.cancel();
-              voice.clearError();
-              setText(value);
-            }}
-            placeholder={t.homeSearchHint}
-            placeholderTextColor={theme.colors.placeholder}
-            accessibilityLabel={t.marketplaceSearchPlaceholder}
-            returnKeyType="search"
-            maxLength={100}
-            onSubmitEditing={() => search(text)}
-            style={s.input}
-          />
-          {!!text && (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={t.searchClear}
-              hitSlop={8}
-              onPress={() => {
-                setText("");
-                input.current?.focus();
-              }}
-            >
-              <Ionicons
-                accessible={false}
-                name="close-circle"
-                size={20}
-                color={theme.colors.inactive}
+    <View style={s.safe}>
+      <AppHeader
+        title={t.marketplaceSearchPlaceholder}
+        onBack={close}
+        back="/home"
+      >
+        <HeaderSearch
+          inputRef={input}
+          autoFocus
+          label={t.marketplaceSearchPlaceholder}
+          placeholder={t.homeSearchHint}
+          value={text}
+          onChangeText={(value) => {
+            if (voice.status !== "idle") voice.cancel();
+            voice.clearError();
+            setText(value);
+          }}
+          onSubmit={() => search(text)}
+          right={
+            <>
+              {!!text && (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={t.searchClear}
+                  hitSlop={8}
+                  onPress={() => {
+                    setText("");
+                    input.current?.focus();
+                  }}
+                >
+                  <Ionicons
+                    accessible={false}
+                    name="close-circle"
+                    size={20}
+                    color={theme.colors.inactive}
+                  />
+                </Pressable>
+              )}
+              <VoiceMicButton
+                status={voice.status}
+                onStart={voice.start}
+                onFinish={voice.finish}
+                onCancel={voice.cancel}
+                t={t}
               />
-            </Pressable>
-          )}
-          <VoiceMicButton
-            status={voice.status}
-            onStart={voice.start}
-            onFinish={voice.finish}
-            onCancel={voice.cancel}
-            t={t}
-          />
-        </View>
-      </View>
+            </>
+          }
+        />
+      </AppHeader>
       {!!note && (
         <Text accessibilityLiveRegion="polite" style={s.note}>
           {note}
         </Text>
       )}
       <FlatList
-        data={typed ? products : []}
+        data={text.trim() ? products : []}
         keyExtractor={(item) => item.id}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={s.list}
         ListHeaderComponent={
-          typed ? (
+          text.trim() ? (
             <Pressable
               accessibilityRole="button"
-              onPress={() => search(typed)}
+              onPress={() => search(text.trim())}
               style={({ pressed }) => [s.searchFor, pressed && s.pressed]}
             >
               <Ionicons
@@ -315,7 +314,7 @@ export default function SearchScreen() {
                 color={theme.colors.primary}
               />
               <Text numberOfLines={1} style={s.searchForText}>
-                {formatMessage(t.searchFor, { text: typed })}
+                {formatMessage(t.searchFor, { text: text.trim() })}
               </Text>
               <Ionicons
                 accessible={false}
@@ -327,10 +326,10 @@ export default function SearchScreen() {
           ) : null
         }
         ListEmptyComponent={
-          typed ? (
-            suggestions.isFetching ? null : (
+          text.trim() ? (
+            loading && !products.length ? null : (
               <Text style={s.none}>
-                {formatMessage(t.searchNoMatches, { text: typed })}
+                {formatMessage(t.searchNoMatches, { text: text.trim() })}
               </Text>
             )
           ) : (
@@ -340,10 +339,10 @@ export default function SearchScreen() {
         renderItem={({ item }) => (
           <Suggestion
             listing={item}
-            query={typed}
+            query={text.trim()}
             language={language}
             onPress={() => {
-              remember(typed);
+              remember(text.trim());
               router.replace({
                 pathname: "/product/[id]",
                 params: { id: item.id },
@@ -352,7 +351,7 @@ export default function SearchScreen() {
           />
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -404,44 +403,6 @@ function Suggestion({
 
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
-  bar: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingTop: 4,
-    paddingBottom: 8,
-    backgroundColor: theme.colors.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
-  },
-  back: {
-    width: theme.layout.touchTarget,
-    height: theme.layout.touchTarget,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  field: {
-    flex: 1,
-    minHeight: 48,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    paddingLeft: 12,
-    paddingRight: 4,
-    borderRadius: 14,
-    borderWidth: 1.5,
-    borderColor: theme.colors.primary,
-    backgroundColor: theme.colors.surface,
-  },
-  input: {
-    flex: 1,
-    minWidth: 0,
-    minHeight: 46,
-    paddingVertical: 8,
-    fontSize: 16,
-    color: theme.colors.text,
-  },
   note: {
     ...theme.type.caption,
     color: theme.colors.saffronText,

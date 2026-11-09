@@ -70,6 +70,41 @@ export function useListingOffers(id: string, enabled: boolean) {
     retry,
   });
 }
+// Every product of the village (one entry per product), up to 200, saved on
+// the phone so the search page can answer as you type without the network.
+const SEARCH_INDEX_PAGE = 50;
+const SEARCH_INDEX_PAGES = 4;
+export function useSearchIndex(enabled = true) {
+  const session = useAppStore((state) => state.session);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
+  return useQuery({
+    queryKey: ["search-index", session?.user.id ?? "guest", sourceId],
+    enabled: enabled && !!sourceId && (!session || !!session.user.village),
+    staleTime: 5 * 60_000,
+    queryFn: async ({ signal }) => {
+      const get = (page: number) =>
+        (session ? authenticatedApi : api)(
+          `/listings?${browsingListingsQuery(sourceId!, { limit: String(SEARCH_INDEX_PAGE), page: String(page) })}`,
+          mobileListingPageSchema,
+          { signal },
+        );
+      const first = await get(1);
+      const pages = Math.min(
+        Math.ceil(first.total / SEARCH_INDEX_PAGE),
+        SEARCH_INDEX_PAGES,
+      );
+      const rest = await Promise.all(
+        Array.from({ length: Math.max(0, pages - 1) }, (_, i) => get(i + 2)),
+      );
+      return {
+        listings: [first, ...rest].flatMap((page) => page.listings),
+        total: first.total,
+      };
+    },
+    retry,
+  });
+}
 // Instant results while typing in the search page: a few products, one card
 // per product, not remembered after the app closes.
 export function useSearchSuggestions(text: string) {

@@ -3,17 +3,11 @@ import { useAppStore } from "../../store";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { coordinatorMessages } from "../../coordinator/i18n";
-import { hasCoordinatorRole } from "../../data/accountAccess";
-import { availableDashboardTab } from "../../data/dashboardTabs";
 import { GaavliTabBar } from "../../components/GaavliTabBar";
 
 export default function BuyerTabs() {
-  const { session, language, browsingVillage, dashboardTab } = useAppStore();
+  const { session, language, browsingVillage } = useAppStore();
   const t = messages(language);
-  const coordinator = hasCoordinatorRole(session?.user);
-  const coordinatorActivity =
-    coordinator &&
-    availableDashboardTab(session?.user, dashboardTab) === "coordinator";
   const c = coordinatorMessages(language);
   if (session && !session.user.village) return <Redirect href="/village" />;
   if (!session && !browsingVillage) return <Redirect href="/language" />;
@@ -33,10 +27,8 @@ export default function BuyerTabs() {
       <Tabs.Screen name="manage" options={{ title: c.manage }} />
       <Tabs.Screen name="voice" options={{ title: t.voiceSearch }} />
       <Tabs.Screen name="services" options={{ title: t.dashboardServices }} />
-      <Tabs.Screen
-        name="activity"
-        options={{ title: coordinatorActivity ? c.activity : t.myActivity }}
-      />
+      <Tabs.Screen name="transport" options={{ title: t.dashboardTransport }} />
+      <Tabs.Screen name="activity" options={{ title: t.myActivity }} />
       <Tabs.Screen name="profile" options={{ title: t.settings }} />
       <Tabs.Screen name="product/[id]" options={{ href: null }} />
     </Tabs>

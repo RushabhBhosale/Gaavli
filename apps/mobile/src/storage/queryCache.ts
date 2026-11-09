@@ -11,6 +11,7 @@ import {
 const PERSISTED_QUERIES = new Set([
   "home-listings",
   "marketplace-listings",
+  "search-index",
   "listing",
   "dashboard-directory",
   "directory",

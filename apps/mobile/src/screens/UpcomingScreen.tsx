@@ -2,12 +2,12 @@ import { Text } from "react-native";
 import { useRouter } from "expo-router";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
-import { BackButton, Button, Screen } from "../components/ui";
+import { Button, Screen } from "../components/ui";
+import { AppHeader } from "../components/AppHeader";
 import {
   IconTile,
   Panel,
   PreviewBanner,
-  SectionHeader,
   d,
   type IconName,
 } from "../components/dashboard/primitives";
@@ -65,14 +65,7 @@ export default function UpcomingScreen({
   const item = features[feature];
   return (
     <ProtectedPage allowGuest>
-      <Screen>
-        <BackButton
-          label={t.back}
-          onPress={() =>
-            router.canGoBack() ? router.back() : router.replace("/home")
-          }
-        />
-        <SectionHeader title={item.title} />
+      <Screen header={<AppHeader title={item.title} back="/home" />}>
         <PreviewBanner />
         <Panel>
           <IconTile name={item.icon} />

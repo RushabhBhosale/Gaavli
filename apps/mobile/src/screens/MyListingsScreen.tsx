@@ -11,7 +11,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { AppHeader } from "../components/AppHeader";
 import { Redirect, useRouter } from "expo-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -21,11 +21,7 @@ import { useAppStore } from "../store";
 import { useOwnListings } from "../listings";
 import { messages } from "../i18n";
 import { theme } from "../theme";
-import {
-  Button,
-  ErrorMessage,
-  OfflineBanner,
-} from "../components/ui";
+import { Button, ErrorMessage, OfflineBanner } from "../components/ui";
 import { ListingImage } from "../components/dashboard/ListingImage";
 import { listingUnit } from "../components/dashboard/listingText";
 import { listingDraftStorage } from "../storage/sqlite";
@@ -306,19 +302,11 @@ export default function MyListingsScreen() {
     </View>
   );
   return (
-    <SafeAreaView edges={["top", "left", "right"]} style={s.safe}>
-      {offline && <OfflineBanner message={t.offline} />}
-      <View style={s.header}>
-        <View style={s.headerCopy}>
-          <Text accessibilityRole="header" style={s.headerTitle}>
-            {t.myProducts}
-          </Text>
-          <Text numberOfLines={1} style={s.headerSubtitle}>
-            {[sellerName, sellerVillage].filter(Boolean).join(" · ")}
-          </Text>
-        </View>
-      </View>
-      <View style={s.searchRow}>
+    <View style={s.safe}>
+      <AppHeader
+        title={t.myProducts}
+        subtitle={[sellerName, sellerVillage].filter(Boolean).join(" · ")}
+      >
         <View style={s.searchBox}>
           <Ionicons
             name="search-outline"
@@ -351,7 +339,8 @@ export default function MyListingsScreen() {
             </Pressable>
           )}
         </View>
-      </View>
+      </AppHeader>
+      {offline && <OfflineBanner message={t.offline} />}
       <View style={s.tabsContainer}>
         <ScrollView
           horizontal
@@ -632,38 +621,11 @@ export default function MyListingsScreen() {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
-  header: {
-    width: "100%",
-    maxWidth: theme.layout.contentWidth,
-    alignSelf: "center",
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 10,
-  },
-  headerCopy: { minWidth: 0, gap: 2 },
-  headerTitle: {
-    fontSize: 24,
-    lineHeight: 34,
-    fontWeight: "700",
-    color: theme.colors.heading,
-    includeFontPadding: true,
-  },
-  headerSubtitle: {
-    fontSize: 14,
-    lineHeight: 21,
-    color: theme.colors.muted,
-  },
-  searchRow: {
-    flexDirection: "row",
-    gap: 8,
-    paddingHorizontal: 16,
-    paddingBottom: 4,
-  },
   searchBox: {
     flex: 1,
     minWidth: 0,
@@ -671,9 +633,7 @@ const s = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 12,
     gap: 6,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.radii.control,
+    borderRadius: 14,
     backgroundColor: theme.colors.surface,
   },
   searchInput: {

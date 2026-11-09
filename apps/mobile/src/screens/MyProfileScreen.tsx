@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { MobileProfile } from "@gaavli/types";
 import { indianMobileSchema, mobileProfileSchema } from "@gaavli/validation";
@@ -11,13 +10,13 @@ import { errorMessage } from "../errors";
 import { ApiError } from "../api/client";
 import { theme } from "../theme";
 import {
-  BackButton,
   Button,
   ErrorMessage,
   Input,
   LoadingState,
   Screen,
 } from "../components/ui";
+import { AppHeader, HeaderAction } from "../components/AppHeader";
 import { Panel } from "../components/dashboard/primitives";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { MobileChangeDialog } from "../components/MobileChangeDialog";
@@ -49,7 +48,6 @@ export default function MyProfileScreen() {
   );
 }
 function MyProfileContent() {
-  const router = useRouter();
   const client = useQueryClient();
   const { session, language, offline } = useAppStore();
   const t = messages(language);
@@ -251,29 +249,24 @@ function MyProfileContent() {
     opacity: 1,
   };
   return (
-    <Screen>
-      <View style={s.header}>
-        <BackButton
-          label={t.back}
-          disabled={locked}
-          onPress={() =>
-            router.canGoBack() ? router.back() : router.replace("/profile")
+    <Screen
+      header={
+        <AppHeader
+          title={t.myProfile}
+          subtitle={t.profileSubtitle}
+          back="/profile"
+          backDisabled={locked}
+          right={
+            <HeaderAction
+              label={t.saveProfile}
+              disabled={offline || locked || !draft || conflict}
+              loading={busy === "save"}
+              onPress={() => void save()}
+            />
           }
         />
-        <View style={s.heading}>
-          <Text style={s.title} accessibilityRole="header">
-            {t.myProfile}
-          </Text>
-          <Text style={s.caption}>{t.profileSubtitle}</Text>
-        </View>
-        <Button
-          disabled={offline || locked || !draft || conflict}
-          loading={busy === "save"}
-          onPress={() => void save()}
-        >
-          {t.saveProfile}
-        </Button>
-      </View>
+      }
+    >
       {query.isPending && !offline && <LoadingState label={t.loading} />}
       {offline && <Text style={s.caption}>{t.offlineAction}</Text>}
       {query.isError && (

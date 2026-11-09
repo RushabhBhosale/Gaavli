@@ -32,6 +32,8 @@ const en = {
   addBuyerHelp: "Pre-register a buyer and choose their village.",
   connectionsHelp: "Confirm or remove manual nearby-village connections.",
   directoryHelp: "View authorized village users and permitted corrections.",
+  activityHelp:
+    "See what changed in your village: who was added, edited or reported.",
   assignedVillage: "Assigned village",
   noAccess: "An active coordinator assignment is required.",
   assignmentPending: "Village assignment pending",
@@ -180,6 +182,8 @@ const mr: Record<keyof typeof en, string> = {
   addBuyerHelp: "खरेदीदाराची पूर्वनोंदणी करा आणि त्यांचे गाव निवडा.",
   connectionsHelp: "शेजारच्या गावांची जोडणी निश्चित करा किंवा काढा.",
   directoryHelp: "गावातील ग्राहक पहा आणि परवानगी असलेल्या दुरुस्त्या करा.",
+  activityHelp:
+    "तुमच्या गावात काय बदलले ते पहा: कोण जोडले, बदलले किंवा तक्रार केली.",
   assignedVillage: "नेमलेले गाव",
   noAccess: "सक्रिय ग्रामसमन्वयक नेमणूक आवश्यक आहे.",
   assignmentPending: "गावाची नेमणूक बाकी आहे",
@@ -328,6 +332,8 @@ const hi: Record<keyof typeof en, string> = {
   addBuyerHelp: "खरीदार का पूर्व-पंजीकरण करें और उनका गाँव चुनें।",
   connectionsHelp: "पास के गाँवों के मैनुअल कनेक्शन की पुष्टि करें या हटाएँ।",
   directoryHelp: "अधिकृत गाँव उपयोगकर्ता और अनुमत सुधार देखें।",
+  activityHelp:
+    "अपने गाँव में क्या बदला, देखें: किसे जोड़ा, बदला या शिकायत की गई।",
   assignedVillage: "सौंपा गया गाँव",
   noAccess: "सक्रिय समन्वयक नियुक्ति आवश्यक है।",
   assignmentPending: "गाँव नियुक्ति लंबित",

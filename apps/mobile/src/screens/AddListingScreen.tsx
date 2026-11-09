@@ -42,7 +42,6 @@ import { errorMessage } from "../errors";
 import { formatMessage, messages } from "../i18n";
 import { theme } from "../theme";
 import {
-  BackButton,
   Button,
   ErrorMessage,
   Input,
@@ -51,6 +50,7 @@ import {
 } from "../components/ui";
 import { d } from "../components/dashboard/primitives";
 import { ListingImage } from "../components/dashboard/ListingImage";
+import { AppHeader } from "../components/AppHeader";
 import {
   VoiceMicButton,
   voiceErrorText,
@@ -80,18 +80,20 @@ import {
 export default function AddListingScreen() {
   const session = useAppStore((state) => state.session);
   const language = useAppStore((state) => state.language);
-  const router = useRouter();
   const { id } = useLocalSearchParams<{ id?: string }>();
   const parsed = listingIdSchema.safeParse(id);
   if (!session) return <Redirect href="/register" />;
   if (!session.user.village) return <Redirect href="/village" />;
   if (id !== undefined && !parsed.success)
     return (
-      <Screen>
-        <BackButton
-          label={messages(language).back}
-          onPress={() => router.replace("/my-listings")}
-        />
+      <Screen
+        header={
+          <AppHeader
+            title={messages(language).editListing}
+            back="/my-listings"
+          />
+        }
+      >
         <ErrorMessage message={messages(language).editUnavailable} />
       </Screen>
     );
@@ -576,6 +578,19 @@ function ListingFormScreen({
   }
   return (
     <Screen
+      header={
+        <AppHeader
+          title={editId ? t.editListing : t.addListing}
+          subtitle={
+            villageName
+              ? formatMessage(t.listingSellingIn, { village: villageName })
+              : undefined
+          }
+          onBack={() => void leave()}
+          backDisabled={busy}
+          back="/my-listings"
+        />
+      }
       footer={
         ready ? (
           <Button
@@ -592,31 +607,6 @@ function ListingFormScreen({
         ) : undefined
       }
     >
-      <View style={s.header}>
-        <BackButton
-          label={t.back}
-          disabled={busy}
-          onPress={() => void leave()}
-        />
-        <View style={s.headerCopy}>
-          <Text accessibilityRole="header" style={s.title}>
-            {editId ? t.editListing : t.addListing}
-          </Text>
-          {!!villageName && (
-            <View style={s.village}>
-              <Ionicons
-                accessible={false}
-                name="location-outline"
-                size={14}
-                color={theme.colors.muted}
-              />
-              <Text numberOfLines={1} style={s.villageText}>
-                {formatMessage(t.listingSellingIn, { village: villageName })}
-              </Text>
-            </View>
-          )}
-        </View>
-      </View>
       {!ready ? (
         <>
           <Text style={d.description}>
@@ -1295,20 +1285,11 @@ function ListingDropdown<T extends string>({
   );
 }
 const s = StyleSheet.create({
-  header: { flexDirection: "row", alignItems: "center", gap: 8 },
   searchRow: { flexDirection: "row", alignItems: "flex-end", gap: 10 },
   searchField: { flex: 1, minWidth: 0 },
   voice: { alignItems: "center", gap: 2 },
   voiceButton: { width: 52, height: 52, borderRadius: 12 },
   voiceNote: { ...theme.type.micro, color: theme.colors.saffronText },
-  headerCopy: { flex: 1, minWidth: 0 },
-  title: { ...theme.type.title, color: theme.colors.heading },
-  village: { flexDirection: "row", alignItems: "center", gap: 4 },
-  villageText: {
-    ...theme.type.caption,
-    color: theme.colors.muted,
-    flexShrink: 1,
-  },
   // White cards group the form into three short steps.
   section: {
     backgroundColor: theme.colors.surface,

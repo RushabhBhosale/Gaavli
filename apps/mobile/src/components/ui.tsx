@@ -25,34 +25,44 @@ export function Screen({
   compact = false,
   footer,
   topContent,
+  header,
 }: {
   children: ReactNode;
   compact?: boolean;
   footer?: ReactNode;
   topContent?: ReactNode;
+  // An AppHeader. It sits above everything and draws behind the status bar,
+  // so the page content below only needs the bottom and side safe areas.
+  header?: ReactNode;
 }) {
   const offline = useAppStore((state) => state.offline);
   const language = useAppStore((state) => state.language);
   return (
-    <SafeAreaView style={styles.safe}>
-      {topContent}
-      {offline && <OfflineBanner message={messages(language).offline} />}
-      <KeyboardAvoidingView
+    <View style={styles.safe}>
+      {header}
+      <SafeAreaView
+        edges={header ? ["left", "right", "bottom"] : undefined}
         style={styles.flex}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ScrollView
-          contentContainerStyle={[
-            styles.content,
-            compact && { paddingTop: 8, gap: 12 },
-          ]}
-          keyboardShouldPersistTaps="handled"
+        {topContent}
+        {offline && <OfflineBanner message={messages(language).offline} />}
+        <KeyboardAvoidingView
+          style={styles.flex}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          {children}
-        </ScrollView>
-        {footer && <View style={styles.footer}>{footer}</View>}
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <ScrollView
+            contentContainerStyle={[
+              styles.content,
+              compact && { paddingTop: 8, gap: 12 },
+            ]}
+            keyboardShouldPersistTaps="handled"
+          >
+            {children}
+          </ScrollView>
+          {footer && <View style={styles.footer}>{footer}</View>}
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </View>
   );
 }
 

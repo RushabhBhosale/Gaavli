@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
@@ -16,6 +17,7 @@ import {
   voiceProductSearch,
 } from "../../data/voiceSearch";
 import { useVoiceSearch } from "../../hooks/useVoiceSearch";
+import { useSearchIndex } from "../../listings";
 import {
   VoiceMicButton,
   voiceErrorText,
@@ -39,6 +41,14 @@ export function HomeHero({
   const session = useAppStore((state) => state.session);
   const router = useRouter();
   const t = messages(language);
+  // Fetch the product list for instant search a moment after Home appears, so
+  // it never competes with the first screen for the network.
+  const [warm, setWarm] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setWarm(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+  useSearchIndex(warm);
   const name = session
     ? accountHeaderIdentity(session.user, language).name
     : t.guest;

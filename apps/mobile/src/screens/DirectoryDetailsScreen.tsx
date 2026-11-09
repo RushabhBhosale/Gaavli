@@ -1,18 +1,18 @@
 import { Text } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { useDirectoryEntry } from "../directory";
 import { directoryPreview } from "../data/directory";
-import { BackButton, Button, ErrorMessage, Screen } from "../components/ui";
+import { Button, ErrorMessage, Screen } from "../components/ui";
+import { AppHeader } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
-import { Panel, SectionHeader, d } from "../components/dashboard/primitives";
+import { Panel, d } from "../components/dashboard/primitives";
 import { listingRate } from "../components/dashboard/listingText";
 import { ApiError } from "../api/client";
 
 export default function DirectoryDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
   const { language, offline } = useAppStore();
   const t = messages(language);
   const query = useDirectoryEntry(id);
@@ -23,20 +23,18 @@ export default function DirectoryDetailsScreen() {
   const invalid = !/^[a-f0-9]{24}$/i.test(id ?? "");
   return (
     <ProtectedPage allowGuest>
-      <Screen>
-        <BackButton
-          label={t.back}
-          onPress={() =>
-            router.canGoBack() ? router.back() : router.replace("/home")
-          }
-        />
-        <SectionHeader
-          title={
-            entry?.module === "transport"
-              ? t.dashboardTransport
-              : t.dashboardServices
-          }
-        />
+      <Screen
+        header={
+          <AppHeader
+            title={
+              entry?.module === "transport"
+                ? t.dashboardTransport
+                : t.dashboardServices
+            }
+            back="/home"
+          />
+        }
+      >
         {offline && (
           <Text style={d.description}>
             {entry ? t.listingsOffline : t.listingsOfflineEmpty}

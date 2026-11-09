@@ -15,7 +15,7 @@ import { logout } from "../session";
 import { errorMessage } from "../errors";
 import { Button, ErrorMessage } from "../components/ui";
 import { DashboardScreen } from "../components/dashboard/primitives";
-import { PageSceneHeader } from "../components/dashboard/PageSceneHeader";
+import { AppHeader } from "../components/AppHeader";
 
 export default function ProfileScreen() {
   const router = useRouter();
@@ -66,13 +66,15 @@ export default function ProfileScreen() {
         : browsingVillage.name
       : "";
     return (
-      <DashboardScreen>
-        <PageSceneHeader
-          title={t.settings}
-          subtitle={t.guestBrowsing}
-          backLabel={t.back}
-          onBack={() => router.replace("/home")}
-        />
+      <DashboardScreen
+        header={
+          <AppHeader
+            title={t.settings}
+            subtitle={t.guestBrowsing}
+            back="/home"
+          />
+        }
+      >
         <View style={s.section}>
           <Text accessibilityRole="header" style={s.sectionLabel}>
             {t.accountSettings}
@@ -156,13 +158,15 @@ export default function ProfileScreen() {
   const unavailable = (message: string) =>
     Alert.alert(t.settingsUnavailable, message);
   return (
-    <DashboardScreen>
-      <PageSceneHeader
-        title={t.settings}
-        subtitle={t.settingsSubtitle}
-        backLabel={t.back}
-        onBack={() => router.replace("/home")}
-      />
+    <DashboardScreen
+      header={
+        <AppHeader
+          title={t.settings}
+          subtitle={t.settingsSubtitle}
+          back="/home"
+        />
+      }
+    >
       <View style={s.section}>
         <Text accessibilityRole="header" style={s.sectionLabel}>
           {t.accountSettings}
@@ -251,6 +255,15 @@ export default function ProfileScreen() {
             onPress={() => unavailable(t.favouritesPending)}
           />
         </View>
+      </View>
+      <View style={s.group}>
+        <SettingRow
+          icon="images-outline"
+          last
+          title={t.photoCredits}
+          disabled={!!busy}
+          onPress={() => router.push("/photo-credits")}
+        />
       </View>
       {failure && <ErrorMessage message={failure} />}
       <Button

@@ -1,23 +1,11 @@
-import {
-  Alert,
-  Linking,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { useRouter } from "expo-router";
+import { Alert, Linking, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useAppStore } from "../store";
 import { formatMessage, messages } from "../i18n";
 import { useDashboardDirectory } from "../directory";
 import { theme } from "../theme";
-import {
-  BackButton,
-  Button,
-  ErrorMessage,
-  Screen,
-  SkeletonList,
-} from "../components/ui";
+import { Button, ErrorMessage, Screen, SkeletonList } from "../components/ui";
+import { AppHeader } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { d } from "../components/dashboard/primitives";
 
@@ -32,7 +20,6 @@ const initials = (name: string) =>
 // One page for the person to call when the app is not enough: who they are,
 // a big Call button, and what to ask them.
 export default function VillageCoordinatorScreen() {
-  const router = useRouter();
   const { language, offline } = useAppStore();
   const t = messages(language);
   const query = useDashboardDirectory();
@@ -57,6 +44,7 @@ export default function VillageCoordinatorScreen() {
   return (
     <ProtectedPage allowGuest>
       <Screen
+        header={<AppHeader title={t.villageCoordinator} back="/home" />}
         footer={
           coordinator ? (
             <Button
@@ -80,17 +68,6 @@ export default function VillageCoordinatorScreen() {
           ) : undefined
         }
       >
-        <View style={s.header}>
-          <BackButton
-            label={t.back}
-            onPress={() =>
-              router.canGoBack() ? router.back() : router.replace("/home")
-            }
-          />
-          <Text accessibilityRole="header" style={s.title}>
-            {t.villageCoordinator}
-          </Text>
-        </View>
         {!query.data && !query.isError && (
           <SkeletonList rows={2} label={t.listingsLoading} />
         )}
@@ -164,8 +141,6 @@ export default function VillageCoordinatorScreen() {
   );
 }
 const s = StyleSheet.create({
-  header: { flexDirection: "row", alignItems: "center", gap: 8 },
-  title: { ...theme.type.title, color: theme.colors.heading, flex: 1 },
   profile: {
     alignItems: "center",
     gap: 6,

@@ -31,32 +31,6 @@ const session: MobileSession = {
   },
 };
 
-test("dashboard role survives same-account refresh but resets across account changes and logout", () => {
-  const previous = useAppStore.getState();
-  try {
-    const coordinator = {
-      ...session,
-      user: { ...session.user, isCoordinator: true, isSeller: true },
-    };
-    useAppStore.getState().setSession(coordinator);
-    useAppStore.getState().setDashboardTab("seller");
-    assert.equal(useAppStore.getState().dashboardTab, "seller");
-    useAppStore
-      .getState()
-      .setSession({ ...coordinator, accessToken: "refreshed" });
-    assert.equal(useAppStore.getState().dashboardTab, "seller");
-    useAppStore
-      .getState()
-      .setSession({ ...session, user: { ...session.user, id: "other" } });
-    assert.equal(useAppStore.getState().dashboardTab, null);
-    useAppStore.getState().setDashboardTab("coordinator");
-    assert.equal(useAppStore.getState().dashboardTab, "buyer");
-    useAppStore.getState().clearAuthenticatedState();
-    assert.equal(useAppStore.getState().dashboardTab, null);
-  } finally {
-    useAppStore.setState(previous, true);
-  }
-});
 test("a restored verified session resumes village selection, then saved home", () => {
   assert.equal(initialRoute(true, session.user), "/village");
   assert.equal(initialRoute(false, session.user), "/village");

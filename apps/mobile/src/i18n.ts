@@ -2,8 +2,6 @@ import type { MobileLanguage } from "@gaavli/types";
 import { hi } from "./i18n-hi";
 
 const en = {
-  dashboardCoordinator: "Coordinator",
-  dashboardSeller: "Seller",
   dashboardLiveAvailability: "Today's Live Availability",
   dashboardFreshCount: "{count} fresh listings",
   dashboardCategories: "Village services and marketplace",
@@ -25,7 +23,12 @@ const en = {
     "Could not load village services and coordinator. Please retry.",
   dashboardDirectoryEmpty: "No available listings in this village yet.",
   directoryBrowse: "Browse by category",
-  directoryAllCount: "See all ({count})",
+  directorySeeAll: "See {count} more",
+  directoryShowFewer: "Show fewer",
+  photoCredits: "Photo credits",
+  photoCreditsIntro:
+    "The photos on the Services and Transport tiles are from Wikimedia Commons, used under the licences shown. Tap to see the original or the licence.",
+  photoCreditsOriginal: "Original photo",
   directoryAllCategories: "All categories",
   directoryNoneYet: "None yet",
   directoryDisclaimer:
@@ -250,6 +253,7 @@ const en = {
   voiceSearch: "Voice search",
   voiceHoldHint: "Tap to speak, or press and hold while you speak.",
   voiceTab: "Speak",
+  tabMore: "More",
   voiceListeningShort: "Listening…",
   voiceProcessingShort: "Wait…",
   voiceListening: "Listening… Say a product name.",
@@ -312,7 +316,8 @@ const en = {
   myListings: "Products",
   viewInsights: "View Insights",
   villageCoordinator: "Village Coordinator",
-  coordinatorIntro: "Your village coordinator is a trusted local person who helps people use Gaavli.",
+  coordinatorIntro:
+    "Your village coordinator is a trusted local person who helps people use Gaavli.",
   coordinatorHelpTitle: "Ask your coordinator about",
   coordinatorHelp1: "Joining the app and adding products",
   coordinatorHelp2: "Local services and transport",
@@ -572,8 +577,6 @@ const en = {
 };
 export type Messages = { [Key in keyof typeof en]: string };
 const mr: Messages = {
-  dashboardCoordinator: "समन्वयक",
-  dashboardSeller: "शेतकरी",
   dashboardLiveAvailability: "आजची थेट उपलब्धता",
   dashboardFreshCount: "{count} ताज्या नोंदी",
   dashboardCategories: "गाव सुविधा व बाजार",
@@ -594,7 +597,12 @@ const mr: Messages = {
     "गावातील सेवा आणि समन्वयकाची माहिती मिळाली नाही. पुन्हा प्रयत्न करा.",
   dashboardDirectoryEmpty: "या गावात सध्या उपलब्ध नोंदी नाहीत.",
   directoryBrowse: "श्रेणीनुसार पहा",
-  directoryAllCount: "सर्व पहा ({count})",
+  directorySeeAll: "आणखी {count} पहा",
+  directoryShowFewer: "कमी दाखवा",
+  photoCredits: "छायाचित्र श्रेय",
+  photoCreditsIntro:
+    "ग्रामसेवा आणि वाहतूक यातील छायाचित्रे विकिमीडिया कॉमन्सवरून, दर्शवलेल्या परवान्यांनुसार वापरली आहेत. मूळ फोटो किंवा परवाना पाहण्यासाठी टॅप करा.",
+  photoCreditsOriginal: "मूळ फोटो",
   directoryAllCategories: "सर्व श्रेणी",
   directoryNoneYet: "अजून नाही",
   directoryDisclaimer:
@@ -720,7 +728,8 @@ const mr: Messages = {
   listingStepStock: "प्रमाण आणि दर",
   listingFreshness: "किती दिवस टिकते?",
   listingTagsTitle: "याची खासियत काय?",
-  listingTagsHint: "या उत्पादनाला खरोखर लागू असलेले जास्तीत जास्त {count} निवडा",
+  listingTagsHint:
+    "या उत्पादनाला खरोखर लागू असलेले जास्तीत जास्त {count} निवडा",
   listingPricePer: "प्रति {unit}",
   listingRetryPublish: "त्याच नोंदीसाठी पुन्हा प्रयत्न करा",
   listingDraftHelp:
@@ -809,6 +818,7 @@ const mr: Messages = {
   voiceSearch: "आवाजाने शोधा",
   voiceHoldHint: "टॅप करा, किंवा बोलताना दाबून ठेवा.",
   voiceTab: "बोला",
+  tabMore: "अधिक",
   voiceListeningShort: "ऐकत आहे…",
   voiceProcessingShort: "थांबा…",
   voiceListening: "ऐकत आहे… उत्पादनाचे नाव सांगा.",
@@ -883,7 +893,8 @@ const mr: Messages = {
   ownListingsFailed: "तुमच्या नोंदी लोड करता आल्या नाहीत. पुन्हा प्रयत्न करा.",
   viewInsights: "आढावा पाहा",
   villageCoordinator: "गाव समन्वयक",
-  coordinatorIntro: "तुमचे गाव समन्वयक हे गावलीचा वापर करण्यात मदत करणारे विश्वासू स्थानिक व्यक्ती आहेत.",
+  coordinatorIntro:
+    "तुमचे गाव समन्वयक हे गावलीचा वापर करण्यात मदत करणारे विश्वासू स्थानिक व्यक्ती आहेत.",
   coordinatorHelpTitle: "समन्वयकांना याबद्दल विचारा",
   coordinatorHelp1: "अ‍ॅपमध्ये सामील होणे आणि उत्पादने जोडणे",
   coordinatorHelp2: "स्थानिक सेवा आणि वाहतूक",

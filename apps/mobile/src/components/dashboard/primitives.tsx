@@ -186,18 +186,32 @@ export function PreviewBanner() {
     </View>
   );
 }
-export function DashboardScreen({ children }: { children: ReactNode }) {
+export function DashboardScreen({
+  children,
+  header,
+}: {
+  children: ReactNode;
+  // An AppHeader; it draws behind the status bar, so the page below it only
+  // needs the side safe areas.
+  header?: ReactNode;
+}) {
   const { language, offline } = useAppStore();
   return (
-    <SafeAreaView edges={["top", "left", "right"]} style={d.safe}>
-      {offline && <OfflineBanner message={messages(language).offline} />}
-      <ScrollView
-        contentContainerStyle={d.content}
-        showsVerticalScrollIndicator={false}
+    <View style={d.safe}>
+      {header}
+      <SafeAreaView
+        edges={header ? ["left", "right"] : ["top", "left", "right"]}
+        style={{ flex: 1 }}
       >
-        {children}
-      </ScrollView>
-    </SafeAreaView>
+        {offline && <OfflineBanner message={messages(language).offline} />}
+        <ScrollView
+          contentContainerStyle={d.content}
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 export const d = StyleSheet.create({

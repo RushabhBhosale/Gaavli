@@ -18,13 +18,8 @@ import {
   pendingCoordinatorSchema,
   sendCoordinatorOperation,
 } from "../../data/coordinator";
-import {
-  Screen,
-  BackButton,
-  Input,
-  Button,
-  ErrorMessage,
-} from "../../components/ui";
+import { Screen, Input, Button, ErrorMessage } from "../../components/ui";
+import { AppHeader } from "../../components/AppHeader";
 import { d } from "../../components/dashboard/primitives";
 const storage = {
   read: (key: string) => SecureStore.getItemAsync(key),
@@ -141,17 +136,15 @@ function ReportForm({ id, actorId }: { id: string; actorId: string }) {
     }
   }
   return (
-    <Screen>
-      <BackButton
-        label={common.back}
-        disabled={busy}
-        onPress={() =>
-          router.canGoBack() ? router.back() : router.replace("/home")
-        }
-      />
-      <Text style={d.sectionTitle}>
-        {done ? t.reportSubmitted : t.reportProduct}
-      </Text>
+    <Screen
+      header={
+        <AppHeader
+          title={done ? t.reportSubmitted : t.reportProduct}
+          back="/home"
+          backDisabled={busy}
+        />
+      }
+    >
       {query.data && <Text style={d.cardTitle}>{query.data.productName}</Text>}
       {done ? (
         <Button onPress={() => router.back()}>{common.back}</Button>

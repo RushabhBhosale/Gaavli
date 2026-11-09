@@ -40,20 +40,20 @@ import {
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import {
-  BackButton,
   Button,
   Input,
   ErrorMessage,
   DropdownField,
+  Chip,
   Screen,
   styles as ui,
 } from "../components/ui";
 import { NavigationCard, Panel, d } from "../components/dashboard/primitives";
+import { AppHeader } from "../components/AppHeader";
 import { ListingImage } from "../components/dashboard/ListingImage";
 import { theme } from "../theme";
 import { addVillageConnections } from "../data/coordinator";
 import { coordinatorMessages } from "./i18n";
-import { DashboardTabs } from "../components/dashboard/DashboardTabs";
 import {
   CoordinatorPage,
   useCoordinator,
@@ -109,73 +109,22 @@ function Refresh({
 }
 export function CoordinatorManageScreen() {
   const { t } = useCopy();
-  const router = useRouter();
   return (
-    <CoordinatorPage
-      title={t.manage}
-      compact
-      afterHeader={<DashboardTabs selected="coordinator" />}
-    >
-      <ManageSummary />
-      <View style={{ marginTop: 8, gap: 12 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            columnGap: 12,
-            rowGap: 6,
-            paddingVertical: 4,
-          }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-            <Ionicons
-              accessible={false}
-              name="flash-outline"
-              size={16}
-              color={theme.colors.primaryDark}
-            />
-            <Text accessibilityRole="header" style={d.cardTitle}>
-              {t.quickActions}
-            </Text>
-          </View>
-          <Text style={d.description}>{t.coordinatorWork}</Text>
-        </View>
-        <View
-          style={{
-            gap: 12,
-            paddingBottom: 8,
-          }}
-        >
-          <NavigationCard
-            icon="person-add-outline"
-            title={t.addBuyer}
-            subtitle={t.addBuyerHelp}
-            onPress={() => router.push("/coordinator/add-buyer")}
-          />
-          <NavigationCard
-            icon="map-outline"
-            title={t.connections}
-            subtitle={t.connectionsHelp}
-            onPress={() => router.push("/coordinator/connections")}
-          />
-          <NavigationCard
-            icon="people-outline"
-            title={t.directory}
-            subtitle={t.directoryHelp}
-            onPress={() => router.push("/coordinator/users")}
-          />
-        </View>
-      </View>
+    <CoordinatorPage title={t.manage} compact customScreen>
+      <ManageHome />
     </CoordinatorPage>
   );
 }
-function ManageSummary() {
-  const { language, t } = useCopy();
-  const villageCount = useAppStore(
-    (state) => state.session?.user.coordinatorVillages?.length ?? 0,
-  );
+// The coordinator's start page: the same steel banner as Home, with the
+// village's numbers inside it, then the three jobs a coordinator does.
+function ManageHome() {
+  const { language, t, common } = useCopy();
+  const router = useRouter();
+  const scope = useCoordinator();
+  const session = useAppStore((state) => state.session);
+  const offline = useAppStore((state) => state.offline);
+  const villages = session?.user.coordinatorVillages ?? [];
+  const [picking, setPicking] = useState(false);
   const sellers = useCoordinatorQuery(
     "/coordinator/users",
     coordinatorUsersSchema,
@@ -187,51 +136,267 @@ function ManageSummary() {
     { filter: "buyers", limit: "1" },
   );
   const number = new Intl.NumberFormat(numberLocale(language));
-  const cards = [
+  const stats = [
     {
+      icon: "leaf-outline",
       label: t.sellers,
       value: !sellers.isError ? sellers.data?.total : undefined,
-      color: theme.colors.saffronTint,
     },
     {
+      icon: "basket-outline",
       label: t.buyers,
       value: !buyers.isError ? buyers.data?.total : undefined,
-      color: theme.colors.steelTint,
+    },
+    { icon: "location-outline", label: t.villages, value: villages.length },
+  ] as const;
+  const villageName = (v: { name: string; nameMr: string }) =>
+    language !== "en" ? v.nameMr : v.name;
+  const actions = [
+    {
+      icon: "person-add-outline",
+      title: t.addBuyer,
+      subtitle: t.addBuyerHelp,
+      path: "/coordinator/add-buyer",
     },
     {
-      label: t.villages,
-      value: villageCount,
-      color: theme.colors.accentBackground,
+      icon: "map-outline",
+      title: t.connections,
+      subtitle: t.connectionsHelp,
+      path: "/coordinator/connections",
     },
-  ];
+    {
+      icon: "people-outline",
+      title: t.directory,
+      subtitle: t.directoryHelp,
+      path: "/coordinator/users",
+    },
+    {
+      icon: "time-outline",
+      title: t.activity,
+      subtitle: t.activityHelp,
+      path: "/coordinator/activity",
+    },
+  ] as const;
   return (
-    <View style={{ gap: 8 }}>
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
-        {cards.map((card) => (
-          <View
-            key={card.label}
-            style={{
-              flexGrow: 1,
-              flexBasis: "28%",
-              minWidth: 80,
-              gap: 4,
-              padding: 14,
-              borderRadius: 18,
-              backgroundColor: card.color,
-            }}
+    <View style={m.root}>
+      <AppHeader
+        eyebrow={common.headerGreeting}
+        title={session?.user.name ?? ""}
+        subtitle={t.coordinatorSubtitle}
+        right={
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={`${t.assignedVillage}: ${villageName(scope.village)}`}
+            accessibilityState={{ expanded: picking }}
+            disabled={offline || villages.length < 2}
+            onPress={() => setPicking(!picking)}
+            style={m.village}
           >
-            <Text style={[ui.title, { color: theme.colors.heading }]}>
-              {card.value === undefined ? "—" : number.format(card.value)}
+            <Ionicons
+              accessible={false}
+              name="location"
+              size={16}
+              color={theme.colors.heroText}
+            />
+            <Text numberOfLines={1} style={m.villageText}>
+              {villageName(scope.village)}
             </Text>
-            <Text style={d.description}>{card.label}</Text>
+            {villages.length > 1 && (
+              <Ionicons
+                accessible={false}
+                name={picking ? "chevron-up" : "chevron-down"}
+                size={14}
+                color={theme.colors.heroText}
+              />
+            )}
+          </Pressable>
+        }
+      >
+        <View style={m.stats}>
+          {stats.map((stat) => (
+            <View key={stat.label} style={m.stat}>
+              <Ionicons
+                accessible={false}
+                name={stat.icon}
+                size={18}
+                color={theme.colors.heroMuted}
+              />
+              <Text style={m.statValue}>
+                {stat.value === undefined ? "—" : number.format(stat.value)}
+              </Text>
+              <Text numberOfLines={1} style={m.statLabel}>
+                {stat.label}
+              </Text>
+            </View>
+          ))}
+        </View>
+      </AppHeader>
+      <ScrollView
+        contentContainerStyle={m.content}
+        showsVerticalScrollIndicator={false}
+      >
+        {picking && villages.length > 1 && (
+          <View style={m.picker}>
+            {villages.map((item) => (
+              <Chip
+                key={item.id}
+                label={villageName(item)}
+                selected={item.id === scope.village.id}
+                onPress={() => {
+                  scope.selectVillage(item.id);
+                  setPicking(false);
+                }}
+              />
+            ))}
           </View>
+        )}
+        <QueryStatus query={sellers} />
+        <QueryStatus query={buyers} />
+        <View style={m.heading}>
+          <Ionicons
+            accessible={false}
+            name="flash"
+            size={18}
+            color={theme.colors.primary}
+          />
+          <Text accessibilityRole="header" style={m.headingText}>
+            {t.quickActions}
+          </Text>
+        </View>
+        {actions.map((action) => (
+          <Pressable
+            key={action.path}
+            accessibilityRole="button"
+            accessibilityLabel={action.title}
+            onPress={() => router.push(action.path)}
+            style={({ pressed }) => [m.action, pressed && d.pressed]}
+          >
+            <View style={m.actionIcon}>
+              <Ionicons
+                accessible={false}
+                name={action.icon}
+                size={26}
+                color={theme.colors.primary}
+              />
+            </View>
+            <View style={m.actionCopy}>
+              <Text style={m.actionTitle}>{action.title}</Text>
+              <Text style={m.actionHelp}>{action.subtitle}</Text>
+            </View>
+            <View style={m.chevron}>
+              <Ionicons
+                accessible={false}
+                name="chevron-forward"
+                size={18}
+                color={theme.colors.steel}
+              />
+            </View>
+          </Pressable>
         ))}
-      </View>
-      <QueryStatus query={sellers} />
-      <QueryStatus query={buyers} />
+      </ScrollView>
     </View>
   );
 }
+const m = StyleSheet.create({
+  root: { flex: 1, backgroundColor: theme.colors.background },
+  village: {
+    maxWidth: 150,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 10,
+    minHeight: 36,
+    borderRadius: 18,
+    backgroundColor: theme.colors.heroBorder,
+  },
+  villageText: {
+    ...theme.type.label,
+    color: theme.colors.heroText,
+    flexShrink: 1,
+  },
+  stats: { flexDirection: "row", gap: 10 },
+  stat: {
+    flex: 1,
+    gap: 2,
+    padding: 12,
+    borderRadius: 16,
+    backgroundColor: "rgba(255,255,255,0.12)",
+  },
+  statValue: {
+    fontSize: 26,
+    lineHeight: 36,
+    fontWeight: "700",
+    color: theme.colors.heroText,
+  },
+  statLabel: { ...theme.type.caption, color: theme.colors.heroMuted },
+  content: {
+    padding: theme.layout.screenPadding,
+    paddingBottom: 32,
+    gap: 12,
+    width: "100%",
+    maxWidth: theme.layout.contentWidth,
+    alignSelf: "center",
+  },
+  picker: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  heading: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 4 },
+  headingText: { ...theme.type.heading, color: theme.colors.heading },
+  action: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    padding: 14,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+  },
+  actionIcon: {
+    width: 56,
+    height: 56,
+    borderRadius: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.colors.saffronTint,
+  },
+  actionCopy: { flex: 1, minWidth: 0, gap: 2 },
+  actionTitle: { ...theme.type.subheading, color: theme.colors.heading },
+  actionHelp: { ...theme.type.caption, color: theme.colors.muted },
+  chevron: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.colors.steelTint,
+  },
+});
+const bf = StyleSheet.create({
+  intro: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    padding: 14,
+    borderRadius: theme.radii.card,
+    backgroundColor: theme.colors.steelTint,
+  },
+  introIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.colors.surface,
+  },
+  introText: { ...theme.type.body, color: theme.colors.steel, flex: 1 },
+  card: {
+    gap: 16,
+    padding: 16,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+  },
+});
 type BuyerDraft = { firstName: string; lastName: string; mobile: string };
 function BuyerForm({
   draft,
@@ -325,69 +490,81 @@ function BuyerForm({
   }
   return (
     <>
-      <Input
-        label={`${common.firstName} *`}
-        value={firstName}
-        maxLength={60}
-        error={hasError("firstName") ? common.nameError : undefined}
-        editable={!locked}
-        onChangeText={setFirst}
-        autoCapitalize="words"
-      />
-      <Input
-        label={`${common.lastName} *`}
-        value={lastName}
-        maxLength={60}
-        error={hasError("lastName") ? common.nameError : undefined}
-        editable={!locked}
-        onChangeText={setLast}
-        autoCapitalize="words"
-      />
-      <Input
-        label={`${common.mobile} *`}
-        value={mobile}
-        maxLength={24}
-        error={hasError("mobile") ? common.mobileError : undefined}
-        editable={!locked && !editUser}
-        onChangeText={setMobile}
-        keyboardType="phone-pad"
-      />
-      <View style={{ gap: 8 }}>
-        <DropdownField
-          label={`${t.village} *`}
-          placeholder={t.village}
-          value={
-            language !== "en" ? selectedVillage.nameMr : selectedVillage.name
-          }
-          expanded={villageExpanded}
-          disabled={locked || !!editUser}
-          onPress={() => setVillageExpanded(!villageExpanded)}
+      <View style={bf.intro}>
+        <View style={bf.introIcon}>
+          <Ionicons
+            accessible={false}
+            name={editUser ? "create-outline" : "person-add-outline"}
+            size={24}
+            color={theme.colors.primary}
+          />
+        </View>
+        <Text style={bf.introText}>
+          {editUser ? t.editHelp : t.buyerSuccessHelp}
+        </Text>
+      </View>
+      <View style={bf.card}>
+        <Input
+          label={`${common.firstName} *`}
+          value={firstName}
+          maxLength={60}
+          error={hasError("firstName") ? common.nameError : undefined}
+          editable={!locked}
+          onChangeText={setFirst}
+          autoCapitalize="words"
         />
-        {villageExpanded &&
-          villages.map((village) => (
-            <Button
-              key={village.id}
-              secondary={village.id !== selectedVillage.id}
-              disabled={locked}
-              onPress={() => {
-                setVillageExpanded(false);
-                setSelectedVillage(village);
-              }}
-            >
-              {`${language !== "en" ? village.nameMr : village.name} · ${village.taluka}, ${village.district}`}
-            </Button>
-          ))}
-        {villageExpanded && (
-          <>
-            <QueryStatus query={villageQuery} empty={!villages.length} />
-            <More query={villageQuery} />
-          </>
-        )}
+        <Input
+          label={`${common.lastName} *`}
+          value={lastName}
+          maxLength={60}
+          error={hasError("lastName") ? common.nameError : undefined}
+          editable={!locked}
+          onChangeText={setLast}
+          autoCapitalize="words"
+        />
+        <Input
+          label={`${common.mobile} *`}
+          value={mobile}
+          maxLength={24}
+          error={hasError("mobile") ? common.mobileError : undefined}
+          editable={!locked && !editUser}
+          onChangeText={setMobile}
+          keyboardType="phone-pad"
+        />
+        <View style={{ gap: 8 }}>
+          <DropdownField
+            label={`${t.village} *`}
+            placeholder={t.village}
+            value={
+              language !== "en" ? selectedVillage.nameMr : selectedVillage.name
+            }
+            expanded={villageExpanded}
+            disabled={locked || !!editUser}
+            onPress={() => setVillageExpanded(!villageExpanded)}
+          />
+          {villageExpanded &&
+            villages.map((village) => (
+              <Button
+                key={village.id}
+                secondary={village.id !== selectedVillage.id}
+                disabled={locked}
+                onPress={() => {
+                  setVillageExpanded(false);
+                  setSelectedVillage(village);
+                }}
+              >
+                {`${language !== "en" ? village.nameMr : village.name} · ${village.taluka}, ${village.district}`}
+              </Button>
+            ))}
+          {villageExpanded && (
+            <>
+              <QueryStatus query={villageQuery} empty={!villages.length} />
+              <More query={villageQuery} />
+            </>
+          )}
+        </View>
       </View>
       {invalid && <ErrorMessage message={t.invalid} />}
-      <Text style={d.description}>
-        {editUser ? t.editHelp : t.buyerSuccessHelp}
-      </Text>
       <Button
         disabled={locked}
         loading={scope.busy}
@@ -489,20 +666,12 @@ function Directory() {
           ["buyers", t.buyers],
           ["preregistered", t.preregistered],
         ].map(([value, label]) => (
-          <Pressable
+          <Chip
             key={value}
-            accessibilityRole="button"
-            accessibilityState={{ selected: filter === value }}
-            hitSlop={{ top: 6, bottom: 6 }}
+            label={label}
+            selected={filter === value}
             onPress={() => setFilter(value)}
-            style={({ pressed }) => [
-              directoryStyles.filter,
-              filter === value && directoryStyles.selectedFilter,
-              pressed && d.pressed,
-            ]}
-          >
-            <Text style={directoryStyles.filterText}>{label}</Text>
-          </Pressable>
+          />
         ))}
       </ScrollView>
       <QueryStatus query={query} empty={!rows.length} />
@@ -523,32 +692,55 @@ function Directory() {
                   directoryStyles.avatar,
                   {
                     backgroundColor: user.roles.includes("seller")
-                      ? theme.colors.tint
-                      : theme.colors.accentBackground,
+                      ? theme.colors.steelTint
+                      : theme.colors.saffronTint,
                   },
                 ]}
                 accessible={false}
               >
-                <Text style={directoryStyles.initial}>
+                <Text
+                  style={[
+                    directoryStyles.initial,
+                    {
+                      color: user.roles.includes("seller")
+                        ? theme.colors.steel
+                        : theme.colors.saffronText,
+                    },
+                  ]}
+                >
                   {Array.from(user.name.trim())[0] || "?"}
                 </Text>
               </View>
               <View style={directoryStyles.copy}>
                 <Text style={d.cardTitle}>{user.name}</Text>
-                <Text style={d.description}>
-                  {
-                    roleLabels[
-                      [
-                        "seller",
-                        "coordinator",
-                        "buyer",
-                        "service_provider",
-                      ].find((role) => user.roles.includes(role)) || "buyer"
-                    ]
-                  }{" "}
-                  -{" "}
-                  {language === "mr" ? user.village.nameMr : user.village.name}
-                </Text>
+                <View style={directoryStyles.meta}>
+                  <View
+                    style={[
+                      directoryStyles.badge,
+                      user.roles.includes("seller")
+                        ? directoryStyles.badgeSeller
+                        : directoryStyles.badgeBuyer,
+                    ]}
+                  >
+                    <Text style={directoryStyles.badgeText}>
+                      {
+                        roleLabels[
+                          [
+                            "seller",
+                            "coordinator",
+                            "buyer",
+                            "service_provider",
+                          ].find((role) => user.roles.includes(role)) || "buyer"
+                        ]
+                      }
+                    </Text>
+                  </View>
+                  <Text numberOfLines={1} style={d.description}>
+                    {language === "mr"
+                      ? user.village.nameMr
+                      : user.village.name}
+                  </Text>
+                </View>
               </View>
             </Pressable>
             {user.canEdit && user.mobileVerified !== true && (
@@ -616,9 +808,18 @@ const directoryStyles = StyleSheet.create({
     justifyContent: "center",
   },
   selectedFilter: {
-    backgroundColor: theme.colors.accent,
-    borderColor: theme.colors.accent,
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
   },
+  meta: { flexDirection: "row", alignItems: "center", gap: 8 },
+  badge: {
+    paddingHorizontal: 8,
+    paddingVertical: 1,
+    borderRadius: theme.radii.pill,
+  },
+  badgeSeller: { backgroundColor: theme.colors.steelTint },
+  badgeBuyer: { backgroundColor: theme.colors.saffronTint },
+  badgeText: { ...theme.type.micro, color: theme.colors.heading },
   filterText: { fontSize: 13, fontWeight: "600", color: theme.colors.text },
   row: {
     flexDirection: "row",
@@ -627,7 +828,7 @@ const directoryStyles = StyleSheet.create({
     padding: 14,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 22,
+    borderRadius: theme.radii.card,
     backgroundColor: theme.colors.surface,
   },
   user: {
@@ -825,12 +1026,17 @@ function Connections() {
           <View
             style={{
               borderRadius: 9,
-              backgroundColor: theme.colors.warningBackground,
-              paddingHorizontal: 12,
-              paddingVertical: 7,
+              backgroundColor: theme.colors.saffronTint,
+              paddingHorizontal: 14,
+              paddingVertical: 8,
             }}
           >
-            <Text style={[d.description, { color: theme.colors.warning }]}>
+            <Text
+              style={[
+                d.description,
+                { color: theme.colors.saffronText, fontWeight: "700" },
+              ]}
+            >
               + {t.addVillage}
             </Text>
           </View>
@@ -914,14 +1120,14 @@ function Connections() {
                 borderRadius: 10,
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: theme.colors.accentBackground,
+                backgroundColor: theme.colors.saffronTint,
               }}
             >
               <Ionicons
                 accessible={false}
                 name="location"
                 size={20}
-                color={theme.colors.accent}
+                color={theme.colors.primary}
               />
             </View>
             <View style={{ flex: 1, gap: 2 }}>
@@ -1202,6 +1408,15 @@ function AddConnection() {
   return (
     <Screen
       compact
+      header={
+        <AppHeader
+          title={t.addVillage}
+          subtitle={selectionLabel}
+          onBack={back}
+          backDisabled={saving || scope.busy}
+          back="/manage"
+        />
+      }
       footer={
         <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
           <Text style={[d.cardTitle, { flex: 1 }]}>{selectionLabel}</Text>
@@ -1223,23 +1438,6 @@ function AddConnection() {
         </View>
       }
     >
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-        <BackButton
-          label={common.back}
-          onPress={back}
-          disabled={saving || scope.busy}
-        />
-        <View style={{ flex: 1, alignItems: "center", gap: 2 }}>
-          <Text
-            accessibilityRole="header"
-            style={[d.sectionTitle, { flex: 0 }]}
-          >
-            {t.addVillage}
-          </Text>
-          <Text style={d.description}>{selectionLabel}</Text>
-        </View>
-        <View style={{ width: 48 }} />
-      </View>
       {scope.notices}
       <View
         style={{
@@ -1466,14 +1664,6 @@ function activityDestination(row: z.infer<typeof coordinatorActivitySchema>) {
       : row.type === "reports"
         ? `/coordinator/report/${row.targetId}`
         : `/coordinator/user/${row.targetId}`;
-}
-export function CoordinatorActivityScreen() {
-  const { t } = useCopy();
-  return (
-    <CoordinatorPage title={t.activity} form>
-      <Activity />
-    </CoordinatorPage>
-  );
 }
 function Activity() {
   const { language, t } = useCopy();
@@ -1728,6 +1918,9 @@ export default function CoordinatorScreen() {
   } else if (parts[0] === "activity" && parts[1]) {
     title = t.activity;
     content = <ActivityDetail id={parts[1]} />;
+  } else if (parts[0] === "activity") {
+    title = t.activity;
+    content = <Activity />;
   } else return <Redirect href="/manage" />;
   return (
     <CoordinatorPage
