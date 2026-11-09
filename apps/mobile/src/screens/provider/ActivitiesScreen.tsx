@@ -112,10 +112,11 @@ export default function ActivitiesScreen() {
           </Card>
         );
       })}
-      <View>
-        <Button onPress={() => router.push("/provider/type")}>
+      <View style={{ gap: 12 }}>
+        <Button secondary onPress={() => router.push("/provider/type")}>
           {t.actAdd}
         </Button>
+        <Button onPress={() => router.replace("/home")}>{t.home}</Button>
       </View>
     </Screen>
   );

@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   ActivityIndicator,
   Animated,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -498,32 +499,41 @@ export function SkeletonList({
     </View>
   );
 }
-// The Gaavli mark: a bold "ग" tile with the wordmark in both scripts.
+// The Gaavli logo (the circular mark), the wordmark and the tagline in English
+// and Marathi. The tagline is the same in every interface language.
+export const BRAND_TAGLINE = "Connecting Dots, Connecting People";
+export const BRAND_TAGLINE_MR = "आपलं गाव, आपली माणसं, आपली जोडणी!";
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <View
       accessible
       accessibilityRole="image"
-      accessibilityLabel="Gaavli"
-      style={styles.brand}
+      accessibilityLabel={`Gaavli. ${BRAND_TAGLINE}`}
+      style={[styles.brand, compact && { gap: 6 }]}
     >
-      <View style={[styles.markTile, compact && styles.markTileCompact]}>
-        <Text
-          allowFontScaling={false}
-          style={[styles.markGlyph, compact && styles.markGlyphCompact]}
-        >
-          ग
-        </Text>
-      </View>
+      <Image
+        accessible={false}
+        source={require("../../assets/gaavli-logo.png")}
+        style={compact ? styles.markCompact : styles.mark}
+      />
+      <Text
+        allowFontScaling={false}
+        style={[styles.brandName, compact && styles.brandNameCompact]}
+      >
+        Gaavli
+      </Text>
       <View style={styles.wordmark}>
         <Text
           allowFontScaling={false}
-          style={[styles.brandName, compact && styles.brandNameCompact]}
+          style={[styles.brandTagline, compact && styles.brandTaglineCompact]}
         >
-          गावली
+          {BRAND_TAGLINE}
         </Text>
-        <Text allowFontScaling={false} style={styles.brandLatin}>
-          G A A V L I
+        <Text
+          allowFontScaling={false}
+          style={[styles.brandTagline, compact && styles.brandTaglineCompact]}
+        >
+          {BRAND_TAGLINE_MR}
         </Text>
       </View>
     </View>
@@ -759,38 +769,24 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
   },
-  brand: { alignItems: "center", gap: 14 },
-  markTile: {
-    width: 84,
-    height: 84,
-    borderRadius: 24,
-    backgroundColor: theme.colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  markTileCompact: { width: 52, height: 52, borderRadius: 15 },
-  markGlyph: {
-    fontSize: 54,
-    lineHeight: 74,
-    fontWeight: "800",
-    color: theme.colors.onPrimary,
-    includeFontPadding: true,
-  },
-  markGlyphCompact: { fontSize: 32, lineHeight: 46 },
+  brand: { alignItems: "center", gap: 10 },
+  mark: { width: 132, height: 132 },
+  markCompact: { width: 76, height: 76 },
   wordmark: { alignItems: "center", gap: 2 },
   brandName: {
-    fontSize: 34,
-    lineHeight: 48,
+    fontSize: 40,
+    lineHeight: 50,
     fontWeight: "800",
-    color: theme.colors.primaryDark,
+    color: "#12264F",
     includeFontPadding: true,
   },
-  brandNameCompact: { fontSize: 24, lineHeight: 34 },
-  brandLatin: {
-    fontSize: 12,
-    lineHeight: 17,
+  brandNameCompact: { fontSize: 28, lineHeight: 36 },
+  brandTagline: {
+    fontSize: 15,
+    lineHeight: 22,
     fontWeight: "600",
-    letterSpacing: 2,
-    color: theme.colors.muted,
+    color: "#12264F",
+    textAlign: "center",
   },
+  brandTaglineCompact: { fontSize: 12, lineHeight: 17 },
 });

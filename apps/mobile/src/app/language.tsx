@@ -105,12 +105,6 @@ export default function LanguageScreen() {
         </View>
         <View style={s.brandSection}>
           <Brand />
-          <View style={s.copy}>
-            <Text accessibilityRole="header" style={s.tagline}>
-              {t.splashTagline}
-            </Text>
-            <Text style={s.support}>{t.splashDescription}</Text>
-          </View>
         </View>
         <View style={s.action}>
           <VillageSelectField

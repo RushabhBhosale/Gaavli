@@ -573,9 +573,6 @@ const en = {
   sellerSetupDescription:
     "You keep your buyer access. Seller capability starts when you create your first listing.",
   languageSaved: "Language saved",
-  splashTagline: "Local Farms. Local Buyers.",
-  splashDescription:
-    "Fresh produce directly from\nnearby farms to your community",
   getStarted: "Get started",
   trustBrowse: "Browse without signing up",
   trustContact: "Contact sellers directly",
@@ -1279,8 +1276,6 @@ const mr: Messages = {
   sellerSetupDescription:
     "तुमचा खरेदीदार म्हणून प्रवेश कायम राहील. पहिली नोंद जोडल्यानंतर विक्रेता सुविधा सुरू होतील.",
   languageSaved: "भाषा जतन झाली",
-  splashTagline: "स्थानिक शेतकरी. स्थानिक खरेदीदार.",
-  splashDescription: "जवळच्या शेतांमधून ताजा शेतमाल\nथेट तुमच्या समुदायासाठी",
   getStarted: "सुरू करा",
   trustBrowse: "नोंदणीशिवाय पाहा",
   trustContact: "विक्रेत्याशी थेट संपर्क",

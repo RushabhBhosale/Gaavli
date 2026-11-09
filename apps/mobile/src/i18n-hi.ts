@@ -569,8 +569,6 @@ export const hi: Messages = {
   sellerSetupDescription:
     "आपकी खरीदार सुविधा बनी रहेगी। पहली लिस्टिंग बनाने पर विक्रेता सुविधा शुरू होगी।",
   languageSaved: "भाषा सहेजी गई",
-  splashTagline: "स्थानीय खेत। स्थानीय खरीदार।",
-  splashDescription: "पास के खेतों से\nसीधे आपके समुदाय तक ताज़ा उपज",
   getStarted: "शुरू करें",
   trustBrowse: "बिना पंजीकरण देखें",
   trustContact: "विक्रेता से सीधा संपर्क",

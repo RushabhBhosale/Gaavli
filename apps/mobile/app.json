@@ -7,8 +7,17 @@
     "orientation": "portrait",
     "icon": "./assets/brand.png",
     "userInterfaceStyle": "light",
-    "ios": { "supportsTablet": true, "bundleIdentifier": "com.gaavli.mobile" },
-    "android": { "package": "com.gaavli.mobile" },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gaavli.mobile"
+    },
+    "android": {
+      "package": "com.gaavli.mobile",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/gaavli-adaptive-icon.png",
+        "backgroundColor": "#F7F8F1"
+      }
+    },
     "plugins": [
       [
         "expo-image-picker",
@@ -40,11 +49,12 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#FFFDF5",
+          "backgroundColor": "#F7F8F1",
           "image": "./assets/gaavli-welcome-mark.png",
           "imageWidth": 120
         }
       ]
-    ]
+    ],
+    "backgroundColor": "#F7F8F1"
   }
 }
