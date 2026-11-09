@@ -93,7 +93,7 @@ export default function RegistrationScreen() {
       useAppStore.getState().setLanguage(value);
     }
   }
-  async function send(intent?: boolean) {
+  async function send() {
     if (submitting.current) return;
     if (registering) {
       setShowErrors(true);
@@ -114,7 +114,6 @@ export default function RegistrationScreen() {
         setErrors(next);
         return;
       }
-      if (intent !== undefined) set({ providerIntent: intent });
     }
     const parsed = parseOtpRequest(
       registering ? "register" : "login",
@@ -252,21 +251,6 @@ export default function RegistrationScreen() {
             </View>
             <Text style={st.checkText}>{t.regPromo}</Text>
           </Pressable>
-          <View style={st.provider}>
-            <Text style={st.providerTitle}>{t.regProviderTitle}</Text>
-            <Text style={st.providerText}>{t.regProviderText}</Text>
-          </View>
-          <Button
-            outlined
-            disabled={busy}
-            onPress={() =>
-              set({ providerIntent: !registration.providerIntent })
-            }
-          >
-            {registration.providerIntent
-              ? t.regProviderAdded
-              : t.regAddProvider}
-          </Button>
         </>
       ) : (
         <Input

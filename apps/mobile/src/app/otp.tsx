@@ -109,8 +109,8 @@ export default function OtpScreen() {
       pendingSession.current = null;
       useAppStore.getState().clearRegistration();
       router.replace(
-        authMode === "register" && extras.providerIntent && user.village
-          ? "/provider/type"
+        authMode === "register" && user.village
+          ? "/provider/welcome"
           : postAuthHref(user, listingId, authMode === "login"),
       );
     } catch (failure) {
