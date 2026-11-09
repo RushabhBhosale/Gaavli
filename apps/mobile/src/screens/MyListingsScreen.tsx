@@ -8,10 +8,9 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
-import { AppHeader } from "../components/AppHeader";
+import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { Redirect, useRouter } from "expo-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -307,38 +306,29 @@ export default function MyListingsScreen() {
         title={t.myProducts}
         subtitle={[sellerName, sellerVillage].filter(Boolean).join(" · ")}
       >
-        <View style={s.searchBox}>
-          <Ionicons
-            name="search-outline"
-            size={21}
-            color={theme.colors.muted}
-          />
-          <TextInput
-            value={searchText}
-            onChangeText={setSearchText}
-            placeholder={t.sellerProductSearch}
-            accessibilityLabel={t.sellerProductSearch}
-            placeholderTextColor={theme.colors.placeholder}
-            style={s.searchInput}
-            maxLength={100}
-            autoCapitalize="none"
-            returnKeyType="search"
-          />
-          {!!searchText && (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={t.clearProductSearch}
-              onPress={() => setSearchText("")}
-              style={s.clearSearch}
-            >
-              <Ionicons
-                name="close-circle"
-                size={20}
-                color={theme.colors.muted}
-              />
-            </Pressable>
-          )}
-        </View>
+        <HeaderSearch
+          value={searchText}
+          onChangeText={setSearchText}
+          placeholder={t.sellerProductSearch}
+          label={t.sellerProductSearch}
+          right={
+            searchText ? (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={t.clearProductSearch}
+                onPress={() => setSearchText("")}
+                style={s.clearSearch}
+              >
+                <Ionicons
+                  accessible={false}
+                  name="close-circle"
+                  size={20}
+                  color={theme.colors.muted}
+                />
+              </Pressable>
+            ) : undefined
+          }
+        />
       </AppHeader>
       {offline && <OfflineBanner message={t.offline} />}
       <View style={s.tabsContainer}>
@@ -626,24 +616,6 @@ export default function MyListingsScreen() {
 }
 const s = StyleSheet.create({
   safe: { flex: 1, backgroundColor: theme.colors.background },
-  searchBox: {
-    flex: 1,
-    minWidth: 0,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingLeft: 12,
-    gap: 6,
-    borderRadius: 14,
-    backgroundColor: theme.colors.surface,
-  },
-  searchInput: {
-    flex: 1,
-    minWidth: 0,
-    minHeight: 48,
-    paddingVertical: 8,
-    fontSize: 16,
-    color: theme.colors.text,
-  },
   clearSearch: {
     minWidth: 40,
     minHeight: 46,

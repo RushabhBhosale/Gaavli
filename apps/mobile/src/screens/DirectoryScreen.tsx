@@ -81,7 +81,13 @@ export default function DirectoryScreen({
     <ProtectedPage allowGuest>
       <Screen
         header={
-          <AppHeader title={title} back={asTab ? undefined : "/home"}>
+          <AppHeader
+            title={title}
+            subtitle={
+              module === "services" ? t.tileServicesHint : t.tileTransportHint
+            }
+            back={asTab ? undefined : "/home"}
+          >
             <HeaderSearch
               label={t.search}
               placeholder={t.directorySearch}

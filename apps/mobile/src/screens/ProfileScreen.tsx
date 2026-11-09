@@ -263,15 +263,6 @@ export default function ProfileScreen() {
           />
         </View>
       </View>
-      <View style={s.group}>
-        <SettingRow
-          icon="images-outline"
-          last
-          title={t.photoCredits}
-          disabled={!!busy}
-          onPress={() => router.push("/photo-credits")}
-        />
-      </View>
       {failure && <ErrorMessage message={failure} />}
       <Button
         secondary

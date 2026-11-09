@@ -75,6 +75,12 @@ const h = StyleSheet.create({
     backgroundColor: theme.colors.surface,
   },
   action: { flex: 1, alignItems: "center", gap: 6, paddingHorizontal: 2 },
+  actionHint: {
+    ...theme.type.micro,
+    fontWeight: "400",
+    textAlign: "center",
+    color: theme.colors.muted,
+  },
   actionIcon: {
     width: 48,
     height: 48,
@@ -95,16 +101,18 @@ const h = StyleSheet.create({
 function QuickAction({
   icon,
   title,
+  hint,
   onPress,
 }: {
   icon: IconName;
   title: string;
+  hint?: string;
   onPress: () => void;
 }) {
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={title}
+      accessibilityLabel={hint ? `${title}. ${hint}` : title}
       onPress={onPress}
       style={({ pressed }) => [h.action, pressed && h.pressed]}
     >
@@ -119,6 +127,11 @@ function QuickAction({
       <Text numberOfLines={2} style={h.actionLabel}>
         {title}
       </Text>
+      {!!hint && (
+        <Text numberOfLines={2} style={h.actionHint}>
+          {hint}
+        </Text>
+      )}
     </Pressable>
   );
 }
@@ -178,16 +191,19 @@ export function HomeDashboard({
             <QuickAction
               icon="storefront-outline"
               title={t.dashboardMarketplace}
+              hint={t.tileMarketplaceHint}
               onPress={() => onNavigate("/marketplace")}
             />
             <QuickAction
               icon="build-outline"
               title={t.dashboardServices}
+              hint={t.tileServicesHint}
               onPress={() => onNavigate("/services")}
             />
             <QuickAction
               icon="car-outline"
               title={t.dashboardTransport}
+              hint={t.tileTransportHint}
               onPress={() => onNavigate("/transport")}
             />
             <QuickAction

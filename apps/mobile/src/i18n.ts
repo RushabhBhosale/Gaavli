@@ -8,6 +8,9 @@ const en = {
   dashboardMarketplace: "Marketplace",
   dashboardServices: "Services",
   dashboardTransport: "Transport",
+  tileMarketplaceHint: "Buy & sell crops",
+  tileServicesHint: "Doctors, repairs, shops",
+  tileTransportHint: "Auto, tractor, taxi",
   dashboardMarketplaceDescription:
     "Fresh vegetables, fruits, grains and other agricultural products",
   dashboardServicesDescription:
@@ -25,10 +28,6 @@ const en = {
   directoryBrowse: "Browse by category",
   directorySeeAll: "See {count} more",
   directoryShowFewer: "Show fewer",
-  photoCredits: "Photo credits",
-  photoCreditsIntro:
-    "The photos on the Services and Transport tiles are from Wikimedia Commons, used under the licences shown. Tap to see the original or the licence.",
-  photoCreditsOriginal: "Original photo",
   regCreateTitle: "Create Your Account",
   regCreateSubtitle: "Join your village community.",
   regFullName: "Full Name",
@@ -47,7 +46,8 @@ const en = {
   regNumberDuplicate: "This number is already added.",
   regNumberInvalid: "Enter a 10-digit mobile number.",
   regPrimaryNote: "Primary · verified by OTP",
-  regOrderNote: "Villagers see numbers in this order. If the first is not answered, they can try the next. Label each as Alternate, Office, Emergency or Home.",
+  regOrderNote:
+    "Villagers see numbers in this order. If the first is not answered, they can try the next. Label each as Alternate, Office, Emergency or Home.",
   regVillage: "Select Your Village",
   regVillagePlaceholder: "Search / Select village",
   regVillageRequired: "Select your village.",
@@ -56,14 +56,17 @@ const en = {
   regEmailError: "Enter a valid email address.",
   regPromo: "Receive Gaavli promotional updates on WhatsApp (Optional)",
   regProviderTitle: "OPTIONAL: PROVIDER REGISTRATION",
-  regProviderText: "Want to register a shop, service, institution or organisation? You can do this later from My Activities.",
+  regProviderText:
+    "Want to register a shop, service, institution or organisation? You can do this later from My Activities.",
   regAddProvider: "+ Add Provider Profile",
   regSkipProvider: "Skip for now",
-  regProviderAdded: "✓ You'll add a provider profile right after verifying your number. Tap to undo.",
+  regProviderAdded:
+    "✓ You'll add a provider profile right after verifying your number. Tap to undo.",
   regContinueOtp: "Continue with OTP",
   regTerms: "By continuing, you agree to the Terms & Privacy Policy.",
   provPickTitle: "What would you like to register?",
-  provPickHint: "Already added a clinic or shop? Search first so it is not listed twice.",
+  provPickHint:
+    "Already added a clinic or shop? Search first so it is not listed twice.",
   provOtherTitle: "Other Services",
   provOtherHelp: "Choose the kind of service. Each has its own short form.",
   provContinue: "Continue",
@@ -74,7 +77,8 @@ const en = {
   provAddress: "Address / Location (Optional)",
   provContactsTitle: "CONTACT NUMBERS (up to 5)",
   provDescription: "Description (Optional)",
-  provNameHint: "As you type, Gaavli checks for a similar listing in your village.",
+  provNameHint:
+    "As you type, Gaavli checks for a similar listing in your village.",
   provCheckContinue: "Check & Continue",
   provCategoryStep: "Category details",
   provSave: "Save Profile",
@@ -82,7 +86,8 @@ const en = {
   provYes: "Yes",
   provNo: "No",
   provSelect: "Select",
-  provSearchEmpty: "Nothing to choose from yet. Ask Gaavli staff to add options.",
+  provSearchEmpty:
+    "Nothing to choose from yet. Ask Gaavli staff to add options.",
   provErrRequired: "Fill in the highlighted fields.",
   provErrMaster: "That option is no longer available. Pick another.",
   provErrPrimary: "The primary number must be the one you verified.",
@@ -95,12 +100,14 @@ const en = {
   dupLink: "Link me to it",
   dupLinkHelp: "I am a doctor or staff here",
   dupClaim: "Claim it as mine",
-  dupClaimHelp: "I own or manage this place. Gaavli staff will review your request.",
+  dupClaimHelp:
+    "I own or manage this place. Gaavli staff will review your request.",
   dupDifferent: "It is different",
   dupDifferentHelp: "Continue and create a new profile",
   dupClaimSent: "Claim sent. Gaavli staff will review it.",
   dupMine: "You already added this one.",
-  dupNote: "If the listed number is no longer yours, choose Claim and Gaavli staff will review it. True duplicates can be merged later.",
+  dupNote:
+    "If the listed number is no longer yours, choose Claim and Gaavli staff will review it. True duplicates can be merged later.",
   practiceWhere: "WHERE DO YOU PRACTICE?",
   practiceExistingHelp: "Search and link. No new listing is made.",
   practiceOwnHelp: "One tap creates a linked Medical Facility. No second form.",
@@ -108,13 +115,16 @@ const en = {
   practiceSearch: "Search facility",
   practiceSearchHint: "Type clinic or hospital name",
   practicePick: "Pick it to link. The owner is notified to confirm.",
-  practiceNone: "No facility found. Check the spelling or choose My own clinic.",
-  practiceInherit: "Contact numbers and address are taken from the clinic unless you add your own.",
+  practiceNone:
+    "No facility found. Check the spelling or choose My own clinic.",
+  practiceInherit:
+    "Contact numbers and address are taken from the clinic unless you add your own.",
   facDoctors: "DOCTORS AT THIS FACILITY",
   facLinked: "Linked",
   facAwaiting: "Awaiting confirmation",
   facLinkDoctor: "+ Link a doctor",
-  facLinkHelp: "Doctors already on Gaavli are linked to this page. Their own profile is not copied.",
+  facLinkHelp:
+    "Doctors already on Gaavli are linked to this page. Their own profile is not copied.",
   facNoDoctors: "No doctors linked yet.",
   linkConfirm: "Confirm",
   linkDecline: "Decline",
@@ -142,7 +152,8 @@ const en = {
   dirTryNext: "If there is no answer, try the next number.",
   dirNoContacts: "No public phone number.",
   dirNotEndorsement: "Listing is not an endorsement by Gaavli.",
-  dirEmergencyNote: "Gaavli provides contact information only. Contact the provider directly; availability is not guaranteed.",
+  dirEmergencyNote:
+    "Gaavli provides contact information only. Contact the provider directly; availability is not guaranteed.",
   directoryAllCategories: "All categories",
   directoryNoneYet: "None yet",
   directoryDisclaimer:
@@ -697,6 +708,9 @@ const mr: Messages = {
   dashboardMarketplace: "बाजारपेठ",
   dashboardServices: "ग्रामसेवा",
   dashboardTransport: "वाहतूक",
+  tileMarketplaceHint: "पीक खरेदी-विक्री",
+  tileServicesHint: "डॉक्टर, दुरुस्ती, दुकाने",
+  tileTransportHint: "रिक्षा, ट्रॅक्टर, टॅक्सी",
   dashboardMarketplaceDescription: "ताज्या भाज्या, फळे, धान्य आणि इतर शेतमाल",
   dashboardServicesDescription:
     "इलेक्ट्रिशियन, प्लंबर, मोटर दुरुस्ती, ट्रॅक्टर आणि इतर स्थानिक सेवा",
@@ -713,10 +727,6 @@ const mr: Messages = {
   directoryBrowse: "श्रेणीनुसार पहा",
   directorySeeAll: "आणखी {count} पहा",
   directoryShowFewer: "कमी दाखवा",
-  photoCredits: "छायाचित्र श्रेय",
-  photoCreditsIntro:
-    "ग्रामसेवा आणि वाहतूक यातील छायाचित्रे विकिमीडिया कॉमन्सवरून, दर्शवलेल्या परवान्यांनुसार वापरली आहेत. मूळ फोटो किंवा परवाना पाहण्यासाठी टॅप करा.",
-  photoCreditsOriginal: "मूळ फोटो",
   regCreateTitle: "तुमचे खाते तयार करा",
   regCreateSubtitle: "तुमच्या गावातील समुदायात सामील व्हा.",
   regFullName: "पूर्ण नाव",
@@ -735,7 +745,8 @@ const mr: Messages = {
   regNumberDuplicate: "हा क्रमांक आधीच जोडला आहे.",
   regNumberInvalid: "१० अंकी मोबाईल क्रमांक लिहा.",
   regPrimaryNote: "मुख्य · OTP ने पडताळलेला",
-  regOrderNote: "गावकरी क्रमांक याच क्रमाने पाहतात. पहिला न उचलल्यास ते पुढचा वापरून पाहू शकतात. प्रत्येकाला पर्यायी, कार्यालय, आपत्कालीन किंवा घर असे नाव द्या.",
+  regOrderNote:
+    "गावकरी क्रमांक याच क्रमाने पाहतात. पहिला न उचलल्यास ते पुढचा वापरून पाहू शकतात. प्रत्येकाला पर्यायी, कार्यालय, आपत्कालीन किंवा घर असे नाव द्या.",
   regVillage: "तुमचे गाव निवडा",
   regVillagePlaceholder: "गाव शोधा / निवडा",
   regVillageRequired: "तुमचे गाव निवडा.",
@@ -744,14 +755,17 @@ const mr: Messages = {
   regEmailError: "योग्य ईमेल पत्ता लिहा.",
   regPromo: "गावलीचे प्रचारात्मक संदेश व्हॉट्सअ‍ॅपवर मिळवा (ऐच्छिक)",
   regProviderTitle: "ऐच्छिक: सेवा प्रदाता नोंदणी",
-  regProviderText: "दुकान, सेवा, संस्था किंवा संघटना नोंदवायची आहे? हे नंतर माझ्या उपक्रमांमधून करता येते.",
+  regProviderText:
+    "दुकान, सेवा, संस्था किंवा संघटना नोंदवायची आहे? हे नंतर माझ्या उपक्रमांमधून करता येते.",
   regAddProvider: "+ प्रदाता प्रोफाइल जोडा",
   regSkipProvider: "आत्ता नको",
-  regProviderAdded: "✓ नंबर पडताळल्यावर लगेच प्रदाता प्रोफाइल जोडाल. रद्द करण्यासाठी टॅप करा.",
+  regProviderAdded:
+    "✓ नंबर पडताळल्यावर लगेच प्रदाता प्रोफाइल जोडाल. रद्द करण्यासाठी टॅप करा.",
   regContinueOtp: "OTP सह पुढे जा",
   regTerms: "पुढे जाऊन तुम्ही अटी आणि गोपनीयता धोरणाशी सहमत आहात.",
   provPickTitle: "तुम्हाला काय नोंदवायचे आहे?",
-  provPickHint: "दवाखाना किंवा दुकान आधीच जोडले आहे? दोनदा येऊ नये म्हणून आधी शोधा.",
+  provPickHint:
+    "दवाखाना किंवा दुकान आधीच जोडले आहे? दोनदा येऊ नये म्हणून आधी शोधा.",
   provOtherTitle: "इतर सेवा",
   provOtherHelp: "सेवेचा प्रकार निवडा. प्रत्येकाचा छोटा स्वतंत्र फॉर्म आहे.",
   provContinue: "पुढे जा",
@@ -762,7 +776,8 @@ const mr: Messages = {
   provAddress: "पत्ता / ठिकाण (ऐच्छिक)",
   provContactsTitle: "संपर्क क्रमांक (५ पर्यंत)",
   provDescription: "वर्णन (ऐच्छिक)",
-  provNameHint: "तुम्ही लिहिताना गावली तुमच्या गावात सारखी नोंद आहे का ते तपासते.",
+  provNameHint:
+    "तुम्ही लिहिताना गावली तुमच्या गावात सारखी नोंद आहे का ते तपासते.",
   provCheckContinue: "तपासा व पुढे जा",
   provCategoryStep: "प्रकारानुसार माहिती",
   provSave: "प्रोफाइल जतन करा",
@@ -770,7 +785,8 @@ const mr: Messages = {
   provYes: "होय",
   provNo: "नाही",
   provSelect: "निवडा",
-  provSearchEmpty: "अजून निवडण्यासाठी काही नाही. गावली कर्मचाऱ्यांना पर्याय जोडायला सांगा.",
+  provSearchEmpty:
+    "अजून निवडण्यासाठी काही नाही. गावली कर्मचाऱ्यांना पर्याय जोडायला सांगा.",
   provErrRequired: "चिन्हांकित माहिती भरा.",
   provErrMaster: "हा पर्याय आता उपलब्ध नाही. दुसरा निवडा.",
   provErrPrimary: "मुख्य क्रमांक तुम्ही पडताळलेलाच असावा.",
@@ -783,26 +799,32 @@ const mr: Messages = {
   dupLink: "मला यात जोडा",
   dupLinkHelp: "मी इथे डॉक्टर किंवा कर्मचारी आहे",
   dupClaim: "ही माझी आहे असा दावा करा",
-  dupClaimHelp: "मी या ठिकाणाचा मालक/व्यवस्थापक आहे. गावली कर्मचारी विनंती तपासतील.",
+  dupClaimHelp:
+    "मी या ठिकाणाचा मालक/व्यवस्थापक आहे. गावली कर्मचारी विनंती तपासतील.",
   dupDifferent: "ती वेगळी आहे",
   dupDifferentHelp: "पुढे जा आणि नवीन प्रोफाइल तयार करा",
   dupClaimSent: "दावा पाठवला. गावली कर्मचारी तो तपासतील.",
   dupMine: "ही तुम्ही आधीच जोडली आहे.",
-  dupNote: "दिलेला क्रमांक आता तुमचा नसेल तर दावा निवडा; गावली कर्मचारी तपासतील. खऱ्या दुहेरी नोंदी नंतर एकत्र करता येतात.",
+  dupNote:
+    "दिलेला क्रमांक आता तुमचा नसेल तर दावा निवडा; गावली कर्मचारी तपासतील. खऱ्या दुहेरी नोंदी नंतर एकत्र करता येतात.",
   practiceWhere: "तुम्ही कुठे प्रॅक्टिस करता?",
   practiceExistingHelp: "शोधा आणि जोडा. नवीन नोंद होत नाही.",
-  practiceOwnHelp: "एका टॅपमध्ये जोडलेली वैद्यकीय सुविधा तयार होते. दुसरा फॉर्म नाही.",
+  practiceOwnHelp:
+    "एका टॅपमध्ये जोडलेली वैद्यकीय सुविधा तयार होते. दुसरा फॉर्म नाही.",
   practiceHomeHelp: "सुविधेची नोंद लागत नाही",
   practiceSearch: "सुविधा शोधा",
   practiceSearchHint: "दवाखाना किंवा रुग्णालयाचे नाव लिहा",
   practicePick: "निवडून जोडा. मालकाला पुष्टीसाठी कळवले जाईल.",
-  practiceNone: "सुविधा सापडली नाही. स्पेलिंग तपासा किंवा माझा स्वतःचा दवाखाना निवडा.",
-  practiceInherit: "तुम्ही स्वतःचे जोडले नाहीत तर संपर्क क्रमांक आणि पत्ता दवाखान्याचे घेतले जातात.",
+  practiceNone:
+    "सुविधा सापडली नाही. स्पेलिंग तपासा किंवा माझा स्वतःचा दवाखाना निवडा.",
+  practiceInherit:
+    "तुम्ही स्वतःचे जोडले नाहीत तर संपर्क क्रमांक आणि पत्ता दवाखान्याचे घेतले जातात.",
   facDoctors: "या सुविधेतील डॉक्टर",
   facLinked: "जोडलेले",
   facAwaiting: "पुष्टीची प्रतीक्षा",
   facLinkDoctor: "+ डॉक्टर जोडा",
-  facLinkHelp: "गावलीवर असलेले डॉक्टर या पानाशी जोडले जातात. त्यांची स्वतःची प्रोफाइल कॉपी होत नाही.",
+  facLinkHelp:
+    "गावलीवर असलेले डॉक्टर या पानाशी जोडले जातात. त्यांची स्वतःची प्रोफाइल कॉपी होत नाही.",
   facNoDoctors: "अजून कोणतेही डॉक्टर जोडलेले नाहीत.",
   linkConfirm: "पुष्टी करा",
   linkDecline: "नाकारा",
@@ -830,7 +852,8 @@ const mr: Messages = {
   dirTryNext: "उत्तर न मिळाल्यास पुढचा क्रमांक वापरून पहा.",
   dirNoContacts: "सार्वजनिक फोन क्रमांक नाही.",
   dirNotEndorsement: "ही नोंद म्हणजे गावलीचे समर्थन नव्हे.",
-  dirEmergencyNote: "गावली फक्त संपर्क माहिती देते. थेट संपर्क करा; उपलब्धतेची हमी नाही.",
+  dirEmergencyNote:
+    "गावली फक्त संपर्क माहिती देते. थेट संपर्क करा; उपलब्धतेची हमी नाही.",
   directoryAllCategories: "सर्व श्रेणी",
   directoryNoneYet: "अजून नाही",
   directoryDisclaimer:

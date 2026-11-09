@@ -7,6 +7,9 @@ export const hi: Messages = {
   dashboardMarketplace: "बाज़ार",
   dashboardServices: "सेवाएँ",
   dashboardTransport: "परिवहन",
+  tileMarketplaceHint: "फसल खरीद-बिक्री",
+  tileServicesHint: "डॉक्टर, मरम्मत, दुकानें",
+  tileTransportHint: "ऑटो, ट्रैक्टर, टैक्सी",
   dashboardMarketplaceDescription:
     "ताज़ी सब्ज़ियाँ, फल, अनाज और अन्य कृषि उत्पाद",
   dashboardServicesDescription:
@@ -23,10 +26,6 @@ export const hi: Messages = {
   directoryBrowse: "श्रेणी के अनुसार देखें",
   directorySeeAll: "{count} और देखें",
   directoryShowFewer: "कम दिखाएँ",
-  photoCredits: "फ़ोटो श्रेय",
-  photoCreditsIntro:
-    "ग्रामसेवा और परिवहन की तस्वीरें विकिमीडिया कॉमन्स से, दिखाए गए लाइसेंस के अनुसार ली गई हैं। मूल फ़ोटो या लाइसेंस देखने के लिए टैप करें।",
-  photoCreditsOriginal: "मूल फ़ोटो",
   regCreateTitle: "अपना खाता बनाएँ",
   regCreateSubtitle: "अपने गाँव के समुदाय से जुड़ें।",
   regFullName: "पूरा नाम",
@@ -45,7 +44,8 @@ export const hi: Messages = {
   regNumberDuplicate: "यह नंबर पहले से जोड़ा गया है।",
   regNumberInvalid: "10 अंकों का मोबाइल नंबर लिखें।",
   regPrimaryNote: "मुख्य · OTP से सत्यापित",
-  regOrderNote: "ग्रामीण इसी क्रम में नंबर देखते हैं। पहला न उठे तो अगला आज़मा सकते हैं। हर नंबर को वैकल्पिक, कार्यालय, आपातकालीन या घर नाम दें।",
+  regOrderNote:
+    "ग्रामीण इसी क्रम में नंबर देखते हैं। पहला न उठे तो अगला आज़मा सकते हैं। हर नंबर को वैकल्पिक, कार्यालय, आपातकालीन या घर नाम दें।",
   regVillage: "अपना गाँव चुनें",
   regVillagePlaceholder: "गाँव खोजें / चुनें",
   regVillageRequired: "अपना गाँव चुनें।",
@@ -54,10 +54,12 @@ export const hi: Messages = {
   regEmailError: "सही ईमेल पता लिखें।",
   regPromo: "गावली के प्रचार संदेश व्हाट्सऐप पर पाएँ (वैकल्पिक)",
   regProviderTitle: "वैकल्पिक: सेवा प्रदाता पंजीकरण",
-  regProviderText: "दुकान, सेवा, संस्था या संगठन पंजीकृत करना है? यह बाद में मेरी गतिविधियों से भी कर सकते हैं।",
+  regProviderText:
+    "दुकान, सेवा, संस्था या संगठन पंजीकृत करना है? यह बाद में मेरी गतिविधियों से भी कर सकते हैं।",
   regAddProvider: "+ प्रदाता प्रोफ़ाइल जोड़ें",
   regSkipProvider: "अभी नहीं",
-  regProviderAdded: "✓ नंबर सत्यापित होते ही प्रदाता प्रोफ़ाइल जोड़ेंगे। हटाने के लिए टैप करें।",
+  regProviderAdded:
+    "✓ नंबर सत्यापित होते ही प्रदाता प्रोफ़ाइल जोड़ेंगे। हटाने के लिए टैप करें।",
   regContinueOtp: "OTP के साथ आगे बढ़ें",
   regTerms: "आगे बढ़कर आप नियम और गोपनीयता नीति से सहमत होते हैं।",
   provPickTitle: "आप क्या पंजीकृत करना चाहते हैं?",
@@ -72,7 +74,8 @@ export const hi: Messages = {
   provAddress: "पता / स्थान (वैकल्पिक)",
   provContactsTitle: "संपर्क नंबर (5 तक)",
   provDescription: "विवरण (वैकल्पिक)",
-  provNameHint: "आप लिखते हैं तो गावली आपके गाँव में मिलती-जुलती प्रविष्टि जाँचता है।",
+  provNameHint:
+    "आप लिखते हैं तो गावली आपके गाँव में मिलती-जुलती प्रविष्टि जाँचता है।",
   provCheckContinue: "जाँचें और आगे बढ़ें",
   provCategoryStep: "श्रेणी की जानकारी",
   provSave: "प्रोफ़ाइल सहेजें",
@@ -80,7 +83,8 @@ export const hi: Messages = {
   provYes: "हाँ",
   provNo: "नहीं",
   provSelect: "चुनें",
-  provSearchEmpty: "अभी चुनने के लिए कुछ नहीं। गावली स्टाफ से विकल्प जोड़ने को कहें।",
+  provSearchEmpty:
+    "अभी चुनने के लिए कुछ नहीं। गावली स्टाफ से विकल्प जोड़ने को कहें।",
   provErrRequired: "चिह्नित जानकारी भरें।",
   provErrMaster: "यह विकल्प अब उपलब्ध नहीं। दूसरा चुनें।",
   provErrPrimary: "मुख्य नंबर वही होना चाहिए जो आपने सत्यापित किया।",
@@ -98,21 +102,25 @@ export const hi: Messages = {
   dupDifferentHelp: "आगे बढ़ें और नई प्रोफ़ाइल बनाएँ",
   dupClaimSent: "दावा भेजा गया। गावली स्टाफ़ इसकी जाँच करेगा।",
   dupMine: "यह आप पहले जोड़ चुके हैं।",
-  dupNote: "दिया गया नंबर अब आपका न हो तो दावा चुनें; गावली स्टाफ़ जाँचेगा। असली डुप्लिकेट बाद में मिलाए जा सकते हैं।",
+  dupNote:
+    "दिया गया नंबर अब आपका न हो तो दावा चुनें; गावली स्टाफ़ जाँचेगा। असली डुप्लिकेट बाद में मिलाए जा सकते हैं।",
   practiceWhere: "आप कहाँ प्रैक्टिस करते हैं?",
   practiceExistingHelp: "खोजें और जोड़ें। नई प्रविष्टि नहीं बनती।",
-  practiceOwnHelp: "एक टैप में जुड़ी हुई चिकित्सा सुविधा बनती है। दूसरा फ़ॉर्म नहीं।",
+  practiceOwnHelp:
+    "एक टैप में जुड़ी हुई चिकित्सा सुविधा बनती है। दूसरा फ़ॉर्म नहीं।",
   practiceHomeHelp: "सुविधा प्रविष्टि की ज़रूरत नहीं",
   practiceSearch: "सुविधा खोजें",
   practiceSearchHint: "क्लिनिक या अस्पताल का नाम लिखें",
   practicePick: "चुनकर जोड़ें। मालिक को पुष्टि के लिए सूचित किया जाएगा।",
   practiceNone: "सुविधा नहीं मिली। वर्तनी जाँचें या मेरा अपना क्लिनिक चुनें।",
-  practiceInherit: "अपने न जोड़ें तो संपर्क नंबर और पता क्लिनिक से लिए जाते हैं।",
+  practiceInherit:
+    "अपने न जोड़ें तो संपर्क नंबर और पता क्लिनिक से लिए जाते हैं।",
   facDoctors: "इस सुविधा के डॉक्टर",
   facLinked: "जुड़ा हुआ",
   facAwaiting: "पुष्टि की प्रतीक्षा",
   facLinkDoctor: "+ डॉक्टर जोड़ें",
-  facLinkHelp: "गावली पर मौजूद डॉक्टर इस पेज से जुड़ते हैं। उनकी अपनी प्रोफ़ाइल कॉपी नहीं होती।",
+  facLinkHelp:
+    "गावली पर मौजूद डॉक्टर इस पेज से जुड़ते हैं। उनकी अपनी प्रोफ़ाइल कॉपी नहीं होती।",
   facNoDoctors: "अभी कोई डॉक्टर नहीं जुड़ा।",
   linkConfirm: "पुष्टि करें",
   linkDecline: "अस्वीकार करें",
@@ -140,7 +148,8 @@ export const hi: Messages = {
   dirTryNext: "जवाब न मिले तो अगला नंबर आज़माएँ।",
   dirNoContacts: "कोई सार्वजनिक फ़ोन नंबर नहीं।",
   dirNotEndorsement: "यह प्रविष्टि गावली का समर्थन नहीं है।",
-  dirEmergencyNote: "गावली केवल संपर्क जानकारी देता है। सीधे संपर्क करें; उपलब्धता की गारंटी नहीं।",
+  dirEmergencyNote:
+    "गावली केवल संपर्क जानकारी देता है। सीधे संपर्क करें; उपलब्धता की गारंटी नहीं।",
   directoryAllCategories: "सभी श्रेणियाँ",
   directoryNoneYet: "अभी कोई नहीं",
   directoryDisclaimer:
