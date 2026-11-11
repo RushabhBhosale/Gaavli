@@ -92,9 +92,14 @@ export function MarketplaceListingCard({
       </Pressable>
     );
   }
-  // Unavailable rows are informational: the active-only detail/contact route stays protected.
+  // Old rows still open the product, marked as finished, with no actions.
   return (
-    <View style={[s.card, s.unavailable]}>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${name}, ${t.marketplaceNotAvailable}`}
+      onPress={onPress}
+      style={({ pressed }) => [s.card, s.unavailable, pressed && s.pressed]}
+    >
       <ListingImage listing={listing} style={s.thumbnail} resizeMode="cover" />
       <View style={s.body}>
         <Text style={[s.name, s.muted]} numberOfLines={2}>
@@ -112,7 +117,13 @@ export function MarketplaceListingCard({
         <Text style={s.unavailableLabel}>{t.marketplaceNotAvailable}</Text>
         <Text style={[s.meta, s.age]}>{listingPosted(listing, language)}</Text>
       </View>
-    </View>
+      <Ionicons
+        accessible={false}
+        name="chevron-forward"
+        size={18}
+        color={theme.colors.inactive}
+      />
+    </Pressable>
   );
 }
 const s = StyleSheet.create({

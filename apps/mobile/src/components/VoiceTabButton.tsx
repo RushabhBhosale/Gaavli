@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { usePathname, useRouter } from "expo-router";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { theme } from "../theme";
 import {
-  marketplaceSearchRoute,
   produceVoiceHints,
-  voiceProductSearch,
+  scopedSearchRoute,
+  searchScopeFor,
+  spokenSearch,
 } from "../data/voiceSearch";
 import { useVoiceSearch } from "../hooks/useVoiceSearch";
 import { showToast } from "../toast";
@@ -19,18 +20,20 @@ const VOICE_HINTS = produceVoiceHints();
 // it while speaking, and the Marketplace opens showing that product.
 export function VoiceTabButton() {
   const router = useRouter();
+  // On Home it searches everything; inside a module, only that module.
+  const scope = searchScopeFor(usePathname());
   const language = useAppStore((state) => state.language);
   const t = messages(language);
   const voice = useVoiceSearch({
     language,
-    scope: "tab-bar",
+    scope: `tab-bar:${scope}`,
     hints: VOICE_HINTS,
     alwaysOn: true,
     onResult: (transcript) => {
-      const spoken = voiceProductSearch(transcript, language);
+      const spoken = spokenSearch(transcript, language, scope);
       if (spoken.text)
         router.navigate(
-          marketplaceSearchRoute(spoken.text, spoken.productGroup),
+          scopedSearchRoute(scope, spoken.text, spoken.productGroup),
         );
     },
   });

@@ -432,6 +432,10 @@ export const mobileListingSchema = z
       .nullable()
       .default(null),
     isDemo: z.boolean().default(false),
+    // "sold_out" and "expired" listings can still be opened, but not acted on.
+    availability: z
+      .enum(["available", "sold_out", "expired"])
+      .default("available"),
     category: z.string().nullable(),
     categoryName: z.string().nullable(),
     categoryNameMr: z.string().nullable(),

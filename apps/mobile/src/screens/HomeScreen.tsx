@@ -34,7 +34,7 @@ import type {
   HomeDestination,
   HomeListing,
 } from "../types/home";
-import { HomeHero } from "../components/dashboard/HomeHero";
+import { HomeHero, HomeTopBar } from "../components/dashboard/HomeHero";
 import { browsingVillageFor } from "../storage/browsingVillage";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { ServiceCard } from "../components/dashboard/ServiceCard";
@@ -54,14 +54,6 @@ const h = StyleSheet.create({
     maxWidth: theme.layout.contentWidth,
     alignSelf: "center",
   },
-  statusBackdrop: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 2,
-    backgroundColor: theme.colors.primaryDark,
-  },
   body: { paddingHorizontal: theme.layout.screenPadding, gap: 16 },
   // One white card of four destinations, overlapping the dark hero.
   quick: {
@@ -75,12 +67,6 @@ const h = StyleSheet.create({
     backgroundColor: theme.colors.surface,
   },
   action: { flex: 1, alignItems: "center", gap: 6, paddingHorizontal: 2 },
-  actionHint: {
-    ...theme.type.micro,
-    fontWeight: "400",
-    textAlign: "center",
-    color: theme.colors.muted,
-  },
   actionIcon: {
     width: 48,
     height: 48,
@@ -101,18 +87,16 @@ const h = StyleSheet.create({
 function QuickAction({
   icon,
   title,
-  hint,
   onPress,
 }: {
   icon: IconName;
   title: string;
-  hint?: string;
   onPress: () => void;
 }) {
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={hint ? `${title}. ${hint}` : title}
+      accessibilityLabel={title}
       onPress={onPress}
       style={({ pressed }) => [h.action, pressed && h.pressed]}
     >
@@ -127,11 +111,6 @@ function QuickAction({
       <Text numberOfLines={2} style={h.actionLabel}>
         {title}
       </Text>
-      {!!hint && (
-        <Text numberOfLines={2} style={h.actionHint}>
-          {hint}
-        </Text>
-      )}
     </Pressable>
   );
 }
@@ -142,6 +121,7 @@ export function HomeDashboard({
   onNavigate,
   onProductPress,
   listingStatus,
+  listingsReady,
   services = [],
   transport = [],
 }: {
@@ -158,6 +138,9 @@ export function HomeDashboard({
   const signedIn = useAppStore((state) => !!state.session);
   const offline = useAppStore((state) => state.offline);
   const insets = useSafeAreaInsets();
+  const [emptyOpen, setEmptyOpen] = useState(false);
+  // Nothing to show yet: the section folds away and has no "View All".
+  const noListings = !!listingsReady && !data.listings.length;
   const [focused, setFocused] = useState(true);
   useFocusEffect(
     useCallback(() => {
@@ -168,22 +151,18 @@ export function HomeDashboard({
   return (
     <View style={d.safe}>
       {focused && <StatusBar style="light" />}
-      <View
-        pointerEvents="none"
-        style={[h.statusBackdrop, { height: offline ? 0 : insets.top }]}
-      />
       {offline && (
         <View style={{ paddingTop: insets.top }}>
           <OfflineBanner message={t.offline} />
         </View>
       )}
+      <HomeTopBar language={language} topInset={offline ? 0 : insets.top} />
       <ScrollView
         contentContainerStyle={h.content}
         showsVerticalScrollIndicator={false}
       >
         <HomeHero
           language={language}
-          topInset={offline ? 0 : insets.top}
           onSearch={() => onNavigate("/marketplace")}
         />
         <View style={h.body}>
@@ -191,19 +170,16 @@ export function HomeDashboard({
             <QuickAction
               icon="storefront-outline"
               title={t.dashboardMarketplace}
-              hint={t.tileMarketplaceHint}
               onPress={() => onNavigate("/marketplace")}
             />
             <QuickAction
               icon="build-outline"
               title={t.dashboardServices}
-              hint={t.tileServicesHint}
               onPress={() => onNavigate("/services")}
             />
             <QuickAction
               icon="car-outline"
               title={t.dashboardTransport}
-              hint={t.tileTransportHint}
               onPress={() => onNavigate("/transport")}
             />
             <QuickAction
@@ -217,10 +193,15 @@ export function HomeDashboard({
             <SectionHeader
               icon="storefront-outline"
               title={t.dashboardMarketplace}
-              action={t.viewAll}
+              action={noListings ? undefined : t.viewAll}
               onPress={() => onNavigate("/marketplace")}
+              toggle={
+                noListings
+                  ? { open: emptyOpen, onPress: () => setEmptyOpen(!emptyOpen) }
+                  : undefined
+              }
             />
-            {listingStatus}
+            {(!noListings || emptyOpen) && listingStatus}
             <FlatList
               horizontal
               data={data.listings}

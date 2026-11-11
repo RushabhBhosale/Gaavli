@@ -39,6 +39,7 @@ export function AppHeader({
   right,
   children,
   overlap = 0,
+  tone,
 }: {
   title: string;
   subtitle?: string;
@@ -49,6 +50,8 @@ export function AppHeader({
   right?: ReactNode;
   children?: ReactNode;
   overlap?: number;
+  // The module's own band colour; omit for the default steel blue.
+  tone?: "marketplace" | "services" | "transport";
 }) {
   const language = useAppStore((state) => state.language);
   const router = useRouter();
@@ -72,6 +75,7 @@ export function AppHeader({
     <View
       style={[
         s.band,
+        tone && { backgroundColor: BANDS[tone] },
         { paddingTop: insets.top + 8, paddingBottom: 16 + overlap },
       ]}
     >
@@ -118,6 +122,11 @@ export function AppHeader({
   );
 }
 
+const BANDS = {
+  marketplace: theme.colors.bandMarketplace,
+  services: theme.colors.bandServices,
+  transport: theme.colors.bandTransport,
+};
 const s = StyleSheet.create({
   band: {
     backgroundColor: theme.colors.primaryDark,
@@ -134,8 +143,8 @@ const s = StyleSheet.create({
     borderRadius: 100,
     right: -60,
     top: -90,
-    backgroundColor: theme.colors.steelSoft,
-    opacity: 0.5,
+    backgroundColor: "#FFFFFF",
+    opacity: 0.08,
   },
   row: { flexDirection: "row", alignItems: "center", gap: 10, minHeight: 48 },
   back: {

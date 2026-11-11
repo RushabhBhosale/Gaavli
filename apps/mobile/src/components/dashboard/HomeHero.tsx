@@ -12,9 +12,9 @@ import { GuestProfileButton } from "./GuestProfileButton";
 import { NotificationBell } from "./NotificationBell";
 import { d } from "./primitives";
 import {
-  marketplaceSearchRoute,
   produceVoiceHints,
-  voiceProductSearch,
+  scopedSearchRoute,
+  spokenSearch,
 } from "../../data/voiceSearch";
 import { useVoiceSearch } from "../../hooks/useVoiceSearch";
 import { useSearchIndex } from "../../listings";
@@ -29,56 +29,41 @@ const VOICE_HINTS = produceVoiceHints();
 // The first thing a buyer sees: where they are, who they are, and a search
 // that goes straight to the market. Steel blue so it anchors the page, with
 // saffron only on the mic.
-export function HomeHero({
+// Village, notifications and profile: pinned above the scrolling page.
+export function HomeTopBar({
   language,
   topInset,
-  onSearch,
 }: {
   language: MobileLanguage;
   topInset: number;
-  onSearch: () => void;
 }) {
   const session = useAppStore((state) => state.session);
   const router = useRouter();
   const t = messages(language);
-  // Fetch the product list for instant search a moment after Home appears, so
-  // it never competes with the first screen for the network.
-  const [warm, setWarm] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setWarm(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-  useSearchIndex(warm);
-  const name = session
-    ? accountHeaderIdentity(session.user, language).name
-    : t.guest;
-  // Tapping the box opens the search page; speaking opens the Marketplace
-  // with results already showing: one step instead of two.
-  const open = (value: string, productGroup?: string | null) => {
-    if (!value.trim()) return onSearch();
-    router.navigate(marketplaceSearchRoute(value, productGroup));
-  };
-  const voice = useVoiceSearch({
-    language,
-    scope: "home",
-    hints: VOICE_HINTS,
-    onResult: (transcript) => {
-      const spoken = voiceProductSearch(transcript, language);
-      if (spoken.text) open(spoken.text, spoken.productGroup);
-    },
-  });
-  const voiceLine =
-    voiceStatusText(t, voice.status) ?? voiceErrorText(t, voice.error);
   return (
-    <View style={[s.hero, { paddingTop: topInset + 8 }]}>
-      <View pointerEvents="none" style={s.circleLarge} />
+    <View style={[s.topBar, { paddingTop: topInset + 8 }]}>
       <View style={s.topRow}>
         <View style={s.village}>
           <BrowsingVillageSelector onDark />
         </View>
         {session && <NotificationBell language={language} onDark />}
         {!session ? (
-          <GuestProfileButton language={language} onDark />
+          <>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t.settings}
+              onPress={() => router.push("/profile")}
+              style={({ pressed }) => [s.profile, pressed && d.pressed]}
+            >
+              <Ionicons
+                accessible={false}
+                name="globe-outline"
+                size={22}
+                color={theme.colors.heroText}
+              />
+            </Pressable>
+            <GuestProfileButton language={language} onDark />
+          </>
         ) : (
           <Pressable
             accessibilityRole="button"
@@ -95,12 +80,55 @@ export function HomeHero({
           </Pressable>
         )}
       </View>
-      <View style={s.copy}>
-        <Text style={s.greeting}>{t.headerGreeting}</Text>
-        <Text accessibilityRole="header" numberOfLines={1} style={s.name}>
-          {name}
-        </Text>
-      </View>
+    </View>
+  );
+}
+
+export function HomeHero({
+  language,
+  onSearch,
+}: {
+  language: MobileLanguage;
+  onSearch: () => void;
+}) {
+  const session = useAppStore((state) => state.session);
+  const router = useRouter();
+  const t = messages(language);
+  // Fetch the product list for instant search a moment after Home appears, so
+  // it never competes with the first screen for the network.
+  const [warm, setWarm] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setWarm(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+  useSearchIndex(warm);
+  const name = session
+    ? accountHeaderIdentity(session.user, language).name
+    : t.guest;
+  // Tapping the box opens the search page; speaking opens the results of a
+  // search across every part of the app: one step instead of two.
+  const open = (value: string, productGroup?: string | null) => {
+    if (!value.trim()) return onSearch();
+    router.navigate(scopedSearchRoute("all", value, productGroup));
+  };
+  const voice = useVoiceSearch({
+    language,
+    scope: "home",
+    hints: VOICE_HINTS,
+    onResult: (transcript) => {
+      const spoken = spokenSearch(transcript, language, "all");
+      if (spoken.text) open(spoken.text, spoken.productGroup);
+    },
+  });
+  const voiceLine =
+    voiceStatusText(t, voice.status) ?? voiceErrorText(t, voice.error);
+  return (
+    <View style={s.hero}>
+      <View pointerEvents="none" style={s.circleLarge} />
+      <Text accessibilityRole="header" numberOfLines={1} style={s.greeting}>
+        {t.headerGreeting + " "}
+        <Text style={s.name}>{name}</Text>
+      </Text>
       <View style={s.search}>
         <Ionicons
           accessible={false}
@@ -143,6 +171,7 @@ const s = StyleSheet.create({
     paddingHorizontal: theme.layout.screenPadding,
     // The tiles below overlap the bottom edge.
     paddingBottom: 36,
+    paddingTop: 2,
     gap: 8,
   },
   // A soft circle gives the banner depth without an image.
@@ -164,9 +193,17 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  copy: { gap: 0 },
-  greeting: { ...theme.type.caption, color: theme.colors.heroMuted },
-  name: { ...theme.type.title, color: theme.colors.heroText },
+  topBar: {
+    backgroundColor: theme.colors.primaryDark,
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingBottom: 4,
+  },
+  greeting: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: theme.colors.heroMuted,
+  },
+  name: { fontSize: 18, fontWeight: "700", color: theme.colors.heroText },
   search: {
     minHeight: 48,
     flexDirection: "row",

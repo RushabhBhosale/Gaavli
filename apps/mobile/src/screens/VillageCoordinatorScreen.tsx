@@ -1,6 +1,7 @@
 import { Alert, Linking, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useAppStore } from "../store";
+import { SUPPORT_EMAIL } from "../config";
 import { formatMessage, messages } from "../i18n";
 import { useDashboardDirectory } from "../directory";
 import { theme } from "../theme";
@@ -36,6 +37,32 @@ export default function VillageCoordinatorScreen() {
         Alert.alert(t.callError),
       );
   }
+  const session = useAppStore((state) => state.session);
+  function email() {
+    const who = session?.user.name ? `\n\n${session.user.name}` : "";
+    const where = village ? ` (${village})` : "";
+    const subject = encodeURIComponent(`${t.coordinatorEmailSubject}${where}`);
+    const body = encodeURIComponent(who);
+    void Linking.openURL(
+      `mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`,
+    ).catch(() => Alert.alert(t.coordinatorEmailError));
+  }
+  const emailButton = SUPPORT_EMAIL ? (
+    <Button
+      outlined
+      onPress={email}
+      icon={
+        <Ionicons
+          accessible={false}
+          name="mail-outline"
+          size={20}
+          color={theme.colors.heading}
+        />
+      }
+    >
+      {t.coordinatorEmail}
+    </Button>
+  ) : null;
   const help = [
     ["person-add-outline", t.coordinatorHelp1],
     ["construct-outline", t.coordinatorHelp2],
@@ -46,25 +73,30 @@ export default function VillageCoordinatorScreen() {
       <Screen
         header={<AppHeader title={t.villageCoordinator} back="/home" />}
         footer={
-          coordinator ? (
-            <Button
-              disabled={!phone}
-              onPress={call}
-              icon={
-                <Ionicons
-                  accessible={false}
-                  name="call"
-                  size={20}
-                  color={theme.colors.onPrimary}
-                />
-              }
-            >
-              {phone
-                ? formatMessage(t.coordinatorCallNow, {
-                    name: coordinator.name,
-                  })
-                : t.coordinatorNoPhone}
-            </Button>
+          coordinator || emailButton ? (
+            <View style={s.footerStack}>
+              {coordinator && (
+                <Button
+                  disabled={!phone}
+                  onPress={call}
+                  icon={
+                    <Ionicons
+                      accessible={false}
+                      name="call"
+                      size={20}
+                      color={theme.colors.onPrimary}
+                    />
+                  }
+                >
+                  {phone
+                    ? formatMessage(t.coordinatorCallNow, {
+                        name: coordinator.name,
+                      })
+                    : t.coordinatorNoPhone}
+                </Button>
+              )}
+              {emailButton}
+            </View>
           ) : undefined
         }
       >
@@ -141,6 +173,7 @@ export default function VillageCoordinatorScreen() {
   );
 }
 const s = StyleSheet.create({
+  footerStack: { gap: 10 },
   profile: {
     alignItems: "center",
     gap: 6,

@@ -125,7 +125,10 @@ export default function LanguageScreen() {
             accessibilityLabel={`${t.alreadyRegisteredPrompt} ${t.villageLoginLink}`}
             accessibilityState={{ disabled: busy }}
             disabled={busy}
-            onPress={() => void next("/register")}
+            onPress={() => {
+              useAppStore.getState().setAuthMode("login");
+              void next("/register");
+            }}
             style={({ pressed }) => [
               s.loginLink,
               busy && s.loginDisabled,
@@ -135,6 +138,26 @@ export default function LanguageScreen() {
             <Text style={s.loginText}>
               {t.alreadyRegisteredPrompt}{" "}
               <Text style={s.loginHighlight}>{t.villageLoginLink}</Text>
+            </Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel={`${t.newHerePrompt} ${t.registerLink}`}
+            accessibilityState={{ disabled: busy }}
+            disabled={busy}
+            onPress={() => {
+              useAppStore.getState().setAuthMode("register");
+              void next("/register");
+            }}
+            style={({ pressed }) => [
+              s.loginLink,
+              busy && s.loginDisabled,
+              pressed && s.loginPressed,
+            ]}
+          >
+            <Text style={s.loginText}>
+              {t.newHerePrompt}{" "}
+              <Text style={s.loginHighlight}>{t.registerLink}</Text>
             </Text>
           </Pressable>
         </View>

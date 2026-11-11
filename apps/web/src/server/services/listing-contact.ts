@@ -35,7 +35,13 @@ export async function revealListingContact(
           status: "active",
         }).session(session);
         if (!user) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
-        const row = await accessibleSellerContact(id, session);
+        // Viewing the seller stays possible for sold-out and old listings; only
+        // recording interest needs a live one.
+        const row = await accessibleSellerContact(
+          id,
+          session,
+          mode === "view" ? "any" : "available",
+        );
         if (!row)
           throw new AppError(
             404,

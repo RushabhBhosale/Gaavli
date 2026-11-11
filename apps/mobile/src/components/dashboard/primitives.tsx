@@ -68,12 +68,15 @@ export function SectionHeader({
   onPress,
   badge,
   icon,
+  toggle,
 }: {
   title: string;
   icon?: IconName;
   action?: string;
   onPress?: () => void;
   badge?: string;
+  // A fold-away section: a chevron instead of the action link.
+  toggle?: { open: boolean; onPress: () => void };
 }) {
   return (
     <View style={d.sectionHeader}>
@@ -86,6 +89,23 @@ export function SectionHeader({
         {title}
       </Text>
       {badge && <Badge tone="green">{badge}</Badge>}
+      {toggle && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ expanded: toggle.open }}
+          accessibilityLabel={title}
+          onPress={toggle.onPress}
+          hitSlop={8}
+          style={d.textAction}
+        >
+          <Ionicons
+            accessible={false}
+            name={toggle.open ? "chevron-up" : "chevron-down"}
+            size={20}
+            color={theme.colors.primary}
+          />
+        </Pressable>
+      )}
       {action && onPress && (
         <Pressable
           accessibilityRole="button"

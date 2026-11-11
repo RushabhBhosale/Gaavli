@@ -16,6 +16,10 @@ export const theme = {
     primaryPressed: "#9E4508",
     // Steel blue: headers, heroes and strong text on tinted surfaces.
     primaryDark: "#35546E",
+    // Header band per module, so each part of the app has its own colour.
+    bandMarketplace: "#2F6A4B",
+    bandServices: "#35546E",
+    bandTransport: "#1F6B76",
     // On the steel hero
     heroText: "#FFFFFF",
     heroMuted: "#D6E2EC",

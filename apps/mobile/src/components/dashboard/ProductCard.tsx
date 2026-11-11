@@ -33,8 +33,8 @@ export function ProductCard({
   const cardWidth = wide
     ? undefined
     : Math.max(
-        150,
-        Math.min(180, (width - 56) * 0.46 * Math.min(fontScale, 1.4)),
+        128,
+        Math.min(150, (width - 56) * 0.38 * Math.min(fontScale, 1.4)),
       );
   const name = listingName(listing, language);
   const village = language !== "en" ? listing.villageMr : listing.village;
@@ -146,8 +146,8 @@ const s = StyleSheet.create({
     overflow: "hidden",
   },
   // Same size for every card in the row, whatever the name or photo.
-  compactCard: { height: 232 },
-  imageCompact: { height: 136 },
+  compactCard: { height: 188 },
+  imageCompact: { height: 100 },
   photo: { width: "100%", height: "100%" },
   directoryTile: { alignItems: "center", justifyContent: "center" },
   priceChip: {
@@ -161,15 +161,15 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.primary,
   },
   priceChipText: { ...theme.type.micro, color: theme.colors.onPrimary },
-  body: { paddingHorizontal: 12, paddingVertical: 10, gap: 2 },
-  name: { ...theme.type.subheading, color: theme.colors.heading },
+  body: { paddingHorizontal: 10, paddingVertical: 8, gap: 1 },
+  name: { ...theme.type.label, color: theme.colors.heading },
   sellers: {
     ...theme.type.caption,
     color: theme.colors.saffronText,
     fontWeight: "600",
   },
   noPrice: { ...theme.type.caption, color: theme.colors.muted },
-  meta: { fontSize: 14, lineHeight: 20, color: theme.colors.muted },
+  meta: { fontSize: 13, lineHeight: 18, color: theme.colors.muted },
   locationRow: { flexDirection: "row", alignItems: "center", gap: 3 },
   village: { flex: 1 },
   pressed: { opacity: theme.interaction.pressedOpacity },

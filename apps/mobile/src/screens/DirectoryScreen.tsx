@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   directoryGroupLabel,
@@ -47,6 +47,17 @@ export default function DirectoryScreen({
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<DirectoryGroupId | null>(null);
+  // A search spoken on the bottom bar, or "View All" from the global search,
+  // arrives here and applies once per request.
+  const incoming = useLocalSearchParams<{ q?: string; v?: string }>();
+  const [applied, setApplied] = useState<string | undefined>(undefined);
+  if (incoming.v && incoming.v !== applied) {
+    setApplied(incoming.v);
+    const text = (incoming.q ?? "").trim();
+    setInput(text);
+    setSearch(text);
+    setCategory(null);
+  }
   // Only the first few tiles show until "See all" opens the rest in place.
   const [expanded, setExpanded] = useState(false);
   useEffect(() => {
@@ -83,6 +94,7 @@ export default function DirectoryScreen({
         header={
           <AppHeader
             title={title}
+            tone={module}
             subtitle={
               module === "services" ? t.tileServicesHint : t.tileTransportHint
             }
@@ -90,7 +102,11 @@ export default function DirectoryScreen({
           >
             <HeaderSearch
               label={t.search}
-              placeholder={t.directorySearch}
+              placeholder={
+                module === "services"
+                  ? t.directorySearchServices
+                  : t.directorySearchTransport
+              }
               value={input}
               onChangeText={setInput}
             />

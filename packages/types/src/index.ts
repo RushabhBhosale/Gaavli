@@ -61,6 +61,7 @@ export type MobileListing = {
   description: string | null;
   photoUrl: string | null;
   isDemo: boolean;
+  availability?: "available" | "sold_out" | "expired";
   category: string | null;
   categoryName: string | null;
   categoryNameMr: string | null;

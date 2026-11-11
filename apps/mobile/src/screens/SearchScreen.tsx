@@ -26,9 +26,9 @@ import {
   splitMatch,
 } from "../data/recentSearches";
 import {
-  marketplaceSearchRoute,
   produceVoiceHints,
-  voiceProductSearch,
+  scopedSearchRoute,
+  spokenSearch,
 } from "../data/voiceSearch";
 import { useVoiceSearch } from "../hooks/useVoiceSearch";
 import {
@@ -103,7 +103,7 @@ export default function SearchScreen() {
   function search(value: string, group?: string | null) {
     Keyboard.dismiss();
     if (value.trim()) remember(value);
-    router.replace(marketplaceSearchRoute(value, group));
+    router.replace(scopedSearchRoute("all", value, group));
   }
   function close() {
     if (router.canGoBack()) router.back();
@@ -114,7 +114,7 @@ export default function SearchScreen() {
     scope: "search",
     hints: VOICE_HINTS,
     onResult: (transcript) => {
-      const spoken = voiceProductSearch(transcript, language);
+      const spoken = spokenSearch(transcript, language, "all");
       if (spoken.text) search(spoken.text, spoken.productGroup);
     },
   });

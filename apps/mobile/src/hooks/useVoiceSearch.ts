@@ -4,6 +4,11 @@ import { useFocusEffect } from "expo-router";
 import { requireOptionalNativeModule } from "expo";
 import type { ExpoSpeechRecognitionModuleType } from "expo-speech-recognition/build/ExpoSpeechRecognitionModule.types";
 import type { MobileLanguage } from "@gaavli/types";
+import { speechLocale } from "../locale";
+import {
+  recognizeWithDialog,
+  speechDialogAvailable,
+} from "../../modules/gaavli-speech-dialog";
 import {
   VoiceSearchSession,
   type SpeechDriver,
@@ -94,6 +99,7 @@ export function useVoiceSearch({
     callback.current = onResult;
   }, [onResult]);
   const controller = useRef<VoiceSearchSession | null>(null);
+  const dialogOpen = useRef(false);
   useEffect(() => {
     controller.current?.cancel();
   }, [language, scope]);
@@ -140,6 +146,23 @@ export function useVoiceSearch({
     finish: () => controller.current?.finish(),
     start: () => {
       setError(null);
+      // Android: the phone's own "Speak now" dialog. If it is missing (an
+      // older build, or no speech app), the in-app recognizer is used.
+      if (speechDialogAvailable) {
+        if (dialogOpen.current) return;
+        dialogOpen.current = true;
+        void recognizeWithDialog(speechLocale(language))
+          .then((result) => {
+            if (result.status === "ok") callback.current(result.text);
+            else if (result.status === "unavailable")
+              void controller.current?.start(language, hints);
+          })
+          .catch(() => setError("failed"))
+          .finally(() => {
+            dialogOpen.current = false;
+          });
+        return;
+      }
       void controller.current?.start(language, hints);
     },
     clearError: () => setError(null),

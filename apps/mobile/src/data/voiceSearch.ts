@@ -351,3 +351,49 @@ export function marketplaceSearchRoute(
     },
   };
 }
+
+// Where a search belongs: on Home or any other page it covers everything
+// (Marketplace, Services and Transport); inside one of those modules it stays
+// in that module.
+export type SearchScope = "all" | "marketplace" | "services" | "transport";
+export function searchScopeFor(pathname: string): SearchScope {
+  const tab = pathname.split("/").filter(Boolean)[0];
+  return tab === "marketplace" || tab === "services" || tab === "transport"
+    ? tab
+    : "all";
+}
+export function scopedSearchRoute(
+  scope: SearchScope,
+  text: string,
+  productGroup?: string | null,
+) {
+  const q = text.trim().slice(0, 100);
+  if (scope === "marketplace") return marketplaceSearchRoute(q, productGroup);
+  if (scope === "all")
+    return {
+      pathname: "/search-all" as const,
+      params: { q, v: String(Date.now()) },
+    };
+  return {
+    pathname: `/${scope}` as "/services" | "/transport",
+    params: { q, v: String(Date.now()) },
+  };
+}
+// What to search for: a known product name when the words match one, and
+// otherwise the words themselves (a trade, a vehicle, a name).
+export function spokenSearch(
+  transcript: string,
+  language: Parameters<typeof voiceProductSearch>[1],
+  scope: SearchScope,
+) {
+  const product = voiceProductSearch(transcript, language);
+  if (scope === "marketplace")
+    return { text: product.text, productGroup: product.productGroup };
+  return {
+    text:
+      scope === "all" && product.productGroup
+        ? product.text
+        : transcript.trim().slice(0, 100) || product.text,
+    productGroup: product.productGroup,
+  };
+}

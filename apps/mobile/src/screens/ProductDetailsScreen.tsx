@@ -105,13 +105,19 @@ function ProductDetailsContent({ id }: { id: string }) {
   const now = useListingClock();
   const invalid = !listingIdSchema.safeParse(id).success;
   const unavailable =
-    invalid ||
-    (query.error instanceof ApiError && query.error.status === 404) ||
-    (query.data?.expiresAt && Date.parse(query.data.expiresAt) <= now);
+    invalid || (query.error instanceof ApiError && query.error.status === 404);
   const listing =
     query.data && !unavailable ? toHomeListing(query.data, now) : null;
+  // Sold out or past its date: still viewable, but nothing to buy or contact.
+  const ended =
+    !!query.data &&
+    (query.data.availability === "sold_out" ||
+      query.data.availability === "expired" ||
+      (!!query.data.expiresAt && Date.parse(query.data.expiresAt) <= now));
+  const endedLabel =
+    query.data?.availability === "sold_out" ? t.listingSoldOut : t.listingEnded;
   // Other sellers of this same product, cheapest first.
-  const offersQuery = useListingOffers(id, !!listing);
+  const offersQuery = useListingOffers(id, !!listing && !ended);
   const offers = offersQuery.data?.offers ?? [];
   const quantityValue = (quantity: number) =>
     `${new Intl.NumberFormat(dateLocale(language)).format(quantity)} ${listingUnit(listing?.unit ?? null, language)}`.trim();
@@ -141,6 +147,14 @@ function ProductDetailsContent({ id }: { id: string }) {
   const seller = listing && !denied ? savedContact?.seller || null : null;
   async function revealContact(call: boolean) {
     if (submitting.current || offline || !listing || invalid) return;
+    // An old listing has no interest to record: just call the number we have.
+    if (ended && seller) {
+      if (call)
+        await Linking.openURL(`tel:${seller.mobile}`).catch(() =>
+          setContactError(t.callError),
+        );
+      return;
+    }
     submitting.current = true;
     setContactBusy(true);
     setContactError(null);
@@ -334,57 +348,60 @@ function ProductDetailsContent({ id }: { id: string }) {
     if (router.canGoBack()) router.back();
     else router.replace("/marketplace");
   }
-  const footer = !listing ? null : !session ? (
-    <Button
-      onPress={() => {
-        showGuestSignUpPrompt(language, () => {
-          useAppStore.getState().setAuthMode("register");
-          useAppStore.getState().setContactReturn(id);
-          router.push("/register");
-        });
-      }}
-    >
-      {t.contactSeller}
-    </Button>
-  ) : seller ? (
-    <View style={s.actions}>
-      <View style={s.primaryAction}>
-        <Button
-          loading={contactBusy}
-          disabled={offline || contactBusy || notifyBusy}
-          icon={
-            <Ionicons
-              accessible={false}
-              name="call"
-              size={18}
-              color={theme.colors.onPrimary}
-            />
-          }
-          onPress={() => void revealContact(true)}
-        >
-          {t.call}
-        </Button>
+  const footer =
+    !listing || ended ? null : !session ? (
+      <Button
+        onPress={() => {
+          showGuestSignUpPrompt(language, () => {
+            useAppStore.getState().setAuthMode("register");
+            useAppStore.getState().setContactReturn(id);
+            router.push("/register");
+          });
+        }}
+      >
+        {t.contactSeller}
+      </Button>
+    ) : seller ? (
+      <View style={s.actions}>
+        <View style={s.primaryAction}>
+          <Button
+            loading={contactBusy}
+            disabled={offline || contactBusy || notifyBusy}
+            icon={
+              <Ionicons
+                accessible={false}
+                name="call"
+                size={18}
+                color={theme.colors.onPrimary}
+              />
+            }
+            onPress={() => void revealContact(true)}
+          >
+            {t.call}
+          </Button>
+        </View>
+        {!ended && (
+          <View style={s.secondaryAction}>
+            <Button
+              outlined
+              loading={notifyBusy}
+              disabled={offline || contactBusy || notifyBusy}
+              icon={
+                <Ionicons
+                  accessible={false}
+                  name="notifications-outline"
+                  size={18}
+                  color={theme.colors.heading}
+                />
+              }
+              onPress={() => void openNotify()}
+            >
+              {t.notify}
+            </Button>
+          </View>
+        )}
       </View>
-      <View style={s.secondaryAction}>
-        <Button
-          outlined
-          loading={notifyBusy}
-          disabled={offline || contactBusy || notifyBusy}
-          icon={
-            <Ionicons
-              accessible={false}
-              name="notifications-outline"
-              size={18}
-              color={theme.colors.heading}
-            />
-          }
-          onPress={() => void openNotify()}
-        >
-          {t.notify}
-        </Button>
-      </View>
-    </View>
-  ) : null;
+    ) : null;
   return (
     <ProtectedPage allowGuest>
       <View style={s.page}>
@@ -443,6 +460,20 @@ function ProductDetailsContent({ id }: { id: string }) {
             )}
             {listing && (
               <>
+                {ended && (
+                  <View accessibilityRole="alert" style={s.endedBanner}>
+                    <Ionicons
+                      accessible={false}
+                      name="time-outline"
+                      size={20}
+                      color={theme.colors.saffronText}
+                    />
+                    <View style={s.endedCopy}>
+                      <Text style={s.endedTitle}>{endedLabel}</Text>
+                      <Text style={s.endedText}>{t.listingEndedHelp}</Text>
+                    </View>
+                  </View>
+                )}
                 <View style={s.titleBlock}>
                   <Text accessibilityRole="header" style={s.name}>
                     {listingName(listing, language)}
@@ -841,6 +872,17 @@ function ProductDetailsContent({ id }: { id: string }) {
   );
 }
 const s = StyleSheet.create({
+  endedBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    padding: 14,
+    borderRadius: theme.radii.card,
+    backgroundColor: theme.colors.tint,
+  },
+  endedCopy: { flex: 1, gap: 2 },
+  endedTitle: { ...theme.type.subheading, color: theme.colors.saffronText },
+  endedText: { ...theme.type.caption, color: theme.colors.muted },
   page: { flex: 1, backgroundColor: theme.colors.background },
   scroll: { flexGrow: 1 },
   hero: { height: 300, backgroundColor: theme.colors.tint },

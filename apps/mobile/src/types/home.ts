@@ -3,6 +3,7 @@ import type { MobileLanguage } from "@gaavli/types";
 
 export type ProductImageKey = "tomato" | "onion" | "potato" | "rice" | "mango";
 export type HomeListing = {
+  availability?: "available" | "sold_out" | "expired";
   module?: "marketplace" | "services" | "transport";
   id: string;
   name: string;

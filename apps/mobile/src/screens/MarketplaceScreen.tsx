@@ -12,7 +12,6 @@ import {
   View,
 } from "react-native";
 import { AppHeader } from "../components/AppHeader";
-import { BrowsingVillageSelector } from "../components/BrowsingVillageSelector";
 import { NotificationBell } from "../components/dashboard/NotificationBell";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -177,7 +176,11 @@ export default function MarketplaceScreen() {
         .map((listing) => [listing.id, toHomeListing(listing, now)]),
     ).values(),
   );
-  const sections = [
+  const loading = (feed: typeof result) =>
+    !offline && feed.isPending && !feed.isError;
+  // Only sections that have something (or are still loading) are shown, so an
+  // empty "not available" list never adds clutter.
+  const allSections = [
     {
       key: "active",
       title: t.marketplaceActiveListings,
@@ -195,6 +198,12 @@ export default function MarketplaceScreen() {
       visible: counts.unavailable,
     },
   ];
+  const sections = allSections.filter(
+    (section) =>
+      section.data.length > 0 ||
+      loading(section.feed) ||
+      (section.feed.isError && !offline),
+  );
   function submitSearch() {
     voice.cancel();
     const value = query.trim();
@@ -206,12 +215,15 @@ export default function MarketplaceScreen() {
     <View style={s.safe}>
       <AppHeader
         title={t.marketplace}
-        right={
-          <>
-            <BrowsingVillageSelector onDark />
-            {session && <NotificationBell language={language} onDark />}
-          </>
+        tone="marketplace"
+        subtitle={
+          browsingVillage
+            ? language !== "en"
+              ? browsingVillage.nameMr
+              : browsingVillage.name
+            : undefined
         }
+        right={session && <NotificationBell language={language} onDark />}
       >
         <View style={[s.search, focused && s.searchFocused]}>
           <Pressable
@@ -334,11 +346,27 @@ export default function MarketplaceScreen() {
             </ScrollView>
           </View>
         }
-        renderSectionHeader={({ section }) => (
-          <Text accessibilityRole="header" style={s.sectionTitle}>
-            {section.title}
-          </Text>
-        )}
+        renderSectionHeader={({ section }) =>
+          sections.length > 1 && section.data.length ? (
+            <Text accessibilityRole="header" style={s.sectionTitle}>
+              {section.title}
+            </Text>
+          ) : null
+        }
+        ListEmptyComponent={
+          <View accessibilityLiveRegion="polite" style={s.empty}>
+            <StateMessage
+              icon={offline ? "cloud-offline-outline" : "basket-outline"}
+              title={
+                offline
+                  ? t.listingsOfflineEmpty
+                  : search || category !== "all"
+                    ? t.noListingMatches
+                    : t.noListings
+              }
+            />
+          </View>
+        }
         renderSectionFooter={({ section }) => {
           const feed = section.feed;
           const loaded = section.unavailable
@@ -359,32 +387,6 @@ export default function MarketplaceScreen() {
                 feed.isPending &&
                 !feed.isError && (
                   <SkeletonList rows={4} label={t.listingsLoading} />
-                )}
-              {!section.data.length &&
-                !(feed.isError && !offline) &&
-                !(feed.isPending && !offline) && (
-                  <View accessibilityLiveRegion="polite" style={s.empty}>
-                    <StateMessage
-                      icon={
-                        offline
-                          ? "cloud-offline-outline"
-                          : feed.isPending
-                            ? "hourglass-outline"
-                            : "basket-outline"
-                      }
-                      title={
-                        offline
-                          ? t.listingsOfflineEmpty
-                          : feed.isPending
-                            ? t.listingsLoading
-                            : section.unavailable
-                              ? t.marketplaceNoUnavailable
-                              : search || category !== "all"
-                                ? t.noListingMatches
-                                : t.noListings
-                      }
-                    />
-                  </View>
                 )}
               {(loaded > section.visible || feed.hasNextPage) && (
                 <Button

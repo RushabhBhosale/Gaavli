@@ -14,7 +14,7 @@ import { masterSearchMappings } from "./product-master";
 export const visiblePipeline = (
   villageId: string | string[] | null,
   now: Date,
-  availability: "available" | "unavailable" = "available",
+  availability: "available" | "unavailable" | "any" = "available",
 ): PipelineStage[] => [
   {
     $match: {
@@ -27,15 +27,18 @@ export const visiblePipeline = (
               ),
             },
           }),
-      ...(availability === "unavailable"
-        ? {
-            $or: [
-              { status: { $in: ["sold_out", "expired"] } },
-              { status: "active", quantity: { $lte: 0 } },
-              { status: "active", expiresAt: { $lte: now, $type: "date" } },
-            ],
-          }
-        : activeStockFilter(now)),
+      // "any": live, sold-out and expired listings; never reported or removed.
+      ...(availability === "any"
+        ? { status: { $in: ["active", "sold_out", "expired"] } }
+        : availability === "unavailable"
+          ? {
+              $or: [
+                { status: { $in: ["sold_out", "expired"] } },
+                { status: "active", quantity: { $lte: 0 } },
+                { status: "active", expiresAt: { $lte: now, $type: "date" } },
+              ],
+            }
+          : activeStockFilter(now)),
       ...(process.env.NODE_ENV === "production"
         ? { isDemo: { $ne: true } }
         : {}),
@@ -107,6 +110,44 @@ const groupKeyStage: PipelineStage.AddFields = {
 };
 const dtoProjection = {
   _id: 0,
+  // Whether a buyer can still act on the listing; old ones stay viewable.
+  availability: {
+    $switch: {
+      branches: [
+        {
+          case: {
+            $or: [
+              { $eq: ["$status", "sold_out"] },
+              { $lte: [{ $ifNull: ["$quantity", 1] }, 0] },
+            ],
+          },
+          then: "sold_out",
+        },
+        {
+          case: {
+            $or: [
+              { $eq: ["$status", "expired"] },
+              {
+                $and: [
+                  { $eq: [{ $type: "$expiresAt" }, "date"] },
+                  { $lte: ["$expiresAt", "$$NOW"] },
+                ],
+              },
+              // No end date (and not a recurring supply): treated as old.
+              {
+                $and: [
+                  { $ne: [{ $type: "$expiresAt" }, "date"] },
+                  { $ne: ["$category", "RECURRING_SUPPLY"] },
+                ],
+              },
+            ],
+          },
+          then: "expired",
+        },
+      ],
+      default: "available",
+    },
+  },
   id: { $toString: "$_id" },
   productName: 1,
   description: { $ifNull: ["$description", null] },
@@ -416,7 +457,7 @@ export async function findMobileListing(villageId: string, id: string) {
     Omit<MobileListing, "photoUrl"> & { photoObjectKey: string | null }
   >([
     { $match: { _id: new Types.ObjectId(id) } },
-    ...visiblePipeline(await discoveryVillageIds(villageId), new Date()),
+    ...visiblePipeline(await discoveryVillageIds(villageId), new Date(), "any"),
     productNameStage,
     { $project: dtoProjection },
   ]);
