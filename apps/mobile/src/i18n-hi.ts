@@ -590,7 +590,7 @@ export const hi: Messages = {
   offerCall: "कॉल करें",
   offerSignIn: "विक्रेताओं के नाम और फोन नंबर देखने के लिए लॉगिन करें।",
   quickFacts: "एक नज़र में",
-  homeSearchHint: "टमाटर, प्याज़, दूध खोजें…",
+  homeSearchHint: "उत्पाद, सेवाएँ, परिवहन खोजें…",
   searchRecent: "हाल की खोजें",
   searchAllTitle: "खोजें",
   searchAllPlaceholder: "उत्पाद, सेवाएँ, परिवहन…",

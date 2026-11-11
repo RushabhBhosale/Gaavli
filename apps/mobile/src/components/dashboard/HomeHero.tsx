@@ -139,7 +139,7 @@ export function HomeHero({
         <Pressable
           accessibilityRole="search"
           accessibilityLabel={t.marketplaceSearchPlaceholder}
-          onPress={() => router.push("/search")}
+          onPress={() => router.push("/search-all")}
           style={s.searchTap}
         >
           <Text numberOfLines={1} style={s.searchHint}>
