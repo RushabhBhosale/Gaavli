@@ -7,6 +7,7 @@ export function errorMessage(error: unknown, language: MobileLanguage) {
   const map: Record<string, string> = {
     PROFILE_CONFLICT: t.profileConflict,
     MOBILE_UNAVAILABLE: t.mobileUnavailable,
+    MOBILE_ALREADY_REGISTERED: t.mobileAlreadyRegistered,
     PHOTO_FORBIDDEN: t.photoInvalid,
     REQUEST_ALREADY_SENT: t.requestAlreadySent,
     REQUEST_QUANTITY_INVALID: t.requestQuantityError,

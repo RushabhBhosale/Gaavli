@@ -350,6 +350,8 @@ const en = {
   mobileChanged: "Mobile number verified and updated",
   mobileUnavailable:
     "Choose another mobile number. This number cannot be used.",
+  mobileAlreadyRegistered:
+    "This mobile number is already registered. Please sign in instead.",
   favouritesPending: "Favourite sellers and crops are not connected yet.",
   notificationsPending: "Crop notifications are not connected yet.",
   settingsUnavailable: "Not available yet",
@@ -1068,6 +1070,8 @@ const mr: Messages = {
   mobileChanged: "मोबाइल क्रमांक पडताळून बदलला",
   mobileUnavailable:
     "दुसरा मोबाइल क्रमांक निवडा. हा क्रमांक वापरता येणार नाही.",
+  mobileAlreadyRegistered:
+    "हा मोबाइल नंबर आधीच नोंदणीकृत आहे. कृपया साइन इन करा.",
   favouritesPending:
     "आवडते विक्रेते व पिके जतन करण्याची सुविधा अद्याप जोडलेली नाही.",
   notificationsPending: "नवीन पिकांच्या सूचनांची सुविधा अद्याप जोडलेली नाही.",

@@ -193,8 +193,13 @@ try {
     { mobile: input.mobile },
     { $set: { resendAt: new Date(0) } },
   );
+  // A number that already has an account cannot register again.
+  await rejects(
+    sendOtp({ ...input, firstName: "DoNotOverwrite" }, "integration"),
+    "MOBILE_ALREADY_REGISTERED",
+  );
   const again = await sendOtp(
-    { ...input, firstName: "DoNotOverwrite" },
+    { mobile: input.mobile, language: input.language },
     "integration",
   );
   const parallel = await Promise.allSettled([

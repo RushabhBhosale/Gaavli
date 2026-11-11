@@ -348,6 +348,8 @@ export const hi: Messages = {
   mobileChanged: "मोबाइल नंबर सत्यापित और अपडेट हुआ",
   mobileUnavailable:
     "कोई दूसरा मोबाइल नंबर चुनें। यह नंबर उपयोग नहीं किया जा सकता।",
+  mobileAlreadyRegistered:
+    "यह मोबाइल नंबर पहले से पंजीकृत है। कृपया साइन इन करें।",
   favouritesPending: "पसंदीदा विक्रेता और फ़सलें अभी जुड़े नहीं हैं।",
   notificationsPending: "फ़सल सूचनाएँ अभी जुड़ी नहीं हैं।",
   settingsUnavailable: "अभी उपलब्ध नहीं",

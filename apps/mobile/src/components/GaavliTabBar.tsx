@@ -2,7 +2,7 @@ import { useState, type ComponentProps } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import type { Tabs } from "expo-router";
+import { useRouter, type Tabs } from "expo-router";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { coordinatorMessages } from "../coordinator/i18n";
@@ -22,6 +22,7 @@ export function GaavliTabBar({ state, navigation }: TabBarProps) {
   const t = messages(language);
   const c = coordinatorMessages(language);
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   const coordinator = hasCoordinatorRole(session?.user);
   const slots: Record<string, Slot> = {
     home: {
@@ -221,6 +222,32 @@ export function GaavliTabBar({ state, navigation }: TabBarProps) {
                 </Pressable>
               );
             })}
+            {!!session && (
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => {
+                  setMoreOpen(false);
+                  router.push("/activities");
+                }}
+                style={({ pressed }) => [s.row, pressed && s.pressed]}
+              >
+                <View style={s.rowIcon}>
+                  <Ionicons
+                    accessible={false}
+                    name="briefcase-outline"
+                    size={22}
+                    color={theme.colors.steel}
+                  />
+                </View>
+                <Text style={s.rowText}>{t.actTitle}</Text>
+                <Ionicons
+                  accessible={false}
+                  name="chevron-forward"
+                  size={18}
+                  color={theme.colors.inactive}
+                />
+              </Pressable>
+            )}
           </Pressable>
         </Pressable>
       </Modal>
