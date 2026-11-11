@@ -89,7 +89,7 @@ export default function OtpScreen() {
       await saveSession(pendingSession.current);
       let user = pendingSession.current.user;
       const browsingVillage = useAppStore.getState().browsingVillage;
-      if (!user.village && browsingVillage && user.firstName && user.lastName) {
+      if (!user.village && browsingVillage && user.firstName) {
         try {
           user = await authenticatedApi("/users/me", mobileUserSchema, {
             method: "PATCH",

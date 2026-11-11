@@ -514,7 +514,7 @@ function BuyerForm({
           autoCapitalize="words"
         />
         <Input
-          label={`${common.lastName} *`}
+          label={common.lastName}
           value={lastName}
           maxLength={60}
           error={hasError("lastName") ? common.nameError : undefined}

@@ -18,6 +18,7 @@ import type { MobileVillage } from "@gaavli/types";
 import {
   mobileUserSchema,
   personNameSchema,
+  optionalLastNameSchema,
   villagePageSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
@@ -58,7 +59,7 @@ export default function VillageScreen() {
   const [selected, setSelected] = useState<MobileVillage | null>(
     session?.user.village ?? browsingVillage,
   );
-  const needsNames = !session?.user.firstName || !session?.user.lastName;
+  const needsNames = !session?.user.firstName;
   const [firstName, setFirstName] = useState(session?.user.firstName || "");
   const [lastName, setLastName] = useState(session?.user.lastName || "");
   const [nameErrors, setNameErrors] = useState<{
@@ -182,7 +183,7 @@ export default function VillageScreen() {
     const names = needsNames
       ? {
           firstName: personNameSchema.safeParse(firstName),
-          lastName: personNameSchema.safeParse(lastName),
+          lastName: optionalLastNameSchema.safeParse(lastName),
         }
       : null;
     if (

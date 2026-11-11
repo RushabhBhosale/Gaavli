@@ -30,7 +30,7 @@ export const hi: Messages = {
   regCreateSubtitle: "अपने गाँव के समुदाय से जुड़ें।",
   regFullName: "पूरा नाम",
   regFullNamePlaceholder: "अपना पूरा नाम लिखें",
-  regFullNameError: "अपना नाम और उपनाम लिखें।",
+  regFullNameError: "अपना नाम लिखें।",
   regBasicDetails: "बुनियादी जानकारी",
   regNumberTitle: "नंबर {n} · {label}",
   regMobileMobile: "मोबाइल",

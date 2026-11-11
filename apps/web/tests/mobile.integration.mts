@@ -108,6 +108,23 @@ try {
   );
   assert.equal(signedIn.user.village, null);
   assert.equal(signedIn.user.firstName, "Riya");
+  // A single name (no last name) is a valid registration.
+  const single = registrationSchema.parse({
+    firstName: "Rushabh",
+    mobile: "9123456780",
+    language: "en",
+  });
+  assert.equal(single.lastName, "");
+  const singleChallenge = await sendOtp(single, "integration");
+  const singleUser = await verifyOtp(
+    { challengeId: singleChallenge.challengeId, code: "123456" },
+    "integration",
+  );
+  assert.equal(singleUser.user.firstName, "Rushabh");
+  assert.equal(singleUser.user.name, "Rushabh");
+  assert.equal(await User.countDocuments(), 2);
+  await User.deleteOne({ _id: singleUser.user.id });
+  await MobileSession.deleteMany({ user: singleUser.user.id });
   assert.equal(await User.countDocuments(), 1);
   assert.deepEqual((await User.findById(signedIn.user.id))?.roles, ["buyer"]);
   assert.ok(

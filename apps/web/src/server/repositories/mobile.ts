@@ -206,20 +206,20 @@ export async function saveMobileVillage(
     }).session(session);
     if (!current) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
     if (
-      (!current.firstName || !current.lastName) &&
-      (!input.firstName || !input.lastName)
+      !current.firstName &&
+      !input.firstName
     )
       throw new AppError(
         422,
         "VALIDATION_ERROR",
-        "Enter your first and last name.",
+        "Enter your name.",
       );
     const names =
-      input.firstName && input.lastName
+      input.firstName
         ? {
             firstName: input.firstName,
-            lastName: input.lastName,
-            name: `${input.firstName} ${input.lastName}`,
+            lastName: input.lastName || "",
+            name: `${input.firstName} ${input.lastName || ""}`.trim(),
           }
         : {};
     const user = await User.findOneAndUpdate(

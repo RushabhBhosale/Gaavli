@@ -267,7 +267,7 @@ export async function coordinatorAddBuyer(
             firstName: input.firstName,
             lastName: input.lastName,
             mobile: input.mobile,
-            name: `${input.firstName} ${input.lastName}`,
+            name: `${input.firstName} ${input.lastName}`.trim(),
             village: targetId,
             roles: ["buyer"],
             mobileVerified: false,
@@ -324,7 +324,7 @@ export async function coordinatorEditUser(
         );
       user.firstName = input.firstName;
       user.lastName = input.lastName;
-      user.name = `${input.firstName} ${input.lastName}`;
+      user.name = `${input.firstName} ${input.lastName}`.trim();
       await user.save({ session });
       await recordAction(
         actorId,

@@ -225,7 +225,7 @@ export async function verifyOtp(
       );
     let account = matches[0];
     if (!account) {
-      const named = challenge.firstName && challenge.lastName;
+      const named = !!challenge.firstName;
       // An account removed after login OTP issuance must never be recreated.
       if (!named)
         throw new AppError(
@@ -237,10 +237,10 @@ export async function verifyOtp(
         [
           {
             name: named
-              ? `${challenge.firstName} ${challenge.lastName}`
+              ? `${challenge.firstName} ${challenge.lastName || ""}`.trim()
               : challenge.mobile,
             firstName: named ? challenge.firstName : undefined,
-            lastName: named ? challenge.lastName : undefined,
+            lastName: named ? challenge.lastName || "" : undefined,
             mobile: challenge.mobile,
             mobileVerified: true,
             registeredAt: new Date(),
@@ -261,7 +261,7 @@ export async function verifyOtp(
         );
       // A registration cannot take over an account that is already in use
       // (for example one created after this code was requested).
-      if (challenge.firstName && challenge.lastName && isRegistered(account))
+      if (challenge.firstName && isRegistered(account))
         throw new AppError(
           409,
           "MOBILE_ALREADY_REGISTERED",

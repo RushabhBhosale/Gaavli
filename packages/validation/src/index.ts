@@ -61,8 +61,16 @@ export {
   productMasterImportRowSchema,
   productMasterImportSchema,
 } from "./product-master";
-import { indianMobileSchema, personNameSchema } from "./identity";
-export { indianMobileSchema, personNameSchema } from "./identity";
+import {
+  indianMobileSchema,
+  personNameSchema,
+  optionalLastNameSchema,
+} from "./identity";
+export {
+  indianMobileSchema,
+  personNameSchema,
+  optionalLastNameSchema,
+} from "./identity";
 export {
   coordinatorQuerySchema,
   coordinatorBuyerSchema,
@@ -111,7 +119,7 @@ export function apiSuccessSchema<T extends z.ZodType>(data: T) {
 export const registrationSchema = z
   .object({
     firstName: personNameSchema,
-    lastName: personNameSchema,
+    lastName: optionalLastNameSchema.default(""),
     mobile: indianMobileSchema,
     language: mobileLanguageSchema,
   })
@@ -288,17 +296,16 @@ export const selectVillageSchema = z
   .object({
     villageId: z.string().regex(/^[a-f0-9]{24}$/i),
     firstName: personNameSchema.optional(),
-    lastName: personNameSchema.optional(),
+    lastName: optionalLastNameSchema.optional(),
   })
   .strict()
   .superRefine((value, context) => {
     const hasFirst = value.firstName !== undefined;
-    const hasLast = value.lastName !== undefined;
-    if (hasFirst !== hasLast)
+    if (value.lastName !== undefined && !hasFirst)
       context.addIssue({
         code: "custom",
         message: "NAME_REQUIRED",
-        path: [hasFirst ? "lastName" : "firstName"],
+        path: ["firstName"],
       });
     if (
       value.firstName &&
