@@ -28,6 +28,22 @@
       "port": 8082
     },
     {
+      "name": "mobile-ios-live",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "EXPO_PUBLIC_API_BASE_URL=https://gaavli.vercel.app/api/v1",
+        "npm",
+        "run",
+        "start:go",
+        "--workspace=@gaavli/mobile",
+        "--",
+        "--port",
+        "8082",
+        "--ios"
+      ],
+      "port": 8082
+    },
+    {
       "name": "mobile-android-dev",
       "runtimeExecutable": "env",
       "runtimeArgs": [

@@ -36,6 +36,7 @@ const serviceSchema = new Schema(
       ],
       default: [],
     },
+    images: { type: [String], default: [] },
     description: { type: String, trim: true, maxlength: 2000 },
     keywords: [String],
     price: { type: Number, min: 0 },

@@ -81,6 +81,17 @@ const en = {
   provAddress: "Address / Location (Optional)",
   provContactsTitle: "CONTACT NUMBERS (up to 5)",
   provDescription: "Description (Optional)",
+  provImagesTitle: "Photos (optional)",
+  provImagesHint:
+    "Add up to 2 photos, such as your shop front or visiting card.",
+  provImageAdd: "Add photo",
+  provImageCamera: "Take a photo",
+  provImageGallery: "Choose from gallery",
+  provImageRemove: "Remove photo",
+  provImageUploading: "Uploading…",
+  provImageCount: "{n} of {total} photos",
+  provImageOpen: "Open photo",
+  provImageClose: "Close",
   provNameHint:
     "As you type, Gaavli checks for a similar listing in your village.",
   provCheckContinue: "Check & Continue",
@@ -154,6 +165,7 @@ const en = {
   dirCall: "Call",
   dirWhatsApp: "WhatsApp",
   dirTryNext: "If there is no answer, try the next number.",
+  dirNoContact: "No phone number has been shared for this listing yet.",
   dirNoContacts: "No public phone number.",
   dirNotEndorsement: "Listing is not an endorsement by Gaavli.",
   dirEmergencyNote:
@@ -800,6 +812,17 @@ const mr: Messages = {
   provAddress: "पत्ता / ठिकाण (ऐच्छिक)",
   provContactsTitle: "संपर्क क्रमांक (५ पर्यंत)",
   provDescription: "वर्णन (ऐच्छिक)",
+  provImagesTitle: "फोटो (ऐच्छिक)",
+  provImagesHint:
+    "तुमच्या दुकानाचा किंवा व्हिजिटिंग कार्डचा, जास्तीत जास्त २ फोटो जोडा.",
+  provImageAdd: "फोटो जोडा",
+  provImageCamera: "फोटो काढा",
+  provImageGallery: "गॅलरीतून निवडा",
+  provImageRemove: "फोटो काढून टाका",
+  provImageUploading: "अपलोड होत आहे…",
+  provImageCount: "{n} / {total} फोटो",
+  provImageOpen: "फोटो उघडा",
+  provImageClose: "बंद करा",
   provNameHint:
     "तुम्ही लिहिताना गावली तुमच्या गावात सारखी नोंद आहे का ते तपासते.",
   provCheckContinue: "तपासा व पुढे जा",
@@ -874,6 +897,7 @@ const mr: Messages = {
   dirCall: "कॉल करा",
   dirWhatsApp: "व्हॉट्सअ‍ॅप",
   dirTryNext: "उत्तर न मिळाल्यास पुढचा क्रमांक वापरून पहा.",
+  dirNoContact: "या नोंदीसाठी अजून फोन नंबर दिलेला नाही.",
   dirNoContacts: "सार्वजनिक फोन क्रमांक नाही.",
   dirNotEndorsement: "ही नोंद म्हणजे गावलीचे समर्थन नव्हे.",
   dirEmergencyNote:

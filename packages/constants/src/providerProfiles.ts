@@ -31,6 +31,8 @@ export type ProviderKind = {
 };
 
 export const MAX_PROVIDER_CONTACTS = 5;
+// Photos a provider can add: a shop front, a visiting card.
+export const MAX_PROVIDER_IMAGES = 2;
 export const CONTACT_LABELS: readonly ChoiceOption[] = [
   { id: "primary", en: "Primary", mr: "मुख्य", hi: "मुख्य" },
   { id: "alternate", en: "Alternate", mr: "पर्यायी", hi: "वैकल्पिक" },

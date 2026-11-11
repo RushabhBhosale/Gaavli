@@ -34,7 +34,7 @@ test("Indian numbers normalize to the existing ten-digit identity", () => {
   ])
     assert.equal(indianMobileSchema.safeParse(value).success, false);
 });
-test("registration requires both names and rejects role injection", () => {
+test("registration requires a first name (last name optional) and rejects role injection", () => {
   const valid = {
     firstName: "रिया",
     lastName: "मोरे",
@@ -51,9 +51,23 @@ test("registration requires both names and rejects role injection", () => {
     false,
     "new display names must remain editable in admin",
   );
+  assert.ok(
+    registrationSchema.safeParse({
+      ...valid,
+      firstName: "Rushabh",
+      lastName: "",
+    }).success,
+    "a single name is a valid registration",
+  );
+  assert.ok(
+    registrationSchema.safeParse({
+      firstName: "Rushabh",
+      mobile: "9876543210",
+      language: "en",
+    }).success,
+  );
   for (const invalid of [
     { ...valid, firstName: " " },
-    { ...valid, lastName: "" },
     { ...valid, firstName: "<script>" },
     { ...valid, roles: ["coordinator"] },
     { ...valid, language: "gu" },
@@ -79,7 +93,6 @@ test("returning login needs only a normalized mobile and language; partial regis
       .success,
   );
   for (const invalid of [
-    { ...login, firstName: "Riya" },
     { ...login, firstName: "", lastName: "" },
     { ...login, roles: ["seller"] },
     { ...login, mobile: "123" },

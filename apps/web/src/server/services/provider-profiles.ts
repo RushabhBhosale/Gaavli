@@ -19,6 +19,8 @@ import { connectDb } from "../db/connect";
 import { User, Village, type UserRecord } from "../models";
 import { Service } from "../models/service";
 import { ProviderMaster } from "../models/provider-master";
+import { ListingPhoto } from "../models/listing-photo";
+import { listingPhotoUrl } from "../providers/listing-photos";
 import {
   ProviderClaim,
   ProviderLink,
@@ -97,6 +99,27 @@ function checkPrimary(user: UserRecord, contacts: Create["contacts"]) {
     );
 }
 
+// Every image must be a ready upload that belongs to the signed-in owner.
+async function checkImages(ownerId: string, keys: readonly string[]) {
+  if (!keys.length) return;
+  const found = await ListingPhoto.countDocuments({
+    _id: { $in: keys },
+    owner: ownerId,
+    state: "ready",
+  });
+  if (found !== keys.length)
+    throw new AppError(
+      422,
+      "PHOTO_UNAVAILABLE",
+      "Upload the photo again, then save.",
+    );
+}
+const imageDtos = (keys: readonly string[] | undefined | null) =>
+  (keys ?? []).flatMap((key) => {
+    const url = listingPhotoUrl(key);
+    return url ? [{ key, url }] : [];
+  });
+
 // ---- Output -----------------------------------------------------------------
 async function toDtos(rows: Profile[], viewerId: string | null) {
   const villages = await villageMap(rows.map((row) => row.villageId));
@@ -136,6 +159,7 @@ async function toDtos(rows: Profile[], viewerId: string | null) {
         isPublic: contact.isPublic !== false,
         verified: !!contact.verified,
       })),
+      images: imageDtos(row.images),
       details: (row.details ?? {}) as Record<string, unknown>,
       status: row.status as "ACTIVE" | "INACTIVE",
       version: row.__v ?? 0,
@@ -273,6 +297,7 @@ export async function syncDirectoryEntry(profile: Profile) {
           ? [master.code, master.name.en, master.name.mr, master.name.hi]
           : [],
         contacts,
+        images: profile.images ?? [],
         status: active ? "ACTIVE" : "INACTIVE",
         available: active,
       },
@@ -338,6 +363,7 @@ export async function createProviderProfile(user: UserRecord, input: Create) {
   const userId = String(user._id);
   await activeVillage(input.villageId);
   checkPrimary(user, input.contacts);
+  await checkImages(userId, input.images);
   await checkMasters(input.providerType, input.details);
   if (
     (await ProviderProfile.countDocuments({
@@ -386,6 +412,7 @@ export async function createProviderProfile(user: UserRecord, input: Create) {
       address: input.address,
       description: input.description,
       contacts: contactDocs(input.contacts),
+      images: input.images,
       details: parsedDetails,
       practiceMode: input.practice?.mode,
       facilityId:
@@ -487,6 +514,10 @@ export async function updateProviderProfile(
   if (input.contacts) {
     checkPrimary(user, input.contacts);
     row.contacts = contactDocs(input.contacts) as never;
+  }
+  if (input.images) {
+    await checkImages(String(user._id), input.images);
+    row.images = input.images as never;
   }
   if (input.details) {
     const { providerDetailsSchema } = await import("@gaavli/validation");

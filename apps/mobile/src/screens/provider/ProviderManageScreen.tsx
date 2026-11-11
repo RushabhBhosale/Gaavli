@@ -30,6 +30,8 @@ import {
   type ContactDraft,
 } from "../../data/contactNumbers";
 import { ContactNumbersField } from "../../components/ContactNumbersField";
+import { ProviderImagesField } from "../../components/provider/ProviderImages";
+import type { ProviderImage } from "../../providerImages";
 import {
   ProviderFields,
   type Details,
@@ -60,6 +62,7 @@ export default function ProviderManageScreen() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
+  const [images, setImages] = useState<ProviderImage[]>([]);
   const [contacts, setContacts] = useState<ContactDraft[]>([]);
   const [details, setDetails] = useState<Details>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -83,6 +86,7 @@ export default function ProviderManageScreen() {
     setName(profile.name);
     setAddress(profile.address ?? "");
     setDescription(profile.description ?? "");
+    setImages(profile.images);
     setContacts(draftsFromServer(profile.contacts));
     const next: Details = {};
     for (const field of PROVIDER_KINDS[profile.providerType].fields) {
@@ -166,6 +170,9 @@ export default function ProviderManageScreen() {
         address: address.trim(),
         description: description.trim(),
         contacts: contactsPayload(activeContacts(contacts)),
+        ...(images.length || profile.images.length
+          ? { images: images.map((image) => image.key) }
+          : {}),
         details: cleaned,
         version: profile.version,
       }),
@@ -250,6 +257,14 @@ export default function ProviderManageScreen() {
             maxLength={1500}
             editable={!busy}
             style={{ minHeight: 96, textAlignVertical: "top" }}
+          />
+          <ProviderImagesField
+            images={images}
+            onChange={(next) => {
+              setImages(next);
+              setSaved(false);
+            }}
+            disabled={busy}
           />
           {!!failureText && <ErrorMessage message={failureText} />}
           {failure instanceof ApiError && failure.status === 409 && (

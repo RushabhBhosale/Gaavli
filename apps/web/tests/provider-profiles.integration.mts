@@ -287,6 +287,94 @@ try {
   );
   assert.equal(stale.status, 409, "stale edits are refused");
 
+  // ---- Photos: at most two, only the owner's own uploads ----------------------
+  const { ListingPhoto } = await import("../src/server/models/listing-photo");
+  const photoKey = (owner: unknown, n: number) =>
+    `listings/${String(owner)}/uploads/${String(n).padStart(64, "0")}.webp`;
+  for (const [owner, n] of [
+    [alice._id, 1],
+    [alice._id, 2],
+    [alice._id, 3],
+    [bob._id, 4],
+  ] as const)
+    await ListingPhoto.create({
+      _id: photoKey(owner, n),
+      owner,
+      fileId: new mongoose.Types.ObjectId(),
+      digest: "x",
+    });
+  const editImages = async (images: string[]) =>
+    call(
+      oneRoute.PATCH,
+      alice,
+      "PATCH",
+      `provider-profiles/${created.data.profile.id}`,
+      {
+        images,
+        version: (
+          await call(
+            oneRoute.GET,
+            alice,
+            "GET",
+            `provider-profiles/${created.data.profile.id}`,
+            undefined,
+            params(created.data.profile.id),
+          )
+        ).data.profile.version,
+      },
+      params(created.data.profile.id),
+    );
+  assert.equal(
+    (
+      await editImages([
+        photoKey(alice._id, 1),
+        photoKey(alice._id, 2),
+        photoKey(alice._id, 3),
+      ])
+    ).status,
+    422,
+    "more than two photos are refused",
+  );
+  assert.equal(
+    (await editImages([photoKey(bob._id, 4)])).status,
+    422,
+    "someone else's upload cannot be attached",
+  );
+  assert.equal(
+    (await editImages([photoKey(alice._id, 1), photoKey(alice._id, 1)])).status,
+    422,
+    "the same photo twice is refused",
+  );
+  const withImages = await editImages([
+    photoKey(alice._id, 1),
+    photoKey(alice._id, 2),
+  ]);
+  assert.equal(withImages.status, 200);
+  assert.equal(withImages.data.profile.images.length, 2);
+  assert.match(withImages.data.profile.images[0].url, /^\/listing-photos\//);
+  const shown = (await listed(bob)).entries.find(
+    (r: { name: string }) => r.name === "Patil Kirana",
+  );
+  assert.equal(shown.images.length, 2, "photos show in the directory");
+  const { deleteUnusedListingPhoto } =
+    await import("../src/server/services/listing-photo-storage");
+  const inUse = await ListingPhoto.findById(photoKey(alice._id, 1)).lean();
+  await assert.rejects(
+    deleteUnusedListingPhoto(String(alice._id), String(inUse!.fileId)),
+    (error: unknown) =>
+      !!error && (error as { code?: string }).code === "PHOTO_IN_USE",
+    "a photo in use by a profile cannot be deleted",
+  );
+  const cleared = await editImages([]);
+  assert.equal(cleared.status, 200);
+  assert.equal(cleared.data.profile.images.length, 0);
+  assert.equal(
+    (await listed(bob)).entries.find(
+      (r: { name: string }) => r.name === "Patil Kirana",
+    ).images.length,
+    0,
+  );
+
   // ---- Duplicate check --------------------------------------------------------
   const dup = await call(
     checkRoute.POST,

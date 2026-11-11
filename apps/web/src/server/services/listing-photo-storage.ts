@@ -2,6 +2,7 @@ import "server-only";
 import type { ClientSession } from "mongoose";
 import { ListingPhoto } from "../models/listing-photo";
 import { Listing, User } from "../models";
+import { ProviderProfile } from "../models/provider-profile";
 import { AppError } from "../utils/errors";
 import { limitRequests } from "../repositories/mobile";
 import {
@@ -61,6 +62,12 @@ export async function deleteUnusedListingPhoto(owner: string, imageId: string) {
         409,
         "PHOTO_IN_USE",
         "Remove the photo from its products first.",
+      );
+    if (await ProviderProfile.exists({ images: row._id }).session(session))
+      throw new AppError(
+        409,
+        "PHOTO_IN_USE",
+        "Remove the photo from its shop or service first.",
       );
     if (row.state !== "deleted") {
       row.state = "deleting";

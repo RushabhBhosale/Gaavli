@@ -199,11 +199,16 @@ export function formFromListing(
       row.minimumPurchaseQuantity === null
         ? ""
         : String(row.minimumPurchaseQuantity),
-    days: row.expiresAt
-      ? String(
-          Math.max(1, Math.ceil((Date.parse(row.expiresAt) - now) / 86400000)),
-        )
-      : "2",
+    // An ended listing starts over with a fresh two days.
+    days:
+      row.expiresAt && Date.parse(row.expiresAt) > now
+        ? String(
+            Math.max(
+              1,
+              Math.ceil((Date.parse(row.expiresAt) - now) / 86400000),
+            ),
+          )
+        : "2",
     existingPhotoKey: row.photoObjectKey,
     farmPickup: row.fulfillmentOptions.includes("farm_pickup"),
     localTransport: row.fulfillmentOptions.includes("local_transport"),
@@ -237,7 +242,10 @@ export function prepareListingEdit(
         ? form.name.trim()
         : row.productNameMr;
   }
+  // Saving an ended listing gives it a new expiry, which puts it back on sale.
+  const ended = !!row.expiresAt && Date.parse(row.expiresAt) <= now;
   if (
+    !ended &&
     form.categoryId === initialForm.categoryId &&
     form.days === initialForm.days
   )

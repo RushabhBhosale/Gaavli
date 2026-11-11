@@ -388,7 +388,19 @@ export default function MyListingsScreen() {
             hi: item.productNameHi,
           });
           return (
-            <View style={s.card}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={`${t.editListing}: ${name}`}
+              disabled={busy || item.villageId !== villageId}
+              onPress={() => {
+                if (item.status === "active") edit(item.id);
+                else {
+                  setFailure(null);
+                  setMenu(item);
+                }
+              }}
+              style={s.card}
+            >
               <ListingImage
                 listing={{ photoUrl: item.photoUrl, image: null }}
                 style={s.image}
@@ -492,7 +504,7 @@ export default function MyListingsScreen() {
                   </Pressable>
                 )}
               </View>
-            </View>
+            </Pressable>
           );
         }}
         ListFooterComponent={
@@ -536,8 +548,7 @@ export default function MyListingsScreen() {
               disabled={
                 !menu ||
                 menu.status !== "active" ||
-                menu.villageId !== villageId ||
-                !!(menu.expiresAt && Date.parse(menu.expiresAt) <= now)
+                menu.villageId !== villageId
               }
               onPress={() => {
                 if (menu) {

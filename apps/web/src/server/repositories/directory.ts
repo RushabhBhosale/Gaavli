@@ -16,6 +16,7 @@ import {
   type DirectoryGroup,
 } from "@gaavli/constants";
 import { Service } from "../models/service";
+import { listingPhotoUrl } from "../providers/listing-photos";
 import { User, Village, VillageCoordinator } from "../models";
 
 const escapeRegex = (term: string) =>
@@ -149,6 +150,7 @@ export async function findDirectory(
               description: { $ifNull: ["$description", null] },
               category: { $ifNull: ["$serviceCategory", "Other"] },
               contacts: { $ifNull: ["$contacts", []] },
+              images: { $ifNull: ["$images", []] },
               providerType: { $ifNull: ["$providerType", null] },
               price: { $ifNull: ["$price", null] },
               unit: { $ifNull: ["$unit", null] },
@@ -175,9 +177,16 @@ export async function findDirectory(
     count: { total: number }[];
   }>(pipeline);
   return {
-    entries: (page?.entries ?? []).map((row) =>
-      directoryEntrySchema.parse(row),
-    ),
+    entries: (page?.entries ?? []).map((row) => {
+      const keys = (row as { images?: string[] }).images ?? [];
+      return directoryEntrySchema.parse({
+        ...(row as object),
+        images: keys.flatMap((key) => {
+          const url = listingPhotoUrl(key);
+          return url ? [{ key, url }] : [];
+        }),
+      });
+    }),
     total: page?.count[0]?.total ?? 0,
     page: query.page,
     limit: query.limit,

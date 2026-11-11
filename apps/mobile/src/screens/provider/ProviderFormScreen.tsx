@@ -30,6 +30,8 @@ import {
 } from "../../data/contactNumbers";
 import { useQueryClient } from "@tanstack/react-query";
 import { ContactNumbersField } from "../../components/ContactNumbersField";
+import { ProviderImagesField } from "../../components/provider/ProviderImages";
+import type { ProviderImage } from "../../providerImages";
 import { VillageField } from "../../components/VillageField";
 import {
   ProviderFields,
@@ -70,6 +72,7 @@ export default function ProviderFormScreen() {
   const village = pickedVillage ?? session?.user.village ?? null;
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
+  const [images, setImages] = useState<ProviderImage[]>([]);
   const [edited, setContacts] = useState<ContactDraft[] | null>(null);
   // The account's verified primary number leads the list.
   const contacts =
@@ -165,6 +168,7 @@ export default function ProviderFormScreen() {
         ...(address.trim() ? { address: address.trim() } : {}),
         ...(description.trim() ? { description: description.trim() } : {}),
         contacts: contactsPayload(activeContacts(list)),
+        ...(images.length ? { images: images.map((image) => image.key) } : {}),
         details: cleaned,
         ...(doctor
           ? {
@@ -281,6 +285,11 @@ export default function ProviderFormScreen() {
             maxLength={1500}
             editable={!busy}
             style={{ minHeight: 96, textAlignVertical: "top" }}
+          />
+          <ProviderImagesField
+            images={images}
+            onChange={setImages}
+            disabled={busy}
           />
           {!!failureText && <ErrorMessage message={failureText} />}
           {offline && <Text style={styles.body}>{t.offlineAction}</Text>}

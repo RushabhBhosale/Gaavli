@@ -4,6 +4,7 @@ import {
   CONTACT_LABELS,
   LINK_STATUSES,
   MAX_PROVIDER_CONTACTS,
+  MAX_PROVIDER_IMAGES,
   PRACTICE_MODES,
   PROVIDER_KINDS,
   PROVIDER_STATUSES,
@@ -16,6 +17,17 @@ const id = z
   .string()
   .regex(/^[a-f0-9]{24}$/i)
   .toLowerCase();
+// Uploaded through the photo endpoint first; a profile keeps only the keys.
+export const providerImageKeySchema = z
+  .string()
+  .regex(/^listings\/[a-f0-9]{24}\/uploads\/[a-f0-9]{64}\.webp$/);
+const providerImageKeys = z
+  .array(providerImageKeySchema)
+  .max(MAX_PROVIDER_IMAGES)
+  .refine((keys) => new Set(keys).size === keys.length, "IMAGE_DUPLICATE");
+export const providerImageSchema = z
+  .object({ key: z.string(), url: z.string() })
+  .strict();
 const noControl = /^[^\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]*$/;
 
 // One phone number on a profile. Labels are fixed; "primary" is the number the
@@ -110,6 +122,7 @@ const common = {
   address: z.string().trim().max(300).regex(noControl).optional(),
   description: z.string().trim().max(1500).regex(noControl).optional(),
   contacts: providerContactsSchema,
+  images: providerImageKeys.default([]),
   details: z.record(z.string(), z.unknown()),
   // Doctors only: where they practise.
   practice: practiceSchema.optional(),
@@ -158,6 +171,7 @@ export const updateProviderProfileSchema = z
       .union([common.description.unwrap(), z.literal("")])
       .optional(),
     contacts: providerContactsSchema.optional(),
+    images: providerImageKeys.optional(),
     details: z.record(z.string(), z.unknown()).optional(),
     version: z.number().int().nonnegative(),
   })
@@ -208,6 +222,7 @@ export const providerProfileSchema = z
     address: z.string().nullable(),
     description: z.string().nullable(),
     contacts: z.array(providerContactOutputSchema),
+    images: z.array(providerImageSchema).default([]),
     details: z.record(z.string(), z.unknown()),
     status: z.enum(PROVIDER_STATUSES),
     version: z.number().int().nonnegative(),

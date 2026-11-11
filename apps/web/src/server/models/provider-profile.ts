@@ -41,6 +41,8 @@ const profileSchema = new Schema(
     address: { type: String, trim: true, maxlength: 300 },
     description: { type: String, trim: true, maxlength: 1500 },
     contacts: { type: [contactSchema], default: [] },
+    // Photo object keys (shop front, visiting card), at most two.
+    images: { type: [String], default: [] },
     details: { type: Schema.Types.Mixed, default: {} },
     // Doctors: how they practise, and the facility they are linked to.
     practiceMode: {

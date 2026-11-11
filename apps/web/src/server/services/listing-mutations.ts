@@ -259,11 +259,13 @@ export function updateOwnedListing(
             )),
           }
         : input;
-      if (effectiveListingStatus(row) !== "active")
+      // Active and expired listings can be edited; sold-out stock is relisted.
+      const current = effectiveListingStatus(row);
+      if (current !== "active" && current !== "expired")
         throw new AppError(
           409,
           "INVALID_LISTING_STATE",
-          "Only an active listing can be edited. Relist expired or sold-out stock first.",
+          "Only an active or expired listing can be edited. Relist sold-out stock first.",
         );
       await lockVillage(user, String(row.village), session);
       const category = await activeCategory(
@@ -273,7 +275,10 @@ export function updateOwnedListing(
       );
       const expiry =
         input.expiresAt === undefined ? row.expiresAt : input.expiresAt;
-      expiryValid(expiry, category.code);
+      // An expired listing may be edited without a new date; it stays expired
+      // until a future expiry is set.
+      if (current === "active" || input.expiresAt !== undefined)
+        expiryValid(expiry, category.code);
       const photoFields =
         input.photoObjectKey !== undefined
           ? {

@@ -205,23 +205,15 @@ export async function saveMobileVillage(
       status: "active",
     }).session(session);
     if (!current) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
-    if (
-      !current.firstName &&
-      !input.firstName
-    )
-      throw new AppError(
-        422,
-        "VALIDATION_ERROR",
-        "Enter your name.",
-      );
-    const names =
-      input.firstName
-        ? {
-            firstName: input.firstName,
-            lastName: input.lastName || "",
-            name: `${input.firstName} ${input.lastName || ""}`.trim(),
-          }
-        : {};
+    if (!current.firstName && !input.firstName)
+      throw new AppError(422, "VALIDATION_ERROR", "Enter your name.");
+    const names = input.firstName
+      ? {
+          firstName: input.firstName,
+          lastName: input.lastName || "",
+          name: `${input.firstName} ${input.lastName || ""}`.trim(),
+        }
+      : {};
     const user = await User.findOneAndUpdate(
       { _id: userId, status: "active" },
       { $set: { village: input.villageId, ...names }, $inc: { __v: 1 } },

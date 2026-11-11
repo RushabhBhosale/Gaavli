@@ -6,6 +6,7 @@ import { useDirectoryEntry } from "../directory";
 import { directoryPreview } from "../data/directory";
 import { Button, ErrorMessage, Screen } from "../components/ui";
 import { AppHeader } from "../components/AppHeader";
+import { ProviderImageGallery } from "../components/provider/ProviderImages";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { Panel, d } from "../components/dashboard/primitives";
 import { listingRate } from "../components/dashboard/listingText";
@@ -68,6 +69,7 @@ export default function DirectoryDetailsScreen() {
                   : entry.village.name}
               </Text>
             </Panel>
+            <ProviderImageGallery images={entry.images} />
             {entry.description && (
               <Text style={d.description}>{entry.description}</Text>
             )}
@@ -98,6 +100,9 @@ export default function DirectoryDetailsScreen() {
                 )}
               </Panel>
             ))}
+            {entry.contacts.length === 0 && (
+              <Text style={d.description}>{t.dirNoContact}</Text>
+            )}
             {entry.contacts.length > 1 && (
               <Text style={d.description}>{t.dirTryNext}</Text>
             )}
