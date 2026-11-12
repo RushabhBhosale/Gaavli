@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { Redirect, useRouter } from "expo-router";
+import { useState, useRef, useEffect } from "react";
+import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
 import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MOBILE_LANGUAGES } from "@gaavli/constants";
@@ -34,6 +34,7 @@ import { errorMessage } from "../errors";
 
 export default function RegistrationScreen() {
   const router = useRouter();
+  const { mode: requestedMode } = useLocalSearchParams<{ mode?: string }>();
   const {
     language,
     confirmed,
@@ -41,11 +42,21 @@ export default function RegistrationScreen() {
     session,
     draft,
     offline,
-    authMode,
+    authMode: storedAuthMode,
     contactReturnListingId,
     browsingVillage,
     registration,
   } = useAppStore();
+  const [entryMode, setEntryMode] = useState<"login" | "register" | null>(
+    requestedMode === "login" || requestedMode === "register"
+      ? requestedMode
+      : null,
+  );
+  const authMode = entryMode ?? storedAuthMode;
+  useEffect(() => {
+    if (entryMode && storedAuthMode !== entryMode)
+      useAppStore.getState().setAuthMode(entryMode);
+  }, [entryMode, storedAuthMode]);
   const registering = authMode === "register";
   const t = messages(language);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -142,6 +153,7 @@ export default function RegistrationScreen() {
       return;
     }
     const body = parsed.data;
+    useAppStore.getState().setAuthMode(registering ? "register" : "login");
     submitting.current = true;
     setBusy(true);
     setFailure(null);
@@ -342,9 +354,9 @@ export default function RegistrationScreen() {
         secondary
         disabled={busy}
         onPress={() => {
-          useAppStore
-            .getState()
-            .setAuthMode(registering ? "login" : "register");
+          const nextMode = registering ? "login" : "register";
+          setEntryMode(nextMode);
+          useAppStore.getState().setAuthMode(nextMode);
           setErrors({});
           setFailure(null);
         }}

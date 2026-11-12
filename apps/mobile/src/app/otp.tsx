@@ -44,7 +44,7 @@ export default function OtpScreen() {
   }, []);
   // Publishing the verified session must not navigate before the guest village
   // has been confirmed and the final product return destination is resolved.
-  if (session && (busy !== "verify" || !challenge))
+  if (session && busy !== "verify")
     return (
       <Redirect
         href={postAuthHref(

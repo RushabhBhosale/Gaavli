@@ -66,7 +66,9 @@ export default function LanguageScreen() {
           );
         useAppStore.getState().restore(preferences);
       }
-      router.replace(destination);
+      router.replace(
+        mode ? { pathname: "/register", params: { mode } } : destination,
+      );
     } catch {
       setFailed(true);
     } finally {
