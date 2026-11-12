@@ -78,7 +78,7 @@ function fieldSchema(field: ProviderField): z.ZodType {
         : z
             .string()
             .trim()
-            .max(field.multiline ? 1500 : 300)
+            .max(field.kind === "text" && field.multiline ? 1500 : 300)
             .regex(noControl)
             .refine(
               (value) =>

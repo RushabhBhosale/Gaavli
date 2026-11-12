@@ -18,7 +18,8 @@ export const theme = {
     primaryDark: "#35546E",
     // Header band per module, so each part of the app has its own colour.
     bandMarketplace: "#2F6A4B",
-    bandServices: "#35546E",
+    bandServices: "#5B4B9A",
+    bandActivities: "#B9520A",
     bandTransport: "#1F6B76",
     // On the steel hero
     heroText: "#FFFFFF",
@@ -60,6 +61,14 @@ export const theme = {
     info: "#35546E",
     softBlue: "#E6EDF3",
     skeleton: "#ECEEF0",
+  },
+  // One colour per part of the app: the header band, the section marker on
+  // the dashboard and the quick-action icon all use the same pair.
+  modules: {
+    marketplace: { color: "#2F6A4B", tint: "#E3F1EA" },
+    services: { color: "#5B4B9A", tint: "#ECE8F6" },
+    transport: { color: "#1F6B76", tint: "#DFF0F2" },
+    activities: { color: "#B9520A", tint: "#FEF3EA" },
   },
   radii: {
     control: 12,

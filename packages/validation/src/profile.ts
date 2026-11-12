@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { indianMobileSchema } from "./identity";
+import {
+  indianMobileSchema,
+  optionalLastNameSchema,
+  personNameSchema,
+} from "./identity";
 
 const optionalText = (max: number) =>
   z
@@ -17,6 +21,7 @@ export const mobileProfileSchema = z
     address: z.string().nullable(),
     alternativeMobile: z.string().nullable(),
     occupation: z.string().nullable(),
+    email: z.string().nullable().default(null),
     photoUrl: z.string().nullable(),
     version: z.number().int().nonnegative(),
   })
@@ -34,9 +39,20 @@ export const mobileChangeSchema = z
   .object({ mobile: indianMobileSchema })
   .strict();
 
-// Names and the OTP-verified primary number cannot be submitted by profile Save.
+// The OTP-verified primary number cannot be submitted by profile Save; names,
+// email and the rest can.
 export const updateMobileProfileSchema = z
   .object({
+    firstName: personNameSchema.optional(),
+    lastName: optionalLastNameSchema.optional(),
+    email: z
+      .union([
+        z.literal(""),
+        z.null(),
+        z.string().trim().toLowerCase().max(120).email(),
+      ])
+      .transform((value) => value || null)
+      .optional(),
     address: optionalText(300),
     alternativeMobile: z
       .union([z.literal(""), z.null(), indianMobileSchema])

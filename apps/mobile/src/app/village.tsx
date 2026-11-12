@@ -36,6 +36,7 @@ import {
 } from "../components/ui";
 import { theme } from "../theme";
 import { authenticatedApi, saveSession } from "../session";
+import { legacyNameParts } from "../data/names";
 import { postAuthHref } from "../storage/preferences";
 import { errorMessage } from "../errors";
 import { VillagePicker, useVillageSearch } from "../components/VillagePicker";
@@ -59,7 +60,9 @@ export default function VillageScreen() {
   const [selected, setSelected] = useState<MobileVillage | null>(
     session?.user.village ?? browsingVillage,
   );
-  const needsNames = !session?.user.firstName;
+  // Older accounts with a display name already have a name.
+  const known = legacyNameParts(session?.user.name);
+  const needsNames = !session?.user.firstName && !known;
   const [firstName, setFirstName] = useState(session?.user.firstName || "");
   const [lastName, setLastName] = useState(session?.user.lastName || "");
   const [nameErrors, setNameErrors] = useState<{
@@ -250,20 +253,22 @@ export default function VillageScreen() {
   return (
     <SafeAreaView style={s.screen}>
       {offline && <OfflineBanner message={t.offline} />}
+      <View style={s.backRow}>
+        <BackButton
+          label={t.back}
+          disabled={saving}
+          onPress={() => {
+            if (router.canGoBack()) router.back();
+            else if (session.user.village)
+              router.replace(postAuthHref(session.user));
+          }}
+        />
+      </View>
       <ScrollView
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
       >
         <View style={s.form}>
-          <BackButton
-            label={t.back}
-            disabled={saving}
-            onPress={() => {
-              if (router.canGoBack()) router.back();
-              else if (session.user.village)
-                router.replace(postAuthHref(session.user));
-            }}
-          />
           <Text accessibilityRole="header" style={styles.title}>
             {t.villageTitle}
           </Text>
@@ -361,6 +366,13 @@ export default function VillageScreen() {
 
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: theme.colors.background },
+  backRow: {
+    width: "100%",
+    maxWidth: theme.layout.contentWidth,
+    alignSelf: "center",
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingTop: 8,
+  },
   content: { flexGrow: 1, paddingBottom: 8 },
   form: {
     paddingHorizontal: theme.layout.screenPadding,

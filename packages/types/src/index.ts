@@ -34,6 +34,7 @@ export type MobileProfile = {
   address: string | null;
   alternativeMobile: string | null;
   occupation: string | null;
+  email?: string | null;
   photoUrl: string | null;
   version: number;
 };

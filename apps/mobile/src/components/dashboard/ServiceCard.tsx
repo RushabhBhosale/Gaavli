@@ -1,9 +1,16 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { listingName, type HomeListing } from "../../types/home";
+import type { IconName } from "./primitives";
 
 // A person or vehicle you can book: the name in full, what they do, and where.
 export function ServiceCard({
@@ -16,30 +23,45 @@ export function ServiceCard({
   onPress: () => void;
 }) {
   const t = messages(language);
+  const { width, fontScale } = useWindowDimensions();
+  // Exactly the Marketplace card's width, so the three rows line up.
+  const cardWidth = Math.max(
+    128,
+    Math.min(150, (width - 56) * 0.38 * Math.min(fontScale, 1.4)),
+  );
   const name = listingName(listing, language);
   const village = language !== "en" ? listing.villageMr : listing.village;
   const transport = listing.module === "transport";
   const detail = [listing.category, village].filter(Boolean).join(" · ");
-  const look = transport
-    ? LOOKS.Transport
-    : (LOOKS[listing.category] ?? LOOKS.Other);
+  const module = theme.modules[transport ? "transport" : "services"];
+  const look = {
+    icon: (transport
+      ? "car-outline"
+      : (LOOKS[listing.category] ?? LOOKS.Other).icon) as IconName,
+    color: module.color,
+    background: module.tint,
+  };
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={[name, detail, t.directoryAvailable].join(", ")}
       onPress={onPress}
-      style={({ pressed }) => [s.card, pressed && s.pressed]}
+      style={({ pressed }) => [
+        s.card,
+        { width: cardWidth },
+        pressed && s.pressed,
+      ]}
     >
       <View style={[s.art, { backgroundColor: look.background }]}>
         <Ionicons
           accessible={false}
           name={look.icon}
-          size={64}
+          size={40}
           color={look.color}
         />
       </View>
       <View style={s.copy}>
-        <Text numberOfLines={2} style={s.name}>
+        <Text numberOfLines={1} style={s.name}>
           {name}
         </Text>
         {!!detail && (
@@ -94,8 +116,7 @@ const LOOKS: Record<
 const s = StyleSheet.create({
   // Same size and proportions as the product cards beside them.
   card: {
-    width: 176,
-    height: 244,
+    height: 188,
     borderRadius: theme.radii.card,
     borderWidth: 1,
     borderColor: theme.colors.border,
@@ -103,7 +124,7 @@ const s = StyleSheet.create({
     overflow: "hidden",
   },
   art: {
-    height: 128,
+    height: 100,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -7,7 +7,6 @@ import { theme } from "../../theme";
 import { errorMessage } from "../../errors";
 import { useMyProviderProfiles } from "../../providerProfiles";
 import {
-  BackButton,
   Button,
   Card,
   ErrorMessage,
@@ -27,13 +26,13 @@ export default function ActivitiesScreen() {
   const profiles = query.data?.profiles ?? [];
   const links = query.data?.links ?? [];
   return (
-    <Screen>
-      <BackButton
-        label={t.back}
-        onPress={() =>
-          router.canGoBack() ? router.back() : router.replace("/home")
-        }
-      />
+    <Screen
+      back={{
+        label: t.back,
+        onPress: () =>
+          router.canGoBack() ? router.back() : router.replace("/home"),
+      }}
+    >
       <Text accessibilityRole="header" style={styles.title}>
         {t.actTitle}
       </Text>

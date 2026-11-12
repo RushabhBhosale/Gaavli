@@ -38,7 +38,10 @@ export default function LanguageScreen() {
       <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
     );
 
-  async function next(destination: "/home" | "/register") {
+  async function next(
+    destination: "/home" | "/register",
+    mode?: "login" | "register",
+  ) {
     if (submitting.current) return;
     if (destination === "/home" && !selected) return;
     submitting.current = true;
@@ -52,6 +55,8 @@ export default function LanguageScreen() {
         useAppStore
           .getState()
           .restore({ ...preferences, browsingVillage: null });
+        // Clearing the session resets the mode, so choose it afterwards.
+        if (mode) useAppStore.getState().setAuthMode(mode);
       } else {
         if (selected)
           await selectBrowsingVillage(
@@ -126,8 +131,7 @@ export default function LanguageScreen() {
             accessibilityState={{ disabled: busy }}
             disabled={busy}
             onPress={() => {
-              useAppStore.getState().setAuthMode("login");
-              void next("/register");
+              void next("/register", "login");
             }}
             style={({ pressed }) => [
               s.loginLink,
@@ -146,8 +150,7 @@ export default function LanguageScreen() {
             accessibilityState={{ disabled: busy }}
             disabled={busy}
             onPress={() => {
-              useAppStore.getState().setAuthMode("register");
-              void next("/register");
+              void next("/register", "register");
             }}
             style={({ pressed }) => [
               s.loginLink,

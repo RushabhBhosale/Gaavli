@@ -461,6 +461,27 @@ try {
     await check(await call(scoped(`villages/${aid}/connections`))),
   );
   assert.equal(connections.total, 1);
+  // Anyone can list the villages mapped with a village; it never lists itself.
+  const mappedRoute = await import("../src/app/api/v1/villages/mapped/route");
+  const mappedFor = async (village: string) =>
+    (
+      await (
+        await mappedRoute.GET(
+          new Request(
+            `http://localhost/api/v1/villages/mapped?villageId=${village}`,
+          ),
+        )
+      ).json()
+    ).data.villages as { id: string }[];
+  assert.deepEqual(
+    (await mappedFor(aid)).map((v) => v.id),
+    [bid],
+  );
+  assert.deepEqual(
+    (await mappedFor(bid)).map((v) => v.id),
+    [aid],
+    "mapping works both ways",
+  );
   const localDirectory = coordinatorUsersSchema.parse(
     await check(await call(scoped("users"))),
   );

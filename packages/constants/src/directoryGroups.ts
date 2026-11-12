@@ -444,8 +444,22 @@ export type DirectoryEntryFields = {
   providerType?: string | null;
 };
 
+// Tiles that come first: help people may need in a hurry. Everything else keeps
+// its order below them, and the catch-all stays last.
+const GROUPS_FIRST: Record<DirectoryModule, readonly string[]> = {
+  services: ["emergency", "public", "community"],
+  transport: ["ambulance"],
+};
 export function directoryGroupsFor(module: DirectoryModule) {
-  return DIRECTORY_GROUPS.filter((group) => group.module === module);
+  const first = GROUPS_FIRST[module];
+  const rank = (group: DirectoryGroupDef) => {
+    const index = first.indexOf(group.id);
+    return index >= 0 ? index : group.id.startsWith("other") ? 1000 : 100;
+  };
+  return DIRECTORY_GROUPS.filter((group) => group.module === module)
+    .map((group, order) => ({ group, order }))
+    .sort((a, b) => rank(a.group) - rank(b.group) || a.order - b.order)
+    .map(({ group }) => group);
 }
 export function directoryGroup(id: string) {
   return DIRECTORY_GROUPS.find((group) => group.id === id);

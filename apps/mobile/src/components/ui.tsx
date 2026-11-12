@@ -27,11 +27,14 @@ export function Screen({
   footer,
   topContent,
   header,
+  back,
 }: {
   children: ReactNode;
   compact?: boolean;
   footer?: ReactNode;
   topContent?: ReactNode;
+  // A back button that stays at the top while the page scrolls.
+  back?: { label: string; onPress: () => void; disabled?: boolean };
   // An AppHeader. It sits above everything and draws behind the status bar,
   // so the page content below only needs the bottom and side safe areas.
   header?: ReactNode;
@@ -46,6 +49,15 @@ export function Screen({
         style={styles.flex}
       >
         {topContent}
+        {back && (
+          <View style={styles.backRow}>
+            <BackButton
+              label={back.label}
+              onPress={back.onPress}
+              disabled={back.disabled}
+            />
+          </View>
+        )}
         {offline && <OfflineBanner message={messages(language).offline} />}
         <KeyboardAvoidingView
           style={styles.flex}
@@ -608,12 +620,14 @@ export const styles = StyleSheet.create({
     flexShrink: 1,
   },
   primaryPressed: { backgroundColor: theme.colors.primaryPressed },
+  // A clearly pressable button: white with a steel border and bold steel text,
+  // so it never reads as a greyed-out one.
   secondary: {
-    backgroundColor: theme.colors.steelTint,
-    borderWidth: 1,
-    borderColor: "transparent",
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1.5,
+    borderColor: theme.colors.steel,
   },
-  secondaryText: { color: theme.colors.steel },
+  secondaryText: { color: theme.colors.steel, fontWeight: "700" },
   outlined: {
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
@@ -621,11 +635,11 @@ export const styles = StyleSheet.create({
   },
   outlinedText: { color: theme.colors.steel },
   danger: {
-    backgroundColor: theme.colors.errorBackground,
-    borderWidth: 1,
-    borderColor: "transparent",
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1.5,
+    borderColor: theme.colors.error,
   },
-  dangerText: { color: theme.colors.error },
+  dangerText: { color: theme.colors.error, fontWeight: "700" },
   ghost: { backgroundColor: "transparent", minHeight: 44 },
   disabled: { opacity: theme.interaction.disabledOpacity },
   pressed: { opacity: theme.interaction.pressedOpacity },
@@ -659,6 +673,13 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     color: theme.colors.text,
+  },
+  backRow: {
+    width: "100%",
+    maxWidth: theme.layout.contentWidth,
+    alignSelf: "center",
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingTop: 8,
   },
   back: {
     width: 44,

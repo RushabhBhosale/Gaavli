@@ -69,9 +69,12 @@ export function SectionHeader({
   badge,
   icon,
   toggle,
+  tone,
 }: {
   title: string;
   icon?: IconName;
+  // The module's own colour for the icon and a bar beside the title.
+  tone?: keyof typeof theme.modules;
   action?: string;
   onPress?: () => void;
   badge?: string;
@@ -81,11 +84,24 @@ export function SectionHeader({
   return (
     <View style={d.sectionHeader}>
       {icon && (
-        <View accessible={false} style={d.sectionIcon}>
-          <Ionicons name={icon} size={18} color={theme.colors.primary} />
+        <View
+          accessible={false}
+          style={[
+            d.sectionIcon,
+            tone && { backgroundColor: theme.modules[tone].tint },
+          ]}
+        >
+          <Ionicons
+            name={icon}
+            size={18}
+            color={tone ? theme.modules[tone].color : theme.colors.primary}
+          />
         </View>
       )}
-      <Text accessibilityRole="header" style={d.sectionTitle}>
+      <Text
+        accessibilityRole="header"
+        style={[d.sectionTitle, tone && { color: theme.modules[tone].color }]}
+      >
         {title}
       </Text>
       {badge && <Badge tone="green">{badge}</Badge>}

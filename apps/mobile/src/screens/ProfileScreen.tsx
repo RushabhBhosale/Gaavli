@@ -12,6 +12,7 @@ import { messages } from "../i18n";
 import { confirmLanguage } from "../storage/preferences";
 import { preferenceStorage } from "../storage/sqlite";
 import { logout } from "../session";
+import { openWriteToUs } from "../components/WriteToUsButton";
 import { errorMessage } from "../errors";
 import { Button, ErrorMessage } from "../components/ui";
 import { DashboardScreen } from "../components/dashboard/primitives";
@@ -126,6 +127,39 @@ export default function ProfileScreen() {
             </View>
           </View>
         </View>
+        <View style={s.section}>
+          <Text accessibilityRole="header" style={s.sectionLabel}>
+            {t.helpSection}
+          </Text>
+          <View style={s.group}>
+            <SettingRow
+              icon="git-network-outline"
+              title={t.mappedTitle}
+              subtitle={t.mappedRowSubtitle}
+              disabled={!!busy}
+              onPress={() => router.push("/mapped-villages")}
+            />
+            <SettingRow
+              icon="mail-outline"
+              title={t.writeToUs}
+              disabled={!!busy}
+              onPress={() => openWriteToUs(t)}
+            />
+            <SettingRow
+              icon="document-text-outline"
+              title={t.termsTitle}
+              disabled={!!busy}
+              onPress={() => router.push("/terms")}
+            />
+            <SettingRow
+              icon="shield-checkmark-outline"
+              title={t.privacyTitle}
+              last
+              disabled={!!busy}
+              onPress={() => router.push("/privacy")}
+            />
+          </View>
+        </View>
         {failure && <ErrorMessage message={failure} />}
         <Button
           disabled={!!busy}
@@ -233,6 +267,39 @@ export default function ProfileScreen() {
       </View>
       <View style={s.section}>
         <Text accessibilityRole="header" style={s.sectionLabel}>
+          {t.helpSection}
+        </Text>
+        <View style={s.group}>
+          <SettingRow
+            icon="git-network-outline"
+            title={t.mappedTitle}
+            subtitle={t.mappedRowSubtitle}
+            disabled={!!busy}
+            onPress={() => router.push("/mapped-villages")}
+          />
+          <SettingRow
+            icon="mail-outline"
+            title={t.writeToUs}
+            disabled={!!busy}
+            onPress={() => openWriteToUs(t, session?.user.name)}
+          />
+          <SettingRow
+            icon="document-text-outline"
+            title={t.termsTitle}
+            disabled={!!busy}
+            onPress={() => router.push("/terms")}
+          />
+          <SettingRow
+            icon="shield-checkmark-outline"
+            title={t.privacyTitle}
+            last
+            disabled={!!busy}
+            onPress={() => router.push("/privacy")}
+          />
+        </View>
+      </View>
+      <View style={s.section}>
+        <Text accessibilityRole="header" style={s.sectionLabel}>
           {t.notificationSettings}
         </Text>
         <View style={s.group}>
@@ -265,7 +332,7 @@ export default function ProfileScreen() {
       </View>
       {failure && <ErrorMessage message={failure} />}
       <Button
-        secondary
+        danger
         loading={busy === "logout"}
         disabled={offline || busy === "language"}
         onPress={() => void signOut()}

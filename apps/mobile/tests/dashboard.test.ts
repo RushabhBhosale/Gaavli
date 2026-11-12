@@ -1132,7 +1132,12 @@ test("bottom bar keeps the mic in the middle and follows the account", () => {
   );
   assert.deepEqual(
     tabSlots({ signedIn: true, seller: false, coordinator: false }),
-    { second: "marketplace", fourth: "activity", fifth: "profile", more: [] },
+    {
+      second: "activity",
+      fourth: "profile",
+      fifth: "more",
+      more: ["marketplace", "services", "transport"],
+    },
   );
   assert.deepEqual(
     tabSlots({ signedIn: true, seller: true, coordinator: true }),

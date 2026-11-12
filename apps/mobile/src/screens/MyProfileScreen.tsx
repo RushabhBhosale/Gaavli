@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { MobileProfile } from "@gaavli/types";
 import { indianMobileSchema, mobileProfileSchema } from "@gaavli/validation";
 import { useAppStore } from "../store";
-import { authenticatedApi } from "../session";
+import { authenticatedApi, saveSession } from "../session";
 import { messages } from "../i18n";
 import { errorMessage } from "../errors";
 import { ApiError } from "../api/client";
@@ -16,12 +17,13 @@ import {
   LoadingState,
   Screen,
 } from "../components/ui";
-import { AppHeader, HeaderAction } from "../components/AppHeader";
+import { AppHeader } from "../components/AppHeader";
 import { Panel } from "../components/dashboard/primitives";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { MobileChangeDialog } from "../components/MobileChangeDialog";
 import {
   editableProfileDraft,
+  profileChanged,
   profileSaveBody,
   type ProfileDraft,
 } from "../data/profile";
@@ -47,6 +49,8 @@ export default function MyProfileScreen() {
     </ProtectedPage>
   );
 }
+const emailBadNow = (value: string) =>
+  !!value.trim() && !/^[^\s@]+@[^\s@]{1,}\.[^\s@]{2,}$/.test(value.trim());
 function MyProfileContent() {
   const client = useQueryClient();
   const { session, language, offline } = useAppStore();
@@ -67,7 +71,8 @@ function MyProfileContent() {
   });
   const [editedDraft, setDraft] = useState<ProfileDraft | null>(null);
   const draft =
-    editedDraft ?? (query.data ? editableProfileDraft(query.data) : null);
+    editedDraft ??
+    (query.data ? editableProfileDraft(query.data, session!.user.name) : null);
   const [busy, setBusy] = useState<"save" | "photo" | "reload" | null>(null);
   const [failure, setFailure] = useState("");
   const [notice, setNotice] = useState("");
@@ -115,7 +120,7 @@ function MyProfileContent() {
     setDraft((current) =>
       keepEdits && current
         ? { ...current, version: profile.version }
-        : editableProfileDraft(profile),
+        : editableProfileDraft(profile, session!.user.name),
     );
     setConflict(false);
   }
@@ -127,7 +132,11 @@ function MyProfileContent() {
   }
   async function save() {
     if (working.current || offline || !draft) return;
-    const parsed = profileSaveBody(draft);
+    if (!draft.firstName.trim() || emailBadNow(draft.email)) {
+      setFailure(!draft.firstName.trim() ? t.nameError : t.profEmailError);
+      return;
+    }
+    const parsed = profileSaveBody(draft, query.data);
     if (!parsed.success) {
       setFailure(t.profileValidationError);
       return;
@@ -143,6 +152,20 @@ function MyProfileContent() {
         { method: "PATCH", body: JSON.stringify(parsed.data) },
       );
       acceptProfile(profile, false);
+      // Keep the name in the greeting and elsewhere in step with the profile.
+      const current = useAppStore.getState().session;
+      if (current && current.user.id === accountId && profile.firstName)
+        await saveSession({
+          ...current,
+          user: {
+            ...current.user,
+            firstName: profile.firstName,
+            lastName: profile.lastName,
+            name: [profile.firstName, profile.lastName]
+              .filter(Boolean)
+              .join(" "),
+          },
+        });
       if (isCurrent()) setNotice(t.profileSaved);
     } catch (error) {
       showFailure(error);
@@ -248,6 +271,18 @@ function MyProfileContent() {
     color: theme.colors.muted,
     opacity: 1,
   };
+  const dirty =
+    !!profile && !!draft && profileChanged(draft, profile, session!.user.name);
+  const emailBad =
+    !!draft &&
+    !!draft.email.trim() &&
+    !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(draft.email.trim());
+  const nameBad = !!draft && !draft.firstName.trim();
+  const edit = (patch: Partial<ProfileDraft>) => {
+    if (!draft) return;
+    setDraft({ ...draft, ...patch });
+    setNotice("");
+  };
   return (
     <Screen
       header={
@@ -256,15 +291,18 @@ function MyProfileContent() {
           subtitle={t.profileSubtitle}
           back="/profile"
           backDisabled={locked}
-          right={
-            <HeaderAction
-              label={t.saveProfile}
-              disabled={offline || locked || !draft || conflict}
-              loading={busy === "save"}
-              onPress={() => void save()}
-            />
-          }
         />
+      }
+      footer={
+        profile && draft ? (
+          <Button
+            loading={busy === "save"}
+            disabled={offline || locked || conflict || !dirty}
+            onPress={() => void save()}
+          >
+            {dirty ? t.saveProfile : t.profNoChanges}
+          </Button>
+        ) : undefined
       }
     >
       {query.isPending && !offline && <LoadingState label={t.loading} />}
@@ -283,8 +321,26 @@ function MyProfileContent() {
       )}
       {profile && draft && (
         <>
-          <Panel>
-            <View style={s.summary}>
+          <View style={s.hero}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t.profChangePhoto}
+              disabled={offline || locked || !photoReady}
+              onPress={() =>
+                Alert.alert(t.changeListingPhoto, undefined, [
+                  {
+                    text: t.takeListingPhoto,
+                    onPress: () => void choosePhoto("camera"),
+                  },
+                  {
+                    text: t.choosePhonePhoto,
+                    onPress: () => void choosePhoto("gallery"),
+                  },
+                  { text: t.cancel, style: "cancel" },
+                ])
+              }
+              style={s.avatarWrap}
+            >
               <View style={s.avatar}>
                 {photoUrl && failedPhoto !== photoUrl ? (
                   <Image
@@ -301,34 +357,37 @@ function MyProfileContent() {
                   </Text>
                 )}
               </View>
-              <View style={s.summaryCopy}>
-                <Pressable
-                  accessibilityRole="button"
-                  disabled={offline || locked || !photoReady}
-                  style={s.photoButton}
-                  onPress={() =>
-                    Alert.alert(t.changeListingPhoto, undefined, [
-                      {
-                        text: t.takeListingPhoto,
-                        onPress: () => void choosePhoto("camera"),
-                      },
-                      {
-                        text: t.choosePhonePhoto,
-                        onPress: () => void choosePhoto("gallery"),
-                      },
-                      { text: t.cancel, style: "cancel" },
-                    ])
-                  }
-                >
-                  <Text style={s.link}>{t.changeListingPhoto}</Text>
-                </Pressable>
-                <Text style={s.caption}>{t.profilePhotoHelp}</Text>
+              <View style={s.camera}>
+                <Ionicons name="camera" size={16} color="#fff" />
               </View>
-              <View style={s.village}>
-                <Text style={s.caption}>{t.registeredVillage}</Text>
-                <Text style={s.villageName}>{villageName}</Text>
+            </Pressable>
+            <Text style={s.heroName}>
+              {[draft.firstName, draft.lastName].filter(Boolean).join(" ") ||
+                session!.user.name}
+            </Text>
+            <View style={s.heroChips}>
+              <View style={s.chip}>
+                <Ionicons
+                  accessible={false}
+                  name="location"
+                  size={14}
+                  color={theme.colors.primary}
+                />
+                <Text style={s.chipText}>{villageName}</Text>
               </View>
+              {!!primaryMobile && (
+                <View style={s.chip}>
+                  <Ionicons
+                    accessible={false}
+                    name="call"
+                    size={14}
+                    color={theme.colors.primary}
+                  />
+                  <Text style={s.chipText}>{primaryMobile}</Text>
+                </View>
+              )}
             </View>
+            <Text style={s.caption}>{t.profilePhotoHelp}</Text>
             {pendingPhoto && (
               <Button
                 secondary
@@ -339,12 +398,45 @@ function MyProfileContent() {
                 {t.retryProfilePhoto}
               </Button>
             )}
-          </Panel>
+          </View>
+
           <Text accessibilityRole="header" style={s.sectionTitle}>
-            {t.basicProfileInformation}
+            {t.profPersonal}
           </Text>
           <Panel>
-            <Text style={s.caption}>{t.registeredFieldsReadOnly}</Text>
+            <Input
+              label={`${t.firstName} *`}
+              value={draft.firstName}
+              onChangeText={(firstName) => edit({ firstName })}
+              error={dirty && nameBad ? t.nameError : undefined}
+              editable={!locked}
+              maxLength={60}
+              autoComplete="given-name"
+            />
+            <Input
+              label={t.lastName}
+              value={draft.lastName}
+              onChangeText={(lastName) => edit({ lastName })}
+              editable={!locked}
+              maxLength={60}
+              autoComplete="family-name"
+            />
+            <Input
+              label={t.profEmail}
+              value={draft.email}
+              onChangeText={(email) => edit({ email })}
+              error={emailBad ? t.profEmailError : undefined}
+              editable={!locked}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              maxLength={120}
+            />
+          </Panel>
+
+          <Text accessibilityRole="header" style={s.sectionTitle}>
+            {t.profContact}
+          </Text>
+          <Panel>
             <View style={s.mobileRow}>
               <View style={s.mobileInput}>
                 <Input
@@ -364,53 +456,31 @@ function MyProfileContent() {
               </Pressable>
             </View>
             <Input
-              label={t.firstName}
-              value={profile.firstName || ""}
-              placeholder={t.detailsNotProvided}
-              editable={false}
-              style={readOnly}
-            />
-            <Input
-              label={t.lastName}
-              value={profile.lastName || ""}
-              placeholder={t.detailsNotProvided}
-              editable={false}
-              style={readOnly}
-            />
-            <Input
-              label={t.profileAddress}
-              value={draft.address}
-              onChangeText={(address) => {
-                setDraft({ ...draft, address });
-                setNotice("");
-              }}
-              editable={!locked}
-              maxLength={300}
-              multiline
-            />
-          </Panel>
-          <Text accessibilityRole="header" style={s.sectionTitle}>
-            {t.additionalProfileInformation}
-          </Text>
-          <Panel>
-            <Input
               label={t.alternativeMobile}
               value={draft.alternativeMobile}
-              onChangeText={(alternativeMobile) => {
-                setDraft({ ...draft, alternativeMobile });
-                setNotice("");
-              }}
+              onChangeText={(alternativeMobile) => edit({ alternativeMobile })}
               editable={!locked}
               keyboardType="phone-pad"
               maxLength={24}
             />
+          </Panel>
+
+          <Text accessibilityRole="header" style={s.sectionTitle}>
+            {t.profAbout}
+          </Text>
+          <Panel>
+            <Input
+              label={t.profileAddress}
+              value={draft.address}
+              onChangeText={(address) => edit({ address })}
+              editable={!locked}
+              maxLength={300}
+              multiline
+            />
             <Input
               label={t.profileOccupation}
               value={draft.occupation}
-              onChangeText={(occupation) => {
-                setDraft({ ...draft, occupation });
-                setNotice("");
-              }}
+              onChangeText={(occupation) => edit({ occupation })}
               editable={!locked}
               maxLength={100}
             />
@@ -451,6 +521,51 @@ function MyProfileContent() {
   );
 }
 const s = StyleSheet.create({
+  hero: {
+    alignItems: "center",
+    gap: 10,
+    padding: 18,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+  },
+  avatarWrap: { width: 96, height: 96 },
+  camera: {
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: theme.colors.primary,
+    borderWidth: 2,
+    borderColor: theme.colors.surface,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  heroName: {
+    fontSize: 22,
+    fontWeight: "800",
+    color: theme.colors.heading,
+    textAlign: "center",
+  },
+  heroChips: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 8,
+  },
+  chip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.tint,
+  },
+  chipText: { fontSize: 13, fontWeight: "600", color: theme.colors.heading },
   header: { flexDirection: "row", alignItems: "center", gap: 10 },
   heading: { flex: 1 },
   title: {
@@ -472,9 +587,9 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   avatar: {
-    height: 72,
-    width: 72,
-    borderRadius: 36,
+    height: 96,
+    width: 96,
+    borderRadius: 48,
     backgroundColor: theme.colors.tint,
     alignItems: "center",
     justifyContent: "center",

@@ -20,7 +20,7 @@ import { useAppStore } from "./store";
 import { ApiError } from "./api/client";
 
 const retry = (count: number, error: unknown) =>
-  count < 1 &&
+  count < 2 &&
   !(error instanceof ApiError && error.status && error.status < 500);
 
 // The options of one select list, as managed in the admin.

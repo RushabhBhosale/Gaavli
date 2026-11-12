@@ -36,6 +36,8 @@ export const directoryEntrySchema = z
       )
       .default([]),
     providerType: z.string().nullable().default(null),
+    mine: z.boolean().default(false),
+    hours: z.string().nullable().default(null),
     // Shop or service photos (at most two), already resolved to URLs.
     images: z
       .array(z.object({ key: z.string(), url: z.string() }).strict())

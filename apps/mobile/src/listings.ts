@@ -25,7 +25,7 @@ import {
 
 export const MARKETPLACE_PAGE_SIZE = 4;
 const retry = (count: number, error: unknown) =>
-  count < 1 &&
+  count < 2 &&
   !(error instanceof ApiError && error.status && error.status < 500);
 export function useOwnListings(
   status: "active" | "sold_out" | "all" | "low_stock" | "expired" = "active",

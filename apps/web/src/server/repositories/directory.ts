@@ -88,7 +88,6 @@ function visibleEntries(
         ...(excludeProviderTypes.length
           ? { providerType: { $nin: [...excludeProviderTypes] } }
           : {}),
-        ...(viewerId ? { userId: { $ne: new Types.ObjectId(viewerId) } } : {}),
         ...(query.module === "transport"
           ? { module: "transport" }
           : query.module === "services"
@@ -151,7 +150,12 @@ export async function findDirectory(
               category: { $ifNull: ["$serviceCategory", "Other"] },
               contacts: { $ifNull: ["$contacts", []] },
               images: { $ifNull: ["$images", []] },
+              hours: { $ifNull: ["$hours", null] },
               providerType: { $ifNull: ["$providerType", null] },
+              // Your own entries stay in the lists, marked as yours.
+              mine: viewerId
+                ? { $eq: ["$userId", new Types.ObjectId(viewerId)] }
+                : { $literal: false },
               price: { $ifNull: ["$price", null] },
               unit: { $ifNull: ["$unit", null] },
               village: {

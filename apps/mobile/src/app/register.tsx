@@ -22,7 +22,6 @@ import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import {
   Brand,
-  BackButton,
   Button,
   Chip,
   Input,
@@ -172,12 +171,13 @@ export default function RegistrationScreen() {
     }
   }
   return (
-    <Screen>
-      <BackButton
-        label={t.back}
-        disabled={busy}
-        onPress={() => router.replace(browsingVillage ? "/home" : "/language")}
-      />
+    <Screen
+      back={{
+        label: t.back,
+        disabled: busy,
+        onPress: () => router.replace(browsingVillage ? "/home" : "/language"),
+      }}
+    >
       <Brand compact />
       <Text style={[styles.title, st.center]}>
         {registering ? t.regCreateTitle : t.loginTitle}
@@ -354,11 +354,42 @@ export default function RegistrationScreen() {
       <Text style={[styles.body, st.center, st.small]}>
         {registering ? t.regTerms : t.privacy}
       </Text>
+      <View style={st.legalRow}>
+        <Pressable
+          accessibilityRole="link"
+          onPress={() => router.push("/terms")}
+          hitSlop={8}
+        >
+          <Text style={st.legalLink}>{t.termsTitle}</Text>
+        </Pressable>
+        <Text style={st.legalDot}>·</Text>
+        <Pressable
+          accessibilityRole="link"
+          onPress={() => router.push("/privacy")}
+          hitSlop={8}
+        >
+          <Text style={st.legalLink}>{t.privacyTitle}</Text>
+        </Pressable>
+      </View>
     </Screen>
   );
 }
 
 const st = StyleSheet.create({
+  legalRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+    paddingBottom: 8,
+  },
+  legalLink: {
+    color: theme.colors.primary,
+    fontSize: 14,
+    fontWeight: "700",
+    textDecorationLine: "underline",
+  },
+  legalDot: { color: theme.colors.muted, fontSize: 14 },
   section: {
     ...theme.type.micro,
     color: theme.colors.muted,

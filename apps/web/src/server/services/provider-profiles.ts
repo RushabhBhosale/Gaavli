@@ -298,6 +298,15 @@ export async function syncDirectoryEntry(profile: Profile) {
           : [],
         contacts,
         images: profile.images ?? [],
+        hours:
+          [
+            "businessHours",
+            "consultationHours",
+            "operatingHours",
+            "officeHours",
+          ]
+            .map((key) => details[key])
+            .find((value) => typeof value === "string" && value) || undefined,
         status: active ? "ACTIVE" : "INACTIVE",
         available: active,
       },

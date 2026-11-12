@@ -29,6 +29,7 @@ import {
   draftsFromServer,
   type ContactDraft,
 } from "../../data/contactNumbers";
+import { hoursProblem, parseHours } from "../../data/operatingHours";
 import { ContactNumbersField } from "../../components/ContactNumbersField";
 import { ProviderImagesField } from "../../components/provider/ProviderImages";
 import type { ProviderImage } from "../../providerImages";
@@ -37,7 +38,6 @@ import {
   type Details,
 } from "../../components/provider/ProviderFields";
 import {
-  BackButton,
   Button,
   Card,
   ErrorMessage,
@@ -48,6 +48,8 @@ import {
 
 // Edit one registered profile, hide or show it in the directory and, for a
 // medical facility, answer and start doctor links.
+// Linking doctors with clinics is switched off for now.
+const SHOW_FACILITY_LINKING = false;
 export default function ProviderManageScreen() {
   const router = useRouter();
   const client = useQueryClient();
@@ -155,6 +157,18 @@ export default function ProviderManageScreen() {
         !String(details[field.key] ?? "").trim()
       )
         next[field.key] = t.provErrRequired;
+    for (const field of kind.fields) {
+      const hours =
+        field.kind === "hours" ? parseHours(String(details[field.key])) : null;
+      const problem = hours ? hoursProblem(hours) : null;
+      if (problem)
+        next[field.key] =
+          problem === "order"
+            ? t.hoursErrOrder
+            : problem === "overlap"
+              ? t.hoursErrOverlap
+              : t.hoursErrNone;
+    }
     setErrors(next);
     setShowErrors(true);
     if (Object.keys(next).length) return;
@@ -189,14 +203,14 @@ export default function ProviderManageScreen() {
   );
 
   return (
-    <Screen>
-      <BackButton
-        label={t.back}
-        disabled={busy}
-        onPress={() =>
-          router.canGoBack() ? router.back() : router.replace("/activities")
-        }
-      />
+    <Screen
+      back={{
+        label: t.back,
+        disabled: busy,
+        onPress: () =>
+          router.canGoBack() ? router.back() : router.replace("/activities"),
+      }}
+    >
       {query.isError && (
         <ErrorMessage message={errorMessage(query.error, language)} />
       )}
@@ -298,111 +312,113 @@ export default function ProviderManageScreen() {
             {profile.status === "ACTIVE" ? t.manageHide : t.manageShow}
           </Button>
 
-          {(isFacilityType(profile.providerType) ||
-            profile.providerType === ProviderType.HEALTHCARE_PROFESSIONAL) && (
-            <View style={s.links}>
-              <Text style={s.section}>{t.facDoctors}</Text>
-              {!myFacilityLinks.length &&
-                isFacilityType(profile.providerType) && (
-                  <Text style={s.hint}>{t.facNoDoctors}</Text>
-                )}
-              {links.map((link) => (
-                <Card key={link.id}>
-                  <Text style={s.cardTitle}>
-                    {isFacilityType(profile.providerType)
-                      ? link.doctor.name
-                      : link.facility.name}
-                  </Text>
-                  {link.doctor.specialization &&
-                  isFacilityType(profile.providerType) ? (
-                    <Text style={s.hint}>{link.doctor.specialization}</Text>
-                  ) : null}
-                  {link.status === "PENDING" && link.needsMyAnswer ? (
-                    <>
-                      <Text style={s.hint}>
-                        {link.initiatedBy === "doctor"
-                          ? formatMessage(t.linkAsks, {
-                              doctor: link.doctor.name,
-                              facility: link.facility.name,
-                            })
-                          : formatMessage(t.linkAsksDoctor, {
-                              facility: link.facility.name,
-                            })}
-                      </Text>
-                      <Button
-                        disabled={busy}
-                        onPress={() =>
-                          void run(() => answerLink(link.id, "confirm"))
-                        }
-                      >
-                        {t.linkConfirm}
-                      </Button>
-                      <Button
-                        outlined
-                        disabled={busy}
-                        onPress={() =>
-                          void run(() => answerLink(link.id, "reject"))
-                        }
-                      >
-                        {t.linkDecline}
-                      </Button>
-                    </>
-                  ) : link.status === "PENDING" ? (
-                    <Text style={s.warn}>{t.facAwaiting}</Text>
-                  ) : (
-                    <>
-                      <Text style={s.ok}>{t.facLinked}</Text>
-                      <Button
-                        ghost
-                        disabled={busy}
-                        onPress={() =>
-                          void run(() => answerLink(link.id, "remove"))
-                        }
-                      >
-                        {t.linkRemove}
-                      </Button>
-                    </>
+          {SHOW_FACILITY_LINKING &&
+            (isFacilityType(profile.providerType) ||
+              profile.providerType ===
+                ProviderType.HEALTHCARE_PROFESSIONAL) && (
+              <View style={s.links}>
+                <Text style={s.section}>{t.facDoctors}</Text>
+                {!myFacilityLinks.length &&
+                  isFacilityType(profile.providerType) && (
+                    <Text style={s.hint}>{t.facNoDoctors}</Text>
                   )}
-                </Card>
-              ))}
-              {isFacilityType(profile.providerType) && (
-                <>
-                  <Button secondary onPress={() => setLinking(!linking)}>
-                    {t.facLinkDoctor}
-                  </Button>
-                  {linking && (
-                    <>
-                      <Text style={s.hint}>{t.facLinkHelp}</Text>
-                      <TextInput
-                        accessibilityLabel={t.facLinkDoctor}
-                        value={q}
-                        onChangeText={setQ}
-                        placeholder={t.practiceSearchHint}
-                        placeholderTextColor={theme.colors.muted}
-                        style={s.search}
-                      />
-                      {results.map((row) => (
-                        <Pressable
-                          key={row.id}
-                          accessibilityRole="button"
-                          style={s.result}
+                {links.map((link) => (
+                  <Card key={link.id}>
+                    <Text style={s.cardTitle}>
+                      {isFacilityType(profile.providerType)
+                        ? link.doctor.name
+                        : link.facility.name}
+                    </Text>
+                    {link.doctor.specialization &&
+                    isFacilityType(profile.providerType) ? (
+                      <Text style={s.hint}>{link.doctor.specialization}</Text>
+                    ) : null}
+                    {link.status === "PENDING" && link.needsMyAnswer ? (
+                      <>
+                        <Text style={s.hint}>
+                          {link.initiatedBy === "doctor"
+                            ? formatMessage(t.linkAsks, {
+                                doctor: link.doctor.name,
+                                facility: link.facility.name,
+                              })
+                            : formatMessage(t.linkAsksDoctor, {
+                                facility: link.facility.name,
+                              })}
+                        </Text>
+                        <Button
+                          disabled={busy}
                           onPress={() =>
-                            void run(async () => {
-                              await requestLink(profile.id, row.id);
-                              setLinking(false);
-                              setQ("");
-                            })
+                            void run(() => answerLink(link.id, "confirm"))
                           }
                         >
-                          <Text style={s.cardTitle}>{row.name}</Text>
-                        </Pressable>
-                      ))}
-                    </>
-                  )}
-                </>
-              )}
-            </View>
-          )}
+                          {t.linkConfirm}
+                        </Button>
+                        <Button
+                          outlined
+                          disabled={busy}
+                          onPress={() =>
+                            void run(() => answerLink(link.id, "reject"))
+                          }
+                        >
+                          {t.linkDecline}
+                        </Button>
+                      </>
+                    ) : link.status === "PENDING" ? (
+                      <Text style={s.warn}>{t.facAwaiting}</Text>
+                    ) : (
+                      <>
+                        <Text style={s.ok}>{t.facLinked}</Text>
+                        <Button
+                          ghost
+                          disabled={busy}
+                          onPress={() =>
+                            void run(() => answerLink(link.id, "remove"))
+                          }
+                        >
+                          {t.linkRemove}
+                        </Button>
+                      </>
+                    )}
+                  </Card>
+                ))}
+                {isFacilityType(profile.providerType) && (
+                  <>
+                    <Button secondary onPress={() => setLinking(!linking)}>
+                      {t.facLinkDoctor}
+                    </Button>
+                    {linking && (
+                      <>
+                        <Text style={s.hint}>{t.facLinkHelp}</Text>
+                        <TextInput
+                          accessibilityLabel={t.facLinkDoctor}
+                          value={q}
+                          onChangeText={setQ}
+                          placeholder={t.practiceSearchHint}
+                          placeholderTextColor={theme.colors.muted}
+                          style={s.search}
+                        />
+                        {results.map((row) => (
+                          <Pressable
+                            key={row.id}
+                            accessibilityRole="button"
+                            style={s.result}
+                            onPress={() =>
+                              void run(async () => {
+                                await requestLink(profile.id, row.id);
+                                setLinking(false);
+                                setQ("");
+                              })
+                            }
+                          >
+                            <Text style={s.cardTitle}>{row.name}</Text>
+                          </Pressable>
+                        ))}
+                      </>
+                    )}
+                  </>
+                )}
+              </View>
+            )}
         </>
       )}
     </Screen>

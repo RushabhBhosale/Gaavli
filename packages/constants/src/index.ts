@@ -10,7 +10,8 @@ export {
 
 export const MOBILE_LANGUAGES: readonly MobileLanguage[] = ["mr", "en", "hi"];
 export const DEFAULT_MOBILE_LANGUAGE: MobileLanguage = "mr";
-export const API_TIMEOUT_MS = 10000;
+// Cold servers and slow village networks need time: wait up to 20 seconds.
+export const API_TIMEOUT_MS = 20000;
 
 export const LISTING_PRODUCT_GROUPS = [
   "vegetables",

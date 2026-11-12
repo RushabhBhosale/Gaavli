@@ -19,7 +19,7 @@ const profile = {
   photoUrl: null,
   version: 2,
 };
-test("profile Save serializes only editable fields and never names, primary phone or photo", () => {
+test("profile Save serializes only editable fields and never the primary phone or photo", () => {
   const draft = editableProfileDraft(profile);
   const result = profileSaveBody({
     ...draft,
@@ -40,15 +40,7 @@ test("profile Save serializes only editable fields and never names, primary phon
     version: 2,
   });
   assert.equal(profile.firstName, "Riya");
-  for (const field of [
-    "name",
-    "firstName",
-    "lastName",
-    "mobile",
-    "roles",
-    "userId",
-    "photoObjectKey",
-  ])
+  for (const field of ["name", "mobile", "roles", "userId", "photoObjectKey"])
     assert.equal(
       updateMobileProfileSchema.safeParse({ ...draft, [field]: "injected" })
         .success,
@@ -108,4 +100,40 @@ test("profile conflict and OTP/mobile errors are localized in Marathi and Englis
       t.mobileUnavailable,
     );
   }
+});
+
+test("profile Save sends name and email only when they changed", () => {
+  const draft = editableProfileDraft(profile);
+  const same = profileSaveBody(draft, profile);
+  assert.ok(same.success);
+  assert.ok(!("firstName" in same.data) && !("email" in same.data));
+  const single = profileSaveBody(
+    { ...draft, firstName: "Rushabh", lastName: "", email: "A@Example.com" },
+    profile,
+  );
+  assert.ok(single.success);
+  assert.equal(single.data.firstName, "Rushabh");
+  assert.equal(single.data.lastName, "");
+  assert.equal(single.data.email, "a@example.com");
+  assert.equal(
+    profileSaveBody({ ...draft, firstName: "", lastName: "More" }, profile)
+      .success,
+    false,
+  );
+  assert.equal(
+    profileSaveBody({ ...draft, email: "not-an-email" }, profile).success,
+    false,
+  );
+});
+
+test("an older account with only a display name shows it split in the profile", () => {
+  const legacy = { ...profile, firstName: null, lastName: null };
+  const draft = editableProfileDraft(legacy, "Sunita Devi Patil");
+  assert.equal(draft.firstName, "Sunita Devi");
+  assert.equal(draft.lastName, "Patil");
+  assert.equal(editableProfileDraft(legacy, "Rushabh").lastName, "");
+  assert.equal(editableProfileDraft(legacy, "9876543210").firstName, "");
+  const body = profileSaveBody(draft, legacy);
+  assert.ok(body.success);
+  assert.equal(body.data.firstName, "Sunita Devi");
 });

@@ -103,8 +103,6 @@ try {
   };
   for (const field of [
     "name",
-    "firstName",
-    "lastName",
     "mobile",
     "userId",
     "roles",
@@ -120,6 +118,62 @@ try {
   assert.equal(saved.occupation, "Farmer");
   assert.equal((await User.findById(owner._id))?.name, "Riya More");
   await payload(await PATCH(request("profile", body)), 409);
+  // Names and email can be edited; a single name is fine; email stays unique.
+  const renamed = (
+    await payload(
+      await PATCH(
+        request("profile", {
+          ...body,
+          firstName: "Rushabh",
+          lastName: "",
+          email: " Rushabh@Example.com ",
+          version: saved.version,
+        }),
+      ),
+    )
+  ).data;
+  assert.equal(renamed.firstName, "Rushabh");
+  assert.equal(renamed.email, "rushabh@example.com");
+  assert.equal((await User.findById(owner._id))?.name, "Rushabh");
+  await payload(
+    await PATCH(
+      request("profile", {
+        ...body,
+        firstName: "",
+        version: renamed.version,
+      }),
+    ),
+    422,
+  );
+  await User.updateOne(
+    { _id: other._id },
+    { $set: { email: "taken@example.com" } },
+  );
+  await payload(
+    await PATCH(
+      request("profile", {
+        ...body,
+        email: "taken@example.com",
+        version: renamed.version,
+      }),
+    ),
+    409,
+  );
+  const restored = (
+    await payload(
+      await PATCH(
+        request("profile", {
+          ...body,
+          firstName: "Riya",
+          lastName: "More",
+          email: "",
+          version: renamed.version,
+        }),
+      ),
+    )
+  ).data;
+  assert.equal(restored.email, null);
+  assert.equal((await User.findById(owner._id))?.name, "Riya More");
   const foreign = (
     await payload(await GET(request("profile", undefined, otherToken)))
   ).data;
@@ -128,7 +182,7 @@ try {
   assert.equal(foreign.address, null);
   assert.equal((await User.findById(other._id))?.name, "Legacy Display Name");
   const crossOrigin = new Request(
-    request("profile", { ...body, version: saved.version }),
+    request("profile", { ...body, version: restored.version }),
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -145,7 +199,7 @@ try {
           address: "",
           alternativeMobile: "",
           occupation: "",
-          version: saved.version,
+          version: restored.version,
         }),
       ),
     )

@@ -14,8 +14,6 @@ import { theme } from "../../theme";
 import { ApiError } from "../../api/client";
 import { errorMessage } from "../../errors";
 import {
-  checkDuplicates,
-  claimProfile,
   createProfile,
   refreshProfiles,
   searchProfiles,
@@ -29,6 +27,7 @@ import {
   type ContactDraft,
 } from "../../data/contactNumbers";
 import { useQueryClient } from "@tanstack/react-query";
+import { hoursProblem, parseHours } from "../../data/operatingHours";
 import { ContactNumbersField } from "../../components/ContactNumbersField";
 import { ProviderImagesField } from "../../components/provider/ProviderImages";
 import type { ProviderImage } from "../../providerImages";
@@ -39,17 +38,14 @@ import {
   type Details,
 } from "../../components/provider/ProviderFields";
 import {
-  BackButton,
   Button,
-  Card,
   ErrorMessage,
   Input,
   Screen,
   styles,
 } from "../../components/ui";
 
-type Step = "details" | "duplicates" | "category";
-type Match = Awaited<ReturnType<typeof checkDuplicates>>["matches"][number];
+type Step = "details" | "category";
 type Practice = { mode: string; facilityId?: string; facilityName?: string };
 
 // Provider registration: common details, a duplicate check, then the form for
@@ -81,12 +77,10 @@ export default function ProviderFormScreen() {
     type ? emptyDetails(type) : {},
   );
   const [practice, setPractice] = useState<Practice>({ mode: "own_clinic" });
-  const [matches, setMatches] = useState<Match[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showErrors, setShowErrors] = useState(false);
   const [failure, setFailure] = useState<unknown>(null);
   const [busy, setBusy] = useState(false);
-  const [notice, setNotice] = useState("");
   const submitting = useRef(false);
 
   if (!session) return <Redirect href="/register" />;
@@ -96,9 +90,7 @@ export default function ProviderFormScreen() {
   const list = contacts ?? [];
 
   function back() {
-    if (step === "category")
-      return setStep(matches.length ? "duplicates" : "details");
-    if (step === "duplicates") return setStep("details");
+    if (step === "category") return setStep("details");
     router.back();
   }
   function validateDetails() {
@@ -111,26 +103,11 @@ export default function ProviderFormScreen() {
     setShowErrors(true);
     return !Object.keys(next).length;
   }
-  async function check() {
+  // The first page only checks the basics; similar profiles are not looked up.
+  function check() {
     if (submitting.current || !validateDetails() || !village) return;
-    submitting.current = true;
-    setBusy(true);
     setFailure(null);
-    try {
-      const result = await checkDuplicates({
-        providerType: type,
-        villageId: village.id,
-        name: name.trim(),
-        mobiles: contactsPayload(activeContacts(list)).map((row) => row.mobile),
-      });
-      setMatches(result.matches);
-      setStep(result.matches.length ? "duplicates" : "category");
-    } catch (error) {
-      setFailure(error);
-    } finally {
-      submitting.current = false;
-      setBusy(false);
-    }
+    setStep("category");
   }
   function validateCategory() {
     const next: Record<string, string> = {};
@@ -143,8 +120,18 @@ export default function ProviderFormScreen() {
       )
         next[field.key] = t.provErrRequired;
     }
-    if (doctor && practice.mode === "existing_facility" && !practice.facilityId)
-      next.practice = t.provErrFacility;
+    for (const field of kind.fields) {
+      const hours =
+        field.kind === "hours" ? parseHours(String(details[field.key])) : null;
+      const problem = hours ? hoursProblem(hours) : null;
+      if (problem)
+        next[field.key] =
+          problem === "order"
+            ? t.hoursErrOrder
+            : problem === "overlap"
+              ? t.hoursErrOverlap
+              : t.hoursErrNone;
+    }
     setErrors(next);
     return !Object.keys(next).length;
   }
@@ -191,40 +178,12 @@ export default function ProviderFormScreen() {
       setBusy(false);
     }
   }
-  async function claim(match: Match) {
-    if (submitting.current) return;
-    submitting.current = true;
-    setBusy(true);
-    setFailure(null);
-    try {
-      await claimProfile(match.id);
-      setNotice(t.dupClaimSent);
-    } catch (error) {
-      setFailure(error);
-    } finally {
-      submitting.current = false;
-      setBusy(false);
-    }
-  }
-  function linkMe(match: Match) {
-    setPractice({
-      mode: "existing_facility",
-      facilityId: match.id,
-      facilityName: match.name,
-    });
-    setStep("category");
-  }
   const failureText = failure ? providerError(failure, t, language) : "";
 
   return (
-    <Screen>
-      <BackButton label={t.back} disabled={busy} onPress={back} />
+    <Screen back={{ label: t.back, disabled: busy, onPress: back }}>
       <Text accessibilityRole="header" style={styles.title}>
-        {step === "duplicates"
-          ? t.dupTitle
-          : step === "category"
-            ? t.provCategoryStep
-            : t.provDetailsTitle}
+        {step === "category" ? t.provCategoryStep : t.provDetailsTitle}
       </Text>
       <View style={s.badge}>
         <Text style={s.badgeText}>{`${kind.title[language]}`}</Text>
@@ -296,65 +255,10 @@ export default function ProviderFormScreen() {
           <Button
             loading={busy}
             disabled={offline || !contacts}
-            onPress={() => void check()}
+            onPress={check}
           >
             {t.provCheckContinue}
           </Button>
-        </>
-      )}
-
-      {step === "duplicates" && (
-        <>
-          <Text style={styles.body}>{t.dupSubtitle}</Text>
-          {matches.map((match) => (
-            <Card key={match.id}>
-              <Text style={s.cardTitle}>{match.name}</Text>
-              <Text style={s.hint}>
-                {`${match.village[language === "en" ? "name" : "nameMr"]}${match.maskedMobile ? ` · ${match.maskedMobile}` : ""}`}
-              </Text>
-              <Text style={s.match}>
-                {match.reason === "same_number"
-                  ? t.dupMatchPhone
-                  : t.dupMatchName}
-              </Text>
-              {match.mine ? (
-                <Text style={s.hint}>{t.dupMine}</Text>
-              ) : (
-                <>
-                  {doctor &&
-                    match.providerType === ProviderType.MEDICAL_FACILITY && (
-                      <Button
-                        secondary
-                        disabled={busy}
-                        onPress={() => linkMe(match)}
-                      >
-                        {t.dupLink}
-                      </Button>
-                    )}
-                  <Button
-                    outlined
-                    disabled={busy || !!notice}
-                    onPress={() => void claim(match)}
-                  >
-                    {t.dupClaim}
-                  </Button>
-                </>
-              )}
-            </Card>
-          ))}
-          <Text style={s.hint}>{t.dupNote}</Text>
-          {!!notice && <Text style={s.notice}>{notice}</Text>}
-          {!!failureText && <ErrorMessage message={failureText} />}
-          {notice ? (
-            <Button onPress={() => router.replace("/activities")}>
-              {t.continue}
-            </Button>
-          ) : (
-            <Button disabled={busy} onPress={() => setStep("category")}>
-              {t.dupDifferent}
-            </Button>
-          )}
-          <Text style={s.hint}>{t.dupDifferentHelp}</Text>
         </>
       )}
 
@@ -459,24 +363,26 @@ function PracticeSection({
   return (
     <View style={s.practice}>
       <Text style={s.section}>{t.practiceWhere}</Text>
-      {PRACTICE_MODES.map((mode) => {
-        const on = practice.mode === mode.id;
-        return (
-          <Pressable
-            key={mode.id}
-            accessibilityRole="radio"
-            accessibilityState={{ checked: on }}
-            disabled={disabled}
-            onPress={() => onChange({ mode: mode.id })}
-            style={[s.mode, on && s.modeOn]}
-          >
-            <Text style={[s.modeTitle, on && s.modeTitleOn]}>
-              {mode[language]}
-            </Text>
-            <Text style={s.hint}>{help[mode.id]}</Text>
-          </Pressable>
-        );
-      })}
+      {PRACTICE_MODES.filter((mode) => mode.id !== "existing_facility").map(
+        (mode) => {
+          const on = practice.mode === mode.id;
+          return (
+            <Pressable
+              key={mode.id}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: on }}
+              disabled={disabled}
+              onPress={() => onChange({ mode: mode.id })}
+              style={[s.mode, on && s.modeOn]}
+            >
+              <Text style={[s.modeTitle, on && s.modeTitleOn]}>
+                {mode[language]}
+              </Text>
+              <Text style={s.hint}>{help[mode.id]}</Text>
+            </Pressable>
+          );
+        },
+      )}
       {practice.mode === "existing_facility" && (
         <>
           {practice.facilityId && practice.facilityName ? (

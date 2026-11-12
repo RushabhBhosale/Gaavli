@@ -249,6 +249,12 @@ try {
     "public numbers in the order villagers should try them",
   );
   assert.equal(entry.providerType, "SHOP_BUSINESS");
+  assert.equal(entry.mine, false, "other people's entries are not marked mine");
+  const asOwner = (await listed(alice)).entries.find(
+    (row: { name: string }) => row.name === "Patil Kirana",
+  );
+  assert.ok(asOwner, "owners find their own entry when they search");
+  assert.equal(asOwner.mine, true);
   const hidden = await call(
     oneRoute.PATCH,
     alice,
@@ -438,6 +444,37 @@ try {
     },
   );
   assert.equal(clinic.status, 201);
+  // A doctor does not need a registration number.
+  const noRegNumber = await call(
+    profilesRoute.POST,
+    alice,
+    "POST",
+    "provider-profiles",
+    {
+      providerType: "HEALTHCARE_PROFESSIONAL",
+      name: "Dr. B. Kale",
+      villageId: vid,
+      contacts: [{ label: "primary", mobile: "9876500001", isPublic: true }],
+      details: {
+        specialization: "GENERAL_PHYSICIAN",
+        qualification: "MBBS",
+        consultationHours: JSON.stringify({
+          v: 1,
+          slots: [{ open: "10:00", close: "14:00" }],
+          off: [0],
+        }),
+      },
+      practice: { mode: "home_visits" },
+    },
+  );
+  assert.equal(noRegNumber.status, 201);
+  const withHours = (await listed(bob)).entries.find(
+    (row: { name: string }) => row.name === "Dr. B. Kale",
+  );
+  assert.ok(
+    withHours?.hours?.includes('"off":[0]'),
+    "opening hours reach the directory",
+  );
   const doctorBody = (practice: object, name = "Dr. A. Patil") => ({
     providerType: "HEALTHCARE_PROFESSIONAL",
     name,

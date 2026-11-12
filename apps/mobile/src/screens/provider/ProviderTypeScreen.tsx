@@ -12,7 +12,7 @@ import {
 import { useAppStore } from "../../store";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
-import { BackButton, Screen, styles } from "../../components/ui";
+import { Screen, styles } from "../../components/ui";
 
 type IconName = React.ComponentProps<typeof Ionicons>["name"];
 
@@ -29,17 +29,17 @@ export default function ProviderTypeScreen() {
     router.push({ pathname: "/provider/form", params: { type } });
   const rows = other ? PROVIDER_OTHER_TYPES : PROVIDER_MAIN_TYPES;
   return (
-    <Screen>
-      <BackButton
-        label={t.back}
-        onPress={() =>
+    <Screen
+      back={{
+        label: t.back,
+        onPress: () =>
           other
             ? setOther(false)
             : router.canGoBack()
               ? router.back()
-              : router.replace("/home")
-        }
-      />
+              : router.replace("/home"),
+      }}
+    >
       <Text accessibilityRole="header" style={styles.title}>
         {other ? t.provOtherTitle : t.provPickTitle}
       </Text>

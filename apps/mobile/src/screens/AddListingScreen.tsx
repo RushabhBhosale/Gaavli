@@ -357,6 +357,24 @@ function ListingFormScreen({
       /* The unsaved warning stays visible. */
     }
   }
+  // Cancel an edit: drop the unsaved changes and go back to My Products. A
+  // change already on its way to the server is left alone.
+  async function cancelEdit() {
+    if (submitting.current) return;
+    try {
+      if (!latest.current.editPending) {
+        await listingDraftStorage.remove(key);
+        await removeDraftPhoto(
+          latest.current.form.localPhoto,
+          accountId,
+          villageId,
+        ).catch(() => undefined);
+      }
+    } catch {
+      /* Leaving still works; the draft can be discarded later. */
+    }
+    router.replace("/my-listings");
+  }
   async function publish() {
     if (!ready || offline || submitting.current) return;
     submitting.current = true;
@@ -591,17 +609,28 @@ function ListingFormScreen({
       }
       footer={
         ready ? (
-          <Button
-            loading={busy}
-            disabled={offline || saveFailed || conflict}
-            onPress={() => void publish()}
-          >
-            {draft.pending || draft.editPending
-              ? t.listingRetryPublish
-              : editId
-                ? t.saveListingChanges
-                : t.listingPublish}
-          </Button>
+          <View style={s.footerStack}>
+            <Button
+              loading={busy}
+              disabled={offline || saveFailed || conflict}
+              onPress={() => void publish()}
+            >
+              {draft.pending || draft.editPending
+                ? t.listingRetryPublish
+                : editId
+                  ? t.saveListingChanges
+                  : t.listingPublish}
+            </Button>
+            {editId && (
+              <Button
+                secondary
+                disabled={busy}
+                onPress={() => void cancelEdit()}
+              >
+                {t.cancel}
+              </Button>
+            )}
+          </View>
         ) : undefined
       }
     >
@@ -1283,6 +1312,7 @@ function ListingDropdown<T extends string>({
   );
 }
 const s = StyleSheet.create({
+  footerStack: { gap: 10 },
   searchRow: { flexDirection: "row", alignItems: "flex-end", gap: 10 },
   searchField: { flex: 1, minWidth: 0 },
   voice: { alignItems: "center", gap: 2 },

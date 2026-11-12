@@ -37,6 +37,8 @@ const serviceSchema = new Schema(
       default: [],
     },
     images: { type: [String], default: [] },
+    // Opening times as the provider entered them (JSON or plain text).
+    hours: { type: String, trim: true, maxlength: 400 },
     description: { type: String, trim: true, maxlength: 2000 },
     keywords: [String],
     price: { type: Number, min: 0 },

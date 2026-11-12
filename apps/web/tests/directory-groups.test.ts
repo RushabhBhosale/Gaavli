@@ -56,3 +56,13 @@ test("vehicles land in tiles by type or name", () => {
   assert.deepEqual(of({ professionMr: "बस" }), ["bus"]);
   assert.deepEqual(of({ professionMr: "रुग्णवाहिका" }), ["ambulance"]);
 });
+
+test("urgent help leads each module and the catch-all stays last", () => {
+  const services = directoryGroupsFor("services").map((g) => g.id);
+  assert.deepEqual(services.slice(0, 3), ["emergency", "public", "community"]);
+  assert.equal(services[services.length - 1], "other");
+  const transport = directoryGroupsFor("transport").map((g) => g.id);
+  assert.equal(transport[0], "ambulance");
+  assert.equal(transport[transport.length - 1], "other_transport");
+  assert.equal(new Set(services).size, services.length);
+});

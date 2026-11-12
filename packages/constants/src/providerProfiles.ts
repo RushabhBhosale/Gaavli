@@ -17,6 +17,8 @@ export type ProviderField = Base &
     | { kind: "master"; master: ProviderMasterType }
     | { kind: "choice"; options: readonly ChoiceOption[] }
     | { kind: "bool" }
+    // Opening times: slots plus weekly off, stored as a small JSON string.
+    | { kind: "hours" }
   );
 export type ProviderKind = {
   type: ProviderType;
@@ -53,6 +55,18 @@ const text = (
   required,
   kind: "text",
   ...extra,
+});
+const hours = (
+  key: string,
+  en: string,
+  mr: string,
+  hi: string,
+  required = false,
+): ProviderField => ({
+  key,
+  label: { en, mr, hi },
+  required,
+  kind: "hours",
 });
 const master = (
   key: string,
@@ -159,7 +173,7 @@ export const PROVIDER_KINDS: Record<ProviderType, ProviderKind> = {
         false,
         { multiline: true },
       ),
-      text(
+      hours(
         "businessHours",
         "Business Hours",
         "व्यवसायाच्या वेळा",
@@ -242,9 +256,9 @@ export const PROVIDER_KINDS: Record<ProviderType, ProviderKind> = {
         "Registration Number",
         "नोंदणी क्रमांक",
         "पंजीकरण संख्या",
-        true,
+        false,
       ),
-      text(
+      hours(
         "consultationHours",
         "Consultation Hours",
         "तपासणीच्या वेळा",
@@ -284,7 +298,7 @@ export const PROVIDER_KINDS: Record<ProviderType, ProviderKind> = {
         true,
         { multiline: true },
       ),
-      text(
+      hours(
         "operatingHours",
         "Operating Hours",
         "कामकाजाच्या वेळा",
@@ -398,7 +412,7 @@ export const PROVIDER_KINDS: Record<ProviderType, ProviderKind> = {
         true,
         { multiline: true },
       ),
-      text(
+      hours(
         "operatingHours",
         "Operating Hours",
         "कामकाजाच्या वेळा",
@@ -615,7 +629,7 @@ export const PROVIDER_KINDS: Record<ProviderType, ProviderKind> = {
         "कार्यालय का प्रकार",
         "OFFICE_TYPE",
       ),
-      text(
+      hours(
         "officeHours",
         "Office Hours",
         "कार्यालयाच्या वेळा",

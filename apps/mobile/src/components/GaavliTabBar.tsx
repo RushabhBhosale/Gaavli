@@ -69,9 +69,9 @@ export function GaavliTabBar({ state, navigation }: TabBarProps) {
     },
     profile: {
       route: "profile",
-      label: t.settings,
-      icon: "settings-outline",
-      active: "settings",
+      label: t.profile,
+      icon: "person-outline",
+      active: "person",
     },
   };
   const [moreOpen, setMoreOpen] = useState(false);

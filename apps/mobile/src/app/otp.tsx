@@ -9,14 +9,7 @@ import {
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
-import {
-  BackButton,
-  Button,
-  Input,
-  ErrorMessage,
-  Screen,
-  styles,
-} from "../components/ui";
+import { Button, Input, ErrorMessage, Screen, styles } from "../components/ui";
 import { api } from "../api";
 import { errorMessage } from "../errors";
 import { ApiError } from "../api/client";
@@ -157,12 +150,13 @@ export default function OtpScreen() {
     }
   }
   return (
-    <Screen>
-      <BackButton
-        label={t.back}
-        disabled={!!busy || hasPendingSession}
-        onPress={() => router.replace("/register")}
-      />
+    <Screen
+      back={{
+        label: t.back,
+        disabled: !!busy || hasPendingSession,
+        onPress: () => router.replace("/register"),
+      }}
+    >
       <Text style={[styles.title, { textAlign: "center" }]}>
         {t.verifyTitle}
       </Text>

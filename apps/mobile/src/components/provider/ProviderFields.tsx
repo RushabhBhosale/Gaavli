@@ -19,6 +19,8 @@ import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { useProviderMasters } from "../../providerProfiles";
 import { Button, DropdownField, ErrorMessage, Input } from "../ui";
+import { HoursField } from "./HoursField";
+import { defaultHours, serializeHours } from "../../data/operatingHours";
 
 export type DetailValue = string | boolean;
 export type Details = Record<string, DetailValue>;
@@ -26,7 +28,12 @@ export type Details = Record<string, DetailValue>;
 export function emptyDetails(type: ProviderType): Details {
   const out: Details = {};
   for (const field of PROVIDER_KINDS[type].fields)
-    out[field.key] = field.kind === "bool" ? false : "";
+    out[field.key] =
+      field.kind === "bool"
+        ? false
+        : field.kind === "hours" && field.required
+          ? serializeHours(defaultHours())
+          : "";
   return out;
 }
 
@@ -94,6 +101,18 @@ export function ProviderFields({
                 </View>
                 {!!error && <ErrorMessage message={error} />}
               </View>
+            );
+          if (field.kind === "hours")
+            return (
+              <HoursField
+                key={field.key}
+                label={label}
+                value={String(values[field.key] ?? "")}
+                required={field.required}
+                error={error}
+                disabled={disabled}
+                onChange={(value) => onChange(field.key, value)}
+              />
             );
           if (field.kind === "bool")
             return (

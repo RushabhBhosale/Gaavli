@@ -416,6 +416,15 @@ try {
     "seller",
     "coordinator",
   ]);
+  // An older account with a display name picks a village without being asked
+  // for a name again; its first and last name are filled from the display name.
+  await saveMobileVillage(String(legacy._id), {
+    villageId: String(villages[0]._id),
+  });
+  const filled = await User.findById(legacy._id).lean();
+  assert.equal(filled?.firstName, "Existing Display");
+  assert.equal(filled?.lastName, "Name");
+  assert.equal(filled?.name, "Existing Display Name");
   assert.equal(await User.countDocuments(), 2);
   const verifyBucket = Math.floor(Date.now() / 3600_000);
   await MobileRateLimit.create({

@@ -7,7 +7,7 @@ import {
   updateOwnProfile,
   attachOwnProfilePhoto,
 } from "../repositories/profile";
-import { requireLocalListingPhoto } from "../providers/local-listing-photos";
+import { ListingPhoto } from "../models/listing-photo";
 import { AppError } from "../utils/errors";
 
 export async function getMobileProfile(userId: string) {
@@ -27,14 +27,11 @@ export async function saveProfilePhoto(
   version: number,
 ) {
   await connectDb();
-  if (process.env.NODE_ENV !== "development")
-    throw new AppError(
-      503,
-      "PHOTO_STORAGE_UNAVAILABLE",
-      "Configure a production photo provider.",
-    );
   if (!key.startsWith(`listings/${userId}/uploads/`))
     throw new AppError(403, "PHOTO_FORBIDDEN", "Use your own uploaded photo.");
-  await requireLocalListingPhoto(key);
+  // Uploads live in the same store as listing photos; the key must be a ready
+  // upload by this person.
+  if (!(await ListingPhoto.exists({ _id: key, owner: userId, state: "ready" })))
+    throw new AppError(422, "PHOTO_UNAVAILABLE", "Upload the photo again.");
   return attachOwnProfilePhoto(userId, key, version);
 }

@@ -420,23 +420,6 @@ function ProductDetailsContent({ id }: { id: string }) {
             ) : (
               <View style={s.heroImage} />
             )}
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={t.back}
-              onPress={leave}
-              style={({ pressed }) => [
-                s.back,
-                { top: insets.top + 8 },
-                pressed && d.pressed,
-              ]}
-            >
-              <Ionicons
-                accessible={false}
-                name="chevron-back"
-                size={22}
-                color={theme.colors.heading}
-              />
-            </Pressable>
           </View>
           <View style={s.sheet}>
             {offline && (
@@ -715,6 +698,23 @@ function ProductDetailsContent({ id }: { id: string }) {
             )}
           </View>
         </ScrollView>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t.back}
+          onPress={leave}
+          style={({ pressed }) => [
+            s.back,
+            { top: insets.top + 8 },
+            pressed && d.pressed,
+          ]}
+        >
+          <Ionicons
+            accessible={false}
+            name="chevron-back"
+            size={22}
+            color={theme.colors.heading}
+          />
+        </Pressable>
         {footer && <View style={s.footer}>{footer}</View>}
         <Modal
           visible={notifyModal !== null}

@@ -91,8 +91,8 @@ try {
   };
   assert.deepEqual(await home(), {
     coordinator: null,
-    services: { entries: [], total: 0, page: 1, limit: 3 },
-    transport: { entries: [], total: 0, page: 1, limit: 3 },
+    services: { entries: [], total: 0, page: 1, limit: 4 },
+    transport: { entries: [], total: 0, page: 1, limit: 4 },
   });
   await VillageCoordinator.create({
     villageId: village._id,
@@ -175,9 +175,15 @@ try {
   const guest = await home();
   const signed = await home(true);
   assert.equal(guest.services.total, 8);
-  assert.equal(signed.services.total, 7);
+  // Your own entries stay in the lists (marked as yours).
+  assert.equal(signed.services.total, 8);
   assert.equal(signed.transport.total, 2);
-  assert.equal(signed.services.entries.length, 3);
+  assert.equal(signed.services.entries.length, 4);
+  // The dashboard picks at random from the pool, so repeated visits differ.
+  const seen = new Set<string>();
+  for (let i = 0; i < 12; i++)
+    for (const row of (await home(true)).services.entries) seen.add(row.id);
+  assert.ok(seen.size > 4, "random picks surface more than one fixed set");
   for (const row of [...signed.services.entries, ...signed.transport.entries]) {
     assert.equal(row.village.id, String(village._id));
     assert.equal(
@@ -198,19 +204,19 @@ try {
   };
   const first = await page();
   const second = await page({ page: "2" });
-  assert.deepEqual([first.entries.length, second.entries.length], [5, 2]);
+  assert.deepEqual([first.entries.length, second.entries.length], [5, 3]);
   assert.equal(
     new Set([...first.entries, ...second.entries].map((row) => row.id)).size,
-    7,
+    8,
   );
-  assert.equal((await page({ search: "wiring" })).total, 7);
-  assert.equal((await page({ search: "इलेक्ट्रिशियन" })).total, 7);
+  assert.equal((await page({ search: "wiring" })).total, 8);
+  assert.equal((await page({ search: "इलेक्ट्रिशियन" })).total, 8);
   assert.equal(
     (await page({ search: ".*" })).total,
     0,
     "search metacharacters are literal",
   );
-  assert.equal((await page({ search: "Utility" })).total, 7);
+  assert.equal((await page({ search: "Utility" })).total, 8);
   assert.equal((await page({ sourceVillageId: String(other._id) })).total, 1);
   // Category tiles: filter by tile, and per-tile counts that match the filter.
   await Service.create({
@@ -235,8 +241,8 @@ try {
     };
   };
   const servicesTiles = await counts("services");
-  assert.equal(servicesTiles.total, 8);
-  assert.equal(servicesTiles.byGroup.repairs, 7);
+  assert.equal(servicesTiles.total, 9);
+  assert.equal(servicesTiles.byGroup.repairs, 8);
   assert.equal(servicesTiles.byGroup.health, 1);
   assert.equal(servicesTiles.byGroup.other, 0);
   for (const [id, count] of Object.entries(servicesTiles.byGroup))
@@ -256,7 +262,7 @@ try {
   );
   assert.equal(
     (await page({ category: "repairs", search: "wiring" })).total,
-    7,
+    8,
     "category and search combine",
   );
   assert.equal((await page({ category: "health", search: "wiring" })).total, 0);

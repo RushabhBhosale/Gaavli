@@ -68,7 +68,10 @@ export type HomeDestination =
   | "/insights"
   | "/services"
   | "/transport"
-  | "/village-coordinator";
+  | "/village-coordinator"
+  | "/activities"
+  | "/provider/type"
+  | `/provider/${string}`;
 export function listingName(listing: HomeListing, language: MobileLanguage) {
   return productDisplayName(language, {
     en: listing.name,

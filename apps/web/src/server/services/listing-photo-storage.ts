@@ -63,6 +63,12 @@ export async function deleteUnusedListingPhoto(owner: string, imageId: string) {
         "PHOTO_IN_USE",
         "Remove the photo from its products first.",
       );
+    if (await User.exists({ profilePhotoObjectKey: row._id }).session(session))
+      throw new AppError(
+        409,
+        "PHOTO_IN_USE",
+        "Replace your profile photo first.",
+      );
     if (await ProviderProfile.exists({ images: row._id }).session(session))
       throw new AppError(
         409,

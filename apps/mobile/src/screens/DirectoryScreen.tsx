@@ -82,11 +82,9 @@ export default function DirectoryScreen({
   const allTiles = directoryGroupsFor(module).filter(
     (group) => !isCatchAllGroup(group.id) || (counts.get(group.id) ?? 0) > 0,
   );
-  // Categories with something in them come first; order is otherwise stable.
-  const ordered = [
-    ...allTiles.filter((group) => (counts.get(group.id) ?? 0) > 0),
-    ...allTiles.filter((group) => !(counts.get(group.id) ?? 0)),
-  ];
+  // Emergency help, government offices and ambulances lead; the order is set
+  // in one place, so it is the same for everyone.
+  const ordered = allTiles;
   const tiles = expanded ? ordered : ordered.slice(0, VISIBLE_TILES);
   return (
     <ProtectedPage allowGuest>
@@ -99,6 +97,17 @@ export default function DirectoryScreen({
               module === "services" ? t.tileServicesHint : t.tileTransportHint
             }
             back={asTab ? undefined : "/home"}
+            // Inside a category (or a search) the way back is up one level,
+            // from the same fixed spot as everywhere else.
+            onBack={
+              category || input.trim()
+                ? () => {
+                    setCategory(null);
+                    setInput("");
+                    setSearch("");
+                  }
+                : undefined
+            }
           >
             <HeaderSearch
               label={t.search}
@@ -115,22 +124,6 @@ export default function DirectoryScreen({
       >
         {category && (
           <View style={s.crumb}>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={t.directoryAllCategories}
-              onPress={() => {
-                setCategory(null);
-              }}
-              style={({ pressed }) => [s.crumbBack, pressed && s.pressed]}
-            >
-              <Ionicons
-                accessible={false}
-                name="chevron-back"
-                size={18}
-                color={theme.colors.steel}
-              />
-              <Text style={s.crumbBackText}>{t.directoryAllCategories}</Text>
-            </Pressable>
             <Text accessibilityRole="header" style={s.crumbTitle}>
               {`${directoryGroupLabel(category, language)}${counts.has(category) ? ` (${counts.get(category)})` : ""}`}
             </Text>
@@ -334,15 +327,6 @@ const s = StyleSheet.create({
   tileCountOn: { backgroundColor: theme.colors.primary },
   tileCountText: { ...theme.type.micro, color: theme.colors.onPrimary },
   crumb: { gap: 6 },
-  crumbBack: {
-    alignSelf: "flex-start",
-    minHeight: 40,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 2,
-    paddingRight: 8,
-  },
-  crumbBackText: { ...theme.type.label, color: theme.colors.steel },
   crumbTitle: { ...theme.type.heading, color: theme.colors.heading },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

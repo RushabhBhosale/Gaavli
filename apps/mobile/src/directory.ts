@@ -13,7 +13,7 @@ import { authenticatedApi } from "./session";
 import { ApiError } from "./api/client";
 
 const retry = (count: number, error: unknown) =>
-  count < 1 &&
+  count < 2 &&
   !(error instanceof ApiError && error.status && error.status < 500);
 export function useDashboardDirectory() {
   const session = useAppStore((state) => state.session);
