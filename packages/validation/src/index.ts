@@ -283,6 +283,11 @@ export const villageSearchSchema = z
     limit: z.coerce.number().int().min(1).max(50).default(20),
     latitude: z.coerce.number().min(-90).max(90).optional(),
     longitude: z.coerce.number().min(-180).max(180).optional(),
+    maxDistanceKm: z.coerce
+      .number()
+      .int()
+      .refine((value) => [10, 25, 50, 100].includes(value))
+      .optional(),
   })
   .strict()
   .refine((v) => (v.latitude === undefined) === (v.longitude === undefined));
@@ -291,6 +296,7 @@ export const villagePageSchema = z.object({
   page: z.number(),
   total: z.number(),
   limit: z.number(),
+  locationAvailable: z.boolean().optional(),
 });
 export const selectVillageSchema = z
   .object({

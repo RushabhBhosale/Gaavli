@@ -141,8 +141,15 @@ user database fields, roles, listings or provider dependencies were introduced.
 > same stock, seller, category, own-offer and privacy rules as the listing feed;
 > no contact data is included. Filters never alter the account's saved village.
 
-> Add Buyer exception — 2026-10-19: an active assigned coordinator may create a
-> new unverified buyer in any selected active village using `targetVillageId`.
+> Add Buyer assignment scope — 2026-11-05: coordinators may create a new
+> unverified buyer only in the currently selected active assignment. The form
+> sends that assignment as `targetVillageId`; the server rejects another target
+> and rechecks the selected village on writes and replays. No other assignment,
+> directory, contact, editing or moderation access is granted.
+
+> Historical Add Buyer exception — 2026-10-19 (superseded 2026-11-05): an active
+> assigned coordinator could create a new unverified buyer in any selected
+> active village using `targetVillageId`.
 > Actor assignment and active target are rechecked transactionally on writes and
 > replays. The audit uses the actual target village. This grants no directory,
 > contact, editing or moderation access to unassigned villages and changes no

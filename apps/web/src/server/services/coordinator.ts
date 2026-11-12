@@ -234,7 +234,17 @@ export async function coordinatorAddBuyer(
   key: string,
   input: z.infer<typeof coordinatorBuyerSchema>,
 ) {
-  const targetId = input.targetVillageId || villageId;
+  await coordinatorScope(actorId, villageId);
+  if (
+    input.targetVillageId &&
+    input.targetVillageId.toLowerCase() !== villageId.toLowerCase()
+  )
+    throw new AppError(
+      422,
+      "COORDINATOR_BUYER_VILLAGE_MISMATCH",
+      "A buyer can only be added to the selected coordinator village.",
+    );
+  const targetId = villageId;
   const validateTarget = async (session: ClientSession) => {
     const target = await Village.findOneAndUpdate(
       { _id: targetId, isActive: true },
@@ -354,11 +364,15 @@ export async function coordinatorCandidates(
   villageId: string,
 ) {
   const source = await coordinatorScope(actorId, villageId);
-  if (
-    query.area !== "all" &&
-    (!source.district ||
-      (["taluka", "other_talukas"].includes(query.area) && !source.taluka))
-  )
+  if (query.area === "gps" && !query.locationSource)
+    return {
+      villages: [],
+      total: 0,
+      page: query.page,
+      limit: query.limit,
+      locationAvailable: false,
+    };
+  if (query.area === "taluka" && (!source.taluka || !source.district))
     return { villages: [], total: 0, page: query.page, limit: query.limit };
   const connected = await VillageConnection.find({
     active: true,
@@ -372,23 +386,58 @@ export async function coordinatorCandidates(
         : String(row.sourceVillageId),
     ),
   ];
-  return searchMobileVillages(
+  let latitude = query.latitude;
+  let longitude = query.longitude;
+  if (
+    query.area === "gps" &&
+    query.locationSource === "device" &&
+    (latitude === undefined || longitude === undefined)
+  )
+    return {
+      villages: [],
+      total: 0,
+      page: query.page,
+      limit: query.limit,
+      locationAvailable: false,
+    };
+  if (query.area === "gps" && query.locationSource === "base") {
+    const coordinates = source.location?.coordinates;
+    if (!coordinates || coordinates.length < 2)
+      return {
+        villages: [],
+        total: 0,
+        page: query.page,
+        limit: query.limit,
+        locationAvailable: false,
+      };
+    [longitude, latitude] = coordinates;
+  }
+  const result = await searchMobileVillages(
     {
       search: query.search,
       page: query.page,
       limit: query.limit,
-      latitude: query.latitude,
-      longitude: query.longitude,
+      ...(query.area === "gps" &&
+      latitude !== undefined &&
+      longitude !== undefined
+        ? { latitude, longitude, maxDistanceKm: query.maxDistanceKm ?? 25 }
+        : {}),
     },
     excluded,
     query.area === "taluka"
       ? { district: source.district!, taluka: source.taluka! }
       : query.area === "other_talukas"
-        ? { district: source.district!, excludeTaluka: source.taluka! }
+        ? {
+            ...(query.districtFilter
+              ? { districtFilter: query.districtFilter }
+              : {}),
+            ...(query.talukaFilter ? { talukaFilter: query.talukaFilter } : {}),
+          }
         : query.area === "district"
           ? { district: source.district! }
           : {},
   );
+  return query.area === "gps" ? { ...result, locationAvailable: true } : result;
 }
 export async function coordinatorConnect(
   actorId: string,

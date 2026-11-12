@@ -25,7 +25,17 @@ export const coordinatorQuerySchema = z
     villageId: id.optional(),
     includeMapped: z.enum(["true", "false"]).default("false"),
     search: z.string().trim().max(100).default(""),
-    area: z.enum(["all", "taluka", "district", "other_talukas"]).default("all"),
+    area: z
+      .enum(["all", "taluka", "district", "other_talukas", "gps"])
+      .default("all"),
+    districtFilter: z.string().trim().max(100).optional(),
+    talukaFilter: z.string().trim().max(100).optional(),
+    locationSource: z.enum(["base", "device"]).optional(),
+    maxDistanceKm: z.coerce
+      .number()
+      .int()
+      .refine((value) => [10, 25, 50, 100].includes(value))
+      .optional(),
     filter: z
       .enum(["all", "buyers", "sellers", "active", "preregistered"])
       .default("all"),
