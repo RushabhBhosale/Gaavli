@@ -1,5 +1,4 @@
 import {
-  Alert,
   Linking,
   Pressable,
   Text,
@@ -10,6 +9,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
 import type { HomeCoordinator } from "../../types/home";
 import { messages } from "../../i18n";
+import { showAlert } from "../../alert";
 import { theme } from "../../theme";
 
 const initials = (name: string) =>
@@ -63,7 +63,7 @@ export function CoordinatorInfo({
         onPress={() => {
           if (/^\+91[6-9]\d{9}$/.test(coordinator.phone ?? ""))
             void Linking.openURL(`tel:${coordinator.phone}`).catch(() =>
-              Alert.alert(t.callError),
+              showAlert(t.callError),
             );
         }}
         style={({ pressed }) => [

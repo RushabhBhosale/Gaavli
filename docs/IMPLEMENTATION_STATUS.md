@@ -1,3 +1,68 @@
+## 2026-11-13 - Mapped discovery and Add Buyer crash fix
+
+- IMPLEMENTED — VERIFICATION PENDING (API deployment/device). Home, Marketplace,
+  Services and Transport include the selected browsing village and its directly
+  mapped active villages. Mobile listing queries use sourceVillageId without an
+  automatic exact villageId filter. Directory lists, Home previews, category
+  counts and details reuse the existing bidirectional discovery resolver.
+- Confirmed coordinator writes invalidate listing, search, directory and mapping
+  caches. Coordinator Manage counts retain their existing scope, as clarified by
+  the user. The existing mapped coordinator directory authorization is preserved.
+- Fixed Add Buyer rendering by replacing references to a removed dropdown and
+  undefined state with the assigned-village read-only Input. Registration keeps
+  the approved selected-assignment target and existing idempotency/recovery flow.
+- Passed real-route directory and coordinator integration suites in isolated
+  randomly named MongoDB databases, with cleanup. Coverage includes direct and
+  reverse mappings, guest/authenticated discovery, search/counts/pagination,
+  inactive/transitive/unmapped exclusions, mapping removal, assigned-village
+  buyer creation/replay and rejected out-of-assignment targets.
+- Passed 15 focused browsing/coordinator mobile tests, web TypeScript, targeted
+  ESLint (one existing hook warning), Prettier and whitespace checks. Android
+  release build passed and both ARM64/32-bit APKs passed archive integrity checks.
+  Mobile TypeScript still reports four existing errors in AppAlertHost and
+  coordinator/Hindi translation files. Device rendering/navigation and API
+  deployment remain unverified.
+
+## 2026-11-13 - Android release illustration resource collision fix
+
+- Renamed all 21 category WebP assets with an `illustration_` prefix and updated
+  their static imports. The image-format replacement had reused legacy JPEG
+  basenames, causing duplicate Android drawable IDs in incremental build output.
+- Cleared generated release React resources and rebuilt with
+  `./gradlew :app:assembleRelease --offline`. BUILD SUCCESSFUL. Both arm64-v8a
+  and armeabi-v7a release APKs were produced and passed ZIP integrity checks.
+- Generated release resources contain all 21 illustrations and zero duplicate
+  resource basenames per qualifier directory. Targeted image-map ESLint,
+  Prettier and whitespace checks passed. Device installation/rendering remains
+  unverified.
+
+## 2026-11-13 - Services and Transport illustrated masonry dashboards
+
+- IMPLEMENTED — VERIFICATION PENDING (device visuals). Both mobile directory
+  dashboards use two independent masonry columns with staggered artwork heights,
+  rounded image cards and freely wrapping selected-language labels/counts.
+- Bundled 21 WebP category illustrations prepared from the supplied Downloads
+  originals, about 736 KB total. Artwork is mapped to the existing directory
+  groups, including the former government/community/emergency/political icon
+  cards. The asset README records source filenames and category mapping.
+- Android Metro/Hermes export passed and included all 21 image assets. Targeted
+  ESLint passed with one pre-existing effect-dependency warning in DirectoryScreen.
+  Mobile tests passed 107/109, with existing translation-completeness failures in
+  foundation and locale tests. TypeScript reports existing errors in AppAlertHost,
+  coordinator i18n/screens and Hindi messages. The changed components had no
+  reported TypeScript errors. Device rendering, large-font and navigation checks
+  remain pending.
+
+## 2026-11-12 - Themed mobile alerts
+
+- IMPLEMENTED — VERIFICATION PENDING: Replaced app-authored React Native
+  `Alert.alert` dialogs with a shared localized modal using Gaavli colors,
+  typography, and button styles. Existing cancel, destructive, dismiss, and
+  action callbacks are preserved across account, listing, photo, contact, and
+  coordinator flows.
+- `git diff --check` passed. Mobile tests and device-level visual/accessibility
+  checks were not run.
+
 ## 2026-11-05 - Cross-district coordinator village mapping
 
 - Updated coordinator Add Village discovery to open on All Talukas: My Taluka

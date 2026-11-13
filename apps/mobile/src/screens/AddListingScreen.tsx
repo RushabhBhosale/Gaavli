@@ -2,7 +2,6 @@ import { productDisplayName } from "../locale";
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import {
   Image,
-  Alert,
   Modal,
   Pressable,
   ScrollView,
@@ -35,6 +34,7 @@ import {
   catalogSearchResponseSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
+import { showAlert } from "../alert";
 import { showToast } from "../toast";
 import { authenticatedApi, saveSession } from "../session";
 import { ApiError } from "../api/client";
@@ -1004,7 +1004,7 @@ function ListingFormScreen({
               secondary
               disabled={busy}
               onPress={() =>
-                Alert.alert(t.reloadListing, t.reloadListingQuestion, [
+                showAlert(t.reloadListing, t.reloadListingQuestion, [
                   { text: t.sellerNo, style: "cancel" },
                   {
                     text: t.sellerYes,

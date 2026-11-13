@@ -242,11 +242,22 @@ function CoordinatorScope({
       if (result && current()) {
         setPending(false);
         showToast(t.saved, "success");
-        await client.invalidateQueries({
-          queryKey: ["coordinator", actorId, village.id],
-        });
-        void client.invalidateQueries({ queryKey: ["marketplace-listings"] });
-        void client.invalidateQueries({ queryKey: ["home-listings"] });
+        await client.invalidateQueries({ queryKey: ["coordinator", actorId] });
+        for (const key of [
+          "marketplace-listings",
+          "home-listings",
+          "search-index",
+          "search-suggest",
+          "listing",
+          "listing-offers",
+          "dashboard-directory",
+          "directory",
+          "directory-summary",
+          "directory-entry",
+          "mapped-villages",
+        ]) {
+          void client.invalidateQueries({ queryKey: [key] });
+        }
       }
       return result;
     } catch (error) {
@@ -395,12 +406,17 @@ export function useCoordinatorQuery<T>(
 }
 export function useCoordinatorPages<
   T extends { page: number; total: number; limit: number },
->(path: string, schema: z.ZodType<T>, parameters: Record<string, string> = {}) {
+>(
+  path: string,
+  schema: z.ZodType<T>,
+  parameters: Record<string, string> = {},
+  pageSize = 20,
+) {
   const { actorId, village } = useCoordinator();
   const query = new URLSearchParams({
     ...parameters,
     villageId: village.id,
-    limit: "20",
+    limit: String(pageSize),
   });
   return useInfiniteQuery({
     queryKey: ["coordinator", actorId, village.id, path, query.toString()],

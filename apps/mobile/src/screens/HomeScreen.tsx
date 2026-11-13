@@ -131,6 +131,8 @@ export function HomeDashboard({
   onNavigate,
   onProductPress,
   listingStatus,
+  directoryStatus,
+  directoryReady,
   listingsReady,
   services = [],
   transport = [],
@@ -141,6 +143,8 @@ export function HomeDashboard({
   onNavigate: (route: HomeDestination) => void;
   onProductPress: (listing: HomeListing) => void;
   listingStatus?: React.ReactNode;
+  directoryStatus?: React.ReactNode;
+  directoryReady?: boolean;
   listingsReady?: boolean;
   services?: HomeListing[];
   transport?: HomeListing[];
@@ -151,6 +155,8 @@ export function HomeDashboard({
   const offline = useAppStore((state) => state.offline);
   const insets = useSafeAreaInsets();
   const [emptyOpen, setEmptyOpen] = useState(false);
+  const [emptyServicesOpen, setEmptyServicesOpen] = useState(false);
+  const [emptyTransportOpen, setEmptyTransportOpen] = useState(false);
   // Nothing to show yet: the section folds away and has no "View All".
   const noListings = !!listingsReady && !data.listings.length;
   const [focused, setFocused] = useState(true);
@@ -219,23 +225,25 @@ export function HomeDashboard({
               }
             />
             {(!noListings || emptyOpen) && listingStatus}
-            <FlatList
-              horizontal
-              data={data.listings}
-              keyExtractor={(item) =>
-                `${item.module ?? "marketplace"}:${item.id}`
-              }
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
-              renderItem={({ item }) => (
-                <ProductCard
-                  listing={item}
-                  language={language}
-                  compact
-                  onPress={() => onProductPress(item)}
-                />
-              )}
-            />
+            {!!data.listings.length && (
+              <FlatList
+                horizontal
+                data={data.listings}
+                keyExtractor={(item) =>
+                  `${item.module ?? "marketplace"}:${item.id}`
+                }
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: 12 }}
+                renderItem={({ item }) => (
+                  <ProductCard
+                    listing={item}
+                    language={language}
+                    compact
+                    onPress={() => onProductPress(item)}
+                  />
+                )}
+              />
+            )}
           </View>
           {(
             [
@@ -254,34 +262,58 @@ export function HomeDashboard({
                 "transport",
               ],
             ] as const
-          ).map(
-            ([entries, title, route, icon, tone]) =>
-              entries.length > 0 && (
-                <View key={route} style={d.section}>
-                  <SectionHeader
-                    icon={icon}
-                    tone={tone}
-                    title={title}
-                    action={t.viewAll}
-                    onPress={() => onNavigate(route)}
-                  />
-                  <FlatList
-                    horizontal
-                    data={entries}
-                    keyExtractor={(item) => item.id}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
-                    renderItem={({ item }) => (
-                      <ServiceCard
-                        listing={item}
-                        language={language}
-                        onPress={() => onProductPress(item)}
+          ).map(([entries, title, route, icon, tone]) => {
+            const empty = !!directoryReady && entries.length === 0;
+            const emptyOpen =
+              route === "/services" ? emptyServicesOpen : emptyTransportOpen;
+            const setEmptyOpen =
+              route === "/services"
+                ? setEmptyServicesOpen
+                : setEmptyTransportOpen;
+            return (
+              <View key={route} style={d.section}>
+                <SectionHeader
+                  icon={icon}
+                  tone={tone}
+                  title={title}
+                  action={empty ? undefined : t.viewAll}
+                  onPress={() => onNavigate(route)}
+                  toggle={
+                    empty
+                      ? {
+                          open: emptyOpen,
+                          onPress: () => setEmptyOpen(!emptyOpen),
+                        }
+                      : undefined
+                  }
+                />
+                {(!empty || emptyOpen) &&
+                  (entries.length ? (
+                    <FlatList
+                      horizontal
+                      data={entries}
+                      keyExtractor={(item) => item.id}
+                      showsHorizontalScrollIndicator={false}
+                      contentContainerStyle={{ gap: 12 }}
+                      renderItem={({ item }) => (
+                        <ServiceCard
+                          listing={item}
+                          language={language}
+                          onPress={() => onProductPress(item)}
+                        />
+                      )}
+                    />
+                  ) : (
+                    directoryStatus ?? (
+                      <StateMessage
+                        icon={icon}
+                        title={t.dashboardDirectoryEmpty}
                       />
-                    )}
-                  />
-                </View>
-              ),
-          )}
+                    )
+                  ))}
+              </View>
+            );
+          })}
           {signedIn && (
             <View style={d.section}>
               <SectionHeader
@@ -308,9 +340,7 @@ export function HomeDashboard({
                       onNavigate(
                         item.kind === "products"
                           ? "/my-listings"
-                          : item.kind === "add"
-                            ? "/provider/type"
-                            : `/provider/${item.id}`,
+                          : `/provider/${item.id}`,
                       )
                     }
                   />
@@ -408,7 +438,19 @@ export default function HomeScreen() {
       )}
     </>
   );
-  // Your own things; the "add" shortcut only shows once there is something.
+  const directoryStatus = offline && !directory.data ? (
+    <Text style={d.description}>{t.listingsOfflineEmpty}</Text>
+  ) : !offline && directory.isPending ? (
+    <SkeletonList rows={2} label={t.listingsLoading} />
+  ) : directory.isError && !offline ? (
+    <>
+      <ErrorMessage message={t.dashboardDirectoryFailed} />
+      <Button secondary onPress={() => void directory.refetch()}>
+        {t.retry}
+      </Button>
+    </>
+  ) : undefined;
+  // Your own products and registered activities.
   const own = [
     ...(session?.user.isSeller
       ? [
@@ -429,15 +471,15 @@ export default function HomeScreen() {
         active: profile.status === "ACTIVE",
       })),
   ];
-  const activities: ActivityCardData[] = own.length
-    ? [...own, { id: "add", kind: "add", title: t.dashAddActivity }]
-    : [];
+  const activities: ActivityCardData[] = own;
   return (
     <>
       <HomeDashboard
         data={data}
         language={language}
         listingStatus={listingStatus}
+        directoryStatus={directoryStatus}
+        directoryReady={!!directory.data}
         listingsReady={!!page}
         activities={activities}
         services={(directory.data?.services.entries ?? []).map((entry) =>

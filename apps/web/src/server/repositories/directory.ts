@@ -18,6 +18,7 @@ import {
 import { Service } from "../models/service";
 import { listingPhotoUrl } from "../providers/listing-photos";
 import { User, Village, VillageCoordinator } from "../models";
+import { discoveryVillageIds } from "./village-discovery";
 
 const escapeRegex = (term: string) =>
   term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -52,8 +53,8 @@ function groupFilter(group: DirectoryGroup): Record<string, unknown> {
   };
 }
 
-// Active entries a villager may see: live provider, live village, not their own.
-function visibleEntries(
+// Active entries from the source village and its confirmed active connections.
+async function visibleEntries(
   query: Pick<
     z.infer<typeof directoryQuerySchema>,
     "sourceVillageId" | "module" | "category" | "search"
@@ -61,7 +62,8 @@ function visibleEntries(
   viewerId: string | null,
   id?: string,
   excludeProviderTypes: readonly string[] = [],
-): PipelineStage[] {
+): Promise<PipelineStage[]> {
+  const villageIds = await discoveryVillageIds(query.sourceVillageId);
   const terms = query.search.split(/\s+/).filter(Boolean);
   const group = query.category ? directoryGroup(query.category) : undefined;
   const filters = [
@@ -81,7 +83,7 @@ function visibleEntries(
   return [
     {
       $match: {
-        villageId: new Types.ObjectId(query.sourceVillageId),
+        villageId: { $in: villageIds.map((id) => new Types.ObjectId(id)) },
         status: "ACTIVE",
         available: { $ne: false },
         ...(id ? { _id: new Types.ObjectId(id) } : {}),
@@ -126,7 +128,7 @@ export async function findDirectory(
   excludeProviderTypes: readonly string[] = [],
 ) {
   const pipeline: PipelineStage[] = [
-    ...visibleEntries(query, viewerId, id, excludeProviderTypes),
+    ...(await visibleEntries(query, viewerId, id, excludeProviderTypes)),
     {
       $facet: {
         entries: [
@@ -209,7 +211,7 @@ export async function directorySummary(
     serviceCategory?: string | null;
     providerType?: string | null;
   }>([
-    ...visibleEntries({ ...query, search: "" }, viewerId),
+    ...(await visibleEntries({ ...query, search: "" }, viewerId)),
     {
       $project: {
         _id: 0,

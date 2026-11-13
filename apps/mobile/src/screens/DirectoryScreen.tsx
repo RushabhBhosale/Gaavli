@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   directoryGroupLabel,
   directoryGroupsFor,
@@ -15,7 +8,7 @@ import {
   type DirectoryGroupId,
 } from "@gaavli/constants";
 import { useAppStore } from "../store";
-import { formatMessage, messages } from "../i18n";
+import { messages } from "../i18n";
 import { useDirectory, useDirectorySummary } from "../directory";
 import { directoryPreview } from "../data/directory";
 import { theme } from "../theme";
@@ -24,14 +17,7 @@ import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { d } from "../components/dashboard/primitives";
-import {
-  directoryGroupFallbacks,
-  directoryGroupImages,
-} from "../components/dashboard/directoryGroupImages";
-
-// Services and Transport: category tiles first, so a villager sees what is
-// on offer at a glance; tap a tile (or type in the search box) for the list.
-const VISIBLE_TILES = 6;
+import { DirectoryCategoryGrid } from "../components/dashboard/DirectoryCategoryGrid";
 
 export default function DirectoryScreen({
   module,
@@ -58,8 +44,6 @@ export default function DirectoryScreen({
     setSearch(text);
     setCategory(null);
   }
-  // Only the first few tiles show until "See all" opens the rest in place.
-  const [expanded, setExpanded] = useState(false);
   useEffect(() => {
     const timer = setTimeout(() => setSearch(input.trim()), 300);
     return () => clearTimeout(timer);
@@ -67,7 +51,27 @@ export default function DirectoryScreen({
   const summary = useDirectorySummary(module);
   const counts = new Map(summary.data?.groups.map((g) => [g.id, g.count]));
   const showTiles = !category && !input.trim();
+  const searchPending = input.trim() !== search;
   const query = useDirectory(module, search, category);
+  useEffect(() => {
+    if (
+      !showTiles &&
+      !searchPending &&
+      !offline &&
+      !query.isFetching &&
+      !query.isError &&
+      query.hasNextPage
+    )
+      void query.fetchNextPage();
+  }, [
+    offline,
+    query.fetchNextPage,
+    query.hasNextPage,
+    query.isError,
+    query.isFetching,
+    searchPending,
+    showTiles,
+  ]);
   const entries = Array.from(
     new Map(
       (query.data?.pages.flatMap((page) => page.entries) ?? []).map((entry) => [
@@ -84,8 +88,6 @@ export default function DirectoryScreen({
   );
   // Emergency help, government offices and ambulances lead; the order is set
   // in one place, so it is the same for everyone.
-  const ordered = allTiles;
-  const tiles = expanded ? ordered : ordered.slice(0, VISIBLE_TILES);
   return (
     <ProtectedPage allowGuest>
       <Screen
@@ -131,9 +133,6 @@ export default function DirectoryScreen({
         )}
         {showTiles && (
           <>
-            <Text accessibilityRole="header" style={s.sectionTitle}>
-              {t.directoryBrowse}
-            </Text>
             {summary.isPending && !offline && (
               <SkeletonList rows={3} label={t.listingsLoading} />
             )}
@@ -149,95 +148,13 @@ export default function DirectoryScreen({
               <Text style={d.description}>{t.listingsOfflineEmpty}</Text>
             )}
             {summary.data && (
-              <View style={s.grid}>
-                {tiles.map((group) => {
-                  const count = counts.get(group.id) ?? 0;
-                  return (
-                    <Pressable
-                      key={group.id}
-                      accessibilityRole="button"
-                      accessibilityLabel={`${group[language]}, ${count ? formatMessage(t.dashboardAvailableCount, { count: String(count) }) : t.directoryNoneYet}`}
-                      onPress={() => setCategory(group.id)}
-                      style={({ pressed }) => [s.tile, pressed && s.pressed]}
-                    >
-                      {directoryGroupImages[group.id] ? (
-                        <ImageBackground
-                          source={directoryGroupImages[group.id]!}
-                          resizeMode="cover"
-                          accessible={false}
-                          style={s.tileImage}
-                          imageStyle={!count ? s.tileImageEmpty : undefined}
-                        >
-                          <View style={s.tileBar}>
-                            <Text numberOfLines={2} style={s.tileLabel}>
-                              {group[language]}
-                            </Text>
-                            <View
-                              style={[s.tileCount, !!count && s.tileCountOn]}
-                            >
-                              <Text style={s.tileCountText}>
-                                {count
-                                  ? formatMessage(t.dashboardAvailableCount, {
-                                      count: String(count),
-                                    })
-                                  : t.directoryNoneYet}
-                              </Text>
-                            </View>
-                          </View>
-                        </ImageBackground>
-                      ) : (
-                        <View
-                          accessible={false}
-                          style={[
-                            s.tileImage,
-                            {
-                              backgroundColor:
-                                directoryGroupFallbacks[group.id]?.color ??
-                                theme.colors.steel,
-                            },
-                          ]}
-                        >
-                          <Ionicons
-                            accessible={false}
-                            name={
-                              (directoryGroupFallbacks[group.id]?.icon ??
-                                "apps-outline") as never
-                            }
-                            size={56}
-                            color="rgba(255,255,255,0.35)"
-                            style={s.tileGlyph}
-                          />
-                          <View style={s.tileBar}>
-                            <Text numberOfLines={2} style={s.tileLabel}>
-                              {group[language]}
-                            </Text>
-                            <View
-                              style={[s.tileCount, !!count && s.tileCountOn]}
-                            >
-                              <Text style={s.tileCountText}>
-                                {count
-                                  ? formatMessage(t.dashboardAvailableCount, {
-                                      count: String(count),
-                                    })
-                                  : t.directoryNoneYet}
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      )}
-                    </Pressable>
-                  );
-                })}
-              </View>
-            )}
-            {summary.data && ordered.length > VISIBLE_TILES && (
-              <Button secondary onPress={() => setExpanded(!expanded)}>
-                {expanded
-                  ? t.directoryShowFewer
-                  : formatMessage(t.directorySeeAll, {
-                      count: String(ordered.length - VISIBLE_TILES),
-                    })}
-              </Button>
+              <DirectoryCategoryGrid
+                groups={allTiles}
+                counts={counts}
+                language={language}
+                module={module}
+                onSelect={setCategory}
+              />
             )}
           </>
         )}
@@ -277,16 +194,6 @@ export default function DirectoryScreen({
                 }
               />
             ))}
-            {query.hasNextPage && (
-              <Button
-                secondary
-                disabled={offline || query.isFetching}
-                loading={query.isFetchingNextPage}
-                onPress={() => void query.fetchNextPage()}
-              >
-                {t.marketplaceShowMore}
-              </Button>
-            )}
           </>
         )}
       </Screen>
@@ -294,39 +201,6 @@ export default function DirectoryScreen({
   );
 }
 const s = StyleSheet.create({
-  sectionTitle: { ...theme.type.heading, color: theme.colors.heading },
-  grid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
-  // Two picture tiles per row: the artwork shows what the category is, a
-  // dark strip along the bottom carries its name and how many are listed.
-  tile: {
-    width: "48%",
-    flexGrow: 1,
-    aspectRatio: 1.2,
-    borderRadius: theme.radii.card,
-    overflow: "hidden",
-    backgroundColor: theme.colors.steel,
-  },
-  tileImage: { flex: 1, justifyContent: "flex-end" },
-  tileGlyph: { position: "absolute", top: 18, right: 18 },
-  tileImageEmpty: { opacity: 0.9 },
-  tileBar: {
-    paddingHorizontal: 12,
-    paddingTop: 8,
-    paddingBottom: 10,
-    gap: 4,
-    backgroundColor: "rgba(22,34,45,0.64)",
-  },
-  tileLabel: { ...theme.type.subheading, color: theme.colors.onPrimary },
-  tileCount: {
-    alignSelf: "flex-start",
-    paddingHorizontal: 8,
-    paddingVertical: 1,
-    borderRadius: theme.radii.pill,
-    backgroundColor: "rgba(255,255,255,0.18)",
-  },
-  tileCountOn: { backgroundColor: theme.colors.primary },
-  tileCountText: { ...theme.type.micro, color: theme.colors.onPrimary },
   crumb: { gap: 6 },
   crumbTitle: { ...theme.type.heading, color: theme.colors.heading },
-  pressed: { opacity: theme.interaction.pressedOpacity },
 });

@@ -1,36 +1,31 @@
 import type { ImageSourcePropType } from "react-native";
 import type { DirectoryGroupId } from "@gaavli/constants";
 
-// Backdrop picture for each Services and Transport tile. Original artwork,
-// see assets/directory/README.md.
-export const directoryGroupImages: Partial<
-  Record<DirectoryGroupId, ImageSourcePropType>
+// Supplied category illustrations, bundled for offline rendering.
+// See assets/directory/README.md for the artwork-to-category mapping.
+export const directoryGroupImages: Record<
+  DirectoryGroupId,
+  ImageSourcePropType
 > = {
-  repairs: require("../../../assets/directory/repairs.jpg"),
-  building: require("../../../assets/directory/building.jpg"),
-  health: require("../../../assets/directory/health.jpg"),
-  shops: require("../../../assets/directory/shops.jpg"),
-  personal: require("../../../assets/directory/personal.jpg"),
-  farm: require("../../../assets/directory/farm.jpg"),
-  events: require("../../../assets/directory/events.jpg"),
-  everyday: require("../../../assets/directory/everyday.jpg"),
-  other: require("../../../assets/directory/other.jpg"),
-  auto: require("../../../assets/directory/auto.jpg"),
-  taxi: require("../../../assets/directory/taxi.jpg"),
-  bus: require("../../../assets/directory/bus.jpg"),
-  goods: require("../../../assets/directory/goods.jpg"),
-  tractor: require("../../../assets/directory/tractor.jpg"),
-  bike: require("../../../assets/directory/bike.jpg"),
-  ambulance: require("../../../assets/directory/ambulance.jpg"),
-  other_transport: require("../../../assets/directory/other_transport.jpg"),
-};
-
-// Tiles without a photo yet: a colour and an icon.
-export const directoryGroupFallbacks: Partial<
-  Record<DirectoryGroupId, { color: string; icon: string }>
-> = {
-  public: { color: "#35546E", icon: "business-outline" },
-  community: { color: "#B9520A", icon: "people-outline" },
-  emergency: { color: "#A93226", icon: "alert-circle-outline" },
-  political: { color: "#476C8A", icon: "flag-outline" },
+  repairs: require("../../../assets/directory/illustration_repairs.webp"),
+  building: require("../../../assets/directory/illustration_building.webp"),
+  health: require("../../../assets/directory/illustration_health.webp"),
+  shops: require("../../../assets/directory/illustration_shops.webp"),
+  personal: require("../../../assets/directory/illustration_personal.webp"),
+  farm: require("../../../assets/directory/illustration_farm.webp"),
+  events: require("../../../assets/directory/illustration_events.webp"),
+  everyday: require("../../../assets/directory/illustration_everyday.webp"),
+  other: require("../../../assets/directory/illustration_other.webp"),
+  auto: require("../../../assets/directory/illustration_auto.webp"),
+  taxi: require("../../../assets/directory/illustration_taxi.webp"),
+  bus: require("../../../assets/directory/illustration_bus.webp"),
+  goods: require("../../../assets/directory/illustration_goods.webp"),
+  tractor: require("../../../assets/directory/illustration_tractor.webp"),
+  bike: require("../../../assets/directory/illustration_bike.webp"),
+  ambulance: require("../../../assets/directory/illustration_ambulance.webp"),
+  other_transport: require("../../../assets/directory/illustration_other_transport.webp"),
+  public: require("../../../assets/directory/illustration_public.webp"),
+  community: require("../../../assets/directory/illustration_community.webp"),
+  emergency: require("../../../assets/directory/illustration_emergency.webp"),
+  political: require("../../../assets/directory/illustration_political.webp"),
 };

@@ -1,7 +1,6 @@
 import { dateLocale } from "../locale";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Alert,
   Linking,
   Modal,
   ScrollView,
@@ -13,6 +12,7 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useAppStore } from "../store";
+import { showAlert } from "../alert";
 import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
 import { formatMessage, messages } from "../i18n";
 import {
@@ -615,7 +615,7 @@ function ProductDetailsContent({ id }: { id: string }) {
                                 hitSlop={8}
                                 onPress={() =>
                                   void Linking.openURL(`tel:${phone}`).catch(
-                                    () => Alert.alert(t.callError),
+                                    () => showAlert(t.callError),
                                   )
                                 }
                                 style={({ pressed }) => [

@@ -240,6 +240,7 @@ const en = {
   listingAddedFollowupError:
     "Product was added, but the app could not finish updating. Retry safely.",
   dismissToast: "Dismiss message",
+  alertOk: "Got it",
   choosePhonePhoto: "Choose photo",
   takeListingPhoto: "Take photo",
   chooseListingGallery: "Choose from gallery",
@@ -514,7 +515,6 @@ const en = {
   profEmailTaken: "That email is already used by another account.",
   termsTitle: "Terms of Use",
   privacyTitle: "Privacy Policy",
-  dashAddActivity: "Add activity",
   dashMyProducts: "My products",
   dashMyActivitiesHint: "Your shops, services and products",
   coordinatorIntro:
@@ -1025,6 +1025,7 @@ const mr: Messages = {
   listingAddedFollowupError:
     "उत्पादन जोडले गेले आहे, पण अ‍ॅप अद्ययावत झाले नाही. सुरक्षितपणे पुन्हा प्रयत्न करा.",
   dismissToast: "संदेश बंद करा",
+  alertOk: "ठीक आहे",
   choosePhonePhoto: "फोटो निवडा",
   takeListingPhoto: "फोटो काढा",
   chooseListingGallery: "गॅलरीतून निवडा",
@@ -1302,7 +1303,6 @@ const mr: Messages = {
   profEmailTaken: "हा ईमेल दुसऱ्या खात्याने वापरला आहे.",
   termsTitle: "वापराच्या अटी",
   privacyTitle: "गोपनीयता धोरण",
-  dashAddActivity: "उपक्रम जोडा",
   dashMyProducts: "माझी उत्पादने",
   dashMyActivitiesHint: "तुमची दुकाने, सेवा आणि उत्पादने",
   coordinatorIntro:

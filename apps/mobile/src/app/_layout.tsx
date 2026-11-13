@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Stack } from "expo-router";
 import { Toast } from "../components/Toast";
+import { AppAlertHost } from "../components/AppAlertHost";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { AppProviders } from "../providers";
@@ -86,6 +87,7 @@ export default function RootLayout() {
       <StatusBar style="dark" />
       <Startup />
       <Toast />
+      <AppAlertHost />
     </AppProviders>
   );
 }

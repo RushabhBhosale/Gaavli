@@ -14,7 +14,7 @@ import type { IconName } from "./primitives";
 
 export type ActivityCardData = {
   id: string;
-  kind: "profile" | "products" | "add";
+  kind: "profile" | "products";
   title: string;
   detail?: string;
   providerType?: string;
@@ -31,8 +31,7 @@ const iconFor = (type?: string): IconName =>
         ? "medkit-outline"
         : "briefcase-outline";
 
-// One of your own activities on the dashboard: a shop, a service, your
-// products, or the "add one" shortcut. Same size as the cards above it.
+// One of your own activities on the dashboard: a shop, a service or products.
 export function ActivityCard({
   card,
   language,
@@ -48,12 +47,8 @@ export function ActivityCard({
     128,
     Math.min(150, (width - 56) * 0.38 * Math.min(fontScale, 1.4)),
   );
-  const add = card.kind === "add";
-  const icon: IconName = add
-    ? "add-circle-outline"
-    : card.kind === "products"
-      ? "basket-outline"
-      : iconFor(card.providerType);
+  const icon: IconName =
+    card.kind === "products" ? "basket-outline" : iconFor(card.providerType);
   const kind =
     card.providerType && PROVIDER_KINDS[card.providerType as ProviderType]
       ? PROVIDER_KINDS[card.providerType as ProviderType].title[language]
@@ -66,15 +61,14 @@ export function ActivityCard({
       style={({ pressed }) => [
         s.card,
         { width: cardWidth },
-        add && s.addCard,
         pressed && s.pressed,
       ]}
     >
-      <View style={[s.art, add && s.addArt]}>
+      <View style={s.art}>
         <Ionicons
           accessible={false}
           name={icon}
-          size={add ? 44 : 40}
+          size={40}
           color={theme.modules.activities.color}
         />
       </View>
@@ -82,7 +76,7 @@ export function ActivityCard({
         <Text numberOfLines={1} style={s.name}>
           {card.title}
         </Text>
-        {!!kind && !add && (
+        {!!kind && (
           <Text numberOfLines={1} style={s.detail}>
             {kind}
           </Text>
@@ -114,14 +108,12 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     overflow: "hidden",
   },
-  addCard: { borderStyle: "dashed", borderColor: theme.colors.saffronBorder },
   art: {
     height: 100,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.modules.activities.tint,
   },
-  addArt: { height: 100 },
   copy: { paddingHorizontal: 12, paddingVertical: 10, gap: 1 },
   name: { ...theme.type.subheading, color: theme.colors.heading },
   detail: { fontSize: 14, lineHeight: 20, color: theme.colors.muted },

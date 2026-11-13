@@ -1,3 +1,12 @@
+## Mapped discovery update — 2026-11-13 (user approved)
+
+Dashboard previews, Services/Transport lists, category summaries and entry details
+now include the active source village and its directly mapped active villages,
+using the shared bidirectional discovery resolver. Active connections determine
+scope on each request. Removed mappings and inactive villages are excluded.
+This supersedes the exact-source-only scope below. DTOs and endpoint parameters
+are unchanged.
+
 # Shared dashboard and directory discovery — 2026-10-29
 
 User approved the dashboard reference layout and implementation of the missing

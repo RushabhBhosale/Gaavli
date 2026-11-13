@@ -238,6 +238,7 @@ export const hi: Messages = {
   listingAddedFollowupError:
     "उत्पाद जोड़ दिया गया, लेकिन ऐप अपडेट पूरा नहीं कर सका। सुरक्षित रूप से फिर कोशिश करें।",
   dismissToast: "संदेश बंद करें",
+  alertOk: "ठीक है",
   choosePhonePhoto: "फ़ोटो चुनें",
   takeListingPhoto: "फ़ोटो लें",
   chooseListingGallery: "गैलरी से चुनें",
@@ -510,7 +511,6 @@ export const hi: Messages = {
   profEmailTaken: "यह ईमेल किसी दूसरे खाते में उपयोग हो रहा है।",
   termsTitle: "उपयोग की शर्तें",
   privacyTitle: "गोपनीयता नीति",
-  dashAddActivity: "गतिविधि जोड़ें",
   dashMyProducts: "मेरे उत्पाद",
   dashMyActivitiesHint: "आपकी दुकानें, सेवाएँ और उत्पाद",
   coordinatorIntro:

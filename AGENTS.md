@@ -1,3 +1,9 @@
+> Mapped-village discovery revision - 2026-11-13 (user approved): Home,
+> Marketplace, Services and Transport include the selected browsing village and
+> its directly mapped active villages through active coordinator-confirmed
+> bidirectional connections. This supersedes exact-village-only mobile discovery.
+> Add Buyer uses the selected assigned village as a read-only field.
+
 > Hindi language revision - 2026-11-02 (user approved): Hindi (`hi`) is a full
 > third mobile language alongside Marathi and English, including all UI text.
 > Product names show in the selected language with an English fallback

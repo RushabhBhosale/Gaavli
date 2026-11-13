@@ -1,9 +1,8 @@
 import { numberLocale, dateLocale } from "../locale";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { MobileVillage } from "@gaavli/types";
 import {
   ActivityIndicator,
-  Alert,
   Modal,
   ScrollView,
   Text,
@@ -36,6 +35,7 @@ import {
   type coordinatorUserSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
+import { showAlert } from "../alert";
 import { messages } from "../i18n";
 import {
   Button,
@@ -509,38 +509,13 @@ function BuyerForm({
           onChangeText={setMobile}
           keyboardType="phone-pad"
         />
-        <View style={{ gap: 8 }}>
-          <DropdownField
-            label={`${t.village} *`}
-            placeholder={t.village}
-            value={
-              language !== "en" ? selectedVillage.nameMr : selectedVillage.name
-            }
-            expanded={villageExpanded}
-            disabled={locked || !!editUser}
-            onPress={() => setVillageExpanded(!villageExpanded)}
-          />
-          {villageExpanded &&
-            villages.map((village) => (
-              <Button
-                key={village.id}
-                secondary={village.id !== selectedVillage.id}
-                disabled={locked}
-                onPress={() => {
-                  setVillageExpanded(false);
-                  setSelectedVillage(village);
-                }}
-              >
-                {`${language !== "en" ? village.nameMr : village.name} · ${village.taluka}, ${village.district}`}
-              </Button>
-            ))}
-          {villageExpanded && (
-            <>
-              <QueryStatus query={villageQuery} empty={!villages.length} />
-              <More query={villageQuery} />
-            </>
-          )}
-        </View>
+        <Input
+          label={`${t.village} *`}
+          value={
+            language !== "en" ? selectedVillage.nameMr : selectedVillage.name
+          }
+          editable={false}
+        />
       </View>
       {invalid && <ErrorMessage message={t.invalid} />}
       <Button
@@ -1327,7 +1302,25 @@ function AddConnection() {
         ? { locationSource: "device", maxDistanceKm: String(distanceRange) }
         : {}),
     },
+    area === "all_talukas" ? 50 : 20,
   );
+  useEffect(() => {
+    if (
+      area === "all_talukas" &&
+      !offline &&
+      !query.isFetching &&
+      !query.isError &&
+      query.hasNextPage
+    )
+      void query.fetchNextPage();
+  }, [
+    area,
+    offline,
+    query.fetchNextPage,
+    query.hasNextPage,
+    query.isError,
+    query.isFetching,
+  ]);
   const rows = query.data?.pages.flatMap((page) => page.villages) || [];
   const count = Object.keys(selected).length;
   const number = new Intl.NumberFormat(numberLocale(language), {
@@ -1384,7 +1377,7 @@ function AddConnection() {
   function confirm() {
     if (locked || count === 0) return;
     const ids = Object.keys(selected);
-    Alert.alert(t.confirmVillages, selectionLabel, [
+    showAlert(t.confirmVillages, selectionLabel, [
       { text: common.cancel, style: "cancel" },
       { text: t.add, onPress: () => void save(ids) },
     ]);
@@ -1660,7 +1653,10 @@ function AddConnection() {
           ))}
         </View>
       )}
-      {!offline && <More query={query} />}
+      {area === "all_talukas" && query.isFetchingNextPage && (
+        <Text style={d.description}>{common.loading}</Text>
+      )}
+      {!offline && area !== "all_talukas" && <More query={query} />}
     </Screen>
   );
 }
@@ -1779,7 +1775,7 @@ function ReportDetail({ id }: { id: string }) {
   ) {
     const report = query.data?.report;
     if (!report) return;
-    Alert.alert(title, t.moderationQuestion, [
+    showAlert(title, t.moderationQuestion, [
       { text: common.cancel, style: "cancel" },
       {
         text: title,

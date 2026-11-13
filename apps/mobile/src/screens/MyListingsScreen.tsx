@@ -1,7 +1,6 @@
 import { productDisplayName, numberLocale, dateLocale } from "../locale";
 import { useEffect, useRef, useState } from "react";
 import {
-  Alert,
   FlatList,
   Modal,
   Pressable,
@@ -17,6 +16,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import type { OwnedListing } from "@gaavli/types";
 import { deletedListingSchema, ownedListingSchema } from "@gaavli/validation";
 import { useAppStore } from "../store";
+import { showAlert } from "../alert";
 import { useOwnListings } from "../listings";
 import { messages } from "../i18n";
 import { theme } from "../theme";
@@ -479,7 +479,7 @@ export default function MyListingsScreen() {
                     }}
                     disabled={offline || busy || !!sellingId}
                     onPress={() =>
-                      Alert.alert(t.markAsSold, t.markAsSoldQuestion, [
+                      showAlert(t.markAsSold, t.markAsSoldQuestion, [
                         { text: t.cancel, style: "cancel" },
                         {
                           text: t.markAsSold,

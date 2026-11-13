@@ -1,7 +1,8 @@
-import { Alert, Linking, StyleSheet, Text, View } from "react-native";
+import { Linking, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useAppStore } from "../store";
+import { showAlert } from "../alert";
 import { WriteToUsButton } from "../components/WriteToUsButton";
 import { formatMessage, messages } from "../i18n";
 import { useDashboardDirectory } from "../directory";
@@ -36,7 +37,7 @@ export default function VillageCoordinatorScreen() {
   function call() {
     if (phone && /^\+91[6-9]\d{9}$/.test(phone))
       void Linking.openURL(`tel:${phone}`).catch(() =>
-        Alert.alert(t.callError),
+        showAlert(t.callError),
       );
   }
   const help = [

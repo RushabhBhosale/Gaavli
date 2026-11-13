@@ -1,13 +1,14 @@
 import { MOBILE_LANGUAGES } from "@gaavli/constants";
 import { LANGUAGE_LABELS } from "../locale";
 import { useRef, useState } from "react";
-import { Alert, Pressable, StyleSheet, Switch, Text, View } from "react-native";
+import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { theme } from "../theme";
 import { useRouter } from "expo-router";
 import { useQueryClient } from "@tanstack/react-query";
 import type { MobileLanguage } from "@gaavli/types";
 import { useAppStore } from "../store";
+import { showAlert } from "../alert";
 import { messages } from "../i18n";
 import { confirmLanguage } from "../storage/preferences";
 import { preferenceStorage } from "../storage/sqlite";
@@ -190,7 +191,7 @@ export default function ProfileScreen() {
       : village.name
     : "";
   const unavailable = (message: string) =>
-    Alert.alert(t.settingsUnavailable, message);
+    showAlert(t.settingsUnavailable, message);
   return (
     <DashboardScreen
       header={

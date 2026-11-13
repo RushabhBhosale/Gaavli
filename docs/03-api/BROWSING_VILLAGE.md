@@ -1,5 +1,24 @@
 # Independent browsing village — 2026-10-23
 
+## Mapped-village discovery — 2026-11-13 (user approved)
+
+Home, Marketplace, Services and Transport include the selected browsing village
+and all directly connected active villages. Connections must be active and
+manually confirmed by a coordinator, and work in either direction. The existing
+server discovery resolver provides this scope. Search, pagination, product groups,
+category totals, directory summaries, details and listing offers use the same
+scope. Transitive links and GPS suggestions do not add villages.
+
+Mobile listing requests send `sourceVillageId` without automatically adding an
+exact `villageId` filter. The API's explicit `villageId` filter is still available
+for callers that request it. Services/Transport use the shared discovery resolver
+for their list, Home previews, detail and category summary reads. After a confirmed
+coordinator mutation, the app invalidates discovery and mapped-village query caches.
+
+The persisted browsing preference still selects the center. This revision
+supersedes the exact-village-only discovery statements below. Coordinator Manage
+counts and administrative authorization retain their existing scopes.
+
 ## Direct login and contact - 2026-10-27 (latest user-approved revision)
 
 Settings Change Village follow-up (2026-10-27, user approved): retain the existing

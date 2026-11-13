@@ -70,7 +70,7 @@ export function useDirectory(
     initialPageParam: 1,
     queryFn: ({ signal, pageParam }) =>
       (session ? authenticatedApi : api)(
-        `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, ...(category ? { category } : {}), page: String(pageParam), limit: "5" })}`,
+        `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, ...(category ? { category } : {}), page: String(pageParam), limit: "50" })}`,
         directoryPageSchema,
         { signal },
       ),

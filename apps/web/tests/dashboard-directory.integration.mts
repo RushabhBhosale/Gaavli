@@ -23,6 +23,7 @@ const { connectMobileDb } = await import("../src/server/db/mobile");
 const { Village, VillageCoordinator, User, AuditLog, Notification } =
   await import("../src/server/models");
 const { Service } = await import("../src/server/models/service");
+const { VillageConnection } = await import("../src/server/models/coordinator");
 const { MobileSession } = await import("../src/server/models/mobile-auth");
 const { hashToken } = await import("../src/server/auth/mobile-policy");
 const { saveVillage } = await import("../src/server/services/villages");
@@ -36,6 +37,7 @@ try {
   // Transactions must not race automatic collection/index creation.
   await Promise.all([
     Service.init(),
+    VillageConnection.init(),
     VillageCoordinator.init(),
     AuditLog.init(),
     Notification.init(),
@@ -336,8 +338,106 @@ try {
     { $set: { status: "active", roles: ["buyer"] } },
   );
   assert.equal((await home()).coordinator, null);
+
+  // Discovery uses direct, active mappings in either direction for every read.
+  const unrelated = await Village.create({
+    nameEn: "Unrelated",
+    nameMr: "इतर",
+  });
+  await Service.create([
+    {
+      ...base,
+      villageId: other._id,
+      profession: "Mapped bus",
+      module: "transport",
+    },
+    { ...base, villageId: inactive._id },
+    { ...base, villageId: unrelated._id },
+  ]);
+  const [mapping] = await VillageConnection.create([
+    {
+      sourceVillageId: other._id,
+      targetVillageId: village._id,
+      createdBy: coordinator._id,
+    },
+    {
+      sourceVillageId: village._id,
+      targetVillageId: inactive._id,
+      createdBy: coordinator._id,
+    },
+    {
+      sourceVillageId: other._id,
+      targetVillageId: unrelated._id,
+      createdBy: coordinator._id,
+    },
+  ]);
+  for (const authenticated of [false, true]) {
+    const combined = await home(authenticated);
+    assert.equal(combined.services.total, servicesTiles.total + 1);
+    assert.equal(combined.transport.total, transportTiles.total + 1);
+    const response = await directory(
+      request("directory", { module: "services", limit: "50" }, authenticated),
+    );
+    assert.equal(response.status, 200);
+    const data = directoryPageSchema.parse((await response.json()).data);
+    assert.equal(data.total, servicesTiles.total + 1);
+    assert.ok(data.entries.some((entry) => entry.id === String(rows[9]._id)));
+    assert.ok(
+      data.entries.every((entry) =>
+        [String(village._id), String(other._id)].includes(entry.village.id),
+      ),
+    );
+    const responseDetail = await detail(
+      request(`directory/${rows[9]._id}`, {}, authenticated),
+      { params: Promise.resolve({ id: String(rows[9]._id) }) },
+    );
+    assert.equal(responseDetail.status, 200);
+    assert.equal(
+      (await responseDetail.json()).data.village.id,
+      String(other._id),
+    );
+  }
+  assert.equal(
+    (await counts("services")).byGroup.repairs,
+    servicesTiles.byGroup.repairs + 1,
+  );
+  assert.equal((await counts("transport")).byGroup.bus, 1);
+  assert.equal((await page({ search: "wiring" })).total, 9);
+  const combinedPages = [await page(), await page({ page: "2" })];
+  assert.equal(
+    new Set(combinedPages.flatMap((p) => p.entries.map((entry) => entry.id)))
+      .size,
+    10,
+  );
+  const reverse = await page({
+    sourceVillageId: String(other._id),
+    search: "Rao",
+  });
+  assert.equal(
+    reverse.total,
+    1,
+    "a mapped village can discover the source village's entries",
+  );
+  await Village.updateOne({ _id: other._id }, { $set: { isActive: false } });
+  assert.equal((await counts("services")).total, servicesTiles.total);
+  await Village.updateOne({ _id: other._id }, { $set: { isActive: true } });
+  await VillageConnection.updateOne(
+    { _id: mapping._id },
+    { $set: { active: false } },
+  );
+  assert.equal((await home()).services.total, servicesTiles.total);
+  assert.equal((await counts("transport")).total, transportTiles.total);
+  assert.equal(
+    (
+      await detail(request(`directory/${rows[9]._id}`), {
+        params: Promise.resolve({ id: String(rows[9]._id) }),
+      })
+    ).status,
+    404,
+    "removing the mapping also revokes detail discovery",
+  );
   console.log(
-    "PASS: dashboard and directory routes, category tiles and counts, real counts, bounded previews, pagination/search, exact-village scope, owner/inactive exclusion, public contact opt-in/revocation, privacy, validation and auth.",
+    "PASS: dashboard and directory routes, category counts, bounded previews, pagination/search, direct bidirectional mapped-village discovery, inactive/unmapped exclusions, mapping removal, public contact opt-in/revocation, privacy, validation and auth.",
   );
 } finally {
   if (
