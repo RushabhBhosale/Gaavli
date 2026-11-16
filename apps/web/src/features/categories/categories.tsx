@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
 import { api } from "@/lib/api";
 import type { AdminCategoryDto, CategoriesPage } from "@/lib/contracts";
@@ -40,6 +41,35 @@ const columns: ColumnDef<AdminCategoryDto>[] = [
     header: "Active listings",
     cell: ({ row }) => row.original.activeListings.toLocaleString("en-IN"),
   },
+  {
+    id: "actions",
+    header: "Actions",
+    enableSorting: false,
+    cell: ({ row, table }) => {
+      const meta = table.options.meta as {
+        editCategory: (category: AdminCategoryDto) => void;
+        deleteCategory: (category: AdminCategoryDto) => void;
+      };
+      return (
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => meta.editCategory(row.original)}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => meta.deleteCategory(row.original)}
+          >
+            Delete
+          </Button>
+        </div>
+      );
+    },
+  },
 ];
 
 export function CategoriesManagement() {
@@ -48,6 +78,9 @@ export function CategoriesManagement() {
   const [page, setPage] = useState(1);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [adding, setAdding] = useState(false);
+  const [editing, setEditing] = useState<AdminCategoryDto | null>(null);
+  const [deleting, setDeleting] = useState<AdminCategoryDto | null>(null);
+  const client = useQueryClient();
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounced(search);
@@ -76,6 +109,7 @@ export function CategoriesManagement() {
     getRowId: (row) => row.id,
     manualSorting: true,
     enableMultiSort: false,
+    meta: { editCategory: setEditing, deleteCategory: setDeleting },
     state: { sorting },
     onSortingChange: (updater) => {
       setSorting(updater);
@@ -84,6 +118,17 @@ export function CategoriesManagement() {
   });
   const currentPage = query.data?.page ?? page;
   const pages = Math.max(1, Math.ceil((query.data?.total ?? 0) / 10));
+  const remove = useMutation({
+    mutationFn: (category: AdminCategoryDto) =>
+      api(`/v1/admin/categories/${category.id}`, {
+        method: "DELETE",
+        body: JSON.stringify({ version: category.version }),
+      }),
+    onSuccess: async () => {
+      setDeleting(null);
+      await client.invalidateQueries({ queryKey: ["admin-categories"] });
+    },
+  });
   return (
     <section className="card min-h-[460px] p-4 sm:p-6">
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
@@ -147,22 +192,29 @@ export function CategoriesManagement() {
                         }
                         className="px-3 py-3 text-xs font-semibold uppercase text-slate-500"
                       >
-                        <button
-                          className="flex items-center gap-1.5 text-left"
-                          onClick={header.column.getToggleSortingHandler()}
-                        >
-                          {flexRender(
+                        {header.column.getCanSort() ? (
+                          <button
+                            className="flex items-center gap-1.5 text-left"
+                            onClick={header.column.getToggleSortingHandler()}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                            {header.column.getIsSorted() === "asc" ? (
+                              <ArrowUp size={13} />
+                            ) : header.column.getIsSorted() === "desc" ? (
+                              <ArrowDown size={13} />
+                            ) : (
+                              <ArrowUpDown size={13} />
+                            )}
+                          </button>
+                        ) : (
+                          flexRender(
                             header.column.columnDef.header,
                             header.getContext(),
-                          )}
-                          {header.column.getIsSorted() === "asc" ? (
-                            <ArrowUp size={13} />
-                          ) : header.column.getIsSorted() === "desc" ? (
-                            <ArrowDown size={13} />
-                          ) : (
-                            <ArrowUpDown size={13} />
-                          )}
-                        </button>
+                          )
+                        )}
                       </th>
                     ))}
                   </tr>
@@ -213,26 +265,68 @@ export function CategoriesManagement() {
         </>
       )}
       {adding && <CategoryForm onClose={() => setAdding(false)} />}
+      {editing && (
+        <CategoryForm category={editing} onClose={() => setEditing(null)} />
+      )}
+      <ConfirmDialog
+        open={!!deleting}
+        title={`Delete ${deleting?.name || "category"}?`}
+        description="Categories used by listings stay in place. This only removes a category with no listings."
+        confirmLabel="Delete"
+        busyLabel="Deleting…"
+        busy={remove.isPending}
+        error={remove.error?.message}
+        onClose={() => {
+          setDeleting(null);
+          remove.reset();
+        }}
+        onConfirm={() => {
+          if (deleting) remove.mutate(deleting);
+        }}
+      />
     </section>
   );
 }
 
-function CategoryForm({ onClose }: { onClose: () => void }) {
+function CategoryForm({
+  category,
+  onClose,
+}: {
+  category?: AdminCategoryDto;
+  onClose: () => void;
+}) {
   const client = useQueryClient();
   const [input, setInput] = useState({
-    code: "",
-    name: "",
-    nameMr: "",
-    defaultShelfLife: "",
-    notifyMode: "daily_digest",
+    code: category?.code ?? "",
+    name: category?.name ?? "",
+    nameMr: category?.nameMr ?? "",
+    defaultShelfLife: category?.defaultShelfLife ?? "",
+    notifyMode: (category?.notifyMode ?? "daily_digest") as string,
   });
   const [validation, setValidation] = useState("");
   const save = useMutation({
-    mutationFn: () =>
-      api("/v1/admin/categories", {
-        method: "POST",
-        body: JSON.stringify(categorySchema.parse(input)),
-      }),
+    mutationFn: () => {
+      const parsed = categorySchema.parse(input);
+      return api(
+        category
+          ? `/v1/admin/categories/${category.id}`
+          : "/v1/admin/categories",
+        {
+          method: category ? "PUT" : "POST",
+          body: JSON.stringify(
+            category
+              ? {
+                  name: parsed.name,
+                  nameMr: parsed.nameMr,
+                  defaultShelfLife: parsed.defaultShelfLife,
+                  notifyMode: parsed.notifyMode,
+                  version: category.version,
+                }
+              : parsed,
+          ),
+        },
+      );
+    },
     onSuccess: async () => {
       await client.invalidateQueries({ queryKey: ["admin-categories"] });
       onClose();
@@ -246,9 +340,12 @@ function CategoryForm({ onClose }: { onClose: () => void }) {
       }}
     >
       <DialogContent>
-        <DialogTitle className="text-xl font-bold">Add category</DialogTitle>
+        <DialogTitle className="text-xl font-bold">
+          {category ? "Edit category" : "Add category"}
+        </DialogTitle>
         <DialogDescription className="mt-2 text-sm text-slate-500">
           Set the category name, default shelf life and notification mode.
+          {category ? " The category code stays unchanged." : ""}
         </DialogDescription>
         <form
           className="mt-5 space-y-4"
@@ -297,6 +394,7 @@ function CategoryForm({ onClose }: { onClose: () => void }) {
                 placeholder="PERISHABLE"
                 value={input.code}
                 required
+                readOnly={!!category}
                 maxLength={40}
                 onChange={(event) =>
                   setInput({ ...input, code: event.target.value.toUpperCase() })
@@ -348,7 +446,11 @@ function CategoryForm({ onClose }: { onClose: () => void }) {
               Cancel
             </Button>
             <Button disabled={save.isPending}>
-              {save.isPending ? "Saving…" : "Add category"}
+              {save.isPending
+                ? "Saving…"
+                : category
+                  ? "Save changes"
+                  : "Add category"}
             </Button>
           </div>
         </form>

@@ -13,6 +13,8 @@ import {
   deleteVillageSchema,
   categorySchema,
   categoriesQuerySchema,
+  editCategorySchema,
+  deleteCategorySchema,
 } from "../src/schemas";
 import { parseCoordinates } from "../src/lib/coordinates";
 test("admin categories reject query injection, invalid modes and unrecognized fields", () => {
@@ -48,6 +50,17 @@ test("admin categories reject query injection, invalid modes and unrecognized fi
     { direction: "invalid" },
   ])
     assert.equal(categoriesQuerySchema.safeParse(invalid).success, false);
+  const { code, ...editable } = input;
+  assert.equal(
+    editCategorySchema.safeParse({ ...editable, version: 0 }).success,
+    true,
+  );
+  assert.equal(
+    editCategorySchema.safeParse({ ...editable, code, version: 0 }).success,
+    false,
+  );
+  assert.equal(deleteCategorySchema.safeParse({ version: 1 }).success, true);
+  assert.equal(deleteCategorySchema.safeParse({}).success, false);
 });
 test("village form coordinates and coordinator assignment validation", () => {
   assert.deepEqual(parseCoordinates("16.9944° N, 73.3120° E"), {

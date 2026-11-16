@@ -35,12 +35,16 @@ export const editUserSchema = userSchema.extend({
 export const statusUpdateSchema = z
   .object({ status: statusSchema, version: z.number().int().nonnegative() })
   .strict();
-export const usersQuerySchema = z
+export const usersFilterSchema = z
   .object({
     role: z.enum(["buyer", "seller", "coordinator"]).optional(),
     village: objectId.optional(),
     status: statusSchema.optional(),
     search: z.string().trim().max(100).optional(),
+  })
+  .strict();
+export const usersQuerySchema = usersFilterSchema
+  .extend({
     page: z.coerce.number().int().min(1).max(100000).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(7),
   })
@@ -69,6 +73,13 @@ export const categorySchema = z
     notifyMode: z.enum(["daily_digest", "change_only", "weekly_digest"]),
   })
   .strict();
+export const editCategorySchema = categorySchema
+  .omit({ code: true })
+  .extend({ version: z.number().int().nonnegative() })
+  .strict();
+export const deleteCategorySchema = z
+  .object({ version: z.number().int().nonnegative() })
+  .strict();
 export const categoriesQuerySchema = z
   .object({
     search: z.string().trim().max(100).optional(),
@@ -86,11 +97,15 @@ export const categoriesQuerySchema = z
     limit: z.coerce.number().int().min(1).max(100).default(10),
   })
   .strict();
-export const villagesQuerySchema = z
+export const villagesFilterSchema = z
   .object({
     search: z.string().trim().max(100).optional(),
     district: z.string().trim().min(1).max(100).optional(),
     status: z.enum(["active", "inactive"]).optional(),
+  })
+  .strict();
+export const villagesQuerySchema = villagesFilterSchema
+  .extend({
     page: z.coerce.number().int().min(1).max(100000).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(6),
   })
@@ -119,7 +134,8 @@ export const villageSchema = z
       .refine(
         (ids) => new Set(ids).size === ids.length,
         "Duplicate coordinators",
-      ),
+      )
+      .optional(),
   })
   .strict();
 export const editVillageSchema = villageSchema

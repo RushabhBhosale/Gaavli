@@ -28,9 +28,7 @@ export function providerMasterDto(row: InstanceType<typeof ProviderMaster>) {
     version: row.__v,
   };
 }
-export async function findProviderMasters(
-  query: z.infer<typeof providerMasterQuerySchema>,
-) {
+function masterQuery(query: z.infer<typeof providerMasterQuerySchema>) {
   const search = query.search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const base = {
     providerType: query.providerType,
@@ -43,10 +41,21 @@ export async function findProviderMasters(
         }
       : {}),
   };
-  const filter = {
-    ...base,
-    ...(query.status === "all" ? {} : { isActive: query.status === "active" }),
+  return {
+    base,
+    filter: {
+      ...base,
+      ...(query.status === "all"
+        ? {}
+        : { isActive: query.status === "active" }),
+    },
+    sort: { [query.sort]: query.direction === "asc" ? 1 : -1, _id: 1 } as const,
   };
+}
+export async function findProviderMasters(
+  query: z.infer<typeof providerMasterQuerySchema>,
+) {
+  const { base, filter, sort } = masterQuery(query);
   const [total, active, inactive] = await Promise.all([
     ProviderMaster.countDocuments(filter),
     ProviderMaster.countDocuments({ ...base, isActive: true }),
@@ -57,7 +66,7 @@ export async function findProviderMasters(
     Math.max(1, Math.ceil(total / query.limit)),
   );
   const rows = await ProviderMaster.find(filter)
-    .sort({ [query.sort]: query.direction === "asc" ? 1 : -1, _id: 1 })
+    .sort(sort)
     .skip((page - 1) * query.limit)
     .limit(query.limit);
   return {
@@ -67,6 +76,16 @@ export async function findProviderMasters(
     limit: query.limit,
     counts: { total: active + inactive, active, inactive },
   };
+}
+export async function findProviderMastersForExport(
+  query: z.infer<typeof providerMasterQuerySchema>,
+  limit: number,
+) {
+  const { filter, sort } = masterQuery(query);
+  const total = await ProviderMaster.countDocuments(filter);
+  if (total > limit) return { records: [], total };
+  const rows = await ProviderMaster.find(filter).sort(sort).limit(limit);
+  return { records: rows.map(providerMasterDto), total };
 }
 export async function seedProviderMasters(
   rows: z.infer<typeof providerMasterSeedSchema>,

@@ -73,6 +73,7 @@ export async function findCategories(
         defaultShelfLife: 1,
         notifyMode: 1,
         activeListings: 1,
+        version: { $ifNull: ["$__v", 0] },
       },
     },
   ]);

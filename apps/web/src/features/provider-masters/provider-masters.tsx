@@ -29,8 +29,10 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { ListPagination } from "@/components/shared/list-pagination";
 import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
 import { api } from "@/lib/api";
+import { ProviderMasterBulkActions } from "./provider-master-bulk-actions";
 
 type Master = {
   id: string;
@@ -58,6 +60,7 @@ export function ProviderMasterManagement() {
   const [debounced, setDebounced] = useState("");
   const [status, setStatus] = useState("all");
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [form, setForm] = useState<Master | "new" | null>(null);
   const [deactivating, setDeactivating] = useState<Master | null>(null);
@@ -81,7 +84,7 @@ export function ProviderMasterManagement() {
     search: debounced,
     status,
     page: String(page),
-    limit: "10",
+    limit: String(pageSize),
     sort: sorting[0]?.id || "sortOrder",
     direction: sorting[0]?.desc ? "desc" : "asc",
   });
@@ -93,6 +96,7 @@ export function ProviderMasterManagement() {
       debounced,
       status,
       page,
+      pageSize,
       sorting,
     ],
     queryFn: ({ signal }) =>
@@ -200,7 +204,6 @@ export function ProviderMasterManagement() {
     },
   });
   const current = query.data?.page ?? page;
-  const pages = Math.max(1, Math.ceil((query.data?.total ?? 0) / 10));
   return (
     <section className="card p-4 sm:p-6">
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
@@ -210,10 +213,21 @@ export function ProviderMasterManagement() {
           </p>
           <h1 className="text-xl font-bold">Master Management</h1>
         </div>
-        <Button onClick={() => setForm("new")}>
-          <Plus size={16} />
-          Add New
-        </Button>
+        <ProviderMasterBulkActions
+          filters={{
+            providerType,
+            masterType,
+            search: debounced,
+            status,
+            sort: sorting[0]?.id || "sortOrder",
+            direction: sorting[0]?.desc ? "desc" : "asc",
+          }}
+        >
+          <Button onClick={() => setForm("new")}>
+            <Plus size={16} />
+            Add New
+          </Button>
+        </ProviderMasterBulkActions>
       </div>
       {notice && (
         <p
@@ -395,26 +409,19 @@ export function ProviderMasterManagement() {
         </div>
       )}
       {query.data && (
-        <div className="mt-5 flex items-center justify-end gap-3 text-xs text-slate-500">
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={current <= 1 || query.isFetching}
-            onClick={() => setPage(current - 1)}
-          >
-            Previous
-          </Button>
-          <span>
-            Page {current} of {pages} · {query.data.total} matching
-          </span>
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={current >= pages || query.isFetching}
-            onClick={() => setPage(current + 1)}
-          >
-            Next
-          </Button>
+        <div className="-mx-4 -mb-4 mt-5 sm:-mx-6 sm:-mb-6">
+          <ListPagination
+            page={current}
+            pageSize={pageSize}
+            total={query.data.total}
+            disabled={query.isFetching}
+            label="Provider master pagination"
+            onPageChange={setPage}
+            onPageSizeChange={(next) => {
+              setPageSize(next);
+              setPage(1);
+            }}
+          />
         </div>
       )}
       {form && (

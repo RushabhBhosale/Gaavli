@@ -1,131 +1,72 @@
-## 2026-11-13 - Android Gradle cache recovery
+## 2026-11-13 - Coordinator assignment from User Listing
 
-- Recovered release building after a missing transformed React settings plugin
-  JAR. Verified the source/cached plugin archives, restored declared Gradle
-  dependencies through an online build, and restarted the Gradle daemon to
-  discard stale references to absent AndroidX transform outputs.
-- Native compilation encountered a full filesystem during cache recovery.
-  Cleared generated debug native intermediates under the app and node_modules
-  Android build folders, then retried with adequate disk space.
-- Verified the user's exact `./gradlew assembleRelease` command. BUILD SUCCESSFUL
-  in 3m 5s, 954 tasks (36 executed, 918 up-to-date). Both ARM64 and 32-bit release
-  APK archives passed integrity checks. Build settings and dependencies use the
-  project's existing declarations.
+- Admin Add/Edit User assigns a coordinator to the village selected in the
+  existing Village dropdown and stores that mapping in `villagecoordinators`.
+  Editing a coordinator preselects the assigned village. Removing the
+  Coordinator role deletes that user's mappings and leaves the user, buyer,
+  and seller data in place. A village that already has a different coordinator
+  is rejected. Saving a coordinator who already has extra mappings keeps one
+  and removes the extras in the same transaction.
+- Village Edit no longer shows Assigned Coordinator or the public contact
+  field, and it does not send `coordinatorIds`. Village create, update, and
+  CSV import omit that field, so they do not change existing mappings. Callers
+  that still send `coordinatorIds` keep the previous village assignment
+  behavior. The village list still shows the assigned coordinator. The
+  coordinator dashboard still reads `villagecoordinators`.
+- No database migration and no new collection. Web TypeScript, ESLint on the
+  changed files, and the web unit tests passed. The listed admin flows were
+  not exercised in a browser or against a live database.
 
-## 2026-11-13 - Login required for Services and Transport contacts
+## 2026-11-13 - Admin category edit and delete
 
-- IMPLEMENTED — VERIFICATION PENDING (API deployment/device). Guest dashboard,
-  directory list and detail responses project empty contacts arrays. Authenticated
-  active mobile sessions receive the existing provider-approved numbers.
-- Mobile hides contact numbers, Call and WhatsApp while signed out, and offers
-  login/registration from the contact button. A separate session-local directory
-  return target survives OTP and required village confirmation, then returns to
-  the same entry. Contact registration bypasses the optional provider welcome
-  step. Pending marketplace/directory targets replace each other and logout
-  clears both. Directory details fetch fresh authorized contacts on mount.
-- Persisted directory browsing responses strip contacts without mutating the
-  in-memory authenticated response. Restoring older cache files sanitizes them
-  before hydration and rewrites their safe browsing data.
-- Passed real-route dashboard/directory integration in a fresh isolated MongoDB
-  database with cleanup. Checks cover service/transport guest lists/details,
-  authenticated contacts, mapped villages, invalid/revoked sessions and privacy.
-  All 29 focused onboarding/browsing/cache tests passed, along with web TypeScript,
-  targeted ESLint and whitespace checks. Android release build and both APK
-  archive integrity checks passed. Mobile TypeScript retains four existing
-  AppAlertHost/coordinator/Hindi translation errors. Device auth/dialer/WhatsApp
-  checks and hosted API deployment remain pending.
-- A full filesystem blocked the first edit. Removed generated Android debug
-  merged/stripped native intermediates to reclaim about 720 MB and continue.
+- Categories & notify rules has Edit and Delete on each row. Edit updates the
+  name, Marathi name, shelf life and notify mode; the category code stays
+  fixed. Delete removes a category only when no listing uses it, and asks for
+  confirmation. Both actions are audited.
+- Category schema checks, web TypeScript, and ESLint on the changed files
+  passed. Browser edit and delete were not exercised.
 
-## 2026-11-13 - Listings above Services and Transport categories
+## 2026-11-13 - Admin provider master CSV upload and download
 
-- IMPLEMENTED — VERIFICATION PENDING (device visuals). Services and Transport
-  open with a compact horizontal row of up to six real directory listings above
-  the illustrated category masonry. Each card shows its uploaded first photo
-  when available, with category artwork as fallback, localized name, village
-  and rate. Existing loading, empty, offline and retry states remain available.
-- View All opens the complete module results; categories and search open filtered
-  results using the same photo cards in compact rows. Back returns to the
-  overview, and changing view scrolls to the top. Added English/Marathi/Hindi
-  section labels and an optional Screen scroll ref for this navigation.
-- Targeted ESLint, Prettier and whitespace checks passed. Android release build
-  passed and both APKs passed archive integrity checks. Mobile TypeScript still
-  reports the four existing AppAlertHost/coordinator/Hindi translation errors.
-  No device visual or interaction checks were run.
+- Service Providers → Master Management has Download, Sample, and Upload beside
+  Add New. Download exports the selected provider type, master group, search,
+  status, and sort, up to 5,000 options. Sample downloads
+  provider-masters-sample.csv. Upload creates at most 100 options in the
+  selected group from englishName, marathiName, hindiName, sortOrder, and
+  status. Codes stay server-generated through the existing audited create path.
+- Provider-master CSV tests, web TypeScript, and ESLint on the changed files
+  passed. Browser upload and download were not exercised.
 
-## 2026-11-13 - Compact mobile masonry cards
+## 2026-11-13 - Admin village CSV upload and download
 
-- Reduced Services/Transport artwork heights using landscape aspect ratios and a
-  132 dp maximum, tightened card padding and vertical gaps, and applied the shared
-  14 px label/12 px count styles. The staggered columns and wrapping localized
-  labels are preserved.
-- Targeted ESLint, Prettier and whitespace checks passed. Android release APK
-  build passed. Device visual and large-font acceptance remain pending.
+- Village Management has Download, Sample, and Upload beside Add Village.
+  Download exports the current filters as CSV, at most 5,000 villages. Sample
+  downloads villages-sample.csv. Upload creates at most 100 active villages
+  from name, nameMr, taluka, district, pinCode, latitude, and longitude through
+  the existing audited village create path. Village CSV does not assign or
+  clear coordinators.
+- Village and user CSV tests, web TypeScript, and ESLint on the changed files
+  passed. Browser upload and download were not exercised.
 
-## 2026-11-13 - Mapped discovery and Add Buyer crash fix
+## 2026-11-12 - Admin user CSV upload and download
 
-- IMPLEMENTED — VERIFICATION PENDING (API deployment/device). Home, Marketplace,
-  Services and Transport include the selected browsing village and its directly
-  mapped active villages. Mobile listing queries use sourceVillageId without an
-  automatic exact villageId filter. Directory lists, Home previews, category
-  counts and details reuse the existing bidirectional discovery resolver.
-- Confirmed coordinator writes invalidate listing, search, directory and mapping
-  caches. Coordinator Manage counts retain their existing scope, as clarified by
-  the user. The existing mapped coordinator directory authorization is preserved.
-- Fixed Add Buyer rendering by replacing references to a removed dropdown and
-  undefined state with the assigned-village read-only Input. Registration keeps
-  the approved selected-assignment target and existing idempotency/recovery flow.
-- Passed real-route directory and coordinator integration suites in isolated
-  randomly named MongoDB databases, with cleanup. Coverage includes direct and
-  reverse mappings, guest/authenticated discovery, search/counts/pagination,
-  inactive/transitive/unmapped exclusions, mapping removal, assigned-village
-  buyer creation/replay and rejected out-of-assignment targets.
-- Passed 15 focused browsing/coordinator mobile tests, web TypeScript, targeted
-  ESLint (one existing hook warning), Prettier and whitespace checks. Android
-  release build passed and both ARM64/32-bit APKs passed archive integrity checks.
-  Mobile TypeScript still reports four existing errors in AppAlertHost and
-  coordinator/Hindi translation files. Device rendering/navigation and API
-  deployment remain unverified.
+- Users Management has Download, Sample, and Upload beside Add User. Download
+  exports the current filters as CSV, at most 5,000 users. Sample downloads
+  users-sample.csv with the upload columns and example rows. Upload
+  creates at most 100 users from columns name, mobile, roles, village, and
+  status through the existing audited user create path. Other admin lists are
+  unchanged.
+- CSV parser tests, web TypeScript, and ESLint on the changed files passed.
+  Browser upload and download were not exercised.
 
-## 2026-11-13 - Android release illustration resource collision fix
+## 2026-11-12 - Admin list pagination
 
-- Renamed all 21 category WebP assets with an `illustration_` prefix and updated
-  their static imports. The image-format replacement had reused legacy JPEG
-  basenames, causing duplicate Android drawable IDs in incremental build output.
-- Cleared generated release React resources and rebuilt with
-  `./gradlew :app:assembleRelease --offline`. BUILD SUCCESSFUL. Both arm64-v8a
-  and armeabi-v7a release APKs were produced and passed ZIP integrity checks.
-- Generated release resources contain all 21 illustrations and zero duplicate
-  resource basenames per qualifier directory. Targeted image-map ESLint,
-  Prettier and whitespace checks passed. Device installation/rendering remains
-  unverified.
-
-## 2026-11-13 - Services and Transport illustrated masonry dashboards
-
-- IMPLEMENTED — VERIFICATION PENDING (device visuals). Both mobile directory
-  dashboards use two independent masonry columns with staggered artwork heights,
-  rounded image cards and freely wrapping selected-language labels/counts.
-- Bundled 21 WebP category illustrations prepared from the supplied Downloads
-  originals, about 736 KB total. Artwork is mapped to the existing directory
-  groups, including the former government/community/emergency/political icon
-  cards. The asset README records source filenames and category mapping.
-- Android Metro/Hermes export passed and included all 21 image assets. Targeted
-  ESLint passed with one pre-existing effect-dependency warning in DirectoryScreen.
-  Mobile tests passed 107/109, with existing translation-completeness failures in
-  foundation and locale tests. TypeScript reports existing errors in AppAlertHost,
-  coordinator i18n/screens and Hindi messages. The changed components had no
-  reported TypeScript errors. Device rendering, large-font and navigation checks
-  remain pending.
-
-## 2026-11-12 - Themed mobile alerts
-
-- IMPLEMENTED — VERIFICATION PENDING: Replaced app-authored React Native
-  `Alert.alert` dialogs with a shared localized modal using Gaavli colors,
-  typography, and button styles. Existing cancel, destructive, dismiss, and
-  action callbacks are preserved across account, listing, photo, contact, and
-  coordinator flows.
-- `git diff --check` passed. Mobile tests and device-level visual/accessibility
-  checks were not run.
+- Users, Villages and Service Providers → Master Management use a shared
+  footer: rows per page (10, 25, 50), a `1-10 of 13` range, and numbered pages.
+  The user-list checkbox column is commented out for a later bulk-actions pass.
+  Listings remains an empty state, so this footer is not on that screen.
+- Web TypeScript and ESLint on the changed files passed. Browser verification
+  was not run.
 
 ## 2026-11-05 - Cross-district coordinator village mapping
 

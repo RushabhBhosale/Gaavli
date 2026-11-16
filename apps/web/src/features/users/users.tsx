@@ -7,17 +7,11 @@ import {
   useReactTable,
   type ColumnDef,
 } from "@tanstack/react-table";
-import {
-  Plus,
-  MoreVertical,
-  Search,
-  ChevronLeft,
-  ChevronRight,
-  ArrowDown,
-} from "lucide-react";
+import { Plus, MoreVertical, Search, ArrowDown } from "lucide-react";
 import { api } from "@/lib/api";
 import type { Counts, UserDto, UsersPage, VillageDto } from "@/lib/contracts";
 import { Button } from "@/components/ui/button";
+import { ListPagination } from "@/components/shared/list-pagination";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -27,6 +21,7 @@ import {
 import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { UserForm } from "./user-form";
+import { UserBulkActions } from "./user-bulk-actions";
 export function UsersManagement() {
   const client = useQueryClient();
   const [role, setRole] = useState(""),
@@ -35,6 +30,7 @@ export function UsersManagement() {
     [search, setSearch] = useState(""),
     [debounced, setDebounced] = useState(""),
     [page, setPage] = useState(1),
+    [pageSize, setPageSize] = useState(10),
     [form, setForm] = useState<UserDto | "new" | null>(null),
     [confirm, setConfirm] = useState<UserDto | null>(null);
   const [selection, setSelection] = useState({});
@@ -48,14 +44,14 @@ export function UsersManagement() {
   }, [search]);
   const query = new URLSearchParams({
     page: String(page),
-    limit: "7",
+    limit: String(pageSize),
     ...(role ? { role } : {}),
     ...(village ? { village } : {}),
     ...(status ? { status } : {}),
     ...(debounced ? { search: debounced } : {}),
   });
   const users = useQuery({
-    queryKey: ["users", role, village, status, debounced, page],
+    queryKey: ["users", role, village, status, debounced, page, pageSize],
     queryFn: () => api<UsersPage>(`/users?${query}`),
   });
   const counts = useQuery({
@@ -82,25 +78,26 @@ export function UsersManagement() {
   });
   const columns = useMemo<ColumnDef<UserDto>[]>(
     () => [
-      {
-        id: "select",
-        header: ({ table }) => (
-          <input
-            type="checkbox"
-            aria-label="Select all users on this page"
-            checked={table.getIsAllRowsSelected()}
-            onChange={table.getToggleAllRowsSelectedHandler()}
-          />
-        ),
-        cell: ({ row }) => (
-          <input
-            type="checkbox"
-            aria-label={`Select ${row.original.name}`}
-            checked={row.getIsSelected()}
-            onChange={row.getToggleSelectedHandler()}
-          />
-        ),
-      },
+      // Selection stays in place for a later bulk-actions pass.
+      // {
+      //   id: "select",
+      //   header: ({ table }) => (
+      //     <input
+      //       type="checkbox"
+      //       aria-label="Select all users on this page"
+      //       checked={table.getIsAllRowsSelected()}
+      //       onChange={table.getToggleAllRowsSelectedHandler()}
+      //     />
+      //   ),
+      //   cell: ({ row }) => (
+      //     <input
+      //       type="checkbox"
+      //       aria-label={`Select ${row.original.name}`}
+      //       checked={row.getIsSelected()}
+      //       onChange={row.getToggleSelectedHandler()}
+      //     />
+      //   ),
+      // },
       {
         accessorKey: "name",
         header: "Name",
@@ -145,7 +142,11 @@ export function UsersManagement() {
       {
         id: "village",
         header: "Village",
-        cell: ({ row }) => row.original.village?.name || "—",
+        cell: ({ row }) =>
+          row.original.roles.includes("coordinator")
+            ? row.original.coordinatorVillages?.map((v) => v.name).join(", ") ||
+              "—"
+            : row.original.village?.name || "—",
       },
       {
         accessorKey: "status",
@@ -218,26 +219,26 @@ export function UsersManagement() {
     enableRowSelection: true,
     manualPagination: true,
   });
-  const total = users.data?.total || 0,
-    pages = Math.max(1, Math.ceil(total / 7));
+  const total = users.data?.total || 0;
   function filter(action: () => void) {
     action();
     setPage(1);
     setSelection({});
   }
-  const firstPage = Math.max(1, Math.min(page - 2, pages - 4));
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold">Users Management</h1>
-        <Button
-          size="sm"
-          disabled={!villages.data?.length}
-          onClick={() => setForm("new")}
-        >
-          <Plus size={15} />
-          Add User
-        </Button>
+        <UserBulkActions filters={{ role, village, status, search: debounced }}>
+          <Button
+            size="sm"
+            disabled={!villages.data?.length}
+            onClick={() => setForm("new")}
+          >
+            <Plus size={15} />
+            Add User
+          </Button>
+        </UserBulkActions>
       </div>
       <div className="card overflow-hidden">
         <div className="flex flex-wrap items-center gap-3 border-b border-slate-100 p-4">
@@ -247,7 +248,7 @@ export function UsersManagement() {
             className="flex flex-wrap gap-1 rounded-md bg-slate-100 p-1"
           >
             {[
-              { key: "", label: "All", count: counts.data?.all },
+              // { key: "", label: "All", count: counts.data?.all },
               { key: "seller", label: "Sellers", count: counts.data?.seller },
               { key: "buyer", label: "Buyers", count: counts.data?.buyer },
               {
@@ -323,7 +324,7 @@ export function UsersManagement() {
           <ErrorState error={users.error} retry={() => void users.refetch()} />
         ) : users.isPending ? (
           <div className="space-y-3 p-5">
-            {Array.from({ length: 7 }, (_, i) => (
+            {Array.from({ length: Math.min(pageSize, 8) }, (_, i) => (
               <Skeleton key={i} className="h-10" />
             ))}
           </div>
@@ -372,55 +373,22 @@ export function UsersManagement() {
             </table>
           </div>
         )}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 p-4 text-xs text-slate-500">
-          <p>
-            Showing {total ? (page - 1) * 7 + 1 : 0}–{Math.min(page * 7, total)}{" "}
-            of {total.toLocaleString("en-IN")} users
-          </p>
-          <nav aria-label="Pagination" className="flex gap-1">
-            <Button
-              variant="outline"
-              size="icon"
-              disabled={page === 1 || users.isPending}
-              aria-label="Previous page"
-              onClick={() => {
-                setPage(page - 1);
-                setSelection({});
-              }}
-            >
-              <ChevronLeft size={14} />
-            </Button>
-            {Array.from(
-              { length: Math.min(5, pages) },
-              (_, i) => firstPage + i,
-            ).map((p) => (
-              <Button
-                key={p}
-                variant={p === page ? "default" : "outline"}
-                size="icon"
-                aria-current={p === page ? "page" : undefined}
-                onClick={() => {
-                  setPage(p);
-                  setSelection({});
-                }}
-              >
-                {p}
-              </Button>
-            ))}
-            <Button
-              variant="outline"
-              size="icon"
-              disabled={page >= pages || users.isPending}
-              aria-label="Next page"
-              onClick={() => {
-                setPage(page + 1);
-                setSelection({});
-              }}
-            >
-              <ChevronRight size={14} />
-            </Button>
-          </nav>
-        </div>
+        <ListPagination
+          page={page}
+          pageSize={pageSize}
+          total={total}
+          disabled={users.isPending}
+          label="User pagination"
+          onPageChange={(next) => {
+            setPage(next);
+            setSelection({});
+          }}
+          onPageSizeChange={(next) => {
+            setPageSize(next);
+            setPage(1);
+            setSelection({});
+          }}
+        />
       </div>
       {form && (
         <UserForm

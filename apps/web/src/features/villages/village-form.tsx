@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { ErrorState, Skeleton } from "@/components/shared/states";
 import { api } from "@/lib/api";
 import { parseCoordinates } from "@/lib/coordinates";
-import type { AdminVillageDto, CoordinatorOption } from "@/lib/contracts";
+import type { AdminVillageDto } from "@/lib/contracts";
 import { createVillageSchema } from "@/schemas";
 import { VillageDeleteDialog } from "./village-delete-dialog";
 
@@ -35,19 +35,9 @@ export function VillageForm({
       ? `${village.latitude}, ${village.longitude}`
       : "",
   );
-  const [selected, setSelected] = useState(
-    village?.coordinators?.map((coordinator) => coordinator.id) ?? [],
-  );
-  const [publicCoordinatorPhone, setPublicCoordinatorPhone] = useState(
-    village?.coordinators?.[0]?.publicContactPhone ?? "",
-  );
   const [validation, setValidation] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const options = useQuery({
-    queryKey: ["coordinator-options"],
-    queryFn: () => api<CoordinatorOption[]>("/v1/admin/coordinators"),
-  });
   const dependencies = useQuery({
     queryKey: ["village-dependencies", village?.id],
     queryFn: () =>
@@ -63,7 +53,6 @@ export function VillageForm({
         "villages",
         "users",
         "counts",
-        "coordinator-options",
       ].map((key) => client.invalidateQueries({ queryKey: [key] })),
     );
     onClose();
@@ -82,8 +71,6 @@ export function VillageForm({
         district,
         pinCode,
         ...parsed,
-        coordinatorIds: selected,
-        publicCoordinatorPhone,
       });
       return api(
         village ? `/v1/admin/villages/${village.id}` : "/v1/admin/villages",
@@ -140,7 +127,7 @@ export function VillageForm({
           </DialogTitle>
         </div>
         <DialogDescription className="mt-3 text-sm text-slate-500">
-          Manage village details and the assigned coordinator.
+          Manage village details.
         </DialogDescription>
         <form
           className="mt-5 space-y-4"
@@ -155,8 +142,6 @@ export function VillageForm({
               district,
               pinCode,
               ...parsed,
-              coordinatorIds: selected,
-              publicCoordinatorPhone,
             });
             if (village && coordinates.trim() && !parsed) {
               setValidation(
@@ -253,76 +238,6 @@ export function VillageForm({
                 placeholder="Verified six-digit PIN"
               />
             </div>
-            <div className="field">
-              <label htmlFor="assigned-coordinator">Assigned coordinator</label>
-              {options.isPending ? (
-                <Skeleton />
-              ) : options.error ? (
-                <ErrorState
-                  error={options.error}
-                  retry={() => void options.refetch()}
-                />
-              ) : !options.data?.length ? (
-                <p className="text-xs text-slate-500">
-                  No coordinators available. Grant the Coordinator role from
-                  Users first.
-                </p>
-              ) : (
-                <select
-                  id="assigned-coordinator"
-                  value={selected[0] ?? ""}
-                  aria-describedby="coordinator-help"
-                  onChange={(event) => {
-                    setSelected(event.target.value ? [event.target.value] : []);
-                    setPublicCoordinatorPhone("");
-                  }}
-                >
-                  <option value="">Select coordinator (unassigned)</option>
-                  {options.data.map((coordinator) => (
-                    <option
-                      key={coordinator.id}
-                      value={coordinator.id}
-                      disabled={
-                        coordinator.status !== "active" &&
-                        !selected.includes(coordinator.id)
-                      }
-                    >
-                      {coordinator.name}
-                      {coordinator.status !== "active"
-                        ? ` (${coordinator.status})`
-                        : ""}
-                    </option>
-                  ))}
-                </select>
-              )}
-              <p id="coordinator-help" className="text-xs text-slate-400">
-                Select a coordinator and save to show their name in the village
-                listing.
-              </p>
-            </div>
-            {!!selected.length && (
-              <div className="field">
-                <label htmlFor="public-coordinator-phone">
-                  Public registered coordinator contact (optional)
-                </label>
-                <input
-                  id="public-coordinator-phone"
-                  type="tel"
-                  value={publicCoordinatorPhone}
-                  maxLength={13}
-                  placeholder="+919876543210"
-                  onChange={(event) =>
-                    setPublicCoordinatorPhone(event.target.value)
-                  }
-                />
-                <p className="text-xs text-slate-400">
-                  Enter the coordinator&apos;s registered mobile number only
-                  when authorized for public contact by guests and registered
-                  users. Leave blank to hide contact. A different number will
-                  not be published.
-                </p>
-              </div>
-            )}
           </fieldset>
           {(validation || save.error) && (
             <p role="alert" className="field-error">
@@ -339,7 +254,7 @@ export function VillageForm({
               >
                 Cancel
               </Button>
-              <Button disabled={busy || options.isPending || !!options.error}>
+              <Button disabled={busy}>
                 {save.isPending
                   ? "Saving…"
                   : village
