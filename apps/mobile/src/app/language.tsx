@@ -26,6 +26,9 @@ export default function LanguageScreen() {
   const contactReturnListingId = useAppStore(
     (state) => state.contactReturnListingId,
   );
+  const contactReturnDirectoryId = useAppStore(
+    (state) => state.contactReturnDirectoryId,
+  );
   const t = messages(language);
   const [selected, setSelected] = useState<MobileVillage | null>(
     browsingVillage,
@@ -35,7 +38,14 @@ export default function LanguageScreen() {
   const submitting = useRef(false);
   if (session)
     return (
-      <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
+      <Redirect
+        href={postAuthHref(
+          session.user,
+          contactReturnListingId,
+          false,
+          contactReturnDirectoryId,
+        )}
+      />
     );
 
   async function next(

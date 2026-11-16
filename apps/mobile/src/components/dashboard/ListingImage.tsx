@@ -1,4 +1,10 @@
-import { Image, View, type StyleProp, type ImageStyle } from "react-native";
+import {
+  Image,
+  View,
+  type StyleProp,
+  type ImageStyle,
+  type ImageSourcePropType,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { HomeListing } from "../../types/home";
 import { productImages } from "./productImages";
@@ -10,11 +16,13 @@ export function ListingImage({
   style,
   resizeMode = "cover",
   iconSize = 28,
+  fallbackSource,
 }: {
   listing: Pick<HomeListing, "photoUrl" | "image">;
   style: StyleProp<ImageStyle>;
   resizeMode?: "cover" | "contain";
   iconSize?: number;
+  fallbackSource?: ImageSourcePropType;
 }) {
   const [failedUri, setFailedUri] = useState<string | null>(null);
   const uri = resolveListingPhotoUrl(
@@ -30,6 +38,15 @@ export function ListingImage({
         resizeMode={resizeMode}
         accessible={false}
         onError={() => setFailedUri(uri)}
+      />
+    );
+  if (fallbackSource)
+    return (
+      <Image
+        source={fallbackSource}
+        style={style}
+        resizeMode={resizeMode}
+        accessible={false}
       />
     );
   return listing.image ? (

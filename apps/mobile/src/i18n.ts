@@ -26,6 +26,10 @@ const en = {
     "Could not load village services and coordinator. Please retry.",
   dashboardDirectoryEmpty: "No available listings in this village yet.",
   directoryBrowse: "Browse by category",
+  directoryAvailableServices: "Available services",
+  directoryAvailableTransport: "Available transport",
+  directoryContactLoginReason:
+    "Sign in or register to see contact details for this service or vehicle.",
   directorySeeAll: "See {count} more",
   directoryShowFewer: "Show fewer",
   regCreateTitle: "Create Your Account",
@@ -811,6 +815,10 @@ const mr: Messages = {
     "गावातील सेवा आणि समन्वयकाची माहिती मिळाली नाही. पुन्हा प्रयत्न करा.",
   dashboardDirectoryEmpty: "या गावात सध्या उपलब्ध नोंदी नाहीत.",
   directoryBrowse: "श्रेणीनुसार पहा",
+  directoryAvailableServices: "उपलब्ध सेवा",
+  directoryAvailableTransport: "उपलब्ध वाहतूक",
+  directoryContactLoginReason:
+    "या सेवेचे किंवा वाहनाचे संपर्क तपशील पाहण्यासाठी लॉगिन करा किंवा नोंदणी करा.",
   directorySeeAll: "आणखी {count} पहा",
   directoryShowFewer: "कमी दाखवा",
   regCreateTitle: "तुमचे खाते तयार करा",

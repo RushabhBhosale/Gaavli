@@ -241,6 +241,7 @@ export default function VillageScreen() {
           user,
           useAppStore.getState().contactReturnListingId,
           useAppStore.getState().authMode === "login",
+          useAppStore.getState().contactReturnDirectoryId,
         ),
       );
     } catch (error) {

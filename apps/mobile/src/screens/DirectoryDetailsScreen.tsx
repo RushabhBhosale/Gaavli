@@ -1,6 +1,7 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   CONTACT_LABELS,
   PROVIDER_KINDS,
@@ -19,18 +20,28 @@ import { d } from "../components/dashboard/primitives";
 import { listingRate } from "../components/dashboard/listingText";
 import { ProviderImageGallery } from "../components/provider/ProviderImages";
 import { ApiError } from "../api/client";
+import { showGuestAuthPrompt } from "../components/guestSignUpPrompt";
 
 // A shop, service or vehicle: who it is, photos, when it is open and how to
 // reach it. The call button stays at the bottom while the page scrolls.
 export default function DirectoryDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { language, offline } = useAppStore();
+  const router = useRouter();
+  const { language, offline, session } = useAppStore();
   const t = messages(language);
   const query = useDirectoryEntry(id);
   const denied =
     query.error instanceof ApiError &&
     [401, 403, 404, 422].includes(query.error.status ?? 0);
   const entry = denied ? undefined : query.data;
+  useEffect(() => {
+    if (
+      session &&
+      entry &&
+      useAppStore.getState().contactReturnDirectoryId === id
+    )
+      useAppStore.getState().setDirectoryContactReturn(null);
+  }, [session, entry, id]);
   const invalid = !/^[a-f0-9]{24}$/i.test(id ?? "");
   const transport = entry?.module === "transport";
   const tone = transport ? "transport" : "services";
@@ -53,7 +64,14 @@ export default function DirectoryDetailsScreen() {
       ? listingRate(directoryPreview(entry), language)
       : "";
   const hours = hoursText(entry?.hours, language);
-  const first = entry?.contacts[0];
+  const first = session ? entry?.contacts[0] : undefined;
+  function requestContact() {
+    showGuestAuthPrompt(language, (mode) => {
+      useAppStore.getState().setAuthMode(mode);
+      useAppStore.getState().setDirectoryContactReturn(id);
+      router.push({ pathname: "/register", params: { mode } });
+    });
+  }
   const icon: React.ComponentProps<typeof Ionicons>["name"] = transport
     ? "car-outline"
     : entry?.category === "Medical"
@@ -72,7 +90,9 @@ export default function DirectoryDetailsScreen() {
           />
         }
         footer={
-          first ? (
+          entry && !session ? (
+            <Button onPress={requestContact}>{t.detContact}</Button>
+          ) : first ? (
             <Button
               icon={<Ionicons name="call" size={20} color="#fff" />}
               onPress={() => void Linking.openURL(`tel:+91${first.mobile}`)}
@@ -216,10 +236,13 @@ export default function DirectoryDetailsScreen() {
               <Text accessibilityRole="header" style={s.sectionTitle}>
                 {t.detContact}
               </Text>
-              {entry.contacts.length === 0 && (
+              {!session && (
+                <Text style={s.body}>{t.directoryContactLoginReason}</Text>
+              )}
+              {session && entry.contacts.length === 0 && (
                 <Text style={s.body}>{t.dirNoContact}</Text>
               )}
-              {entry.contacts.map((contact) => (
+              {(session ? entry.contacts : []).map((contact) => (
                 <View key={contact.mobile} style={[s.card, s.contact]}>
                   <View style={s.contactCopy}>
                     <Text style={s.contactLabel}>
@@ -257,7 +280,7 @@ export default function DirectoryDetailsScreen() {
                   </Pressable>
                 </View>
               ))}
-              {entry.contacts.length > 1 && (
+              {session && entry.contacts.length > 1 && (
                 <Text style={s.note}>{t.dirTryNext}</Text>
               )}
             </View>

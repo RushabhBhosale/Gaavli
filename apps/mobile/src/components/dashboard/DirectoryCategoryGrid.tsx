@@ -45,7 +45,7 @@ export function DirectoryCategoryGrid({
             const image = directoryGroupImages[group.id];
             // Independent columns and alternating artwork heights create the
             // staggered layout. Text grows freely with language and font scale.
-            const aspectRatio = (index + columnIndex) % 3 === 0 ? 0.95 : 1.4;
+            const aspectRatio = (index + columnIndex) % 3 === 0 ? 1.45 : 1.8;
 
             return (
               <Pressable
@@ -85,7 +85,7 @@ export function DirectoryCategoryGrid({
 
 const s = StyleSheet.create({
   grid: { flexDirection: "row", alignItems: "flex-start", gap: 12 },
-  column: { flex: 1, minWidth: 0, gap: 16 },
+  column: { flex: 1, minWidth: 0, gap: 12 },
   tile: {
     borderRadius: theme.radii.artwork,
     backgroundColor: theme.colors.surface,
@@ -96,9 +96,9 @@ const s = StyleSheet.create({
     elevation: 3,
   },
   tileContent: { borderRadius: theme.radii.artwork, overflow: "hidden" },
-  artwork: { width: "100%" },
-  copy: { padding: 12, gap: 6 },
-  label: { ...theme.type.subheading, color: theme.colors.heading },
-  count: { ...theme.type.caption },
+  artwork: { width: "100%", maxHeight: 132 },
+  copy: { padding: 10, gap: 4 },
+  label: { ...theme.type.label, color: theme.colors.heading },
+  count: { ...theme.type.micro },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

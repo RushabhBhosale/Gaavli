@@ -1,3 +1,21 @@
+## Contact login requirement — 2026-11-13 (user approved)
+
+Services and Transport contact disclosure requires a valid active mobile bearer
+session. Guest dashboard previews, directory lists and entry details return
+`contacts: []`. Authenticated reads return only the provider numbers already
+approved for publication. Invalid or revoked bearer sessions return 401.
+
+Mobile guests see a contact button that offers login or registration. The phone
+numbers, Call and WhatsApp actions render only with a session. After OTP and any
+required village confirmation, contact-triggered auth returns to the same entry
+and preserves the browsing village. Login/registration return context is held
+in memory and cleared on logout or a new contact target.
+
+The mobile browsing cache strips directory contacts before saving and while
+restoring older cache files. Entry details refresh on mount to fetch authorized
+contacts. This supersedes earlier anonymous provider-contact publication.
+Deploy the API update and install the updated APK for the complete flow.
+
 ## Mapped discovery update — 2026-11-13 (user approved)
 
 Dashboard previews, Services/Transport lists, category summaries and entry details

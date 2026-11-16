@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import {
   persistQueryCache,
   restoreQueryCache,
@@ -63,6 +63,61 @@ test("an old or damaged cache is ignored", async () => {
     await restoreQueryCache(client, store, 1000 + QUERY_CACHE_MAX_AGE_MS + 1),
     false,
   );
+});
+
+test("directory contacts stay in session memory and are stripped from saved browsing data", async () => {
+  const store = storage();
+  const client = new QueryClient();
+  const entry = {
+    id: "entry",
+    name: "Service",
+    contacts: [{ mobile: "9876543215", whatsapp: true }],
+  };
+  const stop = persistQueryCache(client, store, 0);
+  client.setQueryData(["directory-entry", "user", "village", "entry"], entry);
+  client.setQueryData(["directory", "user", "village", "services", ""], {
+    pages: [{ entries: [entry], total: 1 }],
+    pageParams: [1],
+  });
+  client.setQueryData(["dashboard-directory", "user", "village"], {
+    services: { entries: [entry], total: 1 },
+    transport: { entries: [entry], total: 1 },
+  });
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  stop();
+  assert.ok(store.box.value);
+  assert.ok(!store.box.value.includes("9876543215"));
+  assert.deepEqual(
+    client.getQueryData(["directory-entry", "user", "village", "entry"]),
+    entry,
+  );
+  const restored = new QueryClient();
+  assert.equal(await restoreQueryCache(restored, store), true);
+  assert.deepEqual(
+    restored.getQueryData(["directory-entry", "user", "village", "entry"]),
+    { ...entry, contacts: [] },
+  );
+});
+
+test("restoring an older cache removes guest directory contacts from memory and storage", async () => {
+  const store = storage();
+  const old = new QueryClient();
+  old.setQueryData(["directory-entry", "guest", "village", "entry"], {
+    id: "entry",
+    contacts: [{ mobile: "9876543215" }],
+  });
+  store.box.value = JSON.stringify({
+    version: 1,
+    savedAt: Date.now(),
+    state: dehydrate(old),
+  });
+  const restored = new QueryClient();
+  assert.equal(await restoreQueryCache(restored, store), true);
+  assert.deepEqual(
+    restored.getQueryData(["directory-entry", "guest", "village", "entry"]),
+    { id: "entry", contacts: [] },
+  );
+  assert.ok(!store.box.value.includes("9876543215"));
 });
 
 test("categories are kept and searched lists are not", async () => {

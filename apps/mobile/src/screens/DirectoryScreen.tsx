@@ -1,5 +1,13 @@
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   directoryGroupLabel,
@@ -10,12 +18,11 @@ import {
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { useDirectory, useDirectorySummary } from "../directory";
-import { directoryPreview } from "../data/directory";
 import { theme } from "../theme";
 import { Button, ErrorMessage, Screen, SkeletonList } from "../components/ui";
 import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
-import { ProductCard } from "../components/dashboard/ProductCard";
+import { DirectoryListingCard } from "../components/dashboard/DirectoryListingCard";
 import { d } from "../components/dashboard/primitives";
 import { DirectoryCategoryGrid } from "../components/dashboard/DirectoryCategoryGrid";
 
@@ -30,6 +37,16 @@ export default function DirectoryScreen({
   const router = useRouter();
   const { language, offline } = useAppStore();
   const t = messages(language);
+  const scrollRef = useRef<ScrollView>(null);
+  const { width } = useWindowDimensions();
+  const previewWidth = Math.max(
+    144,
+    Math.min(
+      200,
+      (Math.min(width - 40, theme.layout.contentWidth - 40) - 12) / 2.15,
+    ),
+  );
+  const [viewAll, setViewAll] = useState(false);
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<DirectoryGroupId | null>(null);
@@ -43,6 +60,7 @@ export default function DirectoryScreen({
     setInput(text);
     setSearch(text);
     setCategory(null);
+    setViewAll(false);
   }
   useEffect(() => {
     const timer = setTimeout(() => setSearch(input.trim()), 300);
@@ -50,27 +68,31 @@ export default function DirectoryScreen({
   }, [input]);
   const summary = useDirectorySummary(module);
   const counts = new Map(summary.data?.groups.map((g) => [g.id, g.count]));
-  const showTiles = !category && !input.trim();
+  const showOverview = !viewAll && !category && !input.trim();
   const searchPending = input.trim() !== search;
   const query = useDirectory(module, search, category);
+  const { isFetching, isError, hasNextPage, fetchNextPage } = query;
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+  }, [category, viewAll, showOverview]);
   useEffect(() => {
     if (
-      !showTiles &&
+      !showOverview &&
       !searchPending &&
       !offline &&
-      !query.isFetching &&
-      !query.isError &&
-      query.hasNextPage
+      !isFetching &&
+      !isError &&
+      hasNextPage
     )
-      void query.fetchNextPage();
+      void fetchNextPage();
   }, [
     offline,
-    query.fetchNextPage,
-    query.hasNextPage,
-    query.isError,
-    query.isFetching,
+    fetchNextPage,
+    hasNextPage,
+    isError,
+    isFetching,
     searchPending,
-    showTiles,
+    showOverview,
   ]);
   const entries = Array.from(
     new Map(
@@ -91,6 +113,7 @@ export default function DirectoryScreen({
   return (
     <ProtectedPage allowGuest>
       <Screen
+        scrollRef={scrollRef}
         header={
           <AppHeader
             title={title}
@@ -102,8 +125,9 @@ export default function DirectoryScreen({
             // Inside a category (or a search) the way back is up one level,
             // from the same fixed spot as everywhere else.
             onBack={
-              category || input.trim()
+              !showOverview
                 ? () => {
+                    setViewAll(false);
                     setCategory(null);
                     setInput("");
                     setSearch("");
@@ -131,8 +155,89 @@ export default function DirectoryScreen({
             </Text>
           </View>
         )}
-        {showTiles && (
+        {showOverview && (
+          <View style={s.previewSection}>
+            <View style={s.sectionHeader}>
+              <Text accessibilityRole="header" style={s.sectionTitle}>
+                {module === "services"
+                  ? t.directoryAvailableServices
+                  : t.directoryAvailableTransport}
+              </Text>
+              {entries.length > 0 && (
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => setViewAll(true)}
+                  style={({ pressed }) => [s.viewAll, pressed && d.pressed]}
+                >
+                  <Text
+                    style={[
+                      s.viewAllText,
+                      { color: theme.modules[module].color },
+                    ]}
+                  >
+                    {t.viewAll}
+                  </Text>
+                  <Ionicons
+                    accessible={false}
+                    name="chevron-forward"
+                    size={14}
+                    color={theme.modules[module].color}
+                  />
+                </Pressable>
+              )}
+            </View>
+            {query.isPending && !offline && (
+              <SkeletonList rows={1} label={t.listingsLoading} />
+            )}
+            {query.isError && !offline && (
+              <>
+                <ErrorMessage message={t.dashboardDirectoryFailed} />
+                <Button secondary onPress={() => void query.refetch()}>
+                  {t.retry}
+                </Button>
+              </>
+            )}
+            {entries.length > 0 && (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={s.previewRail}
+                keyboardShouldPersistTaps="handled"
+              >
+                {entries.slice(0, 6).map((entry) => (
+                  <DirectoryListingCard
+                    key={entry.id}
+                    entry={entry}
+                    language={language}
+                    width={previewWidth}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/directory/[id]",
+                        params: { id: entry.id },
+                      })
+                    }
+                  />
+                ))}
+              </ScrollView>
+            )}
+            {offline && (
+              <Text style={d.description}>
+                {query.data ? t.listingsOffline : t.listingsOfflineEmpty}
+              </Text>
+            )}
+            {!offline &&
+              !query.isPending &&
+              !query.isError &&
+              !entries.length && (
+                <Text style={d.description}>{t.dashboardDirectoryEmpty}</Text>
+              )}
+          </View>
+        )}
+        {showOverview && (
           <>
+            <Text accessibilityRole="header" style={s.sectionTitle}>
+              {t.directoryBrowse}
+            </Text>
             {summary.isPending && !offline && (
               <SkeletonList rows={3} label={t.listingsLoading} />
             )}
@@ -158,7 +263,7 @@ export default function DirectoryScreen({
             )}
           </>
         )}
-        {!showTiles && (
+        {!showOverview && (
           <>
             {offline && (
               <Text style={d.description}>
@@ -176,15 +281,14 @@ export default function DirectoryScreen({
                 </Button>
               </>
             )}
-            {!query.isPending && !query.isError && !entries.length && (
+            {!query.isPending && !isError && !entries.length && (
               <Text style={d.description}>{t.dashboardDirectoryEmpty}</Text>
             )}
             {entries.map((entry) => (
-              <ProductCard
+              <DirectoryListingCard
                 key={entry.id}
-                listing={directoryPreview(entry)}
+                entry={entry}
                 language={language}
-                compact
                 wide
                 onPress={() =>
                   router.push({
@@ -201,6 +305,26 @@ export default function DirectoryScreen({
   );
 }
 const s = StyleSheet.create({
+  previewSection: { gap: 12 },
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  sectionTitle: {
+    ...theme.type.subheading,
+    color: theme.colors.heading,
+    flexShrink: 1,
+  },
+  previewRail: { gap: 12, paddingBottom: 2 },
+  viewAll: {
+    flexDirection: "row",
+    alignItems: "center",
+    minHeight: 44,
+    gap: 2,
+  },
+  viewAllText: { ...theme.type.micro },
   crumb: { gap: 6 },
   crumbTitle: { ...theme.type.heading, color: theme.colors.heading },
 });

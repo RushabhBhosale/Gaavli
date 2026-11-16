@@ -150,7 +150,9 @@ export async function findDirectory(
               nameMr: { $ifNull: ["$professionMr", null] },
               description: { $ifNull: ["$description", null] },
               category: { $ifNull: ["$serviceCategory", "Other"] },
-              contacts: { $ifNull: ["$contacts", []] },
+              contacts: viewerId
+                ? { $ifNull: ["$contacts", []] }
+                : { $literal: [] },
               images: { $ifNull: ["$images", []] },
               hours: { $ifNull: ["$hours", null] },
               providerType: { $ifNull: ["$providerType", null] },

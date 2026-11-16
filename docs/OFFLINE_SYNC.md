@@ -1,3 +1,11 @@
+## Directory contact cache revision — 2026-11-13
+
+Services and Transport browsing data remains cacheable with contact arrays
+stripped before persistence. Older saved directory data is sanitized before
+hydration and rewritten. Fresh authenticated detail reads supply contacts to
+session memory, while guest details always hide contact controls. Cached public
+entry names, photos, rates, counts and village data remain available offline.
+
 > Notification badge/read revision - 2026-10-28 (user approved): counts and read
 > state use account-scoped memory queries, never public SQLite listing caches.
 > Pause count/list polling while inactive, offline or signed out; refresh on

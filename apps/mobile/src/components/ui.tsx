@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode, type RefObject } from "react";
 import {
   ActivityIndicator,
   Animated,
@@ -28,6 +28,7 @@ export function Screen({
   topContent,
   header,
   back,
+  scrollRef,
 }: {
   children: ReactNode;
   compact?: boolean;
@@ -38,6 +39,7 @@ export function Screen({
   // An AppHeader. It sits above everything and draws behind the status bar,
   // so the page content below only needs the bottom and side safe areas.
   header?: ReactNode;
+  scrollRef?: RefObject<ScrollView | null>;
 }) {
   const offline = useAppStore((state) => state.offline);
   const language = useAppStore((state) => state.language);
@@ -64,6 +66,7 @@ export function Screen({
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <ScrollView
+            ref={scrollRef}
             contentContainerStyle={[
               styles.content,
               compact && { paddingTop: 8, gap: 12 },

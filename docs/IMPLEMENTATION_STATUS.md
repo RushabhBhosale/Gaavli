@@ -1,3 +1,67 @@
+## 2026-11-13 - Android Gradle cache recovery
+
+- Recovered release building after a missing transformed React settings plugin
+  JAR. Verified the source/cached plugin archives, restored declared Gradle
+  dependencies through an online build, and restarted the Gradle daemon to
+  discard stale references to absent AndroidX transform outputs.
+- Native compilation encountered a full filesystem during cache recovery.
+  Cleared generated debug native intermediates under the app and node_modules
+  Android build folders, then retried with adequate disk space.
+- Verified the user's exact `./gradlew assembleRelease` command. BUILD SUCCESSFUL
+  in 3m 5s, 954 tasks (36 executed, 918 up-to-date). Both ARM64 and 32-bit release
+  APK archives passed integrity checks. Build settings and dependencies use the
+  project's existing declarations.
+
+## 2026-11-13 - Login required for Services and Transport contacts
+
+- IMPLEMENTED — VERIFICATION PENDING (API deployment/device). Guest dashboard,
+  directory list and detail responses project empty contacts arrays. Authenticated
+  active mobile sessions receive the existing provider-approved numbers.
+- Mobile hides contact numbers, Call and WhatsApp while signed out, and offers
+  login/registration from the contact button. A separate session-local directory
+  return target survives OTP and required village confirmation, then returns to
+  the same entry. Contact registration bypasses the optional provider welcome
+  step. Pending marketplace/directory targets replace each other and logout
+  clears both. Directory details fetch fresh authorized contacts on mount.
+- Persisted directory browsing responses strip contacts without mutating the
+  in-memory authenticated response. Restoring older cache files sanitizes them
+  before hydration and rewrites their safe browsing data.
+- Passed real-route dashboard/directory integration in a fresh isolated MongoDB
+  database with cleanup. Checks cover service/transport guest lists/details,
+  authenticated contacts, mapped villages, invalid/revoked sessions and privacy.
+  All 29 focused onboarding/browsing/cache tests passed, along with web TypeScript,
+  targeted ESLint and whitespace checks. Android release build and both APK
+  archive integrity checks passed. Mobile TypeScript retains four existing
+  AppAlertHost/coordinator/Hindi translation errors. Device auth/dialer/WhatsApp
+  checks and hosted API deployment remain pending.
+- A full filesystem blocked the first edit. Removed generated Android debug
+  merged/stripped native intermediates to reclaim about 720 MB and continue.
+
+## 2026-11-13 - Listings above Services and Transport categories
+
+- IMPLEMENTED — VERIFICATION PENDING (device visuals). Services and Transport
+  open with a compact horizontal row of up to six real directory listings above
+  the illustrated category masonry. Each card shows its uploaded first photo
+  when available, with category artwork as fallback, localized name, village
+  and rate. Existing loading, empty, offline and retry states remain available.
+- View All opens the complete module results; categories and search open filtered
+  results using the same photo cards in compact rows. Back returns to the
+  overview, and changing view scrolls to the top. Added English/Marathi/Hindi
+  section labels and an optional Screen scroll ref for this navigation.
+- Targeted ESLint, Prettier and whitespace checks passed. Android release build
+  passed and both APKs passed archive integrity checks. Mobile TypeScript still
+  reports the four existing AppAlertHost/coordinator/Hindi translation errors.
+  No device visual or interaction checks were run.
+
+## 2026-11-13 - Compact mobile masonry cards
+
+- Reduced Services/Transport artwork heights using landscape aspect ratios and a
+  132 dp maximum, tightened card padding and vertical gaps, and applied the shared
+  14 px label/12 px count styles. The staggered columns and wrapping localized
+  labels are preserved.
+- Targeted ESLint, Prettier and whitespace checks passed. Android release APK
+  build passed. Device visual and large-font acceptance remain pending.
+
 ## 2026-11-13 - Mapped discovery and Add Buyer crash fix
 
 - IMPLEMENTED — VERIFICATION PENDING (API deployment/device). Home, Marketplace,

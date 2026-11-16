@@ -27,6 +27,7 @@ export default function OtpScreen() {
     draft,
     offline,
     contactReturnListingId,
+    contactReturnDirectoryId,
     authMode,
   } = useAppStore();
   const t = messages(language);
@@ -51,6 +52,7 @@ export default function OtpScreen() {
           session.user,
           contactReturnListingId,
           authMode === "login",
+          contactReturnDirectoryId,
         )}
       />
     );
@@ -96,15 +98,16 @@ export default function OtpScreen() {
         }
       }
       const listingId = useAppStore.getState().contactReturnListingId;
+      const directoryId = useAppStore.getState().contactReturnDirectoryId;
       const extras = useAppStore.getState().registration;
       if (authMode === "register")
         user = await finishRegistration(user, extras);
       pendingSession.current = null;
       useAppStore.getState().clearRegistration();
       router.replace(
-        authMode === "register" && user.village
+        authMode === "register" && user.village && !directoryId
           ? "/provider/welcome"
-          : postAuthHref(user, listingId, authMode === "login"),
+          : postAuthHref(user, listingId, authMode === "login", directoryId),
       );
     } catch (failure) {
       setNeedsRegistration(

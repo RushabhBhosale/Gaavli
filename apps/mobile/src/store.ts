@@ -41,8 +41,10 @@ type AppState = OnboardingPreferences & {
   challenge: OtpChallenge | null;
   authMode: "login" | "register";
   contactReturnListingId: string | null;
+  contactReturnDirectoryId: string | null;
   setAuthMode: (mode: "login" | "register") => void;
   setContactReturn: (listingId: string | null) => void;
+  setDirectoryContactReturn: (directoryId: string | null) => void;
   setSession: (session: MobileSession | null) => void;
   setDraft: (draft: RegistrationDraft) => void;
   setChallenge: (challenge: OtpChallenge | null) => void;
@@ -68,8 +70,12 @@ export const useAppStore = create<AppState>((set) => ({
   challenge: null,
   authMode: "register",
   contactReturnListingId: null,
+  contactReturnDirectoryId: null,
   setAuthMode: (authMode) => set({ authMode, challenge: null }),
-  setContactReturn: (contactReturnListingId) => set({ contactReturnListingId }),
+  setContactReturn: (contactReturnListingId) =>
+    set({ contactReturnListingId, contactReturnDirectoryId: null }),
+  setDirectoryContactReturn: (contactReturnDirectoryId) =>
+    set({ contactReturnDirectoryId, contactReturnListingId: null }),
   setSession: (session) =>
     set((state) => ({
       session,
@@ -93,6 +99,7 @@ export const useAppStore = create<AppState>((set) => ({
       challenge: null,
       authMode: "login",
       contactReturnListingId: null,
+      contactReturnDirectoryId: null,
     }),
   setLanguage: (language) => set({ language }),
   restore: (preferences) =>

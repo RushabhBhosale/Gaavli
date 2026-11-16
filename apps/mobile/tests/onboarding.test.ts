@@ -127,6 +127,56 @@ test("registration preserves the selected product through session publication an
     useAppStore.setState(previous);
   }
 });
+test("directory contact login preserves its target through onboarding and resets on logout or another contact", () => {
+  const previous = useAppStore.getState();
+  const id = "cd".repeat(12);
+  const village = {
+    id: "village",
+    name: "Palaspe",
+    nameMr: "पळस्पे",
+    taluka: "Panvel",
+    district: "Raigad",
+    pinCode: null,
+  };
+  try {
+    useAppStore.getState().clearAuthenticatedState();
+    useAppStore.getState().setBrowsingVillage(village);
+    useAppStore.getState().setDirectoryContactReturn(id);
+    assert.equal(postAuthHref(session.user, null, true, id), "/village");
+    for (const login of [false, true]) {
+      useAppStore.getState().setAuthMode(login ? "login" : "register");
+      useAppStore
+        .getState()
+        .setSession({ ...session, user: { ...session.user, village } });
+      useAppStore.getState().clearRegistration();
+      const state = useAppStore.getState();
+      assert.equal(state.browsingVillage, village);
+      assert.equal(state.contactReturnDirectoryId, id);
+      assert.equal(
+        postAuthHref(
+          state.session!.user,
+          state.contactReturnListingId,
+          login,
+          state.contactReturnDirectoryId,
+        ),
+        `/directory/${id}`,
+      );
+    }
+    assert.notEqual(
+      postAuthHref({ ...session.user, village }, null, true, "invalid"),
+      "/directory/invalid",
+    );
+    useAppStore.getState().setContactReturn("ab".repeat(12));
+    assert.equal(useAppStore.getState().contactReturnDirectoryId, null);
+    useAppStore.getState().setDirectoryContactReturn(id);
+    assert.equal(useAppStore.getState().contactReturnListingId, null);
+    useAppStore.getState().clearAuthenticatedState();
+    assert.equal(useAppStore.getState().contactReturnDirectoryId, null);
+  } finally {
+    useAppStore.setState(previous);
+  }
+});
+
 test("session storage failure never commits authenticated navigation; saving can be retried", async () => {
   let saved: MobileSession | null = null;
   let fail = true;

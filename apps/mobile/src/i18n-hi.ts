@@ -26,6 +26,10 @@ export const hi: Messages = {
     "गाँव की सेवाएँ और समन्वयक लोड नहीं हो सके। कृपया फिर से कोशिश करें।",
   dashboardDirectoryEmpty: "इस गाँव में अभी कोई लिस्टिंग उपलब्ध नहीं है।",
   directoryBrowse: "श्रेणी के अनुसार देखें",
+  directoryAvailableServices: "उपलब्ध सेवाएँ",
+  directoryAvailableTransport: "उपलब्ध परिवहन",
+  directoryContactLoginReason:
+    "इस सेवा या वाहन के संपर्क विवरण देखने के लिए लॉगिन या पंजीकरण करें।",
   directorySeeAll: "{count} और देखें",
   directoryShowFewer: "कम दिखाएँ",
   regCreateTitle: "अपना खाता बनाएँ",

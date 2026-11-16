@@ -84,6 +84,8 @@ export function useDirectoryEntry(id: string) {
   const village = useAppStore(browsingVillageFor);
   return useQuery({
     queryKey: ["directory-entry", session?.user.id ?? "guest", village?.id, id],
+    staleTime: 0,
+    refetchOnMount: "always",
     enabled:
       !!village &&
       /^[a-f0-9]{24}$/i.test(id) &&

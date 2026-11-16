@@ -162,6 +162,7 @@ try {
     keywords: ["wiring"],
     price: 100,
     unit: "hour",
+    contacts: [{ label: "primary", mobile: "9876543215", whatsapp: true }],
   };
   const rows = await Service.create([
     ...Array.from({ length: 7 }, () => ({ ...base })),
@@ -177,10 +178,24 @@ try {
   const guest = await home();
   const signed = await home(true);
   assert.equal(guest.services.total, 8);
+  for (const entry of [...guest.services.entries, ...guest.transport.entries])
+    assert.deepEqual(entry.contacts, []);
+  assert.equal(JSON.stringify(guest).includes("9876543215"), false);
   // Your own entries stay in the lists (marked as yours).
   assert.equal(signed.services.total, 8);
   assert.equal(signed.transport.total, 2);
   assert.equal(signed.services.entries.length, 4);
+  for (const entry of [...signed.services.entries, ...signed.transport.entries])
+    assert.equal(entry.contacts[0]?.mobile, "9876543215");
+  for (const directoryModule of ["services", "transport"]) {
+    const response = await directory(
+      request("directory", { module: directoryModule, limit: "50" }),
+    );
+    const guestPage = directoryPageSchema.parse((await response.json()).data);
+    assert.ok(guestPage.entries.length);
+    assert.ok(guestPage.entries.every((entry) => entry.contacts.length === 0));
+    assert.equal(JSON.stringify(guestPage).includes("9876543215"), false);
+  }
   // The dashboard picks at random from the pool, so repeated visits differ.
   const seen = new Set<string>();
   for (let i = 0; i < 12; i++)
@@ -290,7 +305,32 @@ try {
     params: Promise.resolve({ id: String(rows[0]._id) }),
   });
   assert.equal(itemResponse.status, 200);
-  directoryEntrySchema.parse((await itemResponse.json()).data);
+  const guestDetail = directoryEntrySchema.parse(
+    (await itemResponse.json()).data,
+  );
+  assert.deepEqual(guestDetail.contacts, []);
+  const signedDetailResponse = await detail(
+    request(`directory/${rows[0]._id}`, {}, true),
+    {
+      params: Promise.resolve({ id: String(rows[0]._id) }),
+    },
+  );
+  assert.equal(signedDetailResponse.status, 200);
+  assert.equal(
+    (await signedDetailResponse.json()).data.contacts[0].mobile,
+    "9876543215",
+  );
+  for (const authenticated of [false, true]) {
+    const transportDetail = await detail(
+      request(`directory/${rows[7]._id}`, {}, authenticated),
+      { params: Promise.resolve({ id: String(rows[7]._id) }) },
+    );
+    assert.equal(transportDetail.status, 200);
+    const entry = directoryEntrySchema.parse(
+      (await transportDetail.json()).data,
+    );
+    assert.equal(entry.contacts.length, authenticated ? 1 : 0);
+  }
   const foreign = await detail(request(`directory/${rows[9]._id}`), {
     params: Promise.resolve({ id: String(rows[9]._id) }),
   });
@@ -318,6 +358,16 @@ try {
     headers: { Authorization: `Bearer ${"0".repeat(64)}` },
   });
   assert.equal((await dashboard(badToken)).status, 401);
+  assert.equal(
+    (
+      await directory(
+        new Request(request("directory"), {
+          headers: { Authorization: `Bearer ${"0".repeat(64)}` },
+        }),
+      )
+    ).status,
+    401,
+  );
   assert.equal(
     (
       await dashboard(
@@ -381,6 +431,13 @@ try {
     assert.equal(response.status, 200);
     const data = directoryPageSchema.parse((await response.json()).data);
     assert.equal(data.total, servicesTiles.total + 1);
+    assert.ok(
+      data.entries.every((entry) =>
+        authenticated
+          ? entry.contacts[0]?.mobile === "9876543215"
+          : entry.contacts.length === 0,
+      ),
+    );
     assert.ok(data.entries.some((entry) => entry.id === String(rows[9]._id)));
     assert.ok(
       data.entries.every((entry) =>
@@ -392,10 +449,11 @@ try {
       { params: Promise.resolve({ id: String(rows[9]._id) }) },
     );
     assert.equal(responseDetail.status, 200);
-    assert.equal(
-      (await responseDetail.json()).data.village.id,
-      String(other._id),
+    const mappedDetail = directoryEntrySchema.parse(
+      (await responseDetail.json()).data,
     );
+    assert.equal(mappedDetail.village.id, String(other._id));
+    assert.equal(mappedDetail.contacts.length, authenticated ? 1 : 0);
   }
   assert.equal(
     (await counts("services")).byGroup.repairs,
@@ -436,8 +494,20 @@ try {
     404,
     "removing the mapping also revokes detail discovery",
   );
+  await User.updateOne({ _id: viewer._id }, { $set: { status: "blocked" } });
+  const revokedContact = await detail(
+    request(`directory/${rows[0]._id}`, {}, true),
+    {
+      params: Promise.resolve({ id: String(rows[0]._id) }),
+    },
+  );
+  assert.equal(revokedContact.status, 401);
+  assert.equal(
+    JSON.stringify(await revokedContact.json()).includes("9876543215"),
+    false,
+  );
   console.log(
-    "PASS: dashboard and directory routes, category counts, bounded previews, pagination/search, direct bidirectional mapped-village discovery, inactive/unmapped exclusions, mapping removal, public contact opt-in/revocation, privacy, validation and auth.",
+    "PASS: guest contact redaction across dashboard/lists/details, authenticated service/transport contacts, invalid/revoked sessions, mapped discovery/counts/search/pagination, inactive exclusions and mapping removal.",
   );
 } finally {
   if (

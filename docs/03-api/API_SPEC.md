@@ -1,3 +1,11 @@
+# Directory contact authentication — 2026-11-13 (user approved)
+
+Guest `/dashboard`, `/directory` and `/directory/:id` responses use empty
+`contacts` arrays for service/transport entries. Active authenticated mobile
+reads return the provider-approved contact numbers. Invalid/revoked bearer
+credentials are rejected with 401. Response schemas and endpoint parameters
+are unchanged. See DASHBOARD_DIRECTORY.md.
+
 # Mapped-village discovery — 2026-11-13 (user approved)
 
 `GET /dashboard`, `/directory`, `/directory/summary` and `/directory/:id` use

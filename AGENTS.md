@@ -1,3 +1,9 @@
+> Directory contact revision - 2026-11-13 (user approved): Services and
+> Transport require mobile login to reveal provider contact numbers and
+> Call/WhatsApp actions. Guest directory/dashboard/detail responses return empty
+> contacts arrays. Contact-triggered auth returns to the same directory entry,
+> and directory contacts stay outside persisted mobile browsing caches.
+
 > Mapped-village discovery revision - 2026-11-13 (user approved): Home,
 > Marketplace, Services and Transport include the selected browsing village and
 > its directly mapped active villages through active coordinator-confirmed

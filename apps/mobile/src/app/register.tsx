@@ -44,6 +44,7 @@ export default function RegistrationScreen() {
     offline,
     authMode: storedAuthMode,
     contactReturnListingId,
+    contactReturnDirectoryId,
     browsingVillage,
     registration,
   } = useAppStore();
@@ -73,6 +74,7 @@ export default function RegistrationScreen() {
           session.user,
           contactReturnListingId,
           authMode === "login",
+          contactReturnDirectoryId,
         )}
       />
     );
@@ -195,11 +197,13 @@ export default function RegistrationScreen() {
         {registering ? t.regCreateTitle : t.loginTitle}
       </Text>
       <Text style={[styles.body, st.center]}>
-        {contactReturnListingId
-          ? t.contactSellerReason
-          : registering
-            ? t.registrationDescription
-            : t.loginDescription}
+        {contactReturnDirectoryId
+          ? t.directoryContactLoginReason
+          : contactReturnListingId
+            ? t.contactSellerReason
+            : registering
+              ? t.registrationDescription
+              : t.loginDescription}
       </Text>
       {registering ? (
         <>

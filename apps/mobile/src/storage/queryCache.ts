@@ -24,6 +24,32 @@ const PERSISTED_QUERIES = new Set([
 // Searched variants are throwaway; only the plain, unsearched lists are worth
 // keeping for the next start.
 const UNSEARCHED_ONLY = new Set(["marketplace-listings", "directory"]);
+const DIRECTORY_QUERIES = new Set([
+  "dashboard-directory",
+  "directory",
+  "directory-entry",
+]);
+
+function withoutContacts(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(withoutContacts);
+  if (value && typeof value === "object")
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entry]) => [
+        key,
+        key === "contacts" ? [] : withoutContacts(entry),
+      ]),
+    );
+  return value;
+}
+
+function publicDirectoryQuery(query: DehydratedState["queries"][number]) {
+  if (!DIRECTORY_QUERIES.has(String(query.queryKey[0]))) return query;
+  return {
+    ...query,
+    state: { ...query.state, data: withoutContacts(query.state.data) },
+  };
+}
+
 export const QUERY_CACHE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
 const MAX_BYTES = 2_000_000;
 
@@ -52,7 +78,17 @@ export async function restoreQueryCache(
       now - parsed.savedAt > QUERY_CACHE_MAX_AGE_MS
     )
       return false;
-    hydrate(client, parsed.state);
+    const state = {
+      ...parsed.state,
+      queries: parsed.state.queries
+        .filter((query) => PERSISTED_QUERIES.has(String(query.queryKey[0])))
+        .map(publicDirectoryQuery),
+    };
+    hydrate(client, state);
+    // Older cache files may contain directory contacts. Rewrite their safe
+    // public data before the app resumes browsing.
+    if (JSON.stringify(state) !== JSON.stringify(parsed.state))
+      await storage.write(JSON.stringify({ ...parsed, state }));
     return true;
   } catch {
     return false;
@@ -82,9 +118,9 @@ export function persistQueryCache(
     });
     // Newest first, so a full cache drops the oldest lists instead of
     // refusing to save anything.
-    const queries = [...state.queries].sort(
-      (a, b) => b.state.dataUpdatedAt - a.state.dataUpdatedAt,
-    );
+    const queries = state.queries
+      .map(publicDirectoryQuery)
+      .sort((a, b) => b.state.dataUpdatedAt - a.state.dataUpdatedAt);
     const kept: typeof queries = [];
     let size = 0;
     for (const query of queries) {
