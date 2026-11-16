@@ -6,6 +6,7 @@ import {
   directoryPageSchema,
   directorySummarySchema,
   productShopsSchema,
+  directoryShopProductsSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "./store";
 import { browsingVillageFor } from "./storage/browsingVillage";
@@ -117,6 +118,31 @@ export function useProductShops(search: string, limit = 5) {
       (session ? authenticatedApi : api)(
         `/directory/product-shops?${new URLSearchParams({ sourceVillageId: village!.id, q: search, limit: String(limit) })}`,
         productShopsSchema,
+        { signal },
+      ),
+    retry,
+  });
+}
+// What one shop sells, for its details page.
+export function useDirectoryShopProducts(id: string, enabled: boolean) {
+  const session = useAppStore((state) => state.session);
+  const village = useAppStore(browsingVillageFor);
+  return useQuery({
+    queryKey: [
+      "directory-shop-products",
+      session?.user.id ?? "guest",
+      village?.id,
+      id,
+    ],
+    enabled:
+      enabled &&
+      !!village &&
+      /^[a-f0-9]{24}$/i.test(id) &&
+      (!session || !!session.user.village),
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/directory/${id}/products?sourceVillageId=${village!.id}`,
+        directoryShopProductsSchema,
         { signal },
       ),
     retry,

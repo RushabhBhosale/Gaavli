@@ -79,7 +79,5 @@ person; groceries in particular lead with dry fruits rather than staples.
 - Existing shops have no groups until their owner edits the profile.
 
 - Searching the full catalogue for items beyond the popular chips.
-- Showing "Sells ..." on the public shop details screen (needs a lenient,
-  versioned DTO field so installed APKs keep parsing directory entries).
 - Admin editing of shop-type suggestions (they are code constants today).
 - "Open today" toggle.

@@ -47,6 +47,7 @@ export {
   dashboardDirectorySchema,
   productShopsQuerySchema,
   productShopsSchema,
+  directoryShopProductsSchema,
 } from "./directory";
 export {
   mobileProfileSchema,

@@ -5,12 +5,13 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   CONTACT_LABELS,
   PROVIDER_KINDS,
+  shopProductGroup,
   type ProviderType,
 } from "@gaavli/constants";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { theme } from "../theme";
-import { useDirectoryEntry } from "../directory";
+import { useDirectoryEntry, useDirectoryShopProducts } from "../directory";
 import { directoryPreview } from "../data/directory";
 import { hoursText } from "../data/operatingHours";
 import { Button, ErrorMessage, Screen } from "../components/ui";
@@ -64,6 +65,22 @@ export default function DirectoryDetailsScreen() {
       ? listingRate(directoryPreview(entry), language)
       : "";
   const hours = hoursText(entry?.hours, language);
+  const sells = useDirectoryShopProducts(
+    id ?? "",
+    entry?.providerType === "SHOP_BUSINESS",
+  ).data;
+  const sellsGroups = (sells?.groups ?? []).flatMap((groupId) => {
+    const group = shopProductGroup(groupId);
+    return group ? [group] : [];
+  });
+  const sellsItems = (sells?.products ?? []).map(
+    (item) =>
+      (language === "mr"
+        ? item.nameMr
+        : language === "hi"
+          ? item.nameHi
+          : null) || item.nameEn,
+  );
   const first = session ? entry?.contacts[0] : undefined;
   function requestContact() {
     showGuestAuthPrompt(language, (mode) => {
@@ -169,6 +186,48 @@ export default function DirectoryDetailsScreen() {
                   {t.detPhotos}
                 </Text>
                 <ProviderImageGallery images={entry.images ?? []} />
+              </View>
+            )}
+
+            {(sellsGroups.length > 0 || sellsItems.length > 0) && (
+              <View style={s.section}>
+                <Text accessibilityRole="header" style={s.sectionTitle}>
+                  {t.detSells}
+                </Text>
+                <View style={s.card}>
+                  {sellsGroups.length > 0 && (
+                    <View style={s.sellsRow}>
+                      {sellsGroups.map((group) => (
+                        <View
+                          key={group.id}
+                          style={[s.sellsGroup, { borderColor: module.color }]}
+                        >
+                          <Ionicons
+                            accessible={false}
+                            name={group.icon as keyof typeof Ionicons.glyphMap}
+                            size={18}
+                            color={module.color}
+                          />
+                          <Text style={s.sellsGroupText}>
+                            {group[language]}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                  {sellsItems.length > 0 && (
+                    <>
+                      <Text style={s.sellsLabel}>{t.detUsuallyHas}</Text>
+                      <View style={s.sellsRow}>
+                        {sellsItems.map((name) => (
+                          <View key={name} style={s.sellsItem}>
+                            <Text style={s.sellsItemText}>{name}</Text>
+                          </View>
+                        ))}
+                      </View>
+                    </>
+                  )}
+                </View>
               </View>
             )}
 
@@ -362,6 +421,30 @@ const s = StyleSheet.create({
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
   },
+  sellsRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  sellsGroup: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: theme.radii.pill,
+    borderWidth: 1,
+    backgroundColor: theme.colors.surface,
+  },
+  sellsGroupText: {
+    color: theme.colors.heading,
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  sellsLabel: { color: theme.colors.muted, fontSize: 14, fontWeight: "600" },
+  sellsItem: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.surfaceMuted,
+  },
+  sellsItemText: { color: theme.colors.text, fontSize: 15 },
   hoursRow: { flexDirection: "row", gap: 10, alignItems: "flex-start" },
   hoursCopy: { flex: 1, gap: 2 },
   hoursDays: { color: theme.colors.heading, fontSize: 16, fontWeight: "700" },

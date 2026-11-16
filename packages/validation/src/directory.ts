@@ -127,3 +127,21 @@ export const productShopsSchema = z
     sellsGroup: shopSection,
   })
   .strict();
+
+// What one shop in the directory says it sells (groups, then popular items).
+export const directoryShopProductsSchema = z
+  .object({
+    groups: z.array(z.string()),
+    products: z.array(
+      z
+        .object({
+          code: z.string(),
+          nameEn: z.string(),
+          nameMr: z.string(),
+          nameHi: z.string().nullable(),
+          productGroup: z.string(),
+        })
+        .strict(),
+    ),
+  })
+  .strict();

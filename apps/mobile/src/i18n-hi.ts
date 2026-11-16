@@ -668,6 +668,8 @@ export const hi: Messages = {
   searchAllPlaceholder: "उत्पाद, सेवाएँ, परिवहन…",
   searchAllHint: "बाज़ार, सेवाएँ और परिवहन साथ में खोजें।",
   searchAllNone: "आपके गाँव में इस खोज के लिए कुछ नहीं मिला।",
+  detSells: "यहाँ क्या मिलता है",
+  detUsuallyHas: "आमतौर पर मिलने वाला सामान",
   shopsHaveIt: "{product} मिलने वाली दुकानें",
   shopsSellGroup: "पास की {group} दुकानें",
   shopHas: "{product} मिलता है",

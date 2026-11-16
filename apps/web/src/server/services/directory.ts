@@ -14,6 +14,8 @@ import {
   findPublicCoordinator,
 } from "../repositories/directory";
 import { searchCatalog } from "../repositories/catalog-search";
+import { Service } from "../models/service";
+import { ProductMaster } from "../models/product-master";
 import { AppError } from "../utils/errors";
 
 async function requireBrowsingVillage(
@@ -82,6 +84,43 @@ export async function productShops(
       productGroup,
     },
     ...shops,
+  };
+}
+// What one visible shop sells. Visibility is checked like the entry itself.
+export async function directoryShopProducts(
+  user: UserRecord | null,
+  query: z.infer<typeof directoryQuerySchema>,
+  id: string,
+) {
+  await listDirectory(user, query, id);
+  const row = await Service.findById(id)
+    .select("productGroups productCodes")
+    .lean();
+  const groups = row?.productGroups ?? [];
+  const codes = row?.productCodes ?? [];
+  const masters = codes.length
+    ? await ProductMaster.find({ code: { $in: codes }, status: "ACTIVE" })
+        .select("code nameEn nameMr nameHi productGroup")
+        .lean()
+    : [];
+  const byCode = new Map(masters.map((m) => [m.code, m]));
+  return {
+    groups,
+    // In the order the shop ticked them; retired products drop out.
+    products: codes.flatMap((code) => {
+      const m = byCode.get(code);
+      return m
+        ? [
+            {
+              code: m.code,
+              nameEn: m.nameEn,
+              nameMr: m.nameMr,
+              nameHi: m.nameHi || null,
+              productGroup: m.productGroup,
+            },
+          ]
+        : [];
+    }),
   };
 }
 // The dashboard shows a few entries, picked at random from a larger pool so
