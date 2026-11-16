@@ -9,6 +9,8 @@ export function ConfirmDialog({
   busy,
   error,
   description = "This changes the user’s access to Gaavli. Their history will be retained.",
+  confirmLabel = "Confirm",
+  busyLabel = "Updating…",
 }: {
   open: boolean;
   onClose: () => void;
@@ -17,6 +19,8 @@ export function ConfirmDialog({
   busy: boolean;
   error?: string;
   description?: string;
+  confirmLabel?: string;
+  busyLabel?: string;
 }) {
   return (
     <Alert.Root
@@ -44,7 +48,7 @@ export function ConfirmDialog({
               </Button>
             </Alert.Cancel>
             <Button variant="destructive" disabled={busy} onClick={onConfirm}>
-              {busy ? "Updating…" : "Confirm"}
+              {busy ? busyLabel : confirmLabel}
             </Button>
           </div>
         </Alert.Content>

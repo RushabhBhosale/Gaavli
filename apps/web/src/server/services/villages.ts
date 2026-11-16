@@ -1,12 +1,23 @@
 import "server-only";
 import { indianMobileSchema } from "@gaavli/validation";
 import type { z } from "zod";
-import type { villagesQuerySchema, VillageInput } from "@/schemas";
+import type {
+  villagesFilterSchema,
+  villagesQuerySchema,
+  VillageInput,
+} from "@/schemas";
 import { connectDb } from "../db/connect";
 import {
   findVillages,
+  findVillagesForExport,
   countVillageDependencies,
 } from "../repositories/villages";
+import {
+  readVillageCsv,
+  villageInputFromCsvRow,
+  villagesToCsv,
+  VILLAGE_CSV_BYTE_LIMIT,
+} from "@/lib/village-csv";
 import {
   AuditLog,
   Notification,
@@ -36,13 +47,14 @@ export async function saveVillage(
   id?: string,
 ) {
   await connectDb();
-  if (input.publicCoordinatorPhone && !input.coordinatorIds.length)
+  const assignCoordinators = input.coordinatorIds !== undefined;
+  if (assignCoordinators && input.publicCoordinatorPhone && !input.coordinatorIds?.length)
     throw new AppError(
       422,
       "VALIDATION_ERROR",
       "Assign a coordinator before publishing a contact number.",
     );
-  if (input.coordinatorIds.length > 1)
+  if (assignCoordinators && (input.coordinatorIds?.length ?? 0) > 1)
     throw new AppError(
       422,
       "VALIDATION_ERROR",
@@ -53,13 +65,16 @@ export async function saveVillage(
       const previous = id ? await Village.findById(id).session(session) : null;
       if (id && !previous)
         throw new AppError(404, "NOT_FOUND", "Village not found.");
-      const previousLinks = id
-        ? await VillageCoordinator.find({ villageId: id })
-            .session(session)
-            .lean()
-        : [];
+      const previousLinks =
+        id && assignCoordinators
+          ? await VillageCoordinator.find({ villageId: id })
+              .session(session)
+              .lean()
+          : [];
       const before = new Set(previousLinks.map((link) => String(link.userId)));
-      const after = new Set(input.coordinatorIds);
+      const after = new Set(
+        assignCoordinators ? (input.coordinatorIds ?? []) : [],
+      );
       // Lock coordinator documents so concurrent role revocation cannot leave an invalid assignment.
       for (const userId of [...after].sort()) {
         const coordinator = await User.findOneAndUpdate(
@@ -297,22 +312,77 @@ export async function setVillageStatus(
   });
 }
 
+export const VILLAGE_EXPORT_LIMIT = 5000;
+
+function villageFilter(query: z.infer<typeof villagesFilterSchema>) {
+  const search = query.search?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return {
+    ...(query.district ? { district: query.district } : {}),
+    ...(query.status ? { isActive: query.status === "active" } : {}),
+    ...(search
+      ? {
+          $or: ["nameEn", "nameMr", "taluka", "district"].map((field) => ({
+            [field]: { $regex: search, $options: "i" },
+          })),
+        }
+      : {}),
+  };
+}
 export async function listVillages(query: z.infer<typeof villagesQuerySchema>) {
   await connectDb();
-  const search = query.search?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return findVillages(
-    {
-      ...(query.district ? { district: query.district } : {}),
-      ...(query.status ? { isActive: query.status === "active" } : {}),
-      ...(search
-        ? {
-            $or: ["nameEn", "nameMr", "taluka", "district"].map((field) => ({
-              [field]: { $regex: search, $options: "i" },
-            })),
-          }
-        : {}),
-    },
-    query.page,
-    query.limit,
+  return findVillages(villageFilter(query), query.page, query.limit);
+}
+export async function exportVillagesCsv(
+  query: z.infer<typeof villagesFilterSchema>,
+) {
+  await connectDb();
+  const page = await findVillagesForExport(
+    villageFilter(query),
+    VILLAGE_EXPORT_LIMIT,
   );
+  if (page.total > VILLAGE_EXPORT_LIMIT)
+    throw new AppError(
+      422,
+      "VALIDATION_ERROR",
+      "Narrow the filters. An export can include at most 5,000 villages.",
+    );
+  return villagesToCsv(page.villages);
+}
+export async function importVillages(actorId: string, text: string) {
+  if (text.length > VILLAGE_CSV_BYTE_LIMIT)
+    throw new AppError(413, "VALIDATION_ERROR", "CSV file is too large.");
+  const read = readVillageCsv(text);
+  if ("error" in read) throw new AppError(422, "VALIDATION_ERROR", read.error);
+  const failed: { line: number; message: string }[] = [];
+  const seen = new Set<string>();
+  let created = 0;
+  for (const row of read.rows) {
+    const key = row.name.trim().toLowerCase();
+    if (key && seen.has(key)) {
+      failed.push({
+        line: row.line,
+        message: "This village name is repeated in the file.",
+      });
+      continue;
+    }
+    if (key) seen.add(key);
+    const input = villageInputFromCsvRow(row);
+    if (!input.ok) {
+      failed.push({ line: row.line, message: input.message });
+      continue;
+    }
+    try {
+      await saveVillage(actorId, input.data);
+      created += 1;
+    } catch (error) {
+      failed.push({
+        line: row.line,
+        message:
+          error instanceof AppError
+            ? error.message
+            : "Unable to add this village.",
+      });
+    }
+  }
+  return { created, failed };
 }

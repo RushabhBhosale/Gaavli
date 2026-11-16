@@ -157,3 +157,33 @@ export async function findVillages(
     limit,
   };
 }
+export async function findVillagesForExport(
+  filter: FilterQuery<InferSchemaType<typeof Village.schema>>,
+  limit: number,
+) {
+  const total = await Village.countDocuments(filter);
+  if (total > limit) return { villages: [], total };
+  const villages = await Village.find(filter)
+    .select("nameEn nameMr taluka district pinCode location")
+    .sort({ nameEn: 1, _id: 1 })
+    .limit(limit)
+    .lean();
+  return {
+    total,
+    villages: villages.map((village) => ({
+      name: village.nameEn,
+      nameMr: village.nameMr,
+      taluka: village.taluka || "",
+      district: village.district || "",
+      pinCode: village.pinCode || "",
+      latitude:
+        village.location?.coordinates[1] == null
+          ? ""
+          : String(village.location.coordinates[1]),
+      longitude:
+        village.location?.coordinates[0] == null
+          ? ""
+          : String(village.location.coordinates[0]),
+    })),
+  };
+}

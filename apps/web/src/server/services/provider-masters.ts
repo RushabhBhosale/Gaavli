@@ -13,16 +13,97 @@ import { ProviderMaster } from "../models/provider-master";
 import { AuditLog } from "../models";
 import {
   findProviderMasters,
+  findProviderMastersForExport,
   normalizedNames,
   providerMasterDto,
 } from "../repositories/provider-masters";
+import { normalizeProviderMasterName } from "@gaavli/validation";
 import { AppError } from "../utils/errors";
+import {
+  providerMasterInputFromCsvRow,
+  providerMastersToCsv,
+  readProviderMasterCsv,
+  PROVIDER_MASTER_CSV_BYTE_LIMIT,
+} from "@/lib/provider-master-csv";
+
+export const PROVIDER_MASTER_EXPORT_LIMIT = 5000;
 
 export async function listProviderMasters(
   query: z.infer<typeof providerMasterQuerySchema>,
 ) {
   await connectDb();
   return findProviderMasters(query);
+}
+export async function exportProviderMastersCsv(
+  query: z.infer<typeof providerMasterQuerySchema>,
+) {
+  await connectDb();
+  const page = await findProviderMastersForExport(
+    query,
+    PROVIDER_MASTER_EXPORT_LIMIT,
+  );
+  if (page.total > PROVIDER_MASTER_EXPORT_LIMIT)
+    throw new AppError(
+      422,
+      "VALIDATION_ERROR",
+      "Narrow the filters. An export can include at most 5,000 master options.",
+    );
+  return providerMastersToCsv(page.records);
+}
+export async function importProviderMasters(
+  actorId: string,
+  group: z.infer<typeof providerMasterGroupSchema>,
+  text: string,
+) {
+  if (text.length > PROVIDER_MASTER_CSV_BYTE_LIMIT)
+    throw new AppError(413, "VALIDATION_ERROR", "CSV file is too large.");
+  const read = readProviderMasterCsv(text);
+  if ("error" in read) throw new AppError(422, "VALIDATION_ERROR", read.error);
+  const failed: { line: number; message: string }[] = [];
+  const seen = {
+    en: new Set<string>(),
+    mr: new Set<string>(),
+    hi: new Set<string>(),
+  };
+  let created = 0;
+  for (const row of read.rows) {
+    const input = providerMasterInputFromCsvRow(row, group);
+    if (!input.ok) {
+      failed.push({ line: row.line, message: input.message });
+      continue;
+    }
+    const names = {
+      en: normalizeProviderMasterName(input.data.name.en),
+      mr: normalizeProviderMasterName(input.data.name.mr),
+      hi: normalizeProviderMasterName(input.data.name.hi),
+    };
+    const repeated = (["en", "mr", "hi"] as const).find((language) =>
+      seen[language].has(names[language]),
+    );
+    if (repeated) {
+      failed.push({
+        line: row.line,
+        message: `This ${repeated === "en" ? "English" : repeated === "mr" ? "Marathi" : "Hindi"} name is repeated in the file.`,
+      });
+      continue;
+    }
+    seen.en.add(names.en);
+    seen.mr.add(names.mr);
+    seen.hi.add(names.hi);
+    try {
+      await createProviderMaster(actorId, input.data);
+      created += 1;
+    } catch (error) {
+      failed.push({
+        line: row.line,
+        message:
+          error instanceof AppError
+            ? error.message
+            : "Unable to add this master option.",
+      });
+    }
+  }
+  return { created, failed };
 }
 export async function activeProviderMasters(
   group: z.infer<typeof providerMasterGroupSchema>,

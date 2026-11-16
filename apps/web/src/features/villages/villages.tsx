@@ -8,20 +8,14 @@ import {
   useReactTable,
   type ColumnDef,
 } from "@tanstack/react-table";
-import {
-  ChevronLeft,
-  ChevronRight,
-  MapPin,
-  Search,
-  X,
-  Plus,
-  MoreVertical,
-} from "lucide-react";
+import { MapPin, Search, X, Plus, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ListPagination } from "@/components/shared/list-pagination";
 import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
 import { api } from "@/lib/api";
 import type { AdminVillageDto, VillagesPage } from "@/lib/contracts";
 import { VillageForm } from "./village-form";
+import { VillageBulkActions } from "./village-bulk-actions";
 import { VillageDeleteDialog } from "./village-delete-dialog";
 import {
   DropdownMenu,
@@ -30,7 +24,6 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 
-const PAGE_SIZE = 6;
 const columns: ColumnDef<AdminVillageDto>[] = [
   {
     accessorKey: "name",
@@ -91,18 +84,19 @@ const columns: ColumnDef<AdminVillageDto>[] = [
       </span>
     ),
   },
-  {
-    accessorKey: "nearbyMapped",
-    header: "Nearby Mapped",
-    cell: ({ row }) =>
-      row.original.nearbyMapped === null ? (
-        <span className="text-xs text-slate-400">Not configured</span>
-      ) : (
-        <span className="tabular-nums">
-          {row.original.nearbyMapped.toLocaleString("en-IN")} villages
-        </span>
-      ),
-  },
+  // Nearby Mapped stays defined for a later mapping view.
+  // {
+  //   accessorKey: "nearbyMapped",
+  //   header: "Nearby Mapped",
+  //   cell: ({ row }) =>
+  //     row.original.nearbyMapped === null ? (
+  //       <span className="text-xs text-slate-400">Not configured</span>
+  //     ) : (
+  //       <span className="tabular-nums">
+  //         {row.original.nearbyMapped.toLocaleString("en-IN")} villages
+  //       </span>
+  //     ),
+  // },
   {
     accessorKey: "status",
     header: "Status",
@@ -161,6 +155,7 @@ export function VillagesManagement() {
   const [district, setDistrict] = useState("");
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounced(search);
@@ -170,13 +165,13 @@ export function VillagesManagement() {
   }, [search]);
   const query = new URLSearchParams({
     page: String(page),
-    limit: String(PAGE_SIZE),
+    limit: String(pageSize),
     ...(debounced ? { search: debounced } : {}),
     ...(district ? { district } : {}),
     ...(status ? { status } : {}),
   });
   const villages = useQuery({
-    queryKey: ["admin-villages", debounced, district, status, page],
+    queryKey: ["admin-villages", debounced, district, status, page, pageSize],
     queryFn: () => api<VillagesPage>(`/v1/admin/villages?${query}`),
   });
   // Retain district choices while a new filtered page is loading.
@@ -198,8 +193,6 @@ export function VillagesManagement() {
   });
   const total = villages.data?.total ?? 0;
   const currentPage = villages.data?.page ?? page;
-  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-  const firstPage = Math.max(1, Math.min(currentPage - 2, pages - 4));
   const hasFilters = !!(search || district || status);
   function clearFilters() {
     setSearch("");
@@ -211,17 +204,19 @@ export function VillagesManagement() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Village Management</h1>
           <p className="mt-1 text-sm text-slate-500">
             View villages, coordinators and nearby village mappings.
           </p>
         </div>
-        <Button size="sm" onClick={() => setForm("new")}>
-          <Plus size={15} />
-          Add Village
-        </Button>
+        <VillageBulkActions filters={{ search: debounced, district, status }}>
+          <Button size="sm" onClick={() => setForm("new")}>
+            <Plus size={15} />
+            Add Village
+          </Button>
+        </VillageBulkActions>
       </div>
       <div className="card overflow-hidden">
         <div className="flex flex-wrap items-center gap-3 border-b border-slate-100 p-4">
@@ -293,7 +288,7 @@ export function VillagesManagement() {
           />
         ) : villages.isPending ? (
           <div className="space-y-3 p-5" aria-label="Loading villages">
-            {Array.from({ length: PAGE_SIZE }, (_, index) => (
+            {Array.from({ length: Math.min(pageSize, 8) }, (_, index) => (
               <Skeleton key={index} className="h-14" />
             ))}
           </div>
@@ -310,8 +305,8 @@ export function VillagesManagement() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] text-left text-sm">
               <caption className="sr-only">
-                Village directory with coordinator assignments, user counts,
-                nearby mappings and status
+                Village directory with coordinator assignments, user counts and
+                status
               </caption>
               <thead className="bg-slate-50 text-xs text-slate-500">
                 {table.getHeaderGroups().map((group) => (
@@ -352,48 +347,17 @@ export function VillagesManagement() {
           </div>
         )}
         {!villages.error && !villages.isPending && (
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 p-4 text-xs text-slate-500">
-            <p role="status">
-              Showing {total ? (currentPage - 1) * PAGE_SIZE + 1 : 0}–
-              {Math.min(currentPage * PAGE_SIZE, total)} of{" "}
-              {total.toLocaleString("en-IN")} villages
-            </p>
-            <nav aria-label="Village pagination" className="flex gap-1">
-              <Button
-                variant="outline"
-                size="icon"
-                disabled={currentPage <= 1}
-                aria-label="Previous page"
-                onClick={() => setPage(currentPage - 1)}
-              >
-                <ChevronLeft size={14} />
-              </Button>
-              {Array.from(
-                { length: Math.min(5, pages) },
-                (_, index) => firstPage + index,
-              ).map((number) => (
-                <Button
-                  key={number}
-                  variant={number === currentPage ? "default" : "outline"}
-                  size="icon"
-                  aria-label={`Page ${number}`}
-                  aria-current={number === currentPage ? "page" : undefined}
-                  onClick={() => setPage(number)}
-                >
-                  {number}
-                </Button>
-              ))}
-              <Button
-                variant="outline"
-                size="icon"
-                disabled={currentPage >= pages}
-                aria-label="Next page"
-                onClick={() => setPage(currentPage + 1)}
-              >
-                <ChevronRight size={14} />
-              </Button>
-            </nav>
-          </div>
+          <ListPagination
+            page={currentPage}
+            pageSize={pageSize}
+            total={total}
+            label="Village pagination"
+            onPageChange={setPage}
+            onPageSizeChange={(next) => {
+              setPageSize(next);
+              setPage(1);
+            }}
+          />
         )}
       </div>
       {form && (

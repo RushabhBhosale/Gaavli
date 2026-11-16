@@ -1040,9 +1040,16 @@ Body: `code` (2–40 uppercase letters/numbers/underscores, starting with a lett
 `notifyMode` (`daily_digest`, `change_only`, `weekly_digest`). Unknown fields are
 rejected. Returns `{ id }` with HTTP 201. Duplicate codes return 409 CONFLICT.
 Creation and `CATEGORY_CREATED` audit commit together in a MongoDB transaction.
-Both endpoints use `Cache-Control: no-store`. Send timing is omitted from this
-admin interface. Notification scheduling, category edit/delete and the public
-reference APIs below remain separate unfinished work.
+`PUT /api/v1/admin/categories/:id` updates `name`, `nameMr`, `defaultShelfLife`
+and `notifyMode` with the category `version`. The code stays unchanged. A stale
+version returns 409. `DELETE /api/v1/admin/categories/:id` with `{ version }`
+removes a category that has no listings, including legacy listings stored by
+category code. Linked listings return 409. Update and delete each commit with
+`CATEGORY_UPDATED` or `CATEGORY_DELETED` audit records.
+
+These endpoints use `Cache-Control: no-store`. Send timing is omitted from this
+admin interface. Notification scheduling and the public reference APIs below
+remain separate unfinished work.
 
 Active counts include unexpired active listings linked by ObjectId/string
 `categoryId` or legacy `category` matching the stable category code. Legacy generic
@@ -1565,9 +1572,13 @@ replaces editable village details, `PATCH .../:id/status` activates/deactivates,
 `GET .../:id/dependencies` reports linked records, and `DELETE .../:id` accepts
 `{ version }` and deletes only unreferenced villages. All are Super Admin-only
 with same-origin mutation protection and transactionally committed audit records.
-Coordinator selection is optional with maximum one user ID per village, per the
-user-approved product revision. Assigned coordinator DTOs contain user ID/name,
-not contact information. Deletion requires a fresh server-side dependency check;
+Coordinator assignment is stored in `villagecoordinators`. Admin user create
+and update assign exactly one active village when the saved roles include
+coordinator, using the user's village. Omitting `coordinatorIds` on village
+create and update leaves existing mappings unchanged. A provided `coordinatorIds`
+array still replaces that village's coordinator, with a maximum of one user,
+for existing callers. Assigned coordinator DTOs contain user ID/name, not
+contact information. Deletion requires a fresh server-side dependency check;
 links or stale versions return 409. Detailed payloads and supported dependency
 collections are documented in `apps/web/docs/API_SPEC.md`. Public/mobile reference
 APIs and authoritative nearby mappings are not changed by these admin endpoints.

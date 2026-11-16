@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -22,6 +23,12 @@ export function UserForm({
   onClose: () => void;
 }) {
   const client = useQueryClient();
+  const assignedVillage = user?.roles.includes("coordinator")
+    ? user.coordinatorVillages?.[0]?.id
+    : undefined;
+  const [coordinatorSelected, setCoordinatorSelected] = useState(
+    user?.roles.includes("coordinator") ?? false,
+  );
   const {
     register,
     handleSubmit,
@@ -34,10 +41,11 @@ export function UserForm({
       roles: (user?.roles.filter((r) =>
         ["buyer", "seller", "coordinator"].includes(r),
       ) as UserInput["roles"]) || ["buyer"],
-      village: user?.village?.id || "",
+      village: assignedVillage || user?.village?.id || "",
       status: user?.status || "active",
     },
   });
+  const coordinatorRole = register("roles");
   const mutation = useMutation({
     mutationFn: (input: UserInput) =>
       api(user ? `/users/${user.id}` : "/users", {
@@ -113,7 +121,11 @@ export function UserForm({
                 <input
                   type="checkbox"
                   value="coordinator"
-                  {...register("roles")}
+                  {...coordinatorRole}
+                  onChange={(event) => {
+                    void coordinatorRole.onChange(event);
+                    setCoordinatorSelected(event.target.checked);
+                  }}
                 />
                 Coordinator
               </label>
@@ -134,7 +146,21 @@ export function UserForm({
                   {v.name}
                 </option>
               ))}
+              {(user?.coordinatorVillages ?? [])
+                .filter(
+                  (assigned) => !villages.some((v) => v.id === assigned.id),
+                )
+                .map((assigned) => (
+                  <option key={assigned.id} value={assigned.id}>
+                    {assigned.name}
+                  </option>
+                ))}
             </select>
+            {coordinatorSelected && (
+              <p className="mt-2 text-[11px] text-slate-400">
+                This village is the coordinator&apos;s assigned village.
+              </p>
+            )}
             {errors.village && <p className="field-error">Select a village</p>}
           </div>
           <div className="field">

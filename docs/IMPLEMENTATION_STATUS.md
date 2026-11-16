@@ -1,3 +1,73 @@
+## 2026-11-13 - Coordinator assignment from User Listing
+
+- Admin Add/Edit User assigns a coordinator to the village selected in the
+  existing Village dropdown and stores that mapping in `villagecoordinators`.
+  Editing a coordinator preselects the assigned village. Removing the
+  Coordinator role deletes that user's mappings and leaves the user, buyer,
+  and seller data in place. A village that already has a different coordinator
+  is rejected. Saving a coordinator who already has extra mappings keeps one
+  and removes the extras in the same transaction.
+- Village Edit no longer shows Assigned Coordinator or the public contact
+  field, and it does not send `coordinatorIds`. Village create, update, and
+  CSV import omit that field, so they do not change existing mappings. Callers
+  that still send `coordinatorIds` keep the previous village assignment
+  behavior. The village list still shows the assigned coordinator. The
+  coordinator dashboard still reads `villagecoordinators`.
+- No database migration and no new collection. Web TypeScript, ESLint on the
+  changed files, and the web unit tests passed. The listed admin flows were
+  not exercised in a browser or against a live database.
+
+## 2026-11-13 - Admin category edit and delete
+
+- Categories & notify rules has Edit and Delete on each row. Edit updates the
+  name, Marathi name, shelf life and notify mode; the category code stays
+  fixed. Delete removes a category only when no listing uses it, and asks for
+  confirmation. Both actions are audited.
+- Category schema checks, web TypeScript, and ESLint on the changed files
+  passed. Browser edit and delete were not exercised.
+
+## 2026-11-13 - Admin provider master CSV upload and download
+
+- Service Providers → Master Management has Download, Sample, and Upload beside
+  Add New. Download exports the selected provider type, master group, search,
+  status, and sort, up to 5,000 options. Sample downloads
+  provider-masters-sample.csv. Upload creates at most 100 options in the
+  selected group from englishName, marathiName, hindiName, sortOrder, and
+  status. Codes stay server-generated through the existing audited create path.
+- Provider-master CSV tests, web TypeScript, and ESLint on the changed files
+  passed. Browser upload and download were not exercised.
+
+## 2026-11-13 - Admin village CSV upload and download
+
+- Village Management has Download, Sample, and Upload beside Add Village.
+  Download exports the current filters as CSV, at most 5,000 villages. Sample
+  downloads villages-sample.csv. Upload creates at most 100 active villages
+  from name, nameMr, taluka, district, pinCode, latitude, and longitude through
+  the existing audited village create path. Village CSV does not assign or
+  clear coordinators.
+- Village and user CSV tests, web TypeScript, and ESLint on the changed files
+  passed. Browser upload and download were not exercised.
+
+## 2026-11-12 - Admin user CSV upload and download
+
+- Users Management has Download, Sample, and Upload beside Add User. Download
+  exports the current filters as CSV, at most 5,000 users. Sample downloads
+  users-sample.csv with the upload columns and example rows. Upload
+  creates at most 100 users from columns name, mobile, roles, village, and
+  status through the existing audited user create path. Other admin lists are
+  unchanged.
+- CSV parser tests, web TypeScript, and ESLint on the changed files passed.
+  Browser upload and download were not exercised.
+
+## 2026-11-12 - Admin list pagination
+
+- Users, Villages and Service Providers → Master Management use a shared
+  footer: rows per page (10, 25, 50), a `1-10 of 13` range, and numbered pages.
+  The user-list checkbox column is commented out for a later bulk-actions pass.
+  Listings remains an empty state, so this footer is not on that screen.
+- Web TypeScript and ESLint on the changed files passed. Browser verification
+  was not run.
+
 ## 2026-11-05 - Cross-district coordinator village mapping
 
 - Updated coordinator Add Village discovery to open on All Talukas: My Taluka

@@ -5,6 +5,7 @@ export type UserDto = {
   mobile: string;
   roles: string[];
   village: { id: string; name: string } | null;
+  coordinatorVillages?: { id: string; name: string }[];
   status: Status;
   createdAt: string;
   version: number;
@@ -18,6 +19,7 @@ export type AdminCategoryDto = {
   defaultShelfLife: string;
   notifyMode: "daily_digest" | "change_only" | "weekly_digest";
   activeListings: number;
+  version: number;
 };
 export type CategoriesPage = {
   categories: AdminCategoryDto[];
