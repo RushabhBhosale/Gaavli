@@ -11,6 +11,7 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   PROVIDER_KINDS,
+  SHOP_TYPE_PRODUCT_GROUPS,
   type ProviderField,
   type ProviderType,
 } from "@gaavli/constants";
@@ -21,9 +22,17 @@ import { useProviderMasters } from "../../providerProfiles";
 import { Button, DropdownField, ErrorMessage, Input } from "../ui";
 import { HoursField } from "./HoursField";
 import { defaultHours, serializeHours } from "../../data/operatingHours";
+import { ShopGroupsField, ShopProductsField } from "./ShopProductFields";
 
-export type DetailValue = string | boolean;
+export type DetailValue = string | boolean | string[];
 export type Details = Record<string, DetailValue>;
+
+const isList = (field: ProviderField) =>
+  field.kind === "groups" || field.kind === "products";
+const listOf = (value: unknown) =>
+  Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === "string")
+    : [];
 
 export function emptyDetails(type: ProviderType): Details {
   const out: Details = {};
@@ -31,10 +40,33 @@ export function emptyDetails(type: ProviderType): Details {
     out[field.key] =
       field.kind === "bool"
         ? false
-        : field.kind === "hours" && field.required
-          ? serializeHours(defaultHours())
-          : "";
+        : isList(field)
+          ? []
+          : field.kind === "hours" && field.required
+            ? serializeHours(defaultHours())
+            : "";
   return out;
+}
+// A saved value as the form holds it.
+export function detailFromServer(
+  field: ProviderField,
+  value: unknown,
+): DetailValue {
+  if (field.kind === "bool") return value === true;
+  if (isList(field)) return listOf(value);
+  return typeof value === "string" ? value : "";
+}
+// A form value as the API expects it.
+export function cleanDetail(field: ProviderField, value: unknown) {
+  if (field.kind === "bool") return !!value;
+  if (isList(field)) return listOf(value);
+  return String(value ?? "").trim();
+}
+// Whether a required field still needs an answer.
+export function missingDetail(field: ProviderField, value: unknown) {
+  if (!field.required || field.kind === "bool") return false;
+  if (isList(field)) return !listOf(value).length;
+  return !String(value ?? "").trim();
 }
 
 // Draws the category-specific fields of one provider type. Selects list the
@@ -56,9 +88,12 @@ export function ProviderFields({
 }) {
   const language = useAppStore((state) => state.language);
   const t = messages(language);
+  const kind = PROVIDER_KINDS[type];
+  const productsKey = kind.fields.find((f) => f.kind === "products")?.key;
+  const groupsKey = kind.fields.find((f) => f.kind === "groups")?.key;
   return (
     <>
-      {PROVIDER_KINDS[type].fields
+      {kind.fields
         .filter((field) => !skip.includes(field.key))
         .map((field) => {
           const label = `${field.label[language]}${field.required ? " *" : ""}`;
@@ -73,7 +108,47 @@ export function ProviderFields({
                 value={String(values[field.key] ?? "")}
                 error={error}
                 disabled={disabled}
-                onChange={(value) => onChange(field.key, value)}
+                onChange={(value) => {
+                  onChange(field.key, value);
+                  // A shop type pre-ticks what such shops usually sell, until
+                  // the seller has picked groups themselves.
+                  const suggested = SHOP_TYPE_PRODUCT_GROUPS[value];
+                  if (
+                    field.key === kind.categoryKey &&
+                    groupsKey &&
+                    suggested?.length &&
+                    !listOf(values[groupsKey]).length
+                  )
+                    onChange(groupsKey, [...suggested]);
+                }}
+              />
+            );
+          if (field.kind === "groups")
+            return (
+              <ShopGroupsField
+                key={field.key}
+                label={label}
+                hint={field.hint?.[language]}
+                value={listOf(values[field.key])}
+                products={productsKey ? listOf(values[productsKey]) : []}
+                error={error}
+                disabled={disabled}
+                onChange={(groups, products) => {
+                  onChange(field.key, groups);
+                  if (productsKey) onChange(productsKey, products);
+                }}
+              />
+            );
+          if (field.kind === "products")
+            return (
+              <ShopProductsField
+                key={field.key}
+                label={label}
+                hint={field.hint?.[language]}
+                groups={groupsKey ? listOf(values[groupsKey]) : []}
+                value={listOf(values[field.key])}
+                disabled={disabled}
+                onChange={(products) => onChange(field.key, products)}
               />
             );
           if (field.kind === "choice")

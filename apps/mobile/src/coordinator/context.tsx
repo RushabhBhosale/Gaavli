@@ -254,6 +254,7 @@ function CoordinatorScope({
           "directory",
           "directory-summary",
           "directory-entry",
+          "product-shops",
           "mapped-villages",
         ]) {
           void client.invalidateQueries({ queryKey: [key] });

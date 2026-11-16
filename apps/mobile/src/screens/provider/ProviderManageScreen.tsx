@@ -35,6 +35,9 @@ import { ProviderImagesField } from "../../components/provider/ProviderImages";
 import type { ProviderImage } from "../../providerImages";
 import {
   ProviderFields,
+  cleanDetail,
+  detailFromServer,
+  missingDetail,
   type Details,
 } from "../../components/provider/ProviderFields";
 import {
@@ -92,13 +95,7 @@ export default function ProviderManageScreen() {
     setContacts(draftsFromServer(profile.contacts));
     const next: Details = {};
     for (const field of PROVIDER_KINDS[profile.providerType].fields) {
-      const value = profile.details[field.key];
-      next[field.key] =
-        field.kind === "bool"
-          ? value === true
-          : typeof value === "string"
-            ? value
-            : "";
+      next[field.key] = detailFromServer(field, profile.details[field.key]);
     }
     setDetails(next);
   }, [profile]);
@@ -151,11 +148,7 @@ export default function ProviderManageScreen() {
     if (Object.keys(contactErrors(activeContacts(contacts))).length)
       next.contacts = t.mobileError;
     for (const field of kind.fields)
-      if (
-        field.required &&
-        field.kind !== "bool" &&
-        !String(details[field.key] ?? "").trim()
-      )
+      if (missingDetail(field, details[field.key]))
         next[field.key] = t.provErrRequired;
     for (const field of kind.fields) {
       const hours =
@@ -175,8 +168,7 @@ export default function ProviderManageScreen() {
     const cleaned: Record<string, unknown> = {};
     for (const field of kind.fields) {
       const value = details[field.key];
-      cleaned[field.key] =
-        field.kind === "bool" ? !!value : String(value ?? "").trim();
+      cleaned[field.key] = cleanDetail(field, value);
     }
     const ok = await run(() =>
       updateProfile(profile.id, {

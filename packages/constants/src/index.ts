@@ -77,3 +77,5 @@ export const LISTING_ASSET_PHOTOS = [
 export * from "./listingTags";
 export * from "./directoryGroups";
 export * from "./providerProfiles";
+export * from "./shopProducts";
+export * from "./shopPopularItems";

@@ -35,6 +35,8 @@ export {
   providerCreatedSchema,
   accountContactsSchema,
   accountContactsOutputSchema,
+  shopProductGroupsSchema,
+  shopProductCodesSchema,
 } from "./provider-profiles";
 export {
   directoryQuerySchema,
@@ -43,6 +45,8 @@ export {
   directorySummaryQuerySchema,
   directorySummarySchema,
   dashboardDirectorySchema,
+  productShopsQuerySchema,
+  productShopsSchema,
 } from "./directory";
 export {
   mobileProfileSchema,

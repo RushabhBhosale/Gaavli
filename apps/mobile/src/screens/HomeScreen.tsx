@@ -304,12 +304,12 @@ export function HomeDashboard({
                       )}
                     />
                   ) : (
-                    directoryStatus ?? (
+                    (directoryStatus ?? (
                       <StateMessage
                         icon={icon}
                         title={t.dashboardDirectoryEmpty}
                       />
-                    )
+                    ))
                   ))}
               </View>
             );
@@ -438,18 +438,19 @@ export default function HomeScreen() {
       )}
     </>
   );
-  const directoryStatus = offline && !directory.data ? (
-    <Text style={d.description}>{t.listingsOfflineEmpty}</Text>
-  ) : !offline && directory.isPending ? (
-    <SkeletonList rows={2} label={t.listingsLoading} />
-  ) : directory.isError && !offline ? (
-    <>
-      <ErrorMessage message={t.dashboardDirectoryFailed} />
-      <Button secondary onPress={() => void directory.refetch()}>
-        {t.retry}
-      </Button>
-    </>
-  ) : undefined;
+  const directoryStatus =
+    offline && !directory.data ? (
+      <Text style={d.description}>{t.listingsOfflineEmpty}</Text>
+    ) : !offline && directory.isPending ? (
+      <SkeletonList rows={2} label={t.listingsLoading} />
+    ) : directory.isError && !offline ? (
+      <>
+        <ErrorMessage message={t.dashboardDirectoryFailed} />
+        <Button secondary onPress={() => void directory.refetch()}>
+          {t.retry}
+        </Button>
+      </>
+    ) : undefined;
   // Your own products and registered activities.
   const own = [
     ...(session?.user.isSeller

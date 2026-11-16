@@ -3,14 +3,17 @@ import type { z } from "zod";
 import type {
   directoryQuerySchema,
   directorySummaryQuerySchema,
+  productShopsQuerySchema,
 } from "@gaavli/validation";
 import { SHOWN_AS_HOME_EXCLUDED } from "@gaavli/constants";
 import { Village, type UserRecord } from "../models";
 import {
   directorySummary,
   findDirectory,
+  findProductShops,
   findPublicCoordinator,
 } from "../repositories/directory";
+import { searchCatalog } from "../repositories/catalog-search";
 import { AppError } from "../utils/errors";
 
 async function requireBrowsingVillage(
@@ -50,6 +53,36 @@ export async function directoryCategoryCounts(
 ) {
   await requireBrowsingVillage(user, query.sourceVillageId);
   return directorySummary(query, user ? String(user._id) : null);
+}
+// Shops that sell what the buyer typed: the text is matched to its best
+// catalogue product first. See docs/03-api/SHOP_PRODUCTS.md.
+export async function productShops(
+  user: UserRecord | null,
+  query: z.infer<typeof productShopsQuerySchema>,
+) {
+  await requireBrowsingVillage(user, query.sourceVillageId);
+  const empty = { entries: [], total: 0 };
+  const [best] = query.q ? (await searchCatalog(query.q, 1)).products : [];
+  if (!best) return { product: null, haveIt: empty, sellsGroup: empty };
+  // Older rows use "grain"; shops pick the catalogue's "grains".
+  const productGroup =
+    best.productGroup === "grain" ? "grains" : best.productGroup;
+  const shops = await findProductShops(
+    query.sourceVillageId,
+    { code: best.code, productGroup },
+    query.limit,
+    user ? String(user._id) : null,
+  );
+  return {
+    product: {
+      code: best.code,
+      nameEn: best.nameEn,
+      nameMr: best.nameMr,
+      nameHi: best.nameHi,
+      productGroup,
+    },
+    ...shops,
+  };
 }
 // The dashboard shows a few entries, picked at random from a larger pool so
 // every visit can surface different people and vehicles.

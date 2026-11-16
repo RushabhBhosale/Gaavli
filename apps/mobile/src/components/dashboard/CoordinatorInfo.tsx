@@ -1,10 +1,4 @@
-import {
-  Linking,
-  Pressable,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
+import { Linking, Pressable, Text, View, StyleSheet } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
 import type { HomeCoordinator } from "../../types/home";

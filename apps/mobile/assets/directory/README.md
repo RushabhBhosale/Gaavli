@@ -29,3 +29,13 @@ artwork heights and localized text beneath each image.
 
 The earlier Wikimedia JPEG assets and their attribution remain in `CREDITS.md`
 and `src/data/photoCredits.ts`.
+
+## Round category chips
+
+`chip_*.webp` (160 px circles) are the artwork of the 3D icon sheet supplied on
+2026-11-16, cropped without its baked-in text so the app can write the label in
+the selected language. They are used for the category chips on the Services
+and Transport screens (`directoryChipImage` in `directoryGroupImages.ts`);
+groups without one (building, personal, other and every transport group) use
+their illustration cropped to a circle. The sheet also has banks, education,
+tourism, social work and religious icons, which have no category yet.

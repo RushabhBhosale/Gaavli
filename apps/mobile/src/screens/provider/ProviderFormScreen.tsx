@@ -34,6 +34,8 @@ import type { ProviderImage } from "../../providerImages";
 import { VillageField } from "../../components/VillageField";
 import {
   ProviderFields,
+  cleanDetail,
+  missingDetail,
   emptyDetails,
   type Details,
 } from "../../components/provider/ProviderFields";
@@ -113,10 +115,10 @@ export default function ProviderFormScreen() {
     const next: Record<string, string> = {};
     for (const field of kind.fields) {
       const value = details[field.key];
+      // New shops say what they sell; older shops may still leave it empty.
       if (
-        field.required &&
-        field.kind !== "bool" &&
-        !String(value ?? "").trim()
+        missingDetail(field, value) ||
+        (field.kind === "groups" && !(value as string[] | undefined)?.length)
       )
         next[field.key] = t.provErrRequired;
     }
@@ -145,8 +147,7 @@ export default function ProviderFormScreen() {
       const cleaned: Record<string, unknown> = {};
       for (const field of kind.fields) {
         const value = details[field.key];
-        cleaned[field.key] =
-          field.kind === "bool" ? !!value : String(value ?? "").trim();
+        cleaned[field.key] = cleanDetail(field, value);
       }
       await createProfile({
         providerType: type,

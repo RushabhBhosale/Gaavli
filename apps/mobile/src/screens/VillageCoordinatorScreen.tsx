@@ -36,9 +36,7 @@ export default function VillageCoordinatorScreen() {
   const phone = coordinator?.publicContactPhone ?? null;
   function call() {
     if (phone && /^\+91[6-9]\d{9}$/.test(phone))
-      void Linking.openURL(`tel:${phone}`).catch(() =>
-        showAlert(t.callError),
-      );
+      void Linking.openURL(`tel:${phone}`).catch(() => showAlert(t.callError));
   }
   const help = [
     ["person-add-outline", t.coordinatorHelp1],

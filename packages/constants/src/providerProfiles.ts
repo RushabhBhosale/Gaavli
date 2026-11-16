@@ -17,6 +17,10 @@ export type ProviderField = Base &
     | { kind: "master"; master: ProviderMasterType }
     | { kind: "choice"; options: readonly ChoiceOption[] }
     | { kind: "bool" }
+    // Shops: product groups they usually sell (multi-select chips).
+    | { kind: "groups" }
+    // Shops: popular items (Product Master codes) under the chosen groups.
+    | { kind: "products" }
     // Opening times: slots plus weekly off, stored as a small JSON string.
     | { kind: "hours" }
   );
@@ -165,6 +169,36 @@ export const PROVIDER_KINDS: Record<ProviderType, ProviderKind> = {
         "दुकान का प्रकार",
         "SHOP_TYPE",
       ),
+      {
+        key: "sells",
+        label: {
+          en: "What do you sell?",
+          mr: "तुम्ही काय विकता?",
+          hi: "आप क्या बेचते हैं?",
+        },
+        hint: {
+          en: "Tap everything your shop usually has",
+          mr: "तुमच्या दुकानात सहसा मिळणारे सर्व निवडा",
+          hi: "आपकी दुकान में आमतौर पर मिलने वाली सभी चीज़ें चुनें",
+        },
+        required: false,
+        kind: "groups",
+      },
+      {
+        key: "products",
+        label: {
+          en: "Popular items (optional)",
+          mr: "लोकप्रिय वस्तू (पर्यायी)",
+          hi: "लोकप्रिय सामान (वैकल्पिक)",
+        },
+        hint: {
+          en: "Tick items you usually have so buyers find you first",
+          mr: "सहसा असणाऱ्या वस्तू निवडा, खरेदीदारांना तुम्ही आधी दिसाल",
+          hi: "जो सामान आमतौर पर रहता है उसे चुनें, खरीदार आपको पहले देखेंगे",
+        },
+        required: false,
+        kind: "products",
+      },
       text(
         "items",
         "Products / Items Available",

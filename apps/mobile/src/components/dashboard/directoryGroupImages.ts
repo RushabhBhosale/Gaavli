@@ -29,3 +29,20 @@ export const directoryGroupImages: Record<
   emergency: require("../../../assets/directory/illustration_emergency.webp"),
   political: require("../../../assets/directory/illustration_political.webp"),
 };
+
+// Round icons for the category chips (text-free 3D art). Groups without one
+// use their illustration, cropped to a circle.
+const chips: Partial<Record<DirectoryGroupId, ImageSourcePropType>> = {
+  shops: require("../../../assets/directory/chip_shops.webp"),
+  everyday: require("../../../assets/directory/chip_home.webp"),
+  health: require("../../../assets/directory/chip_health.webp"),
+  public: require("../../../assets/directory/chip_government.webp"),
+  farm: require("../../../assets/directory/chip_agriculture.webp"),
+  repairs: require("../../../assets/directory/chip_repair.webp"),
+  events: require("../../../assets/directory/chip_events.webp"),
+  community: require("../../../assets/directory/chip_ngo.webp"),
+  emergency: require("../../../assets/directory/chip_emergency.webp"),
+  political: require("../../../assets/directory/chip_political.webp"),
+};
+export const directoryChipImage = (id: DirectoryGroupId) =>
+  chips[id] ?? directoryGroupImages[id];

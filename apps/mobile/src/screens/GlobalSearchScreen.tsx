@@ -3,12 +3,13 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useAppStore } from "../store";
-import { messages } from "../i18n";
+import { formatMessage, messages } from "../i18n";
+import { shopProductGroup } from "@gaavli/constants";
 import { theme } from "../theme";
 import { toHomeListing } from "../data/listings";
 import { directoryPreview } from "../data/directory";
 import { useMarketplaceListings } from "../listings";
-import { useDirectory } from "../directory";
+import { useDirectory, useProductShops } from "../directory";
 import { listingName } from "../types/home";
 import { useListingClock } from "../hooks/useListingClock";
 import { AppHeader, HeaderSearch } from "../components/AppHeader";
@@ -23,6 +24,8 @@ import { showToast } from "../toast";
 
 const VOICE_HINTS = produceVoiceHints();
 const SHOWN = 4;
+// "Vegetable shops nearby" only promise the group, so they take less room.
+const GROUP_SHOWN = 3;
 
 // Search from the dashboard: one box, results from every part of the app.
 // Each part shows its best few and a link to see them all, already searching.
@@ -47,6 +50,7 @@ export default function GlobalSearchScreen() {
   const products = useMarketplaceListings(search, "all");
   const services = useDirectory("services", search);
   const transport = useDirectory("transport", search);
+  const shops = useProductShops(search);
   const voice = useVoiceSearch({
     language,
     scope: "search-all",
@@ -79,12 +83,37 @@ export default function GlobalSearchScreen() {
     directoryPreview(entry, now),
   );
   const transportTotal = transport.data?.pages[0]?.total ?? 0;
+  // Shops that sell what was searched: confirmed farmer listings come first,
+  // then shops that ticked the product, then shops that sell its group.
+  const shopProduct = shops.data?.product ?? null;
+  const productLabel = shopProduct
+    ? (language === "mr"
+        ? shopProduct.nameMr
+        : language === "hi"
+          ? shopProduct.nameHi
+          : null) || shopProduct.nameEn
+    : "";
+  const groupInfo = shopProduct
+    ? shopProductGroup(shopProduct.productGroup)
+    : undefined;
+  const groupLabel = groupInfo ? groupInfo[language] : "";
+  const haveRows = (shops.data?.haveIt.entries ?? []).map((entry) =>
+    directoryPreview(entry, now),
+  );
+  const haveTotal = shops.data?.haveIt.total ?? 0;
+  const groupRows = (shops.data?.sellsGroup.entries ?? []).map((entry) =>
+    directoryPreview(entry, now),
+  );
+  const groupTotal = shops.data?.sellsGroup.total ?? 0;
   const loading =
     !offline &&
     (products.isPending || services.isPending || transport.isPending);
   const nothing =
     !loading &&
+    !shops.isFetching &&
     !productRows.length &&
+    !haveRows.length &&
+    !groupRows.length &&
     !serviceRows.length &&
     !transportRows.length;
   const open = (route: "/marketplace" | "/services" | "/transport") =>
@@ -148,6 +177,32 @@ export default function GlobalSearchScreen() {
             ))}
           </View>
         )}
+        {!!search && !!haveRows.length && (
+          <Group
+            title={formatMessage(t.shopsHaveIt, { product: productLabel })}
+            icon="storefront-outline"
+            total={haveTotal}
+            rows={haveRows}
+            meta={formatMessage(t.shopHas, { product: productLabel })}
+            onAll={() => open("/services")}
+          />
+        )}
+        {!!search && !!groupRows.length && !!groupLabel && (
+          <Group
+            title={formatMessage(t.shopsSellGroup, { group: groupLabel })}
+            icon="storefront-outline"
+            total={groupTotal}
+            rows={groupRows}
+            shown={GROUP_SHOWN}
+            meta={formatMessage(t.shopSells, { group: groupLabel })}
+            onAll={() =>
+              router.navigate({
+                pathname: "/services",
+                params: { q: groupLabel, v: String(Date.now()) },
+              })
+            }
+          />
+        )}
         {!!search && !!serviceRows.length && (
           <Group
             title={t.dashboardServices}
@@ -177,12 +232,17 @@ function Group({
   total,
   rows,
   onAll,
+  meta,
+  shown = SHOWN,
 }: {
   title: string;
-  icon: "build-outline" | "car-outline";
+  icon: "build-outline" | "car-outline" | "storefront-outline";
   total: number;
   rows: ReturnType<typeof directoryPreview>[];
   onAll: () => void;
+  // A short label in place of the category, such as "Has tomato".
+  meta?: string;
+  shown?: number;
 }) {
   const router = useRouter();
   const language = useAppStore((state) => state.language);
@@ -193,10 +253,10 @@ function Group({
         icon={icon}
         title={title}
         badge={String(total)}
-        action={total > SHOWN ? t.viewAll : undefined}
+        action={total > shown ? t.viewAll : undefined}
         onPress={onAll}
       />
-      {rows.slice(0, SHOWN).map((row) => (
+      {rows.slice(0, shown).map((row) => (
         <Pressable
           key={row.id}
           accessibilityRole="button"
@@ -218,7 +278,10 @@ function Group({
               {listingName(row, language)}
             </Text>
             <Text numberOfLines={1} style={s.rowMeta}>
-              {[row.category, language !== "en" ? row.villageMr : row.village]
+              {[
+                meta ?? row.category,
+                language !== "en" ? row.villageMr : row.village,
+              ]
                 .filter(Boolean)
                 .join(" · ")}
             </Text>

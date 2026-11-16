@@ -62,6 +62,7 @@ async function visibleEntries(
   viewerId: string | null,
   id?: string,
   excludeProviderTypes: readonly string[] = [],
+  extra: Record<string, unknown> = {},
 ): Promise<PipelineStage[]> {
   const villageIds = await discoveryVillageIds(query.sourceVillageId);
   const terms = query.search.split(/\s+/).filter(Boolean);
@@ -96,6 +97,7 @@ async function visibleEntries(
             ? { module: { $in: ["services", null] } }
             : { module: { $in: ["services", "transport", null] } }),
         ...(filters.length ? { $and: filters } : {}),
+        ...extra,
       },
     },
     {
@@ -120,6 +122,52 @@ async function visibleEntries(
   ];
 }
 
+// The public directory entry DTO, before photo keys become URLs.
+function entryProjection(viewerId: string | null) {
+  return {
+    _id: 0,
+    id: { $toString: "$_id" },
+    module: {
+      $cond: [{ $eq: ["$module", "transport"] }, "transport", "services"],
+    },
+    name: "$profession",
+    nameMr: { $ifNull: ["$professionMr", null] },
+    description: { $ifNull: ["$description", null] },
+    category: { $ifNull: ["$serviceCategory", "Other"] },
+    contacts: viewerId ? { $ifNull: ["$contacts", []] } : { $literal: [] },
+    images: { $ifNull: ["$images", []] },
+    hours: { $ifNull: ["$hours", null] },
+    providerType: { $ifNull: ["$providerType", null] },
+    // Your own entries stay in the lists, marked as yours.
+    mine: viewerId
+      ? { $eq: ["$userId", new Types.ObjectId(viewerId)] }
+      : { $literal: false },
+    price: { $ifNull: ["$price", null] },
+    unit: { $ifNull: ["$unit", null] },
+    village: {
+      id: { $toString: "$village._id" },
+      name: "$village.nameEn",
+      nameMr: "$village.nameMr",
+    },
+    createdAt: {
+      $dateToString: {
+        date: "$createdAt",
+        format: "%Y-%m-%dT%H:%M:%S.%LZ",
+      },
+    },
+  };
+}
+function toEntry(row: unknown) {
+  const keys = (row as { images?: string[] }).images ?? [];
+  return directoryEntrySchema.parse({
+    ...(row as object),
+    images: keys.flatMap((key) => {
+      const url = listingPhotoUrl(key);
+      return url ? [{ key, url }] : [];
+    }),
+  });
+}
+
 export async function findDirectory(
   query: z.infer<typeof directoryQuerySchema>,
   viewerId: string | null,
@@ -135,46 +183,7 @@ export async function findDirectory(
           { $sort: { createdAt: -1, _id: -1 } },
           { $skip: (query.page - 1) * query.limit },
           { $limit: query.limit },
-          {
-            $project: {
-              _id: 0,
-              id: { $toString: "$_id" },
-              module: {
-                $cond: [
-                  { $eq: ["$module", "transport"] },
-                  "transport",
-                  "services",
-                ],
-              },
-              name: "$profession",
-              nameMr: { $ifNull: ["$professionMr", null] },
-              description: { $ifNull: ["$description", null] },
-              category: { $ifNull: ["$serviceCategory", "Other"] },
-              contacts: viewerId
-                ? { $ifNull: ["$contacts", []] }
-                : { $literal: [] },
-              images: { $ifNull: ["$images", []] },
-              hours: { $ifNull: ["$hours", null] },
-              providerType: { $ifNull: ["$providerType", null] },
-              // Your own entries stay in the lists, marked as yours.
-              mine: viewerId
-                ? { $eq: ["$userId", new Types.ObjectId(viewerId)] }
-                : { $literal: false },
-              price: { $ifNull: ["$price", null] },
-              unit: { $ifNull: ["$unit", null] },
-              village: {
-                id: { $toString: "$village._id" },
-                name: "$village.nameEn",
-                nameMr: "$village.nameMr",
-              },
-              createdAt: {
-                $dateToString: {
-                  date: "$createdAt",
-                  format: "%Y-%m-%dT%H:%M:%S.%LZ",
-                },
-              },
-            },
-          },
+          { $project: entryProjection(viewerId) },
         ],
         count: [{ $count: "total" }],
       },
@@ -185,20 +194,55 @@ export async function findDirectory(
     count: { total: number }[];
   }>(pipeline);
   return {
-    entries: (page?.entries ?? []).map((row) => {
-      const keys = (row as { images?: string[] }).images ?? [];
-      return directoryEntrySchema.parse({
-        ...(row as object),
-        images: keys.flatMap((key) => {
-          const url = listingPhotoUrl(key);
-          return url ? [{ key, url }] : [];
-        }),
-      });
-    }),
+    entries: (page?.entries ?? []).map(toEntry),
     total: page?.count[0]?.total ?? 0,
     page: query.page,
     limit: query.limit,
   };
+}
+
+// Shops in the visible villages that sell one catalogue product: those that
+// ticked the product itself, then those that only ticked its group.
+export async function findProductShops(
+  sourceVillageId: string,
+  product: { code: string; productGroup: string },
+  limit: number,
+  viewerId: string | null,
+) {
+  const query = { sourceVillageId, search: "" };
+  const section = async (match: Record<string, unknown>) => {
+    const [page] = await Service.aggregate<{
+      entries: unknown[];
+      count: { total: number }[];
+    }>([
+      ...(await visibleEntries(query, viewerId, undefined, [], {
+        providerType: "SHOP_BUSINESS",
+        ...match,
+      })),
+      {
+        $facet: {
+          entries: [
+            { $sort: { updatedAt: -1, _id: -1 } },
+            { $limit: limit },
+            { $project: entryProjection(viewerId) },
+          ],
+          count: [{ $count: "total" }],
+        },
+      },
+    ]);
+    return {
+      entries: (page?.entries ?? []).map(toEntry),
+      total: page?.count[0]?.total ?? 0,
+    };
+  };
+  const [haveIt, sellsGroup] = await Promise.all([
+    section({ productCodes: product.code }),
+    section({
+      productGroups: product.productGroup,
+      productCodes: { $ne: product.code },
+    }),
+  ]);
+  return { haveIt, sellsGroup };
 }
 
 // How many entries each category tile of one module holds.

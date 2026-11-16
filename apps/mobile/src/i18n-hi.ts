@@ -1,8 +1,6 @@
 import type { Messages } from "./i18n";
 
 export const hi: Messages = {
-  dashboardCoordinator: "समन्वयक",
-  dashboardSeller: "विक्रेता",
   dashboardLiveAvailability: "आज की ताज़ा उपलब्धता",
   dashboardFreshCount: "{count} ताज़ा लिस्टिंग",
   dashboardCategories: "गाँव की सेवाएँ और बाज़ार",
@@ -487,6 +485,7 @@ export const hi: Messages = {
   detContact: "संपर्क",
   detYours: "आपकी प्रविष्टि",
   detCallNow: "अभी कॉल करें",
+  dirAllCategoriesChip: "सभी",
   villageNoticeTitle: "आप दूसरे गाँव को देख रहे हैं",
   villageNoticeBody:
     "आपका अपना गाँव {home} है, लेकिन अभी आप {browsing} देख रहे हैं।",
@@ -669,6 +668,14 @@ export const hi: Messages = {
   searchAllPlaceholder: "उत्पाद, सेवाएँ, परिवहन…",
   searchAllHint: "बाज़ार, सेवाएँ और परिवहन साथ में खोजें।",
   searchAllNone: "आपके गाँव में इस खोज के लिए कुछ नहीं मिला।",
+  shopsHaveIt: "{product} मिलने वाली दुकानें",
+  shopsSellGroup: "पास की {group} दुकानें",
+  shopHas: "{product} मिलता है",
+  shopSells: "{group} बिक्री",
+  shopPickGroupsFirst:
+    "लोकप्रिय सामान देखने के लिए पहले चुनें कि आप क्या बेचते हैं।",
+  shopItemsCount: "{max} में से {count} सामान चुने",
+  shopItemsLimit: "आप ज़्यादा से ज़्यादा {max} सामान चुन सकते हैं।",
   searchClear: "साफ़ करें",
   searchPopular: "लोकप्रिय खोजें",
   searchCategories: "श्रेणी के अनुसार खरीदें",

@@ -20,11 +20,11 @@ export function AppAlertHost() {
     (last, button, index) => (button.style === "cancel" ? last : index),
     -1,
   );
-  function close() {
+  const close = () => {
     if (!notice.cancelable) return;
     dismiss(notice.id);
     cancelButton?.onPress?.();
-  }
+  };
 
   return (
     <Modal

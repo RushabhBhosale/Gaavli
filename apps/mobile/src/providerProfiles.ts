@@ -102,6 +102,7 @@ export function refreshProfiles(client: QueryClient) {
     client.invalidateQueries({ queryKey: ["directory"] }),
     client.invalidateQueries({ queryKey: ["directory-summary"] }),
     client.invalidateQueries({ queryKey: ["dashboard-directory"] }),
+    client.invalidateQueries({ queryKey: ["product-shops"] }),
   ]);
 }
 

@@ -5,6 +5,8 @@ import {
   LINK_STATUSES,
   MAX_PROVIDER_CONTACTS,
   MAX_PROVIDER_IMAGES,
+  MAX_SHOP_PRODUCTS,
+  SHOP_PRODUCT_GROUP_IDS,
   PRACTICE_MODES,
   PROVIDER_KINDS,
   PROVIDER_STATUSES,
@@ -65,8 +67,25 @@ export const providerContactsSchema = z
     });
   });
 
+const unique = (values: readonly string[]) =>
+  new Set(values).size === values.length;
+// A shop's product groups and popular items (Product Master codes).
+export const shopProductGroupsSchema = z
+  .array(z.enum(SHOP_PRODUCT_GROUP_IDS))
+  .max(SHOP_PRODUCT_GROUP_IDS.length)
+  .refine(unique, "DUPLICATE_GROUP");
+export const shopProductCodesSchema = z
+  .array(z.string().regex(/^[A-Z0-9][A-Z0-9_]{0,79}$/, "PRODUCT_CODE_INVALID"))
+  .max(MAX_SHOP_PRODUCTS, "TOO_MANY_PRODUCTS")
+  .refine(unique, "DUPLICATE_PRODUCT");
+
 function fieldSchema(field: ProviderField): z.ZodType {
   if (field.kind === "bool") return z.boolean().default(false);
+  if (field.kind === "groups")
+    return field.required
+      ? shopProductGroupsSchema.refine((v) => v.length > 0, "REQUIRED")
+      : shopProductGroupsSchema.default([]);
+  if (field.kind === "products") return shopProductCodesSchema.default([]);
   const base =
     field.kind === "choice"
       ? z.enum(field.options.map((o) => o.id) as [string, ...string[]])

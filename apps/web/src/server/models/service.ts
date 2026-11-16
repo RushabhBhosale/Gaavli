@@ -41,6 +41,9 @@ const serviceSchema = new Schema(
     hours: { type: String, trim: true, maxlength: 400 },
     description: { type: String, trim: true, maxlength: 2000 },
     keywords: [String],
+    // Shops: product groups and Product Master codes they usually sell.
+    productGroups: { type: [String], default: undefined },
+    productCodes: { type: [String], default: undefined },
     price: { type: Number, min: 0 },
     unit: { type: String, trim: true, maxlength: 30 },
     status: { type: String, enum: ["ACTIVE", "INACTIVE"], default: "ACTIVE" },
@@ -56,6 +59,9 @@ serviceSchema.index({
   _id: -1,
 });
 serviceSchema.index({ userId: 1 });
+// "Shops that sell tomato / vegetables", see docs/03-api/SHOP_PRODUCTS.md.
+serviceSchema.index({ productCodes: 1, status: 1, villageId: 1 });
+serviceSchema.index({ productGroups: 1, status: 1, villageId: 1 });
 serviceSchema.index({ profileId: 1 }, { unique: true, sparse: true });
 export const Service =
   (mongoose.models.Service as mongoose.Model<

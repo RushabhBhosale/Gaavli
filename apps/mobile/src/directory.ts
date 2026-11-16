@@ -5,6 +5,7 @@ import {
   directoryEntrySchema,
   directoryPageSchema,
   directorySummarySchema,
+  productShopsSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "./store";
 import { browsingVillageFor } from "./storage/browsingVillage";
@@ -94,6 +95,28 @@ export function useDirectoryEntry(id: string) {
       (session ? authenticatedApi : api)(
         `/directory/${id}?sourceVillageId=${village!.id}`,
         directoryEntrySchema,
+        { signal },
+      ),
+    retry,
+  });
+}
+// Shops that sell the searched product (not persisted: entries carry contacts).
+export function useProductShops(search: string, limit = 5) {
+  const session = useAppStore((state) => state.session);
+  const village = useAppStore(browsingVillageFor);
+  return useQuery({
+    queryKey: [
+      "product-shops",
+      session?.user.id ?? "guest",
+      village?.id,
+      search,
+      limit,
+    ],
+    enabled: !!village && !!search && (!session || !!session.user.village),
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/directory/product-shops?${new URLSearchParams({ sourceVillageId: village!.id, q: search, limit: String(limit) })}`,
+        productShopsSchema,
         { signal },
       ),
     retry,

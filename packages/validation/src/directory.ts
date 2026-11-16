@@ -93,3 +93,37 @@ export const dashboardDirectorySchema = z
     transport: directoryPageSchema,
   })
   .strict();
+
+// Shops that sell what the buyer searched for. See docs/03-api/SHOP_PRODUCTS.md.
+export const productShopsQuerySchema = z
+  .object({
+    sourceVillageId: id,
+    q: z.string().trim().max(80).default(""),
+    limit: z.coerce.number().int().min(1).max(20).default(5),
+  })
+  .strict();
+const shopSection = z
+  .object({
+    entries: z.array(directoryEntrySchema),
+    total: z.number().int().nonnegative(),
+  })
+  .strict();
+export const productShopsSchema = z
+  .object({
+    // The catalogue product the search text matched, or null for none.
+    product: z
+      .object({
+        code: z.string(),
+        nameEn: z.string(),
+        nameMr: z.string(),
+        nameHi: z.string().nullable(),
+        productGroup: z.string(),
+      })
+      .strict()
+      .nullable(),
+    // Shops that ticked this exact product.
+    haveIt: shopSection,
+    // Other shops that sell the product's group.
+    sellsGroup: shopSection,
+  })
+  .strict();

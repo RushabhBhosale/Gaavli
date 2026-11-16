@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -22,10 +22,13 @@ import { theme } from "../theme";
 import { Button, ErrorMessage, Screen, SkeletonList } from "../components/ui";
 import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
-import { DirectoryListingCard } from "../components/dashboard/DirectoryListingCard";
+import { DirectoryListCard } from "../components/dashboard/DirectoryListCard";
 import { d } from "../components/dashboard/primitives";
-import { DirectoryCategoryGrid } from "../components/dashboard/DirectoryCategoryGrid";
+import { directoryChipImage } from "../components/dashboard/directoryGroupImages";
 
+// Services and Transport: a row of round category chips to scroll through,
+// and below it the list of what is available (all of it, or the chosen
+// category). Search filters the same list.
 export default function DirectoryScreen({
   module,
   asTab = false,
@@ -38,15 +41,6 @@ export default function DirectoryScreen({
   const { language, offline } = useAppStore();
   const t = messages(language);
   const scrollRef = useRef<ScrollView>(null);
-  const { width } = useWindowDimensions();
-  const previewWidth = Math.max(
-    144,
-    Math.min(
-      200,
-      (Math.min(width - 40, theme.layout.contentWidth - 40) - 12) / 2.15,
-    ),
-  );
-  const [viewAll, setViewAll] = useState(false);
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<DirectoryGroupId | null>(null);
@@ -60,7 +54,6 @@ export default function DirectoryScreen({
     setInput(text);
     setSearch(text);
     setCategory(null);
-    setViewAll(false);
   }
   useEffect(() => {
     const timer = setTimeout(() => setSearch(input.trim()), 300);
@@ -68,32 +61,10 @@ export default function DirectoryScreen({
   }, [input]);
   const summary = useDirectorySummary(module);
   const counts = new Map(summary.data?.groups.map((g) => [g.id, g.count]));
-  const showOverview = !viewAll && !category && !input.trim();
-  const searchPending = input.trim() !== search;
   const query = useDirectory(module, search, category);
-  const { isFetching, isError, hasNextPage, fetchNextPage } = query;
   useEffect(() => {
     scrollRef.current?.scrollTo({ y: 0, animated: false });
-  }, [category, viewAll, showOverview]);
-  useEffect(() => {
-    if (
-      !showOverview &&
-      !searchPending &&
-      !offline &&
-      !isFetching &&
-      !isError &&
-      hasNextPage
-    )
-      void fetchNextPage();
-  }, [
-    offline,
-    fetchNextPage,
-    hasNextPage,
-    isError,
-    isFetching,
-    searchPending,
-    showOverview,
-  ]);
+  }, [category]);
   const entries = Array.from(
     new Map(
       (query.data?.pages.flatMap((page) => page.entries) ?? []).map((entry) => [
@@ -104,12 +75,22 @@ export default function DirectoryScreen({
   );
   const title =
     module === "services" ? t.dashboardServices : t.dashboardTransport;
-  // Tiles for every category, but the catch-all only when something is in it.
+  // Chips for every category, but the catch-all only when something is in it.
+  // Categories with listings come first; within each group the order is set in
+  // one place (emergency help, government offices and ambulances lead).
   const allTiles = directoryGroupsFor(module).filter(
     (group) => !isCatchAllGroup(group.id) || (counts.get(group.id) ?? 0) > 0,
   );
-  // Emergency help, government offices and ambulances lead; the order is set
-  // in one place, so it is the same for everyone.
+  const tiles = [
+    ...allTiles.filter((group) => (counts.get(group.id) ?? 0) > 0),
+    ...allTiles.filter((group) => !(counts.get(group.id) ?? 0)),
+  ];
+  const listTitle = category
+    ? `${directoryGroupLabel(category, language)}${counts.has(category) ? ` (${counts.get(category)})` : ""}`
+    : module === "services"
+      ? t.directoryAvailableServices
+      : t.directoryAvailableTransport;
+  const tone = theme.modules[module];
   return (
     <ProtectedPage allowGuest>
       <Screen
@@ -125,9 +106,8 @@ export default function DirectoryScreen({
             // Inside a category (or a search) the way back is up one level,
             // from the same fixed spot as everywhere else.
             onBack={
-              !showOverview
+              category || input.trim()
                 ? () => {
-                    setViewAll(false);
                     setCategory(null);
                     setInput("");
                     setSearch("");
@@ -148,183 +128,161 @@ export default function DirectoryScreen({
           </AppHeader>
         }
       >
-        {category && (
-          <View style={s.crumb}>
-            <Text accessibilityRole="header" style={s.crumbTitle}>
-              {`${directoryGroupLabel(category, language)}${counts.has(category) ? ` (${counts.get(category)})` : ""}`}
-            </Text>
-          </View>
+        <Text accessibilityRole="header" style={s.sectionTitle}>
+          {t.directoryBrowse}
+        </Text>
+        {summary.isError && !summary.data && !offline && (
+          <>
+            <ErrorMessage message={t.dashboardDirectoryFailed} />
+            <Button secondary onPress={() => void summary.refetch()}>
+              {t.retry}
+            </Button>
+          </>
         )}
-        {showOverview && (
-          <View style={s.previewSection}>
-            <View style={s.sectionHeader}>
-              <Text accessibilityRole="header" style={s.sectionTitle}>
-                {module === "services"
-                  ? t.directoryAvailableServices
-                  : t.directoryAvailableTransport}
-              </Text>
-              {entries.length > 0 && (
-                <Pressable
-                  accessibilityRole="button"
-                  onPress={() => setViewAll(true)}
-                  style={({ pressed }) => [s.viewAll, pressed && d.pressed]}
-                >
-                  <Text
-                    style={[
-                      s.viewAllText,
-                      { color: theme.modules[module].color },
-                    ]}
-                  >
-                    {t.viewAll}
-                  </Text>
-                  <Ionicons
-                    accessible={false}
-                    name="chevron-forward"
-                    size={14}
-                    color={theme.modules[module].color}
-                  />
-                </Pressable>
-              )}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={s.chipScroll}
+          contentContainerStyle={s.chips}
+        >
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ selected: !category }}
+            onPress={() => setCategory(null)}
+            style={s.chip}
+          >
+            <View
+              style={[
+                s.circle,
+                s.allCircle,
+                { backgroundColor: tone.tint },
+                !category && { borderColor: tone.color, borderWidth: 3 },
+              ]}
+            >
+              <Ionicons
+                accessible={false}
+                name="apps"
+                size={30}
+                color={tone.color}
+              />
             </View>
-            {query.isPending && !offline && (
-              <SkeletonList rows={1} label={t.listingsLoading} />
-            )}
-            {query.isError && !offline && (
-              <>
-                <ErrorMessage message={t.dashboardDirectoryFailed} />
-                <Button secondary onPress={() => void query.refetch()}>
-                  {t.retry}
-                </Button>
-              </>
-            )}
-            {entries.length > 0 && (
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={s.previewRail}
-                keyboardShouldPersistTaps="handled"
-              >
-                {entries.slice(0, 6).map((entry) => (
-                  <DirectoryListingCard
-                    key={entry.id}
-                    entry={entry}
-                    language={language}
-                    width={previewWidth}
-                    onPress={() =>
-                      router.push({
-                        pathname: "/directory/[id]",
-                        params: { id: entry.id },
-                      })
-                    }
-                  />
-                ))}
-              </ScrollView>
-            )}
-            {offline && (
-              <Text style={d.description}>
-                {query.data ? t.listingsOffline : t.listingsOfflineEmpty}
-              </Text>
-            )}
-            {!offline &&
-              !query.isPending &&
-              !query.isError &&
-              !entries.length && (
-                <Text style={d.description}>{t.dashboardDirectoryEmpty}</Text>
-              )}
-          </View>
-        )}
-        {showOverview && (
-          <>
-            <Text accessibilityRole="header" style={s.sectionTitle}>
-              {t.directoryBrowse}
+            <Text
+              numberOfLines={2}
+              style={[s.chipLabel, !category && { color: tone.color }]}
+            >
+              {t.dirAllCategoriesChip}
             </Text>
-            {summary.isPending && !offline && (
-              <SkeletonList rows={3} label={t.listingsLoading} />
-            )}
-            {summary.isError && !summary.data && !offline && (
-              <>
-                <ErrorMessage message={t.dashboardDirectoryFailed} />
-                <Button secondary onPress={() => void summary.refetch()}>
-                  {t.retry}
-                </Button>
-              </>
-            )}
-            {offline && !summary.data && (
-              <Text style={d.description}>{t.listingsOfflineEmpty}</Text>
-            )}
-            {summary.data && (
-              <DirectoryCategoryGrid
-                groups={allTiles}
-                counts={counts}
-                language={language}
-                module={module}
-                onSelect={setCategory}
-              />
-            )}
+          </Pressable>
+          {tiles.map((group) => {
+            const count = counts.get(group.id) ?? 0;
+            const on = category === group.id;
+            return (
+              <Pressable
+                key={group.id}
+                accessibilityRole="button"
+                accessibilityState={{ selected: on }}
+                accessibilityLabel={`${group[language]}${count ? `, ${count}` : ""}`}
+                onPress={() => setCategory(on ? null : group.id)}
+                style={s.chip}
+              >
+                <View
+                  style={[
+                    s.circle,
+                    on && { borderColor: tone.color, borderWidth: 3 },
+                    !count && s.dim,
+                  ]}
+                >
+                  <Image
+                    source={directoryChipImage(group.id)}
+                    style={s.circleImage}
+                    accessible={false}
+                  />
+                </View>
+                <Text
+                  numberOfLines={2}
+                  style={[s.chipLabel, on && { color: tone.color }]}
+                >
+                  {group[language]}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
+
+        <Text accessibilityRole="header" style={s.sectionTitle}>
+          {listTitle}
+        </Text>
+        {offline && (
+          <Text style={d.description}>
+            {query.data ? t.listingsOffline : t.listingsOfflineEmpty}
+          </Text>
+        )}
+        {!offline && query.isPending && (
+          <SkeletonList rows={4} label={t.listingsLoading} />
+        )}
+        {query.isError && !offline && (
+          <>
+            <ErrorMessage message={t.dashboardDirectoryFailed} />
+            <Button secondary onPress={() => void query.refetch()}>
+              {t.retry}
+            </Button>
           </>
         )}
-        {!showOverview && (
-          <>
-            {offline && (
-              <Text style={d.description}>
-                {query.data ? t.listingsOffline : t.listingsOfflineEmpty}
-              </Text>
-            )}
-            {!offline && query.isPending && (
-              <SkeletonList rows={4} label={t.listingsLoading} />
-            )}
-            {query.isError && !offline && (
-              <>
-                <ErrorMessage message={t.dashboardDirectoryFailed} />
-                <Button secondary onPress={() => void query.refetch()}>
-                  {t.retry}
-                </Button>
-              </>
-            )}
-            {!query.isPending && !isError && !entries.length && (
-              <Text style={d.description}>{t.dashboardDirectoryEmpty}</Text>
-            )}
-            {entries.map((entry) => (
-              <DirectoryListingCard
-                key={entry.id}
-                entry={entry}
-                language={language}
-                wide
-                onPress={() =>
-                  router.push({
-                    pathname: "/directory/[id]",
-                    params: { id: entry.id },
-                  })
-                }
-              />
-            ))}
-          </>
+        {!query.isPending && !query.isError && !entries.length && (
+          <Text style={d.description}>{t.dashboardDirectoryEmpty}</Text>
+        )}
+        {entries.map((entry) => (
+          <DirectoryListCard
+            key={entry.id}
+            entry={entry}
+            language={language}
+            onPress={() =>
+              router.push({
+                pathname: "/directory/[id]",
+                params: { id: entry.id },
+              })
+            }
+          />
+        ))}
+        {query.hasNextPage && (
+          <Button
+            secondary
+            disabled={offline || query.isFetching}
+            loading={query.isFetchingNextPage}
+            onPress={() => void query.fetchNextPage()}
+          >
+            {t.marketplaceShowMore}
+          </Button>
         )}
       </Screen>
     </ProtectedPage>
   );
 }
 const s = StyleSheet.create({
-  previewSection: { gap: 12 },
-  sectionHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 8,
+  sectionTitle: { ...theme.type.heading, color: theme.colors.heading },
+  // Bleeds to the screen edges so the chips scroll under the margins.
+  chipScroll: { marginHorizontal: -theme.layout.screenPadding, flexGrow: 0 },
+  chips: {
+    gap: 14,
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingVertical: 4,
   },
-  sectionTitle: {
-    ...theme.type.subheading,
+  chip: { width: 84, alignItems: "center", gap: 6 },
+  circle: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    overflow: "hidden",
+    borderWidth: 3,
+    borderColor: "transparent",
+    backgroundColor: theme.colors.surfaceMuted,
+  },
+  allCircle: { alignItems: "center", justifyContent: "center" },
+  circleImage: { width: "100%", height: "100%" },
+  dim: { opacity: 0.45 },
+  chipLabel: {
+    ...theme.type.micro,
     color: theme.colors.heading,
-    flexShrink: 1,
+    textAlign: "center",
   },
-  previewRail: { gap: 12, paddingBottom: 2 },
-  viewAll: {
-    flexDirection: "row",
-    alignItems: "center",
-    minHeight: 44,
-    gap: 2,
-  },
-  viewAllText: { ...theme.type.micro },
-  crumb: { gap: 6 },
-  crumbTitle: { ...theme.type.heading, color: theme.colors.heading },
 });

@@ -4,6 +4,7 @@ import type { z } from "zod";
 import {
   PROVIDER_KINDS,
   ProviderType,
+  shopProductGroup,
   isDoctorType,
   isFacilityType,
   type ProviderField,
@@ -19,6 +20,7 @@ import { connectDb } from "../db/connect";
 import { User, Village, type UserRecord } from "../models";
 import { Service } from "../models/service";
 import { ProviderMaster } from "../models/provider-master";
+import { ProductMaster } from "../models/product-master";
 import { ListingPhoto } from "../models/listing-photo";
 import { listingPhotoUrl } from "../providers/listing-photos";
 import {
@@ -71,6 +73,10 @@ async function checkMasters(
   details: Record<string, unknown>,
 ) {
   for (const field of PROVIDER_KINDS[type].fields as readonly ProviderField[]) {
+    if (field.kind === "products") {
+      await checkProducts(details[field.key], field.key);
+      continue;
+    }
     if (field.kind !== "master") continue;
     const code = details[field.key];
     if (typeof code !== "string" || !code) continue;
@@ -89,6 +95,26 @@ async function checkMasters(
       );
   }
 }
+// A shop's popular items must be active catalogue products.
+async function checkProducts(value: unknown, key: string) {
+  const codes = Array.isArray(value) ? (value as string[]) : [];
+  if (!codes.length) return;
+  const found = await ProductMaster.countDocuments({
+    code: { $in: codes },
+    status: "ACTIVE",
+  });
+  if (found !== new Set(codes).size)
+    throw new AppError(
+      422,
+      "INVALID_PRODUCT_CODE",
+      "Choose products from the list.",
+      { field: key },
+    );
+}
+const stringList = (value: unknown) =>
+  Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === "string")
+    : [];
 function checkPrimary(user: UserRecord, contacts: Create["contacts"]) {
   const primary = contacts.find((row) => row.label === "primary");
   if (!primary || primary.mobile !== mobileOf(user))
@@ -271,6 +297,9 @@ export async function syncDirectoryEntry(profile: Profile) {
       .find((value) => typeof value === "string" && value) ||
     null;
   const active = profile.status === "ACTIVE";
+  const shop = type === ProviderType.SHOP_BUSINESS;
+  const productGroups = shop ? stringList(details.sells) : [];
+  const productCodes = shop ? stringList(details.products) : [];
   await Service.updateOne(
     { profileId: profile._id },
     {
@@ -293,9 +322,18 @@ export async function syncDirectoryEntry(profile: Profile) {
         providerType: type,
         description:
           typeof summary === "string" ? summary.slice(0, 1500) : undefined,
-        keywords: master
-          ? [master.code, master.name.en, master.name.mr, master.name.hi]
-          : [],
+        keywords: [
+          ...(master
+            ? [master.code, master.name.en, master.name.mr, master.name.hi]
+            : []),
+          // Shops are found by the names of the groups they sell, too.
+          ...productGroups.flatMap((id) => {
+            const group = shopProductGroup(id);
+            return group ? [group.en, group.mr, group.hi] : [];
+          }),
+        ],
+        productGroups,
+        productCodes,
         contacts,
         images: profile.images ?? [],
         hours:
@@ -530,7 +568,18 @@ export async function updateProviderProfile(
   }
   if (input.details) {
     const { providerDetailsSchema } = await import("@gaavli/validation");
-    const parsed = providerDetailsSchema(type).safeParse(input.details);
+    // Apps released before shop products send no "sells"/"products": keep
+    // what the shop saved instead of clearing it.
+    const saved = (row.details ?? {}) as Record<string, unknown>;
+    const incoming: Record<string, unknown> = { ...input.details };
+    for (const field of PROVIDER_KINDS[type].fields as readonly ProviderField[])
+      if (
+        (field.kind === "groups" || field.kind === "products") &&
+        !(field.key in incoming) &&
+        field.key in saved
+      )
+        incoming[field.key] = saved[field.key];
+    const parsed = providerDetailsSchema(type).safeParse(incoming);
     if (!parsed.success)
       throw new AppError(
         422,

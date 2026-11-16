@@ -23,7 +23,8 @@ const en = {
   locationSource: "Location used",
   currentLocation: "Current device location",
   refreshLocation: "Refresh location",
-  locationUnavailable: "Device location is unavailable. Allow location access and try again.",
+  locationUnavailable:
+    "Device location is unavailable. Allow location access and try again.",
   nearbyGps: "Nearby by GPS",
   byDistrict: "By district",
   confirmVillages: "Connect the selected villages?",
@@ -177,7 +178,8 @@ const mr: Record<keyof typeof en, string> = {
   locationSource: "स्थान स्रोत",
   currentLocation: "सध्याचे डिव्हाइस स्थान",
   refreshLocation: "स्थान पुन्हा मिळवा",
-  locationUnavailable: "डिव्हाइसचे स्थान उपलब्ध नाही. स्थानाची परवानगी देऊन पुन्हा प्रयत्न करा.",
+  locationUnavailable:
+    "डिव्हाइसचे स्थान उपलब्ध नाही. स्थानाची परवानगी देऊन पुन्हा प्रयत्न करा.",
   nearbyGps: "जवळची गावे",
   byDistrict: "जिल्हा नुसार",
   confirmVillages: "निवडलेली गावे जोडायची?",
@@ -331,7 +333,8 @@ const hi: Record<keyof typeof en, string> = {
   locationSource: "स्थान स्रोत",
   currentLocation: "डिवाइस का वर्तमान स्थान",
   refreshLocation: "स्थान फिर से प्राप्त करें",
-  locationUnavailable: "डिवाइस का स्थान उपलब्ध नहीं है। स्थान की अनुमति दें और फिर कोशिश करें।",
+  locationUnavailable:
+    "डिवाइस का स्थान उपलब्ध नहीं है। स्थान की अनुमति दें और फिर कोशिश करें।",
   nearbyGps: "GPS से आसपास",
   byDistrict: "ज़िले के अनुसार",
   confirmVillages: "चुने गए गाँव जोड़ें?",
@@ -436,7 +439,6 @@ const hi: Record<keyof typeof en, string> = {
   verified: "मोबाइल सत्यापित",
   unverified: "मोबाइल असत्यापित",
   unknown: "दर्ज नहीं",
-  directoryEdit: "संपादित करें",
   roleBuyer: "खरीदार",
   roleSeller: "विक्रेता",
   roleCoordinator: "समन्वयक",
