@@ -1,4 +1,6 @@
 import "server-only";
+import { setTimeout } from "node:timers/promises";
+import { PUSH_TEST_DELAY_SECONDS } from "@gaavli/validation";
 import type { MobileLanguage } from "@gaavli/types";
 import type { Types } from "mongoose";
 import { Notification, User } from "../models";
@@ -36,6 +38,7 @@ async function removeUnregisteredDevice(device: {
 export async function sendFirebaseTestPush(
   session: Awaited<ReturnType<typeof requireMobileSession>>["session"],
   token: string,
+  schedule?: (task: () => Promise<void>) => void,
 ) {
   const provider = firebasePushProvider();
   if (!provider)
@@ -45,14 +48,14 @@ export async function sendFirebaseTestPush(
       "Set FCM_SERVICE_ACCOUNT_JSON on this deployment.",
     );
   await limitRequests("firebase-test", String(session.user), 10, 3600_000);
-  const device = session.pushEnabled
-    ? await PushDevice.findOne({
-        _id: token,
-        sessionId: session._id,
-        userId: session.user,
-        expiresAt: { $gt: new Date() },
-      }).lean()
-    : null;
+  const findDevice = () =>
+    PushDevice.findOne({
+      _id: token,
+      sessionId: session._id,
+      userId: session.user,
+      expiresAt: { $gt: new Date() },
+    }).lean();
+  const device = session.pushEnabled ? await findDevice() : null;
   if (!device)
     throw new AppError(
       404,
@@ -60,29 +63,69 @@ export async function sendFirebaseTestPush(
       "Enable Buyer request alerts in Gaavli on the test phone first.",
     );
 
-  const result = await provider
-    .send({
-      token: device._id,
-      body: testBody[device.language as MobileLanguage] ?? testBody.en,
-      kind: "firebase-test",
-    })
-    .catch((error: unknown) => {
-      if (error instanceof AppError) throw error;
+  const send = async (
+    target: NonNullable<Awaited<ReturnType<typeof findDevice>>>,
+  ) => {
+    const result = await provider
+      .send({
+        token: target._id,
+        body: testBody[target.language as MobileLanguage] ?? testBody.en,
+        kind: "firebase-test",
+      })
+      .catch(throwPushRequestError);
+    if (result === "unregistered") {
+      await removeUnregisteredDevice(target);
       throw new AppError(
-        502,
-        "FCM_REQUEST_FAILED",
-        "The Firebase request failed. Try again.",
+        409,
+        "FCM_DEVICE_UNREGISTERED",
+        "Open Gaavli on the test phone to refresh its push registration, then try again.",
       );
+    }
+  };
+
+  if (schedule) {
+    await provider.authorize().catch(throwPushRequestError);
+    schedule(async () => {
+      await setTimeout(PUSH_TEST_DELAY_SECONDS * 1000);
+      try {
+        const [activeSession, activeUser, registeredDevice] = await Promise.all(
+          [
+            MobileSession.exists({
+              _id: session._id,
+              user: session.user,
+              expiresAt: { $gt: new Date() },
+              pushEnabled: true,
+            }),
+            User.exists({ _id: session.user, status: "active" }),
+            findDevice(),
+          ],
+        );
+        if (activeSession && activeUser && registeredDevice)
+          await send(registeredDevice);
+      } catch (error) {
+        console.warn(
+          "Scheduled Firebase test push failed",
+          error instanceof AppError ? error.code : "FCM_REQUEST_FAILED",
+        );
+      }
     });
-  if (result === "unregistered") {
-    await removeUnregisteredDevice(device);
-    throw new AppError(
-      409,
-      "FCM_DEVICE_UNREGISTERED",
-      "Open Gaavli on the test phone to refresh its push registration, then try again.",
-    );
+    return {
+      status: "scheduled" as const,
+      delaySeconds: PUSH_TEST_DELAY_SECONDS,
+    };
   }
+
+  await send(device);
   return { status: "accepted" as const };
+}
+
+function throwPushRequestError(error: unknown): never {
+  if (error instanceof AppError) throw error;
+  throw new AppError(
+    502,
+    "FCM_REQUEST_FAILED",
+    "The Firebase request failed. Try again.",
+  );
 }
 
 export async function deliverSellerRequestPush(notificationId: string) {

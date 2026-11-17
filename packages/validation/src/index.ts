@@ -111,7 +111,16 @@ export const pushDeviceInputSchema = z
   })
   .strict();
 export const pushDeviceStatusSchema = z.object({ enabled: z.boolean() }).strict();
-export const pushTestResultSchema = z.object({ status: z.literal("accepted") }).strict();
+export const PUSH_TEST_DELAY_SECONDS = 5;
+export const pushTestInputSchema = pushDeviceInputSchema
+  .pick({ token: true })
+  .extend({ delaySeconds: z.literal(PUSH_TEST_DELAY_SECONDS).optional() });
+export const pushTestResultSchema = z
+  .object({
+    status: z.literal("scheduled"),
+    delaySeconds: z.literal(PUSH_TEST_DELAY_SECONDS),
+  })
+  .strict();
 export const healthStatusSchema = z
   .object({ status: z.literal("ok") })
   .strict();

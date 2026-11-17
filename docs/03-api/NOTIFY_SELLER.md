@@ -22,9 +22,12 @@ buyer names and request notes remain in the protected in-app flow.
 In **Settings → Notifications**, enable **Buyer request alerts**, then tap
 **Send test notification**. The app refreshes its own FCM registration and
 calls `POST /api/v1/notifications/push-device/test` with the token for the
-current signed-in session. The request sends one real FCM notification to
-that phone. Firebase acceptance appears in Settings, and arrival appears as
-an Android toast or an iOS notification while the app is open.
+current signed-in session and `delaySeconds: 5`. Once Settings confirms the
+test is scheduled, close the app or leave it open. The server starts the
+FCM send five seconds after responding, provided the same device and session
+still have alerts enabled. Android shows incoming push alerts at the top of
+the screen while Gaavli is open. iOS uses its system notification banner.
+When the app is closed, the operating system handles the test notification.
 
 ### Release setup
 

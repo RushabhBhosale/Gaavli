@@ -9,6 +9,7 @@ type PushMessage = {
   kind?: "firebase-test";
 };
 export interface PushProvider {
+  authorize(): Promise<void>;
   send(message: PushMessage): Promise<"sent" | "unregistered">;
 }
 
@@ -83,6 +84,9 @@ function createFirebasePushProvider(
   }
 
   return {
+    async authorize() {
+      await getAccessToken();
+    },
     async send({ token, body, kind = "seller-request" }) {
       const accessToken = await getAccessToken();
       const response = await fetch(

@@ -12,11 +12,13 @@
   pod installation passed. Full native builds hit the host's disk limit.
 - Backend FCM credentials, iOS APNs configuration and real device acceptance
   remain pending. See [NOTIFY_SELLER.md](03-api/NOTIFY_SELLER.md) for rollout.
-- **Send test notification** in mobile Settings sends a real push to the
-  opted-in phone for the current mobile session. The route test passed with
-  mocked FCM, including rejection of other sessions and opted-out devices.
-  Mobile and web typechecks and focused ESLint passed. Deploy the API and
-  install the updated app to verify live delivery.
+- **Send test notification** in mobile Settings schedules a push five seconds
+  after the API responds. The server rechecks device registration and consent
+  before sending. Android shows foreground push alerts at the top of the screen.
+  The contact integration test passed with mocked FCM, including delayed send
+  and opt-out before delivery. Mobile and web typechecks and focused ESLint
+  passed. Both Android release APKs built and passed signature verification.
+  Deployment and live phone delivery still need verification.
 
 ## 2026-11-17 - Cross-script directory name search
 

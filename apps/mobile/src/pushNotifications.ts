@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   pushDeviceStatusSchema,
   pushTestResultSchema,
+  PUSH_TEST_DELAY_SECONDS,
 } from "@gaavli/validation";
 import { ApiError } from "./api/client";
 import { messages } from "./i18n";
@@ -144,7 +145,10 @@ export function usePushDeviceSettings() {
         if (!registration.enabled) throw new ApiError("FCM_DEVICE_UNAVAILABLE");
         return authenticatedApi(`${path}/test`, pushTestResultSchema, {
           method: "POST",
-          body: JSON.stringify({ token }),
+          body: JSON.stringify({
+            token,
+            delaySeconds: PUSH_TEST_DELAY_SECONDS,
+          }),
           signal,
         }).catch(async (error: unknown) => {
           if (
@@ -204,13 +208,13 @@ export function PushNotificationSync() {
             const t = messages(useAppStore.getState().language);
             if (message.data?.kind === "firebase-test") {
               if (Platform.OS === "android")
-                showToast(t.pushTestReceived, "success");
+                showToast(t.pushTestReceived, "success", "top");
               return;
             }
             if (message.data?.kind !== "seller-request") return;
             refreshInbox();
             if (Platform.OS === "android")
-              showToast(t.pushRequestReceived, "success");
+              showToast(t.pushRequestReceived, "success", "top");
           }),
         );
         open(await api.getInitialNotification(messaging));

@@ -34,6 +34,10 @@ const { getRequestContact, getActivityRequests } =
   await import("../src/server/services/requests");
 const { getUserNotifications } =
   await import("../src/server/services/notifications");
+const { sendFirebaseTestPush } =
+  await import("../src/server/services/notification-push");
+const { requireMobileSession } =
+  await import("../src/server/services/mobile-auth");
 const { GET: notificationInbox, PATCH: readNotifications } =
   await import("../src/app/api/v1/notifications/route");
 const { GET: pushStatus, PUT: enablePush, DELETE: disablePush, PATCH: refreshPush } =
@@ -168,6 +172,28 @@ try {
   assert.deepEqual((await testResult.json()).data, { status: "accepted" });
   assert.deepEqual(testPushes, [sellerDevice]);
   assert.equal(await Notification.countDocuments(), 0);
+
+  const pendingPushes: (() => Promise<void>)[] = [];
+  for (const [accessToken, token] of [
+    [sellerToken, sellerDevice],
+    [buyerToken, buyerDevice],
+  ]) {
+    const { session } = await requireMobileSession(request(pushPath, accessToken));
+    assert.deepEqual(
+      await sendFirebaseTestPush(session, token, (send) => pendingPushes.push(send)),
+      { status: "scheduled", delaySeconds: 5 },
+    );
+  }
+  assert.deepEqual(testPushes, [sellerDevice], "no push before the callbacks run");
+  const start = performance.now();
+  const delivery = Promise.all(pendingPushes.map((send) => send()));
+  assert.equal((await disablePush(request(pushPath, buyerToken, "DELETE"))).status, 200);
+  await delivery;
+  assert.ok(performance.now() - start >= 4900);
+  assert.deepEqual(testPushes, [sellerDevice, sellerDevice]);
+  assert.equal(await Notification.countDocuments(), 0);
+  assert.equal((await optIn(buyerToken, buyerDevice)).status, 200);
+
   await Category.create({
     code: "PERISHABLE",
     name: "Fresh",
@@ -287,7 +313,7 @@ try {
   assert.equal(sentPush.length, 2, "replay does not send another push");
   assert.equal((await disablePush(request(pushPath, sellerToken, "DELETE"))).status, 200);
   assert.equal((await runPushTest(sellerToken, sellerDevice)).status, 404);
-  assert.deepEqual(testPushes, [sellerDevice]);
+  assert.deepEqual(testPushes, [sellerDevice, sellerDevice]);
   assert.deepEqual(
     (await (await pushStatus(request(pushPath, sellerToken))).json()).data,
     { enabled: false },

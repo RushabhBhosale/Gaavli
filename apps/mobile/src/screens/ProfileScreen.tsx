@@ -357,7 +357,7 @@ export default function ProfileScreen() {
                   : push.test.isError
                     ? errorMessage(push.test.error, language)
                     : push.test.isSuccess
-                      ? t.pushTestAccepted
+                      ? t.pushTestScheduled
                       : undefined
               }
               disabled={

@@ -31,7 +31,12 @@ export function Toast() {
   return (
     <View
       pointerEvents="box-none"
-      style={[s.overlay, { bottom: insets.bottom + 12 }]}
+      style={[
+        s.overlay,
+        notice.position === "top"
+          ? { top: insets.top + 12 }
+          : { bottom: insets.bottom + 12 },
+      ]}
     >
       <View style={[s.card, error && s.error]}>
         <Ionicons
