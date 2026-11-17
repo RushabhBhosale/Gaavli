@@ -1,4 +1,5 @@
 <resources>
   <string name="app_name">Gaavli</string>
+  <string name="seller_request_notifications">Buyer requests</string>
   <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
 </resources>

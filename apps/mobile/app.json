@@ -9,16 +9,25 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gaavli.mobile"
+      "bundleIdentifier": "com.peractoinfotech.gaavli",
+      "googleServicesFile": "./ios/Gaavli/GoogleService-Info.plist",
+      "entitlements": {
+        "aps-environment": "development"
+      }
     },
     "android": {
-      "package": "com.gaavli.mobile",
+      "package": "com.peractoinfotech.gaavli",
+      "googleServicesFile": "./android/app/google-services.json",
+      "permissions": ["android.permission.POST_NOTIFICATIONS"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/gaavli-adaptive-icon.png",
         "backgroundColor": "#F7F8F1"
       }
     },
     "plugins": [
+      ["@react-native-firebase/app", { "ios": { "disableSPM": true } }],
+      "@react-native-firebase/messaging",
+      ["expo-build-properties", { "ios": { "useFrameworks": "static" } }],
       [
         "expo-image-picker",
         {

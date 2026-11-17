@@ -1,0 +1,11 @@
+{
+  "react-native": {
+    "messaging_auto_init_enabled": false,
+    "messaging_ios_foreground_presentation_options": [
+      "badge",
+      "sound",
+      "banner",
+      "list"
+    ]
+  }
+}

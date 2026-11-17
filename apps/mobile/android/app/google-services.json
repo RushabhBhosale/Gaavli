@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "432965383326",
+    "project_id": "gaavli",
+    "storage_bucket": "gaavli.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432965383326:android:e1df890359a380ef2fb78f",
+        "android_client_info": {
+          "package_name": "com.peractoinfotech.gaavli"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwMXzUDEXKRqcrRgEHVtI8xJWOCEMpwnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

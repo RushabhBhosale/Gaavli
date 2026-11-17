@@ -245,6 +245,7 @@ const notificationSchema = new Schema(
     },
     readAt: { type: Date, default: null },
     respondedAt: { type: Date, default: null },
+    pushAttemptedAt: Date,
   },
   { timestamps: true },
 );

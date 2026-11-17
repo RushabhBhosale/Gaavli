@@ -1,6 +1,6 @@
 // Real routes, isolated random database only; never modifies application records.
 import assert from "node:assert/strict";
-import { randomBytes } from "node:crypto";
+import { generateKeyPairSync, randomBytes } from "node:crypto";
 import nextEnv from "@next/env";
 import mongoose from "mongoose";
 
@@ -36,6 +36,12 @@ const { getUserNotifications } =
   await import("../src/server/services/notifications");
 const { GET: notificationInbox, PATCH: readNotifications } =
   await import("../src/app/api/v1/notifications/route");
+const { GET: pushStatus, PUT: enablePush, DELETE: disablePush, PATCH: refreshPush } =
+  await import("../src/app/api/v1/notifications/push-device/route");
+const { POST: testPush } =
+  await import("../src/app/api/v1/notifications/push-device/test/route");
+const { PushDevice } = await import("../src/server/models/push-device");
+const { POST: logout } = await import("../src/app/api/v1/auth/logout/route");
 const { visibleSellerContact } =
   await import("../src/server/repositories/listing-contact");
 
@@ -56,19 +62,23 @@ const request = (
     },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
-async function tokenFor(user: mongoose.Types.ObjectId) {
+async function tokenFor(
+  user: mongoose.Types.ObjectId,
+  refreshToken = randomBytes(32).toString("hex"),
+) {
   const token = randomBytes(32).toString("hex");
   await MobileSession.create({
     user,
     provider: "test",
     accessHash: hashToken(token),
-    refreshHash: hashToken(randomBytes(32).toString("hex")),
+    refreshHash: hashToken(refreshToken),
     accessExpiresAt: new Date(Date.now() + 900000),
     expiresAt: new Date(Date.now() + 86400000),
   });
   return token;
 }
 
+const originalFetch = globalThis.fetch;
 try {
   await connectMobileDb();
   await Promise.all([Listing.init(), Category.init()]);
@@ -88,6 +98,76 @@ try {
   ]);
   const buyerToken = await tokenFor(buyer._id);
   const sellerToken = await tokenFor(seller._id);
+  const invalidDeviceSession = await tokenFor(seller._id);
+  const revokedRefreshToken = randomBytes(32).toString("hex");
+  const revokedSession = await tokenFor(seller._id, revokedRefreshToken);
+  const buyerDevice = randomBytes(32).toString("hex");
+  const sellerDevice = randomBytes(32).toString("hex");
+  const invalidDevice = randomBytes(32).toString("hex");
+  const revokedDevice = randomBytes(32).toString("hex");
+  const pushPath = "notifications/push-device";
+  const optIn = (session: string | null, token: string) =>
+    enablePush(request(pushPath, session, "PUT", { token, language: "mr" }));
+  assert.equal((await optIn(null, sellerDevice)).status, 401);
+  assert.equal((await optIn(sellerToken, "invalid token")).status, 422);
+  assert.deepEqual((await (await pushStatus(request(pushPath, sellerToken))).json()).data, {
+    enabled: false,
+  });
+  for (const [session, device] of [
+    [buyerToken, buyerDevice],
+    [sellerToken, sellerDevice],
+    [invalidDeviceSession, invalidDevice],
+    [revokedSession, revokedDevice],
+  ]) {
+    const response = await optIn(session, device);
+    assert.equal(response.status, 200);
+    assert.deepEqual((await response.json()).data, { enabled: true });
+  }
+  assert.equal(
+    (await logout(request("auth/logout", null, "POST", { refreshToken: revokedRefreshToken }))).status,
+    200,
+  );
+  const privateKey = generateKeyPairSync("rsa", { modulusLength: 2048 }).privateKey;
+  process.env.FCM_SERVICE_ACCOUNT_JSON = JSON.stringify({
+    project_id: "gaavli-fcm-test",
+    client_email: "test@gaavli-fcm-test.iam.gserviceaccount.com",
+    private_key: privateKey.export({ format: "pem", type: "pkcs8" }),
+  });
+  const sentPush: { token: string; notification: { body: string }; data: unknown }[] = [];
+  const testPushes: string[] = [];
+  let oauthCalls = 0;
+  globalThis.fetch = async (url, init) => {
+    if (url === "https://oauth2.googleapis.com/token") {
+      oauthCalls++;
+      return Response.json({ access_token: "fcm-test", expires_in: 3600 });
+    }
+    assert.equal(url, "https://fcm.googleapis.com/v1/projects/gaavli-fcm-test/messages:send");
+    assert.equal(new Headers(init?.headers).get("Authorization"), "Bearer fcm-test");
+    const { message, validate_only } = JSON.parse(String(init?.body));
+    if (message.data.kind === "firebase-test") {
+      assert.notEqual(validate_only, true);
+      assert.match(message.notification.body, /चाचणी सूचना/);
+      testPushes.push(message.token);
+      return Response.json({ name: "test-message" });
+    }
+    assert.ok(await Notification.exists({ userId: seller._id, type: "BUYER_TRIED_CONTACT" }));
+    sentPush.push(message);
+    return message.token === invalidDevice
+      ? Response.json({ error: { details: [{ errorCode: "UNREGISTERED" }] } }, { status: 404 })
+      : Response.json({ name: "test-message" });
+  };
+  const runPushTest = (session: string | null, token: string) =>
+    testPush(request(`${pushPath}/test`, session, "POST", { token }));
+  assert.equal((await runPushTest(null, sellerDevice)).status, 401);
+  assert.equal((await runPushTest(sellerToken, "invalid token")).status, 422);
+  assert.equal((await runPushTest(buyerToken, sellerDevice)).status, 404);
+  assert.equal((await runPushTest(sellerToken, invalidDevice)).status, 404);
+  assert.equal((await runPushTest(revokedSession, revokedDevice)).status, 401);
+  const testResult = await runPushTest(sellerToken, sellerDevice);
+  assert.equal(testResult.status, 200);
+  assert.deepEqual((await testResult.json()).data, { status: "accepted" });
+  assert.deepEqual(testPushes, [sellerDevice]);
+  assert.equal(await Notification.countDocuments(), 0);
   await Category.create({
     code: "PERISHABLE",
     name: "Fresh",
@@ -186,6 +266,39 @@ try {
   );
   assert.equal(notification.status, 200);
   const noticeId = (await notification.json()).data.notificationId;
+  assert.equal(oauthCalls, 1, "devices share the OAuth access token");
+  assert.deepEqual(new Set(sentPush.map((row) => row.token)), new Set([sellerDevice, invalidDevice]));
+  assert.equal(sentPush.length, 2);
+  for (const push of sentPush) {
+    assert.match(push.notification.body, /नवीन विनंती/);
+    assert.doesNotMatch(push.notification.body, /Buyer|9000000001|Tomato|Please keep/);
+    assert.deepEqual(push.data, { kind: "seller-request" });
+  }
+  assert.equal(await PushDevice.exists({ _id: invalidDevice }), null);
+  assert.deepEqual((await (await pushStatus(request(pushPath, invalidDeviceSession))).json()).data, {
+    enabled: true,
+  });
+  const repeat = await notify(
+    request(`listings/${id}/notify-farmer`, buyerToken, "POST", input, "cross-village-notify"),
+    context(id),
+  );
+  assert.equal(repeat.status, 200);
+  assert.equal((await repeat.json()).data.notificationId, noticeId);
+  assert.equal(sentPush.length, 2, "replay does not send another push");
+  assert.equal((await disablePush(request(pushPath, sellerToken, "DELETE"))).status, 200);
+  assert.equal((await runPushTest(sellerToken, sellerDevice)).status, 404);
+  assert.deepEqual(testPushes, [sellerDevice]);
+  assert.deepEqual(
+    (await (await pushStatus(request(pushPath, sellerToken))).json()).data,
+    { enabled: false },
+  );
+  assert.deepEqual(
+    (await (await refreshPush(request(pushPath, sellerToken, "PATCH", {
+      token: sellerDevice,
+      language: "hi",
+    }))).json()).data,
+    { enabled: false },
+  );
   const savedNotice = await Notification.findById(noticeId).lean();
   assert.equal(savedNotice?.data?.message, message);
   assert.ok(savedNotice?.body.includes(message));
@@ -371,6 +484,8 @@ try {
     context(noCallbackId),
   );
   assert.equal(legacyNoCallbackResponse.status, 200);
+  assert.equal(sentPush.length, 2, "opted-out and revoked sessions never receive new pushes");
+  console.log("PASS: consent, Firebase token registration, private delivery, opt-out, logout, invalid token and replay.");
   const noCallbackNotice = (await legacyNoCallbackResponse.json()).data
     .notificationId;
   await assert.rejects(
@@ -591,6 +706,7 @@ try {
     "PASS: guest/self/demo/sold/expired/reported/zero-stock/missing/inactive-seller/inactive-listing-village/blocked-buyer checks retained.",
   );
 } finally {
+  globalThis.fetch = originalFetch;
   if (
     mongoose.connection.readyState === 1 &&
     mongoose.connection.name === databaseName &&

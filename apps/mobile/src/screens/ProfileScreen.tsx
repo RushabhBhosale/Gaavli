@@ -18,12 +18,14 @@ import { errorMessage } from "../errors";
 import { Button, ErrorMessage } from "../components/ui";
 import { DashboardScreen } from "../components/dashboard/primitives";
 import { AppHeader } from "../components/AppHeader";
+import { usePushDeviceSettings } from "../pushNotifications";
 
 export default function ProfileScreen() {
   const router = useRouter();
   const client = useQueryClient();
   const { session, language, offline, browsingVillage } = useAppStore();
   const t = messages(language);
+  const push = usePushDeviceSettings();
   const [busy, setBusy] = useState<"language" | "logout" | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
   const submitting = useRef(false);
@@ -59,6 +61,21 @@ export default function ProfileScreen() {
     } finally {
       submitting.current = false;
       setBusy(null);
+    }
+  }
+  async function changePush(enabled: boolean) {
+    setFailure(null);
+    try {
+      await push.change.mutateAsync(enabled);
+    } catch (error) {
+      const code = error instanceof Error ? error.message : "";
+      setFailure(
+        code === "PUSH_PERMISSION_REQUIRED"
+          ? t.pushPermissionRequired
+          : code === "PUSH_BUILD_REQUIRED"
+            ? t.pushBuildRequired
+            : t.pushSettingsError,
+      );
     }
   }
   if (!session) {
@@ -304,6 +321,51 @@ export default function ProfileScreen() {
           {t.notificationSettings}
         </Text>
         <View style={s.group}>
+          {push.supported && (
+            <View style={s.row}>
+              <SettingsIcon name="notifications-outline" />
+              <View style={s.rowInfo}>
+                <Text style={s.rowTitle}>{t.pushRequestSettings}</Text>
+                <Text style={s.subtitle}>{t.pushRequestDescription}</Text>
+              </View>
+              <Switch
+                accessibilityLabel={t.pushRequestSettings}
+                value={push.status.data?.enabled ?? false}
+                disabled={
+                  offline ||
+                  !!busy ||
+                  push.status.isLoading ||
+                  push.change.isPending ||
+                  push.test.isPending
+                }
+                onValueChange={(enabled) => void changePush(enabled)}
+                trackColor={{
+                  false: theme.colors.border,
+                  true: theme.colors.primary,
+                }}
+                thumbColor={theme.colors.surface}
+              />
+            </View>
+          )}
+          {push.supported && push.status.data?.enabled && (
+            <SettingRow
+              icon="paper-plane-outline"
+              title={t.pushTest}
+              subtitle={
+                push.test.isPending
+                  ? t.pushTestSending
+                  : push.test.isError
+                    ? errorMessage(push.test.error, language)
+                    : push.test.isSuccess
+                      ? t.pushTestAccepted
+                      : undefined
+              }
+              disabled={
+                offline || !!busy || push.change.isPending || push.test.isPending
+              }
+              onPress={() => push.test.mutate()}
+            />
+          )}
           <View style={s.row}>
             <SettingsIcon name="notifications-outline" />
             <View style={s.rowInfo}>
@@ -335,7 +397,12 @@ export default function ProfileScreen() {
       <Button
         danger
         loading={busy === "logout"}
-        disabled={offline || busy === "language"}
+        disabled={
+          offline ||
+          busy === "language" ||
+          push.change.isPending ||
+          push.test.isPending
+        }
         onPress={() => void signOut()}
       >
         {t.logout}

@@ -1,6 +1,8 @@
-package com.gaavli.mobile
+package com.peractoinfotech.gaavli
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.res.Configuration
 
 import com.facebook.react.PackageList
@@ -29,6 +31,15 @@ class MainApplication : Application(), ReactApplication {
 
   override fun onCreate() {
     super.onCreate()
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+      getSystemService(NotificationManager::class.java).createNotificationChannel(
+        NotificationChannel(
+          "seller-requests",
+          getString(R.string.seller_request_notifications),
+          NotificationManager.IMPORTANCE_DEFAULT
+        )
+      )
+    }
     DefaultNewArchitectureEntryPoint.releaseLevel = try {
       ReleaseLevel.valueOf(BuildConfig.REACT_NATIVE_RELEASE_LEVEL.uppercase())
     } catch (e: IllegalArgumentException) {

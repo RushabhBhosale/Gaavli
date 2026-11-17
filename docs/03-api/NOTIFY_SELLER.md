@@ -1,3 +1,53 @@
+## Firebase push delivery — 2026-11-17 (user approved)
+
+New buyer requests still create the recipient-only in-app notice. Gaavli also
+tries to send a Firebase Cloud Messaging (FCM) alert to the seller's opted-in
+Android and iOS devices after the notice commits. Known notice IDs are claimed
+once, including operation replays. A push failure leaves the in-app notice
+available. Alerts contain a generic message in the device's selected Gaavli
+language. Tapping one opens the signed-in notifications screen.
+
+In **Settings → Notifications**, a signed-in user turns on **Buyer request
+alerts** and grants OS permission. The authenticated
+`/api/v1/notifications/push-device` endpoint reads consent (GET), opts in
+(PUT), refreshes the token (PATCH), or opts out (DELETE). PUT and PATCH accept
+`{token,language}`. Each method returns `{enabled}`. The server sends only to
+active accounts with unexpired authenticated sessions. Logout revokes that
+session's eligibility. Firebase's unregistered-token response removes the
+saved token so it can be refreshed on the next app launch. Phone numbers,
+buyer names and request notes remain in the protected in-app flow.
+
+### Test push on the phone
+
+In **Settings → Notifications**, enable **Buyer request alerts**, then tap
+**Send test notification**. The app refreshes its own FCM registration and
+calls `POST /api/v1/notifications/push-device/test` with the token for the
+current signed-in session. The request sends one real FCM notification to
+that phone. Firebase acceptance appears in Settings, and arrival appears as
+an Android toast or an iOS notification while the app is open.
+
+### Release setup
+
+1. Build both native apps with the Firebase project for
+   `com.peractoinfotech.gaavli`. The checked-in Android and iOS projects use
+   the Firebase client configs supplied for that ID. Use the native projects
+   when rebuilding. Their Firebase config files live inside the native folders.
+2. Enable the Firebase Cloud Messaging API and set the backend secret
+   `FCM_SERVICE_ACCOUNT_JSON` to a service account JSON authorized to send FCM
+   messages for that project. The Android and iOS client config files are
+   separate credentials from this backend key. [Firebase server setup](https://firebase.google.com/docs/cloud-messaging/send/v1-api)
+3. Configure the Push Notifications capability and signing profile for the new
+   Apple bundle ID. Upload its APNs authentication key to the Firebase project.
+   [Firebase Apple setup](https://firebase.google.com/docs/cloud-messaging/ios/get-started)
+4. Deploy the API, install the rebuilt apps, and opt in on a seller device.
+   From a buyer account, send a new request for the seller's available listing.
+   Check receipt with the app open and in the background, tap the alert, and
+   confirm the request in the inbox. Repeat with alerts disabled.
+
+The approved ID change makes these builds separate installs from
+`com.gaavli.mobile`. Users sign in again on the new install using their
+existing Gaavli account.
+
 > Direct seller details revision - 2026-10-21: Product Details displays eligible
 > seller contact without an Interested tap. Confirming Notify Seller records
 > interest through the existing POST before sending the existing durable request.
@@ -57,7 +107,7 @@ cleanup failure retains the confirmed key for safe replay. Account switches stop
 pending sends/UI updates. Offline confirmation is disabled and never reports a
 queued request as sent. No general background notification queue is claimed.
 
-This delivery is an in-app inbox notice, not SMS, WhatsApp or OS push. The UI
+The in-app inbox notice is the durable delivery record. The UI
 does not claim external delivery or provide the buyer's phone for a callback.
 Paid-channel providers/consent integration and any seller callback/contact flow
 remain separate work. No marketing consent is inferred or changed.

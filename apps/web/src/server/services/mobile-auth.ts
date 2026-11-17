@@ -319,6 +319,9 @@ export async function optionalMobile(request: Request) {
   return requireMobile(request);
 }
 export async function requireMobile(request: Request) {
+  return (await requireMobileSession(request)).user;
+}
+export async function requireMobileSession(request: Request) {
   const token = request.headers
     .get("authorization")
     ?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];
@@ -332,8 +335,9 @@ export async function requireMobile(request: Request) {
   const user =
     session &&
     (await User.findOne({ _id: session.user, status: "active" }).lean());
-  if (!user) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
-  return user as UserRecord;
+  if (!session || !user)
+    throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
+  return { session, user: user as UserRecord };
 }
 export async function refreshMobile(refreshToken: string) {
   await connectDb();

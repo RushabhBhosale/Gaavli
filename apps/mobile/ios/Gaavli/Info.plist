@@ -28,7 +28,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>gaavli</string>
-				<string>com.gaavli.mobile</string>
+				<string>com.peractoinfotech.gaavli</string>
 			</array>
 		</dict>
 		<dict>

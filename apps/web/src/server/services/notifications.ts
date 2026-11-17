@@ -19,6 +19,7 @@ import {
 } from "../repositories/notifications";
 import { limitRequests } from "../repositories/mobile";
 import { AppError } from "../utils/errors";
+import { deliverSellerRequestPush } from "./notification-push";
 
 export async function notifyListingSeller(
   userId: string,
@@ -29,7 +30,7 @@ export async function notifyListingSeller(
   await connectMobileDb();
   await Promise.all([Notification.init(), ListingInterest.init()]);
   await limitRequests("notify-seller", userId, 20, 3600_000);
-  return listingOperation(
+  const result = await listingOperation(
     userId,
     key,
     `notify-seller:${id}`,
@@ -111,6 +112,10 @@ export async function notifyListingSeller(
       };
     },
   );
+  const notice = notifySellerResultSchema.safeParse(result.data);
+  if (notice.success)
+    await deliverSellerRequestPush(notice.data.notificationId);
+  return result;
 }
 
 export async function getUserNotifications(

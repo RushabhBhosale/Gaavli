@@ -1,4 +1,4 @@
-package com.gaavli.mobile
+package com.peractoinfotech.gaavli
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

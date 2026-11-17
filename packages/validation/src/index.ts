@@ -104,6 +104,14 @@ import {
 
 export const listingTagsSchema = z.array(z.enum(LISTING_TAG_IDS));
 export const mobileLanguageSchema = z.enum(MOBILE_LANGUAGES);
+export const pushDeviceInputSchema = z
+  .object({
+    token: z.string().min(1).max(4096).regex(/^[!-~]+$/),
+    language: mobileLanguageSchema,
+  })
+  .strict();
+export const pushDeviceStatusSchema = z.object({ enabled: z.boolean() }).strict();
+export const pushTestResultSchema = z.object({ status: z.literal("accepted") }).strict();
 export const healthStatusSchema = z
   .object({ status: z.literal("ok") })
   .strict();

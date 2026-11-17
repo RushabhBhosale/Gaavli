@@ -11,6 +11,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useAppStore } from "./store";
 import { CoordinatorAccessSync } from "./coordinator/access";
 import { NotificationSync } from "./notifications";
+import { PushNotificationSync } from "./pushNotifications";
 import { persistQueryCache, restoreQueryCache } from "./storage/queryCache";
 import { queryCacheStorage } from "./storage/sqlite";
 
@@ -76,6 +77,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
           <>
             <CoordinatorAccessSync />
             <NotificationSync />
+            <PushNotificationSync />
             {children}
           </>
         )}

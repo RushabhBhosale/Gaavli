@@ -1,3 +1,23 @@
+## 2026-11-17 - Firebase push for buyer requests
+
+- Android and iOS use the approved `com.peractoinfotech.gaavli` application ID
+  and the matching Firebase client configuration. The native build is a
+  separate install from the earlier application ID.
+- A signed-in user can opt in from Settings → Notifications. Gaavli records
+  consent per authenticated session. The server sends private, localized FCM
+  alerts after buyer requests commit and continues to serve the in-app inbox.
+- The isolated contact suite passed with mocked FCM, covering scoped recipients,
+  registration, logout, opt-out, stale tokens and replay. Mobile and web
+  typechecks, 112 mobile unit tests, Android's Google Services task, and iOS
+  pod installation passed. Full native builds hit the host's disk limit.
+- Backend FCM credentials, iOS APNs configuration and real device acceptance
+  remain pending. See [NOTIFY_SELLER.md](03-api/NOTIFY_SELLER.md) for rollout.
+- **Send test notification** in mobile Settings sends a real push to the
+  opted-in phone for the current mobile session. The route test passed with
+  mocked FCM, including rejection of other sessions and opted-out devices.
+  Mobile and web typechecks and focused ESLint passed. Deploy the API and
+  install the updated app to verify live delivery.
+
 ## 2026-11-17 - Cross-script directory name search
 
 - Services and Transport match full provider names across Latin and Devanagari,

@@ -23,6 +23,7 @@ const sessionSchema = new Schema(
     refreshHash: { type: String, required: true, unique: true },
     accessExpiresAt: { type: Date, required: true },
     expiresAt: { type: Date, required: true },
+    pushEnabled: Boolean,
   },
   { timestamps: true },
 );
