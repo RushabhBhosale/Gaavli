@@ -6,6 +6,7 @@ import {
   type InferSchemaType,
 } from "mongoose";
 import { User, Village, VillageCoordinator } from "../models";
+import { masterLinksForVillages } from "./geography";
 import type { VillagesPage } from "@/lib/contracts";
 export async function countVillageDependencies(
   id: string,
@@ -94,7 +95,9 @@ export async function findVillages(
   ]);
   const page = Math.min(requestedPage, Math.max(1, Math.ceil(total / limit)));
   const villages = await Village.find(filter)
-    .select("nameEn nameMr taluka district pinCode isActive location __v")
+    .select(
+      "nameEn nameMr taluka district pinCode isActive location __v villageMasterId districtId talukaId",
+    )
     .sort({ nameEn: 1, _id: 1 })
     .skip((page - 1) * limit)
     .limit(limit)
@@ -115,6 +118,17 @@ export async function findVillages(
   })
     .select("name")
     .lean();
+  const masterLinks = await masterLinksForVillages(
+    villages
+      .filter((village) => !village.villageMasterId)
+      .map((village) => ({
+        id: String(village._id),
+        name: village.nameEn,
+        nameMr: village.nameMr,
+        taluka: village.taluka || "",
+        district: village.district || "",
+      })),
+  );
   return {
     villages: villages.map((village) => ({
       id: String(village._id),
@@ -127,6 +141,15 @@ export async function findVillages(
       status: village.isActive ? "active" : "inactive",
       latitude: village.location?.coordinates[1] ?? null,
       longitude: village.location?.coordinates[0] ?? null,
+      villageMasterId: village.villageMasterId
+        ? String(village.villageMasterId)
+        : (masterLinks.get(String(village._id))?.villageMasterId ?? null),
+      districtId: village.districtId
+        ? String(village.districtId)
+        : (masterLinks.get(String(village._id))?.districtId ?? null),
+      talukaId: village.talukaId
+        ? String(village.talukaId)
+        : (masterLinks.get(String(village._id))?.talukaId ?? null),
       version: village.__v ?? 0,
       coordinators: assignments
         .filter((a) => String(a.villageId) === String(village._id))

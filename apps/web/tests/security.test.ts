@@ -101,6 +101,30 @@ test("village form coordinates and coordinator assignment validation", () => {
   assert.equal(createVillageSchema.safeParse(withoutCoordinates).success, true);
   assert.equal(createVillageSchema.safeParse(village).success, true);
   assert.equal(
+    createVillageSchema.safeParse({
+      villageMasterId: "1234567890abcdef12345678",
+      pinCode: "412206",
+    }).success,
+    true,
+  );
+  assert.equal(
+    createVillageSchema.safeParse({ pinCode: "412206" }).success,
+    false,
+  );
+  assert.equal(
+    editVillageSchema.safeParse({
+      villageMasterId: "1234567890abcdef12345678",
+      version: 2,
+    }).success,
+    true,
+  );
+  assert.equal(
+    createVillageSchema.safeParse({
+      villageMasterId: "not-an-id",
+    }).success,
+    false,
+  );
+  assert.equal(
     createVillageSchema.safeParse({ ...withoutCoordinates, latitude: 16 })
       .success,
     false,

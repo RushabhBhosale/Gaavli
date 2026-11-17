@@ -68,10 +68,14 @@ const adminSchema = new Schema(
 );
 const villageSchema = new Schema(
   {
-    nameEn: { type: String, required: true, unique: true },
+    nameEn: { type: String, required: true },
     nameMr: { type: String, required: true },
     taluka: String,
     district: String,
+    villageMasterId: { type: Schema.Types.ObjectId },
+    lgdCode: String,
+    districtId: { type: Schema.Types.ObjectId },
+    talukaId: { type: Schema.Types.ObjectId },
     pinCode: { type: String, match: /^[1-9]\d{5}$/ },
     isActive: { type: Boolean, default: true },
     deactivatedAt: { type: Date, default: null },
@@ -90,6 +94,15 @@ const villageSchema = new Schema(
 );
 villageSchema.index({ location: "2dsphere" });
 villageSchema.index({ isActive: 1, pinCode: 1 });
+villageSchema.index({ nameEn: 1, _id: 1 }, { name: "name_en_id" });
+villageSchema.index(
+  { villageMasterId: 1 },
+  {
+    name: "uq_village_master",
+    unique: true,
+    partialFilterExpression: { villageMasterId: { $type: "objectId" } },
+  },
+);
 const listingSchema = new Schema(
   {
     productId: { type: Schema.Types.ObjectId, ref: "ProductMaster" },

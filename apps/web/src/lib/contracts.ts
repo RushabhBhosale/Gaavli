@@ -28,6 +28,13 @@ export type CategoriesPage = {
   limit: number;
 };
 export type VillageDto = { id: string; name: string };
+export type GeographyPlace = { id: string; nameEn: string; nameMr: string };
+export type GeographyVillage = {
+  id: string;
+  nameEn: string;
+  nameMr: string | null;
+  nameMrMissing: boolean;
+};
 export type AdminVillageDto = VillageDto & {
   pinCode: string | null;
   nameMr: string;
@@ -37,6 +44,9 @@ export type AdminVillageDto = VillageDto & {
   status: "active" | "inactive";
   latitude: number | null;
   longitude: number | null;
+  villageMasterId: string | null;
+  districtId: string | null;
+  talukaId: string | null;
   version: number;
   // Nearby mappings remain unavailable until authoritative proximity is implemented.
   coordinators:

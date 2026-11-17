@@ -125,6 +125,21 @@ function coordinate(value: string, label: string) {
   return { ok: true as const, value: Number(value) };
 }
 
+export function villageNotAddedMessage(name: string, message: string) {
+  const village = name.trim();
+  return village ? `${village} was not added. ${message}` : message;
+}
+
+export function villageCsvKey(row: {
+  name: string;
+  taluka: string;
+  district: string;
+}) {
+  return [row.name, row.taluka, row.district]
+    .map((value) => value.trim().toLowerCase())
+    .join("\0");
+}
+
 export function villageInputFromCsvRow(
   row: VillageCsvRow,
 ): { ok: true; data: VillageInput } | { ok: false; message: string } {

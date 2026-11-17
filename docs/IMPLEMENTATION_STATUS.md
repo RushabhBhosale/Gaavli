@@ -1,3 +1,65 @@
+## 2026-11-16 - Admin village form from geography masters
+
+- Add and Edit Village now choose a district, then that district's talukas,
+  then that taluka's villages. The three admin reads are
+  `/api/v1/admin/geography/districts`, `talukas?districtId=`, and
+  `villages?talukaId=`. A village list without `talukaId` is rejected. No route
+  returns the full master list.
+- Save still uses the existing village create and update APIs and the live
+  `villages` collection. A chosen `villageMasterId` copies English name,
+  Marathi name, taluka, and district from the master rows. The live row also
+  stores `villageMasterId`, `lgdCode`, `districtId`, and `talukaId`. A second
+  live row for the same master is rejected, including the Mongo duplicate-key
+  path. When the master has no Marathi name, the typed name is stored only on
+  the live village.
+- `nameEn` is no longer unique in the Village schema. A partial unique index
+  `uq_village_master` covers `villageMasterId` only when it is an ObjectId.
+  Mongoose does not call `syncIndexes`, so it will not drop the old unique
+  `nameEn_1` index. `apps/web/scripts/migrate-village-master-index.mts` drops
+  that index, creates the partial index and a non-unique `name_en_id` sort
+  index, and adds `taluka_name_en` on `villageMasters`. The taluka list index
+  `district_name_en` already starts with `districtId`. `district_taluka` is
+  `districtId` then `talukaId`, so it does not serve a taluka-only village
+  query; `taluka_name_en` does.
+- CSV village upload still uses name, Marathi name, taluka, and district. A
+  repeated row is the same name, taluka, and district. The same English name
+  in another taluka is a different village. User CSV still matches a village
+  by English name and refuses the row when more than one active village uses
+  that name. Listings, coordinators, and the mobile picker still read the live
+  village by `_id`.
+- A live village that has no stored master ids still keeps its text name,
+  taluka, and district. The village list looks those three strings up in the
+  masters and returns `districtId`, `talukaId`, and `villageMasterId` when
+  exactly one official village matches. Edit uses those ids, or the same name
+  match, to load the district, taluka, and village dropdowns. The ids are
+  written onto the live village when that form is saved.
+- `npm run migrate:village-master-index` was run against the configured
+  database. It dropped the unique `nameEn_1` index and left `uq_village_master`
+  and `name_en_id` on `villages`. Web typecheck passed. The web unit tests,
+  including the village schema, master-field, CSV, and unauthenticated
+  geography route checks, passed. Add and Edit were not exercised in a browser.
+
+## 2026-11-16 - Maharashtra geographical master import
+
+- Added a reusable, validated bulk-upsert importer for the three UTF-8 JSON
+  sources. It stores district and taluka LGD codes, Marathi/English names, and
+  ObjectId parent references. Village rows reference both district and taluka;
+  all import collections have unique LGD-code indexes and lookup indexes.
+- The application already owns `villages` for live user/listing references,
+  including a unique `nameEn` index. Since the source has repeated English names
+  and names already present in that operational collection, the approved master
+  village collection is `villageMasters`; existing `villages` data was left
+  untouched. The three collections are `districts`, `talukas`, and
+  `villageMasters`.
+- Imported 36 districts, 358 talukas, and 44,929 villages. Official identifiers
+  are unique and all parent references validate. Forty-two source villages have
+  no Marathi name; these were retained with `nameMr: null`. All source JSON files
+  remain in place and unchanged.
+- `apps/web/scripts/import-geography.mts` supports validation-only and repeatable
+  apply modes. First import inserted every row; a repeat inserted/updated none
+  and counted all rows as unchanged. Database counts, lookups, codes, and
+  district/taluka references were verified. Web TypeScript typecheck passed.
+
 ## 2026-11-13 - Coordinator assignment from User Listing
 
 - Admin Add/Edit User assigns a coordinator to the village selected in the
