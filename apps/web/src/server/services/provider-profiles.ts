@@ -29,6 +29,7 @@ import {
   ProviderProfile,
 } from "../models/provider-profile";
 import { AppError } from "../utils/errors";
+import { directoryNameSearchWords } from "../utils/directory-name-search";
 
 type Profile = InstanceType<typeof ProviderProfile>;
 type Create = z.infer<typeof createProviderProfileSchema>;
@@ -310,6 +311,7 @@ export async function syncDirectoryEntry(profile: Profile) {
           type === ProviderType.TRANSPORT_DRIVER ? "transport" : "services",
         profession: profile.name,
         professionMr: profile.name,
+        nameSearchWords: directoryNameSearchWords(profile.name),
         professionCode: category || undefined,
         serviceCategory:
           isFacilityType(type) || isDoctorType(type)

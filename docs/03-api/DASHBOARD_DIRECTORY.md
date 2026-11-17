@@ -1,3 +1,27 @@
+## Cross-script name search — 2026-11-17 (user approved)
+
+Services and Transport search matches provider and business names across Latin
+and Devanagari. For example, `disha tours and travels` matches
+`दिशा टूर्स अँड ट्रॅव्हल्स`, and `रमेश टूर्स` matches `Ramesh Tours`.
+Search uses the original fields as well as generated Latin spellings of the
+full name, including common variants of `tour`, `travel` and `and`. Each query
+term must still match. The provider enters their original name, which is also
+the display name. The generated search words stay on the server and are absent
+from provider forms and API responses.
+
+Profile creation and edits refresh the derived words on the directory entry.
+After deploying the API, populate them for existing entries using the target
+environment's database configuration:
+
+```sh
+npm run backfill:directory-name-search --workspace=@gaavli/web -- --apply
+```
+
+The command reports counts, runs as a dry run without `--apply`, and is safe to
+rerun. It preserves entry timestamps and checks the original names before writing.
+Home search and the directory screens use the same endpoint. Existing APKs pick
+up the change when they query the updated API online.
+
 ## Contact login requirement — 2026-11-13 (user approved)
 
 Services and Transport contact disclosure requires a valid active mobile bearer

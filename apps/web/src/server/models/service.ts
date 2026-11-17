@@ -13,6 +13,7 @@ const serviceSchema = new Schema(
     },
     profession: { type: String, required: true, trim: true, maxlength: 120 },
     professionMr: { type: String, trim: true, maxlength: 120 },
+    nameSearchWords: { type: [String], default: undefined },
     professionCode: String,
     serviceCategory: {
       type: String,

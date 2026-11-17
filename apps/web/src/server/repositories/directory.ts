@@ -18,10 +18,33 @@ import {
 import { Service } from "../models/service";
 import { listingPhotoUrl } from "../providers/listing-photos";
 import { User, Village, VillageCoordinator } from "../models";
+import { directoryNameWordVariants } from "../utils/directory-name-search";
 import { discoveryVillageIds } from "./village-discovery";
 
 const escapeRegex = (term: string) =>
   term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+function searchTermFilter(term: string) {
+  const literal = [
+    "profession",
+    "professionMr",
+    "description",
+    "serviceCategory",
+    "keywords",
+  ].map((field) => ({
+    [field]: { $regex: escapeRegex(term), $options: "i" },
+  }));
+  const nameWords = directoryNameWordVariants(term).map((variants) => ({
+    nameSearchWords: {
+      $in: variants.map((word) =>
+        word.length < 3 ? word : new RegExp(`^${escapeRegex(word)}`),
+      ),
+    },
+  }));
+  return {
+    $or: [...literal, ...(nameWords.length ? [{ $and: nameWords }] : [])],
+  };
+}
 
 // What a category tile means in a query: a provider code, an older category,
 // or a word in the name. The catch-all is everything the other tiles skip.
@@ -69,17 +92,7 @@ async function visibleEntries(
   const group = query.category ? directoryGroup(query.category) : undefined;
   const filters = [
     ...(group ? [groupFilter(group)] : []),
-    ...terms.map((term) => ({
-      $or: [
-        "profession",
-        "professionMr",
-        "description",
-        "serviceCategory",
-        "keywords",
-      ].map((field) => ({
-        [field]: { $regex: escapeRegex(term), $options: "i" },
-      })),
-    })),
+    ...terms.map(searchTermFilter),
   ];
   return [
     {

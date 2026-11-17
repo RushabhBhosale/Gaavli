@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import nextEnv from "@next/env";
 import mongoose from "mongoose";
+import { ProviderType } from "@gaavli/constants";
 import {
   dashboardDirectorySchema,
   directoryPageSchema,
@@ -23,6 +24,11 @@ const { connectMobileDb } = await import("../src/server/db/mobile");
 const { Village, VillageCoordinator, User, AuditLog, Notification } =
   await import("../src/server/models");
 const { Service } = await import("../src/server/models/service");
+const { ProviderProfile } = await import("../src/server/models/provider-profile");
+const { backfillDirectoryNameSearch } =
+  await import("../src/server/repositories/directory-name-search-backfill");
+const { syncDirectoryEntry } =
+  await import("../src/server/services/provider-profiles");
 const { VillageConnection } = await import("../src/server/models/coordinator");
 const { MobileSession } = await import("../src/server/models/mobile-auth");
 const { hashToken } = await import("../src/server/auth/mobile-policy");
@@ -506,8 +512,83 @@ try {
     JSON.stringify(await revokedContact.json()).includes("9876543215"),
     false,
   );
+  const disha = await Service.create({
+    ...base,
+    module: "transport",
+    profession: "दिशा टूर्स अँड ट्रॅव्हल्स",
+    professionMr: undefined,
+  });
+  const ramesh = await ProviderProfile.create({
+    ownerId: provider._id,
+    villageId: other._id,
+    providerType: ProviderType.TRANSPORT_DRIVER,
+    name: "Ramesh Tours",
+    nameKey: "rameshtours",
+  });
+  await syncDirectoryEntry(ramesh);
+  const dryRun = await backfillDirectoryNameSearch(false);
+  assert.ok(dryRun.pending > 0);
+  assert.equal(dryRun.updated, 0);
+  assert.equal((await Service.findById(disha._id))?.nameSearchWords, undefined);
+  assert.equal(
+    (await backfillDirectoryNameSearch(true)).updated,
+    dryRun.pending,
+  );
+  assert.equal((await backfillDirectoryNameSearch(true)).pending, 0);
+  assert.deepEqual(
+    (await Service.findById(disha._id))?.updatedAt,
+    disha.updatedAt,
+  );
+
+  const transportSearch = async (
+    search: string,
+    params: Record<string, string> = {},
+  ) => {
+    const response = await directory(
+      request("directory", { module: "transport", search, ...params }),
+    );
+    assert.equal(response.status, 200);
+    const result = directoryPageSchema.parse((await response.json()).data);
+    assert.ok(result.entries.every((entry) => entry.contacts.length === 0));
+    return result;
+  };
+  assert.equal((await transportSearch("tours")).total, 1);
+  await VillageConnection.updateOne(
+    { _id: mapping._id },
+    { $set: { active: true } },
+  );
+  for (const query of ["tours", "टूर्स"]) {
+    const first = await transportSearch(query, { limit: "1" });
+    const next = await transportSearch(query, { limit: "1", page: "2" });
+    assert.equal(first.total, 2);
+    assert.equal(next.total, 2);
+    assert.deepEqual(
+      new Set([...first.entries, ...next.entries].map(({ name }) => name)),
+      new Set([disha.profession, ramesh.name]),
+    );
+  }
+  for (const query of ["Disha", "disha टूर्स", "disha tours and travels"]) {
+    assert.deepEqual(
+      (await transportSearch(query)).entries.map(({ name }) => name),
+      [disha.profession],
+    );
+  }
+  assert.equal((await transportSearch("दिशा रमेश")).total, 0);
+  assert.equal(
+    (await transportSearch("रमेश टूर्स")).entries[0]?.name,
+    ramesh.name,
+  );
+  ramesh.name = "Suresh Tours";
+  ramesh.nameKey = "sureshtours";
+  await ramesh.save();
+  await syncDirectoryEntry(ramesh);
+  assert.equal((await transportSearch("रमेश")).total, 0);
+  assert.equal(
+    (await transportSearch("सुरेश टूर्स")).entries[0]?.name,
+    ramesh.name,
+  );
   console.log(
-    "PASS: guest contact redaction across dashboard/lists/details, authenticated service/transport contacts, invalid/revoked sessions, mapped discovery/counts/search/pagination, inactive exclusions and mapping removal.",
+    "PASS: guest contact redaction, authenticated contacts, session validation, mapped discovery, counts, pagination, cross-script names, backfill and rename.",
   );
 } finally {
   if (

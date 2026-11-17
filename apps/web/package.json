@@ -14,6 +14,7 @@
     "format:check": "prettier --check .",
     "test": "tsx --test tests/security.test.ts tests/mobile-auth.test.ts tests/listing-policy.test.ts tests/catalog-search.test.ts tests/catalog-data.test.ts tests/user-csv.test.ts tests/village-csv.test.ts tests/provider-master-csv.test.ts tests/shop-products.test.ts",
     "migrate:listing-photos": "node --conditions=react-server --import tsx scripts/migrate-listing-photos.mts",
+    "backfill:directory-name-search": "node --conditions=react-server --import tsx scripts/backfill-directory-name-search.mts",
     "test:listing-crud": "node --conditions=react-server --import tsx tests/listing-crud.integration.mts",
     "test:mobile-integration": "node --conditions=react-server --import tsx tests/mobile.integration.mts",
     "test:guest-startup": "node --conditions=react-server --import tsx tests/guest-startup.integration.mts",

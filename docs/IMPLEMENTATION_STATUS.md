@@ -1,3 +1,17 @@
+## 2026-11-17 - Cross-script directory name search
+
+- Services and Transport match full provider names across Latin and Devanagari,
+  including mixed-script queries and common spellings of tours and travels.
+  A server-only field stores derived search words. The displayed name, provider
+  form and directory response contract use the existing name fields.
+- Provider edits refresh the words. A repeatable backfill prepares existing
+  directory entries while preserving their timestamps. See
+  [DASHBOARD_DIRECTORY.md](03-api/DASHBOARD_DIRECTORY.md) for the rollout command.
+- The directory route integration suite passed against an isolated MongoDB
+  database, including both scripts, mapped scope, pagination, guest contacts,
+  backfill and rename. Web typecheck, focused ESLint and 39 unit tests passed.
+  Production deployment and backfill are pending.
+
 ## 2026-11-17 - Same-name village startup correction
 
 - Removed global uniqueness from `Village.nameEn`: imported villages such as
