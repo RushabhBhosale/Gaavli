@@ -7,8 +7,18 @@ import {
   getCoreRowModel,
   useReactTable,
   type ColumnDef,
+  type SortingState,
 } from "@tanstack/react-table";
-import { MapPin, Search, X, Plus, MoreVertical } from "lucide-react";
+import {
+  MapPin,
+  Search,
+  X,
+  Plus,
+  MoreVertical,
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ListPagination } from "@/components/shared/list-pagination";
 import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
@@ -61,7 +71,7 @@ const columns: ColumnDef<AdminVillageDto>[] = [
   },
   {
     id: "coordinator",
-    header: "Assigned Coordinator",
+    header: "Assigned Coordinators",
     cell: ({ row }) =>
       row.original.coordinators === null ? (
         <span className="text-xs text-slate-400">Not configured</span>
@@ -156,6 +166,9 @@ export function VillagesManagement() {
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: "name", desc: false },
+  ]);
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounced(search);
@@ -169,9 +182,19 @@ export function VillagesManagement() {
     ...(debounced ? { search: debounced } : {}),
     ...(district ? { district } : {}),
     ...(status ? { status } : {}),
+    sort: sorting[0]?.id ?? "name",
+    direction: sorting[0]?.desc ? "desc" : "asc",
   });
   const villages = useQuery({
-    queryKey: ["admin-villages", debounced, district, status, page, pageSize],
+    queryKey: [
+      "admin-villages",
+      debounced,
+      district,
+      status,
+      page,
+      pageSize,
+      sorting,
+    ],
     queryFn: () => api<VillagesPage>(`/v1/admin/villages?${query}`),
   });
   // Retain district choices while a new filtered page is loading.
@@ -189,6 +212,13 @@ export function VillagesManagement() {
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id,
     manualPagination: true,
+    manualSorting: true,
+    enableMultiSort: false,
+    state: { sorting },
+    onSortingChange: (updater) => {
+      setSorting(updater);
+      setPage(1);
+    },
     meta: { editVillage: setForm, deleteVillage: setDeleting },
   });
   const total = villages.data?.total ?? 0;
@@ -315,11 +345,37 @@ export function VillagesManagement() {
                       <th
                         key={header.id}
                         scope="col"
+                        aria-sort={
+                          header.column.getIsSorted() === "asc"
+                            ? "ascending"
+                            : header.column.getIsSorted() === "desc"
+                              ? "descending"
+                              : "none"
+                        }
                         className="whitespace-nowrap px-5 py-3.5 font-semibold"
                       >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
+                        {header.column.getCanSort() ? (
+                          <button
+                            className="flex items-center gap-1.5 text-left"
+                            onClick={header.column.getToggleSortingHandler()}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                            {header.column.getIsSorted() === "asc" ? (
+                              <ArrowUp size={13} />
+                            ) : header.column.getIsSorted() === "desc" ? (
+                              <ArrowDown size={13} />
+                            ) : (
+                              <ArrowUpDown size={13} />
+                            )}
+                          </button>
+                        ) : (
+                          flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )
                         )}
                       </th>
                     ))}

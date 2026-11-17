@@ -49,10 +49,12 @@ export async function findUsers(
   filter: FilterQuery<UserRecord>,
   page: number,
   limit: number,
+  sort: "name" | "mobile" | "status" | "createdAt",
+  direction: "asc" | "desc",
 ) {
   const [users, total] = await Promise.all([
     User.find(filter)
-      .sort({ createdAt: -1, _id: -1 })
+      .sort({ [sort]: direction === "asc" ? 1 : -1, _id: 1 })
       .skip((page - 1) * limit)
       .limit(limit)
       .lean(),

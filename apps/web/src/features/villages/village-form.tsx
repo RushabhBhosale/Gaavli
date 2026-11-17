@@ -20,7 +20,6 @@ import type {
 } from "@/lib/contracts";
 import { createVillageSchema } from "@/schemas";
 import { onlyPlaceMatch, onlyVillageMatch } from "@/lib/place-match";
-import { VillageDeleteDialog } from "./village-delete-dialog";
 
 function VillageCombobox({
   options,
@@ -125,8 +124,6 @@ export function VillageForm({
   );
   const [validation, setValidation] = useState("");
   const [confirm, setConfirm] = useState(false);
-  const [renameConfirm, setRenameConfirm] = useState(false);
-  const [deleting, setDeleting] = useState(false);
   const districts = useQuery({
     queryKey: ["geography-districts"],
     queryFn: () => api<GeographyPlace[]>("/v1/admin/geography/districts"),
@@ -222,7 +219,9 @@ export function VillageForm({
         );
       const input = createVillageSchema.parse({
         villageMasterId,
-        ...(selected?.nameMrMissing ? { nameMr } : {}),
+        ...(selected?.nameMrMissing && nameMr.trim().length >= 2
+          ? { nameMr }
+          : {}),
         pinCode,
         ...parsed,
       });
@@ -250,8 +249,6 @@ export function VillageForm({
     onSuccess: refresh,
   });
   const busy = save.isPending || status.isPending;
-  const masterChanged =
-    !!village && villageMasterId !== (village.villageMasterId ?? "");
   function chooseDistrict(id: string) {
     setDistrictId(id);
     setTalukaId("");
@@ -271,14 +268,6 @@ export function VillageForm({
         (id === village?.villageMasterId ? village.nameMr : ""),
     );
   }
-  if (deleting && village)
-    return (
-      <VillageDeleteDialog
-        village={village}
-        onClose={() => setDeleting(false)}
-        onDeleted={refresh}
-      />
-    );
   return (
     <Dialog
       open
@@ -302,7 +291,9 @@ export function VillageForm({
           </DialogTitle>
         </div>
         <DialogDescription className="mt-3 text-sm text-slate-500">
-          Choose the official district, taluka, and village.
+          {village
+            ? "District, taluka, and village names are read-only while editing."
+            : "Choose the official district, taluka, and village."}
         </DialogDescription>
         <form
           className="mt-5 space-y-4"
@@ -314,7 +305,11 @@ export function VillageForm({
               setValidation("Choose a district, taluka, and village.");
               return;
             }
-            if (selected?.nameMrMissing && nameMr.trim().length < 2) {
+            if (
+              !village &&
+              selected?.nameMrMissing &&
+              nameMr.trim().length < 2
+            ) {
               setValidation("Enter the Marathi village name.");
               return;
             }
@@ -326,7 +321,9 @@ export function VillageForm({
             }
             const result = createVillageSchema.safeParse({
               villageMasterId,
-              ...(selected?.nameMrMissing ? { nameMr } : {}),
+              ...(selected?.nameMrMissing && nameMr.trim().length >= 2
+                ? { nameMr }
+                : {}),
               pinCode,
               ...parsed,
             });
@@ -334,10 +331,6 @@ export function VillageForm({
               setValidation(
                 result.error.issues[0]?.message ?? "Check the village details.",
               );
-              return;
-            }
-            if (masterChanged && !renameConfirm) {
-              setRenameConfirm(true);
               return;
             }
             save.mutate();
@@ -356,50 +349,81 @@ export function VillageForm({
                 <label htmlFor="village-district">
                   District <span className="text-red-600">*</span>
                 </label>
-                <select
-                  id="village-district"
-                  value={districtId}
-                  required
-                  onChange={(event) => chooseDistrict(event.target.value)}
-                >
-                  <option value="">Select a district</option>
-                  {districts.data.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.nameEn}
-                      {option.nameMr ? ` · ${option.nameMr}` : ""}
-                    </option>
-                  ))}
-                </select>
+                {village ? (
+                  <input
+                    id="village-district"
+                    value={
+                      districts.data.find((option) => option.id === districtId)
+                        ?.nameEn ?? village.district
+                    }
+                    readOnly
+                  />
+                ) : (
+                  <select
+                    id="village-district"
+                    value={districtId}
+                    required
+                    onChange={(event) => chooseDistrict(event.target.value)}
+                  >
+                    <option value="">Select a district</option>
+                    {districts.data.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.nameEn}
+                        {option.nameMr ? ` · ${option.nameMr}` : ""}
+                      </option>
+                    ))}
+                  </select>
+                )}
               </div>
             )}
             <div className="field">
               <label htmlFor="village-taluka">
                 Taluka <span className="text-red-600">*</span>
               </label>
-              <select
-                id="village-taluka"
-                value={talukaId}
-                required
-                disabled={!districtId || talukas.isPending}
-                onChange={(event) => chooseTaluka(event.target.value)}
-              >
-                <option value="">
-                  {districtId ? "Select a taluka" : "Select a district first"}
-                </option>
-                {(talukas.data ?? []).map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.nameEn}
-                    {option.nameMr ? ` · ${option.nameMr}` : ""}
+              {village ? (
+                <input
+                  id="village-taluka"
+                  value={
+                    talukas.data?.find((option) => option.id === talukaId)
+                      ?.nameEn ?? village.taluka
+                  }
+                  readOnly
+                />
+              ) : (
+                <select
+                  id="village-taluka"
+                  value={talukaId}
+                  required
+                  disabled={!districtId || talukas.isPending}
+                  onChange={(event) => chooseTaluka(event.target.value)}
+                >
+                  <option value="">
+                    {districtId
+                      ? "Select a taluka"
+                      : "Select a district first"}
                   </option>
-                ))}
-              </select>
+                  {(talukas.data ?? []).map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {option.nameEn}
+                      {option.nameMr ? ` · ${option.nameMr}` : ""}
+                    </option>
+                  ))}
+                </select>
+              )}
               {talukas.error && (
                 <p role="alert" className="field-error">
                   {talukas.error.message}
                 </p>
               )}
             </div>
-            {talukaId ? (
+            {village ? (
+              <div className="field">
+                <label htmlFor="village-master">
+                  Village name <span className="text-red-600">*</span>
+                </label>
+                <input id="village-master" value={village.name} readOnly />
+              </div>
+            ) : talukaId ? (
               masterVillages.isPending ? (
                 <Skeleton />
               ) : masterVillages.error ? (
@@ -437,7 +461,7 @@ export function VillageForm({
                 value={nameMr}
                 onChange={(event) => setNameMr(event.target.value)}
                 maxLength={100}
-                readOnly={Boolean(selected?.nameMr)}
+                readOnly={Boolean(village) || Boolean(selected?.nameMr)}
                 required
               />
             </div>
@@ -475,33 +499,7 @@ export function VillageForm({
               {validation || save.error?.message}
             </p>
           )}
-          {renameConfirm && (
-            <div className="space-y-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
-              <h3 className="font-semibold">Rename this village?</h3>
-              <p className="text-xs text-slate-600">
-                Saving updates this same village everywhere it is used,
-                including users, listings, and coordinators.
-              </p>
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  disabled={busy}
-                  onClick={() => setRenameConfirm(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="button"
-                  disabled={busy}
-                  onClick={() => save.mutate()}
-                >
-                  {save.isPending ? "Saving…" : "Confirm rename"}
-                </Button>
-              </div>
-            </div>
-          )}
-          {!confirm && !renameConfirm && (
+          {!confirm && (
             <div className="flex justify-end gap-2">
               <Button
                 type="button"
@@ -524,10 +522,10 @@ export function VillageForm({
         {village && (
           <section
             className="mt-6 space-y-3 border-t border-slate-100 pt-5"
-            aria-label="Danger zone"
+            aria-label="Village status"
           >
             <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Danger zone
+              Village status
             </h2>
             {confirm ? (
               <div className="space-y-3 rounded-lg border border-amber-200 bg-amber-50 p-4">
@@ -591,17 +589,9 @@ export function VillageForm({
                   : "Reactivate village"}
               </Button>
             )}
-            <Button
-              variant="outline"
-              className="w-full border-red-300 text-red-600"
-              disabled={busy}
-              onClick={() => setDeleting(true)}
-            >
-              Delete village
-            </Button>
             <p className="text-xs text-slate-400">
-              Permanent deletion requires dependency review and reassignment.
-              Use Deactivate to preserve village history.
+              Deactivation keeps users, listings, coordinator assignments, and
+              village history while removing the village from active selection.
             </p>
           </section>
         )}

@@ -1,3 +1,57 @@
+## 2026-11-17 - Multiple coordinators per village
+
+- Removed the one-coordinator-per-village restriction from user assignment,
+  village validation, and the MongoDB model. A village can have several
+  coordinator users; duplicate assignment of the same user to that village
+  remains prevented.
+- Added `migrate:multiple-village-coordinators` to drop the old unique
+  `villageId` index and retain non-unique lookup indexes. Existing assignment
+  documents are preserved. Ran it against the configured database; it dropped
+  the unique `villageId_1` index and confirmed the compound pair index remains
+  unique while the village lookup index is non-unique.
+- Web typecheck and focused ESLint passed; no automated tests were run.
+
+## 2026-11-17 - Provider profile search and sorting
+
+- Provider Profiles now sorts server-side by name, provider type, village,
+  owner, status, and created date. Search matches profile names and village
+  names, including Marathi village names; sort and search preserve pagination.
+- Web typecheck, targeted ESLint, and `git diff --check` passed; no database UI
+  integration test was run.
+
+## 2026-11-17 - Provider profile page cleanup
+
+- Removed the Ownership Claims tab from Provider Profiles so the page opens
+  directly to All Profiles. Replaced the page-only Previous/Next controls with
+  the shared list pagination, including row-size selection and result counts.
+- Web typecheck and targeted ESLint passed; no UI/API integration test was run.
+
+## 2026-11-17 - Provider master status in edit form
+
+- Removed Activate/Deactivate from the Provider Master Actions column. Edit
+  now allows changing the Active checkbox; unchecking an active option opens
+  the deactivation confirmation. Status and name/order save together through
+  the versioned, audited update route.
+- Update validation accepts optional `isActive` for older admin callers. Web
+  and shared validation typechecks passed; the provider-master integration test
+  was not run.
+
+## 2026-11-17 - Edit Village controls
+
+- District, taluka, English village name, and Marathi village name are read-only
+  when editing a village. The edit form keeps only the deactivate/reactivate
+  action and describes deactivation effects; village deletion remains available
+  from the village list.
+
+## 2026-11-17 - Admin user and village listing sorting
+
+- User list headers sort by name, mobile, status, and join date. Village list
+  headers sort by village name, user count, and active status. Sorting is
+  server-side, validated by each list API, and resets pagination when changed.
+- Village user-count sorting aggregates counts before pagination so pages stay
+  globally ordered. Web typecheck and targeted ESLint passed; no database-backed
+  UI check was run.
+
 ## 2026-11-16 - Admin village form from geography masters
 
 - Add and Edit Village now choose a district, then that district's talukas,
@@ -38,6 +92,16 @@
   and `name_en_id` on `villages`. Web typecheck passed. The web unit tests,
   including the village schema, master-field, CSV, and unauthenticated
   geography route checks, passed. Add and Edit were not exercised in a browser.
+
+## 2026-11-17 - Multi-provider-type master CSV upload
+
+- Provider Master CSV Sample and Download now include `providerType` and
+  `masterType` on each row. A single upload can create options for multiple
+  provider types/groups; each row is validated against the fixed supported
+  mapping. Duplicate-name checks are scoped to the same type/group.
+- The importer still accepts legacy five-column CSVs and applies the selected
+  page's group as a compatibility fallback. The sample demonstrates two
+  provider types. No database migration was needed.
 
 ## 2026-11-16 - Maharashtra geographical master import
 

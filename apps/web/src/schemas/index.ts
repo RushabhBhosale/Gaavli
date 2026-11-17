@@ -45,6 +45,10 @@ export const usersFilterSchema = z
   .strict();
 export const usersQuerySchema = usersFilterSchema
   .extend({
+    sort: z
+      .enum(["name", "mobile", "status", "createdAt"])
+      .default("createdAt"),
+    direction: z.enum(["asc", "desc"]).default("desc"),
     page: z.coerce.number().int().min(1).max(100000).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(7),
   })
@@ -106,6 +110,8 @@ export const villagesFilterSchema = z
   .strict();
 export const villagesQuerySchema = villagesFilterSchema
   .extend({
+    sort: z.enum(["name", "users", "status"]).default("name"),
+    direction: z.enum(["asc", "desc"]).default("asc"),
     page: z.coerce.number().int().min(1).max(100000).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(6),
   })
@@ -146,7 +152,6 @@ export const villageSchema = z
     longitude: z.number().min(-180).max(180),
     coordinatorIds: z
       .array(objectId)
-      .max(1, "Choose only one coordinator per village")
       .refine(
         (ids) => new Set(ids).size === ids.length,
         "Duplicate coordinators",

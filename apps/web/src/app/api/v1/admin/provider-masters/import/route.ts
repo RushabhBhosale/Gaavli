@@ -14,11 +14,12 @@ export async function POST(request: Request) {
     const declared = Number(request.headers.get("content-length") || 0);
     if (declared > PROVIDER_MASTER_CSV_BYTE_LIMIT)
       throw new AppError(413, "VALIDATION_ERROR", "CSV file is too large.");
-    const group = providerMasterGroupSchema.parse(
-      Object.fromEntries(new URL(request.url).searchParams),
-    );
+    const query = Object.fromEntries(new URL(request.url).searchParams);
+    const fallbackGroup = Object.keys(query).length
+      ? providerMasterGroupSchema.parse(query)
+      : undefined;
     return ok(
-      await importProviderMasters(admin.id, group, await request.text()),
+      await importProviderMasters(admin.id, await request.text(), fallbackGroup),
     );
   });
 }

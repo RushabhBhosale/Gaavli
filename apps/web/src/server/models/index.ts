@@ -288,7 +288,7 @@ const villageCoordinatorSchema = new Schema(
   { timestamps: true },
 );
 villageCoordinatorSchema.index({ villageId: 1, userId: 1 }, { unique: true });
-villageCoordinatorSchema.index({ villageId: 1 }, { unique: true });
+villageCoordinatorSchema.index({ villageId: 1 });
 villageCoordinatorSchema.index({ userId: 1 });
 export type UserRecord = InferSchemaType<typeof userSchema> & {
   _id: mongoose.Types.ObjectId;

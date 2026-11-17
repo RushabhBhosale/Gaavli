@@ -505,12 +505,13 @@ Stores authoritative village information.
 
 # 16. Village Document
 
-User-approved revision (2026-10-12): at most one coordinator is assigned per
-village. `villagecoordinators.villageId` is UNIQUE; a coordinator user can be
-assigned to multiple villages. Migration refuses existing multi-coordinator
-conflicts without silently deleting assignments. Village deletion is allowed
-only with no linked users, listings, assignments, mappings, preferences, services
-or subscriptions; audit history remains retained.
+User-approved revision (2026-11-17): a village may have multiple coordinators.
+The unique `{ villageId, userId }` index prevents duplicate assignments, while
+`villageId` and `userId` have non-unique lookup indexes. The migration drops the
+old unique `villageId` index without deleting assignments. A coordinator user
+may be assigned to multiple villages. Village deletion is allowed only with no
+linked users, listings, assignments, mappings, preferences, services or
+subscriptions; audit history remains retained.
 
 Initial admin-panel implementation (2026-10-12) stores coordinates in the GeoJSON
 `location` field described below, retaining legacy `nameEn`/`isActive` fields.

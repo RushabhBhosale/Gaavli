@@ -88,27 +88,81 @@ export async function findVillages(
   filter: FilterQuery<InferSchemaType<typeof Village.schema>>,
   requestedPage: number,
   limit: number,
+  sort: "name" | "users" | "status",
+  direction: "asc" | "desc",
 ): Promise<VillagesPage> {
   const [total, districts] = await Promise.all([
     Village.countDocuments(filter),
     Village.distinct("district"),
   ]);
   const page = Math.min(requestedPage, Math.max(1, Math.ceil(total / limit)));
-  const villages = await Village.find(filter)
-    .select(
-      "nameEn nameMr taluka district pinCode isActive location __v villageMasterId districtId talukaId",
-    )
-    .sort({ nameEn: 1, _id: 1 })
-    .skip((page - 1) * limit)
-    .limit(limit)
-    .lean();
-  const counts = await User.aggregate<{ _id: unknown; count: number }>([
-    { $match: { village: { $in: villages.map((village) => village._id) } } },
-    { $group: { _id: "$village", count: { $sum: 1 } } },
-  ]);
-  const usersByVillage = new Map(
-    counts.map((entry) => [String(entry._id), entry.count]),
-  );
+  const sortDirection = direction === "asc" ? 1 : -1;
+  let villages;
+  let usersByVillage: Map<string, number>;
+  if (sort === "users") {
+    const ordered = await Village.aggregate<{
+      _id: Types.ObjectId;
+      count: number;
+    }>([
+      { $match: filter },
+      {
+        $lookup: {
+          from: User.collection.name,
+          localField: "_id",
+          foreignField: "village",
+          pipeline: [{ $count: "count" }],
+          as: "userCounts",
+        },
+      },
+      {
+        $set: {
+          userCount: {
+            $ifNull: [{ $arrayElemAt: ["$userCounts.count", 0] }, 0],
+          },
+        },
+      },
+      { $sort: { userCount: sortDirection, _id: 1 } },
+      { $skip: (page - 1) * limit },
+      { $limit: limit },
+      { $project: { _id: 1, count: "$userCount" } },
+    ]);
+    const records = await Village.find({
+      _id: { $in: ordered.map((village) => village._id) },
+    })
+      .select(
+        "nameEn nameMr taluka district pinCode isActive location __v villageMasterId districtId talukaId",
+      )
+      .lean();
+    const recordsById = new Map(
+      records.map((village) => [String(village._id), village]),
+    );
+    villages = ordered.flatMap((village) => {
+      const record = recordsById.get(String(village._id));
+      return record ? [record] : [];
+    });
+    usersByVillage = new Map(
+      ordered.map((village) => [String(village._id), village.count]),
+    );
+  } else {
+    const sortField = sort === "status" ? "isActive" : "nameEn";
+    const primaryDirection =
+      sort === "status" ? (direction === "asc" ? -1 : 1) : sortDirection;
+    villages = await Village.find(filter)
+      .select(
+        "nameEn nameMr taluka district pinCode isActive location __v villageMasterId districtId talukaId",
+      )
+      .sort({ [sortField]: primaryDirection, _id: 1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .lean();
+    const counts = await User.aggregate<{ _id: unknown; count: number }>([
+      { $match: { village: { $in: villages.map((village) => village._id) } } },
+      { $group: { _id: "$village", count: { $sum: 1 } } },
+    ]);
+    usersByVillage = new Map(
+      counts.map((entry) => [String(entry._id), entry.count]),
+    );
+  }
   const assignments = await VillageCoordinator.find({
     villageId: { $in: villages.map((v) => v._id) },
   }).lean();

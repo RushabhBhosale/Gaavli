@@ -157,12 +157,6 @@ export async function saveVillage(
       "VALIDATION_ERROR",
       "Assign a coordinator before publishing a contact number.",
     );
-  if (assignCoordinators && (input.coordinatorIds?.length ?? 0) > 1)
-    throw new AppError(
-      422,
-      "VALIDATION_ERROR",
-      "Choose only one coordinator per village.",
-    );
   try {
     return await Village.db.transaction(async (session) => {
       const previous = id ? await Village.findById(id).session(session) : null;
@@ -444,7 +438,13 @@ function villageFilter(query: z.infer<typeof villagesFilterSchema>) {
 }
 export async function listVillages(query: z.infer<typeof villagesQuerySchema>) {
   await connectDb();
-  return findVillages(villageFilter(query), query.page, query.limit);
+  return findVillages(
+    villageFilter(query),
+    query.page,
+    query.limit,
+    query.sort,
+    query.direction,
+  );
 }
 export async function exportVillagesCsv(
   query: z.infer<typeof villagesFilterSchema>,

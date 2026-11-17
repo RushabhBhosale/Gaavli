@@ -68,7 +68,7 @@ try {
       ...input,
       name: `${marker}-B`,
       nameMr: `${marker}-ब`,
-      coordinatorIds: [coordinators[0].id],
+      coordinatorIds: coordinators.map((user) => user.id),
     },
     201,
   );
@@ -78,15 +78,12 @@ try {
   const row = page.villages.find((village) => village.id === first.id);
   assert.equal(row.coordinators.length, 1);
   assert.equal(row.coordinators[0].id, coordinators[0].id);
-  await request(
-    "/v1/admin/villages",
-    "POST",
-    {
-      ...input,
-      name: `${marker}-Multi`,
-      coordinatorIds: coordinators.map((user) => user.id),
-    },
-    422,
+  const multipleCoordinatorVillage = page.villages.find(
+    (village) => village.id === second.id,
+  );
+  assert.deepEqual(
+    multipleCoordinatorVillage.coordinators.map((user) => user.id).sort(),
+    coordinators.map((user) => user.id).sort(),
   );
   await request(
     `/v1/admin/villages/${first.id}`,
@@ -154,7 +151,7 @@ try {
     body: { $regex: marker },
     type: { $in: ["VILLAGE_ASSIGNED", "VILLAGE_UNASSIGNED"] },
   });
-  assert.equal(notices, 4, "Three assignment notices and one removal notice");
+  assert.equal(notices, 5, "Four assignment notices and one removal notice");
   assert.ok(
     await db.collection("auditlogs").findOne({
       targetId: new mongoose.Types.ObjectId(first.id),
@@ -221,7 +218,7 @@ try {
   );
   fixtures.splice(fixtures.indexOf(first.id), 1);
   console.log(
-    "Village create/edit, single-coordinator enforcement, listing mapping, stale version rejection, dependencies, blocked and successful deletion, status, notices, audit and role-revocation cleanup: PASS.",
+    "Village create/edit, multiple-coordinator assignment, listing mapping, stale version rejection, dependencies, blocked and successful deletion, status, notices, audit and role-revocation cleanup: PASS.",
   );
 } catch (error) {
   console.error(error.message);
