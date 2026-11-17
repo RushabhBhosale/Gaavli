@@ -22,14 +22,16 @@ export async function visibleSellerContact(
 export async function accessibleSellerContact(
   id: string,
   session: ClientSession,
+  availability: "available" | "any" = "available",
 ) {
-  return sellerContactRow(id, null, session);
+  return sellerContactRow(id, null, session, availability);
 }
 
 async function sellerContactRow(
   id: string,
   villageIds: string[] | null,
   session: ClientSession,
+  availability: "available" | "any" = "available",
 ) {
   const [row] = await Listing.aggregate<{
     sellerId: string;
@@ -44,7 +46,7 @@ async function sellerContactRow(
     photoObjectKey: string | null;
   }>([
     { $match: { _id: new Types.ObjectId(id), isDemo: { $ne: true } } },
-    ...visiblePipeline(villageIds, new Date()),
+    ...visiblePipeline(villageIds, new Date(), availability),
     productNameStage,
     {
       $project: {

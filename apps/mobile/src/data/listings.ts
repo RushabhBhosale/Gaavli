@@ -31,8 +31,13 @@ export function toHomeListing(
     image: null,
     photoUrl: listing.photoUrl,
     isDemo: listing.isDemo,
+    availability: listing.availability,
     minimumPurchaseQuantity: listing.minimumPurchaseQuantity,
     fulfillmentOptions: listing.fulfillmentOptions,
+    tags: listing.tags,
+    offerCount: listing.offerCount,
+    minPrice: listing.minPrice,
+    maxPrice: listing.maxPrice,
   };
 }
 export function liveDashboard(

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   FlatList,
   Pressable,
@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { theme } from "../theme";
 import { BecomeSellerDialog } from "../components/BecomeSellerDialog";
+import { VillageNoticeDialog } from "../components/VillageNoticeDialog";
 import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
 import { useFocusEffect, useRouter } from "expo-router";
 import type { MobileLanguage } from "@gaavli/types";
@@ -27,17 +28,22 @@ import {
   ErrorMessage,
   OfflineBanner,
   StateMessage,
+  SkeletonList,
 } from "../components/ui";
 import type {
   HomeDashboardData,
   HomeDestination,
   HomeListing,
 } from "../types/home";
-import { HomeHero } from "../components/dashboard/HomeHero";
+import { HomeHero, HomeTopBar } from "../components/dashboard/HomeHero";
 import { browsingVillageFor } from "../storage/browsingVillage";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { ServiceCard } from "../components/dashboard/ServiceCard";
-import { CoordinatorInfo } from "../components/dashboard/CoordinatorInfo";
+import {
+  ActivityCard,
+  type ActivityCardData,
+} from "../components/dashboard/ActivityCard";
+import { useMyProviderProfiles } from "../providerProfiles";
 import { BecomeSellerCard } from "../components/dashboard/SellerCards";
 import {
   PreviewBanner,
@@ -53,14 +59,6 @@ const h = StyleSheet.create({
     width: "100%",
     maxWidth: theme.layout.contentWidth,
     alignSelf: "center",
-  },
-  statusBackdrop: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 2,
-    backgroundColor: theme.colors.primaryDark,
   },
   body: { paddingHorizontal: theme.layout.screenPadding, gap: 16 },
   // One white card of four destinations, overlapping the dark hero.
@@ -87,7 +85,7 @@ const h = StyleSheet.create({
     ...theme.type.micro,
     color: theme.colors.heading,
     textAlign: "center",
-    minHeight: 34,
+    minHeight: 20,
   },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });
@@ -96,10 +94,12 @@ function QuickAction({
   icon,
   title,
   onPress,
+  tone,
 }: {
   icon: IconName;
   title: string;
   onPress: () => void;
+  tone: keyof typeof theme.modules;
 }) {
   return (
     <Pressable
@@ -108,12 +108,14 @@ function QuickAction({
       onPress={onPress}
       style={({ pressed }) => [h.action, pressed && h.pressed]}
     >
-      <View style={h.actionIcon}>
+      <View
+        style={[h.actionIcon, { backgroundColor: theme.modules[tone].tint }]}
+      >
         <Ionicons
           accessible={false}
           name={icon}
           size={24}
-          color={theme.colors.primary}
+          color={theme.modules[tone].color}
         />
       </View>
       <Text numberOfLines={2} style={h.actionLabel}>
@@ -129,22 +131,34 @@ export function HomeDashboard({
   onNavigate,
   onProductPress,
   listingStatus,
+  directoryStatus,
+  directoryReady,
+  listingsReady,
   services = [],
   transport = [],
+  activities = [],
 }: {
   data: HomeDashboardData;
   language: MobileLanguage;
   onNavigate: (route: HomeDestination) => void;
   onProductPress: (listing: HomeListing) => void;
   listingStatus?: React.ReactNode;
+  directoryStatus?: React.ReactNode;
+  directoryReady?: boolean;
   listingsReady?: boolean;
   services?: HomeListing[];
   transport?: HomeListing[];
+  activities?: ActivityCardData[];
 }) {
   const t = messages(language);
   const signedIn = useAppStore((state) => !!state.session);
   const offline = useAppStore((state) => state.offline);
   const insets = useSafeAreaInsets();
+  const [emptyOpen, setEmptyOpen] = useState(false);
+  const [emptyServicesOpen, setEmptyServicesOpen] = useState(false);
+  const [emptyTransportOpen, setEmptyTransportOpen] = useState(false);
+  // Nothing to show yet: the section folds away and has no "View All".
+  const noListings = !!listingsReady && !data.listings.length;
   const [focused, setFocused] = useState(true);
   useFocusEffect(
     useCallback(() => {
@@ -155,106 +169,184 @@ export function HomeDashboard({
   return (
     <View style={d.safe}>
       {focused && <StatusBar style="light" />}
-      <View
-        pointerEvents="none"
-        style={[h.statusBackdrop, { height: offline ? 0 : insets.top }]}
-      />
       {offline && (
         <View style={{ paddingTop: insets.top }}>
           <OfflineBanner message={t.offline} />
         </View>
       )}
+      <HomeTopBar language={language} topInset={offline ? 0 : insets.top} />
       <ScrollView
         contentContainerStyle={h.content}
         showsVerticalScrollIndicator={false}
       >
         <HomeHero
           language={language}
-          topInset={offline ? 0 : insets.top}
           onSearch={() => onNavigate("/marketplace")}
         />
         <View style={h.body}>
           <View style={h.quick}>
             <QuickAction
               icon="storefront-outline"
+              tone="marketplace"
               title={t.dashboardMarketplace}
               onPress={() => onNavigate("/marketplace")}
             />
             <QuickAction
               icon="build-outline"
+              tone="services"
               title={t.dashboardServices}
               onPress={() => onNavigate("/services")}
             />
             <QuickAction
               icon="car-outline"
+              tone="transport"
               title={t.dashboardTransport}
               onPress={() => onNavigate("/transport")}
             />
             <QuickAction
-              icon="megaphone-outline"
-              title={t.villageInformation}
-              onPress={() => onNavigate("/village-information")}
+              icon="people-outline"
+              tone="activities"
+              title={t.coordinatorShort}
+              onPress={() => onNavigate("/village-coordinator")}
             />
           </View>
           {data.isPreview && <PreviewBanner />}
-          <CoordinatorInfo coordinator={data.coordinator} language={language} />
           <View style={d.section}>
             <SectionHeader
               icon="storefront-outline"
+              tone="marketplace"
               title={t.dashboardMarketplace}
-              action={t.viewAll}
+              action={noListings ? undefined : t.viewAll}
               onPress={() => onNavigate("/marketplace")}
-            />
-            {listingStatus}
-            <FlatList
-              horizontal
-              data={data.listings}
-              keyExtractor={(item) =>
-                `${item.module ?? "marketplace"}:${item.id}`
+              toggle={
+                noListings
+                  ? { open: emptyOpen, onPress: () => setEmptyOpen(!emptyOpen) }
+                  : undefined
               }
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
-              renderItem={({ item }) => (
-                <ProductCard
-                  listing={item}
-                  language={language}
-                  compact
-                  onPress={() => onProductPress(item)}
-                />
-              )}
             />
+            {(!noListings || emptyOpen) && listingStatus}
+            {!!data.listings.length && (
+              <FlatList
+                horizontal
+                data={data.listings}
+                keyExtractor={(item) =>
+                  `${item.module ?? "marketplace"}:${item.id}`
+                }
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: 12 }}
+                renderItem={({ item }) => (
+                  <ProductCard
+                    listing={item}
+                    language={language}
+                    compact
+                    onPress={() => onProductPress(item)}
+                  />
+                )}
+              />
+            )}
           </View>
           {(
             [
-              [services, t.dashboardServices, "/services", "build-outline"],
-              [transport, t.dashboardTransport, "/transport", "car-outline"],
+              [
+                services,
+                t.dashboardServices,
+                "/services",
+                "build-outline",
+                "services",
+              ],
+              [
+                transport,
+                t.dashboardTransport,
+                "/transport",
+                "car-outline",
+                "transport",
+              ],
             ] as const
-          ).map(
-            ([entries, title, route, icon]) =>
-              entries.length > 0 && (
-                <View key={route} style={d.section}>
-                  <SectionHeader
-                    icon={icon}
-                    title={title}
-                    action={t.viewAll}
-                    onPress={() => onNavigate(route)}
-                  />
-                  <FlatList
-                    horizontal
-                    data={entries}
-                    keyExtractor={(item) => item.id}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
-                    renderItem={({ item }) => (
-                      <ServiceCard
-                        listing={item}
-                        language={language}
-                        onPress={() => onProductPress(item)}
+          ).map(([entries, title, route, icon, tone]) => {
+            const empty = !!directoryReady && entries.length === 0;
+            const emptyOpen =
+              route === "/services" ? emptyServicesOpen : emptyTransportOpen;
+            const setEmptyOpen =
+              route === "/services"
+                ? setEmptyServicesOpen
+                : setEmptyTransportOpen;
+            return (
+              <View key={route} style={d.section}>
+                <SectionHeader
+                  icon={icon}
+                  tone={tone}
+                  title={title}
+                  action={empty ? undefined : t.viewAll}
+                  onPress={() => onNavigate(route)}
+                  toggle={
+                    empty
+                      ? {
+                          open: emptyOpen,
+                          onPress: () => setEmptyOpen(!emptyOpen),
+                        }
+                      : undefined
+                  }
+                />
+                {(!empty || emptyOpen) &&
+                  (entries.length ? (
+                    <FlatList
+                      horizontal
+                      data={entries}
+                      keyExtractor={(item) => item.id}
+                      showsHorizontalScrollIndicator={false}
+                      contentContainerStyle={{ gap: 12 }}
+                      renderItem={({ item }) => (
+                        <ServiceCard
+                          listing={item}
+                          language={language}
+                          onPress={() => onProductPress(item)}
+                        />
+                      )}
+                    />
+                  ) : (
+                    (directoryStatus ?? (
+                      <StateMessage
+                        icon={icon}
+                        title={t.dashboardDirectoryEmpty}
                       />
-                    )}
+                    ))
+                  ))}
+              </View>
+            );
+          })}
+          {signedIn && (
+            <View style={d.section}>
+              <SectionHeader
+                icon="briefcase-outline"
+                tone="activities"
+                title={t.actTitle}
+                action={t.viewAll}
+                onPress={() => onNavigate("/activities")}
+              />
+              {!activities.length && (
+                <Text style={d.description}>{t.actEmpty}</Text>
+              )}
+              <FlatList
+                horizontal
+                data={activities}
+                keyExtractor={(item) => `${item.kind}:${item.id}`}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
+                renderItem={({ item }) => (
+                  <ActivityCard
+                    card={item}
+                    language={language}
+                    onPress={() =>
+                      onNavigate(
+                        item.kind === "products"
+                          ? "/my-listings"
+                          : `/provider/${item.id}`,
+                      )
+                    }
                   />
-                </View>
-              ),
+                )}
+              />
+            </View>
           )}
           {signedIn && data.user.isBuyer && !data.user.isSeller && (
             <BecomeSellerCard
@@ -274,6 +366,16 @@ export default function HomeScreen() {
   const village = useAppStore(browsingVillageFor);
   const query = useHomeListings();
   const directory = useDashboardDirectory();
+  const mine = useMyProviderProfiles();
+  // Coming back to Home reshuffles the services and vehicles it shows.
+  const visited = useRef(false);
+  const reshuffle = directory.refetch;
+  useFocusEffect(
+    useCallback(() => {
+      if (visited.current) void reshuffle();
+      visited.current = true;
+    }, [reshuffle]),
+  );
   const now = useListingClock();
   const t = messages(language);
   if (!village || (session && !session.user.village)) return null;
@@ -321,7 +423,7 @@ export default function HomeScreen() {
         </Text>
       )}
       {!offline && query.isPending && (
-        <Text style={d.description}>{t.listingsLoading}</Text>
+        <SkeletonList rows={3} label={t.listingsLoading} />
       )}
       {query.isError && !offline && (
         <>
@@ -336,13 +438,51 @@ export default function HomeScreen() {
       )}
     </>
   );
+  const directoryStatus =
+    offline && !directory.data ? (
+      <Text style={d.description}>{t.listingsOfflineEmpty}</Text>
+    ) : !offline && directory.isPending ? (
+      <SkeletonList rows={2} label={t.listingsLoading} />
+    ) : directory.isError && !offline ? (
+      <>
+        <ErrorMessage message={t.dashboardDirectoryFailed} />
+        <Button secondary onPress={() => void directory.refetch()}>
+          {t.retry}
+        </Button>
+      </>
+    ) : undefined;
+  // Your own products and registered activities.
+  const own = [
+    ...(session?.user.isSeller
+      ? [
+          {
+            id: "products",
+            kind: "products" as const,
+            title: t.dashMyProducts,
+          },
+        ]
+      : []),
+    ...(mine.data?.profiles ?? [])
+      .filter((profile) => profile.mine)
+      .map((profile) => ({
+        id: profile.id,
+        kind: "profile" as const,
+        title: profile.name,
+        providerType: profile.providerType,
+        active: profile.status === "ACTIVE",
+      })),
+  ];
+  const activities: ActivityCardData[] = own;
   return (
     <>
       <HomeDashboard
         data={data}
         language={language}
         listingStatus={listingStatus}
+        directoryStatus={directoryStatus}
+        directoryReady={!!directory.data}
         listingsReady={!!page}
+        activities={activities}
         services={(directory.data?.services.entries ?? []).map((entry) =>
           directoryPreview(entry, now),
         )}
@@ -373,6 +513,7 @@ export default function HomeScreen() {
           })
         }
       />
+      <VillageNoticeDialog />
       <BecomeSellerDialog
         visible={sellerDialog}
         onClose={() => setSellerDialog(false)}

@@ -357,7 +357,13 @@ try {
     (
       await check(
         await listings.GET(
-          req("/listings", "GET", undefined, undefined, buyerToken),
+          req(
+            `/listings?sourceVillageId=${aid}`,
+            "GET",
+            undefined,
+            undefined,
+            buyerToken,
+          ),
         ),
       )
     ).listings.some((row: { id: string }) => row.id === String(product._id)),
@@ -486,6 +492,27 @@ try {
     await check(await call(scoped(`villages/${aid}/connections`))),
   );
   assert.equal(connections.total, 1);
+  // Anyone can list the villages mapped with a village; it never lists itself.
+  const mappedRoute = await import("../src/app/api/v1/villages/mapped/route");
+  const mappedFor = async (village: string) =>
+    (
+      await (
+        await mappedRoute.GET(
+          new Request(
+            `http://localhost/api/v1/villages/mapped?villageId=${village}`,
+          ),
+        )
+      ).json()
+    ).data.villages as { id: string }[];
+  assert.deepEqual(
+    (await mappedFor(aid)).map((v) => v.id),
+    [bid],
+  );
+  assert.deepEqual(
+    (await mappedFor(bid)).map((v) => v.id),
+    [aid],
+    "mapping works both ways",
+  );
   const localDirectory = coordinatorUsersSchema.parse(
     await check(await call(scoped("users"))),
   );
@@ -599,7 +626,13 @@ try {
   assert.notEqual(mappedPage.users[0].id, mappedPageTwo.users[0].id);
   const marketplacePage = await check(
     await listings.GET(
-      req("/listings", "GET", undefined, undefined, buyerToken),
+      req(
+        `/listings?sourceVillageId=${aid}`,
+        "GET",
+        undefined,
+        undefined,
+        buyerToken,
+      ),
     ),
   );
   assert.equal(marketplacePage.total, 2);
@@ -861,7 +894,13 @@ try {
     (
       await check(
         await listings.GET(
-          req("/listings", "GET", undefined, undefined, buyerToken),
+          req(
+            `/listings?sourceVillageId=${aid}`,
+            "GET",
+            undefined,
+            undefined,
+            buyerToken,
+          ),
         ),
       )
     ).listings.some((row: { id: string }) => row.id === String(product._id)),
@@ -1058,7 +1097,13 @@ try {
   );
   const disconnectedMarketplace = await check(
     await listings.GET(
-      req("/listings", "GET", undefined, undefined, buyerToken),
+      req(
+        `/listings?sourceVillageId=${aid}`,
+        "GET",
+        undefined,
+        undefined,
+        buyerToken,
+      ),
     ),
   );
   assert.deepEqual(
@@ -1085,12 +1130,12 @@ try {
     ),
   );
   assert.equal(await VillageConnection.countDocuments({ active: true }), 0);
-  // Add Buyer may select a public active village without gaining directory access.
+  // Add Buyer uses the selected assignment, including explicit village IDs.
   const selectedBuyerInput = {
     firstName: "Village",
     lastName: "Buyer",
     mobile: "9876543222",
-    targetVillageId: String(c._id),
+    targetVillageId: aid,
   };
   const selectedBuyer = await check(
     await call(
@@ -1100,10 +1145,7 @@ try {
       "selected-village-buyer",
     ),
   );
-  assert.equal(
-    String((await User.findById(selectedBuyer.id))?.village),
-    String(c._id),
-  );
+  assert.equal(String((await User.findById(selectedBuyer.id))?.village), aid);
   assert.equal((await User.findById(selectedBuyer.id))?.mobileVerified, false);
   assert.deepEqual(
     await check(
@@ -1117,22 +1159,26 @@ try {
     selectedBuyer,
   );
   assert.equal(await User.countDocuments({ mobile: "9876543222" }), 1);
-  await check(await call(scoped(`users/${selectedBuyer.id}`)), 404);
+  await check(await call(scoped(`users/${selectedBuyer.id}`)));
   await check(await call(`users/${selectedBuyer.id}?villageId=${c._id}`), 403);
-  await check(
-    await call(
-      scoped("buyers"),
-      "POST",
-      {
-        ...selectedBuyerInput,
-        mobile: "9876543223",
-        targetVillageId: "f".repeat(24),
-      },
-      "missing-buyer-village",
-    ),
-    404,
-  );
-  await Village.updateOne({ _id: c._id }, { $set: { isActive: false } });
+  for (const targetVillageId of [bid, String(c._id), "f".repeat(24)]) {
+    await check(
+      await call(
+        scoped("buyers"),
+        "POST",
+        {
+          ...selectedBuyerInput,
+          mobile: "9876543223",
+          targetVillageId,
+        },
+        `different-buyer-village-${targetVillageId}`,
+      ),
+      422,
+      "COORDINATOR_BUYER_VILLAGE_MISMATCH",
+    );
+  }
+  assert.equal(await User.countDocuments({ mobile: "9876543223" }), 0);
+  await Village.updateOne({ _id: a._id }, { $set: { isActive: false } });
   await check(
     await call(
       scoped("buyers"),
@@ -1140,7 +1186,7 @@ try {
       { ...selectedBuyerInput, mobile: "9876543224" },
       "inactive-buyer-village",
     ),
-    404,
+    403,
   );
   await check(
     await call(
@@ -1149,9 +1195,9 @@ try {
       selectedBuyerInput,
       "selected-village-buyer",
     ),
-    404,
+    403,
   );
-  await Village.updateOne({ _id: c._id }, { $set: { isActive: true } });
+  await Village.updateOne({ _id: a._id }, { $set: { isActive: true } });
   await check(
     await call(
       scoped("buyers"),
@@ -1165,7 +1211,7 @@ try {
   assert.ok(
     await AuditLog.exists({
       actorUserId: coordinator._id,
-      villageId: c._id,
+      villageId: a._id,
       targetId: selectedBuyer.id,
       action: "buyer.added",
     }),

@@ -1,13 +1,13 @@
-import { Alert } from "react-native";
 import type { MobileLanguage } from "@gaavli/types";
 import { messages } from "../i18n";
+import { showAlert } from "../alert";
 
 export function showGuestSignUpPrompt(
   language: MobileLanguage,
   onConfirm: () => void,
 ) {
   const t = messages(language);
-  Alert.alert(
+  showAlert(
     t.guestSignUpFirst,
     undefined,
     [
@@ -23,7 +23,7 @@ export function showGuestAuthPrompt(
   onContinue: (mode: "login" | "register") => void,
 ) {
   const t = messages(language);
-  Alert.alert(
+  showAlert(
     t.signInRequired,
     undefined,
     [

@@ -625,8 +625,16 @@ try {
   const unavailableContactRows = [rows[0], ...rows.slice(2)].filter(
     (row) => String(row._id) !== String(rows[9]._id),
   );
+  // Sold-out and old listings (expired status, past date, zero stock) still
+  // show the seller's contact; every other kind stays hidden.
+  const endedIds = new Set(
+    [2, 3, 6, 12].map((index) => String(rows[index]._id)),
+  );
   for (const row of unavailableContactRows)
-    assert.equal((await readContact(String(row._id))).status, 404);
+    assert.equal(
+      (await readContact(String(row._id))).status,
+      endedIds.has(String(row._id)) ? 200 : 404,
+    );
   assert.equal(
     await Notification.countDocuments(),
     0,
@@ -1356,8 +1364,16 @@ try {
   console.log(
     "PASS: buyer/seller request flow: quantity/consent validation, participant-only histories, protected callbacks, legacy privacy, monotonic idempotent seen/responded and preserved product snapshots.",
   );
+  // Old listings (expired status, past date, zero stock, no end date) can
+  // still be opened; every other kind stays hidden.
+  const oldRows = new Set(
+    [2, 3, 6, 12].map((index) => String(rows[index]._id)),
+  );
   for (const row of rows.slice(2))
-    assert.equal((await getDetail(String(row._id))).status, 404);
+    assert.equal(
+      (await getDetail(String(row._id))).status,
+      oldRows.has(String(row._id)) ? 200 : 404,
+    );
   assert.equal((await getDetail("1")).status, 422);
   assert.equal(
     (await getDetail(String(new mongoose.Types.ObjectId()))).status,

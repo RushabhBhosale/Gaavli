@@ -12,10 +12,42 @@ export {
   normalizeProviderMasterName,
 } from "./provider-masters";
 export {
+  providerContactSchema,
+  providerContactsSchema,
+  providerDetailsSchema,
+  practiceSchema,
+  createProviderProfileSchema,
+  updateProviderProfileSchema,
+  providerDuplicateCheckSchema,
+  providerSearchQuerySchema,
+  providerLinkRequestSchema,
+  providerLinkActionSchema,
+  providerClaimSchema,
+  providerStatusSchema,
+  providerProfileSchema,
+  providerLinkSchema,
+  providerProfilesResponseSchema,
+  providerFacilityDetailSchema,
+  providerDuplicateMatchSchema,
+  providerDuplicateResultSchema,
+  providerSearchResultSchema,
+  providerClaimResultSchema,
+  providerCreatedSchema,
+  accountContactsSchema,
+  accountContactsOutputSchema,
+  shopProductGroupsSchema,
+  shopProductCodesSchema,
+} from "./provider-profiles";
+export {
   directoryQuerySchema,
   directoryEntrySchema,
   directoryPageSchema,
+  directorySummaryQuerySchema,
+  directorySummarySchema,
   dashboardDirectorySchema,
+  productShopsQuerySchema,
+  productShopsSchema,
+  directoryShopProductsSchema,
 } from "./directory";
 export {
   mobileProfileSchema,
@@ -34,8 +66,16 @@ export {
   productMasterImportRowSchema,
   productMasterImportSchema,
 } from "./product-master";
-import { indianMobileSchema, personNameSchema } from "./identity";
-export { indianMobileSchema, personNameSchema } from "./identity";
+import {
+  indianMobileSchema,
+  personNameSchema,
+  optionalLastNameSchema,
+} from "./identity";
+export {
+  indianMobileSchema,
+  personNameSchema,
+  optionalLastNameSchema,
+} from "./identity";
 export {
   coordinatorQuerySchema,
   coordinatorBuyerSchema,
@@ -56,8 +96,13 @@ export {
   coordinatorListingSchema,
   coordinatorMutationSchema,
 } from "./coordinator";
-import { MOBILE_LANGUAGES } from "@gaavli/constants";
+import {
+  LISTING_TAG_IDS,
+  MAX_LISTING_TAGS,
+  MOBILE_LANGUAGES,
+} from "@gaavli/constants";
 
+export const listingTagsSchema = z.array(z.enum(LISTING_TAG_IDS));
 export const mobileLanguageSchema = z.enum(MOBILE_LANGUAGES);
 export const healthStatusSchema = z
   .object({ status: z.literal("ok") })
@@ -79,7 +124,7 @@ export function apiSuccessSchema<T extends z.ZodType>(data: T) {
 export const registrationSchema = z
   .object({
     firstName: personNameSchema,
-    lastName: personNameSchema,
+    lastName: optionalLastNameSchema.default(""),
     mobile: indianMobileSchema,
     language: mobileLanguageSchema,
   })
@@ -262,17 +307,16 @@ export const selectVillageSchema = z
   .object({
     villageId: z.string().regex(/^[a-f0-9]{24}$/i),
     firstName: personNameSchema.optional(),
-    lastName: personNameSchema.optional(),
+    lastName: optionalLastNameSchema.optional(),
   })
   .strict()
   .superRefine((value, context) => {
     const hasFirst = value.firstName !== undefined;
-    const hasLast = value.lastName !== undefined;
-    if (hasFirst !== hasLast)
+    if (value.lastName !== undefined && !hasFirst)
       context.addIssue({
         code: "custom",
         message: "NAME_REQUIRED",
-        path: [hasFirst ? "lastName" : "firstName"],
+        path: ["firstName"],
       });
     if (
       value.firstName &&
@@ -406,6 +450,10 @@ export const mobileListingSchema = z
       .nullable()
       .default(null),
     isDemo: z.boolean().default(false),
+    // "sold_out" and "expired" listings can still be opened, but not acted on.
+    availability: z
+      .enum(["available", "sold_out", "expired"])
+      .default("available"),
     category: z.string().nullable(),
     categoryName: z.string().nullable(),
     categoryNameMr: z.string().nullable(),
@@ -421,7 +469,31 @@ export const mobileListingSchema = z
     fulfillmentOptions: z
       .array(z.enum(["farm_pickup", "local_transport"]))
       .default([]),
+    tags: listingTagsSchema.default([]),
+    // Sellers offering this same product and unit; the price shown is the
+    // cheapest, and min/max span all of them.
+    offerCount: z.number().int().positive().default(1),
+    minPrice: z.number().finite().nonnegative().nullable().default(null),
+    maxPrice: z.number().finite().nonnegative().nullable().default(null),
   })
+  .strict();
+// One seller's offer. Name and phone are filled in only for a signed-in
+// buyer, the same details the contact "view" route already returns.
+export const listingOfferSchema = mobileListingSchema.extend({
+  seller: z
+    .object({
+      name: z.string().trim().min(1).max(100),
+      mobile: z
+        .string()
+        .regex(/^\+91[6-9]\d{9}$/)
+        .nullable(),
+    })
+    .strict()
+    .nullable()
+    .default(null),
+});
+export const listingOffersSchema = z
+  .object({ offers: z.array(listingOfferSchema) })
   .strict();
 export const mobileListingPageSchema = z
   .object({
@@ -511,6 +583,10 @@ const listingFields = {
     .max(2)
     .refine((values) => new Set(values).size === values.length)
     .optional(),
+  tags: listingTagsSchema
+    .max(MAX_LISTING_TAGS)
+    .refine((values) => new Set(values).size === values.length)
+    .optional(),
 };
 export const createListingSchema = z
   .object({ ...listingFields, villageId: listingIdSchema })
@@ -585,6 +661,7 @@ export const ownedListingSchema = z
     photoUrl: mobileListingSchema.shape.photoUrl,
     minimumPurchaseQuantity: z.number().nullable(),
     fulfillmentOptions: z.array(z.enum(["farm_pickup", "local_transport"])),
+    tags: listingTagsSchema.default([]),
     villageId: listingIdSchema,
     village: mobileVillageSchema.nullable(),
     status: listingStatusSchema,

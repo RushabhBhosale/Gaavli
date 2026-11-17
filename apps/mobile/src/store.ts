@@ -9,21 +9,42 @@ import type {
 } from "@gaavli/types";
 import type { OnboardingPreferences } from "./storage/preferences";
 import { initialBrowsingVillage } from "./storage/browsingVillage";
-import { availableDashboardTab, type DashboardTab } from "./data/dashboardTabs";
+import { emptyContact, type ContactDraft } from "./data/contactNumbers";
+
+// What the new registration screen collects beyond the OTP request. It is
+// applied once the number is verified.
+export type RegistrationExtras = {
+  fullName: string;
+  village: MobileVillage | null;
+  contacts: ContactDraft[];
+  email: string;
+  promoWhatsapp: boolean;
+  providerIntent: boolean;
+};
+export const emptyRegistrationExtras = (): RegistrationExtras => ({
+  fullName: "",
+  village: null,
+  contacts: [{ ...emptyContact("primary"), whatsapp: false, isPublic: true }],
+  email: "",
+  promoWhatsapp: false,
+  providerIntent: false,
+});
 
 type AppState = OnboardingPreferences & {
   setBrowsingVillage: (village: MobileVillage | null) => void;
   hydrated: boolean;
   offline: boolean;
   session: MobileSession | null;
-  dashboardTab: DashboardTab | null;
-  setDashboardTab: (tab: DashboardTab) => void;
   draft: RegistrationDraft;
+  registration: RegistrationExtras;
+  setRegistration: (patch: Partial<RegistrationExtras>) => void;
   challenge: OtpChallenge | null;
   authMode: "login" | "register";
   contactReturnListingId: string | null;
+  contactReturnDirectoryId: string | null;
   setAuthMode: (mode: "login" | "register") => void;
   setContactReturn: (listingId: string | null) => void;
+  setDirectoryContactReturn: (directoryId: string | null) => void;
   setSession: (session: MobileSession | null) => void;
   setDraft: (draft: RegistrationDraft) => void;
   setChallenge: (challenge: OtpChallenge | null) => void;
@@ -42,22 +63,22 @@ export const useAppStore = create<AppState>((set) => ({
   hydrated: false,
   offline: false,
   session: null,
-  dashboardTab: null,
-  setDashboardTab: (tab) =>
-    set((state) => ({
-      dashboardTab: availableDashboardTab(state.session?.user, tab),
-    })),
   draft: { firstName: "", lastName: "", mobile: "" },
+  registration: emptyRegistrationExtras(),
+  setRegistration: (patch) =>
+    set((state) => ({ registration: { ...state.registration, ...patch } })),
   challenge: null,
   authMode: "register",
   contactReturnListingId: null,
+  contactReturnDirectoryId: null,
   setAuthMode: (authMode) => set({ authMode, challenge: null }),
-  setContactReturn: (contactReturnListingId) => set({ contactReturnListingId }),
+  setContactReturn: (contactReturnListingId) =>
+    set({ contactReturnListingId, contactReturnDirectoryId: null }),
+  setDirectoryContactReturn: (contactReturnDirectoryId) =>
+    set({ contactReturnDirectoryId, contactReturnListingId: null }),
   setSession: (session) =>
     set((state) => ({
       session,
-      dashboardTab:
-        state.session?.user.id === session?.user.id ? state.dashboardTab : null,
       browsingVillage: initialBrowsingVillage(state.browsingVillage, session),
     })),
   setDraft: (draft) => set({ draft }),
@@ -65,18 +86,20 @@ export const useAppStore = create<AppState>((set) => ({
   clearRegistration: () =>
     set({
       draft: { firstName: "", lastName: "", mobile: "" },
+      registration: emptyRegistrationExtras(),
       challenge: null,
       authMode: "login",
     }),
   clearAuthenticatedState: () =>
     set({
       session: null,
-      dashboardTab: null,
       browsingVillage: null,
       draft: { firstName: "", lastName: "", mobile: "" },
+      registration: emptyRegistrationExtras(),
       challenge: null,
       authMode: "login",
       contactReturnListingId: null,
+      contactReturnDirectoryId: null,
     }),
   setLanguage: (language) => set({ language }),
   restore: (preferences) =>

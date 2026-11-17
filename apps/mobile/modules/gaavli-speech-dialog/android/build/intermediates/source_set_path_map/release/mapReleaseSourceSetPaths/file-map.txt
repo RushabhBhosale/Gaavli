@@ -1,0 +1,7 @@
+expo.modules.gaavlispeechdialog.gaavli-speech-dialog-pngs-0 /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/build/generated/res/pngs/release
+expo.modules.gaavlispeechdialog.gaavli-speech-dialog-resValues-1 /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/build/generated/res/resValues/release
+expo.modules.gaavlispeechdialog.gaavli-speech-dialog-mergeReleaseResources-2 /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
+expo.modules.gaavlispeechdialog.gaavli-speech-dialog-mergeReleaseResources-3 /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+expo.modules.gaavlispeechdialog.gaavli-speech-dialog-release-4 /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/build/intermediates/merged_res/release/mergeReleaseResources
+expo.modules.gaavlispeechdialog.gaavli-speech-dialog-main-5 /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/res
+expo.modules.gaavlispeechdialog.gaavli-speech-dialog-release-6 /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/release/res

@@ -26,6 +26,9 @@ export default function LanguageScreen() {
   const contactReturnListingId = useAppStore(
     (state) => state.contactReturnListingId,
   );
+  const contactReturnDirectoryId = useAppStore(
+    (state) => state.contactReturnDirectoryId,
+  );
   const t = messages(language);
   const [selected, setSelected] = useState<MobileVillage | null>(
     browsingVillage,
@@ -35,10 +38,20 @@ export default function LanguageScreen() {
   const submitting = useRef(false);
   if (session)
     return (
-      <Redirect href={postAuthHref(session.user, contactReturnListingId)} />
+      <Redirect
+        href={postAuthHref(
+          session.user,
+          contactReturnListingId,
+          false,
+          contactReturnDirectoryId,
+        )}
+      />
     );
 
-  async function next(destination: "/home" | "/register") {
+  async function next(
+    destination: "/home" | "/register",
+    mode?: "login" | "register",
+  ) {
     if (submitting.current) return;
     if (destination === "/home" && !selected) return;
     submitting.current = true;
@@ -52,6 +65,8 @@ export default function LanguageScreen() {
         useAppStore
           .getState()
           .restore({ ...preferences, browsingVillage: null });
+        // Clearing the session resets the mode, so choose it afterwards.
+        if (mode) useAppStore.getState().setAuthMode(mode);
       } else {
         if (selected)
           await selectBrowsingVillage(
@@ -61,7 +76,9 @@ export default function LanguageScreen() {
           );
         useAppStore.getState().restore(preferences);
       }
-      router.replace(destination);
+      router.replace(
+        mode ? { pathname: "/register", params: { mode } } : destination,
+      );
     } catch {
       setFailed(true);
     } finally {
@@ -105,12 +122,6 @@ export default function LanguageScreen() {
         </View>
         <View style={s.brandSection}>
           <Brand />
-          <View style={s.copy}>
-            <Text accessibilityRole="header" style={s.tagline}>
-              {t.splashTagline}
-            </Text>
-            <Text style={s.support}>{t.splashDescription}</Text>
-          </View>
         </View>
         <View style={s.action}>
           <VillageSelectField
@@ -131,7 +142,9 @@ export default function LanguageScreen() {
             accessibilityLabel={`${t.alreadyRegisteredPrompt} ${t.villageLoginLink}`}
             accessibilityState={{ disabled: busy }}
             disabled={busy}
-            onPress={() => void next("/register")}
+            onPress={() => {
+              void next("/register", "login");
+            }}
             style={({ pressed }) => [
               s.loginLink,
               busy && s.loginDisabled,
@@ -141,6 +154,25 @@ export default function LanguageScreen() {
             <Text style={s.loginText}>
               {t.alreadyRegisteredPrompt}{" "}
               <Text style={s.loginHighlight}>{t.villageLoginLink}</Text>
+            </Text>
+          </Pressable>
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel={`${t.newHerePrompt} ${t.registerLink}`}
+            accessibilityState={{ disabled: busy }}
+            disabled={busy}
+            onPress={() => {
+              void next("/register", "register");
+            }}
+            style={({ pressed }) => [
+              s.loginLink,
+              busy && s.loginDisabled,
+              pressed && s.loginPressed,
+            ]}
+          >
+            <Text style={s.loginText}>
+              {t.newHerePrompt}{" "}
+              <Text style={s.loginHighlight}>{t.registerLink}</Text>
             </Text>
           </Pressable>
         </View>

@@ -1,16 +1,29 @@
-import { useState, useRef } from "react";
-import { Redirect, useRouter } from "expo-router";
-import { Text } from "react-native";
+import { useState, useRef, useEffect } from "react";
+import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
+import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { MOBILE_LANGUAGES } from "@gaavli/constants";
+import { preferenceStorage } from "../storage/sqlite";
+import { ContactNumbersField } from "../components/ContactNumbersField";
+import { VillageField } from "../components/VillageField";
+import {
+  activeContacts,
+  cleanMobile,
+  contactErrors,
+  setContact,
+} from "../data/contactNumbers";
+import { splitFullName } from "../data/finishRegistration";
+import { theme } from "../theme";
 import { otpChallengeSchema } from "@gaavli/validation";
 import { limitIndianMobileInput } from "../data/mobileInput";
 import { parseOtpRequest } from "../data/otpRequest";
-import { postAuthHref } from "../storage/preferences";
+import { confirmLanguage, postAuthHref } from "../storage/preferences";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import {
   Brand,
-  BackButton,
   Button,
+  Chip,
   Input,
   ErrorMessage,
   Screen,
@@ -21,6 +34,7 @@ import { errorMessage } from "../errors";
 
 export default function RegistrationScreen() {
   const router = useRouter();
+  const { mode: requestedMode } = useLocalSearchParams<{ mode?: string }>();
   const {
     language,
     confirmed,
@@ -28,16 +42,31 @@ export default function RegistrationScreen() {
     session,
     draft,
     offline,
-    authMode,
+    authMode: storedAuthMode,
     contactReturnListingId,
+    contactReturnDirectoryId,
     browsingVillage,
+    registration,
   } = useAppStore();
+  const [entryMode, setEntryMode] = useState<"login" | "register" | null>(
+    requestedMode === "login" || requestedMode === "register"
+      ? requestedMode
+      : null,
+  );
+  const authMode = entryMode ?? storedAuthMode;
+  useEffect(() => {
+    if (entryMode && storedAuthMode !== entryMode)
+      useAppStore.getState().setAuthMode(entryMode);
+  }, [entryMode, storedAuthMode]);
   const registering = authMode === "register";
   const t = messages(language);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [failure, setFailure] = useState<unknown>(null);
   const [busy, setBusy] = useState(false);
   const submitting = useRef(false);
+  const [showErrors, setShowErrors] = useState(false);
+  const [more, setMore] = useState(false);
+  const set = useAppStore.getState().setRegistration;
   if (session)
     return (
       <Redirect
@@ -45,6 +74,7 @@ export default function RegistrationScreen() {
           session.user,
           contactReturnListingId,
           authMode === "login",
+          contactReturnDirectoryId,
         )}
       />
     );
@@ -54,8 +84,56 @@ export default function RegistrationScreen() {
     setErrors((previous) => ({ ...previous, [key]: "" }));
     setFailure(null);
   }
+  function setPrimary(contacts: typeof registration.contacts) {
+    set({ contacts });
+    useAppStore.getState().setDraft({
+      ...useAppStore.getState().draft,
+      mobile: limitIndianMobileInput(contacts[0]?.mobile ?? ""),
+    });
+    setErrors((previous) => ({ ...previous, mobile: "" }));
+    setFailure(null);
+  }
+  function changeName(value: string) {
+    set({ fullName: value });
+    const parts = splitFullName(value);
+    useAppStore.getState().setDraft({
+      ...useAppStore.getState().draft,
+      firstName: parts?.firstName ?? value.trim(),
+      lastName: parts?.lastName ?? "",
+    });
+    setErrors((previous) => ({ ...previous, firstName: "", lastName: "" }));
+  }
+  async function chooseLanguage(value: (typeof MOBILE_LANGUAGES)[number]) {
+    try {
+      useAppStore
+        .getState()
+        .restore(await confirmLanguage(preferenceStorage, value));
+    } catch {
+      useAppStore.getState().setLanguage(value);
+    }
+  }
   async function send() {
     if (submitting.current) return;
+    if (registering) {
+      setShowErrors(true);
+      const next: Record<string, string> = {};
+      if (!splitFullName(registration.fullName))
+        next.firstName = t.regFullNameError;
+      if (
+        Object.keys(contactErrors(activeContacts(registration.contacts))).length
+      )
+        next.mobile = t.mobileError;
+      if (!registration.village) next.village = t.regVillageRequired;
+      if (
+        registration.email.trim() &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(registration.email.trim())
+      )
+        next.email = t.regEmailError;
+      if (Object.keys(next).length) {
+        setErrors(next);
+        return;
+      }
+    }
     const parsed = parseOtpRequest(
       registering ? "register" : "login",
       draft,
@@ -77,6 +155,7 @@ export default function RegistrationScreen() {
       return;
     }
     const body = parsed.data;
+    useAppStore.getState().setAuthMode(registering ? "register" : "login");
     submitting.current = true;
     setBusy(true);
     setFailure(null);
@@ -106,76 +185,274 @@ export default function RegistrationScreen() {
     }
   }
   return (
-    <Screen>
-      <BackButton
-        label={t.back}
-        disabled={busy}
-        onPress={() => router.replace(browsingVillage ? "/home" : "/language")}
-      />
+    <Screen
+      back={{
+        label: t.back,
+        disabled: busy,
+        onPress: () => router.replace(browsingVillage ? "/home" : "/language"),
+      }}
+    >
       <Brand compact />
-      <Text style={styles.title}>
-        {registering ? t.registrationTitle : t.loginTitle}
+      <Text style={[styles.title, st.center]}>
+        {registering ? t.regCreateTitle : t.loginTitle}
       </Text>
-      <Text style={styles.body}>
-        {contactReturnListingId
-          ? t.contactSellerReason
-          : registering
-            ? t.registrationDescription
-            : t.loginDescription}
+      <Text style={[styles.body, st.center]}>
+        {contactReturnDirectoryId
+          ? t.directoryContactLoginReason
+          : contactReturnListingId
+            ? t.contactSellerReason
+            : registering
+              ? t.registrationDescription
+              : t.loginDescription}
       </Text>
-      {registering && (
+      {registering ? (
         <>
           <Input
-            label={t.firstName}
-            value={draft.firstName}
-            onChangeText={(value) => change("firstName", value)}
+            label={`${t.regFullName} *`}
+            value={registration.fullName}
+            onChangeText={changeName}
             error={errors.firstName}
-            autoComplete="given-name"
-            maxLength={60}
+            placeholder={t.regFullNamePlaceholder}
+            autoComplete="name"
+            maxLength={110}
             editable={!busy}
           />
-          <Input
-            label={t.lastName}
-            value={draft.lastName}
-            onChangeText={(value) => change("lastName", value)}
-            error={errors.lastName}
-            autoComplete="family-name"
-            maxLength={60}
-            editable={!busy}
+          <View style={st.group}>
+            <Input
+              label={`${t.mobile} *`}
+              value={registration.contacts[0]?.mobile ?? ""}
+              onChangeText={(value) =>
+                setPrimary(
+                  setContact(registration.contacts, 0, {
+                    mobile: cleanMobile(value),
+                  }),
+                )
+              }
+              error={errors.mobile}
+              placeholder={t.regMobilePlaceholder}
+              keyboardType="number-pad"
+              autoComplete="tel"
+              maxLength={10}
+              editable={!busy}
+            />
+            <View style={st.switchRow}>
+              <Text style={st.switchText}>{t.regWhatsappOnNumber}</Text>
+              <Switch
+                accessibilityLabel={t.regWhatsappOnNumber}
+                value={!!registration.contacts[0]?.whatsapp}
+                disabled={busy}
+                onValueChange={(value) =>
+                  set({
+                    contacts: setContact(registration.contacts, 0, {
+                      whatsapp: value,
+                    }),
+                  })
+                }
+                trackColor={{
+                  false: theme.colors.border,
+                  true: theme.colors.primary,
+                }}
+                thumbColor={theme.colors.surface}
+              />
+            </View>
+          </View>
+          <VillageField
+            label={`${t.regVillage} *`}
+            value={registration.village}
+            onChange={(village) => {
+              set({ village });
+              setErrors((previous) => ({ ...previous, village: "" }));
+            }}
+            error={errors.village}
+            disabled={busy}
           />
+          <View style={st.languages} accessibilityRole="radiogroup">
+            <Text style={st.label}>{`${t.regLanguage} *`}</Text>
+            <View style={st.chips}>
+              {MOBILE_LANGUAGES.map((value) => (
+                <Chip
+                  key={value}
+                  label={{ mr: "मराठी", en: "English", hi: "हिन्दी" }[value]}
+                  selected={language === value}
+                  onPress={() => void chooseLanguage(value)}
+                />
+              ))}
+            </View>
+          </View>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ expanded: more }}
+            onPress={() => setMore(!more)}
+            style={st.more}
+          >
+            <Text style={st.moreText}>
+              {more ? t.regLessDetails : t.regMoreDetails}
+            </Text>
+            <Ionicons
+              accessible={false}
+              name={more ? "chevron-up" : "chevron-down"}
+              size={18}
+              color={theme.colors.steel}
+            />
+          </Pressable>
+          {more && (
+            <View style={st.group}>
+              <ContactNumbersField
+                contacts={registration.contacts}
+                onChange={(contacts) => set({ contacts })}
+                showErrors={showErrors}
+                disabled={busy}
+                hidePrimary
+                showOrderNote
+              />
+              <Input
+                label={t.regEmail}
+                value={registration.email}
+                onChangeText={(value) => {
+                  set({ email: value });
+                  setErrors((previous) => ({ ...previous, email: "" }));
+                }}
+                error={errors.email}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoComplete="email"
+                maxLength={120}
+                editable={!busy}
+              />
+              <Pressable
+                accessibilityRole="checkbox"
+                accessibilityState={{ checked: registration.promoWhatsapp }}
+                onPress={() =>
+                  set({ promoWhatsapp: !registration.promoWhatsapp })
+                }
+                style={st.check}
+              >
+                <View style={[st.box, registration.promoWhatsapp && st.boxOn]}>
+                  {registration.promoWhatsapp && <Text style={st.tick}>✓</Text>}
+                </View>
+                <Text style={st.checkText}>{t.regPromo}</Text>
+              </Pressable>
+            </View>
+          )}
         </>
+      ) : (
+        <Input
+          label={t.mobile}
+          value={draft.mobile}
+          onChangeText={(value) =>
+            change("mobile", limitIndianMobileInput(value))
+          }
+          error={errors.mobile}
+          keyboardType="number-pad"
+          autoComplete="tel"
+          maxLength={10}
+          editable={!busy}
+        />
       )}
-      <Input
-        label={t.mobile}
-        value={draft.mobile}
-        onChangeText={(value) =>
-          change("mobile", limitIndianMobileInput(value))
-        }
-        error={errors.mobile}
-        keyboardType="number-pad"
-        autoComplete="tel"
-        maxLength={10}
-        editable={!busy}
-      />
       {!!failure && <ErrorMessage message={errorMessage(failure, language)} />}
       {offline && <Text style={styles.body}>{t.offlineAction}</Text>}
       <Button loading={busy} disabled={offline} onPress={() => void send()}>
-        {failure ? t.retry : registering ? t.sendOtp : t.continue}
+        {failure ? t.retry : registering ? t.regContinueOtp : t.continue}
       </Button>
       <Button
         secondary
         disabled={busy}
         onPress={() => {
-          useAppStore
-            .getState()
-            .setAuthMode(registering ? "login" : "register");
+          const nextMode = registering ? "login" : "register";
+          setEntryMode(nextMode);
+          useAppStore.getState().setAuthMode(nextMode);
           setErrors({});
           setFailure(null);
         }}
       >
         {registering ? t.switchToLogin : t.switchToRegister}
       </Button>
-      <Text style={styles.body}>{t.privacy}</Text>
+      <Text style={[styles.body, st.center, st.small]}>
+        {registering ? t.regTerms : t.privacy}
+      </Text>
+      <View style={st.legalRow}>
+        <Pressable
+          accessibilityRole="link"
+          onPress={() => router.push("/terms")}
+          hitSlop={8}
+        >
+          <Text style={st.legalLink}>{t.termsTitle}</Text>
+        </Pressable>
+        <Text style={st.legalDot}>·</Text>
+        <Pressable
+          accessibilityRole="link"
+          onPress={() => router.push("/privacy")}
+          hitSlop={8}
+        >
+          <Text style={st.legalLink}>{t.privacyTitle}</Text>
+        </Pressable>
+      </View>
     </Screen>
   );
 }
+
+const st = StyleSheet.create({
+  legalRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+    paddingBottom: 8,
+  },
+  legalLink: {
+    color: theme.colors.primary,
+    fontSize: 14,
+    fontWeight: "700",
+    textDecorationLine: "underline",
+  },
+  legalDot: { color: theme.colors.muted, fontSize: 14 },
+  section: {
+    ...theme.type.micro,
+    color: theme.colors.muted,
+    letterSpacing: 0.6,
+  },
+  label: { ...theme.type.label, color: theme.colors.text },
+  languages: { gap: 8 },
+  chips: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  check: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 10,
+    minHeight: 44,
+  },
+  box: {
+    width: 24,
+    height: 24,
+    marginTop: 2,
+    borderRadius: 6,
+    borderWidth: 1.5,
+    borderColor: theme.colors.borderStrong,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.colors.surface,
+  },
+  boxOn: {
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
+  },
+  tick: { color: theme.colors.onPrimary, fontWeight: "700" },
+  checkText: { ...theme.type.body, color: theme.colors.text, flex: 1 },
+  center: { textAlign: "center" },
+  small: { ...theme.type.caption },
+  group: { gap: 12 },
+  switchRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+  },
+  switchText: { ...theme.type.label, color: theme.colors.text, flex: 1 },
+  more: {
+    minHeight: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+  },
+  moreText: { ...theme.type.subheading, color: theme.colors.steel },
+});

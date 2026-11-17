@@ -547,15 +547,18 @@ try {
     "PASS: Kalamb guest browsing, Narayangaon authenticated contact/Call/Notify/callback, privacy and unchanged profile/connections.",
   );
 
-  for (const patch of [
-    { isDemo: true },
-    { status: "sold_out", quantity: 0 },
-    { expiresAt: new Date(0) },
-    { status: "reported" },
-    { quantity: 0 },
-  ]) {
+  for (const patch of [{ isDemo: true }, { status: "reported" }]) {
     const hidden = await Listing.create({ ...base, ...patch });
     assert.equal((await read(buyerToken, String(hidden._id))).status, 404);
+  }
+  // Sold-out and old listings still show the seller's contact (view only).
+  for (const patch of [
+    { status: "sold_out", quantity: 0 },
+    { expiresAt: new Date(0) },
+    { quantity: 0 },
+  ]) {
+    const old = await Listing.create({ ...base, ...patch });
+    assert.equal((await read(buyerToken, String(old._id))).status, 200);
   }
   assert.equal(
     (await read(buyerToken, String(new mongoose.Types.ObjectId()))).status,

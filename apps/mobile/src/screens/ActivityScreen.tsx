@@ -9,19 +9,23 @@ import {
   type ListRenderItemInfo,
   type ViewToken,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import type { z } from "zod";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect } from "expo-router";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { requestPageSchema, notificationPageSchema } from "@gaavli/validation";
 import { authenticatedApi } from "../session";
-import { Button, ErrorMessage, OfflineBanner } from "../components/ui";
+import {
+  Button,
+  ErrorMessage,
+  OfflineBanner,
+  SkeletonList,
+} from "../components/ui";
 import { useAppStore } from "../store";
 import { formatMessage, messages } from "../i18n";
 import { theme } from "../theme";
 import { ListingImage } from "../components/dashboard/ListingImage";
-import { PageSceneHeader } from "../components/dashboard/PageSceneHeader";
+import { AppHeader } from "../components/AppHeader";
 import {
   listingPosted,
   listingUnit,
@@ -83,7 +87,6 @@ function ActivityContent({
   const { language, session, offline } = useAppStore();
   const t = messages(language);
   const now = useListingClock();
-  const router = useRouter();
   const isSeller = !!session?.user.isSeller;
   const accountId = session?.user.id;
   const [selectedTab, setSelectedTab] = useState<RequestTab>(
@@ -198,38 +201,39 @@ function ActivityContent({
     received: t.receivedRequests,
     notifications: t.requestNotifications,
   };
+  const appHeader = (
+    <AppHeader
+      title={requestDirection ? labels[tab] : t.myRequests}
+      subtitle={t.activitySubtitle}
+      onBack={onBack}
+      right={
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t.refreshRequests}
+          accessibilityState={{
+            disabled: offline || active.isFetching,
+            busy: active.isFetching,
+          }}
+          disabled={offline || active.isFetching}
+          onPress={() => void refetch()}
+          style={({ pressed }) => [
+            s.refresh,
+            (offline || active.isFetching) && s.disabled,
+            pressed && s.pressed,
+          ]}
+        >
+          <Ionicons
+            accessible={false}
+            name="refresh-outline"
+            size={22}
+            color={theme.colors.heroText}
+          />
+        </Pressable>
+      }
+    />
+  );
   const header = (
     <View style={s.listHeader}>
-      <PageSceneHeader
-        title={requestDirection ? labels[tab] : t.myRequests}
-        subtitle={t.activitySubtitle}
-        backLabel={t.back}
-        onBack={onBack || (() => router.replace("/home"))}
-        action={
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t.refreshRequests}
-            accessibilityState={{
-              disabled: offline || active.isFetching,
-              busy: active.isFetching,
-            }}
-            disabled={offline || active.isFetching}
-            onPress={() => void refetch()}
-            style={({ pressed }) => [
-              s.refresh,
-              (offline || active.isFetching) && s.disabled,
-              pressed && s.pressed,
-            ]}
-          >
-            <Ionicons
-              accessible={false}
-              name="refresh-outline"
-              size={22}
-              color={theme.colors.primaryDark}
-            />
-          </Pressable>
-        }
-      />
       {!requestDirection && (
         <View style={s.tabs} accessibilityRole="tablist">
           {requestTabs(isSeller).map((value) => (
@@ -245,7 +249,9 @@ function ActivityContent({
               }}
               style={[s.tab, tab === value && s.selected]}
             >
-              <Text style={s.tabText}>{labels[value]}</Text>
+              <Text style={[s.tabText, tab === value && s.tabTextSelected]}>
+                {labels[value]}
+              </Text>
             </Pressable>
           ))}
         </View>
@@ -279,7 +285,7 @@ function ActivityContent({
         </>
       )}
       {active.isPending && !offline && (
-        <Text style={d.description}>{t.loading}</Text>
+        <SkeletonList rows={4} label={t.loading} />
       )}
       {active.isError && (
         <>
@@ -412,7 +418,8 @@ function ActivityContent({
     );
   };
   return (
-    <SafeAreaView edges={["top", "left", "right"]} style={d.safe}>
+    <View style={d.safe}>
+      {appHeader}
       {offline && <OfflineBanner message={t.offline} />}
       <FlatList
         key={tab}
@@ -437,7 +444,7 @@ function ActivityContent({
           ) : null
         }
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -454,7 +461,7 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: theme.radii.control,
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.heroBorder,
   },
   disabled: { opacity: theme.interaction.disabledOpacity },
   pressed: { opacity: theme.interaction.pressedOpacity },
@@ -473,17 +480,14 @@ const s = StyleSheet.create({
     justifyContent: "center",
     borderRadius: theme.radii.control,
   },
-  selected: {
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
+  selected: { backgroundColor: theme.colors.primary },
   tabText: {
     fontSize: 14,
     fontWeight: "600",
     color: theme.colors.heading,
     textAlign: "center",
   },
+  tabTextSelected: { color: theme.colors.onPrimary },
   card: {
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
@@ -509,7 +513,7 @@ const s = StyleSheet.create({
   },
   muted: { color: theme.colors.muted, fontSize: 13, lineHeight: 20 },
   unread: {
-    borderColor: theme.colors.softGreen,
+    borderColor: theme.colors.saffronBorder,
     backgroundColor: theme.colors.tint,
   },
   dot: {

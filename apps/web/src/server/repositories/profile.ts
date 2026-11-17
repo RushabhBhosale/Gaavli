@@ -16,6 +16,7 @@ function profileDto(user: UserRecord) {
     address: user.address || null,
     alternativeMobile: user.alternativeMobile || null,
     occupation: user.occupation || null,
+    email: user.email || null,
     photoUrl: listingPhotoUrl(user.profilePhotoObjectKey),
     version: user.__v ?? 0,
   });
@@ -52,18 +53,47 @@ export async function updateOwnProfile(
   userId: string,
   input: z.infer<typeof updateMobileProfileSchema>,
 ) {
-  const user = await User.findOneAndUpdate(
-    { _id: userId, status: "active", __v: input.version },
-    {
-      $set: {
-        address: input.address,
-        alternativeMobile: input.alternativeMobile,
-        occupation: input.occupation,
+  const set: Record<string, unknown> = {
+    address: input.address,
+    alternativeMobile: input.alternativeMobile,
+    occupation: input.occupation,
+  };
+  const unset: Record<string, 1> = {};
+  if (input.firstName !== undefined) {
+    const lastName = input.lastName ?? "";
+    set.firstName = input.firstName;
+    set.lastName = lastName;
+    set.name = `${input.firstName} ${lastName}`.trim();
+  }
+  if (input.email !== undefined) {
+    if (input.email) set.email = input.email;
+    else unset.email = 1;
+  }
+  let user;
+  try {
+    user = await User.findOneAndUpdate(
+      { _id: userId, status: "active", __v: input.version },
+      {
+        $set: set,
+        ...(Object.keys(unset).length ? { $unset: unset } : {}),
+        $inc: { __v: 1 },
       },
-      $inc: { __v: 1 },
-    },
-    { new: true, runValidators: true },
-  ).lean();
+      { new: true, runValidators: true },
+    ).lean();
+  } catch (error) {
+    if (
+      error &&
+      typeof error === "object" &&
+      "code" in error &&
+      error.code === 11000
+    )
+      throw new AppError(
+        409,
+        "EMAIL_TAKEN",
+        "That email is already used by another account.",
+      );
+    throw error;
+  }
   if (!user) {
     if (!(await User.exists({ _id: userId, status: "active" })))
       throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");

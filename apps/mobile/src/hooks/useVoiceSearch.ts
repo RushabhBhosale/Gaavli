@@ -4,6 +4,11 @@ import { useFocusEffect } from "expo-router";
 import { requireOptionalNativeModule } from "expo";
 import type { ExpoSpeechRecognitionModuleType } from "expo-speech-recognition/build/ExpoSpeechRecognitionModule.types";
 import type { MobileLanguage } from "@gaavli/types";
+import { speechLocale } from "../locale";
+import {
+  recognizeWithDialog,
+  speechDialogAvailable,
+} from "../../modules/gaavli-speech-dialog";
 import {
   VoiceSearchSession,
   type SpeechDriver,
@@ -77,11 +82,15 @@ export function useVoiceSearch({
   scope,
   onResult,
   hints,
+  alwaysOn = false,
 }: {
   language: MobileLanguage;
   scope: string;
   onResult: (text: string) => void;
   hints: string[];
+  // For controls outside any screen (the bottom-bar mic), which never get
+  // screen focus events: keep a session for as long as the control is shown.
+  alwaysOn?: boolean;
 }) {
   const [status, setStatus] = useState<VoiceStatus>("idle");
   const [error, setError] = useState<VoiceFailure | null>(null);
@@ -90,45 +99,70 @@ export function useVoiceSearch({
     callback.current = onResult;
   }, [onResult]);
   const controller = useRef<VoiceSearchSession | null>(null);
+  const dialogOpen = useRef(false);
   useEffect(() => {
     controller.current?.cancel();
   }, [language, scope]);
+  const setup = useCallback(() => {
+    let active = true;
+    const session = new VoiceSearchSession(speechDriver(), {
+      status: (value) => {
+        if (active) setStatus(value);
+      },
+      error: (value) => {
+        if (active) setError(value);
+      },
+      result: (text) => {
+        if (active) callback.current(text);
+      },
+    });
+    controller.current = session;
+    session.setForeground(AppState.currentState === "active");
+    const subscription = AppState.addEventListener("change", (state) => {
+      if (state === "active") session.setForeground(true);
+      else if (state === "background") session.setForeground(false);
+    });
+    return () => {
+      active = false;
+      session.cancel();
+      controller.current = null;
+      subscription.remove();
+    };
+  }, []);
   useFocusEffect(
     useCallback(() => {
-      let active = true;
-      const session = new VoiceSearchSession(speechDriver(), {
-        status: (value) => {
-          if (active) setStatus(value);
-        },
-        error: (value) => {
-          if (active) setError(value);
-        },
-        result: (text) => {
-          if (active) callback.current(text);
-        },
-      });
-      controller.current = session;
+      if (alwaysOn) return;
+      // A screen coming back into view starts from a clean state.
       setStatus("idle");
       setError(null);
-      session.setForeground(AppState.currentState === "active");
-      const subscription = AppState.addEventListener("change", (state) => {
-        if (state === "active") session.setForeground(true);
-        else if (state === "background") session.setForeground(false);
-      });
-      return () => {
-        active = false;
-        session.cancel();
-        controller.current = null;
-        subscription.remove();
-      };
-    }, []),
+      return setup();
+    }, [alwaysOn, setup]),
   );
+  useEffect(() => (alwaysOn ? setup() : undefined), [alwaysOn, setup]);
   return {
     status,
     error,
     cancel: () => controller.current?.cancel(),
+    finish: () => controller.current?.finish(),
     start: () => {
       setError(null);
+      // Android: the phone's own "Speak now" dialog. If it is missing (an
+      // older build, or no speech app), the in-app recognizer is used.
+      if (speechDialogAvailable) {
+        if (dialogOpen.current) return;
+        dialogOpen.current = true;
+        void recognizeWithDialog(speechLocale(language))
+          .then((result) => {
+            if (result.status === "ok") callback.current(result.text);
+            else if (result.status === "unavailable")
+              void controller.current?.start(language, hints);
+          })
+          .catch(() => setError("failed"))
+          .finally(() => {
+            dialogOpen.current = false;
+          });
+        return;
+      }
       void controller.current?.start(language, hints);
     },
     clearError: () => setError(null),

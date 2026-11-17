@@ -70,6 +70,12 @@ export const preferenceStorage: PreferenceStorage & BrowsingVillageStorage = {
   writeBrowsingVillage: (value) => writeSetting("browsing-village", value),
 };
 
+// What the user searched for on this phone, newest first. Words only.
+export const recentSearchStorage = {
+  read: () => readSetting("search:recent:v1"),
+  write: (value: string) => writeSetting("search:recent:v1", value),
+};
+
 // Public product reference data only; no session, phone or account details.
 export const productMasterCache = {
   async read() {

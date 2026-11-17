@@ -108,6 +108,23 @@ try {
   );
   assert.equal(signedIn.user.village, null);
   assert.equal(signedIn.user.firstName, "Riya");
+  // A single name (no last name) is a valid registration.
+  const single = registrationSchema.parse({
+    firstName: "Rushabh",
+    mobile: "9123456780",
+    language: "en",
+  });
+  assert.equal(single.lastName, "");
+  const singleChallenge = await sendOtp(single, "integration");
+  const singleUser = await verifyOtp(
+    { challengeId: singleChallenge.challengeId, code: "123456" },
+    "integration",
+  );
+  assert.equal(singleUser.user.firstName, "Rushabh");
+  assert.equal(singleUser.user.name, "Rushabh");
+  assert.equal(await User.countDocuments(), 2);
+  await User.deleteOne({ _id: singleUser.user.id });
+  await MobileSession.deleteMany({ user: singleUser.user.id });
   assert.equal(await User.countDocuments(), 1);
   assert.deepEqual((await User.findById(signedIn.user.id))?.roles, ["buyer"]);
   assert.ok(
@@ -193,8 +210,13 @@ try {
     { mobile: input.mobile },
     { $set: { resendAt: new Date(0) } },
   );
+  // A number that already has an account cannot register again.
+  await rejects(
+    sendOtp({ ...input, firstName: "DoNotOverwrite" }, "integration"),
+    "MOBILE_ALREADY_REGISTERED",
+  );
   const again = await sendOtp(
-    { ...input, firstName: "DoNotOverwrite" },
+    { mobile: input.mobile, language: input.language },
     "integration",
   );
   const parallel = await Promise.allSettled([
@@ -394,6 +416,15 @@ try {
     "seller",
     "coordinator",
   ]);
+  // An older account with a display name picks a village without being asked
+  // for a name again; its first and last name are filled from the display name.
+  await saveMobileVillage(String(legacy._id), {
+    villageId: String(villages[0]._id),
+  });
+  const filled = await User.findById(legacy._id).lean();
+  assert.equal(filled?.firstName, "Existing Display");
+  assert.equal(filled?.lastName, "Name");
+  assert.equal(filled?.name, "Existing Display Name");
   assert.equal(await User.countDocuments(), 2);
   const verifyBucket = Math.floor(Date.now() / 3600_000);
   await MobileRateLimit.create({

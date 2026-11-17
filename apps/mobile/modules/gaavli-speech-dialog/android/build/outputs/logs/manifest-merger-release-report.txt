@@ -1,0 +1,24 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml:1:1-7:12
+	package
+		INJECTED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml:1:11-69
+queries
+ADDED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml:2:3-6:13
+intent#action:name:android.speech.action.RECOGNIZE_SPEECH
+ADDED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml:3:5-5:14
+action#android.speech.action.RECOGNIZE_SPEECH
+ADDED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml:4:7-71
+	android:name
+		ADDED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml:4:15-68
+uses-sdk
+INJECTED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml
+INJECTED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/mac/Projects/Gaavli/apps/mobile/modules/gaavli-speech-dialog/android/src/main/AndroidManifest.xml

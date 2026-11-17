@@ -3,6 +3,7 @@ import type { MobileLanguage } from "@gaavli/types";
 
 export type ProductImageKey = "tomato" | "onion" | "potato" | "rice" | "mango";
 export type HomeListing = {
+  availability?: "available" | "sold_out" | "expired";
   module?: "marketplace" | "services" | "transport";
   id: string;
   name: string;
@@ -26,6 +27,11 @@ export type HomeListing = {
   isDemo?: boolean;
   minimumPurchaseQuantity?: number | null;
   fulfillmentOptions?: ("farm_pickup" | "local_transport")[];
+  tags?: string[];
+  // Sellers of this same product and unit; price is the cheapest of them.
+  offerCount?: number;
+  minPrice?: number | null;
+  maxPrice?: number | null;
 };
 export type HomeUser = {
   firstName: string;
@@ -62,7 +68,10 @@ export type HomeDestination =
   | "/insights"
   | "/services"
   | "/transport"
-  | "/village-information";
+  | "/village-coordinator"
+  | "/activities"
+  | "/provider/type"
+  | `/provider/${string}`;
 export function listingName(listing: HomeListing, language: MobileLanguage) {
   return productDisplayName(language, {
     en: listing.name,

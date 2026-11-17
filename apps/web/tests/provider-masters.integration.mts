@@ -122,8 +122,8 @@ try {
     expiresAt: new Date(Date.now() + 3600000),
   });
   token = await signToken(String(admin._id), String(session._id), 3600);
-  assert.equal(Object.values(ProviderType).length, 6);
-  assert.equal(new Set(rows.map((row) => row.masterType)).size, 8);
+  assert.equal(Object.values(ProviderType).length, 11);
+  assert.equal(new Set(rows.map((row) => row.masterType)).size, 13);
   const first = await seedProviderMasters(rows);
   assert.equal(first.inserted, rows.length);
   for (const row of rows) {
@@ -359,7 +359,7 @@ try {
     await AuditLog.countDocuments({ action: "PROVIDER_MASTER_CREATED" }),
   );
   console.log(
-    `PASS: ${rows.length} seed records / 8 groups, exact translations, insert-only reruns, admin authentication/origin/status checks, CRUD/status, stable codes, duplicates/concurrency, public active-only reads, filters/search/pagination and auditing.`,
+    `PASS: ${rows.length} seed records / 13 groups, exact translations, insert-only reruns, admin authentication/origin/status checks, CRUD/status, stable codes, duplicates/concurrency, public active-only reads, filters/search/pagination and auditing.`,
   );
 } finally {
   if (

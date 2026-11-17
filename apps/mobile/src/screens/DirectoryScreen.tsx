@@ -1,36 +1,70 @@
-import { useEffect, useState } from "react";
-import { Text } from "react-native";
-import { useRouter } from "expo-router";
+import { useEffect, useRef, useState } from "react";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import {
+  directoryGroupLabel,
+  directoryGroupsFor,
+  isCatchAllGroup,
+  type DirectoryGroupId,
+} from "@gaavli/constants";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
-import { useDirectory } from "../directory";
-import { directoryPreview } from "../data/directory";
-import {
-  BackButton,
-  Button,
-  ErrorMessage,
-  Input,
-  Screen,
-} from "../components/ui";
+import { useDirectory, useDirectorySummary } from "../directory";
+import { theme } from "../theme";
+import { Button, ErrorMessage, Screen, SkeletonList } from "../components/ui";
+import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
-import { ProductCard } from "../components/dashboard/ProductCard";
-import { SectionHeader, d } from "../components/dashboard/primitives";
+import { DirectoryListCard } from "../components/dashboard/DirectoryListCard";
+import { d } from "../components/dashboard/primitives";
+import { directoryChipImage } from "../components/dashboard/directoryGroupImages";
 
+// Services and Transport: a row of round category chips to scroll through,
+// and below it the list of what is available (all of it, or the chosen
+// category). Search filters the same list.
 export default function DirectoryScreen({
   module,
+  asTab = false,
 }: {
   module: "services" | "transport";
+  // Opened from the bottom bar, where the bar itself is the way back.
+  asTab?: boolean;
 }) {
   const router = useRouter();
   const { language, offline } = useAppStore();
   const t = messages(language);
+  const scrollRef = useRef<ScrollView>(null);
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState<DirectoryGroupId | null>(null);
+  // A search spoken on the bottom bar, or "View All" from the global search,
+  // arrives here and applies once per request.
+  const incoming = useLocalSearchParams<{ q?: string; v?: string }>();
+  const [applied, setApplied] = useState<string | undefined>(undefined);
+  if (incoming.v && incoming.v !== applied) {
+    setApplied(incoming.v);
+    const text = (incoming.q ?? "").trim();
+    setInput(text);
+    setSearch(text);
+    setCategory(null);
+  }
   useEffect(() => {
     const timer = setTimeout(() => setSearch(input.trim()), 300);
     return () => clearTimeout(timer);
   }, [input]);
-  const query = useDirectory(module, search);
+  const summary = useDirectorySummary(module);
+  const counts = new Map(summary.data?.groups.map((g) => [g.id, g.count]));
+  const query = useDirectory(module, search, category);
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+  }, [category]);
   const entries = Array.from(
     new Map(
       (query.data?.pages.flatMap((page) => page.entries) ?? []).map((entry) => [
@@ -39,34 +73,152 @@ export default function DirectoryScreen({
       ]),
     ).values(),
   );
+  const title =
+    module === "services" ? t.dashboardServices : t.dashboardTransport;
+  // Chips for every category, but the catch-all only when something is in it.
+  // Categories with listings come first; within each group the order is set in
+  // one place (emergency help, government offices and ambulances lead).
+  const allTiles = directoryGroupsFor(module).filter(
+    (group) => !isCatchAllGroup(group.id) || (counts.get(group.id) ?? 0) > 0,
+  );
+  const tiles = [
+    ...allTiles.filter((group) => (counts.get(group.id) ?? 0) > 0),
+    ...allTiles.filter((group) => !(counts.get(group.id) ?? 0)),
+  ];
+  const listTitle = category
+    ? `${directoryGroupLabel(category, language)}${counts.has(category) ? ` (${counts.get(category)})` : ""}`
+    : module === "services"
+      ? t.directoryAvailableServices
+      : t.directoryAvailableTransport;
+  const tone = theme.modules[module];
   return (
     <ProtectedPage allowGuest>
-      <Screen>
-        <BackButton
-          label={t.back}
-          onPress={() =>
-            router.canGoBack() ? router.back() : router.replace("/home")
-          }
-        />
-        <SectionHeader
-          title={
-            module === "services" ? t.dashboardServices : t.dashboardTransport
-          }
-        />
-        <Input
-          label={t.search}
-          placeholder={t.directorySearch}
-          value={input}
-          maxLength={100}
-          onChangeText={setInput}
-        />
+      <Screen
+        scrollRef={scrollRef}
+        header={
+          <AppHeader
+            title={title}
+            tone={module}
+            subtitle={
+              module === "services" ? t.tileServicesHint : t.tileTransportHint
+            }
+            back={asTab ? undefined : "/home"}
+            // Inside a category (or a search) the way back is up one level,
+            // from the same fixed spot as everywhere else.
+            onBack={
+              category || input.trim()
+                ? () => {
+                    setCategory(null);
+                    setInput("");
+                    setSearch("");
+                  }
+                : undefined
+            }
+          >
+            <HeaderSearch
+              label={t.search}
+              placeholder={
+                module === "services"
+                  ? t.directorySearchServices
+                  : t.directorySearchTransport
+              }
+              value={input}
+              onChangeText={setInput}
+            />
+          </AppHeader>
+        }
+      >
+        <Text accessibilityRole="header" style={s.sectionTitle}>
+          {t.directoryBrowse}
+        </Text>
+        {summary.isError && !summary.data && !offline && (
+          <>
+            <ErrorMessage message={t.dashboardDirectoryFailed} />
+            <Button secondary onPress={() => void summary.refetch()}>
+              {t.retry}
+            </Button>
+          </>
+        )}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={s.chipScroll}
+          contentContainerStyle={s.chips}
+        >
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ selected: !category }}
+            onPress={() => setCategory(null)}
+            style={s.chip}
+          >
+            <View
+              style={[
+                s.circle,
+                s.allCircle,
+                { backgroundColor: tone.tint },
+                !category && { borderColor: tone.color, borderWidth: 3 },
+              ]}
+            >
+              <Ionicons
+                accessible={false}
+                name="apps"
+                size={30}
+                color={tone.color}
+              />
+            </View>
+            <Text
+              numberOfLines={2}
+              style={[s.chipLabel, !category && { color: tone.color }]}
+            >
+              {t.dirAllCategoriesChip}
+            </Text>
+          </Pressable>
+          {tiles.map((group) => {
+            const count = counts.get(group.id) ?? 0;
+            const on = category === group.id;
+            return (
+              <Pressable
+                key={group.id}
+                accessibilityRole="button"
+                accessibilityState={{ selected: on }}
+                accessibilityLabel={`${group[language]}${count ? `, ${count}` : ""}`}
+                onPress={() => setCategory(on ? null : group.id)}
+                style={s.chip}
+              >
+                <View
+                  style={[
+                    s.circle,
+                    on && { borderColor: tone.color, borderWidth: 3 },
+                    !count && s.dim,
+                  ]}
+                >
+                  <Image
+                    source={directoryChipImage(group.id)}
+                    style={s.circleImage}
+                    accessible={false}
+                  />
+                </View>
+                <Text
+                  numberOfLines={2}
+                  style={[s.chipLabel, on && { color: tone.color }]}
+                >
+                  {group[language]}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
+
+        <Text accessibilityRole="header" style={s.sectionTitle}>
+          {listTitle}
+        </Text>
         {offline && (
           <Text style={d.description}>
             {query.data ? t.listingsOffline : t.listingsOfflineEmpty}
           </Text>
         )}
         {!offline && query.isPending && (
-          <Text style={d.description}>{t.listingsLoading}</Text>
+          <SkeletonList rows={4} label={t.listingsLoading} />
         )}
         {query.isError && !offline && (
           <>
@@ -80,12 +232,10 @@ export default function DirectoryScreen({
           <Text style={d.description}>{t.dashboardDirectoryEmpty}</Text>
         )}
         {entries.map((entry) => (
-          <ProductCard
+          <DirectoryListCard
             key={entry.id}
-            listing={directoryPreview(entry)}
+            entry={entry}
             language={language}
-            compact
-            wide
             onPress={() =>
               router.push({
                 pathname: "/directory/[id]",
@@ -104,14 +254,35 @@ export default function DirectoryScreen({
             {t.marketplaceShowMore}
           </Button>
         )}
-        <Button
-          secondary
-          disabled={offline || query.isFetching}
-          onPress={() => void query.refetch()}
-        >
-          {t.refreshRequests}
-        </Button>
       </Screen>
     </ProtectedPage>
   );
 }
+const s = StyleSheet.create({
+  sectionTitle: { ...theme.type.heading, color: theme.colors.heading },
+  // Bleeds to the screen edges so the chips scroll under the margins.
+  chipScroll: { marginHorizontal: -theme.layout.screenPadding, flexGrow: 0 },
+  chips: {
+    gap: 14,
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingVertical: 4,
+  },
+  chip: { width: 84, alignItems: "center", gap: 6 },
+  circle: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    overflow: "hidden",
+    borderWidth: 3,
+    borderColor: "transparent",
+    backgroundColor: theme.colors.surfaceMuted,
+  },
+  allCircle: { alignItems: "center", justifyContent: "center" },
+  circleImage: { width: "100%", height: "100%" },
+  dim: { opacity: 0.45 },
+  chipLabel: {
+    ...theme.type.micro,
+    color: theme.colors.heading,
+    textAlign: "center",
+  },
+});

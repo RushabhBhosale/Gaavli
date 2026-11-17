@@ -197,7 +197,7 @@ const s = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: theme.colors.tint,
     borderWidth: 1,
-    borderColor: theme.colors.softGreen,
+    borderColor: theme.colors.saffronBorder,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -7,6 +7,7 @@ import {
 } from "@gaavli/validation";
 import { Village, User, VillageCoordinator, type UserRecord } from "../models";
 import { MobileRateLimit } from "../models/mobile-auth";
+import { discoveryVillageIds } from "./village-discovery";
 import { hashToken } from "../auth/mobile-policy";
 import { AppError } from "../utils/errors";
 
@@ -70,6 +71,17 @@ export function mobileVillageDto(v: VillageRow) {
     ...(v.distance === undefined
       ? {}
       : { distanceKm: Math.round(v.distance / 100) / 10 }),
+  };
+}
+// "Riya More" -> Riya / More; a single word is a first name only; a number
+// (the placeholder used before a name was known) is not a name.
+export function legacyNameParts(name?: string | null, mobile?: string | null) {
+  const full = (name ?? "").trim();
+  if (!full || /^[+\d\s-]+$/.test(full) || full === mobile) return null;
+  const words = full.split(/\s+/);
+  return {
+    firstName: words.slice(0, -1).join(" ") || words[0],
+    lastName: words.length > 1 ? words[words.length - 1] : "",
   };
 }
 export async function mobileUserDto(user: UserRecord) {
@@ -212,21 +224,25 @@ export async function saveMobileVillage(
       status: "active",
     }).session(session);
     if (!current) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
-    if (
-      (!current.firstName || !current.lastName) &&
-      (!input.firstName || !input.lastName)
-    )
-      throw new AppError(
-        422,
-        "VALIDATION_ERROR",
-        "Enter your first and last name.",
-      );
-    const names =
-      input.firstName && input.lastName
+    // Older accounts have a display name but no first/last name: keep it,
+    // and fill the two parts from it. A bare mobile number is not a name.
+    const legacy =
+      !current.firstName && !input.firstName
+        ? legacyNameParts(current.name, current.mobile)
+        : null;
+    if (!current.firstName && !input.firstName && !legacy)
+      throw new AppError(422, "VALIDATION_ERROR", "Enter your name.");
+    const names = legacy
+      ? {
+          firstName: legacy.firstName,
+          lastName: legacy.lastName,
+          name: current.name,
+        }
+      : input.firstName
         ? {
             firstName: input.firstName,
-            lastName: input.lastName,
-            name: `${input.firstName} ${input.lastName}`,
+            lastName: input.lastName || "",
+            name: `${input.firstName} ${input.lastName || ""}`.trim(),
           }
         : {};
     const user = await User.findOneAndUpdate(
@@ -237,4 +253,16 @@ export async function saveMobileVillage(
     if (!user) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
     return mobileUserDto(user.toObject() as UserRecord);
   });
+}
+
+// Villages mapped with this one (never the village itself), by name.
+export async function mappedVillages(villageId: string) {
+  const ids = (await discoveryVillageIds(villageId)).filter(
+    (id) => id !== villageId,
+  );
+  if (!ids.length) return [];
+  const rows = await Village.find({ _id: { $in: ids }, isActive: true })
+    .sort({ nameEn: 1 })
+    .lean();
+  return rows.map((row) => mobileVillageDto(row as unknown as VillageRow));
 }

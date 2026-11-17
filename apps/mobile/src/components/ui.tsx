@@ -1,6 +1,8 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode, type RefObject } from "react";
 import {
   ActivityIndicator,
+  Animated,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -24,39 +26,64 @@ export function Screen({
   compact = false,
   footer,
   topContent,
+  header,
+  back,
+  scrollRef,
 }: {
   children: ReactNode;
   compact?: boolean;
   footer?: ReactNode;
   topContent?: ReactNode;
+  // A back button that stays at the top while the page scrolls.
+  back?: { label: string; onPress: () => void; disabled?: boolean };
+  // An AppHeader. It sits above everything and draws behind the status bar,
+  // so the page content below only needs the bottom and side safe areas.
+  header?: ReactNode;
+  scrollRef?: RefObject<ScrollView | null>;
 }) {
   const offline = useAppStore((state) => state.offline);
   const language = useAppStore((state) => state.language);
   return (
-    <SafeAreaView style={styles.safe}>
-      {topContent}
-      {offline && <OfflineBanner message={messages(language).offline} />}
-      <KeyboardAvoidingView
+    <View style={styles.safe}>
+      {header}
+      <SafeAreaView
+        edges={header ? ["left", "right", "bottom"] : undefined}
         style={styles.flex}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ScrollView
-          contentContainerStyle={[
-            styles.content,
-            compact && { paddingTop: 8, gap: 12 },
-          ]}
-          keyboardShouldPersistTaps="handled"
+        {topContent}
+        {back && (
+          <View style={styles.backRow}>
+            <BackButton
+              label={back.label}
+              onPress={back.onPress}
+              disabled={back.disabled}
+            />
+          </View>
+        )}
+        {offline && <OfflineBanner message={messages(language).offline} />}
+        <KeyboardAvoidingView
+          style={styles.flex}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          {children}
-        </ScrollView>
-        {footer && <View style={styles.footer}>{footer}</View>}
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          <ScrollView
+            ref={scrollRef}
+            contentContainerStyle={[
+              styles.content,
+              compact && { paddingTop: 8, gap: 12 },
+            ]}
+            keyboardShouldPersistTaps="handled"
+          >
+            {children}
+          </ScrollView>
+          {footer && <View style={styles.footer}>{footer}</View>}
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </View>
   );
 }
 
-// One primary action per screen: solid green. Secondary actions are tinted,
-// outlined or plain text, so the main choice is always obvious.
+// One primary action per screen: solid saffron. Secondary actions are steel
+// blue tints, outlines or plain text, so the main choice is always obvious.
 export function Button({
   children,
   onPress,
@@ -205,6 +232,7 @@ export function DropdownField({
   placeholder,
   expanded,
   disabled = false,
+  error,
   onPress,
 }: {
   label: string;
@@ -212,6 +240,7 @@ export function DropdownField({
   placeholder: string;
   expanded: boolean;
   disabled?: boolean;
+  error?: string;
   onPress: () => void;
 }) {
   return (
@@ -227,6 +256,7 @@ export function DropdownField({
           styles.input,
           styles.dropdown,
           (expanded || pressed) && styles.inputFocused,
+          !!error && styles.inputError,
           disabled && styles.disabled,
         ]}
       >
@@ -240,6 +270,7 @@ export function DropdownField({
           color={theme.colors.muted}
         />
       </Pressable>
+      {error && <ErrorMessage message={error} />}
     </View>
   );
 }
@@ -394,7 +425,7 @@ export function StateMessage({
     </View>
   );
 }
-// A filter or choice pill. Selected is solid green so the current filter is
+// A filter or choice pill. Selected is solid saffron so the current filter is
 // never in doubt.
 export function Chip({
   label,
@@ -425,38 +456,128 @@ export function Chip({
     </Pressable>
   );
 }
-// The Gaavli mark: a bold "ग" tile with the wordmark in both scripts.
+// Grey placeholder cards in the shape of the content that is on its way, so a
+// slow connection feels like a page filling in rather than a spinner. Screen
+// readers hear the label once instead of empty boxes.
+export function SkeletonList({
+  rows = 3,
+  label,
+}: {
+  rows?: number;
+  label: string;
+}) {
+  const [pulse] = useState(() => new Animated.Value(0.55));
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 0.55,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+  return (
+    <View
+      accessible
+      accessibilityLabel={label}
+      accessibilityLiveRegion="polite"
+      style={styles.skeletonList}
+    >
+      {Array.from({ length: rows }, (_, index) => (
+        <Animated.View
+          key={index}
+          style={[styles.skeletonCard, { opacity: pulse }]}
+        >
+          <View style={styles.skeletonImage} />
+          <View style={styles.skeletonLines}>
+            <View style={[styles.skeletonBar, { width: "62%" }]} />
+            <View style={[styles.skeletonBar, { width: "40%" }]} />
+            <View
+              style={[
+                styles.skeletonBar,
+                styles.skeletonPrice,
+                { width: "28%" },
+              ]}
+            />
+          </View>
+        </Animated.View>
+      ))}
+    </View>
+  );
+}
+// The Gaavli logo (the circular mark), the wordmark and the tagline in English
+// and Marathi. The tagline is the same in every interface language.
+export const BRAND_TAGLINE = "Connecting Dots, Connecting People";
+export const BRAND_TAGLINE_MR = "आपलं गाव, आपली माणसं, आपली जोडणी!";
 export function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <View
       accessible
       accessibilityRole="image"
-      accessibilityLabel="Gaavli"
-      style={styles.brand}
+      accessibilityLabel={`Gaavli. ${BRAND_TAGLINE}`}
+      style={[styles.brand, compact && { gap: 6 }]}
     >
-      <View style={[styles.markTile, compact && styles.markTileCompact]}>
-        <Text
-          allowFontScaling={false}
-          style={[styles.markGlyph, compact && styles.markGlyphCompact]}
-        >
-          ग
-        </Text>
-      </View>
+      <Image
+        accessible={false}
+        source={require("../../assets/gaavli-logo.png")}
+        style={compact ? styles.markCompact : styles.mark}
+      />
+      <Text
+        allowFontScaling={false}
+        style={[styles.brandName, compact && styles.brandNameCompact]}
+      >
+        Gaavli
+      </Text>
       <View style={styles.wordmark}>
         <Text
           allowFontScaling={false}
-          style={[styles.brandName, compact && styles.brandNameCompact]}
+          style={[styles.brandTagline, compact && styles.brandTaglineCompact]}
         >
-          गावली
+          {BRAND_TAGLINE}
         </Text>
-        <Text allowFontScaling={false} style={styles.brandLatin}>
-          G A A V L I
+        <Text
+          allowFontScaling={false}
+          style={[styles.brandTagline, compact && styles.brandTaglineCompact]}
+        >
+          {BRAND_TAGLINE_MR}
         </Text>
       </View>
     </View>
   );
 }
 export const styles = StyleSheet.create({
+  skeletonList: { gap: 10 },
+  skeletonCard: {
+    flexDirection: "row",
+    gap: 12,
+    padding: 10,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+  },
+  skeletonImage: {
+    width: 64,
+    height: 64,
+    borderRadius: 12,
+    backgroundColor: theme.colors.skeleton,
+  },
+  skeletonLines: { flex: 1, justifyContent: "center", gap: 8 },
+  skeletonBar: {
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: theme.colors.skeleton,
+  },
+  skeletonPrice: { height: 14, backgroundColor: theme.colors.saffronTint },
   flex: { flex: 1 },
   safe: { flex: 1, backgroundColor: theme.colors.background },
   content: {
@@ -497,29 +618,31 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     includeFontPadding: true,
-    fontWeight: "600",
+    fontWeight: "700",
     textAlign: "center",
     flexShrink: 1,
   },
   primaryPressed: { backgroundColor: theme.colors.primaryPressed },
+  // A clearly pressable button: white with a steel border and bold steel text,
+  // so it never reads as a greyed-out one.
   secondary: {
-    backgroundColor: theme.colors.tint,
-    borderWidth: 1,
-    borderColor: theme.colors.softGreen,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1.5,
+    borderColor: theme.colors.steel,
   },
-  secondaryText: { color: theme.colors.primary },
+  secondaryText: { color: theme.colors.steel, fontWeight: "700" },
   outlined: {
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.borderStrong,
   },
-  outlinedText: { color: theme.colors.text },
+  outlinedText: { color: theme.colors.steel },
   danger: {
-    backgroundColor: theme.colors.errorBackground,
-    borderWidth: 1,
-    borderColor: "transparent",
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1.5,
+    borderColor: theme.colors.error,
   },
-  dangerText: { color: theme.colors.error },
+  dangerText: { color: theme.colors.error, fontWeight: "700" },
   ghost: { backgroundColor: "transparent", minHeight: 44 },
   disabled: { opacity: theme.interaction.disabledOpacity },
   pressed: { opacity: theme.interaction.pressedOpacity },
@@ -554,6 +677,13 @@ export const styles = StyleSheet.create({
     lineHeight: 24,
     color: theme.colors.text,
   },
+  backRow: {
+    width: "100%",
+    maxWidth: theme.layout.contentWidth,
+    alignSelf: "center",
+    paddingHorizontal: theme.layout.screenPadding,
+    paddingTop: 8,
+  },
   back: {
     width: 44,
     height: 44,
@@ -566,7 +696,7 @@ export const styles = StyleSheet.create({
     borderColor: theme.colors.border,
   },
   actionCard: {
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.steelTint,
     borderRadius: theme.radii.card,
     flexDirection: "row",
     alignItems: "center",
@@ -598,7 +728,7 @@ export const styles = StyleSheet.create({
     width: 9,
     height: 9,
     borderRadius: 5,
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.steelTint,
   },
   errorRow: { flexDirection: "row", alignItems: "flex-start", gap: 6 },
   errorIcon: { marginTop: 2 },
@@ -619,7 +749,7 @@ export const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.saffronTint,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -663,38 +793,24 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21,
   },
-  brand: { alignItems: "center", gap: 14 },
-  markTile: {
-    width: 84,
-    height: 84,
-    borderRadius: 24,
-    backgroundColor: theme.colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  markTileCompact: { width: 52, height: 52, borderRadius: 15 },
-  markGlyph: {
-    fontSize: 54,
-    lineHeight: 74,
-    fontWeight: "800",
-    color: theme.colors.onPrimary,
-    includeFontPadding: true,
-  },
-  markGlyphCompact: { fontSize: 32, lineHeight: 46 },
+  brand: { alignItems: "center", gap: 10 },
+  mark: { width: 132, height: 132 },
+  markCompact: { width: 76, height: 76 },
   wordmark: { alignItems: "center", gap: 2 },
   brandName: {
-    fontSize: 34,
-    lineHeight: 48,
+    fontSize: 40,
+    lineHeight: 50,
     fontWeight: "800",
-    color: theme.colors.primaryDark,
+    color: "#12264F",
     includeFontPadding: true,
   },
-  brandNameCompact: { fontSize: 24, lineHeight: 34 },
-  brandLatin: {
-    fontSize: 12,
-    lineHeight: 17,
+  brandNameCompact: { fontSize: 28, lineHeight: 36 },
+  brandTagline: {
+    fontSize: 15,
+    lineHeight: 22,
     fontWeight: "600",
-    letterSpacing: 2,
-    color: theme.colors.muted,
+    color: "#12264F",
+    textAlign: "center",
   },
+  brandTaglineCompact: { fontSize: 12, lineHeight: 17 },
 });

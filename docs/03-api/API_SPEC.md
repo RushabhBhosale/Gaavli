@@ -1,3 +1,19 @@
+# Directory contact authentication — 2026-11-13 (user approved)
+
+Guest `/dashboard`, `/directory` and `/directory/:id` responses use empty
+`contacts` arrays for service/transport entries. Active authenticated mobile
+reads return the provider-approved contact numbers. Invalid/revoked bearer
+credentials are rejected with 401. Response schemas and endpoint parameters
+are unchanged. See DASHBOARD_DIRECTORY.md.
+
+# Mapped-village discovery — 2026-11-13 (user approved)
+
+`GET /dashboard`, `/directory`, `/directory/summary` and `/directory/:id` use
+`sourceVillageId` plus directly connected active villages from active manual
+bidirectional mappings. Mobile `/listings` requests omit the exact `villageId`
+filter by default so its existing mapped scope applies. Contracts and query
+validation are unchanged. See BROWSING_VILLAGE.md and DASHBOARD_DIRECTORY.md.
+
 # Coordinator cross-district village mapping — 2026-11-05
 
 Coordinator candidate discovery opens on All Talukas, searching active villages

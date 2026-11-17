@@ -207,6 +207,7 @@ export class VoiceSearchSession {
   private requestingPermission = false;
   private resume?: (foreground: boolean) => void;
   private resumeTimer?: ReturnType<typeof setTimeout>;
+  private finishNow?: () => void;
   constructor(
     private driver: SpeechDriver | null,
     private callbacks: {
@@ -222,8 +223,14 @@ export class VoiceSearchSession {
     // recording exists yet; wait for permission and foreground before starting.
     else if (!this.requestingPermission) this.cancel();
   }
+  // Stop listening now and use what was heard (press-and-hold release). Does
+  // nothing before listening starts, so a quick release acts like a tap.
+  finish() {
+    this.finishNow?.();
+  }
   cancel() {
     ++this.generation;
+    this.finishNow = undefined;
     this.requestingPermission = false;
     this.resume?.(false);
     this.resume = undefined;
@@ -294,8 +301,10 @@ export class VoiceSearchSession {
       driver.start(speechLocale(language), hints.slice(0, 100));
       // Bound recording and finalization, including devices that never emit end.
       if (!current()) return;
-      this.timer = setTimeout(() => {
-        if (!current()) return;
+      const finish = () => {
+        if (!current() || this.finishNow !== finish) return;
+        this.finishNow = undefined;
+        clearTimeout(this.timer);
         this.callbacks.status("processing");
         try {
           driver.stop();
@@ -303,9 +312,88 @@ export class VoiceSearchSession {
           return fail("failed");
         }
         if (current()) this.timer = setTimeout(() => fail("noSpeech"), 5000);
-      }, 15000);
+      };
+      this.finishNow = finish;
+      this.timer = setTimeout(finish, 15000);
     } catch {
       fail("failed");
     }
   }
+}
+
+// Marketplace filters that a product group can open directly; others show All.
+const MARKETPLACE_CATEGORIES = new Set([
+  "vegetables",
+  "fruits",
+  "grain",
+  "dairy",
+  "homemade",
+]);
+export function marketplaceCategory(productGroup: string | null | undefined) {
+  return productGroup && MARKETPLACE_CATEGORIES.has(productGroup)
+    ? productGroup
+    : "all";
+}
+
+// Opens the Marketplace already searching for what was typed or spoken
+// elsewhere (Home search box, bottom-bar mic). "v" makes a repeat search for
+// the same words apply again.
+export function marketplaceSearchRoute(
+  text: string,
+  productGroup?: string | null,
+) {
+  return {
+    pathname: "/marketplace" as const,
+    params: {
+      q: text.trim().slice(0, 100),
+      category: marketplaceCategory(productGroup),
+      v: String(Date.now()),
+    },
+  };
+}
+
+// Where a search belongs: on Home or any other page it covers everything
+// (Marketplace, Services and Transport); inside one of those modules it stays
+// in that module.
+export type SearchScope = "all" | "marketplace" | "services" | "transport";
+export function searchScopeFor(pathname: string): SearchScope {
+  const tab = pathname.split("/").filter(Boolean)[0];
+  return tab === "marketplace" || tab === "services" || tab === "transport"
+    ? tab
+    : "all";
+}
+export function scopedSearchRoute(
+  scope: SearchScope,
+  text: string,
+  productGroup?: string | null,
+) {
+  const q = text.trim().slice(0, 100);
+  if (scope === "marketplace") return marketplaceSearchRoute(q, productGroup);
+  if (scope === "all")
+    return {
+      pathname: "/search-all" as const,
+      params: { q, v: String(Date.now()) },
+    };
+  return {
+    pathname: `/${scope}` as "/services" | "/transport",
+    params: { q, v: String(Date.now()) },
+  };
+}
+// What to search for: a known product name when the words match one, and
+// otherwise the words themselves (a trade, a vehicle, a name).
+export function spokenSearch(
+  transcript: string,
+  language: Parameters<typeof voiceProductSearch>[1],
+  scope: SearchScope,
+) {
+  const product = voiceProductSearch(transcript, language);
+  if (scope === "marketplace")
+    return { text: product.text, productGroup: product.productGroup };
+  return {
+    text:
+      scope === "all" && product.productGroup
+        ? product.text
+        : transcript.trim().slice(0, 100) || product.text,
+    productGroup: product.productGroup,
+  };
 }

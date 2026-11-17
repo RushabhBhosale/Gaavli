@@ -1,3 +1,15 @@
+> Directory contact revision - 2026-11-13 (user approved): Services and
+> Transport require mobile login to reveal provider contact numbers and
+> Call/WhatsApp actions. Guest directory/dashboard/detail responses return empty
+> contacts arrays. Contact-triggered auth returns to the same directory entry,
+> and directory contacts stay outside persisted mobile browsing caches.
+
+> Mapped-village discovery revision - 2026-11-13 (user approved): Home,
+> Marketplace, Services and Transport include the selected browsing village and
+> its directly mapped active villages through active coordinator-confirmed
+> bidirectional connections. This supersedes exact-village-only mobile discovery.
+> Add Buyer uses the selected assigned village as a read-only field.
+
 > Hindi language revision - 2026-11-02 (user approved): Hindi (`hi`) is a full
 > third mobile language alongside Marathi and English, including all UI text.
 > Product names show in the selected language with an English fallback

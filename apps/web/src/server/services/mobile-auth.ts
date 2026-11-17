@@ -30,6 +30,12 @@ const audit = (challengeId: string, action: string) =>
     action,
     expiresAt: new Date(Date.now() + 30 * 86400_000),
   });
+// Pre-registered accounts (added by a coordinator, never signed in) can still
+// be claimed by registering; everything else is a registered account.
+const isRegistered = (account: {
+  registeredAt?: Date | null;
+  preRegisteredAt?: Date | null;
+}) => !!account.registeredAt || !account.preRegisteredAt;
 export async function sendOtp(
   input: z.infer<typeof sendOtpSchema>,
   network: string,
@@ -44,6 +50,22 @@ export async function sendOtp(
     await limitRequests("send-phone", input.mobile, 5, 3600_000);
   }
   // The existing named payload registers; mobile-only payloads log in.
+  // A number that already belongs to an account cannot register again.
+  if ("firstName" in input) {
+    const existing = await User.find({
+      mobile: {
+        $in: [input.mobile, `+91${input.mobile}`, `91${input.mobile}`],
+      },
+    })
+      .select("registeredAt preRegisteredAt")
+      .lean();
+    if (existing.some(isRegistered))
+      throw new AppError(
+        409,
+        "MOBILE_ALREADY_REGISTERED",
+        "This mobile number is already registered. Please sign in.",
+      );
+  }
   if (!("firstName" in input)) {
     const accounts = await User.find({
       mobile: {
@@ -203,7 +225,7 @@ export async function verifyOtp(
       );
     let account = matches[0];
     if (!account) {
-      const named = challenge.firstName && challenge.lastName;
+      const named = !!challenge.firstName;
       // An account removed after login OTP issuance must never be recreated.
       if (!named)
         throw new AppError(
@@ -215,10 +237,10 @@ export async function verifyOtp(
         [
           {
             name: named
-              ? `${challenge.firstName} ${challenge.lastName}`
+              ? `${challenge.firstName} ${challenge.lastName || ""}`.trim()
               : challenge.mobile,
             firstName: named ? challenge.firstName : undefined,
-            lastName: named ? challenge.lastName : undefined,
+            lastName: named ? challenge.lastName || "" : undefined,
             mobile: challenge.mobile,
             mobileVerified: true,
             registeredAt: new Date(),
@@ -236,6 +258,14 @@ export async function verifyOtp(
           403,
           "ACCOUNT_UNAVAILABLE",
           "This account is not active.",
+        );
+      // A registration cannot take over an account that is already in use
+      // (for example one created after this code was requested).
+      if (challenge.firstName && isRegistered(account))
+        throw new AppError(
+          409,
+          "MOBILE_ALREADY_REGISTERED",
+          "This mobile number is already registered. Please sign in.",
         );
       // Preserve existing names, roles and village, including legacy unsplit display names.
       account.mobile = challenge.mobile;

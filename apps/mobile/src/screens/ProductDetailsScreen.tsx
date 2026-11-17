@@ -12,6 +12,7 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useAppStore } from "../store";
+import { showAlert } from "../alert";
 import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
 import { formatMessage, messages } from "../i18n";
 import {
@@ -33,12 +34,13 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { authenticatedApi } from "../session";
 import { errorMessage } from "../errors";
 import { toHomeListing } from "../data/listings";
-import { useListing } from "../listings";
+import { useListing, useListingOffers } from "../listings";
 import { useListingClock } from "../hooks/useListingClock";
 import { ApiError } from "../api/client";
 import { listingName } from "../types/home";
 import { theme } from "../theme";
-import { Button, ErrorMessage, Input } from "../components/ui";
+import { listingTagLabel } from "@gaavli/constants";
+import { Button, ErrorMessage, Input, SkeletonList } from "../components/ui";
 import { Badge, d } from "../components/dashboard/primitives";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { ListingImage } from "../components/dashboard/ListingImage";
@@ -103,11 +105,20 @@ function ProductDetailsContent({ id }: { id: string }) {
   const now = useListingClock();
   const invalid = !listingIdSchema.safeParse(id).success;
   const unavailable =
-    invalid ||
-    (query.error instanceof ApiError && query.error.status === 404) ||
-    (query.data?.expiresAt && Date.parse(query.data.expiresAt) <= now);
+    invalid || (query.error instanceof ApiError && query.error.status === 404);
   const listing =
     query.data && !unavailable ? toHomeListing(query.data, now) : null;
+  // Sold out or past its date: still viewable, but nothing to buy or contact.
+  const ended =
+    !!query.data &&
+    (query.data.availability === "sold_out" ||
+      query.data.availability === "expired" ||
+      (!!query.data.expiresAt && Date.parse(query.data.expiresAt) <= now));
+  const endedLabel =
+    query.data?.availability === "sold_out" ? t.listingSoldOut : t.listingEnded;
+  // Other sellers of this same product, cheapest first.
+  const offersQuery = useListingOffers(id, !!listing && !ended);
+  const offers = offersQuery.data?.offers ?? [];
   const quantityValue = (quantity: number) =>
     `${new Intl.NumberFormat(dateLocale(language)).format(quantity)} ${listingUnit(listing?.unit ?? null, language)}`.trim();
   const contactKey = [
@@ -136,6 +147,14 @@ function ProductDetailsContent({ id }: { id: string }) {
   const seller = listing && !denied ? savedContact?.seller || null : null;
   async function revealContact(call: boolean) {
     if (submitting.current || offline || !listing || invalid) return;
+    // An old listing has no interest to record: just call the number we have.
+    if (ended && seller) {
+      if (call)
+        await Linking.openURL(`tel:${seller.mobile}`).catch(() =>
+          setContactError(t.callError),
+        );
+      return;
+    }
     submitting.current = true;
     setContactBusy(true);
     setContactError(null);
@@ -329,57 +348,60 @@ function ProductDetailsContent({ id }: { id: string }) {
     if (router.canGoBack()) router.back();
     else router.replace("/marketplace");
   }
-  const footer = !listing ? null : !session ? (
-    <Button
-      onPress={() => {
-        showGuestSignUpPrompt(language, () => {
-          useAppStore.getState().setAuthMode("register");
-          useAppStore.getState().setContactReturn(id);
-          router.push("/register");
-        });
-      }}
-    >
-      {t.contactSeller}
-    </Button>
-  ) : seller ? (
-    <View style={s.actions}>
-      <View style={s.primaryAction}>
-        <Button
-          loading={contactBusy}
-          disabled={offline || contactBusy || notifyBusy}
-          icon={
-            <Ionicons
-              accessible={false}
-              name="call"
-              size={18}
-              color={theme.colors.onPrimary}
-            />
-          }
-          onPress={() => void revealContact(true)}
-        >
-          {t.call}
-        </Button>
+  const footer =
+    !listing || ended ? null : !session ? (
+      <Button
+        onPress={() => {
+          showGuestSignUpPrompt(language, () => {
+            useAppStore.getState().setAuthMode("register");
+            useAppStore.getState().setContactReturn(id);
+            router.push("/register");
+          });
+        }}
+      >
+        {t.contactSeller}
+      </Button>
+    ) : seller ? (
+      <View style={s.actions}>
+        <View style={s.primaryAction}>
+          <Button
+            loading={contactBusy}
+            disabled={offline || contactBusy || notifyBusy}
+            icon={
+              <Ionicons
+                accessible={false}
+                name="call"
+                size={18}
+                color={theme.colors.onPrimary}
+              />
+            }
+            onPress={() => void revealContact(true)}
+          >
+            {t.call}
+          </Button>
+        </View>
+        {!ended && (
+          <View style={s.secondaryAction}>
+            <Button
+              outlined
+              loading={notifyBusy}
+              disabled={offline || contactBusy || notifyBusy}
+              icon={
+                <Ionicons
+                  accessible={false}
+                  name="notifications-outline"
+                  size={18}
+                  color={theme.colors.heading}
+                />
+              }
+              onPress={() => void openNotify()}
+            >
+              {t.notify}
+            </Button>
+          </View>
+        )}
       </View>
-      <View style={s.secondaryAction}>
-        <Button
-          outlined
-          loading={notifyBusy}
-          disabled={offline || contactBusy || notifyBusy}
-          icon={
-            <Ionicons
-              accessible={false}
-              name="notifications-outline"
-              size={18}
-              color={theme.colors.heading}
-            />
-          }
-          onPress={() => void openNotify()}
-        >
-          {t.notify}
-        </Button>
-      </View>
-    </View>
-  ) : null;
+    ) : null;
   return (
     <ProtectedPage allowGuest>
       <View style={s.page}>
@@ -398,23 +420,6 @@ function ProductDetailsContent({ id }: { id: string }) {
             ) : (
               <View style={s.heroImage} />
             )}
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={t.back}
-              onPress={leave}
-              style={({ pressed }) => [
-                s.back,
-                { top: insets.top + 8 },
-                pressed && d.pressed,
-              ]}
-            >
-              <Ionicons
-                accessible={false}
-                name="chevron-back"
-                size={22}
-                color={theme.colors.heading}
-              />
-            </Pressable>
           </View>
           <View style={s.sheet}>
             {offline && (
@@ -423,7 +428,7 @@ function ProductDetailsContent({ id }: { id: string }) {
               </Text>
             )}
             {!offline && query.isPending && !invalid && (
-              <Text style={d.description}>{t.listingsLoading}</Text>
+              <SkeletonList rows={1} label={t.listingsLoading} />
             )}
             {query.isError && !unavailable && !offline && (
               <>
@@ -438,6 +443,20 @@ function ProductDetailsContent({ id }: { id: string }) {
             )}
             {listing && (
               <>
+                {ended && (
+                  <View accessibilityRole="alert" style={s.endedBanner}>
+                    <Ionicons
+                      accessible={false}
+                      name="time-outline"
+                      size={20}
+                      color={theme.colors.saffronText}
+                    />
+                    <View style={s.endedCopy}>
+                      <Text style={s.endedTitle}>{endedLabel}</Text>
+                      <Text style={s.endedText}>{t.listingEndedHelp}</Text>
+                    </View>
+                  </View>
+                )}
                 <View style={s.titleBlock}>
                   <Text accessibilityRole="header" style={s.name}>
                     {listingName(listing, language)}
@@ -455,6 +474,24 @@ function ProductDetailsContent({ id }: { id: string }) {
                         .join(" · ")}
                     </Text>
                   </View>
+                  {!!listing.tags?.length && (
+                    <View style={s.tags}>
+                      {listing.tags.map((tag) => {
+                        const label = listingTagLabel(tag, language);
+                        return label ? (
+                          <View key={tag} style={s.tag}>
+                            <Ionicons
+                              accessible={false}
+                              name="checkmark-circle"
+                              size={15}
+                              color={theme.colors.success}
+                            />
+                            <Text style={s.tagText}>{label}</Text>
+                          </View>
+                        ) : null;
+                      })}
+                    </View>
+                  )}
                 </View>
                 {listing.isDemo && (
                   <View style={s.demo}>
@@ -497,38 +534,146 @@ function ProductDetailsContent({ id }: { id: string }) {
                     <Text style={s.body}>{listing.description}</Text>
                   </View>
                 )}
-                <View style={s.sellerCard}>
-                  <View style={s.avatar}>
-                    <Ionicons
-                      accessible={false}
-                      name="person"
-                      size={22}
-                      color={theme.colors.primary}
-                    />
-                  </View>
-                  <View style={s.sellerCopy}>
-                    <Text style={s.sellerLabel}>{t.soldBy}</Text>
-                    <Text numberOfLines={1} style={s.sellerName}>
-                      {seller ? seller.name : t.contactProtected}
+                {offers.length > 1 && (
+                  <View style={s.block}>
+                    <Text accessibilityRole="header" style={s.blockTitle}>
+                      {t.offersTitle}
                     </Text>
-                    <Text numberOfLines={1} style={s.meta}>
-                      {[village, query.data?.village.district]
-                        .filter(Boolean)
-                        .join(", ")}
-                    </Text>
-                    {seller && (
-                      <View style={s.metaRow}>
-                        <Ionicons
-                          accessible={false}
-                          name="call-outline"
-                          size={15}
-                          color={theme.colors.primary}
-                        />
-                        <Text style={s.phone}>{seller.mobile}</Text>
-                      </View>
-                    )}
+                    {!session && <Text style={s.meta}>{t.offerSignIn}</Text>}
+                    {offers.map((offer, index) => {
+                      const current = offer.id === id;
+                      const where =
+                        language !== "en"
+                          ? offer.village.nameMr
+                          : offer.village.name;
+                      const rate =
+                        offer.price === null
+                          ? t.rateNotProvided
+                          : `₹${offer.price}${unit ? ` / ${unit}` : ""}`;
+                      const person = offer.seller?.name ?? where;
+                      const phone = offer.seller?.mobile ?? null;
+                      return (
+                        <Pressable
+                          key={offer.id}
+                          accessibilityRole="button"
+                          accessibilityLabel={`${person}, ${rate}, ${where}`}
+                          disabled={current}
+                          onPress={() =>
+                            router.replace({
+                              pathname: "/product/[id]",
+                              params: { id: offer.id },
+                            })
+                          }
+                          style={({ pressed }) => [
+                            s.offer,
+                            current && s.offerCurrent,
+                            pressed && s.pressedOffer,
+                          ]}
+                        >
+                          <View style={s.offerNumber}>
+                            <Text style={s.offerNumberText}>
+                              {Array.from(person)[0]?.toUpperCase() ?? ""}
+                            </Text>
+                          </View>
+                          <View style={s.offerCopy}>
+                            <Text numberOfLines={1} style={s.offerTitle}>
+                              {person}
+                            </Text>
+                            {index === 0 && (
+                              <Text numberOfLines={1} style={s.offerBest}>
+                                {t.offerCheapest}
+                              </Text>
+                            )}
+                            <Text numberOfLines={1} style={s.meta}>
+                              {[
+                                offer.seller ? where : null,
+                                offer.quantity !== null
+                                  ? quantityValue(offer.quantity)
+                                  : null,
+                              ]
+                                .filter(Boolean)
+                                .join(" · ")}
+                            </Text>
+                            {!!phone && (
+                              <View style={s.metaRow}>
+                                <Ionicons
+                                  accessible={false}
+                                  name="call-outline"
+                                  size={14}
+                                  color={theme.colors.primary}
+                                />
+                                <Text style={s.phone}>{phone}</Text>
+                              </View>
+                            )}
+                          </View>
+                          <View style={s.offerRight}>
+                            <Text style={s.offerPrice}>{rate}</Text>
+                            {!!phone && (
+                              <Pressable
+                                accessibilityRole="button"
+                                accessibilityLabel={`${t.offerCall}: ${person}`}
+                                hitSlop={8}
+                                onPress={() =>
+                                  void Linking.openURL(`tel:${phone}`).catch(
+                                    () => showAlert(t.callError),
+                                  )
+                                }
+                                style={({ pressed }) => [
+                                  s.offerCall,
+                                  pressed && s.pressedOffer,
+                                ]}
+                              >
+                                <Ionicons
+                                  accessible={false}
+                                  name="call"
+                                  size={16}
+                                  color={theme.colors.onPrimary}
+                                />
+                                <Text style={s.offerCallText}>
+                                  {t.offerCall}
+                                </Text>
+                              </Pressable>
+                            )}
+                          </View>
+                        </Pressable>
+                      );
+                    })}
                   </View>
-                </View>
+                )}
+                {offers.length <= 1 && (
+                  <View style={s.sellerCard}>
+                    <View style={s.avatar}>
+                      <Ionicons
+                        accessible={false}
+                        name="person"
+                        size={22}
+                        color={theme.colors.primary}
+                      />
+                    </View>
+                    <View style={s.sellerCopy}>
+                      <Text style={s.sellerLabel}>{t.soldBy}</Text>
+                      <Text numberOfLines={1} style={s.sellerName}>
+                        {seller ? seller.name : t.contactProtected}
+                      </Text>
+                      <Text numberOfLines={1} style={s.meta}>
+                        {[village, query.data?.village.district]
+                          .filter(Boolean)
+                          .join(", ")}
+                      </Text>
+                      {seller && (
+                        <View style={s.metaRow}>
+                          <Ionicons
+                            accessible={false}
+                            name="call-outline"
+                            size={15}
+                            color={theme.colors.primary}
+                          />
+                          <Text style={s.phone}>{seller.mobile}</Text>
+                        </View>
+                      )}
+                    </View>
+                  </View>
+                )}
                 {!!session && !seller && restoredContact.isPending && (
                   <Text style={d.description}>
                     {offline ? t.offlineAction : t.listingsLoading}
@@ -553,6 +698,23 @@ function ProductDetailsContent({ id }: { id: string }) {
             )}
           </View>
         </ScrollView>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t.back}
+          onPress={leave}
+          style={({ pressed }) => [
+            s.back,
+            { top: insets.top + 8 },
+            pressed && d.pressed,
+          ]}
+        >
+          <Ionicons
+            accessible={false}
+            name="chevron-back"
+            size={22}
+            color={theme.colors.heading}
+          />
+        </Pressable>
         {footer && <View style={s.footer}>{footer}</View>}
         <Modal
           visible={notifyModal !== null}
@@ -710,6 +872,17 @@ function ProductDetailsContent({ id }: { id: string }) {
   );
 }
 const s = StyleSheet.create({
+  endedBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    padding: 14,
+    borderRadius: theme.radii.card,
+    backgroundColor: theme.colors.tint,
+  },
+  endedCopy: { flex: 1, gap: 2 },
+  endedTitle: { ...theme.type.subheading, color: theme.colors.saffronText },
+  endedText: { ...theme.type.caption, color: theme.colors.muted },
   page: { flex: 1, backgroundColor: theme.colors.background },
   scroll: { flexGrow: 1 },
   hero: { height: 300, backgroundColor: theme.colors.tint },
@@ -747,6 +920,17 @@ const s = StyleSheet.create({
   metaRow: { flexDirection: "row", alignItems: "center", gap: 5 },
   meta: { ...theme.type.caption, color: theme.colors.muted, flexShrink: 1 },
   demo: { gap: 6 },
+  tags: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 6 },
+  tag: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.successBackground,
+  },
+  tagText: { ...theme.type.micro, color: theme.colors.success },
   priceCard: {
     flexDirection: "row",
     alignItems: "center",
@@ -785,6 +969,46 @@ const s = StyleSheet.create({
   block: { gap: 6 },
   blockTitle: { ...theme.type.heading, color: theme.colors.heading },
   body: { ...theme.type.body, color: theme.colors.text },
+  offer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    padding: 12,
+    borderRadius: theme.radii.card,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+  },
+  offerCurrent: {
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.tint,
+  },
+  pressedOffer: { opacity: theme.interaction.pressedOpacity },
+  offerNumber: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: theme.colors.steelTint,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  offerNumberText: { ...theme.type.label, color: theme.colors.steel },
+  offerCopy: { flex: 1, minWidth: 0 },
+  offerTitle: { ...theme.type.subheading, color: theme.colors.heading },
+  offerRight: { alignItems: "flex-end" },
+  offerPrice: { ...theme.type.subheading, color: theme.colors.saffronText },
+  offerBest: { ...theme.type.micro, color: theme.colors.success },
+  offerCall: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginTop: 8,
+    minHeight: 36,
+    paddingHorizontal: 14,
+    borderRadius: theme.radii.pill,
+    backgroundColor: theme.colors.primary,
+  },
+  offerCallText: { ...theme.type.label, color: theme.colors.onPrimary },
   sellerCard: {
     flexDirection: "row",
     alignItems: "center",

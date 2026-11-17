@@ -26,7 +26,6 @@ export function browsingListingsQuery(
   return new URLSearchParams({
     ...params,
     sourceVillageId: browsingVillageId,
-    villageId: browsingVillageId,
   }).toString();
 }
 export async function restoreBrowsingVillage(storage: BrowsingVillageStorage) {

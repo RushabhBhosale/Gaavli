@@ -87,10 +87,19 @@ export function postAuthHref(
   user: MobileUser,
   listingId?: string | null,
   login = false,
-): "/home" | "/village" | "/my-listings" | "/manage" | `/product/${string}` {
+  directoryId?: string | null,
+):
+  | "/home"
+  | "/village"
+  | "/my-listings"
+  | "/manage"
+  | `/product/${string}`
+  | `/directory/${string}` {
   if (!user.village) return "/village";
   if (listingId && /^[a-f0-9]{24}$/i.test(listingId))
     return `/product/${listingId}`;
+  if (directoryId && /^[a-f0-9]{24}$/i.test(directoryId))
+    return `/directory/${directoryId}`;
   if (login && !hasCoordinatorRole(user)) return "/home";
   return accountHome(user);
 }

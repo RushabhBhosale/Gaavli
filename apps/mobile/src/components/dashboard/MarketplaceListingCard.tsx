@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import type { MobileLanguage } from "@gaavli/types";
-import { messages } from "../../i18n";
+import { formatMessage, messages } from "../../i18n";
 import { theme } from "../../theme";
 import { listingName, type HomeListing } from "../../types/home";
 import { Badge } from "./primitives";
@@ -59,9 +59,13 @@ export function MarketplaceListingCard({
             {rate}
             <Text style={s.quantity}>
               {"  ·  "}
-              {listing.availableQuantity === null
-                ? listingQuantity(listing, language)
-                : `${listing.availableQuantity} ${listingUnit(listing.unit, language)}`.trim()}
+              {(listing.offerCount ?? 1) > 1
+                ? formatMessage(t.sellerCount, {
+                    count: String(listing.offerCount),
+                  })
+                : listing.availableQuantity === null
+                  ? listingQuantity(listing, language)
+                  : `${listing.availableQuantity} ${listingUnit(listing.unit, language)}`.trim()}
             </Text>
           </Text>
           <View style={s.metaRow}>
@@ -88,9 +92,14 @@ export function MarketplaceListingCard({
       </Pressable>
     );
   }
-  // Unavailable rows are informational: the active-only detail/contact route stays protected.
+  // Old rows still open the product, marked as finished, with no actions.
   return (
-    <View style={[s.card, s.unavailable]}>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${name}, ${t.marketplaceNotAvailable}`}
+      onPress={onPress}
+      style={({ pressed }) => [s.card, s.unavailable, pressed && s.pressed]}
+    >
       <ListingImage listing={listing} style={s.thumbnail} resizeMode="cover" />
       <View style={s.body}>
         <Text style={[s.name, s.muted]} numberOfLines={2}>
@@ -108,7 +117,13 @@ export function MarketplaceListingCard({
         <Text style={s.unavailableLabel}>{t.marketplaceNotAvailable}</Text>
         <Text style={[s.meta, s.age]}>{listingPosted(listing, language)}</Text>
       </View>
-    </View>
+      <Ionicons
+        accessible={false}
+        name="chevron-forward"
+        size={18}
+        color={theme.colors.inactive}
+      />
+    </Pressable>
   );
 }
 const s = StyleSheet.create({

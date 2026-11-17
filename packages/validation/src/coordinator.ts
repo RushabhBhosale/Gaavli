@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { indianMobileSchema, personNameSchema } from "./identity";
+import {
+  indianMobileSchema,
+  personNameSchema,
+  optionalLastNameSchema,
+} from "./identity";
 
 const id = z
   .string()
@@ -63,7 +67,7 @@ export const coordinatorQuerySchema = z
 export const coordinatorBuyerSchema = z
   .object({
     firstName: name,
-    lastName: name,
+    lastName: optionalLastNameSchema.default(""),
     mobile: indianMobileSchema,
     targetVillageId: id.optional(),
   })
@@ -75,7 +79,7 @@ export const coordinatorBuyerSchema = z
 export const coordinatorUserEditSchema = z
   .object({
     firstName: name,
-    lastName: name,
+    lastName: optionalLastNameSchema.default(""),
     version: z.number().int().nonnegative(),
   })
   .strict()

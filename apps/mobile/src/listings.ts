@@ -11,6 +11,7 @@ import {
   mobileListingPageSchema,
   mobileListingSchema,
   listingIdSchema,
+  listingOffersSchema,
   ownListingPageSchema,
 } from "@gaavli/validation";
 import { api } from "./api";
@@ -22,9 +23,9 @@ import {
   browsingVillageFor,
 } from "./storage/browsingVillage";
 
-export const MARKETPLACE_PAGE_SIZE = 20;
+export const MARKETPLACE_PAGE_SIZE = 4;
 const retry = (count: number, error: unknown) =>
-  count < 1 &&
+  count < 2 &&
   !(error instanceof ApiError && error.status && error.status < 500);
 export function useOwnListings(
   status: "active" | "sold_out" | "all" | "low_stock" | "expired" = "active",
@@ -45,6 +46,83 @@ export function useOwnListings(
       ),
     getNextPageParam: (last) =>
       last.page * last.limit < last.total ? last.page + 1 : undefined,
+    retry,
+  });
+}
+// Every seller offering the same product and unit as listing `id`.
+export function useListingOffers(id: string, enabled: boolean) {
+  const session = useAppStore((state) => state.session);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
+  return useQuery({
+    queryKey: ["listing-offers", session?.user.id ?? "guest", sourceId, id],
+    enabled:
+      enabled &&
+      !!sourceId &&
+      listingIdSchema.safeParse(id).success &&
+      (!session || !!session.user.village),
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/listings/${id}/offers?${new URLSearchParams({ sourceVillageId: sourceId! })}`,
+        listingOffersSchema,
+        { signal },
+      ),
+    retry,
+  });
+}
+// Every product of the village (one entry per product), up to 200, saved on
+// the phone so the search page can answer as you type without the network.
+const SEARCH_INDEX_PAGE = 50;
+const SEARCH_INDEX_PAGES = 4;
+export function useSearchIndex(enabled = true) {
+  const session = useAppStore((state) => state.session);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
+  return useQuery({
+    queryKey: ["search-index", session?.user.id ?? "guest", sourceId],
+    enabled: enabled && !!sourceId && (!session || !!session.user.village),
+    staleTime: 5 * 60_000,
+    queryFn: async ({ signal }) => {
+      const get = (page: number) =>
+        (session ? authenticatedApi : api)(
+          `/listings?${browsingListingsQuery(sourceId!, { limit: String(SEARCH_INDEX_PAGE), page: String(page) })}`,
+          mobileListingPageSchema,
+          { signal },
+        );
+      const first = await get(1);
+      const pages = Math.min(
+        Math.ceil(first.total / SEARCH_INDEX_PAGE),
+        SEARCH_INDEX_PAGES,
+      );
+      const rest = await Promise.all(
+        Array.from({ length: Math.max(0, pages - 1) }, (_, i) => get(i + 2)),
+      );
+      return {
+        listings: [first, ...rest].flatMap((page) => page.listings),
+        total: first.total,
+      };
+    },
+    retry,
+  });
+}
+// Instant results while typing in the search page: a few products, one card
+// per product, not remembered after the app closes.
+export function useSearchSuggestions(text: string) {
+  const session = useAppStore((state) => state.session);
+  const browsingVillage = useAppStore(browsingVillageFor);
+  const sourceId = browsingVillage?.id;
+  const search = text.trim();
+  return useQuery({
+    queryKey: ["search-suggest", session?.user.id ?? "guest", sourceId, search],
+    enabled: !!sourceId && !!search && (!session || !!session.user.village),
+    placeholderData: keepPreviousData,
+    staleTime: 30_000,
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/listings?${browsingListingsQuery(sourceId!, { search, limit: "8" })}`,
+        mobileListingPageSchema,
+        { signal },
+      ),
     retry,
   });
 }

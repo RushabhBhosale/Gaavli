@@ -13,6 +13,15 @@ export const indianMobileSchema = z
         : value,
   )
   .pipe(z.string().regex(/^[6-9]\d{9}$/, "MOBILE_INVALID"));
+// A last name is optional: some people go by a single name.
+export const optionalLastNameSchema = z.union([
+  z.literal(""),
+  z
+    .string()
+    .trim()
+    .max(60, "NAME_INVALID")
+    .regex(/^[\p{L}\p{M}][\p{L}\p{M} .'’-]*$/u, "NAME_INVALID"),
+]);
 export const personNameSchema = z
   .string()
   .trim()

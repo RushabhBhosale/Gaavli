@@ -4,7 +4,11 @@
     {
       "name": "web-api",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--workspace=@gaavli/web"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--workspace=@gaavli/web"
+      ],
       "port": 3000
     },
     {
@@ -22,6 +26,67 @@
         "--ios"
       ],
       "port": 8082
+    },
+    {
+      "name": "mobile-ios-live",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "EXPO_PUBLIC_API_BASE_URL=https://gaavli.vercel.app/api/v1",
+        "npm",
+        "run",
+        "start:go",
+        "--workspace=@gaavli/mobile",
+        "--",
+        "--port",
+        "8082",
+        "--ios"
+      ],
+      "port": 8082
+    },
+    {
+      "name": "mobile-android-dev",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PATH=/Users/mac/.nvm/versions/node/v24.16.0/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "npm",
+        "run",
+        "start",
+        "--workspace=@gaavli/mobile",
+        "--",
+        "--port",
+        "8081"
+      ],
+      "port": 8081
+    },
+    {
+      "name": "demo-api",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PATH=/Users/mac/.nvm/versions/node/v24.16.0/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
+        "npm",
+        "run",
+        "dev",
+        "--workspace=@gaavli/web"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "mobile-ios-demo",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PATH=/Users/mac/.nvm/versions/node/v24.16.0/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin",
+        "LANG=en_US.UTF-8",
+        "EXPO_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1",
+        "npm",
+        "run",
+        "start",
+        "--workspace=@gaavli/mobile",
+        "--",
+        "--port",
+        "8081",
+        "--clear"
+      ],
+      "port": 8081
     }
   ]
 }

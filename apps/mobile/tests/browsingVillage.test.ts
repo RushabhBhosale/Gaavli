@@ -104,7 +104,7 @@ test("buyer and seller login preserve browsing selection, with registered villag
   }
 });
 
-test("feed queries always use the selected browsing village as source and exact filter", () => {
+test("feed queries use the browsing village as the source without excluding mapped villages", () => {
   const query = new URLSearchParams(
     browsingListingsQuery(browse.id, {
       search: "milk",
@@ -114,11 +114,15 @@ test("feed queries always use the selected browsing village as source and exact 
     }),
   );
   assert.equal(query.get("sourceVillageId"), browse.id);
-  assert.equal(query.get("villageId"), browse.id);
+  assert.equal(query.has("villageId"), false);
   assert.equal(query.get("search"), "milk");
   assert.equal(query.get("page"), "2");
   assert.equal(query.get("productGroup"), "dairy");
-  assert.notEqual(query.get("villageId"), registered.id);
+  const filtered = new URLSearchParams(
+    browsingListingsQuery(browse.id, { villageId: registered.id }),
+  );
+  assert.equal(filtered.get("sourceVillageId"), browse.id);
+  assert.equal(filtered.get("villageId"), registered.id);
 });
 
 test("first-screen direct login discards guest browsing and product context, then uses the registered village and Home", async () => {

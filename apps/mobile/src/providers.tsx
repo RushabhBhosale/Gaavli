@@ -21,8 +21,14 @@ export function AppProviders({ children }: { children: ReactNode }) {
         defaultOptions: {
           queries: {
             staleTime: 30000,
-            gcTime: 60 * 60 * 1000,
-            retry: 1,
+            // Long enough that saved lists restored at start-up stay usable
+            // for the whole offline period.
+            gcTime: 24 * 60 * 60 * 1000,
+            // A slow or sleeping server gets three tries, a little further
+            // apart each time, before an error is shown.
+            retry: 2,
+            retryDelay: (attempt: number) =>
+              Math.min(1500 * 2 ** attempt, 6000),
             // Saved listings show instantly; fresh ones replace them once the
             // connection is back.
             refetchOnReconnect: "always",

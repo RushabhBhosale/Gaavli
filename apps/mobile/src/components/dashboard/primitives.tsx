@@ -68,24 +68,60 @@ export function SectionHeader({
   onPress,
   badge,
   icon,
+  toggle,
+  tone,
 }: {
   title: string;
   icon?: IconName;
+  // The module's own colour for the icon and a bar beside the title.
+  tone?: keyof typeof theme.modules;
   action?: string;
   onPress?: () => void;
   badge?: string;
+  // A fold-away section: a chevron instead of the action link.
+  toggle?: { open: boolean; onPress: () => void };
 }) {
   return (
     <View style={d.sectionHeader}>
       {icon && (
-        <View accessible={false} style={d.sectionIcon}>
-          <Ionicons name={icon} size={18} color={theme.colors.primary} />
+        <View
+          accessible={false}
+          style={[
+            d.sectionIcon,
+            tone && { backgroundColor: theme.modules[tone].tint },
+          ]}
+        >
+          <Ionicons
+            name={icon}
+            size={18}
+            color={tone ? theme.modules[tone].color : theme.colors.primary}
+          />
         </View>
       )}
-      <Text accessibilityRole="header" style={d.sectionTitle}>
+      <Text
+        accessibilityRole="header"
+        style={[d.sectionTitle, tone && { color: theme.modules[tone].color }]}
+      >
         {title}
       </Text>
       {badge && <Badge tone="green">{badge}</Badge>}
+      {toggle && (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ expanded: toggle.open }}
+          accessibilityLabel={title}
+          onPress={toggle.onPress}
+          hitSlop={8}
+          style={d.textAction}
+        >
+          <Ionicons
+            accessible={false}
+            name={toggle.open ? "chevron-up" : "chevron-down"}
+            size={20}
+            color={theme.colors.primary}
+          />
+        </Pressable>
+      )}
       {action && onPress && (
         <Pressable
           accessibilityRole="button"
@@ -186,18 +222,32 @@ export function PreviewBanner() {
     </View>
   );
 }
-export function DashboardScreen({ children }: { children: ReactNode }) {
+export function DashboardScreen({
+  children,
+  header,
+}: {
+  children: ReactNode;
+  // An AppHeader; it draws behind the status bar, so the page below it only
+  // needs the side safe areas.
+  header?: ReactNode;
+}) {
   const { language, offline } = useAppStore();
   return (
-    <SafeAreaView edges={["top", "left", "right"]} style={d.safe}>
-      {offline && <OfflineBanner message={messages(language).offline} />}
-      <ScrollView
-        contentContainerStyle={d.content}
-        showsVerticalScrollIndicator={false}
+    <View style={d.safe}>
+      {header}
+      <SafeAreaView
+        edges={header ? ["left", "right"] : ["top", "left", "right"]}
+        style={{ flex: 1 }}
       >
-        {children}
-      </ScrollView>
-    </SafeAreaView>
+        {offline && <OfflineBanner message={messages(language).offline} />}
+        <ScrollView
+          contentContainerStyle={d.content}
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 export const d = StyleSheet.create({
@@ -270,7 +320,7 @@ export const d = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 14,
-    backgroundColor: theme.colors.tint,
+    backgroundColor: theme.colors.saffronTint,
     alignItems: "center",
     justifyContent: "center",
   },

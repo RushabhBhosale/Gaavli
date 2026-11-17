@@ -1,31 +1,40 @@
-import type { MobileUser } from "@gaavli/types";
-import { hasCoordinatorRole } from "./accountAccess";
-
-export type DashboardTab = "coordinator" | "buyer" | "seller";
-
-export function availableDashboardTab(
-  account: MobileUser | null | undefined,
-  selected: DashboardTab | null,
-): DashboardTab {
-  const tabs = dashboardTabs(account);
-  return selected && tabs.includes(selected) ? selected : tabs[0];
-}
-
-export function dashboardTabs(
-  account: MobileUser | null | undefined,
-): DashboardTab[] {
-  return [
-    ...(hasCoordinatorRole(account) ? ["coordinator" as const] : []),
-    "buyer",
-    ...(account?.isSeller ? ["seller" as const] : []),
-  ];
-}
-
-export function homeDashboardTab(
-  account: MobileUser | null | undefined,
-  requested: string | string[] | undefined,
-): "coordinator" | "buyer" {
-  return hasCoordinatorRole(account) && requested !== "buyer"
-    ? "coordinator"
-    : "buyer";
+// Five slots with the mic always in the middle. Guests get the market, Gram
+// Seva and Transport. A buyer gets Requests, Profile and More.
+// Sellers and coordinators get their own work first and a "More" button for
+// everything else (market, Gram Seva, Transport, Settings).
+export function tabSlots(account: {
+  signedIn: boolean;
+  seller: boolean;
+  coordinator: boolean;
+}): { second: string; fourth: string; fifth: string; more: string[] } {
+  const rest = ["marketplace", "services", "transport", "profile"];
+  if (!account.signedIn)
+    return {
+      second: "marketplace",
+      fourth: "services",
+      fifth: "transport",
+      more: [],
+    };
+  if (account.coordinator)
+    return {
+      second: "manage",
+      fourth: "activity",
+      fifth: "more",
+      more: rest,
+    };
+  if (account.seller)
+    return {
+      second: "my-listings",
+      fourth: "activity",
+      fifth: "more",
+      more: rest,
+    };
+  // A new buyer: Home, Requests, the mic, Profile and More (market, services,
+  // transport). Selling or coordinating changes the bar, as above.
+  return {
+    second: "activity",
+    fourth: "profile",
+    fifth: "more",
+    more: ["marketplace", "services", "transport"],
+  };
 }

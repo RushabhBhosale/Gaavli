@@ -82,14 +82,19 @@ export async function restoreSession() {
   // Migrate existing sessions on devices predating the local flag.
   await preferenceStorage.writeHasAuthenticated();
   useAppStore.setState({ hasAuthenticated: true });
+  // The saved profile opens the app at once; the fresh copy arrives in the
+  // background so a weak signal never holds the splash screen.
+  void refreshSavedUser(saved.user.id);
+}
+async function refreshSavedUser(userId: string) {
   try {
     const user = await authenticatedApi("/users/me", mobileUserSchema);
     const current = useAppStore.getState().session;
-    if (current) await saveSession({ ...current, user });
-  } catch (error) {
-    // An outage retains the secure local session; protected writes require the server.
-    if (!(error instanceof ApiError)) throw error;
-    if (error.status === 401) return;
+    if (current && current.user.id === userId)
+      await saveSession({ ...current, user });
+  } catch {
+    // An outage retains the secure local session; protected writes require the
+    // server, and a rejected session is cleared by the API client.
   }
 }
 export async function activateSeller() {

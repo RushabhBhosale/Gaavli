@@ -1,8 +1,12 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import type { DirectoryGroupId } from "@gaavli/constants";
 import {
   dashboardDirectorySchema,
   directoryEntrySchema,
   directoryPageSchema,
+  directorySummarySchema,
+  productShopsSchema,
+  directoryShopProductsSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "./store";
 import { browsingVillageFor } from "./storage/browsingVillage";
@@ -11,7 +15,7 @@ import { authenticatedApi } from "./session";
 import { ApiError } from "./api/client";
 
 const retry = (count: number, error: unknown) =>
-  count < 1 &&
+  count < 2 &&
   !(error instanceof ApiError && error.status && error.status < 500);
 export function useDashboardDirectory() {
   const session = useAppStore((state) => state.session);
@@ -28,7 +32,31 @@ export function useDashboardDirectory() {
     retry,
   });
 }
-export function useDirectory(module: "services" | "transport", search: string) {
+export function useDirectorySummary(module: "services" | "transport") {
+  const session = useAppStore((state) => state.session);
+  const village = useAppStore(browsingVillageFor);
+  return useQuery({
+    queryKey: [
+      "directory-summary",
+      session?.user.id ?? "guest",
+      village?.id,
+      module,
+    ],
+    enabled: !!village && (!session || !!session.user.village),
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/directory/summary?${new URLSearchParams({ sourceVillageId: village!.id, module })}`,
+        directorySummarySchema,
+        { signal },
+      ),
+    retry,
+  });
+}
+export function useDirectory(
+  module: "services" | "transport",
+  search: string,
+  category: DirectoryGroupId | null = null,
+) {
   const session = useAppStore((state) => state.session);
   const village = useAppStore(browsingVillageFor);
   return useInfiniteQuery({
@@ -38,12 +66,13 @@ export function useDirectory(module: "services" | "transport", search: string) {
       village?.id,
       module,
       search,
+      category,
     ],
     enabled: !!village && (!session || !!session.user.village),
     initialPageParam: 1,
     queryFn: ({ signal, pageParam }) =>
       (session ? authenticatedApi : api)(
-        `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, page: String(pageParam), limit: "5" })}`,
+        `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, ...(category ? { category } : {}), page: String(pageParam), limit: "50" })}`,
         directoryPageSchema,
         { signal },
       ),
@@ -57,6 +86,8 @@ export function useDirectoryEntry(id: string) {
   const village = useAppStore(browsingVillageFor);
   return useQuery({
     queryKey: ["directory-entry", session?.user.id ?? "guest", village?.id, id],
+    staleTime: 0,
+    refetchOnMount: "always",
     enabled:
       !!village &&
       /^[a-f0-9]{24}$/i.test(id) &&
@@ -65,6 +96,53 @@ export function useDirectoryEntry(id: string) {
       (session ? authenticatedApi : api)(
         `/directory/${id}?sourceVillageId=${village!.id}`,
         directoryEntrySchema,
+        { signal },
+      ),
+    retry,
+  });
+}
+// Shops that sell the searched product (not persisted: entries carry contacts).
+export function useProductShops(search: string, limit = 5) {
+  const session = useAppStore((state) => state.session);
+  const village = useAppStore(browsingVillageFor);
+  return useQuery({
+    queryKey: [
+      "product-shops",
+      session?.user.id ?? "guest",
+      village?.id,
+      search,
+      limit,
+    ],
+    enabled: !!village && !!search && (!session || !!session.user.village),
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/directory/product-shops?${new URLSearchParams({ sourceVillageId: village!.id, q: search, limit: String(limit) })}`,
+        productShopsSchema,
+        { signal },
+      ),
+    retry,
+  });
+}
+// What one shop sells, for its details page.
+export function useDirectoryShopProducts(id: string, enabled: boolean) {
+  const session = useAppStore((state) => state.session);
+  const village = useAppStore(browsingVillageFor);
+  return useQuery({
+    queryKey: [
+      "directory-shop-products",
+      session?.user.id ?? "guest",
+      village?.id,
+      id,
+    ],
+    enabled:
+      enabled &&
+      !!village &&
+      /^[a-f0-9]{24}$/i.test(id) &&
+      (!session || !!session.user.village),
+    queryFn: ({ signal }) =>
+      (session ? authenticatedApi : api)(
+        `/directory/${id}/products?sourceVillageId=${village!.id}`,
+        directoryShopProductsSchema,
         { signal },
       ),
     retry,

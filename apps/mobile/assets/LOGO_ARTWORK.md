@@ -29,3 +29,14 @@ and `gaavli-welcome-mark.png` remain historical assets and are no longer referen
 ## Final background-extraction prompt
 
 Use case: background-extraction. Exact original logo extraction from supplied edit target. Remove ONLY the paper background around the existing logo, leave the original letterforms and colors unchanged. Output the identical green-and-gold emblem and the exact Marathi word गावली underneath on TRUE transparency. Every filled letter must be fully opaque (alpha 255); only pixels outside the crisp edges and in letter counters are transparent. Keep the white gap between green and gold transparent. Original solid dark green letters with gold swoosh, same proportions. Tight full-logo bounding box, small margin. NO glow, NO haze, NO green mist, NO translucency in the letters, NO shadows, NO new background. This is a clean cutout, not a redesign. Make every existing letter sharp and legible.
+
+## Current logo — 2026-11-09
+
+The orange circular "गावली" logo (user-provided) is active. `gaavli-logo.png` (512,
+transparent circle) is drawn by `Brand` in `src/components/ui.tsx` with the "Gaavli"
+wordmark and the tagline "Connecting Dots, Connecting People" / "आपलं गाव, आपली माणसं,
+आपली जोडणी!" (same in every interface language). `brand.png` is the app icon,
+`gaavli-adaptive-icon.png` the Android foreground, `gaavli-welcome-mark.png` the splash
+mark; the iOS/Android native icon and splash files were regenerated from the same
+circle (background `#F7F8F1`). Native icon and splash need a development-client rebuild.
+The admin app uses `apps/web/public/gaavli-logo.png` and `src/app/icon.png`.

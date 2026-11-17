@@ -9,7 +9,7 @@ import {
 } from "@gaavli/validation";
 
 nextEnv.loadEnvConfig(process.cwd());
-const databaseName = `gaavli_product_master_test_${randomBytes(8).toString("hex")}`;
+const databaseName = `gaavli_pm_test_${randomBytes(8).toString("hex")}`;
 const uri = new URL(process.env.MONGODB_URI || "");
 uri.pathname = `/${databaseName}`;
 process.env.MONGODB_URI = uri.toString();
@@ -125,6 +125,7 @@ try {
     source: 151,
     inserted: 151,
     existing: 0,
+    hindiNamesAdded: 0,
   });
   const tomatoBefore = await ProductMaster.findOne({ code: "TOMATO" }).lean();
   assert.ok(tomatoBefore);
@@ -132,6 +133,7 @@ try {
     source: 151,
     inserted: 0,
     existing: 151,
+    hindiNamesAdded: 0,
   });
   assert.equal(
     String((await ProductMaster.findOne({ code: "TOMATO" }))?._id),
@@ -162,7 +164,7 @@ try {
     await masterRoute.GET(
       request("/product-master", "GET", undefined, undefined, null),
     ),
-    401,
+    200,
   );
   const all = productMasterPageSchema.parse(
     await check(await masterRoute.GET(request("/product-master"))),
@@ -409,6 +411,7 @@ try {
     active: 26,
     soldOut: 1,
     lowStock: 1,
+    expired: 1,
   });
   const matching = await check(
     await mine.GET(
@@ -479,7 +482,7 @@ try {
   if (
     mongoose.connection.readyState === 1 &&
     mongoose.connection.name === databaseName &&
-    /^gaavli_product_master_test_[a-f0-9]{16}$/.test(databaseName)
+    /^gaavli_pm_test_[a-f0-9]{16}$/.test(databaseName)
   )
     await mongoose.connection.dropDatabase();
   await mongoose.disconnect();

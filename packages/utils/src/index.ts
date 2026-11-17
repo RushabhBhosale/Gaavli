@@ -22,3 +22,4 @@ export function validateApiBaseUrl(
     throw new Error("API_URL_INVALID");
   return url.toString().replace(/\/$/, "");
 }
+export * from "./phonetic";

@@ -34,6 +34,7 @@ export type MobileProfile = {
   address: string | null;
   alternativeMobile: string | null;
   occupation: string | null;
+  email?: string | null;
   photoUrl: string | null;
   version: number;
 };
@@ -61,6 +62,7 @@ export type MobileListing = {
   description: string | null;
   photoUrl: string | null;
   isDemo: boolean;
+  availability?: "available" | "sold_out" | "expired";
   category: string | null;
   categoryName: string | null;
   categoryNameMr: string | null;
@@ -73,6 +75,10 @@ export type MobileListing = {
   expiresAt: string | null;
   minimumPurchaseQuantity?: number | null;
   fulfillmentOptions?: ("farm_pickup" | "local_transport")[];
+  tags?: string[];
+  offerCount?: number;
+  minPrice?: number | null;
+  maxPrice?: number | null;
 };
 export type MobileListingPage = {
   listings: MobileListing[];
@@ -139,6 +145,7 @@ export type CreateListingInput = {
   photoObjectKey?: string | null;
   minimumPurchaseQuantity?: number | null;
   fulfillmentOptions?: ListingFulfillmentOption[];
+  tags?: string[];
 };
 export type UpdateListingInput = Partial<
   Omit<CreateListingInput, "villageId">
@@ -160,6 +167,7 @@ export type OwnedListing = {
   photoUrl: string | null;
   minimumPurchaseQuantity: number | null;
   fulfillmentOptions: ListingFulfillmentOption[];
+  tags: string[];
   villageId: string;
   village: MobileVillage | null;
   status: ListingStatus;

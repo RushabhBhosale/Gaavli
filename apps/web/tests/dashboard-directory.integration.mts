@@ -8,6 +8,7 @@ import {
   directoryPageSchema,
   directoryEntrySchema,
   directoryQuerySchema,
+  directorySummarySchema,
 } from "@gaavli/validation";
 nextEnv.loadEnvConfig(process.cwd());
 if (!process.env.MONGODB_URI) throw new Error("MONGODB_URI is required.");
@@ -22,17 +23,21 @@ const { connectMobileDb } = await import("../src/server/db/mobile");
 const { Village, VillageCoordinator, User, AuditLog, Notification } =
   await import("../src/server/models");
 const { Service } = await import("../src/server/models/service");
+const { VillageConnection } = await import("../src/server/models/coordinator");
 const { MobileSession } = await import("../src/server/models/mobile-auth");
 const { hashToken } = await import("../src/server/auth/mobile-policy");
 const { saveVillage } = await import("../src/server/services/villages");
 const { GET: dashboard } = await import("../src/app/api/v1/dashboard/route");
 const { GET: directory } = await import("../src/app/api/v1/directory/route");
 const { GET: detail } = await import("../src/app/api/v1/directory/[id]/route");
+const { GET: summary } =
+  await import("../src/app/api/v1/directory/summary/route");
 try {
   await connectMobileDb();
   // Transactions must not race automatic collection/index creation.
   await Promise.all([
     Service.init(),
+    VillageConnection.init(),
     VillageCoordinator.init(),
     AuditLog.init(),
     Notification.init(),
@@ -88,8 +93,8 @@ try {
   };
   assert.deepEqual(await home(), {
     coordinator: null,
-    services: { entries: [], total: 0, page: 1, limit: 3 },
-    transport: { entries: [], total: 0, page: 1, limit: 3 },
+    services: { entries: [], total: 0, page: 1, limit: 4 },
+    transport: { entries: [], total: 0, page: 1, limit: 4 },
   });
   await VillageCoordinator.create({
     villageId: village._id,
@@ -157,6 +162,7 @@ try {
     keywords: ["wiring"],
     price: 100,
     unit: "hour",
+    contacts: [{ label: "primary", mobile: "9876543215", whatsapp: true }],
   };
   const rows = await Service.create([
     ...Array.from({ length: 7 }, () => ({ ...base })),
@@ -172,9 +178,29 @@ try {
   const guest = await home();
   const signed = await home(true);
   assert.equal(guest.services.total, 8);
-  assert.equal(signed.services.total, 7);
+  for (const entry of [...guest.services.entries, ...guest.transport.entries])
+    assert.deepEqual(entry.contacts, []);
+  assert.equal(JSON.stringify(guest).includes("9876543215"), false);
+  // Your own entries stay in the lists (marked as yours).
+  assert.equal(signed.services.total, 8);
   assert.equal(signed.transport.total, 2);
-  assert.equal(signed.services.entries.length, 3);
+  assert.equal(signed.services.entries.length, 4);
+  for (const entry of [...signed.services.entries, ...signed.transport.entries])
+    assert.equal(entry.contacts[0]?.mobile, "9876543215");
+  for (const directoryModule of ["services", "transport"]) {
+    const response = await directory(
+      request("directory", { module: directoryModule, limit: "50" }),
+    );
+    const guestPage = directoryPageSchema.parse((await response.json()).data);
+    assert.ok(guestPage.entries.length);
+    assert.ok(guestPage.entries.every((entry) => entry.contacts.length === 0));
+    assert.equal(JSON.stringify(guestPage).includes("9876543215"), false);
+  }
+  // The dashboard picks at random from the pool, so repeated visits differ.
+  const seen = new Set<string>();
+  for (let i = 0; i < 12; i++)
+    for (const row of (await home(true)).services.entries) seen.add(row.id);
+  assert.ok(seen.size > 4, "random picks surface more than one fixed set");
   for (const row of [...signed.services.entries, ...signed.transport.entries]) {
     assert.equal(row.village.id, String(village._id));
     assert.equal(
@@ -195,25 +221,116 @@ try {
   };
   const first = await page();
   const second = await page({ page: "2" });
-  assert.deepEqual([first.entries.length, second.entries.length], [5, 2]);
+  assert.deepEqual([first.entries.length, second.entries.length], [5, 3]);
   assert.equal(
     new Set([...first.entries, ...second.entries].map((row) => row.id)).size,
-    7,
+    8,
   );
-  assert.equal((await page({ search: "wiring" })).total, 7);
-  assert.equal((await page({ search: "इलेक्ट्रिशियन" })).total, 7);
+  assert.equal((await page({ search: "wiring" })).total, 8);
+  assert.equal((await page({ search: "इलेक्ट्रिशियन" })).total, 8);
   assert.equal(
     (await page({ search: ".*" })).total,
     0,
     "search metacharacters are literal",
   );
-  assert.equal((await page({ search: "Utility" })).total, 7);
+  assert.equal((await page({ search: "Utility" })).total, 8);
   assert.equal((await page({ sourceVillageId: String(other._id) })).total, 1);
+  // Category tiles: filter by tile, and per-tile counts that match the filter.
+  await Service.create({
+    ...base,
+    profession: "Dr. Rao Clinic",
+    professionMr: "डॉ. राव दवाखाना",
+    keywords: [],
+    serviceCategory: "Medical",
+  });
+  const counts = async (
+    module: string,
+    params: Record<string, string> = {},
+  ) => {
+    const response = await summary(
+      request("directory/summary", { module, ...params }, true),
+    );
+    assert.equal(response.status, 200);
+    const data = directorySummarySchema.parse((await response.json()).data);
+    return {
+      total: data.total,
+      byGroup: Object.fromEntries(data.groups.map((g) => [g.id, g.count])),
+    };
+  };
+  const servicesTiles = await counts("services");
+  assert.equal(servicesTiles.total, 9);
+  assert.equal(servicesTiles.byGroup.repairs, 8);
+  assert.equal(servicesTiles.byGroup.health, 1);
+  assert.equal(servicesTiles.byGroup.other, 0);
+  for (const [id, count] of Object.entries(servicesTiles.byGroup))
+    assert.equal(
+      (await page({ category: id })).total,
+      count,
+      `tile ${id} count matches its list`,
+    );
+  const transportTiles = await counts("transport");
+  assert.deepEqual(
+    [
+      transportTiles.total,
+      transportTiles.byGroup.goods,
+      transportTiles.byGroup.other_transport,
+    ],
+    [2, 1, 1],
+  );
+  assert.equal(
+    (await page({ category: "repairs", search: "wiring" })).total,
+    8,
+    "category and search combine",
+  );
+  assert.equal((await page({ category: "health", search: "wiring" })).total, 0);
+  assert.equal(
+    (
+      await directory(
+        request("directory", { module: "services", category: "nope" }, true),
+      )
+    ).status,
+    422,
+  );
+  assert.equal(
+    (await summary(request("directory/summary", {}, true))).status,
+    422,
+    "module is required",
+  );
+  assert.equal(
+    (await summary(request("directory/summary", { module: "services" })))
+      .status,
+    200,
+  );
   const itemResponse = await detail(request(`directory/${rows[0]._id}`), {
     params: Promise.resolve({ id: String(rows[0]._id) }),
   });
   assert.equal(itemResponse.status, 200);
-  directoryEntrySchema.parse((await itemResponse.json()).data);
+  const guestDetail = directoryEntrySchema.parse(
+    (await itemResponse.json()).data,
+  );
+  assert.deepEqual(guestDetail.contacts, []);
+  const signedDetailResponse = await detail(
+    request(`directory/${rows[0]._id}`, {}, true),
+    {
+      params: Promise.resolve({ id: String(rows[0]._id) }),
+    },
+  );
+  assert.equal(signedDetailResponse.status, 200);
+  assert.equal(
+    (await signedDetailResponse.json()).data.contacts[0].mobile,
+    "9876543215",
+  );
+  for (const authenticated of [false, true]) {
+    const transportDetail = await detail(
+      request(`directory/${rows[7]._id}`, {}, authenticated),
+      { params: Promise.resolve({ id: String(rows[7]._id) }) },
+    );
+    assert.equal(transportDetail.status, 200);
+    const entry = directoryEntrySchema.parse(
+      (await transportDetail.json()).data,
+    );
+    assert.equal(entry.contacts.length, authenticated ? 1 : 0);
+  }
   const foreign = await detail(request(`directory/${rows[9]._id}`), {
     params: Promise.resolve({ id: String(rows[9]._id) }),
   });
@@ -243,6 +360,16 @@ try {
   assert.equal((await dashboard(badToken)).status, 401);
   assert.equal(
     (
+      await directory(
+        new Request(request("directory"), {
+          headers: { Authorization: `Bearer ${"0".repeat(64)}` },
+        }),
+      )
+    ).status,
+    401,
+  );
+  assert.equal(
+    (
       await dashboard(
         new Request(request("dashboard"), {
           headers: { Origin: "https://foreign.example" },
@@ -261,8 +388,126 @@ try {
     { $set: { status: "active", roles: ["buyer"] } },
   );
   assert.equal((await home()).coordinator, null);
+
+  // Discovery uses direct, active mappings in either direction for every read.
+  const unrelated = await Village.create({
+    nameEn: "Unrelated",
+    nameMr: "इतर",
+  });
+  await Service.create([
+    {
+      ...base,
+      villageId: other._id,
+      profession: "Mapped bus",
+      module: "transport",
+    },
+    { ...base, villageId: inactive._id },
+    { ...base, villageId: unrelated._id },
+  ]);
+  const [mapping] = await VillageConnection.create([
+    {
+      sourceVillageId: other._id,
+      targetVillageId: village._id,
+      createdBy: coordinator._id,
+    },
+    {
+      sourceVillageId: village._id,
+      targetVillageId: inactive._id,
+      createdBy: coordinator._id,
+    },
+    {
+      sourceVillageId: other._id,
+      targetVillageId: unrelated._id,
+      createdBy: coordinator._id,
+    },
+  ]);
+  for (const authenticated of [false, true]) {
+    const combined = await home(authenticated);
+    assert.equal(combined.services.total, servicesTiles.total + 1);
+    assert.equal(combined.transport.total, transportTiles.total + 1);
+    const response = await directory(
+      request("directory", { module: "services", limit: "50" }, authenticated),
+    );
+    assert.equal(response.status, 200);
+    const data = directoryPageSchema.parse((await response.json()).data);
+    assert.equal(data.total, servicesTiles.total + 1);
+    assert.ok(
+      data.entries.every((entry) =>
+        authenticated
+          ? entry.contacts[0]?.mobile === "9876543215"
+          : entry.contacts.length === 0,
+      ),
+    );
+    assert.ok(data.entries.some((entry) => entry.id === String(rows[9]._id)));
+    assert.ok(
+      data.entries.every((entry) =>
+        [String(village._id), String(other._id)].includes(entry.village.id),
+      ),
+    );
+    const responseDetail = await detail(
+      request(`directory/${rows[9]._id}`, {}, authenticated),
+      { params: Promise.resolve({ id: String(rows[9]._id) }) },
+    );
+    assert.equal(responseDetail.status, 200);
+    const mappedDetail = directoryEntrySchema.parse(
+      (await responseDetail.json()).data,
+    );
+    assert.equal(mappedDetail.village.id, String(other._id));
+    assert.equal(mappedDetail.contacts.length, authenticated ? 1 : 0);
+  }
+  assert.equal(
+    (await counts("services")).byGroup.repairs,
+    servicesTiles.byGroup.repairs + 1,
+  );
+  assert.equal((await counts("transport")).byGroup.bus, 1);
+  assert.equal((await page({ search: "wiring" })).total, 9);
+  const combinedPages = [await page(), await page({ page: "2" })];
+  assert.equal(
+    new Set(combinedPages.flatMap((p) => p.entries.map((entry) => entry.id)))
+      .size,
+    10,
+  );
+  const reverse = await page({
+    sourceVillageId: String(other._id),
+    search: "Rao",
+  });
+  assert.equal(
+    reverse.total,
+    1,
+    "a mapped village can discover the source village's entries",
+  );
+  await Village.updateOne({ _id: other._id }, { $set: { isActive: false } });
+  assert.equal((await counts("services")).total, servicesTiles.total);
+  await Village.updateOne({ _id: other._id }, { $set: { isActive: true } });
+  await VillageConnection.updateOne(
+    { _id: mapping._id },
+    { $set: { active: false } },
+  );
+  assert.equal((await home()).services.total, servicesTiles.total);
+  assert.equal((await counts("transport")).total, transportTiles.total);
+  assert.equal(
+    (
+      await detail(request(`directory/${rows[9]._id}`), {
+        params: Promise.resolve({ id: String(rows[9]._id) }),
+      })
+    ).status,
+    404,
+    "removing the mapping also revokes detail discovery",
+  );
+  await User.updateOne({ _id: viewer._id }, { $set: { status: "blocked" } });
+  const revokedContact = await detail(
+    request(`directory/${rows[0]._id}`, {}, true),
+    {
+      params: Promise.resolve({ id: String(rows[0]._id) }),
+    },
+  );
+  assert.equal(revokedContact.status, 401);
+  assert.equal(
+    JSON.stringify(await revokedContact.json()).includes("9876543215"),
+    false,
+  );
   console.log(
-    "PASS: dashboard and directory routes, real counts, bounded previews, pagination/search, exact-village scope, owner/inactive exclusion, public contact opt-in/revocation, privacy, validation and auth.",
+    "PASS: guest contact redaction across dashboard/lists/details, authenticated service/transport contacts, invalid/revoked sessions, mapped discovery/counts/search/pagination, inactive exclusions and mapping removal.",
   );
 } finally {
   if (

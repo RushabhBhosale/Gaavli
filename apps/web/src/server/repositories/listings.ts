@@ -14,7 +14,7 @@ import { masterSearchMappings } from "./product-master";
 export const visiblePipeline = (
   villageId: string | string[] | null,
   now: Date,
-  availability: "available" | "unavailable" = "available",
+  availability: "available" | "unavailable" | "any" = "available",
 ): PipelineStage[] => [
   {
     $match: {
@@ -27,15 +27,18 @@ export const visiblePipeline = (
               ),
             },
           }),
-      ...(availability === "unavailable"
-        ? {
-            $or: [
-              { status: { $in: ["sold_out", "expired"] } },
-              { status: "active", quantity: { $lte: 0 } },
-              { status: "active", expiresAt: { $lte: now, $type: "date" } },
-            ],
-          }
-        : activeStockFilter(now)),
+      // "any": live, sold-out and expired listings; never reported or removed.
+      ...(availability === "any"
+        ? { status: { $in: ["active", "sold_out", "expired"] } }
+        : availability === "unavailable"
+          ? {
+              $or: [
+                { status: { $in: ["sold_out", "expired"] } },
+                { status: "active", quantity: { $lte: 0 } },
+                { status: "active", expiresAt: { $lte: now, $type: "date" } },
+              ],
+            }
+          : activeStockFilter(now)),
       ...(process.env.NODE_ENV === "production"
         ? { isDemo: { $ne: true } }
         : {}),
@@ -81,8 +84,70 @@ export const productNameStage: PipelineStage.Lookup = {
     pipeline: [{ $project: { _id: 0, nameHi: 1 } }],
   },
 };
+// Sellers of the same product in the same unit share one card: a listed
+// product is its master product (or, for free-typed names, the lowercase name)
+// per unit, so "tomato per kg" and "tomato per crate" never mix prices.
+const groupKeyStage: PipelineStage.AddFields = {
+  $addFields: {
+    groupKey: {
+      $concat: [
+        {
+          $ifNull: [
+            { $toString: "$productId" },
+            {
+              $concat: [
+                "name:",
+                { $toLower: { $trim: { input: "$productName" } } },
+              ],
+            },
+          ],
+        },
+        "|",
+        { $toLower: { $trim: { input: { $ifNull: ["$unit", ""] } } } },
+      ],
+    },
+  },
+};
 const dtoProjection = {
   _id: 0,
+  // Whether a buyer can still act on the listing; old ones stay viewable.
+  availability: {
+    $switch: {
+      branches: [
+        {
+          case: {
+            $or: [
+              { $eq: ["$status", "sold_out"] },
+              { $lte: [{ $ifNull: ["$quantity", 1] }, 0] },
+            ],
+          },
+          then: "sold_out",
+        },
+        {
+          case: {
+            $or: [
+              { $eq: ["$status", "expired"] },
+              {
+                $and: [
+                  { $eq: [{ $type: "$expiresAt" }, "date"] },
+                  { $lte: ["$expiresAt", "$$NOW"] },
+                ],
+              },
+              // No end date (and not a recurring supply): treated as old.
+              {
+                $and: [
+                  { $ne: [{ $type: "$expiresAt" }, "date"] },
+                  { $ne: ["$category", "RECURRING_SUPPLY"] },
+                ],
+              },
+            ],
+          },
+          then: "expired",
+        },
+      ],
+      default: "available",
+    },
+  },
   id: { $toString: "$_id" },
   productName: 1,
   description: { $ifNull: ["$description", null] },
@@ -102,8 +167,12 @@ const dtoProjection = {
   quantity: { $ifNull: ["$quantity", null] },
   unit: { $ifNull: ["$unit", null] },
   price: { $ifNull: ["$price", null] },
+  offerCount: { $ifNull: ["$offerCount", 1] },
+  minPrice: { $ifNull: ["$minPrice", { $ifNull: ["$price", null] }] },
+  maxPrice: { $ifNull: ["$maxPrice", { $ifNull: ["$price", null] }] },
   minimumPurchaseQuantity: { $ifNull: ["$minimumPurchaseQuantity", null] },
   fulfillmentOptions: { $ifNull: ["$fulfillmentOptions", []] },
+  tags: { $ifNull: ["$tags", []] },
   village: {
     id: { $toString: "$villageRecord._id" },
     name: "$villageRecord.nameEn",
@@ -195,9 +264,39 @@ export async function findMobileListings(
             ...filters,
             ...productGroupFilter,
             ...selectedVillage,
-            { $sort: { createdAt: -1, _id: -1 } },
+            groupKeyStage,
+            // The cheapest offer represents its product.
+            {
+              $addFields: { sortPrice: { $ifNull: ["$price", 1e18] } },
+            },
+            { $sort: { sortPrice: 1, createdAt: -1, _id: -1 } },
+            {
+              $group: {
+                _id: "$groupKey",
+                offer: { $first: "$$ROOT" },
+                offerCount: { $sum: 1 },
+                minPrice: { $min: "$price" },
+                maxPrice: { $max: "$price" },
+                newest: { $max: "$createdAt" },
+              },
+            },
+            { $sort: { newest: -1, _id: 1 } },
             { $skip: (query.page - 1) * query.limit },
             { $limit: query.limit },
+            {
+              $replaceRoot: {
+                newRoot: {
+                  $mergeObjects: [
+                    "$offer",
+                    {
+                      offerCount: "$offerCount",
+                      minPrice: "$minPrice",
+                      maxPrice: "$maxPrice",
+                    },
+                  ],
+                },
+              },
+            },
             productNameStage,
             { $project: dtoProjection },
           ],
@@ -205,19 +304,29 @@ export async function findMobileListings(
             ...filters,
             ...productGroupFilter,
             ...selectedVillage,
+            groupKeyStage,
+            { $group: { _id: "$groupKey" } },
             { $count: "total" },
           ],
           villageCounts: [
             ...filters,
             ...productGroupFilter,
-            { $group: { _id: "$village", count: { $sum: 1 } } },
+            groupKeyStage,
+            { $group: { _id: { key: "$groupKey", village: "$village" } } },
+            { $group: { _id: "$_id.village", count: { $sum: 1 } } },
             { $project: { _id: 0, id: { $toString: "$_id" }, count: 1 } },
           ],
           productGroupCounts: [
             ...filters,
             ...selectedVillage,
             { $match: { productGroup: { $in: LISTING_PRODUCT_GROUPS } } },
-            { $group: { _id: "$productGroup", count: { $sum: 1 } } },
+            groupKeyStage,
+            {
+              $group: {
+                _id: { key: "$groupKey", group: "$productGroup" },
+              },
+            },
+            { $group: { _id: "$_id.group", count: { $sum: 1 } } },
             { $project: { _id: 0, productGroup: "$_id", count: 1 } },
           ],
           ...(query.includeAllProductCount
@@ -225,6 +334,8 @@ export async function findMobileListings(
                 allProductCount: [
                   ...filters,
                   ...selectedVillage,
+                  groupKeyStage,
+                  { $group: { _id: "$groupKey" } },
                   { $count: "total" },
                 ],
               }
@@ -299,12 +410,54 @@ export async function findMobileListings(
     limit: query.limit,
   };
 }
+// Every visible offer of the same product and unit as listing `id`, cheapest
+// first. The viewer's own listings are left out, as in the main feed.
+export async function findListingOffers(
+  villageId: string,
+  id: string,
+  viewerId: string | null,
+) {
+  const allowedVillageIds = await discoveryVillageIds(villageId);
+  const [target] = await Listing.aggregate<{ groupKey: string }>([
+    { $match: { _id: new Types.ObjectId(id) } },
+    ...visiblePipeline(allowedVillageIds, new Date()),
+    groupKeyStage,
+    { $project: { _id: 0, groupKey: 1 } },
+  ]);
+  if (!target) return null;
+  const offers = await Listing.aggregate<
+    Omit<MobileListing, "photoUrl"> & {
+      photoObjectKey: string | null;
+      sellerName?: string | null;
+      sellerMobile?: string | null;
+    }
+  >([
+    ...(viewerId
+      ? [{ $match: { seller: { $ne: new Types.ObjectId(viewerId) } } }]
+      : []),
+    ...visiblePipeline(allowedVillageIds, new Date()),
+    groupKeyStage,
+    { $match: { groupKey: target.groupKey } },
+    { $addFields: { sortPrice: { $ifNull: ["$price", 1e18] } } },
+    { $sort: { sortPrice: 1, createdAt: -1, _id: -1 } },
+    { $limit: 50 },
+    productNameStage,
+    {
+      $project: {
+        ...dtoProjection,
+        sellerName: { $arrayElemAt: ["$sellerRecord.name", 0] },
+        sellerMobile: { $arrayElemAt: ["$sellerRecord.mobile", 0] },
+      },
+    },
+  ]);
+  return offers;
+}
 export async function findMobileListing(villageId: string, id: string) {
   const [listing] = await Listing.aggregate<
     Omit<MobileListing, "photoUrl"> & { photoObjectKey: string | null }
   >([
     { $match: { _id: new Types.ObjectId(id) } },
-    ...visiblePipeline(await discoveryVillageIds(villageId), new Date()),
+    ...visiblePipeline(await discoveryVillageIds(villageId), new Date(), "any"),
     productNameStage,
     { $project: dtoProjection },
   ]);

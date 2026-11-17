@@ -1,21 +1,23 @@
 import { MOBILE_LANGUAGES } from "@gaavli/constants";
 import { LANGUAGE_LABELS } from "../locale";
 import { useRef, useState } from "react";
-import { Alert, Pressable, StyleSheet, Switch, Text, View } from "react-native";
+import { Pressable, StyleSheet, Switch, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { theme } from "../theme";
 import { useRouter } from "expo-router";
 import { useQueryClient } from "@tanstack/react-query";
 import type { MobileLanguage } from "@gaavli/types";
 import { useAppStore } from "../store";
+import { showAlert } from "../alert";
 import { messages } from "../i18n";
 import { confirmLanguage } from "../storage/preferences";
 import { preferenceStorage } from "../storage/sqlite";
 import { logout } from "../session";
+import { openWriteToUs } from "../components/WriteToUsButton";
 import { errorMessage } from "../errors";
 import { Button, ErrorMessage } from "../components/ui";
 import { DashboardScreen } from "../components/dashboard/primitives";
-import { PageSceneHeader } from "../components/dashboard/PageSceneHeader";
+import { AppHeader } from "../components/AppHeader";
 
 export default function ProfileScreen() {
   const router = useRouter();
@@ -66,13 +68,15 @@ export default function ProfileScreen() {
         : browsingVillage.name
       : "";
     return (
-      <DashboardScreen>
-        <PageSceneHeader
-          title={t.settings}
-          subtitle={t.guestBrowsing}
-          backLabel={t.back}
-          onBack={() => router.replace("/home")}
-        />
+      <DashboardScreen
+        header={
+          <AppHeader
+            title={t.settings}
+            subtitle={t.guestBrowsing}
+            back="/home"
+          />
+        }
+      >
         <View style={s.section}>
           <Text accessibilityRole="header" style={s.sectionLabel}>
             {t.accountSettings}
@@ -124,6 +128,39 @@ export default function ProfileScreen() {
             </View>
           </View>
         </View>
+        <View style={s.section}>
+          <Text accessibilityRole="header" style={s.sectionLabel}>
+            {t.helpSection}
+          </Text>
+          <View style={s.group}>
+            <SettingRow
+              icon="git-network-outline"
+              title={t.mappedTitle}
+              subtitle={t.mappedRowSubtitle}
+              disabled={!!busy}
+              onPress={() => router.push("/mapped-villages")}
+            />
+            <SettingRow
+              icon="mail-outline"
+              title={t.writeToUs}
+              disabled={!!busy}
+              onPress={() => openWriteToUs(t)}
+            />
+            <SettingRow
+              icon="document-text-outline"
+              title={t.termsTitle}
+              disabled={!!busy}
+              onPress={() => router.push("/terms")}
+            />
+            <SettingRow
+              icon="shield-checkmark-outline"
+              title={t.privacyTitle}
+              last
+              disabled={!!busy}
+              onPress={() => router.push("/privacy")}
+            />
+          </View>
+        </View>
         {failure && <ErrorMessage message={failure} />}
         <Button
           disabled={!!busy}
@@ -154,15 +191,17 @@ export default function ProfileScreen() {
       : village.name
     : "";
   const unavailable = (message: string) =>
-    Alert.alert(t.settingsUnavailable, message);
+    showAlert(t.settingsUnavailable, message);
   return (
-    <DashboardScreen>
-      <PageSceneHeader
-        title={t.settings}
-        subtitle={t.settingsSubtitle}
-        backLabel={t.back}
-        onBack={() => router.replace("/home")}
-      />
+    <DashboardScreen
+      header={
+        <AppHeader
+          title={t.settings}
+          subtitle={t.settingsSubtitle}
+          back="/home"
+        />
+      }
+    >
       <View style={s.section}>
         <Text accessibilityRole="header" style={s.sectionLabel}>
           {t.accountSettings}
@@ -173,6 +212,13 @@ export default function ProfileScreen() {
             title={t.updateProfile}
             disabled={!!busy}
             onPress={() => router.push("/my-profile")}
+          />
+          <SettingRow
+            icon="briefcase-outline"
+            title={t.actTitle}
+            subtitle={t.actSubtitle}
+            disabled={!!busy}
+            onPress={() => router.push("/activities")}
           />
           <SettingRow
             icon="location-outline"
@@ -222,6 +268,39 @@ export default function ProfileScreen() {
       </View>
       <View style={s.section}>
         <Text accessibilityRole="header" style={s.sectionLabel}>
+          {t.helpSection}
+        </Text>
+        <View style={s.group}>
+          <SettingRow
+            icon="git-network-outline"
+            title={t.mappedTitle}
+            subtitle={t.mappedRowSubtitle}
+            disabled={!!busy}
+            onPress={() => router.push("/mapped-villages")}
+          />
+          <SettingRow
+            icon="mail-outline"
+            title={t.writeToUs}
+            disabled={!!busy}
+            onPress={() => openWriteToUs(t, session?.user.name)}
+          />
+          <SettingRow
+            icon="document-text-outline"
+            title={t.termsTitle}
+            disabled={!!busy}
+            onPress={() => router.push("/terms")}
+          />
+          <SettingRow
+            icon="shield-checkmark-outline"
+            title={t.privacyTitle}
+            last
+            disabled={!!busy}
+            onPress={() => router.push("/privacy")}
+          />
+        </View>
+      </View>
+      <View style={s.section}>
+        <Text accessibilityRole="header" style={s.sectionLabel}>
           {t.notificationSettings}
         </Text>
         <View style={s.group}>
@@ -254,7 +333,7 @@ export default function ProfileScreen() {
       </View>
       {failure && <ErrorMessage message={failure} />}
       <Button
-        secondary
+        danger
         loading={busy === "logout"}
         disabled={offline || busy === "language"}
         onPress={() => void signOut()}

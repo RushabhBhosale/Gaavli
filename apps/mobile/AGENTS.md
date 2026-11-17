@@ -1,3 +1,9 @@
+> Mapped-village discovery revision - 2026-11-13 (user approved): Home,
+> Marketplace, Services and Transport include the selected browsing village and
+> its directly mapped active villages through active coordinator-confirmed
+> bidirectional connections. This supersedes exact-village-only mobile discovery.
+> Add Buyer uses the selected assigned village as a read-only field.
+
 > Direct login/contact revision - 2026-10-27 (user approved): first Village
 > Selection Login discards previous browsing/product context before auth and
 > defaults to the registered village/Home. Contact Seller auth preserves the

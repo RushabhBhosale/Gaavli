@@ -60,6 +60,20 @@
   and counted all rows as unchanged. Database counts, lookups, codes, and
   district/taluka references were verified. Web TypeScript typecheck passed.
 
+## 2026-11-16 - Shop products: "what do you sell" (in progress)
+
+- Shop / Business profiles gain `details.sells` (product groups) and
+  `details.products` (popular Product Master codes). Picking a seeded shop type
+  pre-ticks its usual groups. Edits from older apps keep saved values. The
+  directory entry copies them to indexed `productGroups` / `productCodes`, and
+  group names are added to its search keywords.
+- New `GET /api/v1/directory/product-shops`; the mobile Search All screen shows
+  "Shops that have X" and "<group> shops nearby" after farmer listings. The
+  directory entry DTO is unchanged for installed APKs.
+- Typecheck, ESLint on changed files, mobile and web unit tests (including the
+  new `shop-products.test.ts`) passed. Not exercised against a database, on a
+  device, or in an emulator. See docs/03-api/SHOP_PRODUCTS.md for what is left.
+
 ## 2026-11-13 - Coordinator assignment from User Listing
 
 - Admin Add/Edit User assigns a coordinator to the village selected in the

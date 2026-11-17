@@ -6,8 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { Pressable, Text, View } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Text, View } from "react-native";
 import { Redirect, useRouter, useFocusEffect } from "expo-router";
 import { useCallback } from "react";
 import {
@@ -26,16 +25,10 @@ import { ApiError } from "../api/client";
 import { errorMessage } from "../errors";
 import { showToast } from "../toast";
 import { messages } from "../i18n";
-import {
-  Screen,
-  BackButton,
-  Button,
-  Card,
-  ErrorMessage,
-} from "../components/ui";
+import { Screen, Button, Card, ErrorMessage } from "../components/ui";
 import { hasCoordinatorRole } from "../data/accountAccess";
 import { d } from "../components/dashboard/primitives";
-import { PageSceneHeader } from "../components/dashboard/PageSceneHeader";
+import { AppHeader } from "../components/AppHeader";
 import {
   pendingCoordinatorSchema,
   sendCoordinatorOperation,
@@ -73,7 +66,6 @@ export function useCoordinator() {
 }
 export function CoordinatorPage({
   title,
-  showSceneHeader = false,
   back = false,
   compact = false,
   form = false,
@@ -82,7 +74,6 @@ export function CoordinatorPage({
   children,
 }: {
   title: string;
-  showSceneHeader?: boolean;
   back?: boolean;
   compact?: boolean;
   form?: boolean;
@@ -93,7 +84,6 @@ export function CoordinatorPage({
   const { session, language, offline } = useAppStore();
   const router = useRouter();
   const { id, select } = useSelection();
-  const [expanded, setExpanded] = useState(false);
   const villages = session?.user.coordinatorVillages || [];
   const village = villages.find((row) => row.id === id) || villages[0];
   const actorId = session?.user.id || "";
@@ -102,15 +92,15 @@ export function CoordinatorPage({
     const t = coordinatorMessages(language);
     const common = messages(language);
     return (
-      <Screen>
-        <PageSceneHeader
-          title={title}
-          subtitle={t.coordinatorSubtitle}
-          backLabel={common.back}
-          onBack={() => router.replace("/home")}
-          edgeInset={24}
-          topInset={24}
-        />
+      <Screen
+        header={
+          <AppHeader
+            title={title}
+            subtitle={t.coordinatorSubtitle}
+            back="/home"
+          />
+        }
+      >
         <Card>
           <Text style={d.sectionTitle}>{session?.user.name}</Text>
           <Text style={d.description}>{t.coordinatorSubtitle}</Text>
@@ -136,126 +126,7 @@ export function CoordinatorPage({
       customScreen={customScreen}
       afterHeader={afterHeader}
       selectVillage={select}
-      header={
-        showSceneHeader ? (
-          <PageSceneHeader
-            title={title}
-            subtitle={messages(language).activitySubtitle}
-            backLabel={messages(language).back}
-            onBack={() => router.replace("/home")}
-            edgeInset={24}
-            topInset={24}
-          />
-        ) : compact ? (
-          <View style={{ gap: 6 }}>
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-            >
-              <View
-                accessibilityElementsHidden
-                importantForAccessibility="no-hide-descendants"
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 20,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "#153F2B",
-                  borderWidth: 2,
-                  borderColor: "#D9E9DC",
-                }}
-              >
-                <Text
-                  style={{ color: "#FFFFFF", fontWeight: "700", fontSize: 16 }}
-                >
-                  {language !== "en" ? "सं" : "VC"}
-                </Text>
-              </View>
-              <View style={{ flex: 1, gap: 2 }}>
-                <Text accessibilityRole="header" style={d.cardTitle}>
-                  {session?.user.name} (
-                  {coordinatorMessages(language).coordinator})
-                </Text>
-                <Text style={d.description}>
-                  {coordinatorMessages(language).coordinatorSubtitle}
-                </Text>
-              </View>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={`${coordinatorMessages(language).assignedVillage}: ${language !== "en" ? village.nameMr : village.name}`}
-                accessibilityState={{
-                  expanded,
-                  disabled: offline || villages.length < 2,
-                }}
-                disabled={offline || villages.length < 2}
-                onPress={() => setExpanded(!expanded)}
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  maxWidth: "36%",
-                  minHeight: 48,
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 4,
-                    flexShrink: 1,
-                    paddingHorizontal: 9,
-                    paddingVertical: 6,
-                    borderRadius: 12,
-                    borderWidth: 1,
-                    borderColor: "#CDE4CF",
-                    backgroundColor: "#EDF6EB",
-                  }}
-                >
-                  <Ionicons
-                    accessible={false}
-                    name="location-outline"
-                    size={12}
-                    color="#397243"
-                  />
-                  <Text
-                    style={[
-                      d.badgeText,
-                      {
-                        flexShrink: 1,
-                        color: "#397243",
-                        fontWeight: "400",
-                      },
-                    ]}
-                  >
-                    {language !== "en" ? village.nameMr : village.name}
-                  </Text>
-                  {villages.length > 1 && (
-                    <Ionicons
-                      name={expanded ? "chevron-up" : "chevron-down"}
-                      size={12}
-                      color="#397243"
-                    />
-                  )}
-                </View>
-              </Pressable>
-            </View>
-            {expanded &&
-              !offline &&
-              villages.length > 1 &&
-              villages.map((item) => (
-                <Button
-                  key={item.id}
-                  secondary={item.id !== village.id}
-                  onPress={() => {
-                    select(item.id);
-                    setExpanded(false);
-                  }}
-                >
-                  {language !== "en" ? item.nameMr : item.name}
-                </Button>
-              ))}
-          </View>
-        ) : undefined
-      }
+      subtitle={language !== "en" ? village.nameMr : village.name}
       actorId={actorId}
       village={village}
     >
@@ -292,7 +163,7 @@ function CoordinatorScope({
   form,
   customScreen,
   selectVillage,
-  header,
+  subtitle,
   children,
 }: {
   afterHeader?: ReactNode;
@@ -304,12 +175,11 @@ function CoordinatorScope({
   form: boolean;
   customScreen: boolean;
   selectVillage: (id: string) => void;
-  header?: ReactNode;
+  subtitle?: string;
   children: ReactNode;
 }) {
   const { language, offline } = useAppStore();
   const t = coordinatorMessages(language);
-  const router = useRouter();
   const client = useQueryClient();
   const [busy, setBusy] = useState(false),
     [pending, setPending] = useState(false),
@@ -372,11 +242,23 @@ function CoordinatorScope({
       if (result && current()) {
         setPending(false);
         showToast(t.saved, "success");
-        await client.invalidateQueries({
-          queryKey: ["coordinator", actorId, village.id],
-        });
-        void client.invalidateQueries({ queryKey: ["marketplace-listings"] });
-        void client.invalidateQueries({ queryKey: ["home-listings"] });
+        await client.invalidateQueries({ queryKey: ["coordinator", actorId] });
+        for (const key of [
+          "marketplace-listings",
+          "home-listings",
+          "search-index",
+          "search-suggest",
+          "listing",
+          "listing-offers",
+          "dashboard-directory",
+          "directory",
+          "directory-summary",
+          "directory-entry",
+          "product-shops",
+          "mapped-villages",
+        ]) {
+          void client.invalidateQueries({ queryKey: [key] });
+        }
       }
       return result;
     } catch (error) {
@@ -467,42 +349,17 @@ function CoordinatorScope({
       {customScreen ? (
         children
       ) : (
-        <Screen compact={compact}>
-          {form ? (
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-            >
-              <BackButton
-                label={messages(language).back}
-                disabled={busy}
-                onPress={() =>
-                  router.canGoBack() ? router.back() : router.replace("/manage")
-                }
-              />
-              <Text
-                accessibilityRole="header"
-                style={[d.sectionTitle, { flex: 1 }]}
-              >
-                {title}
-              </Text>
-            </View>
-          ) : (
-            back && (
-              <BackButton
-                label={messages(language).back}
-                onPress={() =>
-                  router.canGoBack() ? router.back() : router.replace("/manage")
-                }
-                disabled={busy}
-              />
-            )
-          )}
-          {!form &&
-            (header || (
-              <Text accessibilityRole="header" style={d.sectionTitle}>
-                {title}
-              </Text>
-            ))}
+        <Screen
+          compact={compact}
+          header={
+            <AppHeader
+              title={title}
+              subtitle={subtitle}
+              back={back ? "/manage" : undefined}
+              backDisabled={busy}
+            />
+          }
+        >
           {afterHeader}
           {failure && <ErrorMessage message={failure} />}
           {pending && (
@@ -550,12 +407,17 @@ export function useCoordinatorQuery<T>(
 }
 export function useCoordinatorPages<
   T extends { page: number; total: number; limit: number },
->(path: string, schema: z.ZodType<T>, parameters: Record<string, string> = {}) {
+>(
+  path: string,
+  schema: z.ZodType<T>,
+  parameters: Record<string, string> = {},
+  pageSize = 20,
+) {
   const { actorId, village } = useCoordinator();
   const query = new URLSearchParams({
     ...parameters,
     villageId: village.id,
-    limit: "20",
+    limit: String(pageSize),
   });
   return useInfiniteQuery({
     queryKey: ["coordinator", actorId, village.id, path, query.toString()],

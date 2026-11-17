@@ -1,3 +1,12 @@
+## Directory contact authentication — 2026-11-13 (user approved)
+
+Services and Transport contact numbers require an active mobile bearer session.
+The directory repository projects empty contacts arrays for guests across lists,
+dashboard previews and details. The app also hides phone, Call and WhatsApp
+controls while signed out. Persisted directory caches remove contacts on write
+and restore, including older guest responses. Authorized entry contacts are
+fetched fresh into account-scoped query memory. See 03-api/DASHBOARD_DIRECTORY.md.
+
 ## Provider master reference options — 2026-11-04 (user approved)
 
 Admin master reads/writes require the existing active Super Admin cookie/session;

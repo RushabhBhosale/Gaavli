@@ -9,18 +9,12 @@ import {
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
-import {
-  BackButton,
-  Button,
-  Input,
-  ErrorMessage,
-  Screen,
-  styles,
-} from "../components/ui";
+import { Button, Input, ErrorMessage, Screen, styles } from "../components/ui";
 import { api } from "../api";
 import { errorMessage } from "../errors";
 import { ApiError } from "../api/client";
 import { saveSession, authenticatedApi } from "../session";
+import { finishRegistration } from "../data/finishRegistration";
 import { postAuthHref } from "../storage/preferences";
 import { parseOtpRequest } from "../data/otpRequest";
 
@@ -33,6 +27,7 @@ export default function OtpScreen() {
     draft,
     offline,
     contactReturnListingId,
+    contactReturnDirectoryId,
     authMode,
   } = useAppStore();
   const t = messages(language);
@@ -50,13 +45,14 @@ export default function OtpScreen() {
   }, []);
   // Publishing the verified session must not navigate before the guest village
   // has been confirmed and the final product return destination is resolved.
-  if (session && (busy !== "verify" || !challenge))
+  if (session && busy !== "verify")
     return (
       <Redirect
         href={postAuthHref(
           session.user,
           contactReturnListingId,
           authMode === "login",
+          contactReturnDirectoryId,
         )}
       />
     );
@@ -88,7 +84,7 @@ export default function OtpScreen() {
       await saveSession(pendingSession.current);
       let user = pendingSession.current.user;
       const browsingVillage = useAppStore.getState().browsingVillage;
-      if (!user.village && browsingVillage && user.firstName && user.lastName) {
+      if (!user.village && browsingVillage && user.firstName) {
         try {
           user = await authenticatedApi("/users/me", mobileUserSchema, {
             method: "PATCH",
@@ -102,9 +98,17 @@ export default function OtpScreen() {
         }
       }
       const listingId = useAppStore.getState().contactReturnListingId;
+      const directoryId = useAppStore.getState().contactReturnDirectoryId;
+      const extras = useAppStore.getState().registration;
+      if (authMode === "register")
+        user = await finishRegistration(user, extras);
       pendingSession.current = null;
       useAppStore.getState().clearRegistration();
-      router.replace(postAuthHref(user, listingId, authMode === "login"));
+      router.replace(
+        authMode === "register" && user.village && !directoryId
+          ? "/provider/welcome"
+          : postAuthHref(user, listingId, authMode === "login", directoryId),
+      );
     } catch (failure) {
       setNeedsRegistration(
         failure instanceof ApiError && failure.code === "REGISTRATION_REQUIRED",
@@ -149,14 +153,17 @@ export default function OtpScreen() {
     }
   }
   return (
-    <Screen>
-      <BackButton
-        label={t.back}
-        disabled={!!busy || hasPendingSession}
-        onPress={() => router.replace("/register")}
-      />
-      <Text style={styles.title}>{t.verifyTitle}</Text>
-      <Text style={styles.body}>
+    <Screen
+      back={{
+        label: t.back,
+        disabled: !!busy || hasPendingSession,
+        onPress: () => router.replace("/register"),
+      }}
+    >
+      <Text style={[styles.title, { textAlign: "center" }]}>
+        {t.verifyTitle}
+      </Text>
+      <Text style={[styles.body, { textAlign: "center" }]}>
         {t.verifyDescription}
         {"\n"}+91 {draft.mobile}
       </Text>

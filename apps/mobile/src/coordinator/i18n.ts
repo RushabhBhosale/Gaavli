@@ -23,7 +23,8 @@ const en = {
   locationSource: "Location used",
   currentLocation: "Current device location",
   refreshLocation: "Refresh location",
-  locationUnavailable: "Device location is unavailable. Allow location access and try again.",
+  locationUnavailable:
+    "Device location is unavailable. Allow location access and try again.",
   nearbyGps: "Nearby by GPS",
   byDistrict: "By district",
   confirmVillages: "Connect the selected villages?",
@@ -36,6 +37,8 @@ const en = {
   addBuyerHelp: "Pre-register a buyer and choose their village.",
   connectionsHelp: "Confirm or remove manual nearby-village connections.",
   directoryHelp: "View authorized village users and permitted corrections.",
+  activityHelp:
+    "See what changed in your village: who was added, edited or reported.",
   assignedVillage: "Assigned village",
   noAccess: "An active coordinator assignment is required.",
   assignmentPending: "Village assignment pending",
@@ -175,7 +178,8 @@ const mr: Record<keyof typeof en, string> = {
   locationSource: "स्थान स्रोत",
   currentLocation: "सध्याचे डिव्हाइस स्थान",
   refreshLocation: "स्थान पुन्हा मिळवा",
-  locationUnavailable: "डिव्हाइसचे स्थान उपलब्ध नाही. स्थानाची परवानगी देऊन पुन्हा प्रयत्न करा.",
+  locationUnavailable:
+    "डिव्हाइसचे स्थान उपलब्ध नाही. स्थानाची परवानगी देऊन पुन्हा प्रयत्न करा.",
   nearbyGps: "जवळची गावे",
   byDistrict: "जिल्हा नुसार",
   confirmVillages: "निवडलेली गावे जोडायची?",
@@ -188,6 +192,8 @@ const mr: Record<keyof typeof en, string> = {
   addBuyerHelp: "खरेदीदाराची पूर्वनोंदणी करा आणि त्यांचे गाव निवडा.",
   connectionsHelp: "शेजारच्या गावांची जोडणी निश्चित करा किंवा काढा.",
   directoryHelp: "गावातील ग्राहक पहा आणि परवानगी असलेल्या दुरुस्त्या करा.",
+  activityHelp:
+    "तुमच्या गावात काय बदलले ते पहा: कोण जोडले, बदलले किंवा तक्रार केली.",
   assignedVillage: "नेमलेले गाव",
   noAccess: "सक्रिय ग्रामसमन्वयक नेमणूक आवश्यक आहे.",
   assignmentPending: "गावाची नेमणूक बाकी आहे",
@@ -304,6 +310,7 @@ const mr: Record<keyof typeof en, string> = {
 };
 const hi: Record<keyof typeof en, string> = {
   reportAlreadyExists: "इस उत्पाद की शिकायत पहले से खुली है।",
+  directoryEdit: "बदलें",
   userCorrected: "खरीदार के नाम सुधारे गए",
   manage: "प्रबंधन",
   quickActions: "त्वरित कार्य",
@@ -326,7 +333,8 @@ const hi: Record<keyof typeof en, string> = {
   locationSource: "स्थान स्रोत",
   currentLocation: "डिवाइस का वर्तमान स्थान",
   refreshLocation: "स्थान फिर से प्राप्त करें",
-  locationUnavailable: "डिवाइस का स्थान उपलब्ध नहीं है। स्थान की अनुमति दें और फिर कोशिश करें।",
+  locationUnavailable:
+    "डिवाइस का स्थान उपलब्ध नहीं है। स्थान की अनुमति दें और फिर कोशिश करें।",
   nearbyGps: "GPS से आसपास",
   byDistrict: "ज़िले के अनुसार",
   confirmVillages: "चुने गए गाँव जोड़ें?",
@@ -339,6 +347,8 @@ const hi: Record<keyof typeof en, string> = {
   addBuyerHelp: "खरीदार का पूर्व-पंजीकरण करें और उनका गाँव चुनें।",
   connectionsHelp: "पास के गाँवों के मैनुअल कनेक्शन की पुष्टि करें या हटाएँ।",
   directoryHelp: "अधिकृत गाँव उपयोगकर्ता और अनुमत सुधार देखें।",
+  activityHelp:
+    "अपने गाँव में क्या बदला, देखें: किसे जोड़ा, बदला या शिकायत की गई।",
   assignedVillage: "सौंपा गया गाँव",
   noAccess: "सक्रिय समन्वयक नियुक्ति आवश्यक है।",
   assignmentPending: "गाँव नियुक्ति लंबित",
@@ -429,7 +439,6 @@ const hi: Record<keyof typeof en, string> = {
   verified: "मोबाइल सत्यापित",
   unverified: "मोबाइल असत्यापित",
   unknown: "दर्ज नहीं",
-  directoryEdit: "संपादित करें",
   roleBuyer: "खरीदार",
   roleSeller: "विक्रेता",
   roleCoordinator: "समन्वयक",

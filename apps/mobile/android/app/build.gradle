@@ -121,6 +121,18 @@ android {
             crunchPngs enablePngCrunchInRelease.toBoolean()
         }
     }
+    // Release APKs come one per phone CPU type, so each phone downloads only
+    // its own native code. Share app-arm64-v8a-release.apk with almost
+    // everyone; app-armeabi-v7a-release.apk is for old 32-bit phones.
+    // App bundles (.aab) for Play ignore this and split automatically.
+    splits {
+        abi {
+            enable gradle.startParameter.taskNames.any { it.toLowerCase().contains("release") }
+            reset()
+            include "armeabi-v7a", "arm64-v8a"
+            universalApk false
+        }
+    }
     packagingOptions {
         jniLibs {
             def enableLegacyPackaging = findProperty('expo.useLegacyPackaging') ?: 'false'

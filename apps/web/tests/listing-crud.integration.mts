@@ -397,10 +397,12 @@ try {
     ),
     out,
   );
-  await check(
+  // Ended listings stay viewable, marked as unavailable.
+  const ended = await check(
     await detail.GET(request(`/listings/${created.id}`), ctx(created.id)),
-    404,
+    200,
   );
+  assert.equal(ended.availability, "sold_out");
   await check(
     await detail.PATCH(
       request(
@@ -594,6 +596,52 @@ try {
       .total,
     1,
   );
+  // An expired listing can still be edited; it stays expired until a future
+  // expiry is set.
+  const editedExpired = await check(
+    await detail.PATCH(
+      request(
+        `/listings/${milk.id}`,
+        "PATCH",
+        { version: 1, description: "Edited after it ended" },
+        "edit-expired",
+      ),
+      ctx(milk.id),
+    ),
+    200,
+  );
+  assert.equal(editedExpired.description, "Edited after it ended");
+  assert.equal(editedExpired.status, "expired");
+  await check(
+    await detail.PATCH(
+      request(
+        `/listings/${milk.id}`,
+        "PATCH",
+        { version: 2, expiresAt: new Date(0).toISOString() },
+        "edit-expired-past",
+      ),
+      ctx(milk.id),
+    ),
+    422,
+    "EXPIRY_INVALID",
+  );
+  const renewed = await check(
+    await detail.PATCH(
+      request(
+        `/listings/${milk.id}`,
+        "PATCH",
+        { version: 2, expiresAt },
+        "edit-expired-renew",
+      ),
+      ctx(milk.id),
+    ),
+    200,
+  );
+  assert.equal(renewed.status, "active");
+  await Listing.updateOne(
+    { _id: milk.id },
+    { $set: { expiresAt: new Date(0) } },
+  );
   await User.updateOne(
     { _id: buyer._id },
     { $set: { village: otherVillage._id } },
@@ -603,7 +651,7 @@ try {
       request(
         `/listings/${milk.id}/relist`,
         "POST",
-        { version: 1, quantity: 20, expiresAt: null },
+        { version: 3, quantity: 20, expiresAt: null },
         "old-village-key",
       ),
       ctx(milk.id),

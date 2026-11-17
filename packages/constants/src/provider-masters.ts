@@ -5,6 +5,12 @@ export enum ProviderType {
   MEDICAL_FACILITY = "MEDICAL_FACILITY",
   TRANSPORT_DRIVER = "TRANSPORT_DRIVER",
   OTHER_SERVICE = "OTHER_SERVICE",
+  // The "Other Services" second-level list of the registration flow.
+  PUBLIC_INSTITUTION = "PUBLIC_INSTITUTION",
+  COMMUNITY_ORGANISATION = "COMMUNITY_ORGANISATION",
+  SOCIAL_HELPER = "SOCIAL_HELPER",
+  EMERGENCY_ASSISTANCE = "EMERGENCY_ASSISTANCE",
+  POLITICAL_OFFICE = "POLITICAL_OFFICE",
 }
 
 export const PROVIDER_MASTER_GROUPS = {
@@ -14,6 +20,11 @@ export const PROVIDER_MASTER_GROUPS = {
   MEDICAL_FACILITY: ["FACILITY_TYPE"],
   TRANSPORT_DRIVER: ["TRANSPORT_TYPE", "VEHICLE_TYPE"],
   OTHER_SERVICE: ["OTHER_SERVICE_CATEGORY"],
+  PUBLIC_INSTITUTION: ["INSTITUTION_TYPE"],
+  COMMUNITY_ORGANISATION: ["ORGANISATION_TYPE"],
+  SOCIAL_HELPER: ["HELPER_CATEGORY"],
+  EMERGENCY_ASSISTANCE: ["ASSISTANCE_CATEGORY"],
+  POLITICAL_OFFICE: ["OFFICE_TYPE"],
 } as const;
 export const PROVIDER_MASTER_TYPES = [
   "SHOP_TYPE",
@@ -24,6 +35,11 @@ export const PROVIDER_MASTER_TYPES = [
   "TRANSPORT_TYPE",
   "VEHICLE_TYPE",
   "OTHER_SERVICE_CATEGORY",
+  "INSTITUTION_TYPE",
+  "ORGANISATION_TYPE",
+  "HELPER_CATEGORY",
+  "ASSISTANCE_CATEGORY",
+  "OFFICE_TYPE",
 ] as const;
 export type ProviderMasterType = (typeof PROVIDER_MASTER_TYPES)[number];
 export const PROVIDER_TYPE_LABELS = {
@@ -53,6 +69,31 @@ export const PROVIDER_TYPE_LABELS = {
     hi: "परिवहन / चालक",
   },
   OTHER_SERVICE: { en: "Other Service", mr: "इतर सेवा", hi: "अन्य सेवा" },
+  PUBLIC_INSTITUTION: {
+    en: "Government / Public Institution",
+    mr: "शासकीय / सार्वजनिक संस्था",
+    hi: "सरकारी / सार्वजनिक संस्था",
+  },
+  COMMUNITY_ORGANISATION: {
+    en: "Community Organisation / NGO",
+    mr: "सामाजिक संस्था / एनजीओ",
+    hi: "सामुदायिक संगठन / एनजीओ",
+  },
+  SOCIAL_HELPER: {
+    en: "Social Worker / Community Helper",
+    mr: "समाजसेवक / सामुदायिक मदतनीस",
+    hi: "समाजसेवी / सामुदायिक सहायक",
+  },
+  EMERGENCY_ASSISTANCE: {
+    en: "Emergency / Special Assistance",
+    mr: "आपत्कालीन / विशेष मदत",
+    hi: "आपातकालीन / विशेष सहायता",
+  },
+  POLITICAL_OFFICE: {
+    en: "Political Party Office",
+    mr: "राजकीय पक्ष कार्यालय",
+    hi: "राजनीतिक दल कार्यालय",
+  },
 } as const;
 export const PROVIDER_MASTER_LABELS: Record<ProviderMasterType, string> = {
   SHOP_TYPE: "Shop Types",
@@ -63,4 +104,9 @@ export const PROVIDER_MASTER_LABELS: Record<ProviderMasterType, string> = {
   TRANSPORT_TYPE: "Transport Types",
   VEHICLE_TYPE: "Vehicle Types",
   OTHER_SERVICE_CATEGORY: "Other Service Categories",
+  INSTITUTION_TYPE: "Institution Types",
+  ORGANISATION_TYPE: "Organisation Types",
+  HELPER_CATEGORY: "Helper Categories",
+  ASSISTANCE_CATEGORY: "Assistance Categories",
+  OFFICE_TYPE: "Party Office Types",
 };

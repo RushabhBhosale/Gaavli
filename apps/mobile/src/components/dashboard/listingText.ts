@@ -23,9 +23,12 @@ export function listingUnit(unit: string | null, language: MobileLanguage) {
 export function listingRate(listing: HomeListing, language: MobileLanguage) {
   const t = messages(language);
   const unit = listingUnit(listing.unit, language);
-  return listing.price === null
-    ? t.rateNotProvided
-    : `₹${listing.price}${unit ? ` / ${unit}` : ""}`;
+  if (listing.price === null) return t.rateNotProvided;
+  // Several sellers of this product: show the whole range, not just one price.
+  const low = listing.minPrice ?? listing.price;
+  const high = listing.maxPrice ?? listing.price;
+  const ranged = (listing.offerCount ?? 1) > 1 && high > low;
+  return `₹${ranged ? `${low}–${high}` : listing.price}${unit ? ` / ${unit}` : ""}`;
 }
 export function listingPosted(
   listing: Pick<HomeListing, "postedMinutesAgo">,

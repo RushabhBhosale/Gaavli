@@ -1,0 +1,4 @@
+import LegalScreen from "../screens/LegalScreen";
+export default function Privacy() {
+  return <LegalScreen kind="privacy" />;
+}

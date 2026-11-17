@@ -1,3 +1,12 @@
+## Mapped discovery update — 2026-11-13 (user approved)
+
+Home, Marketplace and their product searches send the selected browsing village
+as `sourceVillageId` without an automatic exact `villageId` filter. The existing
+API includes that village plus directly mapped active villages, with search,
+product counts, availability and pagination applied to the combined scope.
+Confirmed coordinator mutations invalidate the mobile discovery caches.
+See [BROWSING_VILLAGE.md](BROWSING_VILLAGE.md) for the current scope.
+
 # Marketplace availability layout — 2026-10-29
 
 Marketplace reuses its existing header/search/voice/categories and listing card,
@@ -232,7 +241,7 @@ navigation acceptance remain separate from automated checks.
 ## Running locally
 
 Use the existing backend `MONGODB_URI` in `apps/web/.env.local` and mobile
-`EXPO_PUBLIC_API_BASE_URL` in `apps/mobile/.env.local` (including `/api/v1`).
+`https://gaavli.vercel.app/api/v1` in `apps/mobile/.env.local` (including `/api/v1`).
 Keep credentials server-only. Start/restart the backend with `npm run dev:web` and
 mobile with `npm run dev:mobile:go` at the repository root. Select a village that
 actually has eligible database listings. Empty or expired database data produces

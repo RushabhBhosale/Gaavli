@@ -1,3 +1,12 @@
+## Service and transport contact return — 2026-11-13 (user approved)
+
+A guest contact action saves the directory entry ID in session-local app state,
+then offers the existing login and registration flows. Successful auth and any
+required village confirmation return to that entry, preserving the selected
+browsing village. Contact-triggered registration returns directly to the entry
+after required account setup. Switching to a marketplace contact replaces the
+directory target, and logout/direct first-screen login clears pending targets.
+
 ## Direct login vs product-return auth - 2026-10-27 (user approved)
 
 First Village Selection's Already Registered? Login clears previous persisted
