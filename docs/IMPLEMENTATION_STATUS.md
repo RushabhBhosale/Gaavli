@@ -1,3 +1,18 @@
+## 2026-11-17 - Same-name village startup correction
+
+- Removed global uniqueness from `Village.nameEn`: imported villages such as
+  Morbe in Karjat and Panvel retain distinct ObjectIds and references. Mobile
+  database initialization continues to require identity, session and geo indexes.
+  No village records or existing indexes are deleted or changed by this patch.
+- Added an isolated database regression for cold startup with two pre-existing
+  same-name villages, both discovery results, geo search, invalid bearer rejection
+  and retained user identity indexes. This regression and the existing
+  `test:guest-startup` integration check passed using isolated test databases.
+- Web TypeScript, focused ESLint/Prettier, whitespace checks and
+  `npm run build --workspace=@gaavli/web -- --webpack` passed. The standard
+  Turbopack build could not bind its worker port in this execution environment.
+  Production deployment and live endpoint acceptance pending.
+
 ## 2026-11-16 - Shop products: "what do you sell" (in progress)
 
 - Shop / Business profiles gain `details.sells` (product groups) and

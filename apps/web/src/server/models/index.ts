@@ -85,7 +85,8 @@ const adminSchema = new Schema(
 );
 const villageSchema = new Schema(
   {
-    nameEn: { type: String, required: true, unique: true },
+    // Different villages can share a name; references use their ObjectIds.
+    nameEn: { type: String, required: true },
     nameMr: { type: String, required: true },
     taluka: String,
     district: String,

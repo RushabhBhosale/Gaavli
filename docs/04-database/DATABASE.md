@@ -505,6 +505,14 @@ Stores authoritative village information.
 
 # 16. Village Document
 
+Village-name correction (2026-11-17): `nameEn` is required but is not globally
+unique. Distinct villages may share the same name across talukas or districts;
+ObjectIds retain their identity and all existing references. Mobile startup must
+not try to build a unique `nameEn` index over imported villages. Preserve existing
+village-master identity indexes and the location geo index. No village records
+are renamed, merged or deleted by this correction. Removing the schema flag does
+not drop an existing legacy unique index; review that index separately if present.
+
 User-approved revision (2026-10-12): at most one coordinator is assigned per
 village. `villagecoordinators.villageId` is UNIQUE; a coordinator user can be
 assigned to multiple villages. Migration refuses existing multi-coordinator
