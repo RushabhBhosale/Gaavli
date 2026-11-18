@@ -111,6 +111,8 @@ export const pushDeviceInputSchema = z
   })
   .strict();
 export const pushDeviceStatusSchema = z.object({ enabled: z.boolean() }).strict();
+export const whatsAppTestStatusSchema = z.object({ available: z.boolean() }).strict();
+export const whatsAppTestResultSchema = z.object({ status: z.literal("accepted") }).strict();
 export const PUSH_TEST_DELAY_SECONDS = 5;
 export const pushTestInputSchema = pushDeviceInputSchema
   .pick({ token: true })

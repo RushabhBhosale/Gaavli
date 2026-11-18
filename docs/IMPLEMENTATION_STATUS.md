@@ -1,3 +1,16 @@
+## 2026-11-17 - WATI WhatsApp template test
+
+- The configured tester can request one WhatsApp message from mobile Settings.
+  The API uses the account's verified number and the configured approved
+  template. Credentials and recipient selection stay on the server.
+- The notification integration suite passed with mocked WATI, including
+  recipient enforcement, accepted and rejected sends, and unknown outcomes.
+  Mobile and web typechecks, focused ESLint, and both Android release APK
+  builds and signature checks passed.
+- The WATI workspace still needs a WhatsApp Business sender, an approved
+  template and backend credentials. Live delivery is pending. See
+  [WhatsApp test setup](03-api/WHATSAPP_TEST.md).
+
 ## 2026-11-17 - Firebase push for buyer requests
 
 - Android and iOS use the approved `com.peractoinfotech.gaavli` application ID

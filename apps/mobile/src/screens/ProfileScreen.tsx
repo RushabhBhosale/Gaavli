@@ -19,6 +19,7 @@ import { Button, ErrorMessage } from "../components/ui";
 import { DashboardScreen } from "../components/dashboard/primitives";
 import { AppHeader } from "../components/AppHeader";
 import { usePushDeviceSettings } from "../pushNotifications";
+import { useWhatsAppTest } from "../data/whatsAppTest";
 
 export default function ProfileScreen() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function ProfileScreen() {
   const { session, language, offline, browsingVillage } = useAppStore();
   const t = messages(language);
   const push = usePushDeviceSettings();
+  const whatsApp = useWhatsAppTest();
   const [busy, setBusy] = useState<"language" | "logout" | null>(null);
   const [failure, setFailure] = useState<string | null>(null);
   const submitting = useRef(false);
@@ -366,6 +368,23 @@ export default function ProfileScreen() {
               onPress={() => push.test.mutate()}
             />
           )}
+          {whatsApp.status.data?.available && (
+            <SettingRow
+              icon="logo-whatsapp"
+              title={t.whatsAppTest}
+              subtitle={
+                whatsApp.send.isPending
+                  ? t.whatsAppTestSending
+                  : whatsApp.send.isError
+                    ? errorMessage(whatsApp.send.error, language)
+                    : whatsApp.send.isSuccess
+                      ? t.whatsAppTestAccepted
+                      : t.whatsAppTestDescription
+              }
+              disabled={offline || !!busy || whatsApp.send.isPending}
+              onPress={() => whatsApp.send.mutate()}
+            />
+          )}
           <View style={s.row}>
             <SettingsIcon name="notifications-outline" />
             <View style={s.rowInfo}>
@@ -401,7 +420,8 @@ export default function ProfileScreen() {
           offline ||
           busy === "language" ||
           push.change.isPending ||
-          push.test.isPending
+          push.test.isPending ||
+          whatsApp.send.isPending
         }
         onPress={() => void signOut()}
       >

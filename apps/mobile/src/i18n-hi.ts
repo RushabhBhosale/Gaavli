@@ -381,6 +381,13 @@ export const hi: Messages = {
   pushTestServerSetup: "सर्वर पर Firebase सेवा खाते की सेटिंग जाँचें।",
   pushTestDeviceUnavailable: "खरीदार अनुरोध की सूचनाएँ बंद करके फिर चालू करें और दोबारा कोशिश करें।",
   pushTestFailed: "Firebase परीक्षण सूचना नहीं भेज सका।",
+  whatsAppTest: "WhatsApp परीक्षण भेजें",
+  whatsAppTestDescription: "अपने पंजीकृत नंबर पर एक परीक्षण संदेश भेजें।",
+  whatsAppTestSending: "परीक्षण भेज रहे हैं…",
+  whatsAppTestAccepted: "WATI ने परीक्षण स्वीकार किया। संदेश के लिए WhatsApp देखें।",
+  whatsAppTestUnavailable: "WhatsApp परीक्षण उपलब्ध नहीं है। WATI सेटअप जाँचें।",
+  whatsAppTestRejected: "WATI ने परीक्षण अस्वीकार किया। मंज़ूर टेम्पलेट और भेजने वाला नंबर जाँचें।",
+  whatsAppTestUnknown: "दोबारा कोशिश करने से पहले WhatsApp में परीक्षण संदेश देखें।",
   settingsUnavailable: "अभी उपलब्ध नहीं",
   sellerConfirmTitle: "क्या आप विक्रेता बनना चाहेंगे?",
   sellerConfirmDescription:

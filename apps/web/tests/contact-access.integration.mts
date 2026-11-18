@@ -44,6 +44,8 @@ const { GET: pushStatus, PUT: enablePush, DELETE: disablePush, PATCH: refreshPus
   await import("../src/app/api/v1/notifications/push-device/route");
 const { POST: testPush } =
   await import("../src/app/api/v1/notifications/push-device/test/route");
+const { GET: whatsAppStatus, POST: whatsAppTest } =
+  await import("../src/app/api/v1/notifications/whatsapp-test/route");
 const { PushDevice } = await import("../src/server/models/push-device");
 const { POST: logout } = await import("../src/app/api/v1/auth/logout/route");
 const { visibleSellerContact } =
@@ -95,6 +97,7 @@ try {
     {
       name: "Seller",
       mobile: "9000000002",
+      mobileVerified: true,
       village: browsing._id,
       roles: ["buyer", "seller"],
     },
@@ -102,6 +105,84 @@ try {
   ]);
   const buyerToken = await tokenFor(buyer._id);
   const sellerToken = await tokenFor(seller._id);
+  Object.assign(process.env, {
+    WATI_API_HOST: "https://live-mt-server.wati.io",
+    WATI_API_TOKEN: "mock-wati-token",
+    WATI_TEST_TEMPLATE: "gaavli_notification_test",
+    WATI_TEST_RECIPIENT: "+919000000002",
+  });
+  const whatsAppPath = "notifications/whatsapp-test";
+  const sendWhatsApp = (token: string | null, body: unknown = {}) =>
+    whatsAppTest(request(whatsAppPath, token, "POST", body));
+  let watiCalls = 0;
+  let watiOutcome: "accepted" | "rejected" | "unknown" = "accepted";
+  globalThis.fetch = async (url, init) => {
+    assert.equal(
+      String(url),
+      "https://live-mt-server.wati.io/api/ext/v3/messageTemplates/send",
+    );
+    assert.equal(
+      new Headers(init?.headers).get("Authorization"),
+      "Bearer mock-wati-token",
+    );
+    const message = JSON.parse(String(init?.body));
+    assert.equal(message.template_name, "gaavli_notification_test");
+    assert.deepEqual(message.recipients, [
+      {
+        phone_number: "919000000002",
+        local_message_id: message.recipients[0].local_message_id,
+      },
+    ]);
+    watiCalls++;
+    return Response.json({
+      success: true,
+      recipients:
+        watiOutcome === "unknown"
+          ? []
+          : [
+              {
+                local_message_id: message.recipients[0].local_message_id,
+                errors:
+                  watiOutcome === "rejected" ? ["Template could not send"] : [],
+              },
+            ],
+    });
+  };
+  assert.equal((await sendWhatsApp(null)).status, 401);
+  assert.equal((await sendWhatsApp(buyerToken)).status, 404);
+  assert.equal(
+    (await sendWhatsApp(sellerToken, { to: "9000000001" })).status,
+    422,
+  );
+  assert.equal(watiCalls, 0);
+  assert.deepEqual(
+    (await (await whatsAppStatus(request(whatsAppPath, buyerToken))).json())
+      .data,
+    { available: false },
+  );
+  assert.deepEqual(
+    (await (await whatsAppStatus(request(whatsAppPath, sellerToken))).json())
+      .data,
+    { available: true },
+  );
+  const acceptedTest = await sendWhatsApp(sellerToken);
+  assert.equal(acceptedTest.status, 202);
+  assert.deepEqual((await acceptedTest.json()).data, { status: "accepted" });
+  for (const [outcome, code] of [
+    ["rejected", "WATI_REJECTED"],
+    ["unknown", "WATI_OUTCOME_UNKNOWN"],
+  ] as const) {
+    watiOutcome = outcome;
+    const failure = await sendWhatsApp(sellerToken);
+    assert.equal(failure.status, 502);
+    assert.equal((await failure.json()).error.code, code);
+  }
+  assert.equal(watiCalls, 3);
+  globalThis.fetch = originalFetch;
+  console.log(
+    "PASS: WhatsApp test eligibility, single recipient, vendor acceptance, rejection and unknown outcome.",
+  );
+
   const invalidDeviceSession = await tokenFor(seller._id);
   const revokedRefreshToken = randomBytes(32).toString("hex");
   const revokedSession = await tokenFor(seller._id, revokedRefreshToken);
