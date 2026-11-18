@@ -586,7 +586,8 @@ const listingFields = {
     .optional(),
   categoryId: listingIdSchema,
   productGroup: productGroupSchema.nullable().optional(),
-  quantity: quantitySchema,
+  // Optional since 2026-11-18: only the name and shelf life are required.
+  quantity: quantitySchema.nullable().optional(),
   unit: z
     .string()
     .trim()
@@ -613,6 +614,7 @@ export const createListingSchema = z
   .refine(
     (value) =>
       value.minimumPurchaseQuantity == null ||
+      value.quantity == null ||
       value.minimumPurchaseQuantity <= value.quantity,
     {
       message: "Minimum purchase must not exceed availability.",
@@ -632,7 +634,7 @@ export const listingVersionSchema = z
   .strict();
 export const relistListingSchema = listingVersionSchema
   .extend({
-    quantity: quantitySchema,
+    quantity: quantitySchema.nullable().optional(),
     expiresAt: z.string().datetime().nullable(),
   })
   .strict();

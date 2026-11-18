@@ -5,6 +5,7 @@ import {
   PRACTICE_MODES,
   PROVIDER_KINDS,
   ProviderType,
+  SHOP_TYPE_PRODUCT_GROUPS,
   isDoctorType,
 } from "@gaavli/constants";
 import type { MobileVillage } from "@gaavli/types";
@@ -55,7 +56,8 @@ type Practice = { mode: string; facilityId?: string; facilityName?: string };
 export default function ProviderFormScreen() {
   const router = useRouter();
   const client = useQueryClient();
-  const params = useLocalSearchParams<{ type?: string }>();
+  // `code`: the subcategory picked on the category screen.
+  const params = useLocalSearchParams<{ type?: string; code?: string }>();
   const type = Object.values(ProviderType).find(
     (value) => value === params.type,
   );
@@ -69,15 +71,26 @@ export default function ProviderFormScreen() {
   const [pickedVillage, setVillage] = useState<MobileVillage | null>(null);
   const village = pickedVillage ?? session?.user.village ?? null;
   const [address, setAddress] = useState("");
-  const [description, setDescription] = useState("");
   const [images, setImages] = useState<ProviderImage[]>([]);
   const [edited, setContacts] = useState<ContactDraft[] | null>(null);
   // The account's verified primary number leads the list.
   const contacts =
     edited ?? (account.data ? draftsFromServer(account.data.contacts) : null);
-  const [details, setDetails] = useState<Details>(() =>
-    type ? emptyDetails(type) : {},
-  );
+  const [details, setDetails] = useState<Details>(() => {
+    if (!type) return {};
+    const empty = emptyDetails(type);
+    const kind = PROVIDER_KINDS[type];
+    const code = params.code;
+    if (!code || !/^[A-Z][A-Z0-9_]{0,79}$/.test(code)) return empty;
+    // A shop type pre-ticks what such shops usually sell.
+    const groupsKey = kind.fields.find((f) => f.kind === "groups")?.key;
+    const suggested = SHOP_TYPE_PRODUCT_GROUPS[code];
+    return {
+      ...empty,
+      [kind.categoryKey]: code,
+      ...(groupsKey && suggested?.length ? { [groupsKey]: [...suggested] } : {}),
+    };
+  });
   const [practice, setPractice] = useState<Practice>({ mode: "own_clinic" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showErrors, setShowErrors] = useState(false);
@@ -154,7 +167,6 @@ export default function ProviderFormScreen() {
         name: name.trim(),
         villageId: village.id,
         ...(address.trim() ? { address: address.trim() } : {}),
-        ...(description.trim() ? { description: description.trim() } : {}),
         contacts: contactsPayload(activeContacts(list)),
         ...(images.length ? { images: images.map((image) => image.key) } : {}),
         details: cleaned,
@@ -237,15 +249,6 @@ export default function ProviderFormScreen() {
             disabled={busy}
           />
           {!!errors.contacts && <ErrorMessage message={errors.contacts} />}
-          <Input
-            label={t.provDescription}
-            value={description}
-            onChangeText={setDescription}
-            multiline
-            maxLength={1500}
-            editable={!busy}
-            style={{ minHeight: 96, textAlignVertical: "top" }}
-          />
           <ProviderImagesField
             images={images}
             onChange={setImages}

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { LISTING_PRODUCT_GROUPS } from "@gaavli/constants";
 export const objectId = z.string().regex(/^[a-f\d]{24}$/i, "Invalid ID");
 export const statusSchema = z.enum(["active", "blocked", "pending"]);
 export const loginSchema = z
@@ -203,4 +204,34 @@ export const villageStatusSchema = z
 export type VillageInput = z.infer<typeof createVillageSchema>;
 export const deleteVillageSchema = z
   .object({ version: z.number().int().nonnegative() })
+  .strict();
+
+// Admin Product Catalogue (Product Master): browse, edit, activate/deactivate.
+export const adminProductsQuerySchema = z
+  .object({
+    search: z.string().trim().max(100).default(""),
+    status: z.enum(["all", "ACTIVE", "INACTIVE"]).default("all"),
+    group: z.enum(["all", ...LISTING_PRODUCT_GROUPS]).default("all"),
+    page: z.coerce.number().int().min(1).max(10000).default(1),
+    limit: z.coerce.number().int().min(1).max(100).default(20),
+  })
+  .strict();
+const productNameField = z
+  .string()
+  .trim()
+  .min(1, "Name is required.")
+  .max(120)
+  .regex(/^[^\p{Cc}\p{Cf}]+$/u, "Remove hidden characters.");
+export const adminProductUpdateSchema = z
+  .object({
+    nameEn: productNameField,
+    nameMr: productNameField,
+    nameHi: productNameField.nullable().optional(),
+    productGroup: z.enum(LISTING_PRODUCT_GROUPS),
+    defaultUnit: z.string().trim().min(1, "Unit is required.").max(30),
+    status: z.enum(["ACTIVE", "INACTIVE"]),
+  })
+  .strict();
+export const adminProductStatusSchema = z
+  .object({ status: z.enum(["ACTIVE", "INACTIVE"]) })
   .strict();

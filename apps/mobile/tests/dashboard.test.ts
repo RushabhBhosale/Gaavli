@@ -733,7 +733,6 @@ test("listing form validates buyer fields, Marathi numbers, minimums, expiry and
     { name: "" },
     { quantity: "0" },
     { quantity: "1e2" },
-    { price: "" },
     { price: "-1" },
     { minimum: "41" },
     { days: "0" },
@@ -747,6 +746,15 @@ test("listing form validates buyer fields, Marathi numbers, minimums, expiry and
         prepareListing({ ...form, ...invalid }, villageId, "mr", "PERISHABLE"),
       ListingFormError,
     );
+  // Only the name and shelf life are required (2026-11-18).
+  const bare = prepareListing(
+    { ...form, quantity: "", price: "", minimum: "" },
+    villageId,
+    "mr",
+    "PERISHABLE",
+  );
+  assert.equal(bare.quantity, null);
+  assert.equal(bare.price, null);
   const recurring = prepareListing(
     {
       ...form,

@@ -1,0 +1,256 @@
+import { ProviderType, type ProviderMasterType } from "./provider-masters";
+
+// The 15 Services categories (user approved 2026-11-18). Each subcategory is a
+// provider-master option of one registration kind: picking it decides which
+// form the provider fills in. Codes already in use keep their meaning, so
+// existing profiles stay where they were; new codes are seeded additively.
+// Transport stays its own module and is not one of these.
+type Tri = { en: string; mr: string; hi: string };
+export type ServiceSubcategory = Tri & {
+  code: string;
+  providerType: ProviderType;
+  masterType: ProviderMasterType;
+};
+export type ServiceCategory = Tri & {
+  id: string;
+  icon: string;
+  subcategories: readonly ServiceSubcategory[];
+};
+
+const KIND = {
+  shop: [ProviderType.SHOP_BUSINESS, "SHOP_TYPE"],
+  pro: [ProviderType.PROFESSIONAL_SERVICE, "PROFESSION"],
+  doctor: [ProviderType.HEALTHCARE_PROFESSIONAL, "DOCTOR_SPECIALIZATION"],
+  facility: [ProviderType.MEDICAL_FACILITY, "FACILITY_TYPE"],
+  other: [ProviderType.OTHER_SERVICE, "OTHER_SERVICE_CATEGORY"],
+  office: [ProviderType.PUBLIC_INSTITUTION, "INSTITUTION_TYPE"],
+  org: [ProviderType.COMMUNITY_ORGANISATION, "ORGANISATION_TYPE"],
+  helper: [ProviderType.SOCIAL_HELPER, "HELPER_CATEGORY"],
+  help: [ProviderType.EMERGENCY_ASSISTANCE, "ASSISTANCE_CATEGORY"],
+  party: [ProviderType.POLITICAL_OFFICE, "OFFICE_TYPE"],
+} as const satisfies Record<string, readonly [ProviderType, ProviderMasterType]>;
+type Row = [code: string, kind: keyof typeof KIND, en: string, mr: string, hi: string];
+const sub = ([code, kind, en, mr, hi]: Row): ServiceSubcategory => ({
+  code,
+  providerType: KIND[kind][0],
+  masterType: KIND[kind][1],
+  en,
+  mr,
+  hi,
+});
+const category = (
+  id: string,
+  icon: string,
+  [en, mr, hi]: [string, string, string],
+  rows: Row[],
+): ServiceCategory => ({ id, icon, en, mr, hi, subcategories: rows.map(sub) });
+
+export const SERVICE_CATEGORIES: readonly ServiceCategory[] = [
+  category("shops_business", "storefront-outline", ["Shops & Businesses", "दुकाने व व्यवसाय", "दुकानें और व्यवसाय"], [
+    ["KIRANA_GENERAL_STORE", "shop", "Grocery / Kirana Store", "किराणा दुकान", "किराना दुकान"],
+    ["GENERAL_STORE", "shop", "General Store", "जनरल स्टोअर", "जनरल स्टोर"],
+    ["BAKERY_SWEETS", "shop", "Bakery", "बेकरी", "बेकरी"],
+    ["POULTRY_MEAT", "shop", "Chicken / Meat Shop", "चिकन / मटण दुकान", "चिकन / मीट की दुकान"],
+    ["FISH_SELLER", "shop", "Fish Seller", "मासे विक्रेता", "मछली विक्रेता"],
+    ["DAIRY_MILK_BOOTH", "shop", "Dairy / Milk Centre", "डेअरी / दूध केंद्र", "डेयरी / दूध केंद्र"],
+    ["VEGETABLE_FRUIT_SHOP", "shop", "Fruits & Vegetable Shop", "फळे व भाजीपाला दुकान", "फल और सब्ज़ी की दुकान"],
+    ["HARDWARE", "shop", "Hardware / Building Materials", "हार्डवेअर / बांधकाम साहित्य", "हार्डवेयर / निर्माण सामग्री"],
+    ["MEDICAL_STORE", "shop", "Medical Shop / Pharmacy", "मेडिकल / औषध दुकान", "मेडिकल / दवा की दुकान"],
+    ["STATIONERY", "shop", "Stationery / Book Shop", "स्टेशनरी / पुस्तक दुकान", "स्टेशनरी / किताब की दुकान"],
+    ["CLOTHING_TAILORING_STORE", "shop", "Clothing / Footwear", "कपडे / पादत्राणे", "कपड़े / जूते-चप्पल"],
+    ["ELECTRONICS_MOBILE", "shop", "Mobile / Electronics Shop", "मोबाईल / इलेक्ट्रॉनिक्स दुकान", "मोबाइल / इलेक्ट्रॉनिक्स दुकान"],
+    ["AGRI_INPUTS", "shop", "Agricultural Supplies Shop", "कृषी साहित्य दुकान", "कृषि सामग्री की दुकान"],
+    ["OTHER", "shop", "Other Shop / Business", "इतर दुकान / व्यवसाय", "अन्य दुकान / व्यवसाय"],
+  ]),
+  category("home_professional", "hammer-outline", ["Home & Professional Services", "घरगुती व व्यावसायिक सेवा", "घरेलू और पेशेवर सेवाएँ"], [
+    ["ELECTRICIAN", "pro", "Electrician", "इलेक्ट्रिशियन", "इलेक्ट्रीशियन"],
+    ["PLUMBER", "pro", "Plumber", "प्लंबर", "प्लंबर"],
+    ["CARPENTER", "pro", "Carpenter", "सुतार", "बढ़ई"],
+    ["PAINTER", "pro", "Painter", "पेंटर", "पेंटर"],
+    ["MASON_CONSTRUCTION_WORKER", "pro", "Mason / Construction Worker", "गवंडी / बांधकाम कामगार", "राजमिस्त्री / निर्माण मज़दूर"],
+    ["WELDER", "pro", "Welder / Fabricator", "वेल्डर / फॅब्रिकेटर", "वेल्डर / फैब्रिकेटर"],
+    ["TAILOR", "pro", "Tailor", "शिंपी / टेलर", "दर्ज़ी"],
+    ["BEAUTICIAN", "pro", "Beautician / Salon", "ब्युटीशियन / सलून", "ब्यूटीशियन / सैलून"],
+    ["LAUNDRY_IRONING", "pro", "Laundry / Ironing", "लॉन्ड्री / इस्त्री", "लॉन्ड्री / इस्त्री"],
+    ["HOUSE_CLEANING", "pro", "House Cleaning", "घर स्वच्छता", "घर की सफ़ाई"],
+    ["PEST_CONTROL", "pro", "Pest Control", "कीटक नियंत्रण", "कीट नियंत्रण"],
+    ["GARDENING", "pro", "Gardening / Landscaping", "बागकाम / लँडस्केपिंग", "बागवानी / लैंडस्केपिंग"],
+    ["PROFESSIONAL_CONSULTANT", "pro", "Professional Consultant", "व्यावसायिक सल्लागार", "पेशेवर सलाहकार"],
+    ["OTHER", "pro", "Other Professional Service", "इतर व्यावसायिक सेवा", "अन्य पेशेवर सेवा"],
+  ]),
+  category("healthcare", "medkit-outline", ["Healthcare", "आरोग्य सेवा", "स्वास्थ्य सेवा"], [
+    ["GENERAL_PHYSICIAN", "doctor", "General Physician", "जनरल फिजिशियन", "सामान्य चिकित्सक"],
+    ["SPECIALIST_DOCTOR", "doctor", "Specialist Doctor", "तज्ज्ञ डॉक्टर", "विशेषज्ञ डॉक्टर"],
+    ["DENTIST", "doctor", "Dentist", "दंतवैद्य", "दंत चिकित्सक"],
+    ["PHYSIOTHERAPIST", "doctor", "Physiotherapist", "फिजिओथेरपिस्ट", "फिज़ियोथेरेपिस्ट"],
+    ["NURSE_HOME_NURSING", "doctor", "Nurse / Home Nursing", "परिचारिका / घरगुती शुश्रूषा", "नर्स / घर पर नर्सिंग"],
+    ["VETERINARY_DOCTOR", "doctor", "Veterinary Doctor", "पशुवैद्य", "पशु चिकित्सक"],
+    ["CLINIC", "facility", "Clinic", "दवाखाना", "क्लिनिक"],
+    ["HOSPITAL", "facility", "Hospital", "रुग्णालय", "अस्पताल"],
+    ["DIAGNOSTIC_LAB", "facility", "Diagnostic Centre / Laboratory", "निदान केंद्र / प्रयोगशाळा", "जाँच केंद्र / प्रयोगशाला"],
+    ["MEDICAL_SHOP", "facility", "Pharmacy", "औषध दुकान", "फ़ार्मेसी"],
+    ["MEDICAL_EQUIPMENT", "facility", "Medical Equipment / Supplies", "वैद्यकीय उपकरणे / साहित्य", "चिकित्सा उपकरण / सामग्री"],
+    ["AMBULANCE_SERVICE", "facility", "Ambulance Service", "रुग्णवाहिका सेवा", "एम्बुलेंस सेवा"],
+    ["OTHER", "facility", "Other Healthcare Service", "इतर आरोग्य सेवा", "अन्य स्वास्थ्य सेवा"],
+  ]),
+  category("finance", "cash-outline", ["Banks & Financial Services", "बँका व आर्थिक सेवा", "बैंक और वित्तीय सेवाएँ"], [
+    ["PUBLIC_SECTOR_BANK", "office", "Public Sector Bank", "सार्वजनिक क्षेत्रातील बँक", "सार्वजनिक क्षेत्र का बैंक"],
+    ["PRIVATE_BANK", "office", "Private Bank", "खाजगी बँक", "निजी बैंक"],
+    ["COOPERATIVE_BANK", "office", "Cooperative Bank", "सहकारी बँक", "सहकारी बैंक"],
+    ["SMALL_FINANCE_BANK", "office", "Small Finance Bank", "स्मॉल फायनान्स बँक", "स्मॉल फ़ाइनेंस बैंक"],
+    ["CREDIT_SOCIETY", "office", "Credit Society", "पतसंस्था", "क्रेडिट सोसाइटी"],
+    ["ATM", "office", "ATM", "एटीएम", "एटीएम"],
+    ["BANKING_SERVICE_POINT", "office", "Banking Service Point / CSP", "बँकिंग सेवा केंद्र / CSP", "बैंकिंग सेवा केंद्र / CSP"],
+    ["INSURANCE_SERVICE", "pro", "Insurance Service", "विमा सेवा", "बीमा सेवा"],
+    ["LOAN_FINANCIAL_CONSULTANT", "pro", "Loan / Financial Consultant", "कर्ज / आर्थिक सल्लागार", "ऋण / वित्तीय सलाहकार"],
+    ["OTHER_FINANCIAL_SERVICE", "pro", "Other Financial Service", "इतर आर्थिक सेवा", "अन्य वित्तीय सेवा"],
+  ]),
+  category("government", "business-outline", ["Government & Public Offices", "शासकीय व सार्वजनिक कार्यालये", "सरकारी और सार्वजनिक कार्यालय"], [
+    ["GRAM_PANCHAYAT", "office", "Gram Panchayat", "ग्रामपंचायत", "ग्राम पंचायत"],
+    ["TALATHI_OFFICE", "office", "Talathi Office", "तलाठी कार्यालय", "तलाठी कार्यालय"],
+    ["TEHSIL_OFFICE", "office", "Tehsil / Tahsil Office", "तहसील कार्यालय", "तहसील कार्यालय"],
+    ["PANCHAYAT_SAMITI", "office", "Panchayat Samiti", "पंचायत समिती", "पंचायत समिति"],
+    ["ZILLA_PARISHAD_OFFICE", "office", "Zilla Parishad Office", "जिल्हा परिषद कार्यालय", "ज़िला परिषद कार्यालय"],
+    ["POST_OFFICE", "office", "Post Office", "पोस्ट ऑफिस", "डाकघर"],
+    ["POLICE_STATION", "office", "Police Station / Police Chowki", "पोलीस ठाणे / पोलीस चौकी", "पुलिस थाना / पुलिस चौकी"],
+    ["RATION_OFFICE", "office", "Ration Office / Fair Price Shop", "रेशन कार्यालय / स्वस्त धान्य दुकान", "राशन कार्यालय / उचित मूल्य दुकान"],
+    ["AGRICULTURE_DEPT_OFFICE", "office", "Agriculture Department Office", "कृषी विभाग कार्यालय", "कृषि विभाग कार्यालय"],
+    ["FOREST_DEPT_OFFICE", "office", "Forest Department Office", "वन विभाग कार्यालय", "वन विभाग कार्यालय"],
+    ["ELECTRICITY_OFFICE", "office", "Electricity Board Office", "वीज वितरण कार्यालय", "बिजली विभाग कार्यालय"],
+    ["WATER_SUPPLY_OFFICE", "office", "Water Supply Office", "पाणीपुरवठा कार्यालय", "जल आपूर्ति कार्यालय"],
+    ["OTHER", "office", "Other Government Office", "इतर शासकीय कार्यालय", "अन्य सरकारी कार्यालय"],
+  ]),
+  category("education", "school-outline", ["Education & Training", "शिक्षण व प्रशिक्षण", "शिक्षा और प्रशिक्षण"], [
+    ["ANGANWADI", "office", "Anganwadi / Nursery", "अंगणवाडी / बालवाडी", "आंगनवाड़ी / नर्सरी"],
+    ["PRIMARY_SCHOOL", "office", "Primary School", "प्राथमिक शाळा", "प्राथमिक विद्यालय"],
+    ["SECONDARY_SCHOOL", "office", "Secondary / Higher Secondary School", "माध्यमिक / उच्च माध्यमिक शाळा", "माध्यमिक / उच्च माध्यमिक विद्यालय"],
+    ["COLLEGE", "office", "College", "महाविद्यालय", "महाविद्यालय"],
+    ["TUITION_CLASSES", "other", "Tuition Classes", "शिकवणी वर्ग", "ट्यूशन कक्षाएँ"],
+    ["COMPETITIVE_EXAM_COACHING", "other", "Competitive Exam Coaching", "स्पर्धा परीक्षा मार्गदर्शन", "प्रतियोगी परीक्षा कोचिंग"],
+    ["COMPUTER_CLASSES", "other", "Computer Classes", "संगणक वर्ग", "कंप्यूटर कक्षाएँ"],
+    ["VOCATIONAL_TRAINING", "other", "Vocational / Skill Training", "व्यावसायिक / कौशल्य प्रशिक्षण", "व्यावसायिक / कौशल प्रशिक्षण"],
+    ["MUSIC_DANCE_CLASSES", "other", "Music / Dance Classes", "संगीत / नृत्य वर्ग", "संगीत / नृत्य कक्षाएँ"],
+    ["SPORTS_COACHING", "other", "Sports Coaching", "क्रीडा प्रशिक्षण", "खेल प्रशिक्षण"],
+    ["OTHER_EDUCATION", "other", "Other Education Service", "इतर शिक्षण सेवा", "अन्य शिक्षा सेवा"],
+  ]),
+  category("agriculture", "leaf-outline", ["Agriculture & Animal Husbandry", "शेती व पशुपालन", "कृषि और पशुपालन"], [
+    ["AGRI_CONSULTANT", "other", "Agriculture Consultant", "कृषी सल्लागार", "कृषि सलाहकार"],
+    ["CROP_PROTECTION", "other", "Crop / Plant Protection Services", "पीक संरक्षण सेवा", "फ़सल / पौध संरक्षण सेवा"],
+    ["SEEDS_FERTILIZER_SERVICE", "other", "Seeds & Fertilizer Services", "बियाणे व खत सेवा", "बीज और खाद सेवा"],
+    ["FARM_EQUIPMENT_RENTAL", "other", "Farm Machinery Rental / Service", "शेती यंत्रे भाड्याने / सेवा", "कृषि मशीनरी किराया / सेवा"],
+    ["SOIL_TESTING", "other", "Soil Testing", "माती परीक्षण", "मिट्टी परीक्षण"],
+    ["POULTRY_FARM", "other", "Poultry Farm", "कुक्कुटपालन", "पोल्ट्री फ़ार्म"],
+    ["DAIRY_FARM", "other", "Dairy Farm", "दुग्ध व्यवसाय / डेअरी फार्म", "डेयरी फ़ार्म"],
+    ["GOAT_SHEEP_FARM", "other", "Goat / Sheep Farm", "शेळी / मेंढी पालन", "बकरी / भेड़ फ़ार्म"],
+    ["CATTLE_FARM", "other", "Cattle / Livestock Farm", "गुरे / पशुधन पालन", "मवेशी / पशुधन फ़ार्म"],
+    ["VETERINARY_SERVICE", "other", "Veterinary Service", "पशुवैद्यकीय सेवा", "पशु चिकित्सा सेवा"],
+    ["ANIMAL_FEED_SUPPLIER", "other", "Animal Feed Supplier", "पशुखाद्य पुरवठादार", "पशु आहार आपूर्तिकर्ता"],
+    ["FISHERIES", "other", "Fisheries / Fish Farming", "मत्स्यपालन", "मत्स्य पालन"],
+    ["OTHER_AGRICULTURE", "other", "Other Agriculture Service", "इतर शेती सेवा", "अन्य कृषि सेवा"],
+  ]),
+  category("repair_maintenance", "construct-outline", ["Repair & Maintenance", "दुरुस्ती व देखभाल", "मरम्मत और रखरखाव"], [
+    ["TWO_WHEELER_MECHANIC", "pro", "Two-Wheeler Mechanic", "दुचाकी मेकॅनिक", "दोपहिया मैकेनिक"],
+    ["CAR_JEEP_MECHANIC", "pro", "Car / Jeep Mechanic", "कार / जीप मेकॅनिक", "कार / जीप मैकेनिक"],
+    ["TRACTOR_MECHANIC", "pro", "Tractor Mechanic", "ट्रॅक्टर मेकॅनिक", "ट्रैक्टर मैकेनिक"],
+    ["BICYCLE_REPAIR", "pro", "Bicycle Repair", "सायकल दुरुस्ती", "साइकिल मरम्मत"],
+    ["MOBILE_REPAIR", "pro", "Mobile Phone Repair", "मोबाईल दुरुस्ती", "मोबाइल मरम्मत"],
+    ["COMPUTER_LAPTOP_REPAIR", "pro", "Computer / Laptop Repair", "संगणक / लॅपटॉप दुरुस्ती", "कंप्यूटर / लैपटॉप मरम्मत"],
+    ["TV_ELECTRONICS_REPAIR", "pro", "TV / Electronics Repair", "टीव्ही / इलेक्ट्रॉनिक्स दुरुस्ती", "टीवी / इलेक्ट्रॉनिक्स मरम्मत"],
+    ["AC_FRIDGE_REPAIR", "pro", "AC / Refrigerator Repair", "एसी / फ्रीज दुरुस्ती", "एसी / फ्रिज मरम्मत"],
+    ["HOME_APPLIANCE_REPAIR", "pro", "Home Appliance Repair", "घरगुती उपकरण दुरुस्ती", "घरेलू उपकरण मरम्मत"],
+    ["ELECTRICAL_EQUIPMENT_REPAIR", "pro", "Electrical Equipment Repair", "विद्युत उपकरण दुरुस्ती", "विद्युत उपकरण मरम्मत"],
+    ["PUMP_MOTOR_REPAIR", "pro", "Pump / Motor Repair", "पंप / मोटर दुरुस्ती", "पंप / मोटर मरम्मत"],
+    ["OTHER_REPAIR", "pro", "Other Repair Service", "इतर दुरुस्ती सेवा", "अन्य मरम्मत सेवा"],
+  ]),
+  category("events_catering", "restaurant-outline", ["Events & Catering", "कार्यक्रम व केटरिंग", "कार्यक्रम और कैटरिंग"], [
+    ["CATERING_SERVICE", "other", "Catering Service", "केटरिंग सेवा", "कैटरिंग सेवा"],
+    ["COOK_HALWAI", "other", "Cook / Halwai", "आचारी / हलवाई", "रसोइया / हलवाई"],
+    ["WEDDING_PLANNER", "other", "Wedding Planner", "लग्न नियोजक", "वेडिंग प्लानर"],
+    ["EVENT_MANAGEMENT", "other", "Event Management", "इव्हेंट व्यवस्थापन", "इवेंट मैनेजमेंट"],
+    ["WEDDING_DECORATION", "other", "Wedding Decoration", "लग्न सजावट", "शादी की सजावट"],
+    ["PARTY_DECORATION", "other", "Birthday / Party Decoration", "वाढदिवस / पार्टी सजावट", "जन्मदिन / पार्टी सजावट"],
+    ["STAGE_MANDAP_DECORATION", "other", "Stage / Mandap Decoration", "स्टेज / मंडप सजावट", "स्टेज / मंडप सजावट"],
+    ["PHOTOGRAPHER", "pro", "Photographer", "फोटोग्राफर", "फ़ोटोग्राफ़र"],
+    ["VIDEOGRAPHER", "pro", "Videographer", "व्हिडिओग्राफर", "वीडियोग्राफ़र"],
+    ["DJ_SOUND_SYSTEM", "other", "DJ / Sound System", "डीजे / साउंड सिस्टिम", "डीजे / साउंड सिस्टम"],
+    ["LIGHTING_SERVICE", "other", "Lighting Service", "लायटिंग सेवा", "लाइटिंग सेवा"],
+    ["TENT_FURNITURE_RENTAL", "other", "Tent / Furniture Rental", "मंडप / फर्निचर भाड्याने", "टेंट / फ़र्नीचर किराया"],
+    ["OTHER_EVENT", "other", "Other Event Service", "इतर कार्यक्रम सेवा", "अन्य कार्यक्रम सेवा"],
+  ]),
+  category("tourism", "bed-outline", ["Tourism & Accommodation", "पर्यटन व निवास", "पर्यटन और आवास"], [
+    ["HOMESTAY", "other", "Homestay", "होमस्टे", "होमस्टे"],
+    ["HOTEL_LODGE", "other", "Hotel / Lodge", "हॉटेल / लॉज", "होटल / लॉज"],
+    ["RESORT", "other", "Resort", "रिसॉर्ट", "रिसॉर्ट"],
+    ["GUEST_HOUSE", "other", "Guest House", "अतिथीगृह", "गेस्ट हाउस"],
+    ["FARM_STAY", "other", "Farm Stay", "फार्म स्टे", "फ़ार्म स्टे"],
+    ["TOURIST_GUIDE", "other", "Local Tourist Guide", "स्थानिक पर्यटन मार्गदर्शक", "स्थानीय पर्यटक गाइड"],
+    ["TOUR_OPERATOR", "other", "Tour Operator", "टूर ऑपरेटर", "टूर ऑपरेटर"],
+    ["TRAVEL_AGENCY", "other", "Travel Agency", "ट्रॅव्हल एजन्सी", "ट्रैवल एजेंसी"],
+    ["SIGHTSEEING_SERVICE", "other", "Local Sightseeing Service", "स्थानिक स्थळदर्शन सेवा", "स्थानीय दर्शनीय स्थल सेवा"],
+    ["OTHER_TOURISM", "other", "Other Tourism Service", "इतर पर्यटन सेवा", "अन्य पर्यटन सेवा"],
+  ]),
+  category("ngo_community", "people-outline", ["NGOs & Community Organisations", "एनजीओ व सामाजिक संस्था", "एनजीओ और सामुदायिक संगठन"], [
+    ["NGO", "org", "Registered NGO / Trust", "नोंदणीकृत एनजीओ / ट्रस्ट", "पंजीकृत एनजीओ / ट्रस्ट"],
+    ["SELF_HELP_GROUP", "org", "Self Help Group (SHG)", "बचत गट", "स्वयं सहायता समूह"],
+    ["YOUTH_GROUP", "org", "Youth Group / Mandal", "युवक मंडळ", "युवा समूह / मंडल"],
+    ["FARMER_GROUP", "org", "Farmer Group", "शेतकरी गट", "किसान समूह"],
+    ["ENVIRONMENT_ORG", "org", "Environmental Organisation", "पर्यावरण संस्था", "पर्यावरण संगठन"],
+    ["SPORTS_CLUB", "org", "Sports Club", "क्रीडा मंडळ", "खेल क्लब"],
+    ["WELFARE", "org", "Welfare Organisation", "कल्याणकारी संस्था", "कल्याण संगठन"],
+    ["COMMUNITY_DEV_GROUP", "org", "Community Development Group", "समुदाय विकास गट", "सामुदायिक विकास समूह"],
+    ["OTHER", "org", "Other Organisation", "इतर संस्था", "अन्य संगठन"],
+  ]),
+  category("social_volunteers", "heart-outline", ["Social Workers & Volunteers", "समाजसेवक व स्वयंसेवक", "समाजसेवी और स्वयंसेवक"], [
+    ["SOCIAL_WORKER", "helper", "Social Worker", "समाजसेवक", "समाजसेवी"],
+    ["BLOOD_DONATION", "helper", "Blood Donor", "रक्तदाता", "रक्तदाता"],
+    ["SENIOR_SUPPORT", "helper", "Senior Citizen Support", "ज्येष्ठ नागरिक मदत", "वरिष्ठ नागरिक सहायता"],
+    ["EDUCATION", "helper", "Student Support", "विद्यार्थी मदत", "छात्र सहायता"],
+    ["WOMEN_CHILD_SUPPORT", "helper", "Women & Child Support", "महिला व बालक मदत", "महिला और बाल सहायता"],
+    ["CAREER_GUIDANCE", "helper", "Career / Employment Guidance", "करिअर / रोजगार मार्गदर्शन", "करियर / रोज़गार मार्गदर्शन"],
+    ["COMMUNITY_VOLUNTEER", "helper", "Community Volunteer", "सामुदायिक स्वयंसेवक", "सामुदायिक स्वयंसेवक"],
+    ["OTHER", "helper", "Other Social Support", "इतर सामाजिक मदत", "अन्य सामाजिक सहायता"],
+  ]),
+  category("emergency_help", "alert-circle-outline", ["Emergency & Special Assistance", "आपत्कालीन व विशेष मदत", "आपातकालीन और विशेष सहायता"], [
+    ["SNAKE_RESCUER", "help", "Snake Rescuer", "सर्पमित्र", "सर्प बचावकर्ता"],
+    ["ANIMAL_RESCUE", "help", "Animal Rescuer", "प्राणी बचावकर्ता", "पशु बचावकर्ता"],
+    ["FIRST_AID", "help", "First Aid Assistance", "प्रथमोपचार मदत", "प्राथमिक चिकित्सा सहायता"],
+    ["DISASTER_HELP", "help", "Disaster Relief", "आपत्ती निवारण", "आपदा राहत"],
+    ["EMERGENCY_VOLUNTEER", "help", "Emergency Volunteer", "आपत्कालीन स्वयंसेवक", "आपातकालीन स्वयंसेवक"],
+    ["MISSING_PERSON_HELP", "help", "Missing Person / Lost Item Help Desk", "हरवलेली व्यक्ती / वस्तू मदत कक्ष", "लापता व्यक्ति / खोई वस्तु सहायता केंद्र"],
+    ["LEGAL_AID", "help", "Legal Aid / Help Desk", "कायदेशीर मदत कक्ष", "कानूनी सहायता केंद्र"],
+    ["WOMEN_CHILD_HELPDESK", "help", "Women / Child Assistance Help Desk", "महिला / बालक मदत कक्ष", "महिला / बाल सहायता केंद्र"],
+    ["OTHER", "help", "Other Special Assistance", "इतर विशेष मदत", "अन्य विशेष सहायता"],
+  ]),
+  category("religious_cultural", "flower-outline", ["Religious & Cultural Places", "धार्मिक व सांस्कृतिक स्थळे", "धार्मिक और सांस्कृतिक स्थल"], [
+    ["TEMPLE", "org", "Temple", "मंदिर", "मंदिर"],
+    ["MOSQUE", "org", "Mosque", "मशीद", "मस्जिद"],
+    ["CHURCH", "org", "Church", "चर्च", "चर्च"],
+    ["GURUDWARA", "org", "Gurudwara", "गुरुद्वारा", "गुरुद्वारा"],
+    ["OTHER_WORSHIP", "org", "Other Place of Worship", "इतर प्रार्थनास्थळ", "अन्य पूजा स्थल"],
+    ["COMMUNITY_HALL", "org", "Community Hall", "समाज मंदिर / सभागृह", "सामुदायिक भवन"],
+    ["FESTIVAL_COMMITTEE", "org", "Festival Committee", "उत्सव समिती", "उत्सव समिति"],
+    ["CULTURAL_GROUP", "org", "Cultural Group", "सांस्कृतिक गट", "सांस्कृतिक समूह"],
+    ["TRADITIONAL_ART_ORG", "org", "Traditional Art / Cultural Organisation", "पारंपरिक कला / सांस्कृतिक संस्था", "पारंपरिक कला / सांस्कृतिक संगठन"],
+  ]),
+  category("political_public", "flag-outline", ["Political & Public Representatives", "राजकीय व लोकप्रतिनिधी", "राजनीतिक और जनप्रतिनिधि"], [
+    ["NATIONAL_PARTY_OFFICE", "party", "National Party Office", "राष्ट्रीय पक्ष कार्यालय", "राष्ट्रीय दल कार्यालय"],
+    ["STATE_PARTY_OFFICE", "party", "State Party Office", "राज्य पक्ष कार्यालय", "राज्य दल कार्यालय"],
+    ["PARTY_OFFICE", "party", "Local Party Office", "स्थानिक पक्ष कार्यालय", "स्थानीय दल कार्यालय"],
+    ["ELECTED_REPRESENTATIVE", "party", "Elected Representative", "निवडून आलेले लोकप्रतिनिधी", "निर्वाचित जनप्रतिनिधि"],
+    ["MP_MLA_OFFICE", "party", "MP / MLA Office", "खासदार / आमदार कार्यालय", "सांसद / विधायक कार्यालय"],
+    ["ZP_MEMBER_OFFICE", "party", "Zilla Parishad Member Office", "जिल्हा परिषद सदस्य कार्यालय", "ज़िला परिषद सदस्य कार्यालय"],
+    ["PS_MEMBER_OFFICE", "party", "Panchayat Samiti Member Office", "पंचायत समिती सदस्य कार्यालय", "पंचायत समिति सदस्य कार्यालय"],
+    ["SARPANCH_OFFICE", "party", "Sarpanch / Gram Panchayat Representative", "सरपंच / ग्रामपंचायत प्रतिनिधी", "सरपंच / ग्राम पंचायत प्रतिनिधि"],
+    ["REPRESENTATIVE_OFFICE", "party", "Other Public Representative", "इतर लोकप्रतिनिधी", "अन्य जनप्रतिनिधि"],
+  ]),
+];
+
+export function serviceCategory(id: string) {
+  return SERVICE_CATEGORIES.find((category) => category.id === id);
+}
+// Subcategory codes of one category, for a given registration kind.
+export function serviceCategoryCodes(id: string, providerType?: string) {
+  return (serviceCategory(id)?.subcategories ?? [])
+    .filter((row) => !providerType || row.providerType === providerType)
+    .map((row) => row.code);
+}

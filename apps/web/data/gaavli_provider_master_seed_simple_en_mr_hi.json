@@ -1486,5 +1486,1349 @@
     },
     "isActive": true,
     "sortOrder": 3
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "GENERAL_STORE",
+    "name": {
+      "en": "General Store",
+      "mr": "जनरल स्टोअर",
+      "hi": "जनरल स्टोर"
+    },
+    "isActive": true,
+    "sortOrder": 26
+  },
+  {
+    "providerType": "SHOP_BUSINESS",
+    "masterType": "SHOP_TYPE",
+    "code": "FISH_SELLER",
+    "name": {
+      "en": "Fish Seller",
+      "mr": "मासे विक्रेता",
+      "hi": "मछली विक्रेता"
+    },
+    "isActive": true,
+    "sortOrder": 36
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "LAUNDRY_IRONING",
+    "name": {
+      "en": "Laundry / Ironing",
+      "mr": "लॉन्ड्री / इस्त्री",
+      "hi": "लॉन्ड्री / इस्त्री"
+    },
+    "isActive": true,
+    "sortOrder": 35
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "HOUSE_CLEANING",
+    "name": {
+      "en": "House Cleaning",
+      "mr": "घर स्वच्छता",
+      "hi": "घर की सफ़ाई"
+    },
+    "isActive": true,
+    "sortOrder": 45
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "PEST_CONTROL",
+    "name": {
+      "en": "Pest Control",
+      "mr": "कीटक नियंत्रण",
+      "hi": "कीट नियंत्रण"
+    },
+    "isActive": true,
+    "sortOrder": 55
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "GARDENING",
+    "name": {
+      "en": "Gardening / Landscaping",
+      "mr": "बागकाम / लँडस्केपिंग",
+      "hi": "बागवानी / लैंडस्केपिंग"
+    },
+    "isActive": true,
+    "sortOrder": 65
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "PROFESSIONAL_CONSULTANT",
+    "name": {
+      "en": "Professional Consultant",
+      "mr": "व्यावसायिक सल्लागार",
+      "hi": "पेशेवर सलाहकार"
+    },
+    "isActive": true,
+    "sortOrder": 75
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "SPECIALIST_DOCTOR",
+    "name": {
+      "en": "Specialist Doctor",
+      "mr": "तज्ज्ञ डॉक्टर",
+      "hi": "विशेषज्ञ डॉक्टर"
+    },
+    "isActive": true,
+    "sortOrder": 24
+  },
+  {
+    "providerType": "HEALTHCARE_PROFESSIONAL",
+    "masterType": "DOCTOR_SPECIALIZATION",
+    "code": "NURSE_HOME_NURSING",
+    "name": {
+      "en": "Nurse / Home Nursing",
+      "mr": "परिचारिका / घरगुती शुश्रूषा",
+      "hi": "नर्स / घर पर नर्सिंग"
+    },
+    "isActive": true,
+    "sortOrder": 34
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "MEDICAL_EQUIPMENT",
+    "name": {
+      "en": "Medical Equipment / Supplies",
+      "mr": "वैद्यकीय उपकरणे / साहित्य",
+      "hi": "चिकित्सा उपकरण / सामग्री"
+    },
+    "isActive": true,
+    "sortOrder": 17
+  },
+  {
+    "providerType": "MEDICAL_FACILITY",
+    "masterType": "FACILITY_TYPE",
+    "code": "AMBULANCE_SERVICE",
+    "name": {
+      "en": "Ambulance Service",
+      "mr": "रुग्णवाहिका सेवा",
+      "hi": "एम्बुलेंस सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 27
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "PUBLIC_SECTOR_BANK",
+    "name": {
+      "en": "Public Sector Bank",
+      "mr": "सार्वजनिक क्षेत्रातील बँक",
+      "hi": "सार्वजनिक क्षेत्र का बैंक"
+    },
+    "isActive": true,
+    "sortOrder": 18
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "PRIVATE_BANK",
+    "name": {
+      "en": "Private Bank",
+      "mr": "खाजगी बँक",
+      "hi": "निजी बैंक"
+    },
+    "isActive": true,
+    "sortOrder": 28
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "COOPERATIVE_BANK",
+    "name": {
+      "en": "Cooperative Bank",
+      "mr": "सहकारी बँक",
+      "hi": "सहकारी बैंक"
+    },
+    "isActive": true,
+    "sortOrder": 38
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "SMALL_FINANCE_BANK",
+    "name": {
+      "en": "Small Finance Bank",
+      "mr": "स्मॉल फायनान्स बँक",
+      "hi": "स्मॉल फ़ाइनेंस बैंक"
+    },
+    "isActive": true,
+    "sortOrder": 48
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "CREDIT_SOCIETY",
+    "name": {
+      "en": "Credit Society",
+      "mr": "पतसंस्था",
+      "hi": "क्रेडिट सोसाइटी"
+    },
+    "isActive": true,
+    "sortOrder": 58
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "ATM",
+    "name": {
+      "en": "ATM",
+      "mr": "एटीएम",
+      "hi": "एटीएम"
+    },
+    "isActive": true,
+    "sortOrder": 68
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "BANKING_SERVICE_POINT",
+    "name": {
+      "en": "Banking Service Point / CSP",
+      "mr": "बँकिंग सेवा केंद्र / CSP",
+      "hi": "बैंकिंग सेवा केंद्र / CSP"
+    },
+    "isActive": true,
+    "sortOrder": 78
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "INSURANCE_SERVICE",
+    "name": {
+      "en": "Insurance Service",
+      "mr": "विमा सेवा",
+      "hi": "बीमा सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 85
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "LOAN_FINANCIAL_CONSULTANT",
+    "name": {
+      "en": "Loan / Financial Consultant",
+      "mr": "कर्ज / आर्थिक सल्लागार",
+      "hi": "ऋण / वित्तीय सलाहकार"
+    },
+    "isActive": true,
+    "sortOrder": 95
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "OTHER_FINANCIAL_SERVICE",
+    "name": {
+      "en": "Other Financial Service",
+      "mr": "इतर आर्थिक सेवा",
+      "hi": "अन्य वित्तीय सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 105
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "TALATHI_OFFICE",
+    "name": {
+      "en": "Talathi Office",
+      "mr": "तलाठी कार्यालय",
+      "hi": "तलाठी कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 88
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "TEHSIL_OFFICE",
+    "name": {
+      "en": "Tehsil / Tahsil Office",
+      "mr": "तहसील कार्यालय",
+      "hi": "तहसील कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 98
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "PANCHAYAT_SAMITI",
+    "name": {
+      "en": "Panchayat Samiti",
+      "mr": "पंचायत समिती",
+      "hi": "पंचायत समिति"
+    },
+    "isActive": true,
+    "sortOrder": 108
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "ZILLA_PARISHAD_OFFICE",
+    "name": {
+      "en": "Zilla Parishad Office",
+      "mr": "जिल्हा परिषद कार्यालय",
+      "hi": "ज़िला परिषद कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 118
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "AGRICULTURE_DEPT_OFFICE",
+    "name": {
+      "en": "Agriculture Department Office",
+      "mr": "कृषी विभाग कार्यालय",
+      "hi": "कृषि विभाग कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 128
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "FOREST_DEPT_OFFICE",
+    "name": {
+      "en": "Forest Department Office",
+      "mr": "वन विभाग कार्यालय",
+      "hi": "वन विभाग कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 138
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "ELECTRICITY_OFFICE",
+    "name": {
+      "en": "Electricity Board Office",
+      "mr": "वीज वितरण कार्यालय",
+      "hi": "बिजली विभाग कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 148
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "WATER_SUPPLY_OFFICE",
+    "name": {
+      "en": "Water Supply Office",
+      "mr": "पाणीपुरवठा कार्यालय",
+      "hi": "जल आपूर्ति कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 158
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "PRIMARY_SCHOOL",
+    "name": {
+      "en": "Primary School",
+      "mr": "प्राथमिक शाळा",
+      "hi": "प्राथमिक विद्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 168
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "SECONDARY_SCHOOL",
+    "name": {
+      "en": "Secondary / Higher Secondary School",
+      "mr": "माध्यमिक / उच्च माध्यमिक शाळा",
+      "hi": "माध्यमिक / उच्च माध्यमिक विद्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 178
+  },
+  {
+    "providerType": "PUBLIC_INSTITUTION",
+    "masterType": "INSTITUTION_TYPE",
+    "code": "COLLEGE",
+    "name": {
+      "en": "College",
+      "mr": "महाविद्यालय",
+      "hi": "महाविद्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 188
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "TUITION_CLASSES",
+    "name": {
+      "en": "Tuition Classes",
+      "mr": "शिकवणी वर्ग",
+      "hi": "ट्यूशन कक्षाएँ"
+    },
+    "isActive": true,
+    "sortOrder": 21
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "COMPETITIVE_EXAM_COACHING",
+    "name": {
+      "en": "Competitive Exam Coaching",
+      "mr": "स्पर्धा परीक्षा मार्गदर्शन",
+      "hi": "प्रतियोगी परीक्षा कोचिंग"
+    },
+    "isActive": true,
+    "sortOrder": 31
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "COMPUTER_CLASSES",
+    "name": {
+      "en": "Computer Classes",
+      "mr": "संगणक वर्ग",
+      "hi": "कंप्यूटर कक्षाएँ"
+    },
+    "isActive": true,
+    "sortOrder": 41
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "VOCATIONAL_TRAINING",
+    "name": {
+      "en": "Vocational / Skill Training",
+      "mr": "व्यावसायिक / कौशल्य प्रशिक्षण",
+      "hi": "व्यावसायिक / कौशल प्रशिक्षण"
+    },
+    "isActive": true,
+    "sortOrder": 51
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "MUSIC_DANCE_CLASSES",
+    "name": {
+      "en": "Music / Dance Classes",
+      "mr": "संगीत / नृत्य वर्ग",
+      "hi": "संगीत / नृत्य कक्षाएँ"
+    },
+    "isActive": true,
+    "sortOrder": 61
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "SPORTS_COACHING",
+    "name": {
+      "en": "Sports Coaching",
+      "mr": "क्रीडा प्रशिक्षण",
+      "hi": "खेल प्रशिक्षण"
+    },
+    "isActive": true,
+    "sortOrder": 71
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "OTHER_EDUCATION",
+    "name": {
+      "en": "Other Education Service",
+      "mr": "इतर शिक्षण सेवा",
+      "hi": "अन्य शिक्षा सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 81
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "AGRI_CONSULTANT",
+    "name": {
+      "en": "Agriculture Consultant",
+      "mr": "कृषी सल्लागार",
+      "hi": "कृषि सलाहकार"
+    },
+    "isActive": true,
+    "sortOrder": 91
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "CROP_PROTECTION",
+    "name": {
+      "en": "Crop / Plant Protection Services",
+      "mr": "पीक संरक्षण सेवा",
+      "hi": "फ़सल / पौध संरक्षण सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 101
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "SEEDS_FERTILIZER_SERVICE",
+    "name": {
+      "en": "Seeds & Fertilizer Services",
+      "mr": "बियाणे व खत सेवा",
+      "hi": "बीज और खाद सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 111
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "SOIL_TESTING",
+    "name": {
+      "en": "Soil Testing",
+      "mr": "माती परीक्षण",
+      "hi": "मिट्टी परीक्षण"
+    },
+    "isActive": true,
+    "sortOrder": 121
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "POULTRY_FARM",
+    "name": {
+      "en": "Poultry Farm",
+      "mr": "कुक्कुटपालन",
+      "hi": "पोल्ट्री फ़ार्म"
+    },
+    "isActive": true,
+    "sortOrder": 131
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "DAIRY_FARM",
+    "name": {
+      "en": "Dairy Farm",
+      "mr": "दुग्ध व्यवसाय / डेअरी फार्म",
+      "hi": "डेयरी फ़ार्म"
+    },
+    "isActive": true,
+    "sortOrder": 141
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "GOAT_SHEEP_FARM",
+    "name": {
+      "en": "Goat / Sheep Farm",
+      "mr": "शेळी / मेंढी पालन",
+      "hi": "बकरी / भेड़ फ़ार्म"
+    },
+    "isActive": true,
+    "sortOrder": 151
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "CATTLE_FARM",
+    "name": {
+      "en": "Cattle / Livestock Farm",
+      "mr": "गुरे / पशुधन पालन",
+      "hi": "मवेशी / पशुधन फ़ार्म"
+    },
+    "isActive": true,
+    "sortOrder": 161
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "VETERINARY_SERVICE",
+    "name": {
+      "en": "Veterinary Service",
+      "mr": "पशुवैद्यकीय सेवा",
+      "hi": "पशु चिकित्सा सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 171
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "ANIMAL_FEED_SUPPLIER",
+    "name": {
+      "en": "Animal Feed Supplier",
+      "mr": "पशुखाद्य पुरवठादार",
+      "hi": "पशु आहार आपूर्तिकर्ता"
+    },
+    "isActive": true,
+    "sortOrder": 181
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "FISHERIES",
+    "name": {
+      "en": "Fisheries / Fish Farming",
+      "mr": "मत्स्यपालन",
+      "hi": "मत्स्य पालन"
+    },
+    "isActive": true,
+    "sortOrder": 191
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "OTHER_AGRICULTURE",
+    "name": {
+      "en": "Other Agriculture Service",
+      "mr": "इतर शेती सेवा",
+      "hi": "अन्य कृषि सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 201
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "TWO_WHEELER_MECHANIC",
+    "name": {
+      "en": "Two-Wheeler Mechanic",
+      "mr": "दुचाकी मेकॅनिक",
+      "hi": "दोपहिया मैकेनिक"
+    },
+    "isActive": true,
+    "sortOrder": 115
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "CAR_JEEP_MECHANIC",
+    "name": {
+      "en": "Car / Jeep Mechanic",
+      "mr": "कार / जीप मेकॅनिक",
+      "hi": "कार / जीप मैकेनिक"
+    },
+    "isActive": true,
+    "sortOrder": 125
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "TRACTOR_MECHANIC",
+    "name": {
+      "en": "Tractor Mechanic",
+      "mr": "ट्रॅक्टर मेकॅनिक",
+      "hi": "ट्रैक्टर मैकेनिक"
+    },
+    "isActive": true,
+    "sortOrder": 135
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "BICYCLE_REPAIR",
+    "name": {
+      "en": "Bicycle Repair",
+      "mr": "सायकल दुरुस्ती",
+      "hi": "साइकिल मरम्मत"
+    },
+    "isActive": true,
+    "sortOrder": 145
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "COMPUTER_LAPTOP_REPAIR",
+    "name": {
+      "en": "Computer / Laptop Repair",
+      "mr": "संगणक / लॅपटॉप दुरुस्ती",
+      "hi": "कंप्यूटर / लैपटॉप मरम्मत"
+    },
+    "isActive": true,
+    "sortOrder": 155
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "TV_ELECTRONICS_REPAIR",
+    "name": {
+      "en": "TV / Electronics Repair",
+      "mr": "टीव्ही / इलेक्ट्रॉनिक्स दुरुस्ती",
+      "hi": "टीवी / इलेक्ट्रॉनिक्स मरम्मत"
+    },
+    "isActive": true,
+    "sortOrder": 165
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "HOME_APPLIANCE_REPAIR",
+    "name": {
+      "en": "Home Appliance Repair",
+      "mr": "घरगुती उपकरण दुरुस्ती",
+      "hi": "घरेलू उपकरण मरम्मत"
+    },
+    "isActive": true,
+    "sortOrder": 175
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "ELECTRICAL_EQUIPMENT_REPAIR",
+    "name": {
+      "en": "Electrical Equipment Repair",
+      "mr": "विद्युत उपकरण दुरुस्ती",
+      "hi": "विद्युत उपकरण मरम्मत"
+    },
+    "isActive": true,
+    "sortOrder": 185
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "OTHER_REPAIR",
+    "name": {
+      "en": "Other Repair Service",
+      "mr": "इतर दुरुस्ती सेवा",
+      "hi": "अन्य मरम्मत सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 195
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "CATERING_SERVICE",
+    "name": {
+      "en": "Catering Service",
+      "mr": "केटरिंग सेवा",
+      "hi": "कैटरिंग सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 211
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "COOK_HALWAI",
+    "name": {
+      "en": "Cook / Halwai",
+      "mr": "आचारी / हलवाई",
+      "hi": "रसोइया / हलवाई"
+    },
+    "isActive": true,
+    "sortOrder": 221
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "WEDDING_PLANNER",
+    "name": {
+      "en": "Wedding Planner",
+      "mr": "लग्न नियोजक",
+      "hi": "वेडिंग प्लानर"
+    },
+    "isActive": true,
+    "sortOrder": 231
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "EVENT_MANAGEMENT",
+    "name": {
+      "en": "Event Management",
+      "mr": "इव्हेंट व्यवस्थापन",
+      "hi": "इवेंट मैनेजमेंट"
+    },
+    "isActive": true,
+    "sortOrder": 241
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "WEDDING_DECORATION",
+    "name": {
+      "en": "Wedding Decoration",
+      "mr": "लग्न सजावट",
+      "hi": "शादी की सजावट"
+    },
+    "isActive": true,
+    "sortOrder": 251
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "PARTY_DECORATION",
+    "name": {
+      "en": "Birthday / Party Decoration",
+      "mr": "वाढदिवस / पार्टी सजावट",
+      "hi": "जन्मदिन / पार्टी सजावट"
+    },
+    "isActive": true,
+    "sortOrder": 261
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "STAGE_MANDAP_DECORATION",
+    "name": {
+      "en": "Stage / Mandap Decoration",
+      "mr": "स्टेज / मंडप सजावट",
+      "hi": "स्टेज / मंडप सजावट"
+    },
+    "isActive": true,
+    "sortOrder": 271
+  },
+  {
+    "providerType": "PROFESSIONAL_SERVICE",
+    "masterType": "PROFESSION",
+    "code": "VIDEOGRAPHER",
+    "name": {
+      "en": "Videographer",
+      "mr": "व्हिडिओग्राफर",
+      "hi": "वीडियोग्राफ़र"
+    },
+    "isActive": true,
+    "sortOrder": 205
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "DJ_SOUND_SYSTEM",
+    "name": {
+      "en": "DJ / Sound System",
+      "mr": "डीजे / साउंड सिस्टिम",
+      "hi": "डीजे / साउंड सिस्टम"
+    },
+    "isActive": true,
+    "sortOrder": 281
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "LIGHTING_SERVICE",
+    "name": {
+      "en": "Lighting Service",
+      "mr": "लायटिंग सेवा",
+      "hi": "लाइटिंग सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 291
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "TENT_FURNITURE_RENTAL",
+    "name": {
+      "en": "Tent / Furniture Rental",
+      "mr": "मंडप / फर्निचर भाड्याने",
+      "hi": "टेंट / फ़र्नीचर किराया"
+    },
+    "isActive": true,
+    "sortOrder": 301
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "OTHER_EVENT",
+    "name": {
+      "en": "Other Event Service",
+      "mr": "इतर कार्यक्रम सेवा",
+      "hi": "अन्य कार्यक्रम सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 311
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "HOMESTAY",
+    "name": {
+      "en": "Homestay",
+      "mr": "होमस्टे",
+      "hi": "होमस्टे"
+    },
+    "isActive": true,
+    "sortOrder": 321
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "HOTEL_LODGE",
+    "name": {
+      "en": "Hotel / Lodge",
+      "mr": "हॉटेल / लॉज",
+      "hi": "होटल / लॉज"
+    },
+    "isActive": true,
+    "sortOrder": 331
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "RESORT",
+    "name": {
+      "en": "Resort",
+      "mr": "रिसॉर्ट",
+      "hi": "रिसॉर्ट"
+    },
+    "isActive": true,
+    "sortOrder": 341
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "GUEST_HOUSE",
+    "name": {
+      "en": "Guest House",
+      "mr": "अतिथीगृह",
+      "hi": "गेस्ट हाउस"
+    },
+    "isActive": true,
+    "sortOrder": 351
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "FARM_STAY",
+    "name": {
+      "en": "Farm Stay",
+      "mr": "फार्म स्टे",
+      "hi": "फ़ार्म स्टे"
+    },
+    "isActive": true,
+    "sortOrder": 361
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "TOURIST_GUIDE",
+    "name": {
+      "en": "Local Tourist Guide",
+      "mr": "स्थानिक पर्यटन मार्गदर्शक",
+      "hi": "स्थानीय पर्यटक गाइड"
+    },
+    "isActive": true,
+    "sortOrder": 371
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "TOUR_OPERATOR",
+    "name": {
+      "en": "Tour Operator",
+      "mr": "टूर ऑपरेटर",
+      "hi": "टूर ऑपरेटर"
+    },
+    "isActive": true,
+    "sortOrder": 381
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "TRAVEL_AGENCY",
+    "name": {
+      "en": "Travel Agency",
+      "mr": "ट्रॅव्हल एजन्सी",
+      "hi": "ट्रैवल एजेंसी"
+    },
+    "isActive": true,
+    "sortOrder": 391
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "SIGHTSEEING_SERVICE",
+    "name": {
+      "en": "Local Sightseeing Service",
+      "mr": "स्थानिक स्थळदर्शन सेवा",
+      "hi": "स्थानीय दर्शनीय स्थल सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 401
+  },
+  {
+    "providerType": "OTHER_SERVICE",
+    "masterType": "OTHER_SERVICE_CATEGORY",
+    "code": "OTHER_TOURISM",
+    "name": {
+      "en": "Other Tourism Service",
+      "mr": "इतर पर्यटन सेवा",
+      "hi": "अन्य पर्यटन सेवा"
+    },
+    "isActive": true,
+    "sortOrder": 411
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "SELF_HELP_GROUP",
+    "name": {
+      "en": "Self Help Group (SHG)",
+      "mr": "बचत गट",
+      "hi": "स्वयं सहायता समूह"
+    },
+    "isActive": true,
+    "sortOrder": 14
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "YOUTH_GROUP",
+    "name": {
+      "en": "Youth Group / Mandal",
+      "mr": "युवक मंडळ",
+      "hi": "युवा समूह / मंडल"
+    },
+    "isActive": true,
+    "sortOrder": 24
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "FARMER_GROUP",
+    "name": {
+      "en": "Farmer Group",
+      "mr": "शेतकरी गट",
+      "hi": "किसान समूह"
+    },
+    "isActive": true,
+    "sortOrder": 34
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "ENVIRONMENT_ORG",
+    "name": {
+      "en": "Environmental Organisation",
+      "mr": "पर्यावरण संस्था",
+      "hi": "पर्यावरण संगठन"
+    },
+    "isActive": true,
+    "sortOrder": 44
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "SPORTS_CLUB",
+    "name": {
+      "en": "Sports Club",
+      "mr": "क्रीडा मंडळ",
+      "hi": "खेल क्लब"
+    },
+    "isActive": true,
+    "sortOrder": 54
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "COMMUNITY_DEV_GROUP",
+    "name": {
+      "en": "Community Development Group",
+      "mr": "समुदाय विकास गट",
+      "hi": "सामुदायिक विकास समूह"
+    },
+    "isActive": true,
+    "sortOrder": 64
+  },
+  {
+    "providerType": "SOCIAL_HELPER",
+    "masterType": "HELPER_CATEGORY",
+    "code": "SOCIAL_WORKER",
+    "name": {
+      "en": "Social Worker",
+      "mr": "समाजसेवक",
+      "hi": "समाजसेवी"
+    },
+    "isActive": true,
+    "sortOrder": 14
+  },
+  {
+    "providerType": "SOCIAL_HELPER",
+    "masterType": "HELPER_CATEGORY",
+    "code": "WOMEN_CHILD_SUPPORT",
+    "name": {
+      "en": "Women & Child Support",
+      "mr": "महिला व बालक मदत",
+      "hi": "महिला और बाल सहायता"
+    },
+    "isActive": true,
+    "sortOrder": 24
+  },
+  {
+    "providerType": "SOCIAL_HELPER",
+    "masterType": "HELPER_CATEGORY",
+    "code": "CAREER_GUIDANCE",
+    "name": {
+      "en": "Career / Employment Guidance",
+      "mr": "करिअर / रोजगार मार्गदर्शन",
+      "hi": "करियर / रोज़गार मार्गदर्शन"
+    },
+    "isActive": true,
+    "sortOrder": 34
+  },
+  {
+    "providerType": "SOCIAL_HELPER",
+    "masterType": "HELPER_CATEGORY",
+    "code": "COMMUNITY_VOLUNTEER",
+    "name": {
+      "en": "Community Volunteer",
+      "mr": "सामुदायिक स्वयंसेवक",
+      "hi": "सामुदायिक स्वयंसेवक"
+    },
+    "isActive": true,
+    "sortOrder": 44
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "EMERGENCY_VOLUNTEER",
+    "name": {
+      "en": "Emergency Volunteer",
+      "mr": "आपत्कालीन स्वयंसेवक",
+      "hi": "आपातकालीन स्वयंसेवक"
+    },
+    "isActive": true,
+    "sortOrder": 16
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "MISSING_PERSON_HELP",
+    "name": {
+      "en": "Missing Person / Lost Item Help Desk",
+      "mr": "हरवलेली व्यक्ती / वस्तू मदत कक्ष",
+      "hi": "लापता व्यक्ति / खोई वस्तु सहायता केंद्र"
+    },
+    "isActive": true,
+    "sortOrder": 26
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "LEGAL_AID",
+    "name": {
+      "en": "Legal Aid / Help Desk",
+      "mr": "कायदेशीर मदत कक्ष",
+      "hi": "कानूनी सहायता केंद्र"
+    },
+    "isActive": true,
+    "sortOrder": 36
+  },
+  {
+    "providerType": "EMERGENCY_ASSISTANCE",
+    "masterType": "ASSISTANCE_CATEGORY",
+    "code": "WOMEN_CHILD_HELPDESK",
+    "name": {
+      "en": "Women / Child Assistance Help Desk",
+      "mr": "महिला / बालक मदत कक्ष",
+      "hi": "महिला / बाल सहायता केंद्र"
+    },
+    "isActive": true,
+    "sortOrder": 46
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "TEMPLE",
+    "name": {
+      "en": "Temple",
+      "mr": "मंदिर",
+      "hi": "मंदिर"
+    },
+    "isActive": true,
+    "sortOrder": 74
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "MOSQUE",
+    "name": {
+      "en": "Mosque",
+      "mr": "मशीद",
+      "hi": "मस्जिद"
+    },
+    "isActive": true,
+    "sortOrder": 84
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "CHURCH",
+    "name": {
+      "en": "Church",
+      "mr": "चर्च",
+      "hi": "चर्च"
+    },
+    "isActive": true,
+    "sortOrder": 94
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "GURUDWARA",
+    "name": {
+      "en": "Gurudwara",
+      "mr": "गुरुद्वारा",
+      "hi": "गुरुद्वारा"
+    },
+    "isActive": true,
+    "sortOrder": 104
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "OTHER_WORSHIP",
+    "name": {
+      "en": "Other Place of Worship",
+      "mr": "इतर प्रार्थनास्थळ",
+      "hi": "अन्य पूजा स्थल"
+    },
+    "isActive": true,
+    "sortOrder": 114
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "COMMUNITY_HALL",
+    "name": {
+      "en": "Community Hall",
+      "mr": "समाज मंदिर / सभागृह",
+      "hi": "सामुदायिक भवन"
+    },
+    "isActive": true,
+    "sortOrder": 124
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "FESTIVAL_COMMITTEE",
+    "name": {
+      "en": "Festival Committee",
+      "mr": "उत्सव समिती",
+      "hi": "उत्सव समिति"
+    },
+    "isActive": true,
+    "sortOrder": 134
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "CULTURAL_GROUP",
+    "name": {
+      "en": "Cultural Group",
+      "mr": "सांस्कृतिक गट",
+      "hi": "सांस्कृतिक समूह"
+    },
+    "isActive": true,
+    "sortOrder": 144
+  },
+  {
+    "providerType": "COMMUNITY_ORGANISATION",
+    "masterType": "ORGANISATION_TYPE",
+    "code": "TRADITIONAL_ART_ORG",
+    "name": {
+      "en": "Traditional Art / Cultural Organisation",
+      "mr": "पारंपरिक कला / सांस्कृतिक संस्था",
+      "hi": "पारंपरिक कला / सांस्कृतिक संगठन"
+    },
+    "isActive": true,
+    "sortOrder": 154
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "NATIONAL_PARTY_OFFICE",
+    "name": {
+      "en": "National Party Office",
+      "mr": "राष्ट्रीय पक्ष कार्यालय",
+      "hi": "राष्ट्रीय दल कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 13
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "STATE_PARTY_OFFICE",
+    "name": {
+      "en": "State Party Office",
+      "mr": "राज्य पक्ष कार्यालय",
+      "hi": "राज्य दल कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 23
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "ELECTED_REPRESENTATIVE",
+    "name": {
+      "en": "Elected Representative",
+      "mr": "निवडून आलेले लोकप्रतिनिधी",
+      "hi": "निर्वाचित जनप्रतिनिधि"
+    },
+    "isActive": true,
+    "sortOrder": 33
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "MP_MLA_OFFICE",
+    "name": {
+      "en": "MP / MLA Office",
+      "mr": "खासदार / आमदार कार्यालय",
+      "hi": "सांसद / विधायक कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 43
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "ZP_MEMBER_OFFICE",
+    "name": {
+      "en": "Zilla Parishad Member Office",
+      "mr": "जिल्हा परिषद सदस्य कार्यालय",
+      "hi": "ज़िला परिषद सदस्य कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 53
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "PS_MEMBER_OFFICE",
+    "name": {
+      "en": "Panchayat Samiti Member Office",
+      "mr": "पंचायत समिती सदस्य कार्यालय",
+      "hi": "पंचायत समिति सदस्य कार्यालय"
+    },
+    "isActive": true,
+    "sortOrder": 63
+  },
+  {
+    "providerType": "POLITICAL_OFFICE",
+    "masterType": "OFFICE_TYPE",
+    "code": "SARPANCH_OFFICE",
+    "name": {
+      "en": "Sarpanch / Gram Panchayat Representative",
+      "mr": "सरपंच / ग्रामपंचायत प्रतिनिधी",
+      "hi": "सरपंच / ग्राम पंचायत प्रतिनिधि"
+    },
+    "isActive": true,
+    "sortOrder": 73
   }
 ]

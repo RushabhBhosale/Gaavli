@@ -3,71 +3,105 @@ import { Redirect, useRouter } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
-  OTHER_SERVICES_ENTRY,
   PROVIDER_KINDS,
-  PROVIDER_MAIN_TYPES,
-  PROVIDER_OTHER_TYPES,
-  type ProviderType,
+  ProviderType,
+  SERVICE_CATEGORIES,
+  type ServiceCategory,
 } from "@gaavli/constants";
 import { useAppStore } from "../../store";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
-import { Screen, styles } from "../../components/ui";
+import { Input, Screen, styles } from "../../components/ui";
 
 type IconName = React.ComponentProps<typeof Ionicons>["name"];
+const normalizeSearchText = (value: string) =>
+  value.normalize("NFC").toLocaleLowerCase("en-IN").replace(/\s+/g, " ").trim();
 
-// Step 1 of provider registration: what is being registered. "Other Services"
-// opens a second list so the main list stays short.
+// Step 1 of provider registration: one of the 15 Services categories (or
+// Transport), then the subcategory, which decides the form that follows.
 export default function ProviderTypeScreen() {
   const router = useRouter();
   const session = useAppStore((state) => state.session);
   const language = useAppStore((state) => state.language);
   const t = messages(language);
-  const [other, setOther] = useState(false);
+  const [category, setCategory] = useState<ServiceCategory | null>(null);
+  const [search, setSearch] = useState("");
   if (!session) return <Redirect href="/register" />;
-  const open = (type: ProviderType) =>
-    router.push({ pathname: "/provider/form", params: { type } });
-  const rows = other ? PROVIDER_OTHER_TYPES : PROVIDER_MAIN_TYPES;
+  const transport = PROVIDER_KINDS[ProviderType.TRANSPORT_DRIVER];
+  const words = normalizeSearchText(search).split(" ").filter(Boolean);
+  const rows = (category?.subcategories ?? []).filter((row) => {
+    const text = normalizeSearchText(`${row.en} ${row.mr} ${row.hi}`);
+    return words.every((word) => text.includes(word));
+  });
   return (
     <Screen
       back={{
         label: t.back,
-        onPress: () =>
-          other
-            ? setOther(false)
-            : router.canGoBack()
-              ? router.back()
-              : router.replace("/home"),
+        onPress: () => {
+          if (category) {
+            setCategory(null);
+            setSearch("");
+          } else if (router.canGoBack()) router.back();
+          else router.replace("/home");
+        },
       }}
     >
       <Text accessibilityRole="header" style={styles.title}>
-        {other ? t.provOtherTitle : t.provPickTitle}
+        {category ? category[language] : t.provPickTitle}
       </Text>
       <Text style={styles.body}>
-        {other ? t.provOtherHelp : t.provPickHint}
+        {category ? t.provSubHelp : t.provCategoryHint}
       </Text>
-      <View style={s.list}>
-        {rows.map((type) => {
-          const kind = PROVIDER_KINDS[type];
-          return (
-            <Row
-              key={type}
-              icon={kind.icon}
-              title={kind.title[language]}
-              blurb={kind.blurb[language]}
-              onPress={() => open(type)}
-            />
-          );
-        })}
-        {!other && (
-          <Row
-            icon={OTHER_SERVICES_ENTRY.icon}
-            title={OTHER_SERVICES_ENTRY.title[language]}
-            blurb={OTHER_SERVICES_ENTRY.blurb[language]}
-            onPress={() => setOther(true)}
+      {category ? (
+        <View style={s.list}>
+          <Input
+            label={t.search}
+            value={search}
+            onChangeText={setSearch}
+            autoCorrect={false}
           />
-        )}
-      </View>
+          {!rows.length && <Text style={styles.body}>{t.provSubEmpty}</Text>}
+          {rows.map((row) => (
+            <Row
+              key={`${row.providerType}:${row.code}`}
+              icon={category.icon}
+              title={row[language]}
+              onPress={() =>
+                router.push({
+                  pathname: "/provider/form",
+                  params: { type: row.providerType, code: row.code },
+                })
+              }
+            />
+          ))}
+        </View>
+      ) : (
+        <View style={s.list}>
+          {SERVICE_CATEGORIES.map((item) => (
+            <Row
+              key={item.id}
+              icon={item.icon}
+              title={item[language]}
+              blurb={item.subcategories
+                .slice(0, 3)
+                .map((row) => row[language])
+                .join(", ")}
+              onPress={() => setCategory(item)}
+            />
+          ))}
+          <Row
+            icon={transport.icon}
+            title={transport.title[language]}
+            blurb={transport.blurb[language]}
+            onPress={() =>
+              router.push({
+                pathname: "/provider/form",
+                params: { type: ProviderType.TRANSPORT_DRIVER },
+              })
+            }
+          />
+        </View>
+      )}
     </Screen>
   );
 }
@@ -80,13 +114,13 @@ function Row({
 }: {
   icon: string;
   title: string;
-  blurb: string;
+  blurb?: string;
   onPress: () => void;
 }) {
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`${title}. ${blurb}`}
+      accessibilityLabel={blurb ? `${title}. ${blurb}` : title}
       onPress={onPress}
       style={({ pressed }) => [s.row, pressed && s.pressed]}
     >
@@ -100,7 +134,7 @@ function Row({
       </View>
       <View style={s.text}>
         <Text style={s.title}>{title}</Text>
-        <Text style={s.blurb}>{blurb}</Text>
+        {!!blurb && <Text style={s.blurb}>{blurb}</Text>}
       </View>
       <Ionicons
         accessible={false}

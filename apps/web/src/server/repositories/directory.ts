@@ -51,7 +51,7 @@ function searchTermFilter(term: string) {
 function groupFilter(group: DirectoryGroup): Record<string, unknown> {
   if (isCatchAllGroup(group.id))
     return {
-      $nor: directoryGroupsFor(group.module)
+      $nor: directoryGroupsFor(group.module, !!group.legacy)
         .filter((item) => !isCatchAllGroup(item.id))
         .map(groupFilter),
     };
@@ -59,8 +59,19 @@ function groupFilter(group: DirectoryGroup): Record<string, unknown> {
   return {
     $or: [
       ...(group.providerTypes?.length
-        ? [{ providerType: { $in: [...group.providerTypes] } }]
+        ? [
+            {
+              providerType: { $in: [...group.providerTypes] },
+              ...(group.excludeCodes?.length
+                ? { professionCode: { $nin: [...group.excludeCodes] } }
+                : {}),
+            },
+          ]
         : []),
+      ...(group.typeCodes ?? []).map((row) => ({
+        providerType: row.providerType,
+        professionCode: { $in: [...row.codes] },
+      })),
       ...(group.codes.length
         ? [{ professionCode: { $in: [...group.codes] } }]
         : []),
@@ -282,13 +293,16 @@ export async function directorySummary(
       },
     },
   ]);
+  // Apps that ask for tiles=2 get the 15 Services categories; installed apps
+  // from before them keep the older tiles they know how to read.
+  const legacy = query.tiles !== "2";
   const counts = new Map<string, number>();
   for (const row of rows)
-    for (const group of directoryGroupsOf(query.module, row))
+    for (const group of directoryGroupsOf(query.module, row, legacy))
       counts.set(group, (counts.get(group) ?? 0) + 1);
   return {
     total: rows.length,
-    groups: directoryGroupsFor(query.module).map((group) => ({
+    groups: directoryGroupsFor(query.module, legacy).map((group) => ({
       id: group.id,
       count: counts.get(group.id) ?? 0,
     })),

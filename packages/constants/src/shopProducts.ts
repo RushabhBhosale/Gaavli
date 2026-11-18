@@ -197,6 +197,8 @@ export const SHOP_TYPE_PRODUCT_GROUPS: Readonly<
     "household",
     "personal_care",
   ],
+  GENERAL_STORE: ["groceries", "household", "personal_care"],
+  FISH_SELLER: ["meat_fish"],
   HARDWARE: ["household"],
   AGRI_INPUTS: ["farm_inputs"],
   VEGETABLE_FRUIT_SHOP: ["vegetables", "leafy_vegetables", "fruits"],

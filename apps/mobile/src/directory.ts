@@ -45,7 +45,7 @@ export function useDirectorySummary(module: "services" | "transport") {
     enabled: !!village && (!session || !!session.user.village),
     queryFn: ({ signal }) =>
       (session ? authenticatedApi : api)(
-        `/directory/summary?${new URLSearchParams({ sourceVillageId: village!.id, module })}`,
+        `/directory/summary?${new URLSearchParams({ sourceVillageId: village!.id, module, tiles: "2" })}`,
         directorySummarySchema,
         { signal },
       ),

@@ -51,7 +51,11 @@ export const directoryEntrySchema = z
 // Counts for the category tiles of one module.
 export const directorySummaryQuerySchema = directoryQuerySchema
   .pick({ sourceVillageId: true })
-  .extend({ module: z.enum(["services", "transport"]) })
+  .extend({
+    module: z.enum(["services", "transport"]),
+    // "2": the 15 Services categories of 2026-11-18.
+    tiles: z.literal("2").optional(),
+  })
   .strict();
 export const directorySummarySchema = z
   .object({

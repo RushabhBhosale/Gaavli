@@ -1,13 +1,16 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { directoryGroupsOf, type DirectoryGroupId } from "@gaavli/constants";
+import {
+  directoryGroup,
+  directoryGroupsOf,
+  type DirectoryGroupId,
+} from "@gaavli/constants";
 import type { z } from "zod";
 import type { directoryEntrySchema } from "@gaavli/validation";
 import type { MobileLanguage } from "@gaavli/types";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { resolveListingPhotoUrl } from "../../data/listingPhotos";
-import { directoryChipImage } from "./directoryGroupImages";
 
 type Entry = z.infer<typeof directoryEntrySchema>;
 
@@ -42,7 +45,10 @@ export function DirectoryListCard({
     serviceCategory: entry.category,
     providerType: entry.providerType,
   })[0];
-  const art = group ? directoryChipImage(group) : null;
+  // A category icon stands in when the provider added no photo.
+  const icon =
+    (group ? directoryGroup(group)?.icon : undefined) ??
+    (entry.module === "transport" ? "car-outline" : "construct-outline");
   const phone = entry.contacts[0]?.mobile;
   return (
     <Pressable
@@ -58,15 +64,11 @@ export function DirectoryListCard({
             style={s.thumbImage}
             accessible={false}
           />
-        ) : art ? (
-          <Image source={art} style={s.thumbArt} accessible={false} />
         ) : (
           <Ionicons
             accessible={false}
-            name={
-              entry.module === "transport" ? "car-outline" : "construct-outline"
-            }
-            size={34}
+            name={icon as React.ComponentProps<typeof Ionicons>["name"]}
+            size={36}
             color={module.color}
           />
         )}
@@ -125,7 +127,6 @@ const s = StyleSheet.create({
     justifyContent: "center",
   },
   thumbImage: { width: "100%", height: "100%" },
-  thumbArt: { width: 68, height: 68, borderRadius: 34 },
   copy: { flex: 1, gap: 4, justifyContent: "center" },
   badge: {
     alignSelf: "flex-start",

@@ -199,9 +199,12 @@ function ListingFormScreen({
             `/listings/mine/${editId}`,
             ownedListingSchema,
           );
-          // Active and expired listings can be edited; saving an expired one
-          // with a new availability puts it back on sale.
-          if (row.villageId !== villageId || row.status !== "active")
+          // Active, expired and sold-out listings can be edited; saving an
+          // ended one with a new availability puts it back on sale.
+          if (
+            row.villageId !== villageId ||
+            !["active", "expired", "sold_out"].includes(row.status)
+          )
             throw new ApiError("INVALID_LISTING_STATE", 409);
           const form = formFromListing(row, language);
           saved = {

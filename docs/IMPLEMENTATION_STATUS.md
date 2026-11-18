@@ -1,3 +1,30 @@
+## 2026-11-18 - Services categories, optional product fields, product catalogue (user approved)
+
+- Services: the 15 categories (Shops & Businesses ... Political & Public
+  Representatives) in `packages/constants/src/serviceCategories.ts` replace
+  the old Services tiles in the updated app. Existing profiles keep their
+  provider codes and land in the matching new tile; nothing is renamed or
+  removed. Installed apps keep the old tiles: `/directory/summary` returns the
+  new set only with `tiles=2`. Old tile IDs are still accepted as filters.
+- Add Your Service: category, then subcategory (searchable), then the form for
+  that subcategory's kind with it pre-filled. Transport stays a separate row.
+  New subcategory codes are in the provider master seed (112 rows, insert
+  only); they must be seeded with `npm run seed:provider-masters -- --apply`
+  before new registrations can pick them. Not yet done: "suggest a new
+  service" workflow, attributes per subcategory, extra offerings per profile.
+- Services and Transport chips and list cards show icons instead of images.
+- The service/transport registration and edit forms no longer have a
+  description field. The API still accepts it from installed apps.
+- Products: only the name and shelf life (category + days) are required.
+  Quantity and price may be empty; a listing without a quantity counts as
+  available, never as sold out or low stock.
+- Sold and expired products can be edited; saving with a new availability
+  lists them again (counts against the active listing limit).
+- Admin: Product Catalogue page (`/product-catalogue`) lists Product Master
+  with search, status and group filters, edit (names, group, unit, status)
+  and activate/deactivate. Inactive products disappear from sellers' product
+  search only; existing listings are unchanged. Changes are audit-logged.
+
 ## 2026-11-17 - Multiple coordinators per village
 
 - Removed the one-coordinator-per-village restriction from user assignment,

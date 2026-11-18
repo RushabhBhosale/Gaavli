@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -24,7 +23,8 @@ import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { DirectoryListCard } from "../components/dashboard/DirectoryListCard";
 import { d } from "../components/dashboard/primitives";
-import { directoryChipImage } from "../components/dashboard/directoryGroupImages";
+
+type IconName = React.ComponentProps<typeof Ionicons>["name"];
 
 // Services and Transport: a row of round category chips to scroll through,
 // and below it the list of what is available (all of it, or the chosen
@@ -188,14 +188,17 @@ export default function DirectoryScreen({
                 <View
                   style={[
                     s.circle,
+                    s.allCircle,
+                    { backgroundColor: tone.tint },
                     on && { borderColor: tone.color, borderWidth: 3 },
                     !count && s.dim,
                   ]}
                 >
-                  <Image
-                    source={directoryChipImage(group.id)}
-                    style={s.circleImage}
+                  <Ionicons
                     accessible={false}
+                    name={(group.icon ?? "apps-outline") as IconName}
+                    size={30}
+                    color={tone.color}
                   />
                 </View>
                 <Text
@@ -278,7 +281,6 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.surfaceMuted,
   },
   allCircle: { alignItems: "center", justifyContent: "center" },
-  circleImage: { width: "100%", height: "100%" },
   dim: { opacity: 0.45 },
   chipLabel: {
     ...theme.type.micro,

@@ -36,6 +36,9 @@ import { errorMessage } from "../errors";
 import { showToast } from "../toast";
 import { useListingClock } from "../hooks/useListingClock";
 
+const editable = (item: OwnedListing) =>
+  ["active", "expired", "sold_out"].includes(item.status);
+
 export default function MyListingsScreen() {
   const router = useRouter();
   const client = useQueryClient();
@@ -393,7 +396,9 @@ export default function MyListingsScreen() {
               accessibilityLabel={`${t.editListing}: ${name}`}
               disabled={busy || item.villageId !== villageId}
               onPress={() => {
-                if (item.status === "active") edit(item.id);
+                // Sold and expired products open the same form; saving them
+                // with a new availability lists them again.
+                if (editable(item)) edit(item.id);
                 else {
                   setFailure(null);
                   setMenu(item);
@@ -546,9 +551,7 @@ export default function MyListingsScreen() {
             <Button
               secondary
               disabled={
-                !menu ||
-                menu.status !== "active" ||
-                menu.villageId !== villageId
+                !menu || !editable(menu) || menu.villageId !== villageId
               }
               onPress={() => {
                 if (menu) {
@@ -557,7 +560,9 @@ export default function MyListingsScreen() {
                 }
               }}
             >
-              {t.editListing}
+              {menu && menu.status !== "active"
+                ? t.relistListing
+                : t.editListing}
             </Button>
             <Button
               secondary

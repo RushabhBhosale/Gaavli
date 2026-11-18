@@ -66,7 +66,6 @@ export default function ProviderManageScreen() {
   const links = query.data?.links ?? [];
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
-  const [description, setDescription] = useState("");
   const [images, setImages] = useState<ProviderImage[]>([]);
   const [contacts, setContacts] = useState<ContactDraft[]>([]);
   const [details, setDetails] = useState<Details>({});
@@ -90,7 +89,6 @@ export default function ProviderManageScreen() {
     loaded.current = key;
     setName(profile.name);
     setAddress(profile.address ?? "");
-    setDescription(profile.description ?? "");
     setImages(profile.images);
     setContacts(draftsFromServer(profile.contacts));
     const next: Details = {};
@@ -174,7 +172,6 @@ export default function ProviderManageScreen() {
       updateProfile(profile.id, {
         name: name.trim(),
         address: address.trim(),
-        description: description.trim(),
         contacts: contactsPayload(activeContacts(contacts)),
         ...(images.length || profile.images.length
           ? { images: images.map((image) => image.key) }
@@ -254,15 +251,6 @@ export default function ProviderManageScreen() {
             }}
             errors={errors}
             disabled={busy}
-          />
-          <Input
-            label={t.provDescription}
-            value={description}
-            onChangeText={setDescription}
-            multiline
-            maxLength={1500}
-            editable={!busy}
-            style={{ minHeight: 96, textAlignVertical: "top" }}
           />
           <ProviderImagesField
             images={images}

@@ -33,7 +33,8 @@ export function effectiveListingStatus(row: ListingDocument, now = Date.now()) {
 }
 export const activeStockFilter = (now = new Date()) => ({
   status: "active",
-  quantity: { $gt: 0 },
+  // No quantity means the seller did not say: it counts as available.
+  quantity: { $not: { $lte: 0 } },
   $or: [
     { expiresAt: { $gt: now } },
     { category: "RECURRING_SUPPLY", expiresAt: { $type: 10 } },
@@ -105,7 +106,11 @@ export async function findOwnListings(
   const lowStock = {
     ...activeStockFilter(now),
     $expr: {
-      $lte: ["$quantity", { $ifNull: ["$minimumPurchaseQuantity", 1] }],
+      $lte: [
+        // Listings without a quantity are never low on stock.
+        { $ifNull: ["$quantity", 1e12] },
+        { $ifNull: ["$minimumPurchaseQuantity", 1] },
+      ],
     },
   };
   const expired = {

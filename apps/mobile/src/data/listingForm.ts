@@ -136,9 +136,10 @@ export function prepareListing(
     villageId,
     categoryId: form.categoryId,
     productGroup: form.group === "other" ? null : form.group,
-    quantity: number(form.quantity, "quantity"),
+    // Only the name and shelf life are required; the rest may stay empty.
+    quantity: form.quantity.trim() ? number(form.quantity, "quantity") : null,
     unit: form.unit,
-    price: number(form.price, "price"),
+    price: form.price.trim() ? number(form.price, "price") : null,
     minimumPurchaseQuantity: form.minimum.trim()
       ? number(form.minimum, "minimum")
       : null,
@@ -192,7 +193,11 @@ export function formFromListing(
     categoryId: row.categoryId || "",
     description: row.description || "",
     group: row.productGroup || "other",
-    quantity: row.quantity === null ? "" : String(row.quantity),
+    // Sold-out stock was zeroed; relisting starts with the amount unknown.
+    quantity:
+      row.quantity === null || row.status === "sold_out"
+        ? ""
+        : String(row.quantity),
     unit: row.unit || "kg",
     price: row.price === null ? "" : String(row.price),
     minimum:
@@ -242,8 +247,12 @@ export function prepareListingEdit(
         ? form.name.trim()
         : row.productNameMr;
   }
-  // Saving an ended listing gives it a new expiry, which puts it back on sale.
-  const ended = !!row.expiresAt && Date.parse(row.expiresAt) <= now;
+  // Saving an ended (expired or sold-out) listing gives it a new expiry,
+  // which puts it back on sale.
+  const ended =
+    row.status === "expired" ||
+    row.status === "sold_out" ||
+    (!!row.expiresAt && Date.parse(row.expiresAt) <= now);
   if (
     !ended &&
     form.categoryId === initialForm.categoryId &&

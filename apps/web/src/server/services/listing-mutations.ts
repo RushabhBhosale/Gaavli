@@ -75,8 +75,11 @@ function expiryValid(
   } else if (new Date(expiresAt).getTime() <= Date.now())
     throw new AppError(422, "EXPIRY_INVALID", "Set a future expiry date.");
 }
-function minimumValid(minimum: number | null | undefined, quantity: number) {
-  if (minimum != null && minimum > quantity)
+function minimumValid(
+  minimum: number | null | undefined,
+  quantity: number | null | undefined,
+) {
+  if (minimum != null && quantity != null && minimum > quantity)
     throw new AppError(
       422,
       "VALIDATION_ERROR",
@@ -259,13 +262,14 @@ export function updateOwnedListing(
             )),
           }
         : input;
-      // Active and expired listings can be edited; sold-out stock is relisted.
+      // Active, expired and sold-out listings can be edited. Saving an
+      // expired or sold-out one with a fresh shelf life lists it again.
       const current = effectiveListingStatus(row);
-      if (current !== "active" && current !== "expired")
+      if (current !== "active" && current !== "expired" && current !== "sold_out")
         throw new AppError(
           409,
           "INVALID_LISTING_STATE",
-          "Only an active or expired listing can be edited. Relist sold-out stock first.",
+          "Only an active, expired or sold-out listing can be edited.",
         );
       await lockVillage(user, String(row.village), session);
       const category = await activeCategory(
@@ -275,10 +279,12 @@ export function updateOwnedListing(
       );
       const expiry =
         input.expiresAt === undefined ? row.expiresAt : input.expiresAt;
-      // An expired listing may be edited without a new date; it stays expired
-      // until a future expiry is set.
+      // An expired or sold-out listing may be edited without a new date; it
+      // stays unavailable until a fresh shelf life is set.
       if (current === "active" || input.expiresAt !== undefined)
         expiryValid(expiry, category.code);
+      const relist = current !== "active" && input.expiresAt !== undefined;
+      if (relist) await listingLimit(userId, session);
       const photoFields =
         input.photoObjectKey !== undefined
           ? {
@@ -293,7 +299,7 @@ export function updateOwnedListing(
         input.minimumPurchaseQuantity === undefined
           ? row.minimumPurchaseQuantity
           : input.minimumPurchaseQuantity,
-        input.quantity ?? row.quantity ?? 0,
+        input.quantity === undefined ? row.quantity : input.quantity,
       );
       await duplicateCheck(
         userId,
@@ -311,9 +317,23 @@ export function updateOwnedListing(
         categoryId: category._id,
         category: category.code,
         version: version + 1,
+        ...(relist
+          ? {
+              status: "active",
+              // Sold-out stock was zeroed; without a new amount it is unknown.
+              ...(current === "sold_out" && input.quantity === undefined
+                ? { quantity: null }
+                : {}),
+            }
+          : {}),
       });
       await row.save({ session });
-      await recordListingEvent(userId, row, "updated", session);
+      await recordListingEvent(
+        userId,
+        row,
+        relist ? "relisted" : "updated",
+        session,
+      );
       return { data: await ownedListingDto(row, session), status: 200 };
     },
   );
@@ -420,7 +440,7 @@ export function relistOwnedListing(
       await listingLimit(userId, session);
       row.set({
         status: "active",
-        quantity: input.quantity,
+        quantity: input.quantity ?? null,
         expiresAt: input.expiresAt,
         version: input.version + 1,
         categoryId: category._id,

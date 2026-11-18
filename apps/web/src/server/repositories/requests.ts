@@ -123,7 +123,7 @@ export async function findActivityRequests(
         listing &&
         !listing.isDemo &&
         listing.status === "active" &&
-        (listing.quantity ?? 0) > 0 &&
+        (listing.quantity == null || listing.quantity > 0) &&
         ((listing.expiresAt && listing.expiresAt.getTime() > Date.now()) ||
           (listing.category === "RECURRING_SUPPLY" &&
             listing.expiresAt === null)) &&
