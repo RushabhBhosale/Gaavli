@@ -1,37 +1,105 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  flexRender,
   getCoreRowModel,
   useReactTable,
   type ColumnDef,
   type SortingState,
 } from "@tanstack/react-table";
-import {
-  Plus,
-  MoreVertical,
-  Search,
-  ArrowDown,
-  ArrowUp,
-  ArrowUpDown,
-} from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { api } from "@/lib/api";
+import { useSearchShortcut } from "@/lib/use-search-shortcut";
 import type { Counts, UserDto, UsersPage, VillageDto } from "@/lib/contracts";
 import { Button } from "@/components/ui/button";
-import { ListPagination } from "@/components/shared/list-pagination";
+import { Badge, type BadgeTone } from "@/components/shared/badge";
 import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
+  DataTable,
+  ListCard,
+  ListFilterBar,
+  ListPageToolbar,
+  ListSkeleton,
+  RowActions,
+  SearchField,
+} from "@/components/shared/list-page";
+import { ListPagination } from "@/components/shared/list-pagination";
+import { EmptyState, ErrorState } from "@/components/shared/states";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
 import { UserForm } from "./user-form";
 import { UserBulkActions } from "./user-bulk-actions";
+
+const ROLE_LABELS: Record<string, string> = {
+  seller: "Seller",
+  buyer: "Buyer",
+  coordinator: "Coordinator",
+};
+// Order is stable so a user with several roles always renders the same pills.
+// Provider (service_provider) is managed from Provider Profiles, not here.
+const ROLE_ORDER = ["seller", "buyer", "coordinator"];
+const ROLE_TABS = [
+  { key: "seller", label: "Sellers" },
+  { key: "buyer", label: "Buyers" },
+  { key: "coordinator", label: "Coordinators" },
+] as const;
+
+function initials(name: string) {
+  return name
+    .split(" ")
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+function statusTone(status: string): BadgeTone {
+  if (status === "active") return "success";
+  if (status === "blocked") return "danger";
+  return "warning";
+}
+function villageLabel(user: UserDto) {
+  if (user.roles.includes("coordinator")) {
+    return user.coordinatorVillages?.map((v) => v.name).join(", ") || "—";
+  }
+  return user.village?.name || "—";
+}
+function formatJoined(value: string) {
+  return new Date(value).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function UserIdentity({ user }: { user: UserDto }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <span
+        aria-hidden
+        className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[#FEF3EA] text-[11px] font-bold text-[#A84E0D]"
+      >
+        {initials(user.name)}
+      </span>
+      <span className="font-semibold text-slate-800">{user.name}</span>
+    </div>
+  );
+}
+
+function RoleBadges({ roles }: { roles: string[] }) {
+  const present = ROLE_ORDER.filter((role) => roles.includes(role));
+  if (!present.length) return <span className="text-slate-400">—</span>;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {present.map((role) => (
+        <Badge key={role} tone="neutral">
+          {ROLE_LABELS[role] ?? role}
+        </Badge>
+      ))}
+    </div>
+  );
+}
+
 export function UsersManagement() {
   const client = useQueryClient();
+  const searchRef = useRef<HTMLInputElement>(null);
   const [role, setRole] = useState(""),
     [village, setVillage] = useState(""),
     [status, setStatus] = useState(""),
@@ -53,6 +121,7 @@ export function UsersManagement() {
     }, 300);
     return () => clearTimeout(timer);
   }, [search]);
+  useSearchShortcut(searchRef);
   const query = new URLSearchParams({
     page: String(page),
     limit: String(pageSize),
@@ -98,131 +167,91 @@ export function UsersManagement() {
       setConfirm(null);
     },
   });
+  const openBlock = useCallback(
+    (user: UserDto) => {
+      changeStatus.reset();
+      setConfirm(user);
+    },
+    [changeStatus],
+  );
   const columns = useMemo<ColumnDef<UserDto>[]>(
     () => [
-      // Selection stays in place for a later bulk-actions pass.
-      // {
-      //   id: "select",
-      //   header: ({ table }) => (
-      //     <input
-      //       type="checkbox"
-      //       aria-label="Select all users on this page"
-      //       checked={table.getIsAllRowsSelected()}
-      //       onChange={table.getToggleAllRowsSelectedHandler()}
-      //     />
-      //   ),
-      //   cell: ({ row }) => (
-      //     <input
-      //       type="checkbox"
-      //       aria-label={`Select ${row.original.name}`}
-      //       checked={row.getIsSelected()}
-      //       onChange={row.getToggleSelectedHandler()}
-      //     />
-      //   ),
-      // },
       {
         accessorKey: "name",
         header: "Name",
-        cell: ({ row }) => (
-          <div className="flex items-center gap-2">
-            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[10px] font-bold text-emerald-800">
-              {row.original.name
-                .split(" ")
-                .map((n) => n[0])
-                .slice(0, 2)
-                .join("")}
-            </span>
-            <span className="font-semibold text-slate-700">
-              {row.original.name}
-            </span>
-          </div>
-        ),
+        cell: ({ row }) => <UserIdentity user={row.original} />,
       },
       {
         id: "roles",
         header: "Role",
+        cell: ({ row }) => <RoleBadges roles={row.original.roles} />,
+      },
+      {
+        accessorKey: "mobile",
+        header: "Mobile Number",
         cell: ({ row }) => (
-          <div className="flex gap-1">
-            {["seller", "buyer", "coordinator"]
-              .filter((r) => row.original.roles.includes(r))
-              .map((r) => (
-                <span
-                  key={r}
-                  className={`rounded px-2 py-1 text-[10px] font-medium ${r === "seller" ? "bg-emerald-50 text-emerald-700" : r === "coordinator" ? "bg-purple-50 text-purple-700" : "bg-blue-50 text-blue-600"}`}
-                >
-                  {r === "seller"
-                    ? "Seller"
-                    : r === "coordinator"
-                      ? "Coordinator"
-                      : "Buyer"}
-                </span>
-              ))}
-          </div>
+          <span className="tabular-nums text-slate-600">
+            {row.original.mobile}
+          </span>
         ),
       },
-      { accessorKey: "mobile", header: "Mobile Number" },
       {
         id: "village",
         header: "Village",
-        cell: ({ row }) =>
-          row.original.roles.includes("coordinator")
-            ? row.original.coordinatorVillages?.map((v) => v.name).join(", ") ||
-              "—"
-            : row.original.village?.name || "—",
+        cell: ({ row }) => {
+          const label = villageLabel(row.original);
+          return (
+            <span
+              className="block max-w-56 truncate text-slate-600"
+              title={label}
+            >
+              {label}
+            </span>
+          );
+        },
       },
       {
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => (
-          <span
-            className={`rounded px-2 py-1 text-[10px] font-semibold capitalize ${row.original.status === "active" ? "bg-green-100 text-green-700" : row.original.status === "blocked" ? "bg-red-50 text-red-600" : "bg-amber-50 text-amber-600"}`}
-          >
-            {row.original.status}
-          </span>
+          <Badge tone={statusTone(row.original.status)} dot>
+            <span className="capitalize">{row.original.status}</span>
+          </Badge>
         ),
       },
       {
         accessorKey: "createdAt",
         header: "Joined On",
-        cell: ({ row }) =>
-          new Date(row.original.createdAt).toLocaleDateString("en-IN", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          }),
+        cell: ({ row }) => (
+          <span className="whitespace-nowrap tabular-nums text-slate-500">
+            {formatJoined(row.original.createdAt)}
+          </span>
+        ),
       },
       {
         id: "actions",
         header: "Actions",
         cell: ({ row }) => (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                size="icon"
-                variant="ghost"
-                aria-label={`Actions for ${row.original.name}`}
-              >
-                <MoreVertical size={16} />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onSelect={() => setForm(row.original)}>
-                Edit
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onSelect={() => {
-                  changeStatus.reset();
-                  setConfirm(row.original);
-                }}
-              >
-                {row.original.status === "blocked" ? "Unblock" : "Block"}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex w-full justify-center">
+            <RowActions
+              label={`Actions for ${row.original.name}`}
+              items={[
+                {
+                  label: "Edit",
+                  onSelect: () => setForm(row.original),
+                },
+                {
+                  label:
+                    row.original.status === "blocked" ? "Unblock" : "Block",
+                  onSelect: () => openBlock(row.original),
+                },
+              ]}
+            />
+          </div>
         ),
       },
     ],
-    [changeStatus],
+    [openBlock],
   );
   // React Compiler is not enabled; TanStack Table v8 owns its memoization.
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -244,94 +273,205 @@ export function UsersManagement() {
     },
   });
   const total = users.data?.total || 0;
+  const hasFilters = Boolean(role || village || status || debounced);
+  const villageName =
+    villages.data?.find((item) => item.id === village)?.name ?? "";
+  const roleLabel =
+    ROLE_TABS.find((tab) => tab.key === role)?.label ?? "Selected role";
   function filter(action: () => void) {
     action();
     setPage(1);
     setSelection({});
   }
-  return (
-    <div className="space-y-5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold">Users Management</h1>
-        <UserBulkActions filters={{ role, village, status, search: debounced }}>
-          <Button
-            size="sm"
-            disabled={!villages.data?.length}
-            onClick={() => setForm("new")}
-          >
-            <Plus size={15} />
-            Add User
-          </Button>
-        </UserBulkActions>
-      </div>
-      <div className="card overflow-hidden">
-        <div className="flex flex-wrap items-center gap-3 border-b border-slate-100 p-4">
-          <div
-            role="tablist"
-            aria-label="User roles"
-            className="flex flex-wrap gap-1 rounded-md bg-slate-100 p-1"
-          >
-            {[
-              // { key: "", label: "All", count: counts.data?.all },
-              { key: "seller", label: "Sellers", count: counts.data?.seller },
-              { key: "buyer", label: "Buyers", count: counts.data?.buyer },
-              {
-                key: "coordinator",
-                label: "Coordinators",
-                count: counts.data?.coordinator,
-              },
-            ].map((tab) => (
-              <button
-                role="tab"
-                aria-selected={role === tab.key}
-                key={tab.key}
-                className={`rounded px-3 py-2 text-xs font-semibold ${role === tab.key ? "bg-emerald-800 text-white" : "text-slate-500 hover:bg-slate-200"}`}
-                onClick={() => filter(() => setRole(tab.key))}
-              >
-                {tab.label} ({tab.count?.toLocaleString("en-IN") ?? "…"})
-              </button>
-            ))}
-          </div>
-          <div className="relative min-w-44 flex-1">
-            <Search
-              size={15}
-              className="absolute left-3 top-3 text-slate-400"
-            />
-            <input
-              aria-label="Search by name or mobile"
-              placeholder="Search name or mobile..."
-              style={{ paddingLeft: 34 }}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-          <div className="w-40">
-            <select
-              aria-label="Filter by village"
-              value={village}
-              onChange={(e) => filter(() => setVillage(e.target.value))}
-            >
-              <option value="">All Villages</option>
-              {villages.data?.map((v) => (
-                <option key={v.id} value={v.id}>
-                  {v.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="w-32">
-            <select
-              aria-label="Filter by status"
-              value={status}
-              onChange={(e) => filter(() => setStatus(e.target.value))}
-            >
-              <option value="">All Status</option>
-              <option value="active">Active</option>
-              <option value="blocked">Blocked</option>
-              <option value="pending">Pending</option>
-            </select>
+  function clearFilters() {
+    filter(() => {
+      setRole("");
+      setVillage("");
+      setStatus("");
+      setSearch("");
+      setDebounced("");
+    });
+  }
+  const chips = [
+    ...(role
+      ? [
+          {
+            label: `Role: ${roleLabel}`,
+            onRemove: () => filter(() => setRole("")),
+          },
+        ]
+      : []),
+    ...(village
+      ? [
+          {
+            label: `Village: ${villageName || "selected"}`,
+            onRemove: () => filter(() => setVillage("")),
+          },
+        ]
+      : []),
+    ...(status
+      ? [
+          {
+            label: `Status: ${status}`,
+            onRemove: () => filter(() => setStatus("")),
+          },
+        ]
+      : []),
+    ...(debounced
+      ? [
+          {
+            label: `Search: “${debounced}”`,
+            onRemove: () => {
+              setSearch("");
+              setDebounced("");
+              setPage(1);
+              setSelection({});
+            },
+          },
+        ]
+      : []),
+  ];
+  function renderUserRow(user: UserDto) {
+    return (
+      <div className="flex items-start gap-3 px-4 py-3">
+        <div className="min-w-0 flex-1">
+          <UserIdentity user={user} />
+          <p className="mt-1 text-xs tabular-nums text-slate-500">
+            {user.mobile}
+          </p>
+          <p className="mt-0.5 truncate text-xs text-slate-500">
+            {villageLabel(user)}
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <RoleBadges roles={user.roles} />
+            <Badge tone={statusTone(user.status)} dot>
+              <span className="capitalize">{user.status}</span>
+            </Badge>
           </div>
         </div>
+        <RowActions
+          label={`Actions for ${user.name}`}
+          items={[
+            { label: "Edit", onSelect: () => setForm(user) },
+            {
+              label: user.status === "blocked" ? "Unblock" : "Block",
+              onSelect: () => openBlock(user),
+            },
+          ]}
+        />
+      </div>
+    );
+  }
+  return (
+    <div className="space-y-5">
+      <ListPageToolbar
+        search={
+          <SearchField
+            inputRef={searchRef}
+            label="Search by name or mobile"
+            placeholder="Search name or mobile…"
+            value={search}
+            onChange={setSearch}
+          />
+        }
+        actions={
+          <UserBulkActions
+            filters={{ role, village, status, search: debounced }}
+          >
+            <Button
+              size="sm"
+              className="bg-[#B9520A] hover:bg-[#9E4508] focus-visible:outline-[#B9520A]"
+              disabled={!villages.data?.length}
+              onClick={() => setForm("new")}
+            >
+              <Plus size={15} />
+              Add User
+            </Button>
+          </UserBulkActions>
+        }
+      />
+      <ListCard
+        toolbar={
+          <>
+            <div
+              role="tablist"
+              aria-label="Filter by role"
+              className="flex flex-wrap gap-1 rounded-lg bg-slate-100 p-1"
+            >
+              {ROLE_TABS.map((tab) => {
+                const count = counts.data?.[tab.key];
+                const active = role === tab.key;
+                return (
+                  <button
+                    key={tab.key}
+                    role="tab"
+                    type="button"
+                    aria-selected={active}
+                    className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B9520A] ${
+                      active
+                        ? "bg-[#B9520A] text-white shadow-sm"
+                        : "text-slate-500 hover:text-slate-800"
+                    }`}
+                    onClick={() => filter(() => setRole(tab.key))}
+                  >
+                    {tab.label}{" "}
+                    <span
+                      className={active ? "text-white/80" : "text-slate-400"}
+                    >
+                      {count?.toLocaleString("en-IN") ?? "…"}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="w-full sm:ml-auto sm:w-44">
+              <select
+                aria-label="Filter by village"
+                value={village}
+                onChange={(e) => filter(() => setVillage(e.target.value))}
+              >
+                <option value="">All Villages</option>
+                {villages.data?.map((v) => (
+                  <option key={v.id} value={v.id}>
+                    {v.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-full sm:w-36">
+              <select
+                aria-label="Filter by status"
+                value={status}
+                onChange={(e) => filter(() => setStatus(e.target.value))}
+              >
+                <option value="">All Status</option>
+                <option value="active">Active</option>
+                <option value="blocked">Blocked</option>
+                <option value="pending">Pending</option>
+              </select>
+            </div>
+          </>
+        }
+        filters={<ListFilterBar items={chips} onClearAll={clearFilters} />}
+        footer={
+          <ListPagination
+            page={page}
+            pageSize={pageSize}
+            total={total}
+            disabled={users.isPending}
+            label="User pagination"
+            onPageChange={(next) => {
+              setPage(next);
+              setSelection({});
+            }}
+            onPageSizeChange={(next) => {
+              setPageSize(next);
+              setPage(1);
+              setSelection({});
+            }}
+          />
+        }
+      >
         {counts.error && (
           <ErrorState
             error={counts.error}
@@ -347,100 +487,32 @@ export function UsersManagement() {
         {users.error ? (
           <ErrorState error={users.error} retry={() => void users.refetch()} />
         ) : users.isPending ? (
-          <div className="space-y-3 p-5">
-            {Array.from({ length: Math.min(pageSize, 8) }, (_, i) => (
-              <Skeleton key={i} className="h-10" />
-            ))}
-          </div>
+          <ListSkeleton rows={Math.min(pageSize, 8)} />
         ) : !users.data?.users.length ? (
           <EmptyState
-            title="No users found"
-            description="Try a different search or filter, or add your first user."
+            title={hasFilters ? "No users match these filters" : "No users yet"}
+            description={
+              hasFilters
+                ? "Try a different search, or clear the filters to see everyone."
+                : "Add your first user, or import a CSV to create several at once."
+            }
+            action={
+              hasFilters ? (
+                <Button variant="outline" size="sm" onClick={clearFilters}>
+                  <X size={14} />
+                  Clear filters
+                </Button>
+              ) : undefined
+            }
           />
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[850px] text-left text-xs">
-              <thead className="bg-slate-50 text-[10px] text-slate-500">
-                {table.getHeaderGroups().map((group) => (
-                  <tr key={group.id}>
-                    {group.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        scope="col"
-                        aria-sort={
-                          header.column.getIsSorted() === "asc"
-                            ? "ascending"
-                            : header.column.getIsSorted() === "desc"
-                              ? "descending"
-                              : "none"
-                        }
-                        className="whitespace-nowrap px-4 py-3 font-semibold"
-                      >
-                        {header.column.getCanSort() ? (
-                          <button
-                            className="flex items-center gap-1.5 text-left"
-                            onClick={header.column.getToggleSortingHandler()}
-                          >
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                            {header.column.getIsSorted() === "asc" ? (
-                              <ArrowUp size={13} />
-                            ) : header.column.getIsSorted() === "desc" ? (
-                              <ArrowDown size={13} />
-                            ) : (
-                              <ArrowUpDown size={13} />
-                            )}
-                          </button>
-                        ) : (
-                          flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody className="text-slate-500">
-                {table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className={`border-t border-slate-100 hover:bg-emerald-50/30 ${row.getIsSelected() ? "bg-emerald-50/50" : ""}`}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="whitespace-nowrap px-4 py-3">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <DataTable
+            table={table}
+            caption="Users with role, mobile number, village, status and join date"
+            mobileRow={renderUserRow}
+          />
         )}
-        <ListPagination
-          page={page}
-          pageSize={pageSize}
-          total={total}
-          disabled={users.isPending}
-          label="User pagination"
-          onPageChange={(next) => {
-            setPage(next);
-            setSelection({});
-          }}
-          onPageSizeChange={(next) => {
-            setPageSize(next);
-            setPage(1);
-            setSelection({});
-          }}
-        />
-      </div>
+      </ListCard>
       {form && (
         <UserForm
           key={form === "new" ? "new" : form.id}

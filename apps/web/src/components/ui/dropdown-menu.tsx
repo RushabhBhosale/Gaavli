@@ -22,14 +22,17 @@ export function DropdownMenuContent({
 export function DropdownMenuItem({
   children,
   onSelect,
+  disabled,
 }: {
   children: React.ReactNode;
   onSelect: () => void;
+  disabled?: boolean;
 }) {
   return (
     <Menu.Item
+      disabled={disabled}
       onSelect={onSelect}
-      className="cursor-pointer rounded px-3 py-2 text-sm text-slate-700 outline-none focus:bg-emerald-50"
+      className="cursor-pointer rounded px-3 py-2 text-sm text-slate-700 outline-none focus:bg-emerald-50 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
     >
       {children}
     </Menu.Item>

@@ -1,15 +1,13 @@
 "use client";
-
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  flexRender,
   getCoreRowModel,
   useReactTable,
   type ColumnDef,
   type SortingState,
 } from "@tanstack/react-table";
-import { ArrowUpDown, Plus, Search } from "lucide-react";
+import { ListTree, Plus } from "lucide-react";
 import {
   ProviderType,
   PROVIDER_MASTER_GROUPS,
@@ -22,16 +20,30 @@ import {
   providerMasterUpdateSchema,
 } from "@gaavli/validation";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
+import { Badge } from "@/components/shared/badge";
+import {
+  FieldError,
+  FormAlert,
+  FormDialogFooter,
+  FormDialogHeader,
+  FormSaveButton,
+  FormSection,
+} from "@/components/shared/form-dialog";
+import {
+  DataTable,
+  ListCard,
+  ListFilterBar,
+  ListPageToolbar,
+  ListSkeleton,
+  RowActions,
+  SearchField,
+} from "@/components/shared/list-page";
 import { ListPagination } from "@/components/shared/list-pagination";
-import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
+import { EmptyState, ErrorState } from "@/components/shared/states";
 import { api } from "@/lib/api";
+import { useSearchShortcut } from "@/lib/use-search-shortcut";
 import { ProviderMasterBulkActions } from "./provider-master-bulk-actions";
 
 type Master = {
@@ -64,6 +76,7 @@ export function ProviderMasterManagement() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [form, setForm] = useState<Master | "new" | null>(null);
   const [notice, setNotice] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounced(search);
@@ -76,6 +89,7 @@ export function ProviderMasterManagement() {
     const timer = setTimeout(() => setNotice(""), 5000);
     return () => clearTimeout(timer);
   }, [notice]);
+  useSearchShortcut(searchRef);
   const params = new URLSearchParams({
     providerType,
     masterType,
@@ -106,36 +120,48 @@ export function ProviderMasterManagement() {
       accessorKey: "name.en",
       id: "name.en",
       header: "English Name",
-      cell: ({ row }) => <span lang="en">{row.original.name.en}</span>,
+      cell: ({ row }) => (
+        <span lang="en" className="font-semibold text-slate-800">
+          {row.original.name.en}
+        </span>
+      ),
     },
     {
       accessorKey: "name.mr",
       id: "name.mr",
       header: "Marathi Name",
-      cell: ({ row }) => <span lang="mr">{row.original.name.mr}</span>,
+      cell: ({ row }) => (
+        <span lang="mr" className="text-slate-600">
+          {row.original.name.mr}
+        </span>
+      ),
     },
     {
       accessorKey: "name.hi",
       id: "name.hi",
       header: "Hindi Name",
-      cell: ({ row }) => <span lang="hi">{row.original.name.hi}</span>,
+      cell: ({ row }) => (
+        <span lang="hi" className="text-slate-600">
+          {row.original.name.hi}
+        </span>
+      ),
     },
     {
       accessorKey: "code",
       header: "Unique Code",
       cell: ({ row }) => (
-        <span className="break-all font-mono text-xs">{row.original.code}</span>
+        <span className="break-all font-mono text-xs text-slate-500">
+          {row.original.code}
+        </span>
       ),
     },
     {
       accessorKey: "isActive",
       header: "Status",
       cell: ({ row }) => (
-        <span
-          className={`rounded-full px-2 py-1 text-xs ${row.original.isActive ? "bg-emerald-50 text-emerald-800" : "bg-amber-50 text-amber-800"}`}
-        >
+        <Badge tone={row.original.isActive ? "success" : "neutral"} dot>
           {row.original.isActive ? "Active" : "Inactive"}
-        </span>
+        </Badge>
       ),
     },
     {
@@ -143,14 +169,11 @@ export function ProviderMasterManagement() {
       header: "Actions",
       enableSorting: false,
       cell: ({ row }) => (
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setForm(row.original)}
-          >
-            Edit
-          </Button>
+        <div className="flex w-full justify-center">
+          <RowActions
+            label={`Actions for ${row.original.name.en}`}
+            items={[{ label: "Edit", onSelect: () => setForm(row.original) }]}
+          />
         </div>
       ),
     },
@@ -171,212 +194,190 @@ export function ProviderMasterManagement() {
     },
   });
   const current = query.data?.page ?? page;
-  return (
-    <section className="card p-4 sm:p-6">
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <p className="mb-1 text-xs font-medium text-emerald-700">
-            Service Providers
+  const hasFilters = Boolean(debounced) || status !== "all";
+  function clearFilters() {
+    setSearch("");
+    setDebounced("");
+    setStatus("all");
+    setPage(1);
+  }
+  const chips = [
+    ...(status !== "all"
+      ? [
+          {
+            label: `Status: ${status === "active" ? "Active" : "Inactive"}`,
+            onRemove: () => {
+              setStatus("all");
+              setPage(1);
+            },
+          },
+        ]
+      : []),
+    ...(debounced
+      ? [
+          {
+            label: `Search: “${debounced}”`,
+            onRemove: () => {
+              setSearch("");
+              setDebounced("");
+              setPage(1);
+            },
+          },
+        ]
+      : []),
+  ];
+  function renderMasterRow(master: Master) {
+    return (
+      <div className="flex items-start gap-3 px-4 py-3">
+        <div className="min-w-0 flex-1">
+          <p lang="en" className="truncate font-semibold text-slate-800">
+            {master.name.en}
           </p>
-          <h1 className="text-xl font-bold">Master Management</h1>
+          <p lang="mr" className="mt-0.5 truncate text-xs text-slate-500">
+            {master.name.mr}
+          </p>
+          <p lang="hi" className="truncate text-xs text-slate-500">
+            {master.name.hi}
+          </p>
+          <p className="mt-1 break-all font-mono text-xs text-slate-400">
+            {master.code}
+          </p>
+          <div className="mt-2">
+            <Badge tone={master.isActive ? "success" : "neutral"} dot>
+              {master.isActive ? "Active" : "Inactive"}
+            </Badge>
+          </div>
         </div>
-        <ProviderMasterBulkActions
-          filters={{
-            providerType,
-            masterType,
-            search: debounced,
-            status,
-            sort: sorting[0]?.id || "sortOrder",
-            direction: sorting[0]?.desc ? "desc" : "asc",
-          }}
-        >
-          <Button onClick={() => setForm("new")}>
-            <Plus size={16} />
-            Add New
-          </Button>
-        </ProviderMasterBulkActions>
+        <RowActions
+          label={`Actions for ${master.name.en}`}
+          items={[{ label: "Edit", onSelect: () => setForm(master) }]}
+        />
       </div>
+    );
+  }
+  return (
+    <div className="space-y-5">
+      <ListPageToolbar
+        search={
+          <SearchField
+            inputRef={searchRef}
+            label="Search master names or code"
+            placeholder="Search English, Marathi, Hindi or code…"
+            value={search}
+            onChange={setSearch}
+          />
+        }
+        actions={
+          <ProviderMasterBulkActions
+            filters={{
+              providerType,
+              masterType,
+              search: debounced,
+              status,
+              sort: sorting[0]?.id || "sortOrder",
+              direction: sorting[0]?.desc ? "desc" : "asc",
+            }}
+          >
+            <Button
+              size="sm"
+              onClick={() => setForm("new")}
+              className="bg-[#B9520A] hover:bg-[#9E4508] focus-visible:outline-[#B9520A]"
+            >
+              <Plus size={15} />
+              Add New
+            </Button>
+          </ProviderMasterBulkActions>
+        }
+      />
       {notice && (
         <p
           role="status"
-          className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-emerald-800"
+          className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800"
         >
           {notice}
         </p>
       )}
-      <div className="mb-5 grid gap-4 sm:grid-cols-2">
-        <div className="field">
-          <label htmlFor="provider-type">Provider Type</label>
-          <select
-            id="provider-type"
-            value={providerType}
-            onChange={(event) => {
-              const next = event.target.value as ProviderType;
-              setProviderType(next);
-              setMasterType(PROVIDER_MASTER_GROUPS[next][0]);
-              setPage(1);
-              setSearch("");
-              setDebounced("");
-              setSorting([]);
-            }}
-          >
-            {Object.values(ProviderType).map((type) => (
-              <option key={type} value={type}>
-                {PROVIDER_TYPE_LABELS[type].en}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor="master-status">Status</label>
-          <select
-            id="master-status"
-            value={status}
-            onChange={(event) => {
-              setStatus(event.target.value);
-              setPage(1);
-            }}
-          >
-            <option value="all">All</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
-        </div>
-      </div>
-      {PROVIDER_MASTER_GROUPS[providerType].length > 1 ? (
-        <div
-          role="tablist"
-          aria-label="Master groups"
-          className="mb-5 flex flex-wrap gap-2"
-        >
-          {PROVIDER_MASTER_GROUPS[providerType].map((group) => (
-            <Button
-              key={group}
-              role="tab"
-              aria-selected={masterType === group}
-              variant={masterType === group ? "default" : "outline"}
-              onClick={() => {
-                setMasterType(group);
-                setPage(1);
-              }}
-            >
-              {PROVIDER_MASTER_LABELS[group]}
-            </Button>
-          ))}
-        </div>
-      ) : (
-        <h2 className="mb-4 font-semibold">
-          {PROVIDER_MASTER_LABELS[masterType]}
-        </h2>
-      )}
-      <div className="relative mb-4">
-        <Search
-          size={17}
-          aria-hidden="true"
-          className="absolute left-3 top-3 text-slate-400"
-        />
-        <input
-          aria-label="Search master names or code"
-          placeholder="Search English, Marathi, Hindi or code…"
-          maxLength={100}
-          style={{ paddingLeft: 38 }}
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-      </div>
-      {query.data && (
-        <div className="mb-4 flex flex-wrap gap-3 text-sm">
-          <span className="rounded-lg bg-slate-50 px-3 py-2">
-            Total: {query.data.counts.total}
-          </span>
-          <span className="rounded-lg bg-emerald-50 px-3 py-2">
-            Active: {query.data.counts.active}
-          </span>
-          <span className="rounded-lg bg-amber-50 px-3 py-2">
-            Inactive: {query.data.counts.inactive}
-          </span>
-        </div>
-      )}
-      {query.isPending ? (
-        <Skeleton className="h-56" />
-      ) : query.error ? (
-        <ErrorState error={query.error} retry={() => void query.refetch()} />
-      ) : !data.length ? (
-        <EmptyState
-          title="No master options found"
-          description="Change the search or filters, or add a master option."
-        />
-      ) : (
-        <div className="overflow-x-auto">
-          <table
-            className="w-full min-w-[850px] text-left text-sm"
-            aria-label="Provider master options"
-          >
-            <thead>
-              {table.getHeaderGroups().map((group) => (
-                <tr key={group.id} className="border-b border-slate-300">
-                  {group.headers.map((header) => (
-                    <th
-                      key={header.id}
-                      scope="col"
-                      aria-sort={
-                        header.column.getIsSorted() === "asc"
-                          ? "ascending"
-                          : header.column.getIsSorted() === "desc"
-                            ? "descending"
-                            : "none"
-                      }
-                      className="px-3 py-3 text-xs font-semibold text-slate-500"
+      <ListCard
+        toolbar={
+          <>
+            {PROVIDER_MASTER_GROUPS[providerType].length > 1 ? (
+              <div
+                role="tablist"
+                aria-label="Master groups"
+                className="flex flex-wrap gap-1 rounded-lg bg-slate-100 p-1"
+              >
+                {PROVIDER_MASTER_GROUPS[providerType].map((group) => {
+                  const active = masterType === group;
+                  return (
+                    <button
+                      key={group}
+                      role="tab"
+                      type="button"
+                      aria-selected={active}
+                      className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B9520A] ${
+                        active
+                          ? "bg-[#B9520A] text-white shadow-sm"
+                          : "text-slate-500 hover:text-slate-800"
+                      }`}
+                      onClick={() => {
+                        setMasterType(group);
+                        setPage(1);
+                      }}
                     >
-                      {header.column.getCanSort() ? (
-                        <button
-                          onClick={header.column.getToggleSortingHandler()}
-                          className="flex items-center gap-2 text-left"
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                          <ArrowUpDown size={13} />
-                        </button>
-                      ) : (
-                        flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.map((row) => (
-                <tr
-                  key={row.id}
-                  className="border-b border-slate-200 hover:bg-slate-50"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-3 py-3">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {query.data && (
-        <div className="-mx-4 -mb-4 mt-5 sm:-mx-6 sm:-mb-6">
+                      {PROVIDER_MASTER_LABELS[group]}
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <h2 className="text-sm font-semibold text-slate-700">
+                {PROVIDER_MASTER_LABELS[masterType]}
+              </h2>
+            )}
+            <div className="w-full sm:ml-auto sm:w-52">
+              <select
+                aria-label="Filter by provider type"
+                value={providerType}
+                onChange={(event) => {
+                  const next = event.target.value as ProviderType;
+                  setProviderType(next);
+                  setMasterType(PROVIDER_MASTER_GROUPS[next][0]);
+                  setPage(1);
+                  setSearch("");
+                  setDebounced("");
+                  setSorting([]);
+                }}
+              >
+                {Object.values(ProviderType).map((type) => (
+                  <option key={type} value={type}>
+                    {PROVIDER_TYPE_LABELS[type].en}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-full sm:w-32">
+              <select
+                aria-label="Filter by status"
+                value={status}
+                onChange={(event) => {
+                  setStatus(event.target.value);
+                  setPage(1);
+                }}
+              >
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+          </>
+        }
+        filters={<ListFilterBar items={chips} onClearAll={clearFilters} />}
+        footer={
           <ListPagination
             page={current}
             pageSize={pageSize}
-            total={query.data.total}
-            disabled={query.isFetching}
+            total={query.data?.total ?? 0}
+            disabled={query.isPending}
             label="Provider master pagination"
             onPageChange={setPage}
             onPageSizeChange={(next) => {
@@ -384,8 +385,62 @@ export function ProviderMasterManagement() {
               setPage(1);
             }}
           />
-        </div>
-      )}
+        }
+      >
+        {query.data && (
+          <div className="flex flex-wrap items-center gap-4 border-b border-slate-100 px-4 py-2.5 text-xs text-slate-500">
+            <span>
+              Total{" "}
+              <b className="tabular-nums font-semibold text-slate-700">
+                {query.data.counts.total.toLocaleString("en-IN")}
+              </b>
+            </span>
+            <span>
+              Active{" "}
+              <b className="tabular-nums font-semibold text-emerald-700">
+                {query.data.counts.active.toLocaleString("en-IN")}
+              </b>
+            </span>
+            <span>
+              Inactive{" "}
+              <b className="tabular-nums font-semibold text-amber-700">
+                {query.data.counts.inactive.toLocaleString("en-IN")}
+              </b>
+            </span>
+          </div>
+        )}
+        {query.error ? (
+          <ErrorState error={query.error} retry={() => void query.refetch()} />
+        ) : query.isPending ? (
+          <ListSkeleton rows={Math.min(pageSize, 8)} />
+        ) : !data.length ? (
+          <EmptyState
+            title={
+              hasFilters
+                ? "No master options match these filters"
+                : "No master options found"
+            }
+            description={
+              hasFilters
+                ? "Try a different search, or clear the filters to see every option."
+                : "Change the search or filters, or add a master option."
+            }
+            action={
+              hasFilters ? (
+                <Button variant="outline" size="sm" onClick={clearFilters}>
+                  Clear filters
+                </Button>
+              ) : undefined
+            }
+          />
+        ) : (
+          <DataTable
+            table={table}
+            caption="Provider master options with names, code and status"
+            mobileRow={renderMasterRow}
+          />
+        )}
+      </ListCard>
       {form && (
         <MasterForm
           key={form === "new" ? `${providerType}:${masterType}` : form.id}
@@ -396,7 +451,7 @@ export function ProviderMasterManagement() {
           onSaved={() => setNotice("Master option saved.")}
         />
       )}
-    </section>
+    </div>
   );
 }
 
@@ -451,6 +506,15 @@ function MasterForm({
       onClose();
     },
   });
+  // Clear a language's message as soon as that name is edited.
+  function updateName(language: "en" | "mr" | "hi", value: string) {
+    setName((previous) => ({ ...previous, [language]: value }));
+    setErrors((previous) =>
+      previous[`name.${language}`]
+        ? { ...previous, [`name.${language}`]: "" }
+        : previous,
+    );
+  }
   return (
     <Dialog
       open
@@ -458,16 +522,20 @@ function MasterForm({
         if (!open && !save.isPending) onClose();
       }}
     >
-      <DialogContent>
-        <DialogTitle className="text-xl font-bold">
-          {record ? "Edit master option" : "Add master option"}
-        </DialogTitle>
-        <DialogDescription className="mt-2 text-sm text-slate-500">
-          {PROVIDER_TYPE_LABELS[providerType].en} ·{" "}
-          {PROVIDER_MASTER_LABELS[masterType]}. Codes stay fixed after creation.
-        </DialogDescription>
+      <DialogContent className="sm:max-w-xl">
+        <FormDialogHeader
+          icon={<ListTree size={19} />}
+          title={record ? "Edit master option" : "Add master option"}
+          description={
+            <>
+              {PROVIDER_TYPE_LABELS[providerType].en} ·{" "}
+              {PROVIDER_MASTER_LABELS[masterType]}. Codes stay fixed after
+              creation.
+            </>
+          }
+        />
         <form
-          className="mt-5 space-y-4"
+          className="space-y-5"
           onSubmit={(event) => {
             event.preventDefault();
             const values = {
@@ -494,91 +562,138 @@ function MasterForm({
             if (parsed.success) save.mutate();
           }}
         >
-          <fieldset disabled={save.isPending} className="space-y-4">
-            {(["en", "mr", "hi"] as const).map((language) => (
-              <div className="field" key={language}>
-                <label htmlFor={`master-name-${language}`}>
-                  {{ en: "English", mr: "Marathi", hi: "Hindi" }[language]} Name
-                  *
+          <fieldset disabled={save.isPending} className="space-y-5">
+            <FormSection title="Names" hint="Required in all three languages">
+              <div className="field">
+                <label htmlFor="master-name-en">
+                  English Name <span className="text-red-500">*</span>
                 </label>
                 <input
-                  id={`master-name-${language}`}
-                  lang={language}
-                  value={name[language]}
+                  id="master-name-en"
+                  lang="en"
+                  value={name.en}
                   required
                   maxLength={160}
-                  aria-invalid={!!errors[`name.${language}`]}
-                  aria-describedby={
-                    errors[`name.${language}`] ? `error-${language}` : undefined
-                  }
-                  onChange={(event) =>
-                    setName({ ...name, [language]: event.target.value })
-                  }
+                  aria-required
+                  aria-invalid={!!errors["name.en"]}
+                  aria-describedby={errors["name.en"] ? "error-en" : undefined}
+                  onChange={(event) => updateName("en", event.target.value)}
                 />
-                {errors[`name.${language}`] && (
-                  <p
-                    id={`error-${language}`}
-                    role="alert"
-                    className="field-error"
-                  >
-                    {errors[`name.${language}`]}
-                  </p>
+                {errors["name.en"] && (
+                  <FieldError id="error-en">{errors["name.en"]}</FieldError>
                 )}
               </div>
-            ))}
-            <div className="field">
-              <label htmlFor="master-code">Unique Code</label>
-              <input
-                id="master-code"
-                readOnly
-                value={record?.code ?? "Generated automatically on save"}
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="master-order">Sort Order</label>
-              <input
-                id="master-order"
-                type="number"
-                min={0}
-                max={1000000}
-                step={1}
-                value={order}
-                onChange={(event) => setOrder(event.target.value)}
-              />
-              {errors.sortOrder && (
-                <p role="alert" className="field-error">
-                  {errors.sortOrder}
-                </p>
-              )}
-            </div>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={isActive}
-                onChange={(event) => {
-                  const checked = event.target.checked;
-                  if (record && isActive && !checked) {
-                    setConfirmDeactivate(true);
-                    return;
-                  }
-                  setActive(checked);
-                }}
-              />
-              Active
-            </label>
-            {record && (
-              <p className="text-xs text-slate-500">
-                Deactivating hides this option from future registration
-                dropdowns. Existing references are retained.
-              </p>
-            )}
+              <div className="grid gap-4 sm:grid-cols-2 sm:items-start">
+                <div className="field">
+                  <label htmlFor="master-name-mr">
+                    Marathi Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="master-name-mr"
+                    lang="mr"
+                    value={name.mr}
+                    required
+                    maxLength={160}
+                    aria-required
+                    aria-invalid={!!errors["name.mr"]}
+                    aria-describedby={
+                      errors["name.mr"] ? "error-mr" : undefined
+                    }
+                    onChange={(event) => updateName("mr", event.target.value)}
+                  />
+                  {errors["name.mr"] && (
+                    <FieldError id="error-mr">{errors["name.mr"]}</FieldError>
+                  )}
+                </div>
+                <div className="field">
+                  <label htmlFor="master-name-hi">
+                    Hindi Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="master-name-hi"
+                    lang="hi"
+                    value={name.hi}
+                    required
+                    maxLength={160}
+                    aria-required
+                    aria-invalid={!!errors["name.hi"]}
+                    aria-describedby={
+                      errors["name.hi"] ? "error-hi" : undefined
+                    }
+                    onChange={(event) => updateName("hi", event.target.value)}
+                  />
+                  {errors["name.hi"] && (
+                    <FieldError id="error-hi">{errors["name.hi"]}</FieldError>
+                  )}
+                </div>
+              </div>
+            </FormSection>
+            <FormSection title="Ordering and visibility">
+              <div className="grid gap-4 sm:grid-cols-2 sm:items-start">
+                <div className="field">
+                  <label htmlFor="master-code">Unique Code</label>
+                  <input
+                    id="master-code"
+                    className="font-mono"
+                    readOnly
+                    value={record?.code ?? "Generated automatically on save"}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="master-order">Sort Order</label>
+                  <input
+                    id="master-order"
+                    type="number"
+                    min={0}
+                    max={1000000}
+                    step={1}
+                    value={order}
+                    aria-invalid={!!errors.sortOrder}
+                    aria-describedby={
+                      errors.sortOrder ? "error-sort-order" : undefined
+                    }
+                    onChange={(event) => setOrder(event.target.value)}
+                  />
+                  {errors.sortOrder && (
+                    <FieldError id="error-sort-order">
+                      {errors.sortOrder}
+                    </FieldError>
+                  )}
+                </div>
+              </div>
+              <label className="group flex cursor-pointer items-start rounded-lg border border-slate-200 bg-white px-3 py-2.5 transition-colors hover:border-slate-300 hover:bg-slate-50 has-[:checked]:border-emerald-600/40 has-[:checked]:bg-emerald-50/60">
+                <span className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    checked={isActive}
+                    className="mt-0.5 size-4 shrink-0 cursor-pointer rounded border-slate-300"
+                    style={{ accentColor: "#087c50" }}
+                    onChange={(event) => {
+                      const checked = event.target.checked;
+                      if (record && isActive && !checked) {
+                        setConfirmDeactivate(true);
+                        return;
+                      }
+                      setActive(checked);
+                    }}
+                  />
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-slate-800">
+                      Active
+                    </span>
+                    {record && (
+                      <span className="mt-0.5 block text-xs leading-relaxed text-slate-500">
+                        Deactivating hides this option from future registration
+                        dropdowns. Existing references are retained.
+                      </span>
+                    )}
+                  </span>
+                </span>
+              </label>
+            </FormSection>
           </fieldset>
-          {save.error && (
-            <p role="alert" className="field-error">
-              {save.error.message}
-            </p>
-          )}
-          <div className="flex justify-end gap-2">
+          {save.error && <FormAlert>{save.error.message}</FormAlert>}
+          <FormDialogFooter>
             <Button
               type="button"
               variant="outline"
@@ -587,10 +702,8 @@ function MasterForm({
             >
               Cancel
             </Button>
-            <Button disabled={save.isPending}>
-              {save.isPending ? "Saving…" : "Save"}
-            </Button>
-          </div>
+            <FormSaveButton saving={save.isPending}>Save</FormSaveButton>
+          </FormDialogFooter>
         </form>
       </DialogContent>
       <ConfirmDialog
