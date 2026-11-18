@@ -22,7 +22,11 @@ import { useProviderMasters } from "../../providerProfiles";
 import { Button, DropdownField, ErrorMessage, Input } from "../ui";
 import { HoursField } from "./HoursField";
 import { defaultHours, serializeHours } from "../../data/operatingHours";
-import { ShopGroupsField, ShopProductsField } from "./ShopProductFields";
+import {
+  ShopGroupsField,
+  ShopProductsField,
+  itemsOfGroups,
+} from "./ShopProductFields";
 
 export type DetailValue = string | boolean | string[];
 export type Details = Record<string, DetailValue>;
@@ -110,16 +114,23 @@ export function ProviderFields({
                 disabled={disabled}
                 onChange={(value) => {
                   onChange(field.key, value);
-                  // A shop type pre-ticks what such shops usually sell, until
-                  // the seller has picked groups themselves.
-                  const suggested = SHOP_TYPE_PRODUCT_GROUPS[value];
-                  if (
-                    field.key === kind.categoryKey &&
-                    groupsKey &&
-                    suggested?.length &&
-                    !listOf(values[groupsKey]).length
-                  )
-                    onChange(groupsKey, [...suggested]);
+                  // A shop type pre-ticks what such shops usually sell, and
+                  // all their items. Switching type swaps them, unless the
+                  // seller has picked groups by hand (kept as they are).
+                  if (field.key !== kind.categoryKey || !groupsKey) return;
+                  const current = listOf(values[groupsKey]);
+                  const previous: readonly string[] =
+                    SHOP_TYPE_PRODUCT_GROUPS[String(values[field.key] ?? "")] ??
+                    [];
+                  const untouched =
+                    !current.length ||
+                    (current.length === previous.length &&
+                      current.every((id) => previous.includes(id)));
+                  if (!untouched) return;
+                  const suggested = SHOP_TYPE_PRODUCT_GROUPS[value] ?? [];
+                  onChange(groupsKey, [...suggested]);
+                  if (productsKey)
+                    onChange(productsKey, itemsOfGroups(suggested));
                 }}
               />
             );
@@ -130,6 +141,11 @@ export function ProviderFields({
                 label={label}
                 hint={field.hint?.[language]}
                 value={listOf(values[field.key])}
+                suggested={
+                  SHOP_TYPE_PRODUCT_GROUPS[
+                    String(values[kind.categoryKey] ?? "")
+                  ] ?? []
+                }
                 products={productsKey ? listOf(values[productsKey]) : []}
                 error={error}
                 disabled={disabled}

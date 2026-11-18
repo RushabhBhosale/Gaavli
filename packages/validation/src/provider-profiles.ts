@@ -351,3 +351,7 @@ export const accountContactsOutputSchema = z
     promoWhatsapp: z.boolean(),
   })
   .strict();
+
+export const providerClosedSchema = z
+  .object({ closed: z.boolean(), version: z.number().int().nonnegative() })
+  .strict();

@@ -11,6 +11,8 @@ import type { MobileLanguage } from "@gaavli/types";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { resolveListingPhotoUrl } from "../../data/listingPhotos";
+import { openState } from "../../data/operatingHours";
+import { CategoryIcon } from "./CategoryIcon";
 
 type Entry = z.infer<typeof directoryEntrySchema>;
 
@@ -50,10 +52,21 @@ export function DirectoryListCard({
     (group ? directoryGroup(group)?.icon : undefined) ??
     (entry.module === "transport" ? "car-outline" : "construct-outline");
   const phone = entry.contacts[0]?.mobile;
+  // Open now / Closed from the saved hours, or Closed when the owner closed
+  // it for now. No badge when there are no hours to go by.
+  const state = openState(entry.hours, !!entry.closed);
+  const stateLabel =
+    state === "open"
+      ? t.directoryOpenNow
+      : state === "closed"
+        ? t.directoryClosedNow
+        : null;
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={[name, village, t.directoryAvailable].join(", ")}
+      accessibilityLabel={[name, village, stateLabel]
+        .filter(Boolean)
+        .join(", ")}
       onPress={onPress}
       style={({ pressed }) => [s.card, pressed && s.pressed]}
     >
@@ -65,18 +78,19 @@ export function DirectoryListCard({
             accessible={false}
           />
         ) : (
-          <Ionicons
-            accessible={false}
-            name={icon as React.ComponentProps<typeof Ionicons>["name"]}
-            size={36}
-            color={module.color}
-          />
+          <CategoryIcon name={icon} size={28} color={module.color} />
         )}
       </View>
       <View style={s.copy}>
-        <View style={s.badge}>
-          <Text style={s.badgeText}>{t.directoryAvailable}</Text>
-        </View>
+        {stateLabel && (
+          <View style={[s.badge, state === "closed" && s.badgeClosed]}>
+            <Text
+              style={[s.badgeText, state === "closed" && s.badgeTextClosed]}
+            >
+              {stateLabel}
+            </Text>
+          </View>
+        )}
         <Text numberOfLines={2} style={s.name}>
           {name}
         </Text>
@@ -111,23 +125,23 @@ export function DirectoryListCard({
 const s = StyleSheet.create({
   card: {
     flexDirection: "row",
-    gap: 12,
-    padding: 10,
+    gap: 10,
+    padding: 8,
     borderRadius: theme.radii.card,
     borderWidth: 1,
     borderColor: theme.colors.borderStrong,
     backgroundColor: theme.colors.surface,
   },
   thumb: {
-    width: 88,
-    height: 88,
+    width: 68,
+    height: 68,
     borderRadius: theme.radii.control,
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
   },
   thumbImage: { width: "100%", height: "100%" },
-  copy: { flex: 1, gap: 4, justifyContent: "center" },
+  copy: { flex: 1, gap: 2, justifyContent: "center" },
   badge: {
     alignSelf: "flex-start",
     paddingHorizontal: 10,
@@ -136,7 +150,14 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.successBackground,
   },
   badgeText: { color: theme.colors.success, fontSize: 12, fontWeight: "700" },
-  name: { ...theme.type.subheading, color: theme.colors.heading },
+  badgeClosed: { backgroundColor: theme.colors.errorBackground },
+  badgeTextClosed: { color: theme.colors.error },
+  name: {
+    fontSize: 15,
+    lineHeight: 20,
+    fontWeight: "700",
+    color: theme.colors.heading,
+  },
   meta: { gap: 2 },
   metaItem: { flexDirection: "row", alignItems: "center", gap: 4 },
   metaText: { flex: 1, color: theme.colors.muted, fontSize: 13 },

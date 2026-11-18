@@ -10,6 +10,8 @@ export const directoryQuerySchema = z
     module: z.enum(["services", "transport"]).optional(),
     category: z.enum(DIRECTORY_GROUP_IDS).optional(),
     search: z.string().trim().max(100).default(""),
+    // "2": entries also say whether the owner closed them for now.
+    v: z.literal("2").optional(),
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(20),
   })
@@ -38,6 +40,8 @@ export const directoryEntrySchema = z
     providerType: z.string().nullable().default(null),
     mine: z.boolean().default(false),
     hours: z.string().nullable().default(null),
+    // Closed for now by the owner (only sent to apps that ask with v=2).
+    closed: z.boolean().optional(),
     // Shop or service photos (at most two), already resolved to URLs.
     images: z
       .array(z.object({ key: z.string(), url: z.string() }).strict())

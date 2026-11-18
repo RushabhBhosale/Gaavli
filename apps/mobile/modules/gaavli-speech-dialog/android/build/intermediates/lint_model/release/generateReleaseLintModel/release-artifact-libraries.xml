@@ -9,10 +9,10 @@
       resolved="io.github.lukmccall.pika:pika-api:0.3.2"/>
   <library
       name="androidx.core:core-ktx:1.17.0@aar"
-      jars="/Users/mac/.gradle/caches/9.3.1/transforms/c1bf067d6967eb8df2b54282ee550fcc/transformed/core-ktx-1.17.0/jars/classes.jar"
+      jars="/Users/mac/.gradle/caches/9.3.1/transforms/afea8e6ef9278152d2dd06b178f2b796/transformed/core-ktx-1.17.0/jars/classes.jar"
       resolved="androidx.core:core-ktx:1.17.0"
       provided="true"
-      folder="/Users/mac/.gradle/caches/9.3.1/transforms/c1bf067d6967eb8df2b54282ee550fcc/transformed/core-ktx-1.17.0"
+      folder="/Users/mac/.gradle/caches/9.3.1/transforms/afea8e6ef9278152d2dd06b178f2b796/transformed/core-ktx-1.17.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -23,10 +23,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core:1.17.0@aar"
-      jars="/Users/mac/.gradle/caches/9.3.1/transforms/dd9f2a1467ccd0221c2ca76ee840eec4/transformed/core-1.17.0/jars/classes.jar"
+      jars="/Users/mac/.gradle/caches/9.3.1/transforms/bb32e366772e3d304f7aa86ec92dd808/transformed/core-1.17.0/jars/classes.jar"
       resolved="androidx.core:core:1.17.0"
       provided="true"
-      folder="/Users/mac/.gradle/caches/9.3.1/transforms/dd9f2a1467ccd0221c2ca76ee840eec4/transformed/core-1.17.0"
+      folder="/Users/mac/.gradle/caches/9.3.1/transforms/bb32e366772e3d304f7aa86ec92dd808/transformed/core-1.17.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -42,10 +42,10 @@
       provided="true"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime:2.6.2@aar"
-      jars="/Users/mac/.gradle/caches/9.3.1/transforms/ec3ff502ff541c7fa7c95a04cdbbb865/transformed/lifecycle-runtime-2.6.2/jars/classes.jar"
+      jars="/Users/mac/.gradle/caches/9.3.1/transforms/c8d3cc7d973c1e8b4216f38649d86b5e/transformed/lifecycle-runtime-2.6.2/jars/classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime:2.6.2"
       provided="true"
-      folder="/Users/mac/.gradle/caches/9.3.1/transforms/ec3ff502ff541c7fa7c95a04cdbbb865/transformed/lifecycle-runtime-2.6.2"
+      folder="/Users/mac/.gradle/caches/9.3.1/transforms/c8d3cc7d973c1e8b4216f38649d86b5e/transformed/lifecycle-runtime-2.6.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -66,10 +66,10 @@
       provided="true"/>
   <library
       name="androidx.versionedparcelable:versionedparcelable:1.1.1@aar"
-      jars="/Users/mac/.gradle/caches/9.3.1/transforms/eaca8c99727f21793f6b6e8253236e3a/transformed/versionedparcelable-1.1.1/jars/classes.jar"
+      jars="/Users/mac/.gradle/caches/9.3.1/transforms/ffe7ffaa025daf09a4aba3f1b75f56b4/transformed/versionedparcelable-1.1.1/jars/classes.jar"
       resolved="androidx.versionedparcelable:versionedparcelable:1.1.1"
       provided="true"
-      folder="/Users/mac/.gradle/caches/9.3.1/transforms/eaca8c99727f21793f6b6e8253236e3a/transformed/versionedparcelable-1.1.1"
+      folder="/Users/mac/.gradle/caches/9.3.1/transforms/ffe7ffaa025daf09a4aba3f1b75f56b4/transformed/versionedparcelable-1.1.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -95,10 +95,10 @@
       provided="true"/>
   <library
       name="androidx.annotation:annotation-experimental:1.4.1@aar"
-      jars="/Users/mac/.gradle/caches/9.3.1/transforms/ebfd829dcdc53853fbc2cedd786b93fd/transformed/annotation-experimental-1.4.1/jars/classes.jar"
+      jars="/Users/mac/.gradle/caches/9.3.1/transforms/4548cdc9bb7180a439b38c40a09fa4b9/transformed/annotation-experimental-1.4.1/jars/classes.jar"
       resolved="androidx.annotation:annotation-experimental:1.4.1"
       provided="true"
-      folder="/Users/mac/.gradle/caches/9.3.1/transforms/ebfd829dcdc53853fbc2cedd786b93fd/transformed/annotation-experimental-1.4.1"
+      folder="/Users/mac/.gradle/caches/9.3.1/transforms/4548cdc9bb7180a439b38c40a09fa4b9/transformed/annotation-experimental-1.4.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -109,10 +109,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core-viewtree:1.0.0@aar"
-      jars="/Users/mac/.gradle/caches/9.3.1/transforms/eb2099f71844b3c8140beabc14a18eee/transformed/core-viewtree-1.0.0/jars/classes.jar"
+      jars="/Users/mac/.gradle/caches/9.3.1/transforms/dec3ec889677d7a7ce180fab78a42c73/transformed/core-viewtree-1.0.0/jars/classes.jar"
       resolved="androidx.core:core-viewtree:1.0.0"
       provided="true"
-      folder="/Users/mac/.gradle/caches/9.3.1/transforms/eb2099f71844b3c8140beabc14a18eee/transformed/core-viewtree-1.0.0"
+      folder="/Users/mac/.gradle/caches/9.3.1/transforms/dec3ec889677d7a7ce180fab78a42c73/transformed/core-viewtree-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"

@@ -24,6 +24,7 @@ export {
   providerLinkActionSchema,
   providerClaimSchema,
   providerStatusSchema,
+  providerClosedSchema,
   providerProfileSchema,
   providerLinkSchema,
   providerProfilesResponseSchema,
@@ -106,13 +107,23 @@ export const listingTagsSchema = z.array(z.enum(LISTING_TAG_IDS));
 export const mobileLanguageSchema = z.enum(MOBILE_LANGUAGES);
 export const pushDeviceInputSchema = z
   .object({
-    token: z.string().min(1).max(4096).regex(/^[!-~]+$/),
+    token: z
+      .string()
+      .min(1)
+      .max(4096)
+      .regex(/^[!-~]+$/),
     language: mobileLanguageSchema,
   })
   .strict();
-export const pushDeviceStatusSchema = z.object({ enabled: z.boolean() }).strict();
-export const whatsAppTestStatusSchema = z.object({ available: z.boolean() }).strict();
-export const whatsAppTestResultSchema = z.object({ status: z.literal("accepted") }).strict();
+export const pushDeviceStatusSchema = z
+  .object({ enabled: z.boolean() })
+  .strict();
+export const whatsAppTestStatusSchema = z
+  .object({ available: z.boolean() })
+  .strict();
+export const whatsAppTestResultSchema = z
+  .object({ status: z.literal("accepted") })
+  .strict();
 export const PUSH_TEST_DELAY_SECONDS = 5;
 export const pushTestInputSchema = pushDeviceInputSchema
   .pick({ token: true })

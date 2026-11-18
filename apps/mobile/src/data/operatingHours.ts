@@ -148,3 +148,22 @@ export function hoursSummary(
     .filter(Boolean)
     .join(" · ");
 }
+
+// Whether a provider is open at `now` (device time), from its saved hours.
+// "closed" when the owner closed it for now; null when there are no
+// structured hours to go by (older plain-text hours, or none at all).
+export function openState(
+  value: string | undefined | null,
+  closedByOwner = false,
+  now = new Date(),
+): "open" | "closed" | null {
+  if (closedByOwner) return "closed";
+  const hours = parseHours(value);
+  if (!hours) return null;
+  if (hours.off.includes(now.getDay())) return "closed";
+  if (hours.allDay) return "open";
+  const time = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+  return hours.slots.some((slot) => slot.open <= time && time < slot.close)
+    ? "open"
+    : "closed";
+}

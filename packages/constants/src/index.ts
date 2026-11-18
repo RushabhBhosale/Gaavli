@@ -13,6 +13,10 @@ export const DEFAULT_MOBILE_LANGUAGE: MobileLanguage = "mr";
 // Cold servers and slow village networks need time: wait up to 20 seconds.
 export const API_TIMEOUT_MS = 20000;
 
+// New product listings a seller may add per day (India time). Editing or
+// listing an old product again does not count.
+export const DAILY_LISTING_LIMIT = 2;
+
 export const LISTING_PRODUCT_GROUPS = [
   "vegetables",
   "leafy_vegetables",

@@ -20,6 +20,7 @@ import { Redirect, useRouter, useLocalSearchParams } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  DAILY_LISTING_LIMIT,
   LISTING_ASSET_PHOTOS,
   MAX_LISTING_TAGS,
   listingTagLabel,
@@ -537,9 +538,35 @@ function ListingFormScreen({
             ? t.listingDuplicate
             : error instanceof ApiError && error.code === "LISTING_LIMIT"
               ? t.listingLimit
-              : errorMessage(error, language);
+              : error instanceof ApiError &&
+                  error.code === "DAILY_LISTING_LIMIT"
+                ? formatMessage(t.listingDailyLimit, {
+                    max: DAILY_LISTING_LIMIT,
+                  })
+                : errorMessage(error, language);
       setFailure(message);
       showToast(message, "error");
+      // Already listed: offer to open that listing to edit or list it again.
+      const existing =
+        error instanceof ApiError && error.code === "DUPLICATE_LISTING"
+          ? error.details?.listingId
+          : undefined;
+      if (
+        !createConfirmed &&
+        typeof existing === "string" &&
+        existing !== editId
+      )
+        showAlert(t.listingDuplicateTitle, message, [
+          { text: t.cancel, style: "cancel" },
+          {
+            text: t.listingOpenExisting,
+            onPress: () =>
+              router.replace({
+                pathname: "/add-listing",
+                params: { id: existing },
+              }),
+          },
+        ]);
     } finally {
       submitting.current = false;
       if (active.current) setBusy(false);

@@ -6,7 +6,9 @@ import type { LISTING_PRODUCT_GROUPS } from "./index";
 export type ListingProductGroup = (typeof LISTING_PRODUCT_GROUPS)[number];
 type Tri = { en: string; mr: string; hi: string };
 
-export const MAX_SHOP_PRODUCTS = 60;
+// Ticking a group ticks all its popular items (2026-11-18), so the limit
+// leaves room for every item of every group (about 400 in all).
+export const MAX_SHOP_PRODUCTS = 450;
 
 // The groups a shop can pick, in the order the app shows them. The older
 // "grain" id is left out: the catalogue uses "grains".

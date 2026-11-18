@@ -16,7 +16,7 @@ export async function GET(
     const user = await optionalMobile(request);
     const id = listingIdSchema.parse((await context.params).id);
     const query = directoryQuerySchema
-      .pick({ sourceVillageId: true })
+      .pick({ sourceVillageId: true, v: true })
       .parse(Object.fromEntries(new URL(request.url).searchParams));
     return ok(
       directoryEntrySchema.parse(

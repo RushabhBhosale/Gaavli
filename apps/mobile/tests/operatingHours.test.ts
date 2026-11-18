@@ -5,6 +5,7 @@ import {
   hoursProblem,
   hoursSummary,
   hoursText,
+  openState,
   parseHours,
   serializeHours,
 } from "../src/data/operatingHours";
@@ -68,4 +69,29 @@ test("hours checks: order, overlap and nothing open", () => {
   );
   assert.equal(hoursProblem({ slots: [], off: [] }), "none");
   assert.equal(hoursProblem({ slots: [], off: [], allDay: true }), null);
+});
+
+test("open state follows the hours, days off and the owner's closed switch", () => {
+  const hours = serializeHours({
+    slots: [
+      { open: "09:00", close: "13:00" },
+      { open: "16:00", close: "20:00" },
+    ],
+    off: [0],
+  });
+  // 2026-11-18 is a Wednesday; 2026-11-22 a Sunday.
+  const at = (day: number, time: string) => {
+    const [h, m] = time.split(":").map(Number);
+    return new Date(2026, 10, day, h, m);
+  };
+  assert.equal(openState(hours, false, at(18, "10:30")), "open");
+  assert.equal(openState(hours, false, at(18, "13:00")), "closed");
+  assert.equal(openState(hours, false, at(18, "17:00")), "open");
+  assert.equal(openState(hours, false, at(18, "21:00")), "closed");
+  assert.equal(openState(hours, false, at(22, "10:30")), "closed");
+  assert.equal(openState(hours, true, at(18, "10:30")), "closed");
+  const allDay = serializeHours({ slots: [], off: [], allDay: true });
+  assert.equal(openState(allDay, false, at(18, "03:00")), "open");
+  assert.equal(openState("Mon-Sat 9 to 6", false, at(18, "10:00")), null);
+  assert.equal(openState(null, false, at(18, "10:00")), null);
 });

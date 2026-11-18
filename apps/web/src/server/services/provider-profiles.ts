@@ -75,7 +75,9 @@ async function checkMasters(
 ) {
   for (const field of PROVIDER_KINDS[type].fields as readonly ProviderField[]) {
     if (field.kind === "products") {
-      await checkProducts(details[field.key], field.key);
+      // Keep only items still active in the catalogue (saved as such).
+      if (Array.isArray(details[field.key]))
+        details[field.key] = await activeProductCodes(details[field.key]);
       continue;
     }
     if (field.kind !== "master") continue;
@@ -96,21 +98,26 @@ async function checkMasters(
       );
   }
 }
-// A shop's popular items must be active catalogue products.
-async function checkProducts(value: unknown, key: string) {
-  const codes = Array.isArray(value) ? (value as string[]) : [];
-  if (!codes.length) return;
-  const found = await ProductMaster.countDocuments({
-    code: { $in: codes },
-    status: "ACTIVE",
-  });
-  if (found !== new Set(codes).size)
-    throw new AppError(
-      422,
-      "INVALID_PRODUCT_CODE",
-      "Choose products from the list.",
-      { field: key },
-    );
+// A shop's popular items are catalogue products. Ticking a group ticks all
+// its items, and an admin may since have switched some off, so items that
+// are unknown or inactive are dropped quietly rather than failing the save.
+async function activeProductCodes(value: unknown) {
+  const codes = [
+    ...new Set(
+      (Array.isArray(value) ? value : []).filter(
+        (code): code is string => typeof code === "string",
+      ),
+    ),
+  ];
+  if (!codes.length) return [];
+  const active = new Set(
+    (
+      await ProductMaster.find({ code: { $in: codes }, status: "ACTIVE" })
+        .select("code")
+        .lean()
+    ).map((row) => row.code),
+  );
+  return codes.filter((code) => active.has(code));
 }
 const stringList = (value: unknown) =>
   Array.isArray(value)
@@ -187,7 +194,12 @@ async function toDtos(rows: Profile[], viewerId: string | null) {
         verified: !!contact.verified,
       })),
       images: imageDtos(row.images),
-      details: (row.details ?? {}) as Record<string, unknown>,
+      // closedNow rides in details so installed apps (strict profile schema)
+      // still read the profile; their forms ignore unknown detail keys.
+      details: {
+        ...((row.details ?? {}) as Record<string, unknown>),
+        ...(row.closedNow ? { closedNow: true } : {}),
+      },
       status: row.status as "ACTIVE" | "INACTIVE",
       version: row.__v ?? 0,
       practice: row.practiceMode
@@ -349,6 +361,7 @@ export async function syncDirectoryEntry(profile: Profile) {
             .find((value) => typeof value === "string" && value) || undefined,
         status: active ? "ACTIVE" : "INACTIVE",
         available: active,
+        closed: !!profile.closedNow,
       },
     },
     { upsert: true },
@@ -617,6 +630,28 @@ export async function setProviderStatus(
       "This profile changed. Reload it.",
     );
   row.status = status;
+  await row.save();
+  await syncDirectoryEntry(row);
+  return { profile: (await toDtos([row], String(user._id)))[0] };
+}
+
+// The owner closes the shop (or service) for now, or opens it again. The
+// profile stays listed; the directory shows it as Closed.
+export async function setProviderClosed(
+  user: UserRecord,
+  id: string,
+  closed: boolean,
+  version: number,
+) {
+  await connectDb();
+  const row = await ownedProfile(user, id);
+  if ((row.__v ?? 0) !== version)
+    throw new AppError(
+      409,
+      "STALE_VERSION",
+      "This profile changed. Reload it.",
+    );
+  row.closedNow = closed;
   await row.save();
   await syncDirectoryEntry(row);
   return { profile: (await toDtos([row], String(user._id)))[0] };

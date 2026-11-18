@@ -8,6 +8,8 @@ export class ApiError extends Error {
     public code: string,
     public status?: number,
     public requestId?: string,
+    // Stable conflict details from the server (e.g. the duplicate's id).
+    public details?: Record<string, unknown>,
   ) {
     super(code);
   }
@@ -77,6 +79,7 @@ export function createApiClient({
           failure.data.error.code,
           response.status,
           failure.data.requestId,
+          failure.data.error.details,
         );
       if (!response.ok) throw new ApiError("HTTP_ERROR", response.status);
       const success = apiSuccessSchema(schema).safeParse(payload);

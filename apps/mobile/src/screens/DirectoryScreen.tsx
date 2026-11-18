@@ -1,11 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
@@ -23,8 +17,7 @@ import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { DirectoryListCard } from "../components/dashboard/DirectoryListCard";
 import { d } from "../components/dashboard/primitives";
-
-type IconName = React.ComponentProps<typeof Ionicons>["name"];
+import { CategoryIcon } from "../components/dashboard/CategoryIcon";
 
 // Services and Transport: a row of round category chips to scroll through,
 // and below it the list of what is available (all of it, or the chosen
@@ -156,13 +149,13 @@ export default function DirectoryScreen({
                 s.circle,
                 s.allCircle,
                 { backgroundColor: tone.tint },
-                !category && { borderColor: tone.color, borderWidth: 3 },
+                !category && { borderColor: tone.color, borderWidth: 2 },
               ]}
             >
               <Ionicons
                 accessible={false}
                 name="apps"
-                size={30}
+                size={24}
                 color={tone.color}
               />
             </View>
@@ -190,14 +183,13 @@ export default function DirectoryScreen({
                     s.circle,
                     s.allCircle,
                     { backgroundColor: tone.tint },
-                    on && { borderColor: tone.color, borderWidth: 3 },
+                    on && { borderColor: tone.color, borderWidth: 2 },
                     !count && s.dim,
                   ]}
                 >
-                  <Ionicons
-                    accessible={false}
-                    name={(group.icon ?? "apps-outline") as IconName}
-                    size={30}
+                  <CategoryIcon
+                    name={group.icon ?? "apps-outline"}
+                    size={24}
                     color={tone.color}
                   />
                 </View>
@@ -266,17 +258,18 @@ const s = StyleSheet.create({
   // Bleeds to the screen edges so the chips scroll under the margins.
   chipScroll: { marginHorizontal: -theme.layout.screenPadding, flexGrow: 0 },
   chips: {
-    gap: 14,
+    gap: 8,
     paddingHorizontal: theme.layout.screenPadding,
     paddingVertical: 4,
   },
-  chip: { width: 84, alignItems: "center", gap: 6 },
+  // Same size as the Home quick actions.
+  chip: { width: 68, alignItems: "center", gap: 6 },
   circle: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     overflow: "hidden",
-    borderWidth: 3,
+    borderWidth: 2,
     borderColor: "transparent",
     backgroundColor: theme.colors.surfaceMuted,
   },

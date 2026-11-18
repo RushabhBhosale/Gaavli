@@ -178,6 +178,14 @@ export const hi: Messages = {
     "यह स्वयं-घोषित सेवा है। गावली पेशेवर योग्यता की पुष्टि नहीं करता।",
   directorySelfDeclared: "स्वयं-घोषित सेवा",
   directoryAvailable: "उपलब्ध",
+  directoryOpenNow: "अभी खुला",
+  shopShowMore: "{count} और दिखाएँ",
+  shopShowFewer: "कम दिखाएँ",
+  directoryClosedNow: "बंद",
+  manageCloseNow: "अभी बंद करें",
+  manageReopen: "फिर से खोलें",
+  manageClosedHint:
+    'अभी बंद है। जब तक आप फिर से नहीं खोलते, लोगों को आपकी जानकारी "बंद" दिखेगी।',
   directoryMedicalDisclaimer:
     "चिकित्सा सेवाएँ स्वयं-घोषित हैं। सेवा लेने से पहले प्रदाता का पेशेवर पंजीकरण और योग्यता जाँच लें।",
   directorySearch: "सेवाएँ या परिवहन खोजें",
@@ -321,7 +329,11 @@ export const hi: Messages = {
   listingPending:
     "प्रकाशन की पुष्टि नहीं हुई है। आपका सहेजा अनुरोध लॉक है; संपादन से पहले सुरक्षित रूप से फिर कोशिश करें।",
   listingDuplicate:
-    "आपका एक मिलता-जुलता सक्रिय उत्पाद पहले से है। दूसरा जोड़ने से पहले मेरी लिस्टिंग देखें।",
+    "यह उत्पाद आप पहले ही जोड़ चुके हैं। बदलने या फिर से बिक्री पर रखने के लिए उसे खोलें।",
+  listingDuplicateTitle: "पहले से जोड़ा हुआ",
+  listingOpenExisting: "खोलें",
+  listingDailyLimit:
+    "एक दिन में केवल {max} नए उत्पाद जोड़ सकते हैं। कल फिर कोशिश करें।",
   listingLimit:
     "आप सक्रिय लिस्टिंग की सीमा तक पहुँच गए हैं। पहले मौजूदा स्टॉक हटाएँ या बिका हुआ चिह्नित करें।",
   listingCategoryMissing: "कोई उपलब्ध टिकाऊपन श्रेणी चुनें।",
@@ -374,24 +386,31 @@ export const hi: Messages = {
   notificationsPending: "फ़सल सूचनाएँ अभी जुड़ी नहीं हैं।",
   pushRequestSettings: "खरीदारों के अनुरोध की सूचनाएँ",
   pushRequestDescription: "खरीदार का अनुरोध आने पर इस फ़ोन पर सूचना पाएँ।",
-  pushPermissionRequired: "फ़ोन की सेटिंग में गावली की सूचनाओं की अनुमति दें और फिर कोशिश करें।",
+  pushPermissionRequired:
+    "फ़ोन की सेटिंग में गावली की सूचनाओं की अनुमति दें और फिर कोशिश करें।",
   pushBuildRequired: "सूचनाएँ पाने के लिए गावली का नया संस्करण इंस्टॉल करें।",
   pushSettingsError: "सूचना सेटिंग अपडेट नहीं हुई। कृपया फिर कोशिश करें।",
   pushRequestReceived: "खरीदार से एक नया अनुरोध आया है।",
   pushTest: "परीक्षण सूचना भेजें",
   pushTestSending: "समय तय हो रहा है…",
-  pushTestScheduled: "परीक्षण सूचना ५ सेकंड में भेजी जाएगी। अब आप गावली बंद कर सकते हैं।",
+  pushTestScheduled:
+    "परीक्षण सूचना ५ सेकंड में भेजी जाएगी। अब आप गावली बंद कर सकते हैं।",
   pushTestReceived: "गावली की परीक्षण सूचना मिली।",
   pushTestServerSetup: "सर्वर पर Firebase सेवा खाते की सेटिंग जाँचें।",
-  pushTestDeviceUnavailable: "खरीदार अनुरोध की सूचनाएँ बंद करके फिर चालू करें और दोबारा कोशिश करें।",
+  pushTestDeviceUnavailable:
+    "खरीदार अनुरोध की सूचनाएँ बंद करके फिर चालू करें और दोबारा कोशिश करें।",
   pushTestFailed: "Firebase परीक्षण सूचना नहीं भेज सका।",
   whatsAppTest: "WhatsApp परीक्षण भेजें",
   whatsAppTestDescription: "अपने पंजीकृत नंबर पर एक परीक्षण संदेश भेजें।",
   whatsAppTestSending: "परीक्षण भेज रहे हैं…",
-  whatsAppTestAccepted: "WATI ने परीक्षण स्वीकार किया। संदेश के लिए WhatsApp देखें।",
-  whatsAppTestUnavailable: "WhatsApp परीक्षण उपलब्ध नहीं है। WATI सेटअप जाँचें।",
-  whatsAppTestRejected: "WATI ने परीक्षण अस्वीकार किया। मंज़ूर टेम्पलेट और भेजने वाला नंबर जाँचें।",
-  whatsAppTestUnknown: "दोबारा कोशिश करने से पहले WhatsApp में परीक्षण संदेश देखें।",
+  whatsAppTestAccepted:
+    "WATI ने परीक्षण स्वीकार किया। संदेश के लिए WhatsApp देखें।",
+  whatsAppTestUnavailable:
+    "WhatsApp परीक्षण उपलब्ध नहीं है। WATI सेटअप जाँचें।",
+  whatsAppTestRejected:
+    "WATI ने परीक्षण अस्वीकार किया। मंज़ूर टेम्पलेट और भेजने वाला नंबर जाँचें।",
+  whatsAppTestUnknown:
+    "दोबारा कोशिश करने से पहले WhatsApp में परीक्षण संदेश देखें।",
   settingsUnavailable: "अभी उपलब्ध नहीं",
   sellerConfirmTitle: "क्या आप विक्रेता बनना चाहेंगे?",
   sellerConfirmDescription:

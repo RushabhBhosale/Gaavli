@@ -1,3 +1,45 @@
+## 2026-11-18 - Daily listing limit and one listing per product
+
+- A seller may create at most `DAILY_LISTING_LIMIT` (2) new product listings
+  per calendar day in India (IST). Every listing created that day counts,
+  even if deleted since. Editing and listing again do not count. Error:
+  409 `DAILY_LISTING_LIMIT`.
+- New listings are refused (409 `DUPLICATE_LISTING`, with `listingId` and
+  `status`) when the seller already has the same Product Master product or a
+  similar name among their active, sold-out or expired listings. Edits and
+  relists still only check live listings, so older duplicates stay usable.
+  The app offers "Open it" to edit or list that product again.
+- Not run: `tests/listing-crud.integration.mts` (writes to the configured
+  database). It creates several listings per seller in one day and likely
+  needs adjusting for the daily limit.
+
+## 2026-11-18 - Shop form defaults and shop page items
+
+- Shop form: groups usual for the shop type are pre-ticked and shown; other
+  groups sit behind "Show N more". Ticking a group (or the shop-type
+  defaults) also ticks all its popular items; the owner unticks what they do
+  not stock. Each group lists 6 items with "Show N more" for the rest.
+- MAX_SHOP_PRODUCTS raised from 60 to 450 so every item of every group fits.
+  Installed apps keep their own 60 in the UI only; the server accepts 450.
+- Shop page "What they sell": ticked items sit under their group, 6 per group
+  with a "+N" chip to show the rest.
+
+## 2026-11-18 - Open now / Closed badge and owner "close for now"
+
+- Services and Transport cards replace the fixed "Available" badge with
+  "Open now" or "Closed", worked out on the device from the saved opening
+  hours (days off and time slots). No badge when there are no structured
+  hours. The details page shows the same state above the hours.
+- Owners can "Close for now" / "Open again" from the profile manage screen
+  (`PATCH /provider-profiles/{id}/closed`). The profile stays listed and shows
+  Closed. Stored as `closedNow` on the profile and `closed` on the directory
+  entry; the profile DTO carries it as `details.closedNow`.
+- Directory list/detail responses include `closed` only when the app asks
+  with `v=2`, so installed apps keep parsing. The server must be deployed
+  before an app build that sends `v=2`.
+- Category chips and list cards are Home quick-action size (48pt); rickshaw
+  and tractor tiles use MaterialCommunityIcons glyphs.
+
 ## 2026-11-18 - Services categories, optional product fields, product catalogue (user approved)
 
 - Services: the 15 categories (Shops & Businesses ... Political & Public

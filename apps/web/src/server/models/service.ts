@@ -49,6 +49,8 @@ const serviceSchema = new Schema(
     unit: { type: String, trim: true, maxlength: 30 },
     status: { type: String, enum: ["ACTIVE", "INACTIVE"], default: "ACTIVE" },
     available: { type: Boolean, default: true },
+    // Copied from the provider profile: closed for now by the owner.
+    closed: { type: Boolean, default: false },
   },
   { timestamps: true, collection: "services" },
 );

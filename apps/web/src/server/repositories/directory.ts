@@ -147,8 +147,10 @@ async function visibleEntries(
 }
 
 // The public directory entry DTO, before photo keys become URLs.
-function entryProjection(viewerId: string | null) {
+function entryProjection(viewerId: string | null, withClosed = false) {
   return {
+    // Only apps that ask (v=2) get it; older apps reject unknown fields.
+    ...(withClosed ? { closed: { $eq: ["$closed", true] } } : {}),
     _id: 0,
     id: { $toString: "$_id" },
     module: {
@@ -207,7 +209,7 @@ export async function findDirectory(
           { $sort: { createdAt: -1, _id: -1 } },
           { $skip: (query.page - 1) * query.limit },
           { $limit: query.limit },
-          { $project: entryProjection(viewerId) },
+          { $project: entryProjection(viewerId, query.v === "2") },
         ],
         count: [{ $count: "total" }],
       },
@@ -311,7 +313,9 @@ export async function directorySummary(
 
 export async function findPublicCoordinator(villageId: string) {
   const [assignments, village] = await Promise.all([
-    VillageCoordinator.find({ villageId }).sort({ createdAt: 1, _id: 1 }).lean(),
+    VillageCoordinator.find({ villageId })
+      .sort({ createdAt: 1, _id: 1 })
+      .lean(),
     Village.findOne({ _id: villageId, isActive: true })
       .select("nameEn nameMr")
       .lean(),

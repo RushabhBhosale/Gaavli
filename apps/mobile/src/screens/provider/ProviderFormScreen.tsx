@@ -33,6 +33,7 @@ import { ContactNumbersField } from "../../components/ContactNumbersField";
 import { ProviderImagesField } from "../../components/provider/ProviderImages";
 import type { ProviderImage } from "../../providerImages";
 import { VillageField } from "../../components/VillageField";
+import { itemsOfGroups } from "../../components/provider/ShopProductFields";
 import {
   ProviderFields,
   cleanDetail,
@@ -82,13 +83,20 @@ export default function ProviderFormScreen() {
     const kind = PROVIDER_KINDS[type];
     const code = params.code;
     if (!code || !/^[A-Z][A-Z0-9_]{0,79}$/.test(code)) return empty;
-    // A shop type pre-ticks what such shops usually sell.
+    // A shop type pre-ticks what such shops usually sell, with all their
+    // popular items (the owner unticks what they do not have).
     const groupsKey = kind.fields.find((f) => f.kind === "groups")?.key;
+    const productsKey = kind.fields.find((f) => f.kind === "products")?.key;
     const suggested = SHOP_TYPE_PRODUCT_GROUPS[code];
     return {
       ...empty,
       [kind.categoryKey]: code,
-      ...(groupsKey && suggested?.length ? { [groupsKey]: [...suggested] } : {}),
+      ...(groupsKey && suggested?.length
+        ? { [groupsKey]: [...suggested] }
+        : {}),
+      ...(productsKey && suggested?.length
+        ? { [productsKey]: itemsOfGroups(suggested) }
+        : {}),
     };
   });
   const [practice, setPractice] = useState<Practice>({ mode: "own_clinic" });

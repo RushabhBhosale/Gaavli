@@ -1,6 +1,6 @@
 import "server-only";
 import { listingPhotoStorage } from "./listing-photo-storage";
-import { LISTING_ASSET_PHOTOS } from "@gaavli/constants";
+import { DAILY_LISTING_LIMIT, LISTING_ASSET_PHOTOS } from "@gaavli/constants";
 import type { ClientSession } from "mongoose";
 import type { z } from "zod";
 import type {
@@ -111,35 +111,73 @@ function versionMatches(row: ListingDocument, version: number) {
       { currentVersion: row.version || 1, status: effectiveListingStatus(row) },
     );
 }
+// A seller lists each product once. New listings are checked against the
+// seller's sold-out and expired listings too (list those again instead);
+// edits and relists only against live ones, so older duplicates stay usable.
 async function duplicateCheck(
   userId: string,
   name: string,
   nameMr: string | null | undefined,
   session: ClientSession,
   except?: string,
+  options: { productId?: string | null; includeEnded?: boolean } = {},
 ) {
   const rows = await Listing.find({
     seller: userId,
-    ...activeStockFilter(),
+    ...(options.includeEnded
+      ? { status: { $in: ["active", "expired", "sold_out"] } }
+      : activeStockFilter()),
     ...(except ? { _id: { $ne: except } } : {}),
   })
-    .select("productName productNameMr")
+    .select("productId productName productNameMr status expiresAt category")
     .session(session)
     .lean();
   const names = [name, nameMr].filter((value): value is string => !!value);
-  const duplicate = rows.find((row) =>
-    names.some((value) =>
-      [row.productName, row.productNameMr].some(
-        (other) => !!other && similarProductName(value, other),
+  const duplicate = rows.find(
+    (row) =>
+      (!!options.productId &&
+        !!row.productId &&
+        String(row.productId) === options.productId) ||
+      names.some((value) =>
+        [row.productName, row.productNameMr].some(
+          (other) => !!other && similarProductName(value, other),
+        ),
       ),
-    ),
   );
   if (duplicate)
     throw new AppError(
       409,
       "DUPLICATE_LISTING",
-      "A similar active listing exists. Update it instead.",
-      { listingId: String(duplicate._id) },
+      "You already listed this product. Edit it in My Listings, or list it again from there.",
+      {
+        listingId: String(duplicate._id),
+        status:
+          duplicate.status === "active" &&
+          duplicate.expiresAt &&
+          new Date(duplicate.expiresAt).getTime() <= Date.now()
+            ? "expired"
+            : duplicate.status,
+      },
+    );
+}
+// At most DAILY_LISTING_LIMIT new listings per seller per calendar day in
+// India. Every listing created that day counts, even if deleted since.
+async function dailyLimit(userId: string, session: ClientSession) {
+  const IST = 330 * 60000;
+  const now = Date.now();
+  const dayStart = new Date(
+    Math.floor((now + IST) / 86400000) * 86400000 - IST,
+  );
+  const created = await Listing.countDocuments({
+    seller: userId,
+    createdAt: { $gte: dayStart },
+  }).session(session);
+  if (created >= DAILY_LISTING_LIMIT)
+    throw new AppError(
+      409,
+      "DAILY_LISTING_LIMIT",
+      `You can add ${DAILY_LISTING_LIMIT} new products a day. Try again tomorrow.`,
+      { limit: DAILY_LISTING_LIMIT },
     );
 }
 async function listingLimit(userId: string, session: ClientSession) {
@@ -195,7 +233,10 @@ export function createOwnedListing(
         selected.productName,
         selected.productNameMr,
         session,
+        undefined,
+        { productId: input.productId ?? null, includeEnded: true },
       );
+      await dailyLimit(userId, session);
       await listingLimit(userId, session);
       const { villageId, ...fields } = selected;
       const [row] = await Listing.create(
@@ -265,7 +306,11 @@ export function updateOwnedListing(
       // Active, expired and sold-out listings can be edited. Saving an
       // expired or sold-out one with a fresh shelf life lists it again.
       const current = effectiveListingStatus(row);
-      if (current !== "active" && current !== "expired" && current !== "sold_out")
+      if (
+        current !== "active" &&
+        current !== "expired" &&
+        current !== "sold_out"
+      )
         throw new AppError(
           409,
           "INVALID_LISTING_STATE",

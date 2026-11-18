@@ -124,6 +124,16 @@ export const setProfileStatus = (id: string, status: string, version: number) =>
     method: "PATCH",
     body: json({ status, version }),
   });
+// Closed for now: still listed, shown as Closed until the owner reopens.
+export const setProfileClosed = (
+  id: string,
+  closed: boolean,
+  version: number,
+) =>
+  authenticatedApi(`/provider-profiles/${id}/closed`, providerCreatedSchema, {
+    method: "PATCH",
+    body: json({ closed, version }),
+  });
 export const checkDuplicates = (body: Body) =>
   authenticatedApi("/provider-profiles/check", providerDuplicateResultSchema, {
     method: "POST",

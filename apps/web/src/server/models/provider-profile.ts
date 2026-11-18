@@ -51,6 +51,8 @@ const profileSchema = new Schema(
     },
     facilityId: { type: Schema.Types.ObjectId, ref: "ProviderProfile" },
     status: { type: String, enum: PROVIDER_STATUSES, default: "ACTIVE" },
+    // The owner marked it closed for now (still listed, shown as Closed).
+    closedNow: { type: Boolean, default: false },
   },
   {
     timestamps: true,

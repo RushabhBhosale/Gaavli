@@ -26,7 +26,8 @@ type DirectoryGroupDef = {
   // Provider codes that only count for one registration kind ("OTHER" is a
   // code of many kinds).
   typeCodes?: readonly { providerType: string; codes: readonly string[] }[];
-  // Ionicons name shown on the tile.
+  // Icon shown on the tile: an Ionicons name, or "mci:" + a
+  // MaterialCommunityIcons name.
   icon?: string;
   // The Services tiles before the 15 categories of 2026-11-18. Still served
   // to installed apps that do not ask for the new tiles.
@@ -352,7 +353,7 @@ export const DIRECTORY_GROUPS = [
   {
     id: "auto",
     module: "transport",
-    icon: "car-sport-outline",
+    icon: "mci:rickshaw",
     en: "Autos & rickshaws",
     mr: "रिक्षा",
     hi: "ऑटो रिक्शा",
@@ -416,7 +417,7 @@ export const DIRECTORY_GROUPS = [
   {
     id: "tractor",
     module: "transport",
-    icon: "leaf-outline",
+    icon: "mci:tractor",
     en: "Tractor & trolley",
     mr: "ट्रॅक्टर व ट्रॉली",
     hi: "ट्रैक्टर और ट्रॉली",
@@ -589,7 +590,15 @@ const SERVICE_TILES: readonly DirectoryGroupDef[] = [
   }),
   serviceTile("education", {
     codes: ["SCHOOL", "TUTOR_TEACHER"],
-    words: ["tutor", "teacher", "tuition", "coaching", "ट्यूटर", "शिकवणी", "क्लास"],
+    words: [
+      "tutor",
+      "teacher",
+      "tuition",
+      "coaching",
+      "ट्यूटर",
+      "शिकवणी",
+      "क्लास",
+    ],
   }),
   serviceTile("agriculture", {
     codes: [
@@ -724,7 +733,9 @@ function matchesGroup(group: DirectoryGroup, entry: DirectoryEntryFields) {
   if (
     entry.providerType &&
     group.providerTypes?.includes(entry.providerType) &&
-    !(entry.professionCode && group.excludeCodes?.includes(entry.professionCode))
+    !(
+      entry.professionCode && group.excludeCodes?.includes(entry.professionCode)
+    )
   )
     return true;
   if (

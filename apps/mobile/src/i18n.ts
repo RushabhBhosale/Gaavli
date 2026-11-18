@@ -77,7 +77,8 @@ const en = {
     "Already added a clinic or shop? Search first so it is not listed twice.",
   provOtherTitle: "Other Services",
   provOtherHelp: "Choose the kind of service. Each has its own short form.",
-  provCategoryHint: "Choose the category that fits best. Transport is listed last.",
+  provCategoryHint:
+    "Choose the category that fits best. Transport is listed last.",
   provSubHelp: "Choose what fits best. Use Other if it is not listed.",
   provSubEmpty: "Nothing matches. Try another word, or choose Other.",
   provContinue: "Continue",
@@ -183,6 +184,14 @@ const en = {
     "Self-declared service. Gaavli does not verify professional credentials.",
   directorySelfDeclared: "Self-declared service",
   directoryAvailable: "Available",
+  directoryOpenNow: "Open now",
+  shopShowMore: "Show {count} more",
+  shopShowFewer: "Show fewer",
+  directoryClosedNow: "Closed",
+  manageCloseNow: "Close for now",
+  manageReopen: "Open again",
+  manageClosedHint:
+    "Closed for now. People still see your listing, marked Closed, until you open it again.",
   directoryMedicalDisclaimer:
     "Medical services are self-declared. Check the provider's professional registration and credentials before using the service.",
   directorySearch: "Search services or transport",
@@ -324,7 +333,11 @@ const en = {
   listingPending:
     "Publication is not confirmed. Your saved request is locked; retry it safely before editing.",
   listingDuplicate:
-    "You already have a similar active product. Check My Listings before adding another.",
+    "You have already listed this product. Open it to edit it or list it again.",
+  listingDuplicateTitle: "Already listed",
+  listingOpenExisting: "Open it",
+  listingDailyLimit:
+    "You can add {max} new products a day. Try again tomorrow.",
   listingLimit:
     "You have reached the active listing limit. Remove or mark existing stock sold out first.",
   listingCategoryMissing: "Choose an available shelf-life category.",
@@ -376,25 +389,34 @@ const en = {
   favouritesPending: "Favourite sellers and crops are not connected yet.",
   notificationsPending: "Crop notifications are not connected yet.",
   pushRequestSettings: "Buyer request alerts",
-  pushRequestDescription: "Get notified on this device when a buyer sends you a request.",
-  pushPermissionRequired: "Allow Gaavli notifications in your phone settings, then try again.",
-  pushBuildRequired: "Update Gaavli to a build that supports push notifications.",
+  pushRequestDescription:
+    "Get notified on this device when a buyer sends you a request.",
+  pushPermissionRequired:
+    "Allow Gaavli notifications in your phone settings, then try again.",
+  pushBuildRequired:
+    "Update Gaavli to a build that supports push notifications.",
   pushSettingsError: "Couldn’t update notification settings. Please try again.",
   pushRequestReceived: "You have a new buyer request.",
   pushTest: "Send test notification",
   pushTestSending: "Scheduling…",
   pushTestScheduled: "Test scheduled in 5 seconds. You can close Gaavli now.",
   pushTestReceived: "Gaavli test notification received.",
-  pushTestServerSetup: "Check the Firebase service account settings on the server.",
-  pushTestDeviceUnavailable: "Turn buyer request alerts off and on, then try again.",
+  pushTestServerSetup:
+    "Check the Firebase service account settings on the server.",
+  pushTestDeviceUnavailable:
+    "Turn buyer request alerts off and on, then try again.",
   pushTestFailed: "Firebase could not send the test notification.",
   whatsAppTest: "Send WhatsApp test",
   whatsAppTestDescription: "Send one test message to your registered number.",
   whatsAppTestSending: "Sending test…",
-  whatsAppTestAccepted: "WATI accepted the test. Check WhatsApp for the message.",
-  whatsAppTestUnavailable: "The WhatsApp test is unavailable. Check the WATI setup.",
-  whatsAppTestRejected: "WATI rejected the test. Check the approved template and sending number.",
-  whatsAppTestUnknown: "Check WhatsApp for the test message before trying again.",
+  whatsAppTestAccepted:
+    "WATI accepted the test. Check WhatsApp for the message.",
+  whatsAppTestUnavailable:
+    "The WhatsApp test is unavailable. Check the WATI setup.",
+  whatsAppTestRejected:
+    "WATI rejected the test. Check the approved template and sending number.",
+  whatsAppTestUnknown:
+    "Check WhatsApp for the test message before trying again.",
   settingsUnavailable: "Not available yet",
   sellerConfirmTitle: "Would you like to become a seller?",
   sellerConfirmDescription:
@@ -1007,6 +1029,14 @@ const mr: Messages = {
     "ही सेवा स्वयंघोषित आहे. गावली व्यावसायिक पात्रता पडताळत नाही.",
   directorySelfDeclared: "स्वयंघोषित सेवा",
   directoryAvailable: "उपलब्ध",
+  directoryOpenNow: "आत्ता सुरू",
+  shopShowMore: "आणखी {count} दाखवा",
+  shopShowFewer: "कमी दाखवा",
+  directoryClosedNow: "बंद",
+  manageCloseNow: "सध्या बंद करा",
+  manageReopen: "पुन्हा सुरू करा",
+  manageClosedHint:
+    'सध्या बंद आहे. तुम्ही पुन्हा सुरू करेपर्यंत लोकांना तुमची माहिती "बंद" म्हणून दिसेल.',
   directoryMedicalDisclaimer:
     "वैद्यकीय सेवा स्वयंघोषित आहेत. सेवा घेण्यापूर्वी संबंधित व्यक्तीची व्यावसायिक नोंदणी आणि पात्रता तपासा.",
   directorySearch: "सेवा किंवा वाहतूक शोधा",
@@ -1148,7 +1178,11 @@ const mr: Messages = {
   listingPending:
     "प्रकाशनाची खात्री झालेली नाही. जतन केलेल्या विनंतीसाठी पुन्हा प्रयत्न करा; तोपर्यंत बदल करता येणार नाहीत.",
   listingDuplicate:
-    "यासारखे उत्पादन आधीच सक्रिय आहे. आणखी नोंद करण्यापूर्वी माझ्या नोंदी तपासा.",
+    "हे उत्पादन तुम्ही आधीच नोंदवले आहे. बदल करण्यासाठी किंवा पुन्हा विक्रीस ठेवण्यासाठी ते उघडा.",
+  listingDuplicateTitle: "आधीच नोंदवले आहे",
+  listingOpenExisting: "उघडा",
+  listingDailyLimit:
+    "दिवसाला फक्त {max} नवीन उत्पादने जोडता येतात. उद्या पुन्हा प्रयत्न करा.",
   listingLimit:
     "सक्रिय नोंदींची मर्यादा पूर्ण झाली आहे. आधी जुना माल संपल्याचे नोंदवा किंवा काढून टाका.",
   listingCategoryMissing: "उपलब्ध श्रेणी निवडा.",
@@ -1202,24 +1236,29 @@ const mr: Messages = {
   notificationsPending: "नवीन पिकांच्या सूचनांची सुविधा अद्याप जोडलेली नाही.",
   pushRequestSettings: "खरेदीदारांच्या विनंत्यांच्या सूचना",
   pushRequestDescription: "खरेदीदाराने विनंती पाठवल्यावर या फोनवर सूचना मिळवा.",
-  pushPermissionRequired: "फोनच्या सेटिंग्जमध्ये गावलीच्या सूचनांना परवानगी द्या आणि पुन्हा प्रयत्न करा.",
+  pushPermissionRequired:
+    "फोनच्या सेटिंग्जमध्ये गावलीच्या सूचनांना परवानगी द्या आणि पुन्हा प्रयत्न करा.",
   pushBuildRequired: "सूचना मिळवण्यासाठी गावलीची नवीन आवृत्ती स्थापित करा.",
   pushSettingsError: "सूचनांची सेटिंग्ज बदलता आली नाहीत. पुन्हा प्रयत्न करा.",
   pushRequestReceived: "खरेदीदाराकडून नवीन विनंती आली आहे.",
   pushTest: "चाचणी सूचना पाठवा",
   pushTestSending: "वेळ ठरवत आहे…",
-  pushTestScheduled: "चाचणी सूचना ५ सेकंदांनी पाठवली जाईल. आता तुम्ही गावली बंद करू शकता.",
+  pushTestScheduled:
+    "चाचणी सूचना ५ सेकंदांनी पाठवली जाईल. आता तुम्ही गावली बंद करू शकता.",
   pushTestReceived: "गावलीची चाचणी सूचना मिळाली.",
   pushTestServerSetup: "सर्व्हरवरील Firebase सेवा खात्याची सेटिंग्ज तपासा.",
-  pushTestDeviceUnavailable: "खरेदीदारांच्या विनंत्यांच्या सूचना बंद करून पुन्हा सुरू करा आणि पुन्हा प्रयत्न करा.",
+  pushTestDeviceUnavailable:
+    "खरेदीदारांच्या विनंत्यांच्या सूचना बंद करून पुन्हा सुरू करा आणि पुन्हा प्रयत्न करा.",
   pushTestFailed: "Firebase ला चाचणी सूचना पाठवता आली नाही.",
   whatsAppTest: "WhatsApp चाचणी पाठवा",
   whatsAppTestDescription: "तुमच्या नोंदणीकृत क्रमांकावर एक चाचणी संदेश पाठवा.",
   whatsAppTestSending: "चाचणी पाठवत आहे…",
   whatsAppTestAccepted: "WATI ने चाचणी स्वीकारली. संदेशासाठी WhatsApp तपासा.",
   whatsAppTestUnavailable: "WhatsApp चाचणी उपलब्ध नाही. WATI सेटिंग्ज तपासा.",
-  whatsAppTestRejected: "WATI ने चाचणी नाकारली. मंजूर संदेश नमुना आणि पाठवणारा क्रमांक तपासा.",
-  whatsAppTestUnknown: "पुन्हा प्रयत्न करण्यापूर्वी WhatsApp वर चाचणी संदेश तपासा.",
+  whatsAppTestRejected:
+    "WATI ने चाचणी नाकारली. मंजूर संदेश नमुना आणि पाठवणारा क्रमांक तपासा.",
+  whatsAppTestUnknown:
+    "पुन्हा प्रयत्न करण्यापूर्वी WhatsApp वर चाचणी संदेश तपासा.",
   settingsUnavailable: "सुविधा अद्याप उपलब्ध नाही",
   home: "मुख्यपृष्ठ",
   buyer: "खरेदीदार",

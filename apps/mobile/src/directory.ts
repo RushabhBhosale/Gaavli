@@ -72,7 +72,7 @@ export function useDirectory(
     initialPageParam: 1,
     queryFn: ({ signal, pageParam }) =>
       (session ? authenticatedApi : api)(
-        `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, ...(category ? { category } : {}), page: String(pageParam), limit: "50" })}`,
+        `/directory?${new URLSearchParams({ sourceVillageId: village!.id, module, search, ...(category ? { category } : {}), page: String(pageParam), limit: "50", v: "2" })}`,
         directoryPageSchema,
         { signal },
       ),
@@ -94,7 +94,7 @@ export function useDirectoryEntry(id: string) {
       (!session || !!session.user.village),
     queryFn: ({ signal }) =>
       (session ? authenticatedApi : api)(
-        `/directory/${id}?sourceVillageId=${village!.id}`,
+        `/directory/${id}?sourceVillageId=${village!.id}&v=2`,
         directoryEntrySchema,
         { signal },
       ),

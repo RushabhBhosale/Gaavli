@@ -19,6 +19,7 @@ import {
   requestLink,
   searchProfiles,
   setProfileStatus,
+  setProfileClosed,
   updateProfile,
   useMyProviderProfile,
 } from "../../providerProfiles";
@@ -276,6 +277,30 @@ export default function ProviderManageScreen() {
           <Button loading={busy} disabled={offline} onPress={() => void save()}>
             {t.manageEdit}
           </Button>
+          {profile.status === "ACTIVE" && (
+            <>
+              {profile.details.closedNow === true && (
+                <Text style={s.closedHint}>{t.manageClosedHint}</Text>
+              )}
+              <Button
+                outlined
+                disabled={busy || offline}
+                onPress={() =>
+                  void run(() =>
+                    setProfileClosed(
+                      profile.id,
+                      profile.details.closedNow !== true,
+                      profile.version,
+                    ),
+                  )
+                }
+              >
+                {profile.details.closedNow === true
+                  ? t.manageReopen
+                  : t.manageCloseNow}
+              </Button>
+            </>
+          )}
           <Button
             outlined
             disabled={busy || offline}
@@ -421,6 +446,13 @@ const s = StyleSheet.create({
   },
   hint: { ...theme.type.caption, color: theme.colors.muted },
   warn: { ...theme.type.label, color: theme.colors.saffronText },
+  closedHint: {
+    ...theme.type.caption,
+    color: theme.colors.error,
+    backgroundColor: theme.colors.errorBackground,
+    padding: 10,
+    borderRadius: theme.radii.control,
+  },
   ok: { ...theme.type.label, color: theme.colors.primary },
   cardTitle: { ...theme.type.subheading, color: theme.colors.heading },
   links: { gap: 10 },

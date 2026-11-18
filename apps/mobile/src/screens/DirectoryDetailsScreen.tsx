@@ -1,5 +1,5 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
@@ -13,7 +13,7 @@ import { messages } from "../i18n";
 import { theme } from "../theme";
 import { useDirectoryEntry, useDirectoryShopProducts } from "../directory";
 import { directoryPreview } from "../data/directory";
-import { hoursText } from "../data/operatingHours";
+import { hoursText, openState } from "../data/operatingHours";
 import { Button, ErrorMessage, Screen } from "../components/ui";
 import { AppHeader } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
@@ -25,6 +25,9 @@ import { showGuestAuthPrompt } from "../components/guestSignUpPrompt";
 
 // A shop, service or vehicle: who it is, photos, when it is open and how to
 // reach it. The call button stays at the bottom while the page scrolls.
+// Items shown per group before "+N".
+const ITEMS_SHOWN = 6;
+
 export default function DirectoryDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
@@ -65,22 +68,43 @@ export default function DirectoryDetailsScreen() {
       ? listingRate(directoryPreview(entry), language)
       : "";
   const hours = hoursText(entry?.hours, language);
+  const state = openState(entry?.hours, !!entry?.closed);
   const sells = useDirectoryShopProducts(
     id ?? "",
     entry?.providerType === "SHOP_BUSINESS",
   ).data;
-  const sellsGroups = (sells?.groups ?? []).flatMap((groupId) => {
+  // Ticked items sit under their own group: the first few as chips and
+  // "+N" for the rest, so a long list never makes the page long. Groups
+  // with no items stay chips at the top.
+  const [openGroups, setOpenGroups] = useState<string[]>([]);
+  const itemName = (item: NonNullable<typeof sells>["products"][number]) =>
+    (language === "mr"
+      ? item.nameMr
+      : language === "hi"
+        ? item.nameHi
+        : null) || item.nameEn;
+  const groupIds = [
+    ...new Set([
+      ...(sells?.groups ?? []),
+      ...(sells?.products ?? []).map((item) => item.productGroup),
+    ]),
+  ];
+  const sellsWithItems = groupIds.flatMap((groupId) => {
+    const items = (sells?.products ?? []).filter(
+      (item) => item.productGroup === groupId,
+    );
     const group = shopProductGroup(groupId);
-    return group ? [group] : [];
+    return items.length
+      ? [{ id: groupId, group, items: items.map(itemName) }]
+      : [];
   });
-  const sellsItems = (sells?.products ?? []).map(
-    (item) =>
-      (language === "mr"
-        ? item.nameMr
-        : language === "hi"
-          ? item.nameHi
-          : null) || item.nameEn,
-  );
+  const sellsGroups = groupIds.flatMap((groupId) => {
+    const group = shopProductGroup(groupId);
+    return group && !sellsWithItems.some((row) => row.id === groupId)
+      ? [group]
+      : [];
+  });
+  const sellsItems = sellsWithItems.flatMap((row) => row.items);
   const first = session ? entry?.contacts[0] : undefined;
   function requestContact() {
     showGuestAuthPrompt(language, (mode) => {
@@ -215,18 +239,63 @@ export default function DirectoryDetailsScreen() {
                       ))}
                     </View>
                   )}
-                  {sellsItems.length > 0 && (
-                    <>
-                      <Text style={s.sellsLabel}>{t.detUsuallyHas}</Text>
+                  {sellsWithItems.length > 0 && (
+                    <Text style={s.sellsLabel}>{t.detUsuallyHas}</Text>
+                  )}
+                  {sellsWithItems.map((row) => (
+                    <View key={row.id} style={s.sellsLine}>
+                      <View style={s.sellsLineHead}>
+                        {row.group && (
+                          <Ionicons
+                            accessible={false}
+                            name={
+                              row.group.icon as keyof typeof Ionicons.glyphMap
+                            }
+                            size={16}
+                            color={module.color}
+                          />
+                        )}
+                        <Text style={s.sellsLineTitle}>
+                          {row.group?.[language] ?? t.detSells}
+                          {`  ·  ${row.items.length}`}
+                        </Text>
+                      </View>
                       <View style={s.sellsRow}>
-                        {sellsItems.map((name) => (
+                        {(openGroups.includes(row.id)
+                          ? row.items
+                          : row.items.slice(0, ITEMS_SHOWN)
+                        ).map((name) => (
                           <View key={name} style={s.sellsItem}>
                             <Text style={s.sellsItemText}>{name}</Text>
                           </View>
                         ))}
+                        {row.items.length > ITEMS_SHOWN && (
+                          <Pressable
+                            accessibilityRole="button"
+                            onPress={() =>
+                              setOpenGroups((list) =>
+                                list.includes(row.id)
+                                  ? list.filter((item) => item !== row.id)
+                                  : [...list, row.id],
+                              )
+                            }
+                            style={[s.sellsItem, s.sellsMore]}
+                          >
+                            <Text
+                              style={[
+                                s.sellsItemText,
+                                { color: module.color, fontWeight: "700" },
+                              ]}
+                            >
+                              {openGroups.includes(row.id)
+                                ? t.shopShowFewer
+                                : `+${row.items.length - ITEMS_SHOWN}`}
+                            </Text>
+                          </Pressable>
+                        )}
                       </View>
-                    </>
-                  )}
+                    </View>
+                  ))}
                 </View>
               </View>
             )}
@@ -246,6 +315,18 @@ export default function DirectoryDetailsScreen() {
                   {t.hoursTitle}
                 </Text>
                 <View style={s.card}>
+                  {state && (
+                    <Text
+                      style={[
+                        s.openState,
+                        state === "closed" && s.openStateClosed,
+                      ]}
+                    >
+                      {state === "open"
+                        ? t.directoryOpenNow
+                        : t.directoryClosedNow}
+                    </Text>
+                  )}
                   {"raw" in hours ? (
                     <Text style={s.body}>{hours.raw}</Text>
                   ) : (
@@ -439,13 +520,27 @@ const s = StyleSheet.create({
   },
   sellsLabel: { color: theme.colors.muted, fontSize: 14, fontWeight: "600" },
   sellsItem: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     borderRadius: theme.radii.pill,
     backgroundColor: theme.colors.surfaceMuted,
   },
-  sellsItemText: { color: theme.colors.text, fontSize: 15 },
+  sellsItemText: { color: theme.colors.text, fontSize: 14 },
+  sellsLine: { gap: 6 },
+  sellsLineHead: { flexDirection: "row", alignItems: "center", gap: 6 },
+  sellsLineTitle: {
+    color: theme.colors.heading,
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  sellsMore: {
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
   hoursRow: { flexDirection: "row", gap: 10, alignItems: "flex-start" },
+  openState: { color: theme.colors.success, fontSize: 15, fontWeight: "700" },
+  openStateClosed: { color: theme.colors.error },
   hoursCopy: { flex: 1, gap: 2 },
   hoursDays: { color: theme.colors.heading, fontSize: 16, fontWeight: "700" },
   hoursClosed: { flex: 1, color: theme.colors.error, fontSize: 15 },
