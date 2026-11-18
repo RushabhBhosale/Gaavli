@@ -296,39 +296,46 @@ export async function directorySummary(
 }
 
 export async function findPublicCoordinator(villageId: string) {
-  const assignment = await VillageCoordinator.findOne({ villageId }).lean();
-  if (!assignment) return null;
-  const [user, village] = await Promise.all([
-    User.findOne({
-      _id: assignment.userId,
-      status: "active",
-      roles: "coordinator",
-    })
-      .select("name mobile")
-      .lean(),
+  const [assignments, village] = await Promise.all([
+    VillageCoordinator.find({ villageId }).sort({ createdAt: 1, _id: 1 }).lean(),
     Village.findOne({ _id: villageId, isActive: true })
       .select("nameEn nameMr")
       .lean(),
   ]);
-  if (!user || !village) return null;
-  const registeredPhone = indianMobileSchema.safeParse(user.mobile);
-  const permittedPhone = indianMobileSchema.safeParse(
-    assignment.publicContactPhone,
-  );
-  const publicPhone =
-    registeredPhone.success &&
-    permittedPhone.success &&
-    registeredPhone.data === permittedPhone.data
-      ? `+91${registeredPhone.data}`
-      : null;
+  if (!assignments.length || !village) return null;
+  const users = await User.find({
+    _id: { $in: assignments.map((assignment) => assignment.userId) },
+    status: "active",
+    roles: "coordinator",
+  })
+    .select("name mobile")
+    .lean();
+  const usersById = new Map(users.map((user) => [String(user._id), user]));
+  const eligible = assignments.flatMap((assignment) => {
+    const user = usersById.get(String(assignment.userId));
+    if (!user) return [];
+    const registeredPhone = indianMobileSchema.safeParse(user.mobile);
+    const permittedPhone = indianMobileSchema.safeParse(
+      assignment.publicContactPhone,
+    );
+    const publicPhone =
+      registeredPhone.success &&
+      permittedPhone.success &&
+      registeredPhone.data === permittedPhone.data
+        ? `+91${registeredPhone.data}`
+        : null;
+    return [{ user, publicPhone }];
+  });
+  const chosen = eligible.find((row) => row.publicPhone) ?? eligible[0];
+  if (!chosen) return null;
   return {
-    name: user.name,
+    name: chosen.user.name,
     village: {
       id: String(village._id),
       name: village.nameEn,
       nameMr: village.nameMr,
     },
     // Permission covers this exact registered number only, never a replacement.
-    publicContactPhone: publicPhone,
+    publicContactPhone: chosen.publicPhone,
   };
 }

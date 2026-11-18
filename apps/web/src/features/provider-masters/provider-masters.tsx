@@ -63,9 +63,7 @@ export function ProviderMasterManagement() {
   const [pageSize, setPageSize] = useState(10);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [form, setForm] = useState<Master | "new" | null>(null);
-  const [deactivating, setDeactivating] = useState<Master | null>(null);
   const [notice, setNotice] = useState("");
-  const client = useQueryClient();
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounced(search);
@@ -101,25 +99,6 @@ export function ProviderMasterManagement() {
     ],
     queryFn: ({ signal }) =>
       api<MasterPage>(`/v1/admin/provider-masters?${params}`, { signal }),
-  });
-  const statusChange = useMutation({
-    mutationFn: (record: Master) =>
-      api<Master>(`/v1/admin/provider-masters/${record.id}/status`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          isActive: !record.isActive,
-          version: record.version,
-        }),
-      }),
-    onSuccess: async (record) => {
-      setNotice(
-        record.isActive
-          ? "Master option activated."
-          : "Master option deactivated.",
-      );
-      setDeactivating(null);
-      await client.invalidateQueries({ queryKey: [queryKey] });
-    },
   });
   const data = useMemo(() => query.data?.records ?? [], [query.data]);
   const columns: ColumnDef<Master>[] = [
@@ -171,18 +150,6 @@ export function ProviderMasterManagement() {
             onClick={() => setForm(row.original)}
           >
             Edit
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            disabled={statusChange.isPending}
-            onClick={() => {
-              statusChange.reset();
-              if (row.original.isActive) setDeactivating(row.original);
-              else statusChange.mutate(row.original);
-            }}
-          >
-            {row.original.isActive ? "Deactivate" : "Activate"}
           </Button>
         </div>
       ),
@@ -330,11 +297,6 @@ export function ProviderMasterManagement() {
           </span>
         </div>
       )}
-      {statusChange.error && !deactivating && (
-        <p role="alert" className="field-error mb-4">
-          {statusChange.error.message}
-        </p>
-      )}
       {query.isPending ? (
         <Skeleton className="h-56" />
       ) : query.error ? (
@@ -434,20 +396,6 @@ export function ProviderMasterManagement() {
           onSaved={() => setNotice("Master option saved.")}
         />
       )}
-      <ConfirmDialog
-        open={!!deactivating}
-        onClose={() => {
-          setDeactivating(null);
-          statusChange.reset();
-        }}
-        onConfirm={() => {
-          if (deactivating) statusChange.mutate(deactivating);
-        }}
-        title={`Deactivate ${deactivating?.name.en ?? "option"}?`}
-        description="This option will be hidden from future registration dropdowns. Existing references will be retained."
-        busy={statusChange.isPending}
-        error={statusChange.error?.message}
-      />
     </section>
   );
 }
@@ -469,6 +417,7 @@ function MasterForm({
   const [name, setName] = useState(record?.name ?? { en: "", mr: "", hi: "" });
   const [order, setOrder] = useState(String(record?.sortOrder ?? 0));
   const [isActive, setActive] = useState(record?.isActive ?? true);
+  const [confirmDeactivate, setConfirmDeactivate] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const save = useMutation({
     mutationFn: () =>
@@ -479,6 +428,7 @@ function MasterForm({
               providerMasterUpdateSchema.parse({
                 name,
                 sortOrder: order.trim() ? Number(order) : 0,
+                isActive,
                 version: record.version,
               }),
             ),
@@ -527,6 +477,7 @@ function MasterForm({
             const parsed = record
               ? providerMasterUpdateSchema.safeParse({
                   ...values,
+                  isActive,
                   version: record.version,
                 })
               : providerMasterCreateSchema.safeParse({
@@ -604,14 +555,21 @@ function MasterForm({
               <input
                 type="checkbox"
                 checked={isActive}
-                disabled={!!record}
-                onChange={(event) => setActive(event.target.checked)}
+                onChange={(event) => {
+                  const checked = event.target.checked;
+                  if (record && isActive && !checked) {
+                    setConfirmDeactivate(true);
+                    return;
+                  }
+                  setActive(checked);
+                }}
               />
               Active
             </label>
             {record && (
               <p className="text-xs text-slate-500">
-                Use Activate or Deactivate in the table to change status.
+                Deactivating hides this option from future registration
+                dropdowns. Existing references are retained.
               </p>
             )}
           </fieldset>
@@ -635,6 +593,18 @@ function MasterForm({
           </div>
         </form>
       </DialogContent>
+      <ConfirmDialog
+        open={confirmDeactivate}
+        onClose={() => setConfirmDeactivate(false)}
+        onConfirm={() => {
+          setActive(false);
+          setConfirmDeactivate(false);
+        }}
+        title={`Deactivate ${record?.name.en ?? "option"}?`}
+        description="This option will be hidden from future registration dropdowns. Existing references will be retained."
+        confirmLabel="Deactivate"
+        busy={false}
+      />
     </Dialog>
   );
 }

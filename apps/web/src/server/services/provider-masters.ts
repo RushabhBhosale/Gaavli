@@ -48,26 +48,31 @@ export async function exportProviderMastersCsv(
       "VALIDATION_ERROR",
       "Narrow the filters. An export can include at most 5,000 master options.",
     );
-  return providerMastersToCsv(page.records);
+  return providerMastersToCsv(
+    page.records.map((record) => ({
+      ...record,
+      providerType: query.providerType,
+      masterType: query.masterType,
+    })),
+  );
 }
 export async function importProviderMasters(
   actorId: string,
-  group: z.infer<typeof providerMasterGroupSchema>,
   text: string,
+  fallbackGroup?: z.infer<typeof providerMasterGroupSchema>,
 ) {
   if (text.length > PROVIDER_MASTER_CSV_BYTE_LIMIT)
     throw new AppError(413, "VALIDATION_ERROR", "CSV file is too large.");
   const read = readProviderMasterCsv(text);
   if ("error" in read) throw new AppError(422, "VALIDATION_ERROR", read.error);
   const failed: { line: number; message: string }[] = [];
-  const seen = {
-    en: new Set<string>(),
-    mr: new Set<string>(),
-    hi: new Set<string>(),
-  };
+  const seenByGroup = new Map<
+    string,
+    { en: Set<string>; mr: Set<string>; hi: Set<string> }
+  >();
   let created = 0;
   for (const row of read.rows) {
-    const input = providerMasterInputFromCsvRow(row, group);
+    const input = providerMasterInputFromCsvRow(row, fallbackGroup);
     if (!input.ok) {
       failed.push({ line: row.line, message: input.message });
       continue;
@@ -76,6 +81,12 @@ export async function importProviderMasters(
       en: normalizeProviderMasterName(input.data.name.en),
       mr: normalizeProviderMasterName(input.data.name.mr),
       hi: normalizeProviderMasterName(input.data.name.hi),
+    };
+    const groupKey = `${input.data.providerType}:${input.data.masterType}`;
+    const seen = seenByGroup.get(groupKey) ?? {
+      en: new Set<string>(),
+      mr: new Set<string>(),
+      hi: new Set<string>(),
     };
     const repeated = (["en", "mr", "hi"] as const).find((language) =>
       seen[language].has(names[language]),
@@ -90,6 +101,7 @@ export async function importProviderMasters(
     seen.en.add(names.en);
     seen.mr.add(names.mr);
     seen.hi.add(names.hi);
+    seenByGroup.set(groupKey, seen);
     try {
       await createProviderMaster(actorId, input.data);
       created += 1;
@@ -195,6 +207,7 @@ export async function updateProviderMaster(
         row.name = input.name;
         row.normalizedName = normalizedNames(input.name);
         row.sortOrder = input.sortOrder;
+        if (input.isActive !== undefined) row.isActive = input.isActive;
       } else row.isActive = input.isActive;
       await row.save({ session });
       await AuditLog.create(

@@ -43,6 +43,7 @@ export const providerMasterUpdateSchema = z
   .object({
     name: providerMasterNameSchema,
     sortOrder,
+    isActive: z.boolean().optional(),
     version: z.number().int().nonnegative(),
   })
   .strict();

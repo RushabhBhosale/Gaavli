@@ -80,7 +80,7 @@ export function AdminShell({
         </div>
         <nav
           aria-label="Main navigation"
-          className="min-h-0 space-y-1 overflow-y-auto px-3"
+          className="admin-sidebar-nav min-h-0 space-y-1 overflow-y-auto px-3"
         >
           {links.map(({ name, href, icon: Icon }) => (
             <Link

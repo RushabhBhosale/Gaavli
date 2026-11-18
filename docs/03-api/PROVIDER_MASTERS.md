@@ -36,10 +36,19 @@ the status filter; matching total/pagination use the status filter too.
 Add/Edit requires nonblank English, Marathi and Hindi names. New records default
 to active and sort order 0. New codes use the English-name slug plus a random
 12-hex-character suffix, with a database unique index as authority. Codes and
-provider/master identity cannot be changed after creation. Editing changes names
-and sort order; table actions separately activate/deactivate, confirming before
-deactivation. Success uses an accessible timed status notice; failures remain
-visible. Existing references remain valid and there is no delete action/API.
+provider/master identity cannot be changed after creation. Editing changes names,
+sort order, and status. The Active checkbox confirms before deactivation; the
+Actions column only opens Edit. Success uses an accessible timed status notice;
+failures remain visible. Existing references remain valid and there is no delete
+action/API.
+
+The Sample and Download CSVs use columns `providerType,masterType,englishName,
+marathiName,hindiName,sortOrder,status`. Each row is routed to its own validated
+provider type and matching master group, so one upload can contain multiple
+groups. The Sample demonstrates two provider types. Existing five-column files
+remain accepted when uploaded from a selected type/group page; their rows inherit
+that selected group. New-format rows must include both group columns, and invalid
+type/group combinations are reported against their row.
 
 ## REST contracts
 
@@ -50,7 +59,7 @@ All responses use existing JSON envelopes and `Cache-Control: no-store`.
 | ------ | ------------------------------------------- | ----------------------------------------------------- |
 | GET    | `/api/v1/admin/provider-masters`            | Active Super Admin session; list                      |
 | POST   | `/api/v1/admin/provider-masters`            | Active Super Admin session + same-origin; create      |
-| PATCH  | `/api/v1/admin/provider-masters/:id`        | Active Super Admin session + same-origin; names/order |
+| PATCH  | `/api/v1/admin/provider-masters/:id`        | Active Super Admin session + same-origin; names/order/status |
 | PATCH  | `/api/v1/admin/provider-masters/:id/status` | Active Super Admin session + same-origin; status      |
 | GET    | `/api/v1/provider-masters`                  | Public read-only active reference options             |
 
@@ -61,12 +70,18 @@ and `direction=asc|desc`. Unknown query/body fields are rejected.
 
 Create body: `{ providerType, masterType, name: { en,mr,hi }, sortOrder?, isActive? }`.
 Names are trimmed and bounded to 160 characters. Sort order is an integer 0–1000000.
-Update body: `{ name:{en,mr,hi}, sortOrder, version }`.
+Update body: `{ name:{en,mr,hi}, sortOrder, isActive?, version }`.
 Status body: `{ isActive, version }`.
 Admin DTOs include `id, providerType, masterType, code, name, sortOrder, isActive,
 version`. Versioned writes reject stale updates with 409; mutations record audit
 events in the existing AuditLog transaction. Invalid IDs/inputs return 422,
 missing masters 404, and duplicate names/codes 409.
+
+The admin CSV import endpoint accepts an optional selected `providerType` and
+`masterType` pair only as a compatibility fallback for legacy five-column CSVs.
+New seven-column CSV rows carry their own group values; the server validates
+every row against the code-owned provider/master-group mapping before creating
+the option.
 
 Public query accepts only `providerType, masterType`; it returns
 `{records:[{id,code,name:{en,mr,hi}}]}` for that group, active only, ordered by

@@ -15,6 +15,10 @@ export const adminProfilesQuerySchema = z
     search: z.string().trim().max(80).default(""),
     page: z.coerce.number().int().min(1).max(10000).default(1),
     limit: z.coerce.number().int().min(1).max(50).default(15),
+    sort: z
+      .enum(["name", "providerType", "village", "owner", "status", "createdAt"])
+      .default("createdAt"),
+    direction: z.enum(["asc", "desc"]).default("desc"),
   })
   .strict();
 export const adminClaimsQuerySchema = z
@@ -39,46 +43,117 @@ export async function listProfilesForAdmin(
     .normalize("NFKC")
     .toLocaleLowerCase("en-IN")
     .replace(/[^\p{L}\p{N}]+/gu, "");
+  const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const escapedSearch = query.search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const villageRows = key
+    ? await Village.find({
+        $or: [
+          { nameEn: { $regex: escapedSearch, $options: "i" } },
+          { nameMr: { $regex: escapedSearch, $options: "i" } },
+        ],
+      })
+        .select("_id")
+        .lean()
+    : [];
   const filter = {
     ...(query.providerType ? { providerType: query.providerType } : {}),
     ...(query.status ? { status: query.status } : {}),
     ...(key
-      ? { nameKey: { $regex: key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") } }
+      ? {
+          $or: [
+            { nameKey: { $regex: escapedKey } },
+            { villageId: { $in: villageRows.map((village) => village._id) } },
+          ],
+        }
       : {}),
   };
-  const [rows, total] = await Promise.all([
-    ProviderProfile.find(filter)
-      .sort({ createdAt: -1 })
-      .skip((query.page - 1) * query.limit)
-      .limit(query.limit)
-      .lean(),
-    ProviderProfile.countDocuments(filter),
+  const sortFields = {
+    name: "name",
+    providerType: "providerType",
+    village: "villageRow.nameEn",
+    owner: "ownerRow.name",
+    status: "status",
+    createdAt: "createdAt",
+  } as const;
+  const direction = query.direction === "asc" ? 1 : -1;
+  type AdminProfileRow = {
+    _id: unknown;
+    providerType: ProviderType;
+    name: string;
+    status: "ACTIVE" | "INACTIVE";
+    village: string;
+    owner: string;
+    ownerMobile: string;
+    contacts: number;
+    createdAt: Date;
+  };
+  const [result] = await ProviderProfile.aggregate<{
+    profiles: AdminProfileRow[];
+    total: { count: number }[];
+  }>([
+    { $match: filter },
+    {
+      $lookup: {
+        from: Village.collection.name,
+        localField: "villageId",
+        foreignField: "_id",
+        as: "villageRow",
+      },
+    },
+    {
+      $unwind: { path: "$villageRow", preserveNullAndEmptyArrays: true },
+    },
+    {
+      $lookup: {
+        from: User.collection.name,
+        localField: "ownerId",
+        foreignField: "_id",
+        as: "ownerRow",
+      },
+    },
+    { $unwind: { path: "$ownerRow", preserveNullAndEmptyArrays: true } },
+    {
+      $sort: {
+        [sortFields[query.sort]]: direction,
+        _id: 1,
+      },
+    },
+    {
+      $facet: {
+        profiles: [
+          { $skip: (query.page - 1) * query.limit },
+          { $limit: query.limit },
+          {
+            $project: {
+              _id: 1,
+              providerType: 1,
+              name: 1,
+              status: 1,
+              village: { $ifNull: ["$villageRow.nameEn", ""] },
+              owner: { $ifNull: ["$ownerRow.name", ""] },
+              ownerMobile: { $ifNull: ["$ownerRow.mobile", ""] },
+              contacts: { $size: { $ifNull: ["$contacts", []] } },
+              createdAt: 1,
+            },
+          },
+        ],
+        total: [{ $count: "count" }],
+      },
+    },
   ]);
-  const [owners, villages] = await Promise.all([
-    User.find({ _id: { $in: rows.map((row) => row.ownerId) } })
-      .select("name mobile")
-      .lean(),
-    Village.find({ _id: { $in: rows.map((row) => row.villageId) } })
-      .select("nameEn")
-      .lean(),
-  ]);
+  const rows = result?.profiles ?? [];
+  const total = result?.total[0]?.count ?? 0;
   return {
     profiles: rows.map((row) => ({
       id: String(row._id),
       providerType: row.providerType,
       name: row.name,
       status: row.status,
-      village:
-        villages.find((v) => String(v._id) === String(row.villageId))?.nameEn ??
-        "",
-      owner:
-        owners.find((o) => String(o._id) === String(row.ownerId))?.name ?? "",
-      ownerMobile:
-        owners.find((o) => String(o._id) === String(row.ownerId))?.mobile ?? "",
-      contacts: row.contacts.length,
-      createdAt: (
-        row as unknown as { createdAt: Date }
-      ).createdAt.toISOString(),
+      village: row.village,
+      owner: row.owner,
+      ownerMobile: row.ownerMobile,
+      contacts: row.contacts,
+      createdAt: row.createdAt.toISOString(),
     })),
     total,
     page: query.page,

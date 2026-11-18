@@ -1,5 +1,14 @@
 # Web implementation status — 2026-10-09
 
+## Multiple coordinators per village — 2026-11-17
+
+Super Admin user assignment and village assignment APIs allow multiple active
+coordinators per village. Duplicate assignment pairs remain rejected; each
+coordinator keeps the existing assigned-village scope. The MongoDB unique
+villageId index was dropped from the configured database without changing
+assignment documents. The village list displays all assigned coordinator names.
+Web TypeScript and focused ESLint pass. Automated CRUD verification was not run.
+
 ## Workspace/mobile foundation integration — 2026-10-13
 
 Web now participates in the root npm workspace/lockfile. Original 578 web lock

@@ -6,8 +6,16 @@ import {
   getCoreRowModel,
   useReactTable,
   type ColumnDef,
+  type SortingState,
 } from "@tanstack/react-table";
-import { Plus, MoreVertical, Search, ArrowDown } from "lucide-react";
+import {
+  Plus,
+  MoreVertical,
+  Search,
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+} from "lucide-react";
 import { api } from "@/lib/api";
 import type { Counts, UserDto, UsersPage, VillageDto } from "@/lib/contracts";
 import { Button } from "@/components/ui/button";
@@ -33,6 +41,9 @@ export function UsersManagement() {
     [pageSize, setPageSize] = useState(10),
     [form, setForm] = useState<UserDto | "new" | null>(null),
     [confirm, setConfirm] = useState<UserDto | null>(null);
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: "createdAt", desc: true },
+  ]);
   const [selection, setSelection] = useState({});
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,9 +60,20 @@ export function UsersManagement() {
     ...(village ? { village } : {}),
     ...(status ? { status } : {}),
     ...(debounced ? { search: debounced } : {}),
+    sort: sorting[0]?.id ?? "createdAt",
+    direction: sorting[0]?.desc ? "desc" : "asc",
   });
   const users = useQuery({
-    queryKey: ["users", role, village, status, debounced, page, pageSize],
+    queryKey: [
+      "users",
+      role,
+      village,
+      status,
+      debounced,
+      page,
+      pageSize,
+      sorting,
+    ],
     queryFn: () => api<UsersPage>(`/users?${query}`),
   });
   const counts = useQuery({
@@ -161,12 +183,7 @@ export function UsersManagement() {
       },
       {
         accessorKey: "createdAt",
-        header: () => (
-          <span className="flex items-center gap-1">
-            Joined On
-            <ArrowDown size={12} />
-          </span>
-        ),
+        header: "Joined On",
         cell: ({ row }) =>
           new Date(row.original.createdAt).toLocaleDateString("en-IN", {
             day: "2-digit",
@@ -214,10 +231,17 @@ export function UsersManagement() {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id,
-    state: { rowSelection: selection },
     onRowSelectionChange: setSelection,
     enableRowSelection: true,
     manualPagination: true,
+    manualSorting: true,
+    enableMultiSort: false,
+    state: { rowSelection: selection, sorting },
+    onSortingChange: (updater) => {
+      setSorting(updater);
+      setPage(1);
+      setSelection({});
+    },
   });
   const total = users.data?.total || 0;
   function filter(action: () => void) {
@@ -342,11 +366,38 @@ export function UsersManagement() {
                     {group.headers.map((header) => (
                       <th
                         key={header.id}
+                        scope="col"
+                        aria-sort={
+                          header.column.getIsSorted() === "asc"
+                            ? "ascending"
+                            : header.column.getIsSorted() === "desc"
+                              ? "descending"
+                              : "none"
+                        }
                         className="whitespace-nowrap px-4 py-3 font-semibold"
                       >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
+                        {header.column.getCanSort() ? (
+                          <button
+                            className="flex items-center gap-1.5 text-left"
+                            onClick={header.column.getToggleSortingHandler()}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                            {header.column.getIsSorted() === "asc" ? (
+                              <ArrowUp size={13} />
+                            ) : header.column.getIsSorted() === "desc" ? (
+                              <ArrowDown size={13} />
+                            ) : (
+                              <ArrowUpDown size={13} />
+                            )}
+                          </button>
+                        ) : (
+                          flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )
                         )}
                       </th>
                     ))}

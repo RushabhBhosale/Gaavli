@@ -53,7 +53,11 @@ try {
   assert.equal(await Listing.countDocuments(), 41);
   assert.equal(await Service.countDocuments(), 5);
   assert.equal(await Notification.countDocuments(), 1);
-  const village = await Village.findOne({ nameEn: "Kalamb" }).lean();
+  const village = await Village.findOne({
+    nameEn: "Kalamb",
+    taluka: "Karjat",
+    district: "Raigad",
+  }).lean();
   assert.ok(village);
   const request = (path: string, token?: string) =>
     new Request(`http://localhost/api/v1/${path}`, {

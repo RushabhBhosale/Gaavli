@@ -45,6 +45,10 @@ export const usersFilterSchema = z
   .strict();
 export const usersQuerySchema = usersFilterSchema
   .extend({
+    sort: z
+      .enum(["name", "mobile", "status", "createdAt"])
+      .default("createdAt"),
+    direction: z.enum(["asc", "desc"]).default("desc"),
     page: z.coerce.number().int().min(1).max(100000).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(7),
   })
@@ -106,6 +110,8 @@ export const villagesFilterSchema = z
   .strict();
 export const villagesQuerySchema = villagesFilterSchema
   .extend({
+    sort: z.enum(["name", "users", "status"]).default("name"),
+    direction: z.enum(["asc", "desc"]).default("asc"),
     page: z.coerce.number().int().min(1).max(100000).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(6),
   })
@@ -117,10 +123,26 @@ export const villageSchema = z
       .trim()
       .regex(/^$|^\+91[6-9]\d{9}$/, "Use +91 followed by a valid mobile number")
       .optional(),
-    name: z.string().trim().min(2, "Enter at least 2 characters").max(100),
-    nameMr: z.string().trim().min(2, "Enter the Marathi village name").max(100),
-    taluka: z.string().trim().min(1, "Enter the taluka").max(100),
-    district: z.string().trim().min(1, "Enter the district").max(100),
+    villageMasterId: objectId.optional(),
+    name: z
+      .string()
+      .trim()
+      .min(2, "Enter at least 2 characters")
+      .max(100)
+      .optional(),
+    nameMr: z
+      .string()
+      .trim()
+      .min(2, "Enter the Marathi village name")
+      .max(100)
+      .optional(),
+    taluka: z.string().trim().min(1, "Enter the taluka").max(100).optional(),
+    district: z
+      .string()
+      .trim()
+      .min(1, "Enter the district")
+      .max(100)
+      .optional(),
     pinCode: z
       .string()
       .trim()
@@ -130,7 +152,6 @@ export const villageSchema = z
     longitude: z.number().min(-180).max(180),
     coordinatorIds: z
       .array(objectId)
-      .max(1, "Choose only one coordinator per village")
       .refine(
         (ids) => new Set(ids).size === ids.length,
         "Duplicate coordinators",
@@ -138,6 +159,16 @@ export const villageSchema = z
       .optional(),
   })
   .strict();
+function hasVillageIdentity(input: {
+  villageMasterId?: string;
+  name?: string;
+  nameMr?: string;
+  taluka?: string;
+  district?: string;
+}) {
+  if (input.villageMasterId) return true;
+  return Boolean(input.name && input.nameMr && input.taluka && input.district);
+}
 export const editVillageSchema = villageSchema
   .partial({ latitude: true, longitude: true })
   .extend({
@@ -147,6 +178,10 @@ export const editVillageSchema = villageSchema
     (input) =>
       (input.latitude === undefined) === (input.longitude === undefined),
     "Provide both coordinates or omit both",
+  )
+  .refine(
+    hasVillageIdentity,
+    "Enter the village name, Marathi name, taluka, and district.",
   );
 export const createVillageSchema = villageSchema
   .partial({ latitude: true, longitude: true })
@@ -154,6 +189,10 @@ export const createVillageSchema = villageSchema
     (input) =>
       (input.latitude === undefined) === (input.longitude === undefined),
     "Provide both latitude and longitude, or omit both",
+  )
+  .refine(
+    hasVillageIdentity,
+    "Enter the village name, Marathi name, taluka, and district.",
   );
 export const villageStatusSchema = z
   .object({

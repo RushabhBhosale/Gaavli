@@ -13,23 +13,33 @@ const group = {
   masterType: "SHOP_TYPE" as const,
 };
 
-test("provider master sample csv is a valid upload file", () => {
+test("provider master sample csv includes each valid type and master group", () => {
   const read = readProviderMasterCsv(providerMasterSampleCsv());
   assert.ok(!("error" in read));
   if ("error" in read) return;
-  assert.equal(read.rows.length, 2);
-  const active = providerMasterInputFromCsvRow(read.rows[0], group);
-  assert.equal(active.ok, true);
-  if (!active.ok) return;
-  assert.equal(active.data.name.en, "Example Shop");
-  assert.equal(active.data.name.mr, "उदाहरण दुकान");
-  assert.equal(active.data.sortOrder, 1);
-  assert.equal(active.data.isActive, true);
-  assert.equal(active.data.masterType, "SHOP_TYPE");
-  const inactive = providerMasterInputFromCsvRow(read.rows[1], group);
-  assert.equal(inactive.ok, true);
-  if (!inactive.ok) return;
-  assert.equal(inactive.data.isActive, false);
+  assert.equal(read.rows.length, 13);
+  const groups = read.rows.map((row) => {
+    const parsed = providerMasterInputFromCsvRow(row, group);
+    assert.equal(parsed.ok, true);
+    if (!parsed.ok) return "";
+    assert.equal(parsed.data.isActive, false);
+    return parsed.data.providerType + "/" + parsed.data.masterType;
+  });
+  assert.deepEqual(groups, [
+    "SHOP_BUSINESS/SHOP_TYPE",
+    "PROFESSIONAL_SERVICE/PROFESSION",
+    "HEALTHCARE_PROFESSIONAL/DOCTOR_SPECIALIZATION",
+    "HEALTHCARE_PROFESSIONAL/DOCTOR_QUALIFICATION",
+    "MEDICAL_FACILITY/FACILITY_TYPE",
+    "TRANSPORT_DRIVER/TRANSPORT_TYPE",
+    "TRANSPORT_DRIVER/VEHICLE_TYPE",
+    "OTHER_SERVICE/OTHER_SERVICE_CATEGORY",
+    "PUBLIC_INSTITUTION/INSTITUTION_TYPE",
+    "COMMUNITY_ORGANISATION/ORGANISATION_TYPE",
+    "SOCIAL_HELPER/HELPER_CATEGORY",
+    "EMERGENCY_ASSISTANCE/ASSISTANCE_CATEGORY",
+    "POLITICAL_OFFICE/OFFICE_TYPE",
+  ]);
 });
 
 test("provider master csv rejects a bad status and too many rows", () => {

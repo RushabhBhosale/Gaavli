@@ -37,6 +37,13 @@ a {
 button:disabled {
   cursor: not-allowed;
 }
+.admin-sidebar-nav {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.admin-sidebar-nav::-webkit-scrollbar {
+  display: none;
+}
 input:not([type="checkbox"]):not([type="radio"]),
 select {
   width: 100%;

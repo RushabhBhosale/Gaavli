@@ -11,15 +11,16 @@ MongoDB Atlas or a MongoDB replica set is required for audited admin mutations. 
   readable; create/edit APIs require validated coordinates. No nearby relations
   are inferred from coordinates.
 - `villagecoordinators`: explicit `villageId`/`userId` links, timestamps, unique
-  compound index, unique villageId index and user lookup index. At most one
-  coordinator per village; a coordinator can cover multiple villages. Only administrators assign existing coordinator-role
-  users. Role revocation clears assignments in the user transaction. Assignment
-  writes lock coordinator versions to prevent concurrent role-revocation races.
+  compound index and non-unique village/user lookup indexes. A village can have
+  multiple coordinators, and a coordinator can cover multiple villages. Only
+  administrators assign existing coordinator-role users. Role revocation clears
+  assignments in the user transaction. Assignment writes lock coordinator
+  versions to prevent concurrent role-revocation races.
 
-The 2026-10-12 single-coordinator revision supersedes earlier many-to-many village
-wording. `scripts/enforce-single-coordinator.mjs` checks existing assignments
-before creating the unique villageId index; it refuses conflicting data without
-removing any assignments. The local index was provisioned successfully.
+The 2026-11-17 multiple-coordinators revision supersedes the 2026-10-12
+single-coordinator rule. `scripts/migrate-multiple-village-coordinators.mts`
+drops the unique villageId index and retains all assignment documents. The
+migration was applied to the configured database.
 Village deletion checks all existing users/listings/assignments plus documented
 proximity, preferences, service and subscription references in its transaction.
 It blocks any linked village, preserves audit history and uses the same village

@@ -201,8 +201,8 @@ export function ProviderMasterBulkActions({
           </DialogTitle>
           <DialogDescription className="mt-1 text-sm text-slate-500">
             Added {result?.created ?? 0}{" "}
-            {result?.created === 1 ? "option" : "options"} to the selected
-            master group.
+            {result?.created === 1 ? "option" : "options"} to the provider
+            types and master groups defined by the CSV or selected page.
             {result?.failed.length
               ? ` ${result.failed.length} ${result.failed.length === 1 ? "row was" : "rows were"} skipped.`
               : ""}

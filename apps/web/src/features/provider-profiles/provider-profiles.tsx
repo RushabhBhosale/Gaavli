@@ -2,9 +2,18 @@
 
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  type ColumnDef,
+  type SortingState,
+} from "@tanstack/react-table";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import { PROVIDER_TYPE_LABELS, ProviderType } from "@gaavli/constants";
-import { Button } from "@/components/ui/button";
+import { ListPagination } from "@/components/shared/list-pagination";
 import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
+import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
 
 type Profile = {
@@ -24,25 +33,10 @@ type ProfilePage = {
   page: number;
   limit: number;
 };
-type Claim = {
-  id: string;
-  status: string;
-  note: string;
-  profileName: string;
-  providerType: string;
-  claimant: string;
-  claimantMobile: string;
-  currentOwner: string;
-  currentOwnerMobile: string;
-  createdAt: string;
-};
 const label = (type: string) =>
   PROVIDER_TYPE_LABELS[type as ProviderType]?.en ?? type;
 
-// What villagers registered, and the "this is mine" claims waiting for a
-// decision. Approving a claim hands the profile to the claimant.
 export function ProviderProfileManagement() {
-  const [tab, setTab] = useState<"profiles" | "claims">("claims");
   return (
     <section className="card p-4 sm:p-6">
       <div className="mb-5">
@@ -51,122 +45,8 @@ export function ProviderProfileManagement() {
         </p>
         <h1 className="text-xl font-bold">Provider Profiles</h1>
       </div>
-      <div role="tablist" aria-label="Sections" className="mb-5 flex gap-2">
-        {(
-          [
-            ["claims", "Ownership claims"],
-            ["profiles", "All profiles"],
-          ] as const
-        ).map(([value, text]) => (
-          <Button
-            key={value}
-            role="tab"
-            aria-selected={tab === value}
-            variant={tab === value ? "default" : "outline"}
-            onClick={() => setTab(value)}
-          >
-            {text}
-          </Button>
-        ))}
-      </div>
-      {tab === "claims" ? <Claims /> : <Profiles />}
+      <Profiles />
     </section>
-  );
-}
-
-function Claims() {
-  const [status, setStatus] = useState("PENDING");
-  const client = useQueryClient();
-  const query = useQuery({
-    queryKey: ["admin-provider-claims", status],
-    queryFn: ({ signal }) =>
-      api<{ claims: Claim[] }>(`/v1/admin/provider-claims?status=${status}`, {
-        signal,
-      }),
-  });
-  const resolve = useMutation({
-    mutationFn: (input: { id: string; action: "approve" | "reject" }) =>
-      api(`/v1/admin/provider-claims/${input.id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ action: input.action }),
-      }),
-    onSuccess: () =>
-      client.invalidateQueries({ queryKey: ["admin-provider-claims"] }),
-  });
-  return (
-    <>
-      <div className="field mb-4 max-w-xs">
-        <label htmlFor="claim-status">Status</label>
-        <select
-          id="claim-status"
-          value={status}
-          onChange={(event) => setStatus(event.target.value)}
-        >
-          <option value="PENDING">Waiting for a decision</option>
-          <option value="APPROVED">Approved</option>
-          <option value="REJECTED">Rejected</option>
-        </select>
-      </div>
-      {resolve.isError && (
-        <p
-          role="alert"
-          className="mb-3 rounded-lg border border-red-200 bg-red-50 p-3 text-red-800"
-        >
-          {(resolve.error as Error).message}
-        </p>
-      )}
-      {query.isPending ? (
-        <Skeleton className="h-24" />
-      ) : query.isError ? (
-        <ErrorState error={query.error} retry={() => void query.refetch()} />
-      ) : !query.data.claims.length ? (
-        <EmptyState
-          title="No claims here"
-          description="Claims appear when someone says a listing is theirs."
-        />
-      ) : (
-        <ul className="grid gap-3">
-          {query.data.claims.map((claim) => (
-            <li key={claim.id} className="rounded-lg border p-4">
-              <p className="font-semibold">
-                {claim.profileName}{" "}
-                <span className="text-xs font-normal text-slate-500">
-                  {label(claim.providerType)}
-                </span>
-              </p>
-              <p className="mt-1 text-sm">
-                Claimed by <b>{claim.claimant}</b> ({claim.claimantMobile}).
-                Listed by {claim.currentOwner} ({claim.currentOwnerMobile}).
-              </p>
-              {claim.note && (
-                <p className="mt-1 text-sm text-slate-600">“{claim.note}”</p>
-              )}
-              {claim.status === "PENDING" && (
-                <div className="mt-3 flex gap-2">
-                  <Button
-                    disabled={resolve.isPending}
-                    onClick={() =>
-                      resolve.mutate({ id: claim.id, action: "approve" })
-                    }
-                  >
-                    Hand over to claimant
-                  </Button>
-                  <Button
-                    variant="outline"
-                    disabled={resolve.isPending}
-                    onClick={() =>
-                      resolve.mutate({ id: claim.id, action: "reject" })
-                    }
-                  >
-                    Reject
-                  </Button>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
   );
 }
 
@@ -175,12 +55,28 @@ function Profiles() {
   const [status, setStatus] = useState("");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [sorting, setSorting] = useState<SortingState>([]);
   const client = useQueryClient();
-  const params = new URLSearchParams({ page: String(page), search });
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(pageSize),
+    search,
+    sort: sorting[0]?.id ?? "createdAt",
+    direction: sorting[0] ? (sorting[0].desc ? "desc" : "asc") : "desc",
+  });
   if (providerType) params.set("providerType", providerType);
   if (status) params.set("status", status);
   const query = useQuery({
-    queryKey: ["admin-provider-profiles", providerType, status, search, page],
+    queryKey: [
+      "admin-provider-profiles",
+      providerType,
+      status,
+      search,
+      page,
+      pageSize,
+      sorting,
+    ],
     queryFn: ({ signal }) =>
       api<ProfilePage>(`/v1/admin/provider-profiles?${params}`, { signal }),
   });
@@ -195,14 +91,70 @@ function Profiles() {
     onSuccess: () =>
       client.invalidateQueries({ queryKey: ["admin-provider-profiles"] }),
   });
-  const pages = Math.max(1, Math.ceil((query.data?.total ?? 0) / 15));
+  const data = query.data?.profiles ?? [];
+  const columns: ColumnDef<Profile>[] = [
+    { accessorKey: "name", header: "Name" },
+    {
+      accessorKey: "providerType",
+      header: "Kind",
+      cell: ({ row }) => label(row.original.providerType),
+    },
+    { accessorKey: "village", header: "Village" },
+    {
+      accessorKey: "owner",
+      header: "Owner",
+      cell: ({ row }) => (
+        <>
+          {row.original.owner}{" "}
+          <span className="text-slate-500">{row.original.ownerMobile}</span>
+        </>
+      ),
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) =>
+        row.original.status === "ACTIVE" ? "Active" : "Inactive",
+    },
+    {
+      id: "actions",
+      header: "Actions",
+      enableSorting: false,
+      cell: ({ row }) => (
+        <Button
+          variant="outline"
+          disabled={toggle.isPending}
+          onClick={() => toggle.mutate(row.original)}
+        >
+          {row.original.status === "ACTIVE" ? "Deactivate" : "Activate"}
+        </Button>
+      ),
+    },
+  ];
+  // TanStack Table v8 owns memoization; React Compiler is not enabled.
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getRowId: (row) => row.id,
+    manualSorting: true,
+    enableMultiSort: false,
+    state: { sorting },
+    onSortingChange: (updater) => {
+      setSorting(updater);
+      setPage(1);
+    },
+  });
+  const currentPage = query.data?.page ?? page;
   return (
     <>
       <div className="mb-4 grid gap-4 sm:grid-cols-3">
         <div className="field">
-          <label htmlFor="pp-search">Search by name</label>
+          <label htmlFor="pp-search">Search by name or village</label>
           <input
             id="pp-search"
+            placeholder="Search profile name or village..."
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
@@ -255,62 +207,90 @@ function Profiles() {
         />
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
+          <table
+            className="w-full min-w-[850px] text-left text-sm"
+            aria-label="Provider profiles"
+          >
             <thead>
-              <tr className="border-b text-xs uppercase text-slate-500">
-                <th className="py-2">Name</th>
-                <th>Kind</th>
-                <th>Village</th>
-                <th>Owner</th>
-                <th>Status</th>
-                <th />
-              </tr>
+              {table.getHeaderGroups().map((group) => (
+                <tr key={group.id} className="border-b border-slate-300">
+                  {group.headers.map((header) => (
+                    <th
+                      key={header.id}
+                      scope="col"
+                      aria-sort={
+                        header.column.getIsSorted() === "asc"
+                          ? "ascending"
+                          : header.column.getIsSorted() === "desc"
+                            ? "descending"
+                            : "none"
+                      }
+                      className="px-3 py-3 text-xs font-semibold text-slate-500"
+                    >
+                      {header.column.getCanSort() ? (
+                        <button
+                          className="flex items-center gap-2 text-left"
+                          onClick={header.column.getToggleSortingHandler()}
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                          {header.column.getIsSorted() === "asc" ? (
+                            <ArrowUp size={13} />
+                          ) : header.column.getIsSorted() === "desc" ? (
+                            <ArrowDown size={13} />
+                          ) : (
+                            <ArrowUpDown size={13} />
+                          )}
+                        </button>
+                      ) : (
+                        flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )
+                      )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
             </thead>
             <tbody>
-              {query.data.profiles.map((row) => (
-                <tr key={row.id} className="border-b">
-                  <td className="py-2 font-medium">{row.name}</td>
-                  <td>{label(row.providerType)}</td>
-                  <td>{row.village}</td>
-                  <td>
-                    {row.owner}{" "}
-                    <span className="text-slate-500">{row.ownerMobile}</span>
-                  </td>
-                  <td>{row.status === "ACTIVE" ? "Active" : "Inactive"}</td>
-                  <td>
-                    <Button
-                      variant="outline"
-                      disabled={toggle.isPending}
-                      onClick={() => toggle.mutate(row)}
-                    >
-                      {row.status === "ACTIVE" ? "Deactivate" : "Activate"}
-                    </Button>
-                  </td>
+              {table.getRowModel().rows.map((row) => (
+                <tr
+                  key={row.id}
+                  className="border-b border-slate-200 hover:bg-slate-50"
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="px-3 py-3">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       )}
-      <div className="mt-4 flex items-center justify-between">
-        <Button
-          variant="outline"
-          disabled={page <= 1}
-          onClick={() => setPage(page - 1)}
-        >
-          Previous
-        </Button>
-        <span className="text-sm">
-          Page {page} of {pages}
-        </span>
-        <Button
-          variant="outline"
-          disabled={page >= pages}
-          onClick={() => setPage(page + 1)}
-        >
-          Next
-        </Button>
-      </div>
+      {query.data && (
+        <div className="-mx-4 -mb-4 mt-5 sm:-mx-6 sm:-mb-6">
+          <ListPagination
+            page={currentPage}
+            pageSize={pageSize}
+            total={query.data.total}
+            disabled={query.isFetching}
+            label="Provider profile pagination"
+            onPageChange={setPage}
+            onPageSizeChange={(next) => {
+              setPageSize(next);
+              setPage(1);
+            }}
+          />
+        </div>
+      )}
     </>
   );
 }

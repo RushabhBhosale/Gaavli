@@ -505,20 +505,13 @@ Stores authoritative village information.
 
 # 16. Village Document
 
-Village-name correction (2026-11-17): `nameEn` is required but is not globally
-unique. Distinct villages may share the same name across talukas or districts;
-ObjectIds retain their identity and all existing references. Mobile startup must
-not try to build a unique `nameEn` index over imported villages. Preserve existing
-village-master identity indexes and the location geo index. No village records
-are renamed, merged or deleted by this correction. Removing the schema flag does
-not drop an existing legacy unique index; review that index separately if present.
-
-User-approved revision (2026-10-12): at most one coordinator is assigned per
-village. `villagecoordinators.villageId` is UNIQUE; a coordinator user can be
-assigned to multiple villages. Migration refuses existing multi-coordinator
-conflicts without silently deleting assignments. Village deletion is allowed
-only with no linked users, listings, assignments, mappings, preferences, services
-or subscriptions; audit history remains retained.
+User-approved revision (2026-11-17): a village may have multiple coordinators.
+The unique `{ villageId, userId }` index prevents duplicate assignments, while
+`villageId` and `userId` have non-unique lookup indexes. The migration drops the
+old unique `villageId` index without deleting assignments. A coordinator user
+may be assigned to multiple villages. Village deletion is allowed only with no
+linked users, listings, assignments, mappings, preferences, services or
+subscriptions; audit history remains retained.
 
 Initial admin-panel implementation (2026-10-12) stores coordinates in the GeoJSON
 `location` field described below, retaining legacy `nameEn`/`isActive` fields.

@@ -1,66 +1,128 @@
-## 2026-11-17 - WATI WhatsApp template test
+## 2026-11-17 - Multiple coordinators per village
 
-- The configured tester can request one WhatsApp message from mobile Settings.
-  The API uses the account's verified number and the configured approved
-  template. Credentials and recipient selection stay on the server.
-- The notification integration suite passed with mocked WATI, including
-  recipient enforcement, accepted and rejected sends, and unknown outcomes.
-  Mobile and web typechecks, focused ESLint, and both Android release APK
-  builds and signature checks passed.
-- The WATI workspace still needs a WhatsApp Business sender, an approved
-  template and backend credentials. Live delivery is pending. See
-  [WhatsApp test setup](03-api/WHATSAPP_TEST.md).
+- Removed the one-coordinator-per-village restriction from user assignment,
+  village validation, and the MongoDB model. A village can have several
+  coordinator users; duplicate assignment of the same user to that village
+  remains prevented.
+- Added `migrate:multiple-village-coordinators` to drop the old unique
+  `villageId` index and retain non-unique lookup indexes. Existing assignment
+  documents are preserved. Ran it against the configured database; it dropped
+  the unique `villageId_1` index and confirmed the compound pair index remains
+  unique while the village lookup index is non-unique.
+- Web typecheck and focused ESLint passed; no automated tests were run.
 
-## 2026-11-17 - Firebase push for buyer requests
+## 2026-11-17 - Provider profile search and sorting
 
-- Android and iOS use the approved `com.peractoinfotech.gaavli` application ID
-  and the matching Firebase client configuration. The native build is a
-  separate install from the earlier application ID.
-- A signed-in user can opt in from Settings → Notifications. Gaavli records
-  consent per authenticated session. The server sends private, localized FCM
-  alerts after buyer requests commit and continues to serve the in-app inbox.
-- The isolated contact suite passed with mocked FCM, covering scoped recipients,
-  registration, logout, opt-out, stale tokens and replay. Mobile and web
-  typechecks, 112 mobile unit tests, Android's Google Services task, and iOS
-  pod installation passed. Full native builds hit the host's disk limit.
-- Backend FCM credentials, iOS APNs configuration and real device acceptance
-  remain pending. See [NOTIFY_SELLER.md](03-api/NOTIFY_SELLER.md) for rollout.
-- **Send test notification** in mobile Settings schedules a push five seconds
-  after the API responds. The server rechecks device registration and consent
-  before sending. Android shows foreground push alerts at the top of the screen.
-  The contact integration test passed with mocked FCM, including delayed send
-  and opt-out before delivery. Mobile and web typechecks and focused ESLint
-  passed. Both Android release APKs built and passed signature verification.
-  Deployment and live phone delivery still need verification.
+- Provider Profiles now sorts server-side by name, provider type, village,
+  owner, status, and created date. Search matches profile names and village
+  names, including Marathi village names; sort and search preserve pagination.
+- Web typecheck, targeted ESLint, and `git diff --check` passed; no database UI
+  integration test was run.
 
-## 2026-11-17 - Cross-script directory name search
+## 2026-11-17 - Provider profile page cleanup
 
-- Services and Transport match full provider names across Latin and Devanagari,
-  including mixed-script queries and common spellings of tours and travels.
-  A server-only field stores derived search words. The displayed name, provider
-  form and directory response contract use the existing name fields.
-- Provider edits refresh the words. A repeatable backfill prepares existing
-  directory entries while preserving their timestamps. See
-  [DASHBOARD_DIRECTORY.md](03-api/DASHBOARD_DIRECTORY.md) for the rollout command.
-- The directory route integration suite passed against an isolated MongoDB
-  database, including both scripts, mapped scope, pagination, guest contacts,
-  backfill and rename. Web typecheck, focused ESLint and 39 unit tests passed.
-  Production deployment and backfill are pending.
+- Removed the Ownership Claims tab from Provider Profiles so the page opens
+  directly to All Profiles. Replaced the page-only Previous/Next controls with
+  the shared list pagination, including row-size selection and result counts.
+- Web typecheck and targeted ESLint passed; no UI/API integration test was run.
 
-## 2026-11-17 - Same-name village startup correction
+## 2026-11-17 - Provider master status in edit form
 
-- Removed global uniqueness from `Village.nameEn`: imported villages such as
-  Morbe in Karjat and Panvel retain distinct ObjectIds and references. Mobile
-  database initialization continues to require identity, session and geo indexes.
-  No village records or existing indexes are deleted or changed by this patch.
-- Added an isolated database regression for cold startup with two pre-existing
-  same-name villages, both discovery results, geo search, invalid bearer rejection
-  and retained user identity indexes. This regression and the existing
-  `test:guest-startup` integration check passed using isolated test databases.
-- Web TypeScript, focused ESLint/Prettier, whitespace checks and
-  `npm run build --workspace=@gaavli/web -- --webpack` passed. The standard
-  Turbopack build could not bind its worker port in this execution environment.
-  Production deployment and live endpoint acceptance pending.
+- Removed Activate/Deactivate from the Provider Master Actions column. Edit
+  now allows changing the Active checkbox; unchecking an active option opens
+  the deactivation confirmation. Status and name/order save together through
+  the versioned, audited update route.
+- Update validation accepts optional `isActive` for older admin callers. Web
+  and shared validation typechecks passed; the provider-master integration test
+  was not run.
+
+## 2026-11-17 - Edit Village controls
+
+- District, taluka, English village name, and Marathi village name are read-only
+  when editing a village. The edit form keeps only the deactivate/reactivate
+  action and describes deactivation effects; village deletion remains available
+  from the village list.
+
+## 2026-11-17 - Admin user and village listing sorting
+
+- User list headers sort by name, mobile, status, and join date. Village list
+  headers sort by village name, user count, and active status. Sorting is
+  server-side, validated by each list API, and resets pagination when changed.
+- Village user-count sorting aggregates counts before pagination so pages stay
+  globally ordered. Web typecheck and targeted ESLint passed; no database-backed
+  UI check was run.
+
+## 2026-11-16 - Admin village form from geography masters
+
+- Add and Edit Village now choose a district, then that district's talukas,
+  then that taluka's villages. The three admin reads are
+  `/api/v1/admin/geography/districts`, `talukas?districtId=`, and
+  `villages?talukaId=`. A village list without `talukaId` is rejected. No route
+  returns the full master list.
+- Save still uses the existing village create and update APIs and the live
+  `villages` collection. A chosen `villageMasterId` copies English name,
+  Marathi name, taluka, and district from the master rows. The live row also
+  stores `villageMasterId`, `lgdCode`, `districtId`, and `talukaId`. A second
+  live row for the same master is rejected, including the Mongo duplicate-key
+  path. When the master has no Marathi name, the typed name is stored only on
+  the live village.
+- `nameEn` is no longer unique in the Village schema. A partial unique index
+  `uq_village_master` covers `villageMasterId` only when it is an ObjectId.
+  Mongoose does not call `syncIndexes`, so it will not drop the old unique
+  `nameEn_1` index. `apps/web/scripts/migrate-village-master-index.mts` drops
+  that index, creates the partial index and a non-unique `name_en_id` sort
+  index, and adds `taluka_name_en` on `villageMasters`. The taluka list index
+  `district_name_en` already starts with `districtId`. `district_taluka` is
+  `districtId` then `talukaId`, so it does not serve a taluka-only village
+  query; `taluka_name_en` does.
+- CSV village upload still uses name, Marathi name, taluka, and district. A
+  repeated row is the same name, taluka, and district. The same English name
+  in another taluka is a different village. User CSV still matches a village
+  by English name and refuses the row when more than one active village uses
+  that name. Listings, coordinators, and the mobile picker still read the live
+  village by `_id`.
+- A live village that has no stored master ids still keeps its text name,
+  taluka, and district. The village list looks those three strings up in the
+  masters and returns `districtId`, `talukaId`, and `villageMasterId` when
+  exactly one official village matches. Edit uses those ids, or the same name
+  match, to load the district, taluka, and village dropdowns. The ids are
+  written onto the live village when that form is saved.
+- `npm run migrate:village-master-index` was run against the configured
+  database. It dropped the unique `nameEn_1` index and left `uq_village_master`
+  and `name_en_id` on `villages`. Web typecheck passed. The web unit tests,
+  including the village schema, master-field, CSV, and unauthenticated
+  geography route checks, passed. Add and Edit were not exercised in a browser.
+
+## 2026-11-17 - Multi-provider-type master CSV upload
+
+- Provider Master CSV Sample and Download now include `providerType` and
+  `masterType` on each row. A single upload can create options for multiple
+  provider types/groups; each row is validated against the fixed supported
+  mapping. Duplicate-name checks are scoped to the same type/group.
+- The importer still accepts legacy five-column CSVs and applies the selected
+  page's group as a compatibility fallback. The sample demonstrates two
+  provider types. No database migration was needed.
+
+## 2026-11-16 - Maharashtra geographical master import
+
+- Added a reusable, validated bulk-upsert importer for the three UTF-8 JSON
+  sources. It stores district and taluka LGD codes, Marathi/English names, and
+  ObjectId parent references. Village rows reference both district and taluka;
+  all import collections have unique LGD-code indexes and lookup indexes.
+- The application already owns `villages` for live user/listing references,
+  including a unique `nameEn` index. Since the source has repeated English names
+  and names already present in that operational collection, the approved master
+  village collection is `villageMasters`; existing `villages` data was left
+  untouched. The three collections are `districts`, `talukas`, and
+  `villageMasters`.
+- Imported 36 districts, 358 talukas, and 44,929 villages. Official identifiers
+  are unique and all parent references validate. Forty-two source villages have
+  no Marathi name; these were retained with `nameMr: null`. All source JSON files
+  remain in place and unchanged.
+- `apps/web/scripts/import-geography.mts` supports validation-only and repeatable
+  apply modes. First import inserted every row; a repeat inserted/updated none
+  and counted all rows as unchanged. Database counts, lookups, codes, and
+  district/taluka references were verified. Web TypeScript typecheck passed.
 
 ## 2026-11-16 - Shop products: "what do you sell" (in progress)
 

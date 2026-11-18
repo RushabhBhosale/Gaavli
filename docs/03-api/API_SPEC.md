@@ -6,6 +6,16 @@ reads return the provider-approved contact numbers. Invalid/revoked bearer
 credentials are rejected with 401. Response schemas and endpoint parameters
 are unchanged. See DASHBOARD_DIRECTORY.md.
 
+# Multiple coordinators per village — 2026-11-17 (user approved)
+
+An active village may have multiple active coordinator assignments. Each
+`villageId`/`userId` pair remains unique, and each assignment still requires the
+user to have the coordinator role. Admin user create/update can assign
+additional coordinator users to a village; the village assignment API accepts
+multiple coordinator IDs. Run
+`npm run migrate:multiple-village-coordinators --workspace=apps/web` to drop
+the former unique `villageId` index while preserving assignment records.
+
 # Mapped-village discovery — 2026-11-13 (user approved)
 
 `GET /dashboard`, `/directory`, `/directory/summary` and `/directory/:id` use
@@ -1592,9 +1602,9 @@ Coordinator assignment is stored in `villagecoordinators`. Admin user create
 and update assign exactly one active village when the saved roles include
 coordinator, using the user's village. Omitting `coordinatorIds` on village
 create and update leaves existing mappings unchanged. A provided `coordinatorIds`
-array still replaces that village's coordinator, with a maximum of one user,
-for existing callers. Assigned coordinator DTOs contain user ID/name, not
-contact information. Deletion requires a fresh server-side dependency check;
+array still replaces that village's coordinator assignments. Multiple active
+coordinators may be assigned to one village. Assigned coordinator DTOs contain
+user ID/name, not contact information. Deletion requires a fresh server-side dependency check;
 links or stale versions return 409. Detailed payloads and supported dependency
 collections are documented in `apps/web/docs/API_SPEC.md`. Public/mobile reference
 APIs and authoritative nearby mappings are not changed by these admin endpoints.

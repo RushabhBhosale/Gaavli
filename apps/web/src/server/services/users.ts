@@ -55,7 +55,13 @@ function userFilter(query: z.infer<typeof usersFilterSchema>) {
 }
 export async function listUsers(query: z.infer<typeof usersQuerySchema>) {
   await connectDb();
-  return findUsers(userFilter(query), query.page, query.limit);
+  return findUsers(
+    userFilter(query),
+    query.page,
+    query.limit,
+    query.sort,
+    query.direction,
+  );
 }
 export async function exportUsersCsv(query: z.infer<typeof usersFilterSchema>) {
   await connectDb();
@@ -161,16 +167,6 @@ async function syncCoordinatorVillage(
   const assignments = await VillageCoordinator.find({ userId })
     .session(session)
     .sort({ createdAt: 1, _id: 1 });
-  const occupant = await VillageCoordinator.findOne({
-    villageId: village._id,
-    userId: { $ne: userId },
-  }).session(session);
-  if (occupant)
-    throw new AppError(
-      409,
-      "CONFLICT",
-      "This village already has a coordinator.",
-    );
   const current = assignments.find(
     (row) => String(row.villageId) === String(village._id),
   );
@@ -185,7 +181,7 @@ async function syncCoordinatorVillage(
         throw new AppError(
           409,
           "CONFLICT",
-          "This village already has a coordinator.",
+          "This coordinator is already assigned to the village.",
         );
       throw error;
     }
@@ -226,7 +222,7 @@ async function syncCoordinatorVillage(
         throw new AppError(
           409,
           "CONFLICT",
-          "This village already has a coordinator.",
+          "This coordinator is already assigned to the village.",
         );
       throw error;
     }

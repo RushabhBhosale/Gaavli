@@ -1,11 +1,19 @@
 import "server-only";
 import { indianMobileSchema } from "@gaavli/validation";
+import { Types, type ClientSession } from "mongoose";
 import type { z } from "zod";
 import type {
   villagesFilterSchema,
   villagesQuerySchema,
   VillageInput,
 } from "@/schemas";
+import {
+  fieldsFromMaster,
+  rejectIfMasterTaken,
+  requireMasterSnapshot,
+  villageDuplicateMessage,
+  type MasterSnapshot,
+} from "@/lib/village-master";
 import { connectDb } from "../db/connect";
 import {
   findVillages,
@@ -14,7 +22,9 @@ import {
 } from "../repositories/villages";
 import {
   readVillageCsv,
+  villageCsvKey,
   villageInputFromCsvRow,
+  villageNotAddedMessage,
   villagesToCsv,
   VILLAGE_CSV_BYTE_LIMIT,
 } from "@/lib/village-csv";
@@ -41,6 +51,99 @@ export async function coordinatorOptions() {
   }));
 }
 
+function exactText(value: string) {
+  return new RegExp(`^${value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "i");
+}
+
+async function textVillageFields(
+  input: VillageInput,
+  session: ClientSession,
+  id?: string,
+) {
+  if (!input.name || !input.nameMr || !input.taluka || !input.district)
+    throw new AppError(
+      422,
+      "VALIDATION_ERROR",
+      "Enter the village name, Marathi name, taluka, and district.",
+    );
+  const taken = await Village.findOne({
+    nameEn: exactText(input.name),
+    taluka: exactText(input.taluka),
+    district: exactText(input.district),
+    ...(id ? { _id: { $ne: id } } : {}),
+  })
+    .select("_id")
+    .session(session)
+    .lean();
+  if (taken)
+    throw new AppError(
+      409,
+      "CONFLICT",
+      "A village with this name, taluka, and district already exists.",
+    );
+  return {
+    nameEn: input.name,
+    nameMr: input.nameMr,
+    taluka: input.taluka,
+    district: input.district,
+  };
+}
+
+async function masterSnapshot(
+  id: string,
+  session: ClientSession,
+): Promise<MasterSnapshot | null> {
+  const db = Village.db.db;
+  if (!db || !Types.ObjectId.isValid(id)) return null;
+  const village = await db
+    .collection("villageMasters")
+    .findOne({ _id: new Types.ObjectId(id) }, { session });
+  if (!village) return null;
+  const [district, taluka] = await Promise.all([
+    db.collection("districts").findOne({ _id: village.districtId }, { session }),
+    db.collection("talukas").findOne({ _id: village.talukaId }, { session }),
+  ]);
+  const linked =
+    district && taluka && String(taluka.districtId) === String(village.districtId);
+  const marathi =
+    typeof village.nameMr === "string" && village.nameMr.trim()
+      ? village.nameMr
+      : null;
+  return {
+    id: String(village._id),
+    nameEn: typeof village.nameEn === "string" ? village.nameEn : "",
+    nameMr: marathi,
+    lgdCode: typeof village.lgdCode === "string" ? village.lgdCode : "",
+    districtId: district ? String(district._id) : "",
+    talukaId: taluka ? String(taluka._id) : "",
+    districtName:
+      linked && typeof district.nameEn === "string" ? district.nameEn : "",
+    talukaName:
+      linked && typeof taluka.nameEn === "string" ? taluka.nameEn : "",
+  };
+}
+
+async function masterVillageFields(
+  villageMasterId: string,
+  typedNameMr: string | undefined,
+  session: ClientSession,
+  id?: string,
+) {
+  const identity = fieldsFromMaster(
+    requireMasterSnapshot(await masterSnapshot(villageMasterId, session)),
+    typedNameMr,
+  );
+  const taken = await Village.findOne({
+    villageMasterId: new Types.ObjectId(identity.villageMasterId),
+    ...(id ? { _id: { $ne: id } } : {}),
+  })
+    .select("_id")
+    .session(session)
+    .lean();
+  rejectIfMasterTaken(taken ? String(taken._id) : null, id);
+  return identity;
+}
+
 export async function saveVillage(
   actorId: string,
   input: VillageInput & { version?: number },
@@ -53,12 +156,6 @@ export async function saveVillage(
       422,
       "VALIDATION_ERROR",
       "Assign a coordinator before publishing a contact number.",
-    );
-  if (assignCoordinators && (input.coordinatorIds?.length ?? 0) > 1)
-    throw new AppError(
-      422,
-      "VALIDATION_ERROR",
-      "Choose only one coordinator per village.",
     );
   try {
     return await Village.db.transaction(async (session) => {
@@ -107,11 +204,31 @@ export async function saveVillage(
             );
         }
       }
+      const masterIdentity = input.villageMasterId
+        ? await masterVillageFields(
+            input.villageMasterId,
+            input.nameMr,
+            session,
+            id,
+          )
+        : null;
+      const textIdentity = masterIdentity
+        ? null
+        : await textVillageFields(input, session, id);
+      const identity = masterIdentity ?? textIdentity!;
       const fields = {
-        nameEn: input.name,
-        nameMr: input.nameMr,
-        taluka: input.taluka,
-        district: input.district,
+        nameEn: identity.nameEn,
+        nameMr: identity.nameMr,
+        taluka: identity.taluka,
+        district: identity.district,
+        ...(masterIdentity
+          ? {
+              villageMasterId: new Types.ObjectId(masterIdentity.villageMasterId),
+              lgdCode: masterIdentity.lgdCode,
+              districtId: new Types.ObjectId(masterIdentity.districtId),
+              talukaId: new Types.ObjectId(masterIdentity.talukaId),
+            }
+          : {}),
         ...(input.pinCode !== undefined
           ? { pinCode: input.pinCode || null }
           : {}),
@@ -198,8 +315,8 @@ export async function saveVillage(
                   ? "गावाची जबाबदारी मिळाली"
                   : "गावाची जबाबदारी काढली",
                 body: assigned
-                  ? `${input.nameMr} गावासाठी तुमची समन्वयक म्हणून नियुक्ती झाली आहे.`
-                  : `${input.nameMr} गावासाठी तुमची समन्वयक नियुक्ती काढली आहे. तुमचे खाते आणि इतिहास कायम आहेत.`,
+                  ? `${identity.nameMr} गावासाठी तुमची समन्वयक म्हणून नियुक्ती झाली आहे.`
+                  : `${identity.nameMr} गावासाठी तुमची समन्वयक नियुक्ती काढली आहे. तुमचे खाते आणि इतिहास कायम आहेत.`,
               },
             ],
             { session },
@@ -209,17 +326,8 @@ export async function saveVillage(
       return { id: String(village._id), version: village.__v ?? 0 };
     });
   } catch (error) {
-    if (
-      typeof error === "object" &&
-      error &&
-      "code" in error &&
-      error.code === 11000
-    )
-      throw new AppError(
-        409,
-        "CONFLICT",
-        "A village with this name already exists.",
-      );
+    const duplicate = villageDuplicateMessage(error);
+    if (duplicate) throw new AppError(409, "CONFLICT", duplicate);
     throw error;
   }
 }
@@ -330,7 +438,13 @@ function villageFilter(query: z.infer<typeof villagesFilterSchema>) {
 }
 export async function listVillages(query: z.infer<typeof villagesQuerySchema>) {
   await connectDb();
-  return findVillages(villageFilter(query), query.page, query.limit);
+  return findVillages(
+    villageFilter(query),
+    query.page,
+    query.limit,
+    query.sort,
+    query.direction,
+  );
 }
 export async function exportVillagesCsv(
   query: z.infer<typeof villagesFilterSchema>,
@@ -357,18 +471,24 @@ export async function importVillages(actorId: string, text: string) {
   const seen = new Set<string>();
   let created = 0;
   for (const row of read.rows) {
-    const key = row.name.trim().toLowerCase();
-    if (key && seen.has(key)) {
+    const key = villageCsvKey(row);
+    if (seen.has(key)) {
       failed.push({
         line: row.line,
-        message: "This village name is repeated in the file.",
+        message: villageNotAddedMessage(
+          row.name,
+          "This village is repeated in the file.",
+        ),
       });
       continue;
     }
-    if (key) seen.add(key);
+    seen.add(key);
     const input = villageInputFromCsvRow(row);
     if (!input.ok) {
-      failed.push({ line: row.line, message: input.message });
+      failed.push({
+        line: row.line,
+        message: villageNotAddedMessage(row.name, input.message),
+      });
       continue;
     }
     try {
@@ -377,10 +497,12 @@ export async function importVillages(actorId: string, text: string) {
     } catch (error) {
       failed.push({
         line: row.line,
-        message:
+        message: villageNotAddedMessage(
+          row.name,
           error instanceof AppError
             ? error.message
             : "Unable to add this village.",
+        ),
       });
     }
   }
