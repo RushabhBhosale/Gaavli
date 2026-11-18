@@ -1,12 +1,15 @@
 "use client";
+import type { ReactNode } from "react";
 import { Sprout, TriangleAlert } from "lucide-react";
 import { Button } from "../ui/button";
 export function EmptyState({
   title = "Coming soon",
   description = "We’re growing something useful. Check back soon.",
+  action,
 }: {
   title?: string;
   description?: string;
+  action?: ReactNode;
 }) {
   return (
     <div className="card flex min-h-72 flex-col items-center justify-center p-8 text-center">
@@ -15,6 +18,7 @@ export function EmptyState({
       </div>
       <h2 className="text-lg font-bold">{title}</h2>
       <p className="mt-2 max-w-sm text-sm text-slate-500">{description}</p>
+      {action && <div className="mt-4">{action}</div>}
     </div>
   );
 }

@@ -1,25 +1,37 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  flexRender,
   getCoreRowModel,
   useReactTable,
   type ColumnDef,
   type SortingState,
 } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ArrowUpDown, Plus, Search } from "lucide-react";
+import { Plus, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
-import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
+import {
+  FieldError,
+  FormAlert,
+  FormDialogFooter,
+  FormDialogHeader,
+  FormSaveButton,
+} from "@/components/shared/form-dialog";
+import {
+  DataTable,
+  ListCard,
+  ListFilterBar,
+  ListPageToolbar,
+  ListSkeleton,
+  RowActions,
+  SearchField,
+} from "@/components/shared/list-page";
+import { ListPagination } from "@/components/shared/list-pagination";
+import { EmptyState, ErrorState } from "@/components/shared/states";
 import { api } from "@/lib/api";
+import { useSearchShortcut } from "@/lib/use-search-shortcut";
 import type { AdminCategoryDto, CategoriesPage } from "@/lib/contracts";
 import { categorySchema } from "@/schemas";
 
@@ -28,59 +40,39 @@ const modes = {
   change_only: "Change only",
   weekly_digest: "Weekly digest",
 };
-const columns: ColumnDef<AdminCategoryDto>[] = [
-  { accessorKey: "name", header: "Category" },
-  { accessorKey: "defaultShelfLife", header: "Default shelf life" },
-  {
-    accessorKey: "notifyMode",
-    header: "Notify mode",
-    cell: ({ row }) => modes[row.original.notifyMode],
-  },
-  {
-    accessorKey: "activeListings",
-    header: "Active listings",
-    cell: ({ row }) => row.original.activeListings.toLocaleString("en-IN"),
-  },
-  {
-    id: "actions",
-    header: "Actions",
-    enableSorting: false,
-    cell: ({ row, table }) => {
-      const meta = table.options.meta as {
-        editCategory: (category: AdminCategoryDto) => void;
-        deleteCategory: (category: AdminCategoryDto) => void;
-      };
-      return (
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => meta.editCategory(row.original)}
-          >
-            Edit
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => meta.deleteCategory(row.original)}
-          >
-            Delete
-          </Button>
-        </div>
-      );
-    },
-  },
-];
+
+function CategoryIdentity({ category }: { category: AdminCategoryDto }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <span
+        className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#FEF3EA] text-[#A84E0D]"
+        aria-hidden="true"
+      >
+        <Tag size={17} />
+      </span>
+      <div className="min-w-0">
+        <p className="max-w-56 truncate font-semibold text-slate-800">
+          {category.name}
+        </p>
+        <p className="mt-0.5 max-w-56 truncate text-xs text-slate-500">
+          {category.nameMr}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export function CategoriesManagement() {
   const [search, setSearch] = useState("");
   const [debounced, setDebounced] = useState("");
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<AdminCategoryDto | null>(null);
   const [deleting, setDeleting] = useState<AdminCategoryDto | null>(null);
   const client = useQueryClient();
+  const searchRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounced(search);
@@ -88,18 +80,72 @@ export function CategoriesManagement() {
     }, 300);
     return () => clearTimeout(timer);
   }, [search]);
+  useSearchShortcut(searchRef);
   const params = new URLSearchParams({
     page: String(page),
-    limit: "10",
+    limit: String(pageSize),
     search: debounced,
     sort: sorting[0]?.id ?? "sortOrder",
     direction: sorting[0]?.desc ? "desc" : "asc",
   });
   const query = useQuery({
-    queryKey: ["admin-categories", debounced, page, sorting],
+    queryKey: ["admin-categories", debounced, page, pageSize, sorting],
     queryFn: () => api<CategoriesPage>(`/v1/admin/categories?${params}`),
   });
   const data = useMemo(() => query.data?.categories ?? [], [query.data]);
+  const columns = useMemo<ColumnDef<AdminCategoryDto>[]>(
+    () => [
+      {
+        accessorKey: "name",
+        header: "Category",
+        cell: ({ row }) => <CategoryIdentity category={row.original} />,
+      },
+      {
+        accessorKey: "defaultShelfLife",
+        header: "Default shelf life",
+        cell: ({ row }) => (
+          <span className="text-slate-600">
+            {row.original.defaultShelfLife}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "notifyMode",
+        header: "Notify mode",
+        cell: ({ row }) => (
+          <span className="text-slate-600">
+            {modes[row.original.notifyMode]}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "activeListings",
+        header: "Active listings",
+        cell: ({ row }) => (
+          <span className="tabular-nums font-medium text-slate-700">
+            {row.original.activeListings.toLocaleString("en-IN")}
+          </span>
+        ),
+      },
+      {
+        id: "actions",
+        header: "Actions",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <div className="flex w-full justify-center">
+            <RowActions
+              label={`Actions for ${row.original.name}`}
+              items={[
+                { label: "Edit", onSelect: () => setEditing(row.original) },
+                { label: "Delete", onSelect: () => setDeleting(row.original) },
+              ]}
+            />
+          </div>
+        ),
+      },
+    ],
+    [],
+  );
   // React Compiler is not enabled; TanStack Table v8 owns its memoization.
   // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
@@ -107,17 +153,15 @@ export function CategoriesManagement() {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id,
+    manualPagination: true,
     manualSorting: true,
     enableMultiSort: false,
-    meta: { editCategory: setEditing, deleteCategory: setDeleting },
     state: { sorting },
     onSortingChange: (updater) => {
       setSorting(updater);
       setPage(1);
     },
   });
-  const currentPage = query.data?.page ?? page;
-  const pages = Math.max(1, Math.ceil((query.data?.total ?? 0) / 10));
   const remove = useMutation({
     mutationFn: (category: AdminCategoryDto) =>
       api(`/v1/admin/categories/${category.id}`, {
@@ -129,141 +173,119 @@ export function CategoriesManagement() {
       await client.invalidateQueries({ queryKey: ["admin-categories"] });
     },
   });
-  return (
-    <section className="card min-h-[460px] p-4 sm:p-6">
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-xl font-bold">Categories &amp; notify rules</h1>
-        <Button
-          onClick={() => setAdding(true)}
-          className="bg-slate-900 hover:bg-slate-800"
-        >
-          <Plus size={16} />
-          Add category
-        </Button>
-      </div>
-      <div className="relative mb-5">
-        <Search
-          size={17}
-          aria-hidden="true"
-          className="absolute left-3 top-3 text-slate-400"
-        />
-        <input
-          aria-label="Search by category name"
-          placeholder="Search by category name..."
-          maxLength={100}
-          style={{ paddingLeft: 38 }}
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-      </div>
-      {query.isPending ? (
-        <Skeleton className="h-56" />
-      ) : query.error ? (
-        <ErrorState error={query.error} retry={() => void query.refetch()} />
-      ) : !data.length ? (
-        <EmptyState
-          title="No categories found"
-          description={
-            debounced
-              ? "Try a different category name."
-              : "Add a category to configure its shelf life and notification mode."
-          }
-        />
-      ) : (
-        <>
-          <div className="overflow-x-auto">
-            <table
-              className="w-full min-w-[600px] text-left text-sm"
-              aria-label="Categories and notification rules"
-            >
-              <thead>
-                {table.getHeaderGroups().map((group) => (
-                  <tr key={group.id} className="border-b border-slate-300">
-                    {group.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        scope="col"
-                        aria-sort={
-                          header.column.getIsSorted() === "asc"
-                            ? "ascending"
-                            : header.column.getIsSorted() === "desc"
-                              ? "descending"
-                              : "none"
-                        }
-                        className="px-3 py-3 text-xs font-semibold uppercase text-slate-500"
-                      >
-                        {header.column.getCanSort() ? (
-                          <button
-                            className="flex items-center gap-1.5 text-left"
-                            onClick={header.column.getToggleSortingHandler()}
-                          >
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                            {header.column.getIsSorted() === "asc" ? (
-                              <ArrowUp size={13} />
-                            ) : header.column.getIsSorted() === "desc" ? (
-                              <ArrowDown size={13} />
-                            ) : (
-                              <ArrowUpDown size={13} />
-                            )}
-                          </button>
-                        ) : (
-                          flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="border-b border-slate-200 hover:bg-slate-50"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-3 py-3">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+  const hasFilters = Boolean(debounced);
+  function clearFilters() {
+    setSearch("");
+    setDebounced("");
+    setPage(1);
+  }
+  const chips = debounced
+    ? [
+        {
+          label: `Search: “${debounced}”`,
+          onRemove: clearFilters,
+        },
+      ]
+    : [];
+  function renderCategoryRow(category: AdminCategoryDto) {
+    return (
+      <div className="flex items-start gap-3 px-4 py-3">
+        <div className="min-w-0 flex-1">
+          <CategoryIdentity category={category} />
+          <p className="mt-2 truncate text-xs text-slate-500">
+            Shelf life: {category.defaultShelfLife}
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <span className="text-xs text-slate-500">
+              {modes[category.notifyMode]}
+            </span>
+            <span className="text-xs tabular-nums text-slate-500">
+              {category.activeListings.toLocaleString("en-IN")} active listings
+            </span>
           </div>
-          {pages > 1 && (
-            <div className="mt-5 flex items-center justify-end gap-3 text-xs text-slate-500">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage <= 1 || query.isFetching}
-                onClick={() => setPage(currentPage - 1)}
-              >
-                Previous
-              </Button>
-              <span>
-                Page {currentPage} of {pages}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage >= pages || query.isFetching}
-                onClick={() => setPage(currentPage + 1)}
-              >
-                Next
-              </Button>
-            </div>
-          )}
-        </>
-      )}
+        </div>
+        <RowActions
+          label={`Actions for ${category.name}`}
+          items={[
+            { label: "Edit", onSelect: () => setEditing(category) },
+            { label: "Delete", onSelect: () => setDeleting(category) },
+          ]}
+        />
+      </div>
+    );
+  }
+  return (
+    <div className="space-y-5">
+      <ListPageToolbar
+        search={
+          <SearchField
+            inputRef={searchRef}
+            label="Search by category name"
+            placeholder="Search by category name…"
+            value={search}
+            onChange={setSearch}
+          />
+        }
+        actions={
+          <Button
+            size="sm"
+            className="bg-[#B9520A] hover:bg-[#9E4508] focus-visible:outline-[#B9520A]"
+            onClick={() => setAdding(true)}
+          >
+            <Plus size={15} />
+            Add category
+          </Button>
+        }
+      />
+      <ListCard
+        filters={<ListFilterBar items={chips} onClearAll={clearFilters} />}
+        footer={
+          <ListPagination
+            page={query.data?.page ?? page}
+            pageSize={pageSize}
+            total={query.data?.total ?? 0}
+            disabled={query.isPending}
+            label="Category pagination"
+            onPageChange={setPage}
+            onPageSizeChange={(next) => {
+              setPageSize(next);
+              setPage(1);
+            }}
+          />
+        }
+      >
+        {query.error ? (
+          <ErrorState error={query.error} retry={() => void query.refetch()} />
+        ) : query.isPending ? (
+          <ListSkeleton rows={Math.min(pageSize, 8)} />
+        ) : !data.length ? (
+          <EmptyState
+            title={
+              hasFilters
+                ? "No categories match these filters"
+                : "No categories found"
+            }
+            description={
+              hasFilters
+                ? "Try a different category name, or clear the filters to see every category."
+                : "Add a category to configure its shelf life and notification mode."
+            }
+            action={
+              hasFilters ? (
+                <Button variant="outline" size="sm" onClick={clearFilters}>
+                  Clear filters
+                </Button>
+              ) : undefined
+            }
+          />
+        ) : (
+          <DataTable
+            table={table}
+            caption="Categories with default shelf life, notification mode and active listings"
+            mobileRow={renderCategoryRow}
+          />
+        )}
+      </ListCard>
       {adding && <CategoryForm onClose={() => setAdding(false)} />}
       {editing && (
         <CategoryForm category={editing} onClose={() => setEditing(null)} />
@@ -284,7 +306,7 @@ export function CategoriesManagement() {
           if (deleting) remove.mutate(deleting);
         }}
       />
-    </section>
+    </div>
   );
 }
 
@@ -303,7 +325,7 @@ function CategoryForm({
     defaultShelfLife: category?.defaultShelfLife ?? "",
     notifyMode: (category?.notifyMode ?? "daily_digest") as string,
   });
-  const [validation, setValidation] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const save = useMutation({
     mutationFn: () => {
       const parsed = categorySchema.parse(input);
@@ -332,6 +354,13 @@ function CategoryForm({
       onClose();
     },
   });
+  // Clear a field's message as soon as the admin edits that field.
+  function update(key: keyof typeof input, value: string) {
+    setInput((previous) => ({ ...previous, [key]: value }));
+    setFieldErrors((previous) =>
+      previous[key] ? { ...previous, [key]: "" } : previous,
+    );
+  }
   return (
     <Dialog
       open
@@ -339,89 +368,159 @@ function CategoryForm({
         if (!open && !save.isPending) onClose();
       }}
     >
-      <DialogContent>
-        <DialogTitle className="text-xl font-bold">
-          {category ? "Edit category" : "Add category"}
-        </DialogTitle>
-        <DialogDescription className="mt-2 text-sm text-slate-500">
-          Set the category name, default shelf life and notification mode.
-          {category ? " The category code stays unchanged." : ""}
-        </DialogDescription>
+      <DialogContent className="sm:max-w-xl">
+        <FormDialogHeader
+          icon={<Tag size={19} />}
+          title={category ? "Edit category" : "Add category"}
+          description={
+            <>
+              Set the category name, default shelf life and notification mode.
+              {category ? " The category code stays unchanged." : ""}
+            </>
+          }
+        />
         <form
-          className="mt-5 space-y-4"
+          className="space-y-5"
           onSubmit={(event) => {
             event.preventDefault();
             const result = categorySchema.safeParse(input);
-            setValidation(
-              result.success
-                ? ""
-                : (result.error.issues[0]?.message ??
-                    "Check the category details."),
-            );
-            if (result.success) save.mutate();
+            if (!result.success) {
+              const next: Record<string, string> = {};
+              for (const issue of result.error.issues)
+                next[String(issue.path[0] ?? "form")] = issue.message;
+              setFieldErrors(next);
+              return;
+            }
+            setFieldErrors({});
+            save.mutate();
           }}
         >
-          <fieldset disabled={save.isPending} className="space-y-4">
-            <div className="field">
-              <label htmlFor="category-name">Category name</label>
-              <input
-                id="category-name"
-                value={input.name}
-                required
-                maxLength={100}
-                onChange={(event) =>
-                  setInput({ ...input, name: event.target.value })
-                }
-              />
+          <fieldset disabled={save.isPending} className="space-y-5">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start">
+              <div className="field">
+                <label htmlFor="category-name">
+                  Category name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="category-name"
+                  value={input.name}
+                  required
+                  maxLength={100}
+                  aria-required
+                  aria-invalid={!!fieldErrors.name}
+                  aria-describedby={
+                    fieldErrors.name ? "category-name-error" : undefined
+                  }
+                  onChange={(event) => update("name", event.target.value)}
+                />
+                {fieldErrors.name && (
+                  <FieldError id="category-name-error">
+                    {fieldErrors.name}
+                  </FieldError>
+                )}
+              </div>
+              <div className="field">
+                <label htmlFor="category-name-mr">
+                  Category name (Marathi){" "}
+                  <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="category-name-mr"
+                  lang="mr"
+                  value={input.nameMr}
+                  required
+                  maxLength={100}
+                  aria-required
+                  aria-invalid={!!fieldErrors.nameMr}
+                  aria-describedby={
+                    fieldErrors.nameMr ? "category-name-mr-error" : undefined
+                  }
+                  onChange={(event) => update("nameMr", event.target.value)}
+                />
+                {fieldErrors.nameMr && (
+                  <FieldError id="category-name-mr-error">
+                    {fieldErrors.nameMr}
+                  </FieldError>
+                )}
+              </div>
             </div>
-            <div className="field">
-              <label htmlFor="category-name-mr">Category name (Marathi)</label>
-              <input
-                id="category-name-mr"
-                lang="mr"
-                value={input.nameMr}
-                required
-                maxLength={100}
-                onChange={(event) =>
-                  setInput({ ...input, nameMr: event.target.value })
-                }
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="category-code">Category code</label>
-              <input
-                id="category-code"
-                placeholder="PERISHABLE"
-                value={input.code}
-                required
-                readOnly={!!category}
-                maxLength={40}
-                onChange={(event) =>
-                  setInput({ ...input, code: event.target.value.toUpperCase() })
-                }
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="category-shelf-life">Default shelf life</label>
-              <input
-                id="category-shelf-life"
-                placeholder="e.g. 1–2 days or Standing"
-                value={input.defaultShelfLife}
-                required
-                maxLength={100}
-                onChange={(event) =>
-                  setInput({ ...input, defaultShelfLife: event.target.value })
-                }
-              />
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start">
+              <div className="field">
+                <label htmlFor="category-code">
+                  Category code <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="category-code"
+                  className="font-mono"
+                  placeholder="PERISHABLE"
+                  value={input.code}
+                  required
+                  readOnly={!!category}
+                  maxLength={40}
+                  aria-required
+                  aria-invalid={!!fieldErrors.code}
+                  aria-describedby={
+                    fieldErrors.code
+                      ? "category-code-error"
+                      : category
+                        ? undefined
+                        : "category-code-help"
+                  }
+                  onChange={(event) =>
+                    update("code", event.target.value.toUpperCase())
+                  }
+                />
+                {!category && !fieldErrors.code && (
+                  <p id="category-code-help" className="text-xs text-slate-400">
+                    Uppercase letters, numbers and underscores.
+                  </p>
+                )}
+                {fieldErrors.code && (
+                  <FieldError id="category-code-error">
+                    {fieldErrors.code}
+                  </FieldError>
+                )}
+              </div>
+              <div className="field">
+                <label htmlFor="category-shelf-life">
+                  Default shelf life <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="category-shelf-life"
+                  placeholder="e.g. 1–2 days or Standing"
+                  value={input.defaultShelfLife}
+                  required
+                  maxLength={100}
+                  aria-required
+                  aria-invalid={!!fieldErrors.defaultShelfLife}
+                  aria-describedby={
+                    fieldErrors.defaultShelfLife
+                      ? "category-shelf-life-error"
+                      : undefined
+                  }
+                  onChange={(event) =>
+                    update("defaultShelfLife", event.target.value)
+                  }
+                />
+                {fieldErrors.defaultShelfLife && (
+                  <FieldError id="category-shelf-life-error">
+                    {fieldErrors.defaultShelfLife}
+                  </FieldError>
+                )}
+              </div>
             </div>
             <div className="field">
               <label htmlFor="category-notify-mode">Notify mode</label>
               <select
                 id="category-notify-mode"
                 value={input.notifyMode}
-                onChange={(event) =>
-                  setInput({ ...input, notifyMode: event.target.value })
+                aria-invalid={!!fieldErrors.notifyMode}
+                aria-describedby={
+                  fieldErrors.notifyMode
+                    ? "category-notify-mode-error"
+                    : undefined
                 }
+                onChange={(event) => update("notifyMode", event.target.value)}
               >
                 {Object.entries(modes).map(([value, label]) => (
                   <option key={value} value={value}>
@@ -429,14 +528,16 @@ function CategoryForm({
                   </option>
                 ))}
               </select>
+              {fieldErrors.notifyMode && (
+                <FieldError id="category-notify-mode-error">
+                  {fieldErrors.notifyMode}
+                </FieldError>
+              )}
             </div>
           </fieldset>
-          {(validation || save.error) && (
-            <p role="alert" className="field-error">
-              {validation || save.error?.message}
-            </p>
-          )}
-          <div className="flex justify-end gap-2">
+          {fieldErrors.form && <FormAlert>{fieldErrors.form}</FormAlert>}
+          {save.error && <FormAlert>{save.error.message}</FormAlert>}
+          <FormDialogFooter>
             <Button
               type="button"
               variant="outline"
@@ -445,14 +546,10 @@ function CategoryForm({
             >
               Cancel
             </Button>
-            <Button disabled={save.isPending}>
-              {save.isPending
-                ? "Saving…"
-                : category
-                  ? "Save changes"
-                  : "Add category"}
-            </Button>
-          </div>
+            <FormSaveButton saving={save.isPending}>
+              {category ? "Save changes" : "Add category"}
+            </FormSaveButton>
+          </FormDialogFooter>
         </form>
       </DialogContent>
     </Dialog>

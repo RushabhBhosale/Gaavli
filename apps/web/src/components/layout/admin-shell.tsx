@@ -12,7 +12,6 @@ import {
   ChartNoAxesCombined,
   Bell,
   Settings,
-  Search,
   ChevronDown,
   Menu,
   X,
@@ -32,13 +31,36 @@ import {
 const links = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
   { name: "Users", href: "/users", icon: Users },
-  { name: "Listings", href: "/listings", icon: ClipboardList },
   { name: "Categories", href: "/categories", icon: Tags },
   { name: "Villages", href: "/villages", icon: House },
+  { name: "Listings", href: "/listings", icon: ClipboardList },
   { name: "Reports", href: "/reports", icon: ChartNoAxesCombined },
   { name: "Notifications", href: "/notifications", icon: Bell },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
+// The page title lives in the top bar instead of repeating an <h1> inside every
+// screen. Add an entry here when a screen is migrated.
+const pageMeta: Record<string, { title: string; subtitle?: string }> = {
+  "/users": {
+    title: "Users Management",
+    subtitle: "Buyer, seller and coordinator accounts across every village.",
+  },
+  "/villages": {
+    title: "Village Management",
+    subtitle: "View villages, coordinators and nearby village mappings.",
+  },
+  "/categories": {
+    title: "Categories & notify rules",
+  },
+  "/provider-masters": {
+    title: "Master Management",
+    subtitle: "Service Providers",
+  },
+  "/provider-profiles": {
+    title: "Provider Profiles",
+    subtitle: "Service Providers",
+  },
+};
 export function AdminShell({
   admin,
   children,
@@ -48,6 +70,7 @@ export function AdminShell({
 }) {
   const path = usePathname(),
     client = useQueryClient();
+  const page = pageMeta[path];
   const [open, setOpen] = useState(false),
     [error, setError] = useState("");
   const initials = admin.name
@@ -66,12 +89,16 @@ export function AdminShell({
         />
       )}
       <aside
-        className={`fixed inset-y-0 left-0 z-30 flex w-56 flex-col bg-gradient-to-b from-[#004e38] to-[#003e30] text-white transition-transform md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed inset-y-0 left-0 z-30 flex w-56 flex-col overflow-hidden border-r border-white/10 bg-gradient-to-b from-[#35546E] to-[#1E3A52] text-white transition-transform md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex items-start justify-between px-6 py-7">
+        <div className="relative flex items-start justify-between px-6 py-7">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-8 -top-12 size-44 rounded-full bg-[#B9520A]/20 blur-3xl"
+          />
           <Brand />
           <button
-            className="md:hidden"
+            className="text-white hover:text-[#FCEBDD] md:hidden"
             aria-label="Close navigation"
             onClick={() => setOpen(false)}
           >
@@ -88,20 +115,20 @@ export function AdminShell({
               href={href}
               onClick={() => setOpen(false)}
               aria-current={path === href ? "page" : undefined}
-              className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === href ? "bg-emerald-600/60 text-white shadow-sm" : "text-emerald-50/80 hover:bg-white/10"}`}
+              className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === href ? "bg-[#FEF3EA] text-[#A84E0D]" : "text-white/90 hover:bg-white/10 hover:text-white"}`}
             >
               <Icon size={17} />
               {name}
             </Link>
           ))}
-          <p className="px-4 pb-1 pt-5 text-[10px] font-semibold uppercase tracking-wider text-emerald-200">
+          <p className="px-4 pb-1 pt-5 text-[10px] font-semibold uppercase tracking-wider text-[#D6E2EC]">
             Service Providers
           </p>
           <Link
             href="/provider-masters"
             onClick={() => setOpen(false)}
             aria-current={path === "/provider-masters" ? "page" : undefined}
-            className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === "/provider-masters" ? "bg-emerald-600/60 text-white shadow-sm" : "text-emerald-50/80 hover:bg-white/10"}`}
+            className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === "/provider-masters" ? "bg-[#FEF3EA] text-[#A84E0D]" : "text-white/90 hover:bg-white/10 hover:text-white"}`}
           >
             <Tags size={17} />
             Master Management
@@ -110,24 +137,24 @@ export function AdminShell({
             href="/provider-profiles"
             onClick={() => setOpen(false)}
             aria-current={path === "/provider-profiles" ? "page" : undefined}
-            className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === "/provider-profiles" ? "bg-emerald-600/60 text-white shadow-sm" : "text-emerald-50/80 hover:bg-white/10"}`}
+            className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === "/provider-profiles" ? "bg-[#FEF3EA] text-[#A84E0D]" : "text-white/90 hover:bg-white/10 hover:text-white"}`}
           >
             <Store size={17} />
             Provider Profiles
           </Link>
         </nav>
-        <div className="mt-auto flex items-center gap-3 border-t border-white/10 px-6 py-5">
-          <span className="flex size-9 items-center justify-center rounded-full border-2 border-emerald-200 bg-emerald-100 text-sm font-bold text-emerald-900">
+        <div className="mt-auto flex items-center gap-3 border-t border-white/20 px-6 py-5">
+          <span className="flex size-9 items-center justify-center rounded-full border-2 border-[#F3D2B8] bg-[#FEF3EA] text-sm font-bold text-[#A84E0D]">
             {initials}
           </span>
           <div>
-            <p className="text-xs font-semibold">{admin.name}</p>
-            <p className="mt-1 text-[10px] text-emerald-200">Super Admin</p>
+            <p className="text-xs font-semibold text-white">{admin.name}</p>
+            <p className="mt-1 text-[10px] text-[#D6E2EC]">Super Admin</p>
           </div>
         </div>
       </aside>
       <div className="md:ml-56">
-        <header className="flex h-20 items-center gap-4 border-b border-slate-200 bg-white px-4 sm:px-8">
+        <header className="sticky top-0 z-10 flex h-20 items-center gap-4 border-b border-slate-200 bg-white px-4 sm:px-8">
           <Button
             variant="ghost"
             size="icon"
@@ -137,18 +164,18 @@ export function AdminShell({
           >
             <Menu size={20} />
           </Button>
-          <div className="relative hidden w-full max-w-md sm:block">
-            <Search
-              size={16}
-              className="absolute left-3 top-3 text-slate-400"
-            />
-            <input
-              aria-label="Search users, listings, villages (coming soon)"
-              placeholder="Search users, listings, villages..."
-              style={{ paddingLeft: 36 }}
-              disabled
-            />
-          </div>
+          {page && (
+            <div className="min-w-0">
+              <h1 className="truncate text-base font-bold text-slate-900 sm:text-lg">
+                {page.title}
+              </h1>
+              {page.subtitle && (
+                <p className="truncate text-xs text-slate-500">
+                  {page.subtitle}
+                </p>
+              )}
+            </div>
+          )}
           <div className="ml-auto flex items-center gap-5">
             <Button asChild variant="ghost" size="icon">
               <Link href="/notifications" aria-label="Notifications">
@@ -158,7 +185,7 @@ export function AdminShell({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-3 rounded-md p-1">
-                  <span className="flex size-9 items-center justify-center rounded-full bg-emerald-900 text-xs font-bold text-white">
+                  <span className="flex size-9 items-center justify-center rounded-full bg-[#35546E] text-xs font-bold text-white">
                     {initials}
                   </span>
                   <span className="hidden text-left sm:block">
