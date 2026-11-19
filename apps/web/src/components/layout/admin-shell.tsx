@@ -183,6 +183,12 @@ export function AdminShell({
             </div>
           )}
           <div className="ml-auto flex items-center gap-5">
+            <Link
+              href="/"
+              className="hidden text-xs font-semibold text-slate-600 hover:text-[#A84E0D] sm:block"
+            >
+              Public site
+            </Link>
             <Button asChild variant="ghost" size="icon">
               <Link href="/notifications" aria-label="Notifications">
                 <Bell size={19} />

@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { COOKIE, verifyToken } from "./server/auth/token";
 export async function proxy(request: NextRequest) {
   const authenticated = await verifyToken(request.cookies.get(COOKIE)?.value);
-  const publicPage = ["/", "/login", "/forgot-password"].includes(
+  const publicPage = ["/", "/landing", "/login", "/forgot-password"].includes(
     request.nextUrl.pathname,
   );
   if (!authenticated && !publicPage)

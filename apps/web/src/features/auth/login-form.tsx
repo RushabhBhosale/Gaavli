@@ -34,6 +34,12 @@ export function LoginForm() {
       <p className="mt-2 text-sm text-slate-500">
         Sign in to your Gaavli admin account
       </p>
+      <Link
+        href="/"
+        className="mt-3 inline-block text-xs font-semibold text-emerald-800 hover:underline"
+      >
+        ← Back to the public landing page
+      </Link>
       <form
         className="mt-7 space-y-5"
         onSubmit={handleSubmit(async (values) => {
@@ -43,7 +49,7 @@ export function LoginForm() {
               method: "POST",
               body: JSON.stringify(values),
             });
-            router.replace("/");
+            router.replace("/admin");
             router.refresh();
           } catch (e) {
             setError((e as Error).message);
