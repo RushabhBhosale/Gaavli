@@ -136,14 +136,14 @@ export function useHomeListings() {
     queryFn: ({ signal }) =>
       session
         ? authenticatedApi(
-            `/listings?${browsingListingsQuery(sourceId!, { limit: "5" })}`,
+            `/listings?${browsingListingsQuery(sourceId!, { limit: "6" })}`,
             mobileListingPageSchema,
             {
               signal,
             },
           )
         : api(
-            `/listings?${browsingListingsQuery(sourceId!, { limit: "5" })}`,
+            `/listings?${browsingListingsQuery(sourceId!, { limit: "6" })}`,
             mobileListingPageSchema,
             { signal },
           ),

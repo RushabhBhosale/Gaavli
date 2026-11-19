@@ -1133,10 +1133,10 @@ test("optional product photos can be omitted, preserved, replaced and explicitly
 });
 
 test("bottom bar keeps the mic in the middle and follows the account", () => {
-  const rest = ["marketplace", "services", "transport", "profile"];
+  const rest = ["marketplace", "services", "profile"];
   assert.deepEqual(
     tabSlots({ signedIn: false, seller: false, coordinator: false }),
-    { second: "marketplace", fourth: "services", fifth: "transport", more: [] },
+    { second: "marketplace", fourth: "services", fifth: "profile", more: [] },
   );
   assert.deepEqual(
     tabSlots({ signedIn: true, seller: true, coordinator: false }),
@@ -1148,7 +1148,7 @@ test("bottom bar keeps the mic in the middle and follows the account", () => {
       second: "activity",
       fourth: "profile",
       fifth: "more",
-      more: ["marketplace", "services", "transport"],
+      more: ["marketplace", "services"],
     },
   );
   assert.deepEqual(

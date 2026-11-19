@@ -71,6 +71,7 @@ export type HomeDestination =
   | "/services"
   | "/transport"
   | "/village-coordinator"
+  | "/mapped-villages"
   | "/activities"
   | "/provider/type"
   | `/provider/${string}`;

@@ -153,6 +153,12 @@ export default function ProfileScreen() {
           </Text>
           <View style={s.group}>
             <SettingRow
+              icon="people-outline"
+              title={t.villageCoordinator}
+              disabled={!!busy}
+              onPress={() => router.push("/village-coordinator")}
+            />
+            <SettingRow
               icon="git-network-outline"
               title={t.mappedTitle}
               subtitle={t.mappedRowSubtitle}
@@ -291,6 +297,12 @@ export default function ProfileScreen() {
         </Text>
         <View style={s.group}>
           <SettingRow
+            icon="people-outline"
+            title={t.villageCoordinator}
+            disabled={!!busy}
+            onPress={() => router.push("/village-coordinator")}
+          />
+          <SettingRow
             icon="git-network-outline"
             title={t.mappedTitle}
             subtitle={t.mappedRowSubtitle}
@@ -363,7 +375,10 @@ export default function ProfileScreen() {
                       : undefined
               }
               disabled={
-                offline || !!busy || push.change.isPending || push.test.isPending
+                offline ||
+                !!busy ||
+                push.change.isPending ||
+                push.test.isPending
               }
               onPress={() => push.test.mutate()}
             />

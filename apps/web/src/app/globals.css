@@ -204,11 +204,3 @@ select:disabled {
   height: 30px;
   background: #735130;
 }
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-}
