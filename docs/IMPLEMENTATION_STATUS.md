@@ -1,3 +1,20 @@
+## 2026-11-18 - Standalone Android backend configuration
+
+- The local release APK built at 12:42 contained no production API URL, while
+  live health and village discovery returned 200. Added
+  `npm run build:android:release` to load the mobile production environment,
+  require HTTPS `/api/v1`, and pass that public address into Expo's release bundle.
+- Gradle tracks the API address as a bundle input and refuses a release bundle
+  without an explicit HTTPS API address. This prevents reuse of a cached bundle
+  when the configured backend changes.
+- `npm run build:android:release` passed; both arm64-v8a and armeabi-v7a APKs
+  passed archive integrity checks and contain the production API URL in their
+  embedded JS bundle. Script syntax/formatting and whitespace checks passed;
+  an HTTP localhost override was rejected before starting Gradle. Live health
+  and village reads returned 200; invalid login input returned the expected 422
+  without issuing an OTP. No Android device was connected, so installed login
+  and OTP acceptance remain unverified. Reinstall the rebuilt APK to apply it.
+
 ## 2026-11-18 - Daily listing limit and one listing per product
 
 - A seller may create at most `DAILY_LISTING_LIMIT` (2) new product listings

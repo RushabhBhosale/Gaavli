@@ -64,6 +64,18 @@ react {
     autolinkLibrariesWithApp()
 }
 
+// Environment changes must invalidate the cached JS bundle. Require the URL
+// explicitly so a standalone APK cannot silently ship without its backend.
+tasks.matching { it.name == "createBundleReleaseJsAndAssets" }.configureEach {
+    inputs.property("gaavliApiBaseUrl", providers.environmentVariable("EXPO_PUBLIC_API_BASE_URL").orElse(""))
+    doFirst {
+        def address = System.getenv("EXPO_PUBLIC_API_BASE_URL")
+        if (!address || !address.startsWith("https://") || !address.replaceAll('/$', '').endsWith("/api/v1")) {
+            throw new GradleException("Release API address missing or invalid. Run npm run build:android:release from the repository root.")
+        }
+    }
+}
+
 /**
  * Set this to true in release builds to optimize the app using [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization).
  */

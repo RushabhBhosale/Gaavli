@@ -64,6 +64,14 @@ large Marathi text and offline recovery. Full contract and integration-test comm
 
 ## Run locally
 
+For a standalone Android release, set `EXPO_PUBLIC_API_BASE_URL` to the hosted
+HTTPS `/api/v1` URL in `apps/mobile/.env.production.local` (or export it in your
+shell), then run `npm run build:android:release` from the repository root.
+The command loads the mobile environment and passes the public URL into the JS
+bundle. Android SDK and Java must already be configured. APKs are written under
+`apps/mobile/android/app/build/outputs/apk/release/`; rebuild and reinstall after
+changing the API address. Release bundling rejects a missing/non-HTTPS address.
+
 Dependencies are installed from the repository root only when needed:
 `npm install`. This is one npm workspace with one root lockfile.
 
