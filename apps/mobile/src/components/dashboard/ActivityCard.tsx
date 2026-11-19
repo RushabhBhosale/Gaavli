@@ -11,15 +11,8 @@ import type { MobileLanguage } from "@gaavli/types";
 import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import type { IconName } from "./primitives";
-
-export type ActivityCardData = {
-  id: string;
-  kind: "profile" | "products";
-  title: string;
-  detail?: string;
-  providerType?: string;
-  active?: boolean;
-};
+import { activityStatus, type ActivityCardData } from "../../data/activities";
+import { useListingClock } from "../../hooks/useListingClock";
 
 const iconFor = (type?: string): IconName =>
   type === ProviderType.TRANSPORT_DRIVER
@@ -42,6 +35,22 @@ export function ActivityCard({
   onPress: () => void;
 }) {
   const t = messages(language);
+  const now = useListingClock();
+  const state = activityStatus(card, new Date(now));
+  const status =
+    state === "inactive"
+      ? t.actInactive
+      : state === "open"
+        ? t.directoryOpenNow
+        : state === "closed"
+          ? t.directoryClosedNow
+          : null;
+  const statusColor =
+    state === "inactive"
+      ? theme.colors.muted
+      : state === "closed"
+        ? theme.colors.error
+        : theme.colors.success;
   const { width, fontScale } = useWindowDimensions();
   const cardWidth = Math.max(
     128,
@@ -56,7 +65,7 @@ export function ActivityCard({
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={[card.title, kind].filter(Boolean).join(", ")}
+      accessibilityLabel={[card.title, kind, status].filter(Boolean).join(", ")}
       onPress={onPress}
       style={({ pressed }) => [
         s.card,
@@ -81,17 +90,10 @@ export function ActivityCard({
             {kind}
           </Text>
         )}
-        {card.kind === "profile" && (
+        {status && (
           <View style={s.status}>
-            <View
-              style={[
-                s.dot,
-                !card.active && { backgroundColor: theme.colors.muted },
-              ]}
-            />
-            <Text style={s.statusText}>
-              {card.active ? t.directoryAvailable : t.actInactive}
-            </Text>
+            <View style={[s.dot, { backgroundColor: statusColor }]} />
+            <Text style={[s.statusText, { color: statusColor }]}>{status}</Text>
           </View>
         )}
       </View>

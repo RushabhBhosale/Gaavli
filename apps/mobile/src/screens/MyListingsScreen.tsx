@@ -22,6 +22,7 @@ import { messages } from "../i18n";
 import { theme } from "../theme";
 import { Button, ErrorMessage, OfflineBanner } from "../components/ui";
 import { ListingImage } from "../components/dashboard/ListingImage";
+import { ProductPrice } from "../components/dashboard/ProductPrice";
 import { listingUnit } from "../components/dashboard/listingText";
 import { listingDraftStorage } from "../storage/sqlite";
 import { listingOperationId, listingDraftSchema } from "../data/listingForm";
@@ -414,11 +415,16 @@ export default function MyListingsScreen() {
                 <Text style={s.productTitle} numberOfLines={2}>
                   {name}
                 </Text>
-                <Text style={s.rate} numberOfLines={1}>
-                  {item.price === null
-                    ? t.rateNotProvided
-                    : `₹${new Intl.NumberFormat(dateLocale(language)).format(item.price)} / ${listingUnit(item.unit, language)}`}
-                </Text>
+                <ProductPrice
+                  price={item.price}
+                  formatted={
+                    item.price === null
+                      ? ""
+                      : `₹${new Intl.NumberFormat(dateLocale(language)).format(item.price)} / ${listingUnit(item.unit, language)}`
+                  }
+                  language={language}
+                  style={s.rate}
+                />
               </View>
               <View style={s.actions}>
                 <View style={s.actionRow}>

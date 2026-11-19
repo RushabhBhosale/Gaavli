@@ -1,5 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { ProviderType } from "@gaavli/constants";
+import { activityStatus, providerActivity } from "../src/data/activities";
 import {
   defaultHours,
   hoursProblem,
@@ -94,4 +96,80 @@ test("open state follows the hours, days off and the owner's closed switch", () 
   assert.equal(openState(allDay, false, at(18, "03:00")), "open");
   assert.equal(openState("Mon-Sat 9 to 6", false, at(18, "10:00")), null);
   assert.equal(openState(null, false, at(18, "10:00")), null);
+});
+
+test("My Activities uses each provider's saved hours and owner closure", () => {
+  const hours = serializeHours({
+    slots: [{ open: "09:00", close: "18:00" }],
+    off: [0],
+  });
+  const now = new Date(2026, 10, 19, 10, 30);
+  const profile = {
+    id: "a".repeat(24),
+    name: "Village Shop",
+    providerType: ProviderType.SHOP_BUSINESS,
+    status: "ACTIVE" as const,
+    details: { businessHours: hours },
+  };
+  const card = providerActivity(profile);
+  assert.equal(activityStatus(card, now), "open");
+  assert.equal(activityStatus(card, new Date(2026, 10, 19, 19)), "closed");
+  assert.equal(activityStatus(card, new Date(2026, 10, 22, 10)), "closed");
+  assert.equal(
+    activityStatus(
+      providerActivity({
+        ...profile,
+        details: { ...profile.details, closedNow: true },
+      }),
+      now,
+    ),
+    "closed",
+  );
+  for (const [providerType, key] of [
+    [ProviderType.HEALTHCARE_PROFESSIONAL, "consultationHours"],
+    [ProviderType.MEDICAL_FACILITY, "operatingHours"],
+  ] as const) {
+    assert.equal(
+      activityStatus(
+        providerActivity({
+          ...profile,
+          providerType,
+          details: { [key]: hours },
+        }),
+        now,
+      ),
+      "open",
+    );
+  }
+});
+
+test("My Activities keeps inactive profiles distinct and never assumes unknown hours are open", () => {
+  const profile = {
+    id: "a".repeat(24),
+    name: "Village Shop",
+    providerType: ProviderType.SHOP_BUSINESS,
+    status: "ACTIVE" as const,
+    details: {},
+  };
+  assert.equal(activityStatus(providerActivity(profile)), null);
+  assert.equal(
+    activityStatus(
+      providerActivity({ ...profile, details: { businessHours: "9 to 5" } }),
+    ),
+    null,
+  );
+  assert.equal(
+    activityStatus(
+      providerActivity({ ...profile, details: { closedNow: true } }),
+    ),
+    "closed",
+  );
+  assert.equal(
+    activityStatus(providerActivity({ ...profile, status: "INACTIVE" })),
+    "inactive",
+  );
+  assert.equal(
+    activityStatus({ id: "products", title: "My Products", kind: "products" }),
+    null,
+  );
 });

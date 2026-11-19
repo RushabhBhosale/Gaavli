@@ -6,6 +6,7 @@ import {
   CONTACT_LABELS,
   PROVIDER_KINDS,
   shopProductGroup,
+  shopGroupForProduct,
   type ProviderType,
 } from "@gaavli/constants";
 import { useAppStore } from "../store";
@@ -86,12 +87,14 @@ export default function DirectoryDetailsScreen() {
   const groupIds = [
     ...new Set([
       ...(sells?.groups ?? []),
-      ...(sells?.products ?? []).map((item) => item.productGroup),
+      ...(sells?.products ?? []).map((item) =>
+        shopGroupForProduct(item.code, item.productGroup),
+      ),
     ]),
   ];
   const sellsWithItems = groupIds.flatMap((groupId) => {
     const items = (sells?.products ?? []).filter(
-      (item) => item.productGroup === groupId,
+      (item) => shopGroupForProduct(item.code, item.productGroup) === groupId,
     );
     const group = shopProductGroup(groupId);
     return items.length

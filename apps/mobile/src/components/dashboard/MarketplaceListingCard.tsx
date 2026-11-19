@@ -6,6 +6,7 @@ import { theme } from "../../theme";
 import { listingName, type HomeListing } from "../../types/home";
 import { Badge } from "./primitives";
 import { ListingImage } from "./ListingImage";
+import { ProductPrice } from "./ProductPrice";
 import {
   listingQuantity,
   listingRate,
@@ -19,17 +20,21 @@ export function MarketplaceListingCard({
   listing,
   language,
   unavailable = false,
+  tone,
   onPress,
 }: {
   listing: HomeListing;
   language: MobileLanguage;
   unavailable?: boolean;
+  tone?: keyof typeof theme.modules;
   onPress?: () => void;
 }) {
   const t = messages(language);
   const name = listingName(listing, language);
   const village = language !== "en" ? listing.villageMr : listing.village;
-  const rate = listingRate(listing, language);
+  const rate =
+    listing.price === null ? t.contactForPrice : listingRate(listing, language);
+  const palette = tone ? theme.modules[tone] : null;
   if (!unavailable) {
     return (
       <Pressable
@@ -43,7 +48,9 @@ export function MarketplaceListingCard({
         onPress={onPress}
         style={({ pressed }) => [s.card, pressed && s.pressed]}
       >
-        <View style={s.imageFrame}>
+        <View
+          style={[s.imageFrame, palette && { backgroundColor: palette.tint }]}
+        >
           <ListingImage
             listing={listing}
             style={s.image}
@@ -55,8 +62,12 @@ export function MarketplaceListingCard({
           <Text numberOfLines={1} style={s.name}>
             {name}
           </Text>
-          <Text numberOfLines={1} style={s.price}>
-            {rate}
+          <ProductPrice
+            price={listing.price}
+            formatted={rate}
+            language={language}
+            style={[s.price, palette && { color: palette.color }]}
+          >
             <Text style={s.quantity}>
               {"  ·  "}
               {(listing.offerCount ?? 1) > 1
@@ -67,7 +78,7 @@ export function MarketplaceListingCard({
                   ? listingQuantity(listing, language)
                   : `${listing.availableQuantity} ${listingUnit(listing.unit, language)}`.trim()}
             </Text>
-          </Text>
+          </ProductPrice>
           <View style={s.metaRow}>
             <Ionicons
               accessible={false}
@@ -105,13 +116,14 @@ export function MarketplaceListingCard({
         <Text style={[s.name, s.muted]} numberOfLines={2}>
           {name}
         </Text>
-        <Text
-          accessibilityLabel={`${t.marketplacePreviousRate}: ${rate}`}
+        <ProductPrice
+          price={listing.price}
+          formatted={rate}
+          language={language}
           style={s.meta}
         >
-          {rate}
           {village ? ` · ${village}` : ""}
-        </Text>
+        </ProductPrice>
       </View>
       <View style={s.unavailableStatus}>
         <Text style={s.unavailableLabel}>{t.marketplaceNotAvailable}</Text>

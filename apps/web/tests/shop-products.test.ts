@@ -8,6 +8,8 @@ import {
   SHOP_POPULAR_ITEMS,
   SHOP_PRODUCT_GROUPS,
   SHOP_TYPE_PRODUCT_GROUPS,
+  shopGroupForProduct,
+  shopGroupsWithProducts,
 } from "@gaavli/constants";
 import {
   createProviderProfileSchema,
@@ -36,28 +38,68 @@ const shopTypes = (
   .map((row) => row.code);
 const shopDetails = providerDetailsSchema(ProviderType.SHOP_BUSINESS);
 
-test("every shop group is a listing group with three names", () => {
+test("every shop group is a listing group or an approved shop split with three names", () => {
   const ids = SHOP_PRODUCT_GROUPS.map((group) => group.id);
   assert.equal(new Set(ids).size, ids.length);
   for (const group of SHOP_PRODUCT_GROUPS) {
-    assert.ok((LISTING_PRODUCT_GROUPS as readonly string[]).includes(group.id));
+    assert.ok(
+      (
+        [...LISTING_PRODUCT_GROUPS, "footwear", "hardware"] as readonly string[]
+      ).includes(group.id),
+    );
     assert.ok(group.en && group.mr && group.hi, group.id);
   }
   assert.ok(!ids.includes("grain" as never), "legacy grain stays hidden");
 });
 
 test("popular items are active catalogue products of their own group", () => {
+  const allItems = Object.values(SHOP_POPULAR_ITEMS).flat();
+  assert.ok(allItems.length <= MAX_SHOP_PRODUCTS);
+  assert.equal(
+    new Set(allItems.map((item) => item.code)).size,
+    allItems.length,
+  );
   for (const [group, items] of Object.entries(SHOP_POPULAR_ITEMS)) {
     assert.ok(items.length > 0, group);
     for (const item of items) {
       const master = masters.get(item.code);
       assert.ok(master, `${item.code} is in the product master`);
       assert.equal(master.status, "ACTIVE", item.code);
-      assert.equal(master.productGroup, group, item.code);
+      assert.equal(
+        shopGroupForProduct(item.code, master.productGroup),
+        group,
+        item.code,
+      );
     }
   }
   for (const group of SHOP_PRODUCT_GROUPS)
     assert.ok(SHOP_POPULAR_ITEMS[group.id]?.length, `${group.id} has items`);
+});
+
+test("footwear and hardware have separate suggestions, items and search categories", () => {
+  assert.deepEqual(SHOP_TYPE_PRODUCT_GROUPS.FOOTWEAR, ["footwear"]);
+  assert.deepEqual(SHOP_TYPE_PRODUCT_GROUPS.CLOTHING_TAILORING_STORE, [
+    "clothing",
+  ]);
+  assert.deepEqual(SHOP_TYPE_PRODUCT_GROUPS.HARDWARE, ["hardware"]);
+  assert.equal(shopGroupForProduct("CHAPPAL", "clothing"), "footwear");
+  assert.equal(shopGroupForProduct("SAREE", "clothing"), "clothing");
+  assert.equal(shopGroupForProduct("HAMMER", "household"), "hardware");
+  assert.equal(shopGroupForProduct("CPVC_PIPE", "household"), "hardware");
+  assert.equal(
+    shopGroupForProduct("DETERGENT_POWDER", "household"),
+    "household",
+  );
+  assert.ok(
+    shopDetails.safeParse({
+      shopType: "FOOTWEAR",
+      sells: ["footwear", "hardware"],
+    }).success,
+  );
+  assert.deepEqual(
+    shopGroupsWithProducts(["clothing", "household"], ["CHAPPAL", "HAMMER"]),
+    ["clothing", "household", "footwear", "hardware"],
+  );
 });
 
 test("shop type suggestions use seeded shop types and shop groups", () => {

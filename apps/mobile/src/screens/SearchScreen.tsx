@@ -37,6 +37,7 @@ import {
   voiceStatusText,
 } from "../components/VoiceMicButton";
 import { ListingImage } from "../components/dashboard/ListingImage";
+import { ProductPrice } from "../components/dashboard/ProductPrice";
 import { listingRate } from "../components/dashboard/listingText";
 
 const VOICE_HINTS = produceVoiceHints();
@@ -370,20 +371,23 @@ function Suggestion({
   const name = listingName(listing, language);
   const part = splitMatch(name, query);
   const sellers = listing.offerCount ?? 1;
+  const palette = theme.modules.marketplace;
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`${name}, ${listingRate(listing, language)}`}
+      accessibilityLabel={`${name}, ${listing.price === null ? t.contactForPrice : listingRate(listing, language)}`}
       onPress={onPress}
       style={({ pressed }) => [s.item, pressed && s.pressed]}
     >
-      <View style={s.itemImage}>
+      <View style={[s.itemImage, { backgroundColor: palette.tint }]}>
         <ListingImage listing={listing} style={s.photo} iconSize={22} />
       </View>
       <View style={s.itemBody}>
         <Text numberOfLines={1} style={s.itemName}>
           {part.before}
-          <Text style={s.itemMatch}>{part.match}</Text>
+          <Text style={[s.itemMatch, { color: palette.color }]}>
+            {part.match}
+          </Text>
           {part.after}
         </Text>
         <Text numberOfLines={1} style={s.itemMeta}>
@@ -394,9 +398,12 @@ function Suggestion({
               : listing.village}
         </Text>
       </View>
-      <Text numberOfLines={1} style={s.itemPrice}>
-        {listingRate(listing, language)}
-      </Text>
+      <ProductPrice
+        price={listing.price}
+        formatted={listingRate(listing, language)}
+        language={language}
+        style={[s.itemPrice, { color: palette.color }]}
+      />
     </Pressable>
   );
 }
@@ -503,7 +510,7 @@ const s = StyleSheet.create({
   itemBody: { flex: 1, minWidth: 0 },
   itemName: { ...theme.type.subheading, color: theme.colors.text },
   itemMatch: { color: theme.colors.primary, fontWeight: "800" },
-  itemMeta: { ...theme.type.caption, color: theme.colors.saffronText },
+  itemMeta: { ...theme.type.caption, color: theme.colors.muted },
   itemPrice: { ...theme.type.subheading, color: theme.colors.saffronText },
   none: { ...theme.type.body, color: theme.colors.muted, padding: 20 },
   pressed: { opacity: theme.interaction.pressedOpacity },

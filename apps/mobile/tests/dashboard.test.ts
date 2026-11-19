@@ -62,6 +62,8 @@ test("directory previews preserve real module identity, names, rates and missing
   const entry = directoryEntrySchema.parse({
     id: "a".repeat(24),
     module: "transport",
+    hours: "saved hours",
+    closed: true,
     name: "Pickup",
     nameMr: null,
     description: null,
@@ -76,6 +78,8 @@ test("directory previews preserve real module identity, names, rates and missing
     Date.parse("2026-10-29T10:05:00.000Z"),
   );
   assert.equal(preview.module, "transport");
+  assert.equal(preview.hours, "saved hours");
+  assert.equal(preview.closed, true);
   assert.equal(preview.nameMr, "Pickup");
   assert.equal(preview.postedMinutesAgo, 5);
   assert.equal(preview.price, null);

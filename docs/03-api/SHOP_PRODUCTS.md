@@ -4,6 +4,11 @@ User-approved product change, 2026-11-16. Shops (`SHOP_BUSINESS` provider
 profiles) say what they usually sell without listing every product, and buyers
 who search for a product also see nearby shops that sell it.
 
+User-approved revision, 2026-11-19: Clothes and Footwear are separate shop
+categories, as are Household and Hardware. Shop registration and edit hide
+the legacy Products / Items Available text box and Home Delivery switch;
+the API still accepts and preserves their saved values for compatibility.
+
 ## Seller flow (mobile, Shop / Business registration and edit)
 
 1. **Shop type** (existing `shopType` master). Picking a type pre-ticks the
@@ -22,13 +27,20 @@ only place with quantity and price.
 
 ## Data
 
-- `ProviderProfile.details.sells: string[]`, product group ids from
-  `LISTING_PRODUCT_GROUPS` (unique, at most all groups).
+- `ProviderProfile.details.sells: string[]`, ids from `SHOP_PRODUCT_GROUP_IDS`
+  (unique, at most all shop groups). This includes the shop-only `footwear`
+  and `hardware` ids as well as existing listing product groups.
 - `ProviderProfile.details.products: string[]`, active `ProductMaster` codes
   (unique, at most `MAX_SHOP_PRODUCTS`). The server rejects unknown or inactive
   codes with `INVALID_PRODUCT_CODE`.
 - The public directory entry (`services` collection) copies them to
   `productGroups` and `productCodes`, indexed with `status`, for search.
+- Product Master and listing groups are unchanged. The generated
+  `shopProductCategoryOverrides.ts` maps catalogue footwear products to
+  `footwear`, and hardware/plumbing/building products to `hardware`, for shop
+  search, popular items and mobile shop details. An existing shop's selected
+  items add their split categories when its edit form opens; records are not
+  bulk migrated. Owners can adjust their categories and save.
 - The directory entry DTO is unchanged (it is parsed strictly by installed
   APKs), so shop products are returned only by the new endpoint below.
 
@@ -59,6 +71,8 @@ search to its best product, then returns:
 
 `product` is `null` (and both lists empty) when the text matches no product.
 Entries use the existing `directoryEntrySchema`; guests get empty contacts.
+The response's `product.productGroup` uses the shop category for matching
+shops, including `footwear` and `hardware`.
 
 The mobile Search All screen shows, in order: farmer listings (confirmed,
 with quantity and price), "Shops that have <product>", then "<group> shops

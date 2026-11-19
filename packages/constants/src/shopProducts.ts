@@ -1,9 +1,38 @@
 import type { LISTING_PRODUCT_GROUPS } from "./index";
+import { SHOP_PRODUCT_CATEGORY_OVERRIDES } from "./shopProductCategoryOverrides";
 
 // What a shop says it usually sells: product groups, plus optional popular
 // items (Product Master codes). Not stock: listings carry quantity and price.
 // See docs/03-api/SHOP_PRODUCTS.md.
 export type ListingProductGroup = (typeof LISTING_PRODUCT_GROUPS)[number];
+export type ShopProductGroup = ListingProductGroup | "footwear" | "hardware";
+
+// Shop categories are more specific than the existing catalogue groups.
+export function shopGroupForProduct(
+  code: string,
+  productGroup: string,
+): string {
+  return (
+    SHOP_PRODUCT_CATEGORY_OVERRIDES[code] ??
+    (productGroup === "grain" ? "grains" : productGroup)
+  );
+}
+
+export function shopGroupsWithProducts(
+  groups: readonly string[],
+  products: readonly string[],
+): string[] {
+  return [
+    ...new Set([
+      ...groups,
+      ...products.flatMap((code) =>
+        SHOP_PRODUCT_CATEGORY_OVERRIDES[code]
+          ? [SHOP_PRODUCT_CATEGORY_OVERRIDES[code]]
+          : [],
+      ),
+    ]),
+  ];
+}
 type Tri = { en: string; mr: string; hi: string };
 
 // Ticking a group ticks all its popular items (2026-11-18), so the limit
@@ -13,7 +42,7 @@ export const MAX_SHOP_PRODUCTS = 450;
 // The groups a shop can pick, in the order the app shows them. The older
 // "grain" id is left out: the catalogue uses "grains".
 export const SHOP_PRODUCT_GROUPS: readonly ({
-  id: ListingProductGroup;
+  id: ShopProductGroup;
   icon: string;
 } & Tri)[] = [
   {
@@ -117,9 +146,16 @@ export const SHOP_PRODUCT_GROUPS: readonly ({
   {
     id: "household",
     icon: "home-outline",
-    en: "Household and Hardware",
-    mr: "घरगुती व हार्डवेअर",
-    hi: "घरेलू और हार्डवेयर",
+    en: "Household",
+    mr: "घरगुती वस्तू",
+    hi: "घरेलू सामान",
+  },
+  {
+    id: "hardware",
+    icon: "hammer-outline",
+    en: "Hardware",
+    mr: "हार्डवेअर",
+    hi: "हार्डवेयर",
   },
   {
     id: "personal_care",
@@ -131,9 +167,16 @@ export const SHOP_PRODUCT_GROUPS: readonly ({
   {
     id: "clothing",
     icon: "shirt-outline",
-    en: "Clothes and Footwear",
-    mr: "कपडे व पादत्राणे",
-    hi: "कपड़े और जूते",
+    en: "Clothes",
+    mr: "कपडे",
+    hi: "कपड़े",
+  },
+  {
+    id: "footwear",
+    icon: "footsteps-outline",
+    en: "Footwear",
+    mr: "पादत्राणे",
+    hi: "जूते-चप्पल",
   },
   {
     id: "handicrafts",
@@ -180,7 +223,7 @@ export const SHOP_PRODUCT_GROUPS: readonly ({
 ];
 export const SHOP_PRODUCT_GROUP_IDS = SHOP_PRODUCT_GROUPS.map(
   (group) => group.id,
-) as [ListingProductGroup, ...ListingProductGroup[]];
+) as [ShopProductGroup, ...ShopProductGroup[]];
 export function shopProductGroup(id: string) {
   return SHOP_PRODUCT_GROUPS.find((group) => group.id === id);
 }
@@ -188,7 +231,7 @@ export function shopProductGroup(id: string) {
 // Groups pre-ticked when a seller picks a seeded shop type (SHOP_TYPE master
 // codes are immutable). Types an admin adds later get no suggestion.
 export const SHOP_TYPE_PRODUCT_GROUPS: Readonly<
-  Record<string, readonly ListingProductGroup[]>
+  Record<string, readonly ShopProductGroup[]>
 > = {
   GROCERY: ["groceries", "grains", "pulses", "spices"],
   KIRANA_GENERAL_STORE: [
@@ -201,14 +244,14 @@ export const SHOP_TYPE_PRODUCT_GROUPS: Readonly<
   ],
   GENERAL_STORE: ["groceries", "household", "personal_care"],
   FISH_SELLER: ["meat_fish"],
-  HARDWARE: ["household"],
+  HARDWARE: ["hardware"],
   AGRI_INPUTS: ["farm_inputs"],
   VEGETABLE_FRUIT_SHOP: ["vegetables", "leafy_vegetables", "fruits"],
   DAIRY_MILK_BOOTH: ["dairy"],
   BAKERY_SWEETS: ["homemade", "groceries"],
   CLOTHING_TAILORING_STORE: ["clothing"],
-  FOOTWEAR: ["clothing"],
-  ELECTRONICS_MOBILE: ["household"],
+  FOOTWEAR: ["footwear"],
+  ELECTRONICS_MOBILE: ["hardware"],
   STATIONERY: ["household"],
   MEDICAL_STORE: ["personal_care"],
   POULTRY_MEAT: ["meat_fish", "eggs_poultry"],

@@ -115,9 +115,16 @@ export const SERVICE_CATEGORIES: readonly ServiceCategory[] = [
       [
         "CLOTHING_TAILORING_STORE",
         "shop",
-        "Clothing / Footwear",
-        "कपडे / पादत्राणे",
-        "कपड़े / जूते-चप्पल",
+        "Clothes / Tailoring Store",
+        "कपडे / शिलाईचे दुकान",
+        "कपड़े / सिलाई की दुकान",
+      ],
+      [
+        "FOOTWEAR",
+        "shop",
+        "Footwear",
+        "पादत्राणांचे दुकान",
+        "जूते-चप्पल की दुकान",
       ],
       [
         "ELECTRONICS_MOBILE",

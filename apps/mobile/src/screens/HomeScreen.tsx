@@ -39,10 +39,8 @@ import { HomeHero, HomeTopBar } from "../components/dashboard/HomeHero";
 import { browsingVillageFor } from "../storage/browsingVillage";
 import { ProductCard } from "../components/dashboard/ProductCard";
 import { ServiceCard } from "../components/dashboard/ServiceCard";
-import {
-  ActivityCard,
-  type ActivityCardData,
-} from "../components/dashboard/ActivityCard";
+import { ActivityCard } from "../components/dashboard/ActivityCard";
+import { providerActivity, type ActivityCardData } from "../data/activities";
 import { useMyProviderProfiles } from "../providerProfiles";
 import { BecomeSellerCard } from "../components/dashboard/SellerCards";
 import {
@@ -464,13 +462,7 @@ export default function HomeScreen() {
       : []),
     ...(mine.data?.profiles ?? [])
       .filter((profile) => profile.mine)
-      .map((profile) => ({
-        id: profile.id,
-        kind: "profile" as const,
-        title: profile.name,
-        providerType: profile.providerType,
-        active: profile.status === "ACTIVE",
-      })),
+      .map(providerActivity),
   ];
   const activities: ActivityCardData[] = own;
   return (

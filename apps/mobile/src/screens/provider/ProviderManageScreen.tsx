@@ -7,6 +7,7 @@ import {
   ProviderType,
   isFacilityType,
   providerKind,
+  shopGroupsWithProducts,
 } from "@gaavli/constants";
 import { useAppStore } from "../../store";
 import { formatMessage, messages } from "../../i18n";
@@ -95,6 +96,12 @@ export default function ProviderManageScreen() {
     const next: Details = {};
     for (const field of PROVIDER_KINDS[profile.providerType].fields) {
       next[field.key] = detailFromServer(field, profile.details[field.key]);
+    }
+    if (profile.providerType === ProviderType.SHOP_BUSINESS) {
+      next.sells = shopGroupsWithProducts(
+        Array.isArray(next.sells) ? next.sells : [],
+        Array.isArray(next.products) ? next.products : [],
+      );
     }
     setDetails(next);
   }, [profile]);

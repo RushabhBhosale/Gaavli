@@ -157,6 +157,7 @@ export default function GlobalSearchScreen() {
           <View style={s.section}>
             <SectionHeader
               icon="storefront-outline"
+              tone="marketplace"
               title={t.dashboardMarketplace}
               badge={String(productTotal)}
               action={productTotal > SHOWN ? t.viewAll : undefined}
@@ -167,6 +168,7 @@ export default function GlobalSearchScreen() {
                 key={row.id}
                 listing={row}
                 language={language}
+                tone="marketplace"
                 onPress={() =>
                   router.push({
                     pathname: "/product/[id]",
@@ -247,10 +249,13 @@ function Group({
   const router = useRouter();
   const language = useAppStore((state) => state.language);
   const t = messages(language);
+  const module = rows[0]?.module === "transport" ? "transport" : "services";
+  const palette = theme.modules[module];
   return (
     <View style={s.section}>
       <SectionHeader
         icon={icon}
+        tone={module}
         title={title}
         badge={String(total)}
         action={total > shown ? t.viewAll : undefined}
@@ -265,12 +270,12 @@ function Group({
           }
           style={({ pressed }) => [s.row, pressed && s.pressed]}
         >
-          <View style={s.rowIcon}>
+          <View style={[s.rowIcon, { backgroundColor: palette.tint }]}>
             <Ionicons
               accessible={false}
               name={icon}
               size={22}
-              color={theme.colors.primary}
+              color={palette.color}
             />
           </View>
           <View style={s.rowCopy}>

@@ -42,6 +42,7 @@ import { theme } from "../theme";
 import { listingTagLabel } from "@gaavli/constants";
 import { Button, ErrorMessage, Input, SkeletonList } from "../components/ui";
 import { Badge, d } from "../components/dashboard/primitives";
+import { ProductPrice } from "../components/dashboard/ProductPrice";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { ListingImage } from "../components/dashboard/ListingImage";
 import {
@@ -503,11 +504,12 @@ function ProductDetailsContent({ id }: { id: string }) {
                 )}
                 <View style={s.priceCard}>
                   <View style={s.priceCopy}>
-                    <Text style={s.price}>
-                      {listing.price === null
-                        ? t.rateNotProvided
-                        : `₹${listing.price}`}
-                    </Text>
+                    <ProductPrice
+                      price={listing.price}
+                      formatted={`₹${listing.price}`}
+                      language={language}
+                      style={s.price}
+                    />
                     {listing.price !== null && !!unit && (
                       <Text style={s.priceUnit}>/ {unit}</Text>
                     )}
@@ -548,7 +550,7 @@ function ProductDetailsContent({ id }: { id: string }) {
                           : offer.village.name;
                       const rate =
                         offer.price === null
-                          ? t.rateNotProvided
+                          ? t.contactForPrice
                           : `₹${offer.price}${unit ? ` / ${unit}` : ""}`;
                       const person = offer.seller?.name ?? where;
                       const phone = offer.seller?.mobile ?? null;
@@ -607,7 +609,12 @@ function ProductDetailsContent({ id }: { id: string }) {
                             )}
                           </View>
                           <View style={s.offerRight}>
-                            <Text style={s.offerPrice}>{rate}</Text>
+                            <ProductPrice
+                              price={offer.price}
+                              formatted={rate}
+                              language={language}
+                              style={s.offerPrice}
+                            />
                             {!!phone && (
                               <Pressable
                                 accessibilityRole="button"

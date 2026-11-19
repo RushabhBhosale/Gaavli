@@ -490,6 +490,7 @@ const en = {
     "Offline: previously loaded listings may have changed. Connect to refresh.",
   listingsOfflineEmpty: "Connect to load listings from your village.",
   rateNotProvided: "Rate not provided",
+  contactForPrice: "Contact seller for price",
   demoListing: "Demo listing",
   demoListingDescription:
     "Sample product, image, price and quantity for testing; not an actual seller offer.",
@@ -1323,6 +1324,7 @@ const mr: Messages = {
     "इंटरनेट बंद आहे: आधी लोड केलेल्या नोंदी बदलल्या असू शकतात. ताज्या माहितीसाठी इंटरनेटशी जोडा.",
   listingsOfflineEmpty: "तुमच्या गावातील नोंदी लोड करण्यासाठी इंटरनेटशी जोडा.",
   rateNotProvided: "दर दिलेला नाही",
+  contactForPrice: "दरासाठी विक्रेत्याशी संपर्क करा",
   demoListing: "नमुना नोंद",
   demoListingDescription:
     "चाचणीसाठी नमुना शेतमाल, चित्र, दर आणि प्रमाण; विक्रेत्याची खरी विक्रीची नोंद नाही.",
