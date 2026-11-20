@@ -3,6 +3,8 @@ import type { MobileLanguage } from "@gaavli/types";
 
 export type ProductImageKey = "tomato" | "onion" | "potato" | "rice" | "mango";
 export type HomeListing = {
+  hours?: string | null;
+  closed?: boolean;
   availability?: "available" | "sold_out" | "expired";
   module?: "marketplace" | "services" | "transport";
   id: string;
@@ -69,6 +71,7 @@ export type HomeDestination =
   | "/services"
   | "/transport"
   | "/village-coordinator"
+  | "/mapped-villages"
   | "/activities"
   | "/provider/type"
   | `/provider/${string}`;

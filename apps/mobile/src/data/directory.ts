@@ -9,6 +9,8 @@ export function directoryPreview(
   return {
     id: entry.id,
     module: entry.module,
+    hours: entry.hours,
+    closed: entry.closed,
     name: entry.name,
     nameMr: entry.nameMr || entry.name,
     description: entry.description,

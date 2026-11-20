@@ -23,7 +23,7 @@ import { CategoryIcon } from "../components/dashboard/CategoryIcon";
 // and below it the list of what is available (all of it, or the chosen
 // category). Search filters the same list.
 export default function DirectoryScreen({
-  module,
+  module: initialModule,
   asTab = false,
 }: {
   module: "services" | "transport";
@@ -31,6 +31,9 @@ export default function DirectoryScreen({
   asTab?: boolean;
 }) {
   const router = useRouter();
+  // Transport is a kind of service, so one screen switches between the two
+  // lists; each keeps its own categories and search.
+  const [module, setModule] = useState(initialModule);
   const { language, offline } = useAppStore();
   const t = messages(language);
   const scrollRef = useRef<ScrollView>(null);
@@ -84,6 +87,13 @@ export default function DirectoryScreen({
       ? t.directoryAvailableServices
       : t.directoryAvailableTransport;
   const tone = theme.modules[module];
+  const switchTo = (next: "services" | "transport") => {
+    if (next === module) return;
+    setModule(next);
+    setCategory(null);
+    setInput("");
+    setSearch("");
+  };
   return (
     <ProtectedPage allowGuest>
       <Screen
@@ -108,6 +118,42 @@ export default function DirectoryScreen({
                 : undefined
             }
           >
+            <View accessibilityRole="tablist" style={s.switch}>
+              {(["services", "transport"] as const).map((kind) => {
+                const on = kind === module;
+                return (
+                  <Pressable
+                    key={kind}
+                    accessibilityRole="tab"
+                    accessibilityState={{ selected: on }}
+                    onPress={() => switchTo(kind)}
+                    style={[s.segment, on && s.segmentOn]}
+                  >
+                    <Ionicons
+                      accessible={false}
+                      name={
+                        kind === "services" ? "build-outline" : "car-outline"
+                      }
+                      size={18}
+                      color={
+                        on ? theme.modules[kind].color : theme.colors.heroText
+                      }
+                    />
+                    <Text
+                      numberOfLines={1}
+                      style={[
+                        s.segmentText,
+                        on && { color: theme.modules[kind].color },
+                      ]}
+                    >
+                      {kind === "services"
+                        ? t.dashboardServices
+                        : t.dashboardTransport}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
             <HeaderSearch
               label={t.search}
               placeholder={
@@ -254,6 +300,27 @@ export default function DirectoryScreen({
   );
 }
 const s = StyleSheet.create({
+  // Services | Transport, on the dark header band.
+  switch: {
+    flexDirection: "row",
+    padding: 3,
+    gap: 3,
+    borderRadius: theme.radii.control,
+    backgroundColor: theme.colors.heroSurface,
+    borderWidth: 1,
+    borderColor: theme.colors.heroBorder,
+  },
+  segment: {
+    flex: 1,
+    minHeight: 38,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    borderRadius: theme.radii.control - 3,
+  },
+  segmentOn: { backgroundColor: theme.colors.surface },
+  segmentText: { ...theme.type.label, color: theme.colors.heroText },
   sectionTitle: { ...theme.type.heading, color: theme.colors.heading },
   // Bleeds to the screen edges so the chips scroll under the margins.
   chipScroll: { marginHorizontal: -theme.layout.screenPadding, flexGrow: 0 },

@@ -430,6 +430,10 @@ export const hi: Messages = {
   availableInVillage: "देखें आज {village} में क्या उपलब्ध है",
   freshInVillage: "आपके गाँव में ताज़ा",
   viewAll: "सब देखें",
+  nearbyVillages: "आस-पास के गाँव",
+  homeOffersCount: "{count} ऑफ़र",
+  homeNearbyCount: "{count} आस-पास",
+  nearbyAway: "{distance} किमी दूर",
   marketplace: "बाज़ार",
   marketplaceBrandTagline: "आपका गाँव। आपका बाज़ार।",
   marketplaceSearchPlaceholder: "उत्पाद खोजें",
@@ -482,6 +486,7 @@ export const hi: Messages = {
     "ऑफ़लाइन: पहले लोड हुई लिस्टिंग बदल चुकी हो सकती हैं। ताज़ा करने के लिए इंटरनेट से जुड़ें।",
   listingsOfflineEmpty: "अपने गाँव की लिस्टिंग देखने के लिए इंटरनेट से जुड़ें।",
   rateNotProvided: "दर नहीं दी गई",
+  contactForPrice: "कीमत के लिए विक्रेता से संपर्क करें",
   demoListing: "डेमो लिस्टिंग",
   demoListingDescription:
     "परीक्षण के लिए नमूना उत्पाद, फ़ोटो, कीमत और मात्रा; यह किसी विक्रेता का असली ऑफ़र नहीं है।",

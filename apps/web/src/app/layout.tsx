@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Providers } from "./providers";
 import "./globals.css";
 export const metadata: Metadata = {
-  title: "Gaavli · Admin Portal",
-  description: "Manage today for a stronger rural tomorrow.",
+  title: "Gaavli · Your village, closer than ever",
+  description:
+    "Discover products, services, transport and people around your village with Gaavli.",
 };
 export default function RootLayout({
   children,

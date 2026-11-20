@@ -25,7 +25,7 @@ export function useDashboardDirectory() {
     enabled: !!village && (!session || !!session.user.village),
     queryFn: ({ signal }) =>
       (session ? authenticatedApi : api)(
-        `/dashboard?sourceVillageId=${village!.id}`,
+        `/dashboard?sourceVillageId=${village!.id}&v=2`,
         dashboardDirectorySchema,
         { signal },
       ),

@@ -1,18 +1,19 @@
 // Five slots with the mic always in the middle. Guests get the market, Gram
-// Seva and Transport. A buyer gets Requests, Profile and More.
+// Seva and Settings. A buyer gets Requests, Profile and More.
 // Sellers and coordinators get their own work first and a "More" button for
-// everything else (market, Gram Seva, Transport, Settings).
+// everything else (market, Gram Seva, Settings). Transport lives inside
+// Services, so it has no tab of its own.
 export function tabSlots(account: {
   signedIn: boolean;
   seller: boolean;
   coordinator: boolean;
 }): { second: string; fourth: string; fifth: string; more: string[] } {
-  const rest = ["marketplace", "services", "transport", "profile"];
+  const rest = ["marketplace", "services", "profile"];
   if (!account.signedIn)
     return {
       second: "marketplace",
       fourth: "services",
-      fifth: "transport",
+      fifth: "profile",
       more: [],
     };
   if (account.coordinator)
@@ -30,11 +31,11 @@ export function tabSlots(account: {
       more: rest,
     };
   // A new buyer: Home, Requests, the mic, Profile and More (market, services,
-  // transport). Selling or coordinating changes the bar, as above.
+  // Settings tab). Selling or coordinating changes the bar, as above.
   return {
     second: "activity",
     fourth: "profile",
     fifth: "more",
-    more: ["marketplace", "services", "transport"],
+    more: ["marketplace", "services"],
   };
 }

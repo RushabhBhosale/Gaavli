@@ -5,7 +5,7 @@ import type {
   directorySummaryQuerySchema,
   productShopsQuerySchema,
 } from "@gaavli/validation";
-import { SHOWN_AS_HOME_EXCLUDED } from "@gaavli/constants";
+import { SHOWN_AS_HOME_EXCLUDED, shopGroupForProduct } from "@gaavli/constants";
 import { Village, type UserRecord } from "../models";
 import {
   directorySummary,
@@ -67,8 +67,7 @@ export async function productShops(
   const [best] = query.q ? (await searchCatalog(query.q, 1)).products : [];
   if (!best) return { product: null, haveIt: empty, sellsGroup: empty };
   // Older rows use "grain"; shops pick the catalogue's "grains".
-  const productGroup =
-    best.productGroup === "grain" ? "grains" : best.productGroup;
+  const productGroup = shopGroupForProduct(best.code, best.productGroup);
   const shops = await findProductShops(
     query.sourceVillageId,
     { code: best.code, productGroup },

@@ -11,6 +11,8 @@ import { messages } from "../../i18n";
 import { theme } from "../../theme";
 import { listingName, type HomeListing } from "../../types/home";
 import type { IconName } from "./primitives";
+import { openState } from "../../data/operatingHours";
+import { useListingClock } from "../../hooks/useListingClock";
 
 // A person or vehicle you can book: the name in full, what they do, and where.
 export function ServiceCard({
@@ -23,6 +25,14 @@ export function ServiceCard({
   onPress: () => void;
 }) {
   const t = messages(language);
+  const now = useListingClock();
+  const state = openState(listing.hours, !!listing.closed, new Date(now));
+  const status =
+    state === "open"
+      ? t.directoryOpenNow
+      : state === "closed"
+        ? t.directoryClosedNow
+        : null;
   const { width, fontScale } = useWindowDimensions();
   // Exactly the Marketplace card's width, so the three rows line up.
   const cardWidth = Math.max(
@@ -44,7 +54,7 @@ export function ServiceCard({
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={[name, detail, t.directoryAvailable].join(", ")}
+      accessibilityLabel={[name, detail, status].filter(Boolean).join(", ")}
       onPress={onPress}
       style={({ pressed }) => [
         s.card,
@@ -69,10 +79,14 @@ export function ServiceCard({
             {detail}
           </Text>
         )}
-        <View style={s.status}>
-          <View style={s.dot} />
-          <Text style={s.statusText}>{t.directoryAvailable}</Text>
-        </View>
+        {status && (
+          <View style={s.status}>
+            <View style={[s.dot, state === "closed" && s.closedDot]} />
+            <Text style={[s.statusText, state === "closed" && s.closedText]}>
+              {status}
+            </Text>
+          </View>
+        )}
       </View>
     </Pressable>
   );
@@ -139,5 +153,7 @@ const s = StyleSheet.create({
     backgroundColor: theme.colors.primary,
   },
   statusText: { ...theme.type.label, color: theme.colors.primaryDark },
+  closedDot: { backgroundColor: theme.colors.error },
+  closedText: { color: theme.colors.error },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });

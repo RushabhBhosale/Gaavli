@@ -62,6 +62,8 @@ test("directory previews preserve real module identity, names, rates and missing
   const entry = directoryEntrySchema.parse({
     id: "a".repeat(24),
     module: "transport",
+    hours: "saved hours",
+    closed: true,
     name: "Pickup",
     nameMr: null,
     description: null,
@@ -76,6 +78,8 @@ test("directory previews preserve real module identity, names, rates and missing
     Date.parse("2026-10-29T10:05:00.000Z"),
   );
   assert.equal(preview.module, "transport");
+  assert.equal(preview.hours, "saved hours");
+  assert.equal(preview.closed, true);
   assert.equal(preview.nameMr, "Pickup");
   assert.equal(preview.postedMinutesAgo, 5);
   assert.equal(preview.price, null);
@@ -1129,10 +1133,10 @@ test("optional product photos can be omitted, preserved, replaced and explicitly
 });
 
 test("bottom bar keeps the mic in the middle and follows the account", () => {
-  const rest = ["marketplace", "services", "transport", "profile"];
+  const rest = ["marketplace", "services", "profile"];
   assert.deepEqual(
     tabSlots({ signedIn: false, seller: false, coordinator: false }),
-    { second: "marketplace", fourth: "services", fifth: "transport", more: [] },
+    { second: "marketplace", fourth: "services", fifth: "profile", more: [] },
   );
   assert.deepEqual(
     tabSlots({ signedIn: true, seller: true, coordinator: false }),
@@ -1144,7 +1148,7 @@ test("bottom bar keeps the mic in the middle and follows the account", () => {
       second: "activity",
       fourth: "profile",
       fifth: "more",
-      more: ["marketplace", "services", "transport"],
+      more: ["marketplace", "services"],
     },
   );
   assert.deepEqual(

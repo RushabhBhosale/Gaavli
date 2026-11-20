@@ -11,6 +11,7 @@ import { theme } from "../../theme";
 import { formatMessage, messages } from "../../i18n";
 import { listingName, type HomeListing } from "../../types/home";
 import { ListingImage } from "./ListingImage";
+import { ProductPrice } from "./ProductPrice";
 import { listingQuantity, listingRate } from "./listingText";
 import { Badge } from "./primitives";
 
@@ -46,9 +47,9 @@ export function ProductCard({
     : isTransport
       ? t.dashboardTransport
       : t.dashboardMarketplace;
-  const hasPrice = listing.price !== null;
   const sellers = listing.offerCount ?? 1;
-  const rate = listingRate(listing, language);
+  const rate =
+    listing.price === null ? t.contactForPrice : listingRate(listing, language);
   return (
     <Pressable
       accessibilityRole="button"
@@ -75,13 +76,14 @@ export function ProductCard({
       ) : (
         <View style={[s.image, compact && s.imageCompact]}>
           <ListingImage listing={listing} style={s.photo} iconSize={40} />
-          {hasPrice && (
-            <View style={s.priceChip}>
-              <Text numberOfLines={1} style={s.priceChipText}>
-                {rate}
-              </Text>
-            </View>
-          )}
+          <View style={s.priceChip}>
+            <ProductPrice
+              price={listing.price}
+              formatted={rate}
+              language={language}
+              style={s.priceChipText}
+            />
+          </View>
         </View>
       )}
       <View style={s.body}>
@@ -92,11 +94,6 @@ export function ProductCard({
         <Text numberOfLines={compact ? 1 : 2} style={s.name}>
           {name}
         </Text>
-        {!hasPrice && !isDirectory && (
-          <Text numberOfLines={1} style={s.noPrice}>
-            {rate}
-          </Text>
-        )}
         {isDirectory ? (
           <Text numberOfLines={1} style={s.meta}>
             {t.directoryAvailable}
@@ -168,7 +165,6 @@ const s = StyleSheet.create({
     color: theme.colors.saffronText,
     fontWeight: "600",
   },
-  noPrice: { ...theme.type.caption, color: theme.colors.muted },
   meta: { fontSize: 13, lineHeight: 18, color: theme.colors.muted },
   locationRow: { flexDirection: "row", alignItems: "center", gap: 3 },
   village: { flex: 1 },

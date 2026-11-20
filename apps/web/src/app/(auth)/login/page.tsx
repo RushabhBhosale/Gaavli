@@ -4,7 +4,7 @@ import { LoginForm } from "@/features/auth/login-form";
 import { Brand } from "@/components/shared/brand";
 export const dynamic = "force-dynamic";
 export default async function LoginPage() {
-  if (await currentAdmin()) redirect("/");
+  if (await currentAdmin()) redirect("/admin");
   return (
     <main className="flex min-h-dvh items-center justify-center p-4 sm:p-8">
       <div className="card grid min-h-[620px] w-full max-w-5xl overflow-hidden md:grid-cols-[.9fr_1.1fr]">

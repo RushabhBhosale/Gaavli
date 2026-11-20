@@ -1,3 +1,79 @@
+## 2026-11-19 - Phone icon for products without a price
+
+- Added a shared ProductPrice display: missing prices show a phone icon in
+  the existing price slot, with a translated Contact seller for price
+  accessibility label. Applied to Home, Marketplace (including past listings),
+  search, My Listings, Product Details and seller offers. Home always uses
+  the image's price badge; missing prices no longer add a separate body row.
+- This display keeps existing product navigation and protected contact actions.
+  Prices, price ranges, units and quantities keep their existing behaviour.
+- Mobile TypeScript, targeted ESLint, 35 dashboard/locale tests and whitespace
+  checks passed. Device rendering and phone interactions remain unverified.
+
+## 2026-11-19 - Marketplace category label cleanup
+
+- Removed numbers beneath Marketplace category icons. Labels show the first
+  word on one line and remaining text on a second line, with tail truncation
+  within each line so words never wrap into fragments. Two lines maximum;
+  accessibility labels retain the full category name.
+- Mobile TypeScript, targeted ESLint and whitespace checks passed. Device
+  rendering remains unverified.
+
+## 2026-11-19 - Subtle search accents and My Activities opening status
+
+- Search results use white cards, neutral borders and dark names. Module
+  colours remain on section headings, small icon backgrounds and marketplace
+  prices/matched text instead of filling and outlining every result.
+- Fixed the remaining Available label in Home's My Activities cards. The
+  profile adapter now includes the provider's saved hours and owner-closed
+  setting; active profiles show Open now / Closed and update as time passes
+  or the app resumes. Unknown hours show no badge, and inactive profiles keep
+  their separate Inactive label.
+- Mobile TypeScript, targeted ESLint, all 115 mobile tests and whitespace
+  checks passed. Tests cover hours, weekly closure, owner closure, inactive
+  profiles and missing/legacy hours through the My Activities adapter.
+  Device rendering and installed APK behaviour remain unverified.
+
+## 2026-11-19 - Marketplace icons, provider status, shop categories and search colours
+
+- Marketplace filters use the same 48pt circular category icons as Services,
+  with selected states and existing product counts. Home service/transport
+  cards show Open now / Closed from saved hours and the owner's closed switch;
+  no status is shown for unknown hours. Home requests `v=2` for the closed flag.
+- Shop forms and shop details separate Clothes, Footwear, Household and
+  Hardware, with distinct suggestions and popular items. The service picker
+  also offers separate Clothes / Tailoring and Footwear entries using existing
+  seeded master codes. Shop search maps catalogue products to these shop
+  categories; listing/Product Master groups are unchanged. No database migration
+  was run; existing selected items restore split categories when editing.
+- Shop add/edit hide Home Delivery and the legacy Products / Items Available
+  input. Saved values and API compatibility remain intact.
+- Global search result cards and section headings use green for Marketplace,
+  purple for Services (including shops) and teal for Transport. Marketplace
+  suggestions in the search overlay use green too.
+- Verification: shared, mobile and web TypeScript checks passed; all 113 mobile
+  unit tests and 8 shop-product tests passed. Targeted mobile/web ESLint and
+  whitespace checks passed. Device/emulator rendering and live API/database
+  flows remain unverified; deployment and a new app build are required to use
+  the changes outside this checkout.
+
+## 2026-11-18 - Standalone Android backend configuration
+
+- The local release APK built at 12:42 contained no production API URL, while
+  live health and village discovery returned 200. Added
+  `npm run build:android:release` to load the mobile production environment,
+  require HTTPS `/api/v1`, and pass that public address into Expo's release bundle.
+- Gradle tracks the API address as a bundle input and refuses a release bundle
+  without an explicit HTTPS API address. This prevents reuse of a cached bundle
+  when the configured backend changes.
+- `npm run build:android:release` passed; both arm64-v8a and armeabi-v7a APKs
+  passed archive integrity checks and contain the production API URL in their
+  embedded JS bundle. Script syntax/formatting and whitespace checks passed;
+  an HTTP localhost override was rejected before starting Gradle. Live health
+  and village reads returned 200; invalid login input returned the expected 422
+  without issuing an OTP. No Android device was connected, so installed login
+  and OTP acceptance remain unverified. Reinstall the rebuilt APK to apply it.
+
 ## 2026-11-18 - Daily listing limit and one listing per product
 
 - A seller may create at most `DAILY_LISTING_LIMIT` (2) new product listings

@@ -1,3 +1,9 @@
+> Shop category revision - 2026-11-19 (user approved): shop profile
+> `details.sells` and directory `productGroups` additionally accept `footwear`
+> and `hardware`, separately from `clothing` and `household`. These are shop
+> categories only; Product Master and listing groups remain unchanged. Existing
+> records are preserved, with no bulk migration. See `../03-api/SHOP_PRODUCTS.md`.
+
 # Provider masters — 2026-11-04 (user approved)
 
 New `providerMasters` stores providerType, masterType, immutable code, required

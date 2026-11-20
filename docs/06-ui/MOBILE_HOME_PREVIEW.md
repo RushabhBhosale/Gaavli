@@ -1,3 +1,23 @@
+# Home grid revision — 2026-11-19 (user approved)
+
+Home keeps the existing header. Under it are two small count cards,
+Marketplace (listing total) and Services (services plus transport total, shown
+when loaded); each opens its page. Transport and Coordinator are no longer on
+Home. Below it, a single "Fresh in your village" section shows the
+newest six listings as two rows of three small tiles (photo with price chip,
+name, village). Home no longer shows Services, Transport or My Activity
+sections. A "Nearby villages" strip lists the villages mapped to the selected
+browsing village (distance when the API provides it) and opens Mapped villages;
+it is hidden until the list loads or when empty. The Become seller card shows to
+every non-seller, guests included (guests get the sign-up prompt).
+
+Transport is a part of Services: the Services screen has a Services | Transport
+switch above the search box, each list with its own categories and search. No
+API or data changes; the /transport route opens the same screen on Transport.
+The bottom bar has no Transport tab: guests get Home, Market, mic, Services and
+Settings, and signed-in accounts keep their layout with Transport removed from
+More. The Village Coordinator entry is in Settings, in the Help section.
+
 # Database-only marketplace revision — 2026-10-14
 
 Latest Product Details layout — 2026-10-15: large full-width 4:3 product photo,

@@ -17,6 +17,7 @@
     "test": "node scripts/workspace.mjs run test --workspaces --if-present",
     "test:health": "tsx scripts/verify-health.ts",
     "build:web": "node scripts/workspace.mjs run build --workspace=@gaavli/web",
+    "build:android:release": "node scripts/build-mobile-release.mjs",
     "export:android": "node scripts/workspace.mjs run export:android --workspace=@gaavli/mobile"
   },
   "devDependencies": {

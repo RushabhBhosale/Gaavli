@@ -1,3 +1,8 @@
+> Shop category revision - 2026-11-19 (user approved): shop
+> `details.sells` accepts separate `footwear` and `hardware` ids. Product shop
+> search returns these shop categories in `product.productGroup`; Product
+> Master/listing groups are unchanged. See `SHOP_PRODUCTS.md`.
+
 # Directory contact authentication — 2026-11-13 (user approved)
 
 Guest `/dashboard`, `/directory` and `/directory/:id` responses use empty

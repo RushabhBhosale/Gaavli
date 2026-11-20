@@ -1,11 +1,11 @@
 import { useCallback, useRef, useState } from "react";
 import {
-  FlatList,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -17,11 +17,10 @@ import { showGuestSignUpPrompt } from "../components/guestSignUpPrompt";
 import { useFocusEffect, useRouter } from "expo-router";
 import type { MobileLanguage } from "@gaavli/types";
 import { useAppStore } from "../store";
-import { messages } from "../i18n";
+import { formatMessage, messages } from "../i18n";
 import { liveDashboard } from "../data/listings";
-import { directoryPreview } from "../data/directory";
 import { useHomeListings } from "../listings";
-import { useDashboardDirectory } from "../directory";
+import { useDashboardDirectory, useDirectorySummary } from "../directory";
 import { useListingClock } from "../hooks/useListingClock";
 import {
   Button,
@@ -37,13 +36,8 @@ import type {
 } from "../types/home";
 import { HomeHero, HomeTopBar } from "../components/dashboard/HomeHero";
 import { browsingVillageFor } from "../storage/browsingVillage";
-import { ProductCard } from "../components/dashboard/ProductCard";
-import { ServiceCard } from "../components/dashboard/ServiceCard";
-import {
-  ActivityCard,
-  type ActivityCardData,
-} from "../components/dashboard/ActivityCard";
-import { useMyProviderProfiles } from "../providerProfiles";
+import { ProductTile } from "../components/dashboard/ProductTile";
+import { NearbyVillages } from "../components/dashboard/NearbyVillages";
 import { BecomeSellerCard } from "../components/dashboard/SellerCards";
 import {
   PreviewBanner,
@@ -51,6 +45,10 @@ import {
   d,
   type IconName,
 } from "../components/dashboard/primitives";
+
+// Two rows of three tiles on Home; the rest of the market is one tap away.
+const TILE_GAP = 8;
+const HOME_TILES = 6;
 
 const h = StyleSheet.create({
   content: {
@@ -61,66 +59,90 @@ const h = StyleSheet.create({
     alignSelf: "center",
   },
   body: { paddingHorizontal: theme.layout.screenPadding, gap: 16 },
-  // One white card of four destinations, overlapping the dark hero.
+  // One bordered card with the two modules side by side in a single row,
+  // overlapping the dark hero. Each half opens its own page; the module
+  // colour is only on the icon.
   quick: {
-    flexDirection: "row",
     marginTop: -24,
-    paddingVertical: 14,
-    paddingHorizontal: 4,
-    borderRadius: theme.radii.card,
+    flexDirection: "row",
+    overflow: "hidden",
+    borderRadius: theme.radii.control,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
   },
-  action: { flex: 1, alignItems: "center", gap: 6, paddingHorizontal: 2 },
+  action: {
+    flex: 1,
+    minHeight: 60,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  actionDivider: {
+    borderLeftWidth: 1,
+    borderLeftColor: theme.colors.border,
+  },
   actionIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: theme.colors.tint,
+    width: 36,
+    height: 36,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
   },
-  actionLabel: {
-    ...theme.type.micro,
-    color: theme.colors.heading,
-    textAlign: "center",
-    minHeight: 20,
-  },
+  actionText: { flex: 1 },
+  actionLabel: { ...theme.type.label, color: theme.colors.heading },
+  actionCount: { ...theme.type.caption, color: theme.colors.muted },
+  grid: { flexDirection: "row", flexWrap: "wrap", gap: TILE_GAP },
   pressed: { opacity: theme.interaction.pressedOpacity },
 });
 
 function QuickAction({
   icon,
   title,
+  count,
   onPress,
   tone,
+  divider = false,
 }: {
   icon: IconName;
   title: string;
+  count?: string;
   onPress: () => void;
   tone: keyof typeof theme.modules;
+  divider?: boolean;
 }) {
+  const module = theme.modules[tone];
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={title}
+      accessibilityLabel={count ? `${title}, ${count}` : title}
       onPress={onPress}
-      style={({ pressed }) => [h.action, pressed && h.pressed]}
+      style={({ pressed }) => [
+        h.action,
+        divider && h.actionDivider,
+        pressed && h.pressed,
+      ]}
     >
-      <View
-        style={[h.actionIcon, { backgroundColor: theme.modules[tone].tint }]}
-      >
+      <View style={[h.actionIcon, { backgroundColor: module.tint }]}>
         <Ionicons
           accessible={false}
           name={icon}
-          size={24}
-          color={theme.modules[tone].color}
+          size={20}
+          color={module.color}
         />
       </View>
-      <Text numberOfLines={2} style={h.actionLabel}>
-        {title}
-      </Text>
+      <View style={h.actionText}>
+        <Text numberOfLines={1} style={h.actionLabel}>
+          {title}
+        </Text>
+        {!!count && (
+          <Text numberOfLines={1} style={h.actionCount}>
+            {count}
+          </Text>
+        )}
+      </View>
     </Pressable>
   );
 }
@@ -131,34 +153,27 @@ export function HomeDashboard({
   onNavigate,
   onProductPress,
   listingStatus,
-  directoryStatus,
-  directoryReady,
-  listingsReady,
-  services = [],
-  transport = [],
-  activities = [],
 }: {
   data: HomeDashboardData;
   language: MobileLanguage;
   onNavigate: (route: HomeDestination) => void;
   onProductPress: (listing: HomeListing) => void;
   listingStatus?: React.ReactNode;
-  directoryStatus?: React.ReactNode;
-  directoryReady?: boolean;
-  listingsReady?: boolean;
-  services?: HomeListing[];
-  transport?: HomeListing[];
-  activities?: ActivityCardData[];
 }) {
   const t = messages(language);
-  const signedIn = useAppStore((state) => !!state.session);
   const offline = useAppStore((state) => state.offline);
   const insets = useSafeAreaInsets();
-  const [emptyOpen, setEmptyOpen] = useState(false);
-  const [emptyServicesOpen, setEmptyServicesOpen] = useState(false);
-  const [emptyTransportOpen, setEmptyTransportOpen] = useState(false);
-  // Nothing to show yet: the section folds away and has no "View All".
-  const noListings = !!listingsReady && !data.listings.length;
+  const { width } = useWindowDimensions();
+  // Three tiles across the content column, two rows of them.
+  const tileWidth = Math.floor(
+    (Math.min(width, theme.layout.contentWidth) -
+      theme.layout.screenPadding * 2 -
+      TILE_GAP * 2) /
+      3,
+  );
+  const tiles = data.listings.slice(0, HOME_TILES);
+  // Transport is part of Services now, so the one count covers both.
+  const servicesTotal = (data.serviceCount ?? 0) + (data.transportCount ?? 0);
   const [focused, setFocused] = useState(true);
   useFocusEffect(
     useCallback(() => {
@@ -189,25 +204,26 @@ export function HomeDashboard({
               icon="storefront-outline"
               tone="marketplace"
               title={t.dashboardMarketplace}
+              count={
+                data.listingCount
+                  ? formatMessage(t.homeOffersCount, {
+                      count: data.listingCount,
+                    })
+                  : undefined
+              }
               onPress={() => onNavigate("/marketplace")}
             />
             <QuickAction
+              divider
               icon="build-outline"
               tone="services"
               title={t.dashboardServices}
+              count={
+                servicesTotal
+                  ? formatMessage(t.homeNearbyCount, { count: servicesTotal })
+                  : undefined
+              }
               onPress={() => onNavigate("/services")}
-            />
-            <QuickAction
-              icon="car-outline"
-              tone="transport"
-              title={t.dashboardTransport}
-              onPress={() => onNavigate("/transport")}
-            />
-            <QuickAction
-              icon="people-outline"
-              tone="activities"
-              title={t.coordinatorShort}
-              onPress={() => onNavigate("/village-coordinator")}
             />
           </View>
           {data.isPreview && <PreviewBanner />}
@@ -215,140 +231,30 @@ export function HomeDashboard({
             <SectionHeader
               icon="storefront-outline"
               tone="marketplace"
-              title={t.dashboardMarketplace}
-              action={noListings ? undefined : t.viewAll}
+              title={t.freshInVillage}
+              action={tiles.length ? t.viewAll : undefined}
               onPress={() => onNavigate("/marketplace")}
-              toggle={
-                noListings
-                  ? { open: emptyOpen, onPress: () => setEmptyOpen(!emptyOpen) }
-                  : undefined
-              }
             />
-            {(!noListings || emptyOpen) && listingStatus}
-            {!!data.listings.length && (
-              <FlatList
-                horizontal
-                data={data.listings}
-                keyExtractor={(item) =>
-                  `${item.module ?? "marketplace"}:${item.id}`
-                }
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ gap: 12 }}
-                renderItem={({ item }) => (
-                  <ProductCard
+            {listingStatus}
+            {!!tiles.length && (
+              <View style={h.grid}>
+                {tiles.map((item) => (
+                  <ProductTile
+                    key={`${item.module ?? "marketplace"}:${item.id}`}
                     listing={item}
                     language={language}
-                    compact
+                    width={tileWidth}
                     onPress={() => onProductPress(item)}
                   />
-                )}
-              />
+                ))}
+              </View>
             )}
           </View>
-          {(
-            [
-              [
-                services,
-                t.dashboardServices,
-                "/services",
-                "build-outline",
-                "services",
-              ],
-              [
-                transport,
-                t.dashboardTransport,
-                "/transport",
-                "car-outline",
-                "transport",
-              ],
-            ] as const
-          ).map(([entries, title, route, icon, tone]) => {
-            const empty = !!directoryReady && entries.length === 0;
-            const emptyOpen =
-              route === "/services" ? emptyServicesOpen : emptyTransportOpen;
-            const setEmptyOpen =
-              route === "/services"
-                ? setEmptyServicesOpen
-                : setEmptyTransportOpen;
-            return (
-              <View key={route} style={d.section}>
-                <SectionHeader
-                  icon={icon}
-                  tone={tone}
-                  title={title}
-                  action={empty ? undefined : t.viewAll}
-                  onPress={() => onNavigate(route)}
-                  toggle={
-                    empty
-                      ? {
-                          open: emptyOpen,
-                          onPress: () => setEmptyOpen(!emptyOpen),
-                        }
-                      : undefined
-                  }
-                />
-                {(!empty || emptyOpen) &&
-                  (entries.length ? (
-                    <FlatList
-                      horizontal
-                      data={entries}
-                      keyExtractor={(item) => item.id}
-                      showsHorizontalScrollIndicator={false}
-                      contentContainerStyle={{ gap: 12 }}
-                      renderItem={({ item }) => (
-                        <ServiceCard
-                          listing={item}
-                          language={language}
-                          onPress={() => onProductPress(item)}
-                        />
-                      )}
-                    />
-                  ) : (
-                    (directoryStatus ?? (
-                      <StateMessage
-                        icon={icon}
-                        title={t.dashboardDirectoryEmpty}
-                      />
-                    ))
-                  ))}
-              </View>
-            );
-          })}
-          {signedIn && (
-            <View style={d.section}>
-              <SectionHeader
-                icon="briefcase-outline"
-                tone="activities"
-                title={t.actTitle}
-                action={t.viewAll}
-                onPress={() => onNavigate("/activities")}
-              />
-              {!activities.length && (
-                <Text style={d.description}>{t.actEmpty}</Text>
-              )}
-              <FlatList
-                horizontal
-                data={activities}
-                keyExtractor={(item) => `${item.kind}:${item.id}`}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ gap: 12, paddingBottom: 4 }}
-                renderItem={({ item }) => (
-                  <ActivityCard
-                    card={item}
-                    language={language}
-                    onPress={() =>
-                      onNavigate(
-                        item.kind === "products"
-                          ? "/my-listings"
-                          : `/provider/${item.id}`,
-                      )
-                    }
-                  />
-                )}
-              />
-            </View>
-          )}
-          {signedIn && data.user.isBuyer && !data.user.isSeller && (
+          <NearbyVillages
+            language={language}
+            onSeeAll={() => onNavigate("/mapped-villages")}
+          />
+          {!data.user.isSeller && (
             <BecomeSellerCard
               language={language}
               onPress={() => onNavigate("/become-seller")}
@@ -366,7 +272,10 @@ export default function HomeScreen() {
   const village = useAppStore(browsingVillageFor);
   const query = useHomeListings();
   const directory = useDashboardDirectory();
-  const mine = useMyProviderProfiles();
+  // Counts for the Services card come from the directory summaries, which
+  // work for guests too.
+  const servicesSummary = useDirectorySummary("services");
+  const transportSummary = useDirectorySummary("transport");
   // Coming back to Home reshuffles the services and vehicles it shows.
   const visited = useRef(false);
   const reshuffle = directory.refetch;
@@ -401,8 +310,8 @@ export default function HomeScreen() {
     account.isSeller ?? page?.isSeller ?? false,
     now,
   );
-  data.serviceCount = directory.data?.services.total;
-  data.transportCount = directory.data?.transport.total;
+  data.serviceCount = servicesSummary.data?.total;
+  data.transportCount = transportSummary.data?.total;
   const coordinator = directory.data?.coordinator;
   data.coordinator = coordinator
     ? {
@@ -438,57 +347,12 @@ export default function HomeScreen() {
       )}
     </>
   );
-  const directoryStatus =
-    offline && !directory.data ? (
-      <Text style={d.description}>{t.listingsOfflineEmpty}</Text>
-    ) : !offline && directory.isPending ? (
-      <SkeletonList rows={2} label={t.listingsLoading} />
-    ) : directory.isError && !offline ? (
-      <>
-        <ErrorMessage message={t.dashboardDirectoryFailed} />
-        <Button secondary onPress={() => void directory.refetch()}>
-          {t.retry}
-        </Button>
-      </>
-    ) : undefined;
-  // Your own products and registered activities.
-  const own = [
-    ...(session?.user.isSeller
-      ? [
-          {
-            id: "products",
-            kind: "products" as const,
-            title: t.dashMyProducts,
-          },
-        ]
-      : []),
-    ...(mine.data?.profiles ?? [])
-      .filter((profile) => profile.mine)
-      .map((profile) => ({
-        id: profile.id,
-        kind: "profile" as const,
-        title: profile.name,
-        providerType: profile.providerType,
-        active: profile.status === "ACTIVE",
-      })),
-  ];
-  const activities: ActivityCardData[] = own;
   return (
     <>
       <HomeDashboard
         data={data}
         language={language}
         listingStatus={listingStatus}
-        directoryStatus={directoryStatus}
-        directoryReady={!!directory.data}
-        listingsReady={!!page}
-        activities={activities}
-        services={(directory.data?.services.entries ?? []).map((entry) =>
-          directoryPreview(entry, now),
-        )}
-        transport={(directory.data?.transport.entries ?? []).map((entry) =>
-          directoryPreview(entry, now),
-        )}
         onNavigate={(route) => {
           if (route === "/become-seller") {
             if (session) setSellerDialog(true);

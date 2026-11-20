@@ -1,4 +1,3 @@
-import { numberLocale } from "../locale";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -23,13 +22,13 @@ import { useListingClock } from "../hooks/useListingClock";
 import { theme } from "../theme";
 import {
   Button,
-  Chip,
   ErrorMessage,
   OfflineBanner,
   SkeletonList,
   StateMessage,
 } from "../components/ui";
 import { MarketplaceListingCard } from "../components/dashboard/MarketplaceListingCard";
+import { CategoryIcon } from "../components/dashboard/CategoryIcon";
 import { d } from "../components/dashboard/primitives";
 import {
   marketplaceCategory,
@@ -135,28 +134,21 @@ export default function MarketplaceScreen() {
   const voiceError = voiceErrorText(t, voice.error);
   const now = useListingClock();
   const page = result.data?.pages[0];
-  const number = new Intl.NumberFormat(numberLocale(language));
-  function categoryCount(item: { id: string }) {
-    const count =
-      item.id === "all"
-        ? page?.allProductCount
-        : page?.productGroupCounts?.find((row) => row.productGroup === item.id)
-            ?.count;
-    return count ? number.format(count) : undefined;
-  }
   const categories = [
     {
       id: "all",
       label: t.marketplaceAllProducts,
+      icon: "apps",
     },
     {
       id: "vegetables",
       label: t.vegetables,
+      icon: "leaf-outline",
     },
-    { id: "fruits", label: t.fruits },
-    { id: "grain", label: t.grains },
-    { id: "dairy", label: t.dairy },
-    { id: "homemade", label: t.homemade },
+    { id: "fruits", label: t.fruits, icon: "nutrition-outline" },
+    { id: "grain", label: t.grains, icon: "basket-outline" },
+    { id: "dairy", label: t.dairy, icon: "cafe-outline" },
+    { id: "homemade", label: t.homemade, icon: "restaurant-outline" },
   ];
   const activeListings = Array.from(
     new Map(
@@ -334,15 +326,51 @@ export default function MarketplaceScreen() {
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={s.categories}
             >
-              {categories.map((item) => (
-                <Chip
-                  key={item.id}
-                  label={item.label}
-                  count={categoryCount(item)}
-                  selected={category === item.id}
-                  onPress={() => setCategory(item.id)}
-                />
-              ))}
+              {categories.map((item) => {
+                const selected = category === item.id;
+                const [firstWord, ...rest] = item.label.trim().split(/\s+/);
+                const lines = [firstWord, rest.join(" ")].filter(Boolean);
+                const tone = theme.modules.marketplace;
+                return (
+                  <Pressable
+                    key={item.id}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected }}
+                    accessibilityLabel={item.label}
+                    onPress={() => setCategory(item.id)}
+                    style={({ pressed }) => [s.category, pressed && d.pressed]}
+                  >
+                    <View
+                      style={[
+                        s.categoryCircle,
+                        { backgroundColor: tone.tint },
+                        selected && { borderColor: tone.color },
+                      ]}
+                    >
+                      <CategoryIcon
+                        name={item.icon}
+                        size={24}
+                        color={tone.color}
+                      />
+                    </View>
+                    <View style={s.categoryCopy}>
+                      {lines.map((line, index) => (
+                        <Text
+                          key={index}
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
+                          style={[
+                            s.categoryLabel,
+                            selected && { color: tone.color },
+                          ]}
+                        >
+                          {line}
+                        </Text>
+                      ))}
+                    </View>
+                  </Pressable>
+                );
+              })}
             </ScrollView>
           </View>
         }
@@ -457,6 +485,22 @@ const s = StyleSheet.create({
     fontSize: 16,
   },
   categories: { gap: 8, paddingVertical: 4 },
+  category: { width: 68, alignItems: "center", gap: 6 },
+  categoryCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: "transparent",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  categoryLabel: {
+    ...theme.type.micro,
+    color: theme.colors.heading,
+    textAlign: "center",
+  },
+  categoryCopy: { width: "100%" },
   voiceSearch: {
     minHeight: theme.layout.touchTarget,
     minWidth: theme.layout.touchTarget,

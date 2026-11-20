@@ -11,6 +11,11 @@ import { theme } from "../theme";
 import { VoiceTabButton } from "./VoiceTabButton";
 import { tabSlots } from "../data/dashboardTabs";
 
+// How far the mic sticks out above the bar (see VoiceTabButton), and the
+// number of steps in the fade that covers that height.
+const MIC_RISE = 30;
+const FADE_STEPS = 10;
+
 type TabBarProps = Parameters<
   NonNullable<ComponentProps<typeof Tabs>["tabBar"]>
 >[0];
@@ -69,9 +74,10 @@ export function GaavliTabBar({ state, navigation }: TabBarProps) {
     },
     profile: {
       route: "profile",
-      label: t.profile,
-      icon: "person-outline",
-      active: "person",
+      // Guests have no profile, so their last tab is Settings.
+      label: session ? t.profile : t.settings,
+      icon: session ? "person-outline" : "settings-outline",
+      active: session ? "person" : "settings",
     },
   };
   const [moreOpen, setMoreOpen] = useState(false);
@@ -80,7 +86,9 @@ export function GaavliTabBar({ state, navigation }: TabBarProps) {
     seller: !!session?.user.isSeller,
     coordinator,
   });
-  const current = state.routes[state.index]?.name;
+  // Transport is a part of Services, so Services stays selected there.
+  const route = state.routes[state.index]?.name;
+  const current = route === "transport" ? "services" : route;
   const item = (slot: Slot) => {
     const focused = current === slot.route;
     return (
@@ -152,15 +160,31 @@ export function GaavliTabBar({ state, navigation }: TabBarProps) {
   );
   return (
     <>
-      <View
-        accessibilityRole="tablist"
-        style={[s.bar, { paddingBottom: Math.max(insets.bottom, 8) }]}
-      >
-        {item(slots.home)}
-        {item(slots[second])}
-        <VoiceTabButton />
-        {item(slots[fourth])}
-        {fifth === "more" ? moreButton : item(slots[fifth])}
+      {/* The raised mic rises above the bar. This strip overlaps the bottom of
+          the page and fades it out, so content never ends in a hard cut and
+          the mic sits over a soft edge instead of a block of text. */}
+      <View style={s.micRoom}>
+        <View pointerEvents="none" style={s.fade}>
+          {Array.from({ length: FADE_STEPS }, (_, i) => (
+            <View
+              key={i}
+              style={{
+                height: MIC_RISE / FADE_STEPS,
+                backgroundColor: `rgba(248, 249, 250, ${((i + 1) / FADE_STEPS).toFixed(2)})`,
+              }}
+            />
+          ))}
+        </View>
+        <View
+          accessibilityRole="tablist"
+          style={[s.bar, { paddingBottom: Math.max(insets.bottom, 8) }]}
+        >
+          {item(slots.home)}
+          {item(slots[second])}
+          <VoiceTabButton />
+          {item(slots[fourth])}
+          {fifth === "more" ? moreButton : item(slots[fifth])}
+        </View>
       </View>
       <Modal
         visible={moreOpen}
@@ -256,6 +280,8 @@ export function GaavliTabBar({ state, navigation }: TabBarProps) {
 }
 
 const s = StyleSheet.create({
+  micRoom: { marginTop: -MIC_RISE, paddingTop: MIC_RISE },
+  fade: { position: "absolute", top: 0, left: 0, right: 0, height: MIC_RISE },
   // A white bar that lifts off the page with rounded top corners and a soft
   // shadow, instead of a flat strip with a hairline.
   bar: {

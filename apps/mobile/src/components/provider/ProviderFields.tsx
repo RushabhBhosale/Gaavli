@@ -12,6 +12,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   PROVIDER_KINDS,
   SHOP_TYPE_PRODUCT_GROUPS,
+  ProviderType as ProviderTypes,
   type ProviderField,
   type ProviderType,
 } from "@gaavli/constants";
@@ -98,7 +99,14 @@ export function ProviderFields({
   return (
     <>
       {kind.fields
-        .filter((field) => !skip.includes(field.key))
+        .filter(
+          (field) =>
+            !skip.includes(field.key) &&
+            !(
+              type === ProviderTypes.SHOP_BUSINESS &&
+              ["homeDelivery", "items"].includes(field.key)
+            ),
+        )
         .map((field) => {
           const label = `${field.label[language]}${field.required ? " *" : ""}`;
           const error = errors[field.key];

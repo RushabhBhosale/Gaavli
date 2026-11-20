@@ -30,7 +30,7 @@ import {
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
 const links = [
-  { name: "Dashboard", href: "/", icon: LayoutDashboard },
+  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Users", href: "/users", icon: Users },
   { name: "Categories", href: "/categories", icon: Tags },
   { name: "Product Catalogue", href: "/product-catalogue", icon: Package },
@@ -43,8 +43,9 @@ const links = [
 // The page title lives in the top bar instead of repeating an <h1> inside every
 // screen. Add an entry here when a screen is migrated.
 const pageMeta: Record<string, { title: string; subtitle?: string }> = {
-  "/": {
+  "/admin": {
     title: "Dashboard",
+    subtitle: "A clear view of Gaavli's village network.",
   },
   "/users": {
     title: "Users Management",
@@ -186,6 +187,12 @@ export function AdminShell({
             </div>
           )}
           <div className="ml-auto flex items-center gap-5">
+            <Link
+              href="/"
+              className="hidden text-xs font-semibold text-slate-600 hover:text-[#A84E0D] sm:block"
+            >
+              Public site
+            </Link>
             <Button asChild variant="ghost" size="icon">
               <Link href="/notifications" aria-label="Notifications">
                 <Bell size={19} />
