@@ -43,6 +43,9 @@ const links = [
 // The page title lives in the top bar instead of repeating an <h1> inside every
 // screen. Add an entry here when a screen is migrated.
 const pageMeta: Record<string, { title: string; subtitle?: string }> = {
+  "/": {
+    title: "Dashboard",
+  },
   "/users": {
     title: "Users Management",
     subtitle: "Buyer, seller and coordinator accounts across every village.",
@@ -53,6 +56,10 @@ const pageMeta: Record<string, { title: string; subtitle?: string }> = {
   },
   "/categories": {
     title: "Categories & notify rules",
+  },
+  "/product-catalogue": {
+    title: "Product Catalogue",
+    subtitle: "Products sellers can pick when they add a listing.",
   },
   "/provider-masters": {
     title: "Master Management",

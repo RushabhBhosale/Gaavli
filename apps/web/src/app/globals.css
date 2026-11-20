@@ -93,13 +93,14 @@ label {
   color: #b91c1c;
   font-size: 12px;
 }
-/* Fields flagged with aria-invalid read as errors without changing size. */
-input[aria-invalid="true"],
+/* Fields flagged with aria-invalid read as errors without changing size. The
+   :not() chain keeps these above the base input rule's specificity. */
+input:not([type="checkbox"]):not([type="radio"])[aria-invalid="true"],
 select[aria-invalid="true"] {
   border-color: #f0a9a9;
   background: #fffafa;
 }
-input[aria-invalid="true"]:focus,
+input:not([type="checkbox"]):not([type="radio"])[aria-invalid="true"]:focus,
 select[aria-invalid="true"]:focus {
   outline-color: #dc2626;
 }

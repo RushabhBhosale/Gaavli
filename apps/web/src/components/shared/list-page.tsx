@@ -25,16 +25,19 @@ import { Skeleton } from "./states";
 // list keeps the same structure.
 
 export function ListPageToolbar({
+  leading,
   search,
   actions,
 }: {
+  leading?: ReactNode;
   search: ReactNode;
   actions?: ReactNode;
 }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <div className="w-full sm:max-w-md">{search}</div>
-      {actions}
+    <div className="flex flex-wrap items-center gap-3">
+      {leading}
+      <div className="w-full min-w-0 flex-1 sm:max-w-md">{search}</div>
+      {actions && <div className="ml-auto flex items-center">{actions}</div>}
     </div>
   );
 }

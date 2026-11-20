@@ -254,7 +254,6 @@ export function UserForm({
               <select id="user-status" aria-required {...register("status")}>
                 <option value="active">Active</option>
                 <option value="blocked">Blocked</option>
-                <option value="pending">Pending</option>
               </select>
             </div>
           </div>
