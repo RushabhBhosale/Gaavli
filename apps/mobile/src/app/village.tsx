@@ -338,7 +338,13 @@ export default function VillageScreen() {
           )}
           <DropdownField
             label={t.villageLabel}
-            value={selected ? villageName(selected) : undefined}
+            value={
+              selected
+                ? [villageName(selected), selected.taluka]
+                    .filter(Boolean)
+                    .join(", ")
+                : undefined
+            }
             placeholder={t.villageTitle}
             expanded={pickerOpen}
             disabled={saving}
