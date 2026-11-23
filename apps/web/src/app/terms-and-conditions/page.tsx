@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function TermsAndConditionsPage() {
-  return <LegalPage document={termsAndConditions} current="terms" />;
+  return <LegalPage document={termsAndConditions} />;
 }
