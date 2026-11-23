@@ -7,7 +7,7 @@ import {
 } from "@gaavli/validation";
 import { Village, User, VillageCoordinator, type UserRecord } from "../models";
 import { MobileRateLimit } from "../models/mobile-auth";
-import { discoveryVillageIds } from "./village-discovery";
+import { discoveryVillageIds, nearbyVillages } from "./village-discovery";
 import { hashToken } from "../auth/mobile-policy";
 import { AppError } from "../utils/errors";
 
@@ -109,6 +109,7 @@ export async function mobileUserDto(user: UserRecord) {
     lastName: user.lastName || null,
     language: mobileLanguageSchema.catch("mr").parse(user.preferredLanguage),
     village: village ? mobileVillageDto(village) : null,
+    discoveryRadiusKm: user.discoveryRadiusKm ?? 50,
   };
 }
 export async function searchMobileVillages(
@@ -204,7 +205,12 @@ export async function searchMobileVillages(
 }
 export async function saveMobileVillage(
   userId: string,
-  input: { villageId: string; firstName?: string; lastName?: string },
+  input: {
+    villageId: string;
+    firstName?: string;
+    lastName?: string;
+    discoveryRadiusKm?: number;
+  },
 ) {
   return User.db.transaction(async (session) => {
     // Same write lock as admin membership/deactivation/deletion writers.
@@ -247,7 +253,16 @@ export async function saveMobileVillage(
         : {};
     const user = await User.findOneAndUpdate(
       { _id: userId, status: "active" },
-      { $set: { village: input.villageId, ...names }, $inc: { __v: 1 } },
+      {
+        $set: {
+          village: input.villageId,
+          ...names,
+          ...(input.discoveryRadiusKm === undefined
+            ? {}
+            : { discoveryRadiusKm: input.discoveryRadiusKm }),
+        },
+        $inc: { __v: 1 },
+      },
       { new: true, session },
     );
     if (!user) throw new AppError(401, "AUTH_REQUIRED", "Sign in again.");
@@ -257,7 +272,7 @@ export async function saveMobileVillage(
 
 // Villages mapped with this one (never the village itself), by name.
 export async function mappedVillages(villageId: string) {
-  const ids = (await discoveryVillageIds(villageId)).filter(
+  const ids = (await discoveryVillageIds(villageId, null, 0)).filter(
     (id) => id !== villageId,
   );
   if (!ids.length) return [];
@@ -265,4 +280,17 @@ export async function mappedVillages(villageId: string) {
     .sort({ nameEn: 1 })
     .lean();
   return rows.map((row) => mobileVillageDto(row as unknown as VillageRow));
+}
+
+// Villages within radiusKm that are not already mapped, nearest first.
+export async function nearbyVillagesFor(
+  villageId: string,
+  radiusKm: number,
+  mappedIds: string[],
+) {
+  const skip = new Set(mappedIds);
+  const rows = await nearbyVillages(villageId, radiusKm);
+  return rows
+    .filter((row) => !skip.has(String(row._id)))
+    .map((row) => mobileVillageDto(row as unknown as VillageRow));
 }

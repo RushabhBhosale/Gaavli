@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./landing.css";
+import { SiteFooter } from "@/components/landing/site-footer";
+import { SiteHeader } from "@/components/landing/site-header";
 
 const display = Fraunces({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700"] });
 const body = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-body" });
@@ -39,21 +41,7 @@ function Phone({ children, className = "" }: { children: React.ReactNode; classN
 export default function LandingPage() {
   return (
     <main className={`lp ${display.variable} ${body.variable}`} id="top">
-      <header className="lp-nav">
-        <a className="lp-brand" href="#top">
-          <Image src="/gaavli-logo.png" alt="" width={38} height={38} priority />
-          <span>Gaavli</span>
-        </a>
-        <nav className="lp-nav-links" aria-label="Main navigation">
-          <a href="#modules">What&apos;s inside</a>
-          <a href="#how">How it works</a>
-          <a href="#faq">FAQ</a>
-        </nav>
-        <div className="lp-nav-cta">
-          <a className="lp-link" href="/login">Admin</a>
-          <a className="lp-btn lp-btn--primary lp-btn--sm" href={apkUrl}>Get the app</a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className="lp-hero" aria-labelledby="hero-title">
         <div className="lp-hero-copy">
@@ -214,12 +202,7 @@ export default function LandingPage() {
         <Image className="lp-cta-art" src="/landing-village.webp" alt="" fill sizes="100vw" />
       </section>
 
-      <footer className="lp-footer">
-        <a className="lp-brand" href="#top"><Image src="/gaavli-logo.png" alt="" width={34} height={34} /><span>Gaavli</span></a>
-        <span>Connecting dots, connecting people.</span>
-        <nav aria-label="Footer navigation"><a href="#modules">What&apos;s inside</a><a href="#how">How it works</a><a href="/login">Admin sign in</a></nav>
-        <small>© 2026 Gaavli</small>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

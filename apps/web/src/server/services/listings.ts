@@ -12,7 +12,10 @@ import {
 } from "../repositories/listings";
 import { AppError } from "../utils/errors";
 import { listingPhotoUrl } from "../providers/listing-photos";
-import { discoveryVillageIds } from "../repositories/village-discovery";
+import {
+  DEFAULT_DISCOVERY_RADIUS_KM,
+  discoveryVillageIds,
+} from "../repositories/village-discovery";
 
 async function activeVillage(user: UserRecord) {
   if (
@@ -41,7 +44,11 @@ export async function listMobileListings(
     user,
     query.sourceVillageId,
   );
-  const allowedVillageIds = await discoveryVillageIds(sourceVillageId);
+  const allowedVillageIds = await discoveryVillageIds(
+    sourceVillageId,
+    null,
+    user.discoveryRadiusKm ?? DEFAULT_DISCOVERY_RADIUS_KM,
+  );
   if (query.villageId && !allowedVillageIds.includes(query.villageId))
     throw new AppError(
       403,

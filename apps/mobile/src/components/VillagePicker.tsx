@@ -91,11 +91,6 @@ export function VillagePicker({
             .map((village) => [village.id, village]),
         ).values(),
       ];
-  const nameCounts = new Map<string, number>();
-  for (const village of villages) {
-    const name = villageName(village).trim().toLocaleLowerCase();
-    nameCounts.set(name, (nameCounts.get(name) ?? 0) + 1);
-  }
   function loadMore() {
     if (
       !offline &&
@@ -187,9 +182,6 @@ export function VillagePicker({
             onEndReached={loadMore}
             onEndReachedThreshold={0.4}
             renderItem={({ item }) => {
-              const duplicate =
-                (nameCounts.get(villageName(item).trim().toLocaleLowerCase()) ??
-                  0) > 1;
               return (
                 <Pressable
                   accessibilityRole="radio"
@@ -206,13 +198,11 @@ export function VillagePicker({
                 >
                   <View style={s.copy}>
                     <Text style={s.name}>{villageName(item)}</Text>
-                    {duplicate && (
-                      <Text style={s.detail}>
-                        {[item.taluka, item.district]
-                          .filter(Boolean)
-                          .join(" · ")}
-                      </Text>
-                    )}
+                    <Text style={s.detail}>
+                      {[item.taluka, item.district]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </Text>
                   </View>
                   {selected?.id === item.id && (
                     <Text accessibilityLabel={t.selected} style={s.check}>

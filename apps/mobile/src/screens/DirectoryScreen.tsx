@@ -98,6 +98,7 @@ export default function DirectoryScreen({
     <ProtectedPage allowGuest>
       <Screen
         scrollRef={scrollRef}
+        inTabs={asTab}
         header={
           <AppHeader
             title={title}

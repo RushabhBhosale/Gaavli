@@ -44,10 +44,10 @@ function coordinatorLabel(village: AdminVillageDto) {
 }
 
 function locationLabel(village: AdminVillageDto) {
-  return (
+  const place =
     [village.taluka, village.district].filter(Boolean).join(", ") ||
-    village.nameMr
-  );
+    village.nameMr;
+  return village.pinCode ? `${place} · PIN ${village.pinCode}` : place;
 }
 
 function StatusBadge({ status }: { status: AdminVillageDto["status"] }) {
@@ -342,8 +342,8 @@ export function VillagesManagement() {
         search={
           <SearchField
             inputRef={searchRef}
-            label="Search village, taluka or district"
-            placeholder="Search village, taluka or district…"
+            label="Search village, taluka, district or PIN"
+            placeholder="Search village, taluka, district or PIN…"
             value={search}
             onChange={setSearch}
           />

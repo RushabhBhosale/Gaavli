@@ -22,11 +22,12 @@ import {
   villagePageSchema,
 } from "@gaavli/validation";
 import { useAppStore } from "../store";
-import { messages } from "../i18n";
+import { formatMessage, messages } from "../i18n";
 import {
   ActionCard,
   BackButton,
   Button,
+  Chip,
   DropdownField,
   ErrorMessage,
   Input,
@@ -69,6 +70,10 @@ export default function VillageScreen() {
     firstName?: string;
     lastName?: string;
   }>({});
+  const [radiusKm, setRadiusKm] = useState<number>(
+    session?.user.discoveryRadiusKm ?? 50,
+  );
+  const [autoPicked, setAutoPicked] = useState(false);
   const [locating, setLocating] = useState(false);
   const [locationError, setLocationError] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -81,6 +86,14 @@ export default function VillageScreen() {
     },
     [],
   );
+  // First registration: look up the nearest village once, without opening the list.
+  const autoTried = useRef(false);
+  useEffect(() => {
+    if (autoTried.current || !session || offline || selected) return;
+    autoTried.current = true;
+    void locate(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, offline]);
   const nearbyQuery = useInfiniteQuery({
     queryKey: [
       "mobile-villages",
@@ -142,7 +155,18 @@ export default function VillageScreen() {
     setLocationError(false);
     setPickerOpen(true);
   }
-  async function locate() {
+  // The closest active village with known coordinates: 25 km first, then 100 km.
+  async function nearestVillage(latitude: number, longitude: number) {
+    for (const maxDistanceKm of [25, 100]) {
+      const page = await authenticatedApi(
+        `/villages?limit=1&latitude=${latitude}&longitude=${longitude}&maxDistanceKm=${maxDistanceKm}`,
+        villagePageSchema,
+      );
+      if (page.villages[0]) return page.villages[0];
+    }
+    return null;
+  }
+  async function locate(auto = false) {
     setSearch("");
     const current = ++generation.current;
     setLocating(true);
@@ -165,14 +189,24 @@ export default function VillageScreen() {
         }),
       ]);
       if (generation.current === current) {
-        setCoordinates({
-          latitude: result.coords.latitude,
-          longitude: result.coords.longitude,
-        });
-        setPickerOpen(true);
+        const { latitude, longitude } = result.coords;
+        const nearest = await nearestVillage(latitude, longitude).catch(
+          () => null,
+        );
+        if (generation.current !== current) return;
+        if (nearest) {
+          setSelected(nearest);
+          setAutoPicked(true);
+          setFailure(null);
+        }
+        // The automatic first lookup stays quiet; the button opens the list.
+        if (!auto) {
+          setCoordinates({ latitude, longitude });
+          setPickerOpen(true);
+        }
       }
     } catch {
-      if (generation.current === current) {
+      if (generation.current === current && !auto) {
         setCoordinates(null);
         setLocationError(true);
       }
@@ -216,6 +250,7 @@ export default function VillageScreen() {
         method: "PATCH",
         body: JSON.stringify({
           villageId: selected.id,
+          discoveryRadiusKm: radiusKm,
           ...(names?.firstName.success && names.lastName.success
             ? {
                 firstName: names.firstName.data,
@@ -303,7 +338,13 @@ export default function VillageScreen() {
           )}
           <DropdownField
             label={t.villageLabel}
-            value={selected ? villageName(selected) : undefined}
+            value={
+              selected
+                ? [villageName(selected), selected.taluka]
+                    .filter(Boolean)
+                    .join(", ")
+                : undefined
+            }
             placeholder={t.villageTitle}
             expanded={pickerOpen}
             disabled={saving}
@@ -317,7 +358,21 @@ export default function VillageScreen() {
             disabled={saving || offline}
             onPress={() => void locate()}
           />
+          {autoPicked && !!selected && (
+            <Text style={s.hint}>{t.nearestSelected}</Text>
+          )}
           {showLocationError && <ErrorMessage message={t.locationFailed} />}
+          <Text style={styles.label}>{t.listingRadius}</Text>
+          <View style={s.radiusRow}>
+            {[10, 20, 50, 100, 0].map((km) => (
+              <Chip
+                key={km}
+                label={km ? formatMessage(t.radiusKm, { km }) : t.radiusOff}
+                selected={radiusKm === km}
+                onPress={() => setRadiusKm(km)}
+              />
+            ))}
+          </View>
           {!!failure && (
             <ErrorMessage message={errorMessage(failure, language)} />
           )}
@@ -357,6 +412,7 @@ export default function VillageScreen() {
         onClose={() => setPickerOpen(false)}
         onSelect={(village) => {
           setSelected(village);
+          setAutoPicked(false);
           setFailure(null);
           setPickerOpen(false);
         }}
@@ -383,6 +439,8 @@ const s = StyleSheet.create({
     gap: theme.spacing,
     paddingBottom: 16,
   },
+  hint: { ...theme.type.body, color: theme.colors.muted },
+  radiusRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   spacer: { flexGrow: 1, minHeight: 24 },
   illustration: { marginHorizontal: 10, borderRadius: theme.radii.artwork },
 });
