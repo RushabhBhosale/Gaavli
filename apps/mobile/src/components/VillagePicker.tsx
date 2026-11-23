@@ -199,7 +199,7 @@ export function VillagePicker({
                   <View style={s.copy}>
                     <Text style={s.name}>{villageName(item)}</Text>
                     <Text style={s.detail}>
-                      {[item.taluka, item.district, item.pinCode]
+                      {[item.taluka, item.district]
                         .filter(Boolean)
                         .join(" · ")}
                     </Text>
