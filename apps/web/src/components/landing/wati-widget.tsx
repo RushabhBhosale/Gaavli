@@ -19,7 +19,7 @@ export function WatiWidget() {
           publicId: "gw_gj6lzs",
           apiHost: "https://widget-api.wati.io",
           deploySource: "manual",
-          deployId: "1eccfa0f-e1e8-45f0-892c-ed606ebe4821",
+          deployId: "93346e9b-c96b-43f5-9e23-219d7d01db8a",
         })
       }
     />
