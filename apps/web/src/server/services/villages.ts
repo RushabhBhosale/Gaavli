@@ -426,6 +426,7 @@ function villageFilter(query: z.infer<typeof villagesFilterSchema>) {
   const search = query.search?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return {
     ...(query.district ? { district: query.district } : {}),
+    ...(query.taluka ? { taluka: query.taluka } : {}),
     ...(query.status ? { isActive: query.status === "active" } : {}),
     ...(search
       ? {

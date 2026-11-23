@@ -1,3 +1,30 @@
+## 2026-11-20 - Admin provider type option management
+
+- Added Provider Type Management before Master Management in the Service
+  Providers sidebar. Super Admins can add Admin-only provider type options and
+  edit translated labels, order and active status for built-in or custom types.
+- Saved built-in label/order/status overrides are reflected in the Provider
+  Profiles filter and built-in Master Management selector. Provider type values
+  remain Admin-only; mobile registration and provider master group mappings are
+  unchanged.
+- The page now matches the other Admin list pages: debounced server-side search,
+  status filter, sortable headers, shared table with mobile cards, and rows-per-
+  page pagination. Add/Edit use the shared tinted form dialog, and the Add
+  provider type / save buttons use the same `#B9520A` action colour as the
+  category, village and provider master lists. `GET /v1/admin/provider-types`
+  accepts optional `search`, `status`, `page`, `limit`, `sort` and `direction`
+  and keeps returning every record when paging is omitted, so existing dropdown
+  consumers are unaffected. Web typecheck, targeted ESLint and the web unit
+  suite were run; two pre-existing `security.test.ts` village assertions still
+  fail independently of this change.
+
+## 2026-11-20 - Admin village list taluka filter
+
+- Added a taluka filter immediately after District in Village Management. Taluka
+  choices load from the selected district; changing or clearing District clears
+  the Taluka selection. The selected filters apply to village listing and CSV
+  download, and appear as removable filter chips.
+
 ## 2026-11-19 - Phone icon for products without a price
 
 - Added a shared ProductPrice display: missing prices show a phone icon in

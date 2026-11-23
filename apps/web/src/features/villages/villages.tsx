@@ -10,7 +10,11 @@ import {
 import { MapPin, Plus, X } from "lucide-react";
 import { api } from "@/lib/api";
 import { useSearchShortcut } from "@/lib/use-search-shortcut";
-import type { AdminVillageDto, VillagesPage } from "@/lib/contracts";
+import type {
+  AdminVillageDto,
+  GeographyPlace,
+  VillagesPage,
+} from "@/lib/contracts";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/shared/badge";
 import {
@@ -99,6 +103,7 @@ export function VillagesManagement() {
   const [search, setSearch] = useState("");
   const [debounced, setDebounced] = useState("");
   const [district, setDistrict] = useState("");
+  const [taluka, setTaluka] = useState("");
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -118,6 +123,7 @@ export function VillagesManagement() {
     limit: String(pageSize),
     ...(debounced ? { search: debounced } : {}),
     ...(district ? { district } : {}),
+    ...(taluka ? { taluka } : {}),
     ...(status ? { status } : {}),
     sort: sorting[0]?.id ?? "name",
     direction: sorting[0]?.desc ? "desc" : "asc",
@@ -127,6 +133,7 @@ export function VillagesManagement() {
       "admin-villages",
       debounced,
       district,
+      taluka,
       status,
       page,
       pageSize,
@@ -134,11 +141,26 @@ export function VillagesManagement() {
     ],
     queryFn: () => api<VillagesPage>(`/v1/admin/villages?${query}`),
   });
-  // Retain district choices while a new filtered page is loading.
+  // Load geography masters so the taluka filter follows the selected district.
   const districtOptions = useQuery({
     queryKey: ["admin-villages", "district-options"],
     queryFn: () => api<VillagesPage>("/v1/admin/villages?limit=1"),
     select: (data) => data.districts,
+  });
+  const geographyDistricts = useQuery({
+    queryKey: ["geography-districts"],
+    queryFn: () => api<GeographyPlace[]>("/v1/admin/geography/districts"),
+  });
+  const selectedDistrict = geographyDistricts.data?.find(
+    (option) => option.nameEn === district,
+  );
+  const talukaOptions = useQuery({
+    queryKey: ["geography-talukas", selectedDistrict?.id],
+    queryFn: () =>
+      api<GeographyPlace[]>(
+        `/v1/admin/geography/talukas?districtId=${selectedDistrict!.id}`,
+      ),
+    enabled: Boolean(selectedDistrict),
   });
   const data = useMemo(() => villages.data?.villages ?? [], [villages.data]);
   const columns = useMemo<ColumnDef<AdminVillageDto>[]>(
@@ -233,7 +255,7 @@ export function VillagesManagement() {
     },
   });
   const total = villages.data?.total ?? 0;
-  const hasFilters = Boolean(debounced || district || status);
+  const hasFilters = Boolean(debounced || district || taluka || status);
   function filter(action: () => void) {
     action();
     setPage(1);
@@ -243,6 +265,7 @@ export function VillagesManagement() {
       setSearch("");
       setDebounced("");
       setDistrict("");
+      setTaluka("");
       setStatus("");
     });
   }
@@ -259,7 +282,19 @@ export function VillagesManagement() {
       ? [
           {
             label: `District: ${district}`,
-            onRemove: () => filter(() => setDistrict("")),
+            onRemove: () =>
+              filter(() => {
+                setDistrict("");
+                setTaluka("");
+              }),
+          },
+        ]
+      : []),
+    ...(taluka
+      ? [
+          {
+            label: `Taluka: ${taluka}`,
+            onRemove: () => filter(() => setTaluka("")),
           },
         ]
       : []),
@@ -314,7 +349,9 @@ export function VillagesManagement() {
           />
         }
         actions={
-          <VillageBulkActions filters={{ search: debounced, district, status }}>
+          <VillageBulkActions
+            filters={{ search: debounced, district, taluka, status }}
+          >
             <Button
               size="sm"
               className="bg-[#B9520A] hover:bg-[#9E4508] focus-visible:outline-[#B9520A]"
@@ -359,18 +396,39 @@ export function VillagesManagement() {
               <select
                 aria-label="Filter by district"
                 value={district}
-                onChange={(event) =>
-                  filter(() => setDistrict(event.target.value))
-                }
+                onChange={(event) => {
+                  const nextDistrict = event.target.value;
+                  filter(() => {
+                    setDistrict(nextDistrict);
+                    setTaluka("");
+                  });
+                }}
               >
                 <option value="">All Districts</option>
-                {(districtOptions.data ?? villages.data?.districts ?? []).map(
-                  (name) => (
-                    <option key={name} value={name}>
-                      {name}
-                    </option>
-                  ),
-                )}
+                {(districtOptions.data ?? []).map((name) => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-full sm:w-44">
+              <select
+                aria-label="Filter by taluka"
+                value={taluka}
+                disabled={!selectedDistrict || talukaOptions.isPending}
+                onChange={(event) =>
+                  filter(() => setTaluka(event.target.value))
+                }
+              >
+                <option value="">
+                  {district ? "All Talukas" : "Select a district first"}
+                </option>
+                {(talukaOptions.data ?? []).map((option) => (
+                  <option key={option.id} value={option.nameEn}>
+                    {option.nameEn}
+                  </option>
+                ))}
               </select>
             </div>
           </>
@@ -395,6 +453,18 @@ export function VillagesManagement() {
           <ErrorState
             error={districtOptions.error}
             retry={() => void districtOptions.refetch()}
+          />
+        )}
+        {geographyDistricts.error && !villages.error && (
+          <ErrorState
+            error={geographyDistricts.error}
+            retry={() => void geographyDistricts.refetch()}
+          />
+        )}
+        {talukaOptions.error && !villages.error && (
+          <ErrorState
+            error={talukaOptions.error}
+            retry={() => void talukaOptions.refetch()}
           />
         )}
         {villages.error ? (

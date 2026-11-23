@@ -10,7 +10,7 @@ import { syncDirectoryEntry } from "./provider-profiles";
 
 export const adminProfilesQuerySchema = z
   .object({
-    providerType: z.enum(ProviderType).optional(),
+    providerType: z.string().trim().min(1).max(100).optional(),
     status: z.enum(["ACTIVE", "INACTIVE"]).optional(),
     search: z.string().trim().max(80).default(""),
     page: z.coerce.number().int().min(1).max(10000).default(1),

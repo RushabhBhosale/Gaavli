@@ -90,6 +90,19 @@ export function ProviderMasterManagement() {
     return () => clearTimeout(timer);
   }, [notice]);
   useSearchShortcut(searchRef);
+  const providerTypeOptions = useQuery({
+    queryKey: ["admin-provider-types"],
+    queryFn: () => api<{ records: { code: string; name: { en: string }; isActive: boolean; sortOrder: number }[] }>("/v1/admin/provider-types"),
+  });
+  const providerTypeLabel = (type: ProviderType) =>
+    providerTypeOptions.data?.records.find((row) => row.code === type)?.name.en ?? PROVIDER_TYPE_LABELS[type].en;
+  const providerTypeChoices = providerTypeOptions.data?.records
+    .filter((row) =>
+      Object.values(ProviderType).includes(row.code as ProviderType) &&
+      (row.isActive || row.code === providerType),
+    )
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+    .map((row) => row.code as ProviderType) ?? Object.values(ProviderType);
   const params = new URLSearchParams({
     providerType,
     masterType,
@@ -348,9 +361,9 @@ export function ProviderMasterManagement() {
                   setSorting([]);
                 }}
               >
-                {Object.values(ProviderType).map((type) => (
+                {providerTypeChoices.map((type) => (
                   <option key={type} value={type}>
-                    {PROVIDER_TYPE_LABELS[type].en}
+                    {providerTypeLabel(type)}
                   </option>
                 ))}
               </select>
@@ -446,6 +459,7 @@ export function ProviderMasterManagement() {
           key={form === "new" ? `${providerType}:${masterType}` : form.id}
           record={form === "new" ? null : form}
           providerType={providerType}
+          providerTypeLabel={providerTypeLabel(providerType)}
           masterType={masterType}
           onClose={() => setForm(null)}
           onSaved={() => setNotice("Master option saved.")}
@@ -458,12 +472,14 @@ export function ProviderMasterManagement() {
 function MasterForm({
   record,
   providerType,
+  providerTypeLabel,
   masterType,
   onClose,
   onSaved,
 }: {
   record: Master | null;
   providerType: ProviderType;
+  providerTypeLabel: string;
   masterType: ProviderMasterType;
   onClose: () => void;
   onSaved: () => void;
@@ -528,7 +544,7 @@ function MasterForm({
           title={record ? "Edit master option" : "Add master option"}
           description={
             <>
-              {PROVIDER_TYPE_LABELS[providerType].en} ·{" "}
+              {providerTypeLabel} ·{" "}
               {PROVIDER_MASTER_LABELS[masterType]}. Codes stay fixed after
               creation.
             </>
