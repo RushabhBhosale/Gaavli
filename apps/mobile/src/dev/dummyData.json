@@ -1,0 +1,891 @@
+{
+  "villages": [
+    {
+      "id": "000000000000000000000001",
+      "name": "Palaspe",
+      "nameMr": "पळस्पे",
+      "taluka": "Panvel",
+      "district": "Raigad",
+      "pinCode": "410206"
+    },
+    {
+      "id": "000000000000000000000002",
+      "name": "Narayangaon",
+      "nameMr": "नारायणगाव",
+      "taluka": "Junnar",
+      "district": "Pune",
+      "pinCode": "410504"
+    },
+    {
+      "id": "000000000000000000000003",
+      "name": "Kalamb",
+      "nameMr": "कळंब",
+      "taluka": "Ambegaon",
+      "district": "Pune",
+      "pinCode": "410503"
+    },
+    {
+      "id": "000000000000000000000004",
+      "name": "Otur",
+      "nameMr": "ओतूर",
+      "taluka": "Junnar",
+      "district": "Pune",
+      "pinCode": "412409"
+    }
+  ],
+  "listings": [
+    {
+      "id": "000000000000000000000064",
+      "productName": "Tomato",
+      "productNameMr": "टोमॅटो",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "vegetables",
+      "categoryName": "Vegetables",
+      "categoryNameMr": "भाजीपाला",
+      "description": "Fresh tomato from a local farm.",
+      "quantity": 100,
+      "unit": "kg",
+      "price": 20,
+      "village": {
+        "id": "000000000000000000000001",
+        "name": "Palaspe",
+        "nameMr": "पळस्पे",
+        "taluka": "Panvel",
+        "district": "Raigad",
+        "pinCode": "410206"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 20,
+      "maxPrice": 20
+    },
+    {
+      "id": "000000000000000000000065",
+      "productName": "Onion",
+      "productNameMr": "कांदा",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "vegetables",
+      "categoryName": "Vegetables",
+      "categoryNameMr": "भाजीपाला",
+      "description": "Fresh onion from a local farm.",
+      "quantity": 500,
+      "unit": "kg",
+      "price": 18,
+      "village": {
+        "id": "000000000000000000000002",
+        "name": "Narayangaon",
+        "nameMr": "नारायणगाव",
+        "taluka": "Junnar",
+        "district": "Pune",
+        "pinCode": "410504"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 18,
+      "maxPrice": 18
+    },
+    {
+      "id": "000000000000000000000066",
+      "productName": "Spinach",
+      "productNameMr": "पालक",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "leafy_vegetables",
+      "categoryName": "Leafy vegetables",
+      "categoryNameMr": "पालेभाज्या",
+      "description": "Fresh spinach from a local farm.",
+      "quantity": 50,
+      "unit": "bunch",
+      "price": 10,
+      "village": {
+        "id": "000000000000000000000003",
+        "name": "Kalamb",
+        "nameMr": "कळंब",
+        "taluka": "Ambegaon",
+        "district": "Pune",
+        "pinCode": "410503"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 10,
+      "maxPrice": 10
+    },
+    {
+      "id": "000000000000000000000067",
+      "productName": "Banana",
+      "productNameMr": "केळी",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "fruits",
+      "categoryName": "Fruits",
+      "categoryNameMr": "फळे",
+      "description": "Fresh banana from a local farm.",
+      "quantity": 30,
+      "unit": "dozen",
+      "price": 40,
+      "village": {
+        "id": "000000000000000000000004",
+        "name": "Otur",
+        "nameMr": "ओतूर",
+        "taluka": "Junnar",
+        "district": "Pune",
+        "pinCode": "412409"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 40,
+      "maxPrice": 40
+    },
+    {
+      "id": "000000000000000000000068",
+      "productName": "Pomegranate",
+      "productNameMr": "डाळिंब",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "fruits",
+      "categoryName": "Fruits",
+      "categoryNameMr": "फळे",
+      "description": "Fresh pomegranate from a local farm.",
+      "quantity": 60,
+      "unit": "kg",
+      "price": 90,
+      "village": {
+        "id": "000000000000000000000001",
+        "name": "Palaspe",
+        "nameMr": "पळस्पे",
+        "taluka": "Panvel",
+        "district": "Raigad",
+        "pinCode": "410206"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 90,
+      "maxPrice": 90
+    },
+    {
+      "id": "000000000000000000000069",
+      "productName": "Bajra",
+      "productNameMr": "बाजरी",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "grains",
+      "categoryName": "Grains",
+      "categoryNameMr": "धान्य",
+      "description": "Fresh bajra from a local farm.",
+      "quantity": 300,
+      "unit": "kg",
+      "price": 32,
+      "village": {
+        "id": "000000000000000000000002",
+        "name": "Narayangaon",
+        "nameMr": "नारायणगाव",
+        "taluka": "Junnar",
+        "district": "Pune",
+        "pinCode": "410504"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 32,
+      "maxPrice": 32
+    },
+    {
+      "id": "00000000000000000000006a",
+      "productName": "Toor Dal",
+      "productNameMr": "तूर डाळ",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "pulses",
+      "categoryName": "Pulses",
+      "categoryNameMr": "कडधान्य",
+      "description": "Fresh toor dal from a local farm.",
+      "quantity": 80,
+      "unit": "kg",
+      "price": 110,
+      "village": {
+        "id": "000000000000000000000003",
+        "name": "Kalamb",
+        "nameMr": "कळंब",
+        "taluka": "Ambegaon",
+        "district": "Pune",
+        "pinCode": "410503"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 110,
+      "maxPrice": 110
+    },
+    {
+      "id": "00000000000000000000006b",
+      "productName": "Cow Milk",
+      "productNameMr": "गायीचे दूध",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "dairy",
+      "categoryName": "Dairy",
+      "categoryNameMr": "दुग्धजन्य",
+      "description": "Fresh cow milk from a local farm.",
+      "quantity": 40,
+      "unit": "litre",
+      "price": 55,
+      "village": {
+        "id": "000000000000000000000004",
+        "name": "Otur",
+        "nameMr": "ओतूर",
+        "taluka": "Junnar",
+        "district": "Pune",
+        "pinCode": "412409"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 55,
+      "maxPrice": 55
+    },
+    {
+      "id": "00000000000000000000006c",
+      "productName": "Desi Eggs",
+      "productNameMr": "गावरान अंडी",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "eggs_poultry",
+      "categoryName": "Eggs & poultry",
+      "categoryNameMr": "अंडी व कुक्कुट",
+      "description": "Fresh desi eggs from a local farm.",
+      "quantity": 25,
+      "unit": "dozen",
+      "price": 90,
+      "village": {
+        "id": "000000000000000000000001",
+        "name": "Palaspe",
+        "nameMr": "पळस्पे",
+        "taluka": "Panvel",
+        "district": "Raigad",
+        "pinCode": "410206"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 90,
+      "maxPrice": 90
+    },
+    {
+      "id": "00000000000000000000006d",
+      "productName": "Jaggery",
+      "productNameMr": "गूळ",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "homemade",
+      "categoryName": "Homemade",
+      "categoryNameMr": "घरगुती",
+      "description": "Fresh jaggery from a local farm.",
+      "quantity": 70,
+      "unit": "kg",
+      "price": 60,
+      "village": {
+        "id": "000000000000000000000002",
+        "name": "Narayangaon",
+        "nameMr": "नारायणगाव",
+        "taluka": "Junnar",
+        "district": "Pune",
+        "pinCode": "410504"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 60,
+      "maxPrice": 60
+    },
+    {
+      "id": "00000000000000000000006e",
+      "productName": "Marigold",
+      "productNameMr": "झेंडू",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "flowers",
+      "categoryName": "Flowers",
+      "categoryNameMr": "फुले",
+      "description": "Fresh marigold from a local farm.",
+      "quantity": 35,
+      "unit": "kg",
+      "price": 50,
+      "village": {
+        "id": "000000000000000000000003",
+        "name": "Kalamb",
+        "nameMr": "कळंब",
+        "taluka": "Ambegaon",
+        "district": "Pune",
+        "pinCode": "410503"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 50,
+      "maxPrice": 50
+    },
+    {
+      "id": "00000000000000000000006f",
+      "productName": "Turmeric",
+      "productNameMr": "हळद",
+      "productNameHi": null,
+      "photoUrl": null,
+      "isDemo": true,
+      "availability": "available",
+      "category": "spices",
+      "categoryName": "Spices",
+      "categoryNameMr": "मसाले",
+      "description": "Fresh turmeric from a local farm.",
+      "quantity": 45,
+      "unit": "kg",
+      "price": 120,
+      "village": {
+        "id": "000000000000000000000004",
+        "name": "Otur",
+        "nameMr": "ओतूर",
+        "taluka": "Junnar",
+        "district": "Pune",
+        "pinCode": "412409"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z",
+      "updatedAt": "2026-11-19T08:00:00.000Z",
+      "expiresAt": null,
+      "minimumPurchaseQuantity": null,
+      "fulfillmentOptions": [
+        "farm_pickup"
+      ],
+      "tags": [],
+      "offerCount": 1,
+      "minPrice": 120,
+      "maxPrice": 120
+    }
+  ],
+  "productGroupCounts": [
+    {
+      "productGroup": "vegetables",
+      "count": 2
+    },
+    {
+      "productGroup": "leafy_vegetables",
+      "count": 1
+    },
+    {
+      "productGroup": "fruits",
+      "count": 2
+    },
+    {
+      "productGroup": "grains",
+      "count": 1
+    },
+    {
+      "productGroup": "pulses",
+      "count": 1
+    },
+    {
+      "productGroup": "dairy",
+      "count": 1
+    },
+    {
+      "productGroup": "eggs_poultry",
+      "count": 1
+    },
+    {
+      "productGroup": "homemade",
+      "count": 1
+    },
+    {
+      "productGroup": "flowers",
+      "count": 1
+    },
+    {
+      "productGroup": "spices",
+      "count": 1
+    }
+  ],
+  "categories": [
+    {
+      "code": "vegetables",
+      "name": "Vegetables",
+      "nameMr": "भाजीपाला"
+    },
+    {
+      "code": "leafy_vegetables",
+      "name": "Leafy vegetables",
+      "nameMr": "पालेभाज्या"
+    },
+    {
+      "code": "fruits",
+      "name": "Fruits",
+      "nameMr": "फळे"
+    },
+    {
+      "code": "grains",
+      "name": "Grains",
+      "nameMr": "धान्य"
+    },
+    {
+      "code": "pulses",
+      "name": "Pulses",
+      "nameMr": "कडधान्य"
+    },
+    {
+      "code": "dairy",
+      "name": "Dairy",
+      "nameMr": "दुग्धजन्य"
+    },
+    {
+      "code": "eggs_poultry",
+      "name": "Eggs & poultry",
+      "nameMr": "अंडी व कुक्कुट"
+    },
+    {
+      "code": "homemade",
+      "name": "Homemade",
+      "nameMr": "घरगुती"
+    },
+    {
+      "code": "flowers",
+      "name": "Flowers",
+      "nameMr": "फुले"
+    },
+    {
+      "code": "spices",
+      "name": "Spices",
+      "nameMr": "मसाले"
+    }
+  ],
+  "services": [
+    {
+      "id": "0000000000000000000000c8",
+      "module": "services",
+      "name": "Patil Medical",
+      "nameMr": "पाटील मेडिकल",
+      "description": "Medicines and first aid",
+      "category": "Medical",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9820000001",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "health",
+      "mine": false,
+      "hours": "8 AM – 9 PM",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000001",
+        "name": "Palaspe",
+        "nameMr": "पळस्पे"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    },
+    {
+      "id": "0000000000000000000000c9",
+      "module": "services",
+      "name": "Shree Electricals",
+      "nameMr": "श्री इलेक्ट्रिकल्स",
+      "description": "Wiring and appliance repair",
+      "category": "Shop",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9820000002",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "repairs",
+      "mine": false,
+      "hours": "9 AM – 7 PM",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000001",
+        "name": "Palaspe",
+        "nameMr": "पळस्पे"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    },
+    {
+      "id": "0000000000000000000000ca",
+      "module": "services",
+      "name": "Gram Panchayat Office",
+      "nameMr": "ग्रामपंचायत कार्यालय",
+      "description": "Certificates and village records",
+      "category": "Utility",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9820000003",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "public",
+      "mine": false,
+      "hours": "10 AM – 5 PM",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000002",
+        "name": "Narayangaon",
+        "nameMr": "नारायणगाव"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    },
+    {
+      "id": "0000000000000000000000cb",
+      "module": "services",
+      "name": "Kisan Seva Kendra",
+      "nameMr": "किसान सेवा केंद्र",
+      "description": "Seeds, fertiliser, tools",
+      "category": "Shop",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9820000004",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "farm",
+      "mine": false,
+      "hours": "8 AM – 6 PM",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000002",
+        "name": "Narayangaon",
+        "nameMr": "नारायणगाव"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    },
+    {
+      "id": "0000000000000000000000cc",
+      "module": "services",
+      "name": "Dr. Joshi Clinic",
+      "nameMr": "डॉ. जोशी क्लिनिक",
+      "description": "General physician",
+      "category": "Medical",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9820000005",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "health",
+      "mine": false,
+      "hours": "9 AM – 1 PM",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000003",
+        "name": "Kalamb",
+        "nameMr": "कळंब"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    },
+    {
+      "id": "0000000000000000000000cd",
+      "module": "services",
+      "name": "Sai Tailors",
+      "nameMr": "साई टेलर्स",
+      "description": "Stitching and alterations",
+      "category": "Shop",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9820000006",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "personal",
+      "mine": false,
+      "hours": "10 AM – 8 PM",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000004",
+        "name": "Otur",
+        "nameMr": "ओतूर"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    }
+  ],
+  "transport": [
+    {
+      "id": "00000000000000000000012c",
+      "module": "transport",
+      "name": "Ganesh Auto",
+      "nameMr": "गणेश ऑटो",
+      "description": "Auto rickshaw, local trips",
+      "category": "Other",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9830000001",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "auto",
+      "mine": false,
+      "hours": "6 AM – 10 PM",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000001",
+        "name": "Palaspe",
+        "nameMr": "पळस्पे"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    },
+    {
+      "id": "00000000000000000000012d",
+      "module": "transport",
+      "name": "Sai Travels (Tempo)",
+      "nameMr": "साई ट्रॅव्हल्स (टेम्पो)",
+      "description": "Goods tempo for farm produce",
+      "category": "Other",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9830000002",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "goods",
+      "mine": false,
+      "hours": "24 hours",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000002",
+        "name": "Narayangaon",
+        "nameMr": "नारायणगाव"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    },
+    {
+      "id": "00000000000000000000012e",
+      "module": "transport",
+      "name": "Village Ambulance",
+      "nameMr": "गाव रुग्णवाहिका",
+      "description": "Emergency ambulance",
+      "category": "Medical",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9830000003",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "ambulance",
+      "mine": false,
+      "hours": "24 hours",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000003",
+        "name": "Kalamb",
+        "nameMr": "कळंब"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    },
+    {
+      "id": "00000000000000000000012f",
+      "module": "transport",
+      "name": "Shivneri Taxi",
+      "nameMr": "शिवनेरी टॅक्सी",
+      "description": "Car taxi, outstation",
+      "category": "Other",
+      "contacts": [
+        {
+          "label": "Owner",
+          "mobile": "9830000004",
+          "whatsapp": true
+        }
+      ],
+      "providerType": "taxi",
+      "mine": false,
+      "hours": "24 hours",
+      "closed": false,
+      "images": [],
+      "price": null,
+      "unit": null,
+      "village": {
+        "id": "000000000000000000000004",
+        "name": "Otur",
+        "nameMr": "ओतूर"
+      },
+      "createdAt": "2026-11-19T08:00:00.000Z"
+    }
+  ],
+  "coordinator": {
+    "name": "Sachin Patil",
+    "village": {
+      "id": "000000000000000000000001",
+      "name": "Palaspe",
+      "nameMr": "पळस्पे"
+    },
+    "publicContactPhone": "+919876543210"
+  },
+  "servicesSummary": {
+    "total": 6,
+    "groups": [
+      {
+        "id": "health",
+        "count": 2
+      },
+      {
+        "id": "repairs",
+        "count": 1
+      },
+      {
+        "id": "public",
+        "count": 1
+      },
+      {
+        "id": "farm",
+        "count": 1
+      },
+      {
+        "id": "personal",
+        "count": 1
+      }
+    ]
+  },
+  "transportSummary": {
+    "total": 4,
+    "groups": [
+      {
+        "id": "auto",
+        "count": 1
+      },
+      {
+        "id": "goods",
+        "count": 1
+      },
+      {
+        "id": "ambulance",
+        "count": 1
+      },
+      {
+        "id": "taxi",
+        "count": 1
+      }
+    ]
+  }
+}

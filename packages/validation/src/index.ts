@@ -304,6 +304,7 @@ export const mobileUserSchema = z.object({
   lastName: z.string().nullable(),
   language: mobileLanguageSchema,
   village: mobileVillageSchema.nullable(),
+  discoveryRadiusKm: z.number().default(50),
 });
 export const mobileSessionSchema = z.object({
   accessToken: z.string().regex(/^[a-f0-9]{64}$/),
@@ -338,6 +339,10 @@ export const selectVillageSchema = z
     villageId: z.string().regex(/^[a-f0-9]{24}$/i),
     firstName: personNameSchema.optional(),
     lastName: optionalLastNameSchema.optional(),
+    discoveryRadiusKm: z
+      .number()
+      .refine((value) => [0, 10, 20, 50, 100].includes(value))
+      .optional(),
   })
   .strict()
   .superRefine((value, context) => {

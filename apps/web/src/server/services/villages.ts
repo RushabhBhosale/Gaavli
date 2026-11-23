@@ -100,11 +100,15 @@ async function masterSnapshot(
     .findOne({ _id: new Types.ObjectId(id) }, { session });
   if (!village) return null;
   const [district, taluka] = await Promise.all([
-    db.collection("districts").findOne({ _id: village.districtId }, { session }),
+    db
+      .collection("districts")
+      .findOne({ _id: village.districtId }, { session }),
     db.collection("talukas").findOne({ _id: village.talukaId }, { session }),
   ]);
   const linked =
-    district && taluka && String(taluka.districtId) === String(village.districtId);
+    district &&
+    taluka &&
+    String(taluka.districtId) === String(village.districtId);
   const marathi =
     typeof village.nameMr === "string" && village.nameMr.trim()
       ? village.nameMr
@@ -151,7 +155,11 @@ export async function saveVillage(
 ) {
   await connectDb();
   const assignCoordinators = input.coordinatorIds !== undefined;
-  if (assignCoordinators && input.publicCoordinatorPhone && !input.coordinatorIds?.length)
+  if (
+    assignCoordinators &&
+    input.publicCoordinatorPhone &&
+    !input.coordinatorIds?.length
+  )
     throw new AppError(
       422,
       "VALIDATION_ERROR",
@@ -223,7 +231,9 @@ export async function saveVillage(
         district: identity.district,
         ...(masterIdentity
           ? {
-              villageMasterId: new Types.ObjectId(masterIdentity.villageMasterId),
+              villageMasterId: new Types.ObjectId(
+                masterIdentity.villageMasterId,
+              ),
               lgdCode: masterIdentity.lgdCode,
               districtId: new Types.ObjectId(masterIdentity.districtId),
               talukaId: new Types.ObjectId(masterIdentity.talukaId),
@@ -429,9 +439,11 @@ function villageFilter(query: z.infer<typeof villagesFilterSchema>) {
     ...(query.status ? { isActive: query.status === "active" } : {}),
     ...(search
       ? {
-          $or: ["nameEn", "nameMr", "taluka", "district"].map((field) => ({
-            [field]: { $regex: search, $options: "i" },
-          })),
+          $or: ["nameEn", "nameMr", "taluka", "district", "pinCode"].map(
+            (field) => ({
+              [field]: { $regex: search, $options: "i" },
+            }),
+          ),
         }
       : {}),
   };

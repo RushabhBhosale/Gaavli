@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "seed:provider-masters": "node --conditions=react-server --import tsx scripts/seed-provider-masters.mts",
     "import:geography": "node --conditions=react-server --import tsx scripts/import-geography.mts",
     "import:geography:apply": "node --conditions=react-server --import tsx scripts/import-geography.mts --apply",
     "test:provider-masters": "node --conditions=react-server --import tsx tests/provider-masters.integration.mts",
@@ -30,21 +29,13 @@
     "test:coordinator-integration": "node --conditions=react-server --import tsx tests/coordinator.integration.mts",
     "test:product-master": "node --conditions=react-server --import tsx tests/product-master.integration.mts",
     "test:catalog-search": "node --conditions=react-server --import tsx tests/catalog-search.integration.mts",
-    "test:demo-seed": "node --conditions=react-server --import tsx tests/demo-seed.integration.mts",
-    "test:kalamb-test-seed": "node --conditions=react-server --import tsx tests/kalamb-test-seed.integration.mts",
     "setup:mobile-auth": "node scripts/setup-mobile-auth.mjs",
     "smoke": "node scripts/smoke-http.mjs",
-    "seed": "tsx scripts/seed.ts",
     "import:product-master": "node --conditions=react-server --import tsx scripts/import-product-master.mts",
     "build:catalog": "tsx scripts/build-catalog.mts",
     "build:shop-items": "tsx scripts/build-shop-popular-items.mts",
     "check:catalog-search": "node --conditions=react-server --import tsx scripts/check-catalog-search.mts",
-    "index:catalog-search": "node --conditions=react-server --import tsx scripts/index-catalog-search.mts",
-    "seed:sample": "tsx scripts/seed-sample.ts",
-    "seed:narayangaon": "tsx scripts/seed-narayangaon.mts",
-    "seed:demo": "node --conditions=react-server --import tsx scripts/seed-demo.mts",
-    "demo:seed": "node scripts/demo-environment.mjs seed",
-    "demo:server": "node scripts/demo-environment.mjs server"
+    "index:catalog-search": "node --conditions=react-server --import tsx scripts/index-catalog-search.mts"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

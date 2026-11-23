@@ -52,6 +52,12 @@ const userSchema = new Schema(
       required: true,
     },
     preferredLanguage: { type: String, default: "mr" },
+    // Km around the home village whose listings are shown too; 0 = mapped villages only.
+    discoveryRadiusKm: {
+      type: Number,
+      enum: [0, 10, 20, 50, 100],
+      default: 50,
+    },
   },
   { timestamps: true, optimisticConcurrency: true },
 );
@@ -94,6 +100,7 @@ const villageSchema = new Schema(
     districtId: { type: Schema.Types.ObjectId },
     talukaId: { type: Schema.Types.ObjectId },
     pinCode: { type: String, match: /^[1-9]\d{5}$/ },
+    locationSource: { type: String },
     isActive: { type: Boolean, default: true },
     deactivatedAt: { type: Date, default: null },
     location: {
@@ -112,6 +119,17 @@ const villageSchema = new Schema(
 villageSchema.index({ location: "2dsphere" });
 villageSchema.index({ isActive: 1, pinCode: 1 });
 villageSchema.index({ nameEn: 1, _id: 1 }, { name: "name_en_id" });
+// Village search/listing: active filter + district/taluka narrowing, sorted by name.
+villageSchema.index(
+  { isActive: 1, nameEn: 1, _id: 1 },
+  { name: "active_name_en_id" },
+);
+villageSchema.index(
+  { isActive: 1, district: 1, taluka: 1, nameEn: 1, _id: 1 },
+  { name: "active_district_taluka_name" },
+);
+villageSchema.index({ isActive: 1, nameMr: 1 }, { name: "active_name_mr" });
+villageSchema.index({ lgdCode: 1 }, { name: "lgd_code" });
 villageSchema.index(
   { villageMasterId: 1 },
   {

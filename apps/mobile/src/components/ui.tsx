@@ -29,6 +29,7 @@ export function Screen({
   header,
   back,
   scrollRef,
+  inTabs = false,
 }: {
   children: ReactNode;
   compact?: boolean;
@@ -40,6 +41,9 @@ export function Screen({
   // so the page content below only needs the bottom and side safe areas.
   header?: ReactNode;
   scrollRef?: RefObject<ScrollView | null>;
+  // On a tab page the tab bar already covers the bottom safe area, and the
+  // page must run under its fade, so no bottom inset is added here.
+  inTabs?: boolean;
 }) {
   const offline = useAppStore((state) => state.offline);
   const language = useAppStore((state) => state.language);
@@ -47,7 +51,13 @@ export function Screen({
     <View style={styles.safe}>
       {header}
       <SafeAreaView
-        edges={header ? ["left", "right", "bottom"] : undefined}
+        edges={
+          header
+            ? inTabs
+              ? ["left", "right"]
+              : ["left", "right", "bottom"]
+            : undefined
+        }
         style={styles.flex}
       >
         {topContent}

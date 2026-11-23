@@ -26,6 +26,7 @@ export type MobileUser = {
   lastName: string | null;
   language: MobileLanguage;
   village: MobileVillage | null;
+  discoveryRadiusKm?: number;
 };
 export type MobileProfile = {
   firstName: string | null;
