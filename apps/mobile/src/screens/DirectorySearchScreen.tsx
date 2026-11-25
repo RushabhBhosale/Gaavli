@@ -11,7 +11,16 @@ import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { DirectoryListCard } from "../components/dashboard/DirectoryListCard";
 import { d } from "../components/dashboard/primitives";
+import { produceVoiceHints, spokenSearch } from "../data/voiceSearch";
+import { useVoiceSearch } from "../hooks/useVoiceSearch";
+import {
+  VoiceMicButton,
+  voiceErrorText,
+  voiceStatusText,
+} from "../components/VoiceMicButton";
 import type { TextInput } from "react-native";
+
+const VOICE_HINTS = produceVoiceHints();
 
 // The one place to search Services or Transport. Results show right here,
 // only for the section it was opened from.
@@ -41,6 +50,17 @@ export default function DirectorySearchScreen({
         ).values(),
       )
     : [];
+  const voice = useVoiceSearch({
+    language,
+    scope: `search-${module}`,
+    hints: VOICE_HINTS,
+    onResult: (transcript) => {
+      const spoken = spokenSearch(transcript, language, module);
+      if (spoken.text) setText(spoken.text);
+    },
+  });
+  const note =
+    voiceStatusText(t, voice.status) ?? voiceErrorText(t, voice.error);
   const title =
     module === "services" ? t.dashboardServices : t.dashboardTransport;
   const placeholder =
@@ -67,31 +87,49 @@ export default function DirectorySearchScreen({
               label={t.search}
               placeholder={placeholder}
               value={text}
-              onChangeText={setText}
+              onChangeText={(value) => {
+                if (voice.status !== "idle") voice.cancel();
+                voice.clearError();
+                setText(value);
+              }}
               right={
-                text ? (
-                  <Pressable
-                    accessibilityRole="button"
-                    accessibilityLabel={t.searchClear}
-                    hitSlop={8}
-                    onPress={() => {
-                      setText("");
-                      input.current?.focus();
-                    }}
-                  >
-                    <Ionicons
-                      accessible={false}
-                      name="close-circle"
-                      size={20}
-                      color={theme.colors.inactive}
-                    />
-                  </Pressable>
-                ) : undefined
+                <>
+                  {text ? (
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel={t.searchClear}
+                      hitSlop={8}
+                      onPress={() => {
+                        setText("");
+                        input.current?.focus();
+                      }}
+                    >
+                      <Ionicons
+                        accessible={false}
+                        name="close-circle"
+                        size={20}
+                        color={theme.colors.inactive}
+                      />
+                    </Pressable>
+                  ) : null}
+                  <VoiceMicButton
+                    status={voice.status}
+                    onStart={voice.start}
+                    onFinish={voice.finish}
+                    onCancel={voice.cancel}
+                    t={t}
+                  />
+                </>
               }
             />
           </AppHeader>
         }
       >
+        {!!note && (
+          <Text accessibilityLiveRegion="polite" style={d.description}>
+            {note}
+          </Text>
+        )}
         {!search && <Text style={d.description}>{placeholder}</Text>}
         {!!search && offline && (
           <Text style={d.description}>

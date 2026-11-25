@@ -417,7 +417,12 @@ export async function findListingOffers(
   id: string,
   viewerId: string | null,
 ) {
-  const allowedVillageIds = await discoveryVillageIds(villageId);
+  const allowedVillageIds = await discoveryVillageIds(
+    villageId,
+    null,
+    undefined,
+    viewerId,
+  );
   const [target] = await Listing.aggregate<{ groupKey: string }>([
     { $match: { _id: new Types.ObjectId(id) } },
     ...visiblePipeline(allowedVillageIds, new Date()),
@@ -452,12 +457,20 @@ export async function findListingOffers(
   ]);
   return offers;
 }
-export async function findMobileListing(villageId: string, id: string) {
+export async function findMobileListing(
+  villageId: string,
+  id: string,
+  viewerId: string | null = null,
+) {
   const [listing] = await Listing.aggregate<
     Omit<MobileListing, "photoUrl"> & { photoObjectKey: string | null }
   >([
     { $match: { _id: new Types.ObjectId(id) } },
-    ...visiblePipeline(await discoveryVillageIds(villageId), new Date(), "any"),
+    ...visiblePipeline(
+      await discoveryVillageIds(villageId, null, undefined, viewerId),
+      new Date(),
+      "any",
+    ),
     productNameStage,
     { $project: dtoProjection },
   ]);

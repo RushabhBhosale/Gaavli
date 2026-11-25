@@ -9,6 +9,12 @@ import { theme } from "../theme";
 import { browsingVillageFor } from "../storage/browsingVillage";
 import { useMappedVillages } from "../mappedVillages";
 import { ApiError } from "../api/client";
+import { errorMessage } from "../errors";
+import { VillageField } from "../components/VillageField";
+import {
+  useChangeUserMappedVillage,
+  useUserMappedVillages,
+} from "../userMappedVillages";
 import {
   Button,
   Chip,
@@ -31,6 +37,8 @@ export default function MappedVillagesScreen() {
     session?.user.discoveryRadiusKm ?? 50,
   );
   const query = useMappedVillages(home?.id, radiusKm);
+  const own = useUserMappedVillages();
+  const change = useChangeUserMappedVillage();
   // Signed-in users keep the chosen range for their listings feed too.
   async function chooseRadius(km: number) {
     setRadiusKm(km);
@@ -75,6 +83,47 @@ export default function MappedVillagesScreen() {
             />
           ))}
         </View>
+        {!!session?.user.village && (
+          <View style={s.group}>
+            <Text style={s.section}>{t.myMappedTitle}</Text>
+            <Text style={s.help}>{t.myMappedHelp}</Text>
+            <VillageField
+              label={t.myMappedAdd}
+              value={null}
+              disabled={change.isPending}
+              onChange={(village) =>
+                change.mutate({ id: village.id, remove: false })
+              }
+            />
+            {change.isError && (
+              <ErrorMessage message={errorMessage(change.error, language)} />
+            )}
+            {own.data && !own.data.villages.length && (
+              <Text style={d.description}>{t.myMappedEmpty}</Text>
+            )}
+            {own.data?.villages.map((village) => (
+              <View key={village.id} style={[s.row, s.rowMapped]}>
+                <View style={s.copy}>
+                  <Text style={s.name}>{name(village)}</Text>
+                  <Text style={s.place}>
+                    {[village.taluka, village.district]
+                      .filter(Boolean)
+                      .join(", ")}
+                  </Text>
+                </View>
+                <Button
+                  secondary
+                  disabled={change.isPending}
+                  onPress={() =>
+                    change.mutate({ id: village.id, remove: true })
+                  }
+                >
+                  {t.myMappedRemove}
+                </Button>
+              </View>
+            ))}
+          </View>
+        )}
         {query.isPending && <SkeletonList rows={3} label={t.listingsLoading} />}
         {query.isError && (
           <>

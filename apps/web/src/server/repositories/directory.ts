@@ -98,7 +98,12 @@ async function visibleEntries(
   excludeProviderTypes: readonly string[] = [],
   extra: Record<string, unknown> = {},
 ): Promise<PipelineStage[]> {
-  const villageIds = await discoveryVillageIds(query.sourceVillageId);
+  const villageIds = await discoveryVillageIds(
+    query.sourceVillageId,
+    null,
+    undefined,
+    viewerId,
+  );
   const terms = query.search.split(/\s+/).filter(Boolean);
   const group = query.category ? directoryGroup(query.category) : undefined;
   const filters = [

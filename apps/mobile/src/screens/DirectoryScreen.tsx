@@ -17,6 +17,19 @@ import { AppHeader, HeaderSearchButton } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { DirectoryListCard } from "../components/dashboard/DirectoryListCard";
 import { d } from "../components/dashboard/primitives";
+import {
+  produceVoiceHints,
+  scopedSearchRoute,
+  spokenSearch,
+} from "../data/voiceSearch";
+import { useVoiceSearch } from "../hooks/useVoiceSearch";
+import {
+  VoiceMicButton,
+  voiceErrorText,
+  voiceStatusText,
+} from "../components/VoiceMicButton";
+
+const VOICE_HINTS = produceVoiceHints();
 import { CategoryIcon } from "../components/dashboard/CategoryIcon";
 
 // Services and Transport: a row of round category chips to scroll through,
@@ -38,6 +51,17 @@ export default function DirectoryScreen({
   const t = messages(language);
   const scrollRef = useRef<ScrollView>(null);
   const [category, setCategory] = useState<DirectoryGroupId | null>(null);
+  const voice = useVoiceSearch({
+    language,
+    scope: `directory-${module}`,
+    hints: VOICE_HINTS,
+    onResult: (transcript) => {
+      const spoken = spokenSearch(transcript, language, module);
+      if (spoken.text) router.push(scopedSearchRoute(module, spoken.text));
+    },
+  });
+  const voiceNote =
+    voiceStatusText(t, voice.status) ?? voiceErrorText(t, voice.error);
   const summary = useDirectorySummary(module);
   const counts = new Map(summary.data?.groups.map((g) => [g.id, g.count]));
   const query = useDirectory(module, "", category);
@@ -148,10 +172,24 @@ export default function DirectoryScreen({
                     : "/search-transport",
                 )
               }
+              right={
+                <VoiceMicButton
+                  status={voice.status}
+                  onStart={voice.start}
+                  onFinish={voice.finish}
+                  onCancel={voice.cancel}
+                  t={t}
+                />
+              }
             />
           </AppHeader>
         }
       >
+        {!!voiceNote && (
+          <Text accessibilityLiveRegion="polite" style={d.description}>
+            {voiceNote}
+          </Text>
+        )}
         <Text accessibilityRole="header" style={s.sectionTitle}>
           {t.directoryBrowse}
         </Text>

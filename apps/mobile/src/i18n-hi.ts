@@ -791,6 +791,13 @@ export const hi: Messages = {
   mappedGroupTitle: "आपके गाँव समन्वयक द्वारा जोड़े गए गाँव",
   mappedGroupHelp: "इन गाँवों की लिस्टिंग आपको हमेशा दिखती है।",
   nearbyGroupHelp: "{km} किमी के भीतर के गाँवों की लिस्टिंग भी आपको दिखती है।",
+  myMappedTitle: "आपके जोड़े हुए गाँव",
+  myMappedHelp:
+    "दूसरे गाँवों के उत्पाद और सेवाएँ देखने के लिए उन्हें जोड़ें।",
+  myMappedAdd: "गाँव जोड़ें",
+  myMappedRemove: "हटाएँ",
+  myMappedEmpty: "आपने अभी कोई गाँव नहीं जोड़ा है।",
+  myMappedTag: "आपका",
   mappedTag: "जुड़ा हुआ",
   manualSearch: "खुद खोजें",
   noVillages: "अभी कोई गाँव उपलब्ध नहीं है। कृपया बाद में फिर कोशिश करें।",
