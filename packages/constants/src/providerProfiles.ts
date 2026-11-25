@@ -13,6 +13,9 @@ export type ProviderField = Base &
         kind: "text";
         multiline?: boolean;
         keyboard?: "default" | "numeric" | "url";
+        // Descriptive typing is not offered in the app; the field stays in the
+        // API for existing data but is never required.
+        freeText?: boolean;
       }
     | { kind: "master"; master: ProviderMasterType }
     | { kind: "choice"; options: readonly ChoiceOption[] }
@@ -46,6 +49,13 @@ export const CONTACT_LABELS: readonly ChoiceOption[] = [
   { id: "emergency", en: "Emergency", mr: "आपत्कालीन", hi: "आपातकालीन" },
   { id: "home", en: "Home", mr: "घर", hi: "घर" },
 ];
+// The only typed fields the app keeps: names, identifiers and numbers.
+const TYPED_KEYS = [
+  "contactPerson",
+  "registrationNumber",
+  "vehicleNumber",
+  "passengerCapacity",
+];
 const text = (
   key: string,
   en: string,
@@ -53,13 +63,17 @@ const text = (
   hi: string,
   required = false,
   extra: { multiline?: boolean; keyboard?: "default" | "numeric" | "url" } = {},
-): ProviderField => ({
-  key,
-  label: { en, mr, hi },
-  required,
-  kind: "text",
-  ...extra,
-});
+): ProviderField => {
+  const freeText = !TYPED_KEYS.includes(key) && extra.keyboard !== "numeric";
+  return {
+    key,
+    label: { en, mr, hi },
+    required: freeText ? false : required,
+    kind: "text",
+    ...extra,
+    ...(freeText ? { freeText: true } : {}),
+  };
+};
 const hours = (
   key: string,
   en: string,

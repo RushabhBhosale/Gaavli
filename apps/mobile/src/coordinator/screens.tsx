@@ -1289,17 +1289,17 @@ function AddConnection() {
   const [coordinates, setCoordinates] = useState<Record<string, string>>({});
   const [locationFailure, setLocationFailure] = useState(false);
   const [locating, setLocating] = useState(false);
+  const [typedInvalid, setTypedInvalid] = useState(false);
   const locked = saving || scope.busy || scope.pending || offline;
   const path = "/coordinator/villages/" + scope.village.id + "/connections";
   const query = useCoordinatorPages(
     "/coordinator/villages/" + scope.village.id + "/candidates",
     villagePageSchema,
     {
-      ...(area === "gps" ? coordinates : {}),
       search,
       area: area === "all_talukas" ? "other_talukas" : area,
       ...(area === "gps"
-        ? { locationSource: "device", maxDistanceKm: String(distanceRange) }
+        ? { locationSource: "base", maxDistanceKm: String(distanceRange) }
         : {}),
     },
     area === "all_talukas" ? 50 : 20,
@@ -1331,10 +1331,22 @@ function AddConnection() {
     router.canGoBack()
       ? router.back()
       : router.replace("/coordinator/connections");
-  async function locate() {
+  // The village's own coordinates are what nearby suggestions measure from.
+  // When it has none, the coordinator can add them here.
+  async function saveVillageLocation(latitude: number, longitude: number) {
+    if (locked) return;
+    const done = await scope.write(
+      "/coordinator/villages/" + scope.village.id + "/location",
+      "PATCH",
+      { latitude, longitude },
+    );
+    if (done) {
+      setCoordinates({});
+      void query.refetch();
+    }
+  }
+  async function setVillageFromDevice() {
     setLocationFailure(false);
-    setArea("gps");
-    setCoordinates({});
     setLocating(true);
     try {
       const permission = await Location.requestForegroundPermissionsAsync();
@@ -1342,16 +1354,33 @@ function AddConnection() {
       const location = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Balanced,
       });
-      setCoordinates({
-        latitude: String(location.coords.latitude),
-        longitude: String(location.coords.longitude),
-      });
-      setArea("gps");
+      await saveVillageLocation(
+        location.coords.latitude,
+        location.coords.longitude,
+      );
     } catch {
       setLocationFailure(true);
     } finally {
       setLocating(false);
     }
+  }
+  function saveTypedLocation() {
+    const latitude = Number(coordinates.latitude);
+    const longitude = Number(coordinates.longitude);
+    if (
+      !coordinates.latitude?.trim() ||
+      !coordinates.longitude?.trim() ||
+      !Number.isFinite(latitude) ||
+      !Number.isFinite(longitude) ||
+      Math.abs(latitude) > 90 ||
+      Math.abs(longitude) > 180
+    ) {
+      setLocationFailure(false);
+      setTypedInvalid(true);
+      return;
+    }
+    setTypedInvalid(false);
+    void saveVillageLocation(latitude, longitude);
   }
   async function save(ids: string[]) {
     if (submitting.current || locked) return;
@@ -1467,7 +1496,7 @@ function AddConnection() {
           <Pressable
             key={value}
             accessibilityRole="button"
-            accessibilityLabel={value === "gps" ? t.suggestions : label}
+            accessibilityLabel={label}
             accessibilityState={{
               selected: area === value,
               disabled: saving || locating || offline,
@@ -1475,10 +1504,6 @@ function AddConnection() {
             }}
             disabled={saving || locating || offline}
             onPress={() => {
-              if (value === "gps") {
-                void locate();
-                return;
-              }
               setArea(value);
               setCoordinates({});
               setLocationFailure(false);
@@ -1535,17 +1560,8 @@ function AddConnection() {
       {area === "gps" && (
         <View style={{ gap: 8 }}>
           <Text style={d.description}>
-            {t.locationSource}: {t.currentLocation}
+            {t.locationSource}: {scope.village.name}
           </Text>
-          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-            <Button
-              disabled={saving || locating || offline}
-              loading={locating}
-              onPress={() => void locate()}
-            >
-              {t.refreshLocation}
-            </Button>
-          </View>
           <View style={{ flexDirection: "row", gap: 6 }}>
             {[10, 25, 50, 100].map((distance) => (
               <Pressable
@@ -1572,10 +1588,44 @@ function AddConnection() {
               </Pressable>
             ))}
           </View>
-          {!locating &&
-            !locationFailure &&
+          {!query.isPending &&
             query.data?.pages[0]?.locationAvailable === false && (
-              <ErrorMessage message={t.locationUnavailable} />
+              <View style={{ gap: 8 }}>
+                <ErrorMessage message={t.villageNoLocation} />
+                <Button
+                  disabled={locked || locating}
+                  loading={locating}
+                  onPress={() => void setVillageFromDevice()}
+                >
+                  {t.setVillageHere}
+                </Button>
+                <Input
+                  label={t.latitudeLabel}
+                  value={coordinates.latitude ?? ""}
+                  keyboardType="numbers-and-punctuation"
+                  maxLength={12}
+                  editable={!locked}
+                  onChangeText={(latitude) =>
+                    setCoordinates((c) => ({ ...c, latitude }))
+                  }
+                />
+                <Input
+                  label={t.longitudeLabel}
+                  value={coordinates.longitude ?? ""}
+                  keyboardType="numbers-and-punctuation"
+                  maxLength={12}
+                  editable={!locked}
+                  onChangeText={(longitude) =>
+                    setCoordinates((c) => ({ ...c, longitude }))
+                  }
+                />
+                {typedInvalid && (
+                  <ErrorMessage message={t.villageLocationInvalid} />
+                )}
+                <Button secondary disabled={locked} onPress={saveTypedLocation}>
+                  {t.saveVillageLocation}
+                </Button>
+              </View>
             )}
         </View>
       )}

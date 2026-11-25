@@ -20,6 +20,14 @@ const en = {
   byTaluka: "By taluka",
   taluka: "Taluka",
   allTalukas: "All Talukas",
+  villageNoLocation:
+    "Your village has no map location yet. Add it to see nearby villages.",
+  setVillageHere: "Use my current location for my village",
+  latitudeLabel: "Latitude",
+  longitudeLabel: "Longitude",
+  saveVillageLocation: "Save village location",
+  villageLocationInvalid:
+    "Enter a valid latitude (-90 to 90) and longitude (-180 to 180).",
   locationSource: "Location used",
   currentLocation: "Current device location",
   refreshLocation: "Refresh location",
@@ -175,6 +183,14 @@ const mr: Record<keyof typeof en, string> = {
   byTaluka: "तालुका नुसार",
   taluka: "तालुका",
   allTalukas: "सर्व तालुके",
+  villageNoLocation:
+    "तुमच्या गावाचे नकाशावरील स्थान अद्याप नाही. जवळची गावे पाहण्यासाठी ते जोडा.",
+  setVillageHere: "माझ्या गावासाठी सध्याचे स्थान वापरा",
+  latitudeLabel: "अक्षांश",
+  longitudeLabel: "रेखांश",
+  saveVillageLocation: "गावाचे स्थान जतन करा",
+  villageLocationInvalid:
+    "योग्य अक्षांश (-90 ते 90) आणि रेखांश (-180 ते 180) लिहा.",
   locationSource: "स्थान स्रोत",
   currentLocation: "सध्याचे डिव्हाइस स्थान",
   refreshLocation: "स्थान पुन्हा मिळवा",
@@ -330,6 +346,14 @@ const hi: Record<keyof typeof en, string> = {
   byTaluka: "तालुका के अनुसार",
   taluka: "तालुका",
   allTalukas: "सभी तालुके",
+  villageNoLocation:
+    "आपके गाँव का नक्शे पर स्थान अभी नहीं है। पास के गाँव देखने के लिए इसे जोड़ें।",
+  setVillageHere: "मेरे गाँव के लिए वर्तमान स्थान उपयोग करें",
+  latitudeLabel: "अक्षांश",
+  longitudeLabel: "देशांतर",
+  saveVillageLocation: "गाँव का स्थान सहेजें",
+  villageLocationInvalid:
+    "सही अक्षांश (-90 से 90) और देशांतर (-180 से 180) लिखें।",
   locationSource: "स्थान स्रोत",
   currentLocation: "डिवाइस का वर्तमान स्थान",
   refreshLocation: "स्थान फिर से प्राप्त करें",

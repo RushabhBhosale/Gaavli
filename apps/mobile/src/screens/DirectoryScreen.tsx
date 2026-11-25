@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import {
   directoryGroupLabel,
   directoryGroupsFor,
@@ -13,7 +13,7 @@ import { messages } from "../i18n";
 import { useDirectory, useDirectorySummary } from "../directory";
 import { theme } from "../theme";
 import { Button, ErrorMessage, Screen, SkeletonList } from "../components/ui";
-import { AppHeader, HeaderSearch } from "../components/AppHeader";
+import { AppHeader, HeaderSearchButton } from "../components/AppHeader";
 import { ProtectedPage } from "../components/dashboard/ProtectedPage";
 import { DirectoryListCard } from "../components/dashboard/DirectoryListCard";
 import { d } from "../components/dashboard/primitives";
@@ -37,27 +37,10 @@ export default function DirectoryScreen({
   const { language, offline } = useAppStore();
   const t = messages(language);
   const scrollRef = useRef<ScrollView>(null);
-  const [input, setInput] = useState("");
-  const [search, setSearch] = useState("");
   const [category, setCategory] = useState<DirectoryGroupId | null>(null);
-  // A search spoken on the bottom bar, or "View All" from the global search,
-  // arrives here and applies once per request.
-  const incoming = useLocalSearchParams<{ q?: string; v?: string }>();
-  const [applied, setApplied] = useState<string | undefined>(undefined);
-  if (incoming.v && incoming.v !== applied) {
-    setApplied(incoming.v);
-    const text = (incoming.q ?? "").trim();
-    setInput(text);
-    setSearch(text);
-    setCategory(null);
-  }
-  useEffect(() => {
-    const timer = setTimeout(() => setSearch(input.trim()), 300);
-    return () => clearTimeout(timer);
-  }, [input]);
   const summary = useDirectorySummary(module);
   const counts = new Map(summary.data?.groups.map((g) => [g.id, g.count]));
-  const query = useDirectory(module, search, category);
+  const query = useDirectory(module, "", category);
   useEffect(() => {
     scrollRef.current?.scrollTo({ y: 0, animated: false });
   }, [category]);
@@ -91,8 +74,6 @@ export default function DirectoryScreen({
     if (next === module) return;
     setModule(next);
     setCategory(null);
-    setInput("");
-    setSearch("");
   };
   return (
     <ProtectedPage allowGuest>
@@ -110,11 +91,9 @@ export default function DirectoryScreen({
             // Inside a category (or a search) the way back is up one level,
             // from the same fixed spot as everywhere else.
             onBack={
-              category || input.trim()
+              category
                 ? () => {
                     setCategory(null);
-                    setInput("");
-                    setSearch("");
                   }
                 : undefined
             }
@@ -155,15 +134,20 @@ export default function DirectoryScreen({
                 );
               })}
             </View>
-            <HeaderSearch
+            <HeaderSearchButton
               label={t.search}
               placeholder={
                 module === "services"
                   ? t.directorySearchServices
                   : t.directorySearchTransport
               }
-              value={input}
-              onChangeText={setInput}
+              onPress={() =>
+                router.push(
+                  module === "services"
+                    ? "/search-services"
+                    : "/search-transport",
+                )
+              }
             />
           </AppHeader>
         }

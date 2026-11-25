@@ -5,6 +5,7 @@ import {
   coordinatorBuyerSchema,
   coordinatorUserEditSchema,
   coordinatorConnectionInputSchema,
+  coordinatorVillageLocationSchema,
   coordinatorReportActionSchema,
   coordinatorDashboardSchema,
   coordinatorUsersSchema,
@@ -499,6 +500,46 @@ export async function coordinatorConnect(
         session,
       );
       return String(connection._id);
+    },
+  );
+}
+// A coordinator can place their own village on the map when it has no
+// coordinates yet; nearby suggestions then measure from that point.
+export async function coordinatorSetVillageLocation(
+  actorId: string,
+  villageId: string,
+  key: string,
+  input: z.infer<typeof coordinatorVillageLocationSchema>,
+) {
+  return coordinatorWrite(
+    actorId,
+    villageId,
+    key,
+    "village:location",
+    input,
+    async (session, source) => {
+      await Village.updateOne(
+        { _id: villageId },
+        {
+          $set: {
+            location: {
+              type: "Point",
+              coordinates: [input.longitude, input.latitude],
+            },
+            locationSource: "coordinator",
+          },
+        },
+        { session },
+      );
+      await recordAction(
+        actorId,
+        villageId,
+        villageId,
+        "village.location_set",
+        source.nameEn,
+        session,
+      );
+      return villageId;
     },
   );
 }

@@ -90,6 +90,12 @@ export const coordinatorUserEditSchema = z
 export const coordinatorConnectionInputSchema = z
   .object({ targetVillageId: id })
   .strict();
+export const coordinatorVillageLocationSchema = z
+  .object({
+    latitude: z.coerce.number().min(-90).max(90),
+    longitude: z.coerce.number().min(-180).max(180),
+  })
+  .strict();
 export const coordinatorReportActionSchema = z
   .object({
     action: z.enum(["dismiss", "flag", "hide", "escalate"]),

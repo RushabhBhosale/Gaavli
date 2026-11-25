@@ -7,7 +7,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { AppHeader } from "../components/AppHeader";
@@ -50,7 +49,6 @@ export default function MarketplaceScreen() {
   const t = messages(language);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
-  const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState("");
   // A search typed or spoken on Home or the bottom-bar mic arrives here.
   const incoming = useLocalSearchParams<{
@@ -217,7 +215,7 @@ export default function MarketplaceScreen() {
         }
         right={session && <NotificationBell language={language} onDark />}
       >
-        <View style={[s.search, focused && s.searchFocused]}>
+        <View style={s.search}>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={t.search}
@@ -230,24 +228,27 @@ export default function MarketplaceScreen() {
               color={theme.colors.primary}
             />
           </Pressable>
-          <TextInput
-            multiline={false}
-            value={query}
-            maxLength={100}
-            onChangeText={(value) => {
-              voice.cancel();
-              voice.clearError();
-              setQuery(value);
-            }}
-            placeholder={t.marketplaceSearchPlaceholder}
-            placeholderTextColor={theme.colors.placeholder}
+          <Pressable
+            accessibilityRole="search"
             accessibilityLabel={t.marketplaceSearchPlaceholder}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            returnKeyType="search"
-            onSubmitEditing={submitSearch}
-            style={s.searchInput}
-          />
+            onPress={() =>
+              router.push({
+                pathname: "/search-marketplace",
+                params: { q: search },
+              })
+            }
+            style={s.searchButton}
+          >
+            <Text
+              numberOfLines={1}
+              style={[
+                s.searchInput,
+                !search && { color: theme.colors.placeholder },
+              ]}
+            >
+              {search || t.marketplaceSearchPlaceholder}
+            </Text>
+          </Pressable>
           <VoiceMicButton
             status={voice.status}
             onStart={voice.start}
@@ -476,6 +477,7 @@ const s = StyleSheet.create({
   },
   voiceStatus: { flexDirection: "row", alignItems: "center", gap: 8 },
   voiceStatusText: { ...d.description, flex: 1 },
+  searchButton: { flex: 1, minHeight: 48, justifyContent: "center" },
   searchInput: {
     flex: 1,
     minWidth: 0,

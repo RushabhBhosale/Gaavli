@@ -3,6 +3,7 @@ import {
   coordinatorBuyerSchema,
   coordinatorUserEditSchema,
   coordinatorConnectionInputSchema,
+  coordinatorVillageLocationSchema,
   coordinatorReportActionSchema,
   coordinatorActivityIdSchema,
   listingIdSchema,
@@ -131,6 +132,23 @@ function dispatch(request: Request, context: Context) {
         await jsonBody(request),
       );
       const result = await coordinator.coordinatorConnect(
+        actorId,
+        villageId,
+        key(),
+        input,
+      );
+      return ok(result.data, result.status);
+    }
+    if (
+      request.method === "PATCH" &&
+      path.length === 3 &&
+      resource === "villages" &&
+      subresource === "location"
+    ) {
+      const input = coordinatorVillageLocationSchema.parse(
+        await jsonBody(request),
+      );
+      const result = await coordinator.coordinatorSetVillageLocation(
         actorId,
         villageId,
         key(),

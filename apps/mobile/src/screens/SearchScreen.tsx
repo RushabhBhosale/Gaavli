@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { AppHeader, HeaderSearch } from "../components/AppHeader";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useAppStore } from "../store";
 import { formatMessage, messages } from "../i18n";
 import { theme } from "../theme";
@@ -52,12 +52,17 @@ const CATEGORIES = [
 // Full-screen search like a shopping app: tap the box anywhere, see what you
 // searched before and what others pick, watch matching products appear as you
 // type, and open one in a single tap.
-export default function SearchScreen() {
+export default function SearchScreen({
+  scope = "all",
+}: {
+  scope?: "all" | "marketplace";
+}) {
   const router = useRouter();
+  const incoming = useLocalSearchParams<{ q?: string }>();
   const language = useAppStore((state) => state.language);
   const t = messages(language);
   const input = useRef<TextInput>(null);
-  const [text, setText] = useState("");
+  const [text, setText] = useState((incoming.q ?? "").trim());
   const [typed, setTyped] = useState("");
   const [recent, setRecent] = useState<string[]>([]);
   useEffect(() => {
@@ -104,18 +109,18 @@ export default function SearchScreen() {
   function search(value: string, group?: string | null) {
     Keyboard.dismiss();
     if (value.trim()) remember(value);
-    router.replace(scopedSearchRoute("all", value, group));
+    router.replace(scopedSearchRoute(scope, value, group));
   }
   function close() {
     if (router.canGoBack()) router.back();
-    else router.replace("/home");
+    else router.replace(scope === "all" ? "/home" : "/marketplace");
   }
   const voice = useVoiceSearch({
     language,
-    scope: "search",
+    scope: scope === "all" ? "search" : "search-marketplace",
     hints: VOICE_HINTS,
     onResult: (transcript) => {
-      const spoken = spokenSearch(transcript, language, "all");
+      const spoken = spokenSearch(transcript, language, scope);
       if (spoken.text) search(spoken.text, spoken.productGroup);
     },
   });
@@ -246,13 +251,17 @@ export default function SearchScreen() {
       <AppHeader
         title={t.marketplaceSearchPlaceholder}
         onBack={close}
-        back="/home"
+        back={scope === "all" ? "/home" : "/marketplace"}
       >
         <HeaderSearch
           inputRef={input}
           autoFocus
           label={t.marketplaceSearchPlaceholder}
-          placeholder={t.homeSearchHint}
+          placeholder={
+            scope === "marketplace"
+              ? t.marketplaceSearchPlaceholder
+              : t.homeSearchHint
+          }
           value={text}
           onChangeText={(value) => {
             if (voice.status !== "idle") voice.cancel();

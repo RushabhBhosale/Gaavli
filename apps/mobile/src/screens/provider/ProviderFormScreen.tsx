@@ -71,7 +71,7 @@ export default function ProviderFormScreen() {
   const [name, setName] = useState("");
   const [pickedVillage, setVillage] = useState<MobileVillage | null>(null);
   const village = pickedVillage ?? session?.user.village ?? null;
-  const [address, setAddress] = useState("");
+  const [address] = useState("");
   const [images, setImages] = useState<ProviderImage[]>([]);
   const [edited, setContacts] = useState<ContactDraft[] | null>(null);
   // The account's verified primary number leads the list.
@@ -240,13 +240,6 @@ export default function ProviderFormScreen() {
             }}
             error={errors.village}
             disabled={busy}
-          />
-          <Input
-            label={t.provAddress}
-            value={address}
-            onChangeText={setAddress}
-            maxLength={300}
-            editable={!busy}
           />
           <Text style={s.section}>{t.provContactsTitle}</Text>
           <ContactNumbersField

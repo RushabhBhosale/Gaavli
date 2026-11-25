@@ -82,6 +82,7 @@ export {
   coordinatorBuyerSchema,
   coordinatorUserEditSchema,
   coordinatorConnectionInputSchema,
+  coordinatorVillageLocationSchema,
   coordinatorReportActionSchema,
   listingReportInputSchema,
   coordinatorActivityIdSchema,
