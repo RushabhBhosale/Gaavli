@@ -241,18 +241,14 @@ function TagForm({ tag, onClose }: { tag: Tag | null; onClose: () => void }) {
               <div
                 role="group"
                 aria-labelledby="tag-groups-label"
-                className="mt-2 flex flex-wrap gap-2"
+                className="choice-group"
               >
                 {LISTING_PRODUCT_GROUPS.map((group) => {
                   const on = input.groups.includes(group);
                   return (
-                    <label
-                      key={group}
-                      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1 text-sm ${on ? "border-emerald-600 bg-emerald-50 text-emerald-800" : "border-slate-300"}`}
-                    >
+                    <label key={group} className="choice-chip">
                       <input
                         type="checkbox"
-                        className="!w-auto"
                         checked={on}
                         onChange={() =>
                           setInput({

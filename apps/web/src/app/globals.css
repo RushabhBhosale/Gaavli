@@ -89,6 +89,48 @@ label {
   display: grid;
   gap: 6px;
 }
+/* Pill-shaped checkbox options (product groups, tags). Defined here because
+   the global label rule above would otherwise stack the box and its text. */
+.choice-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 2px;
+}
+.choice-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.choice-chip:hover {
+  border-color: #94a3b8;
+}
+.choice-chip input {
+  margin: 0;
+  flex-shrink: 0;
+}
+.choice-chip:has(input:checked) {
+  border-color: #087c50;
+  background: #ecfdf5;
+  color: #065f46;
+}
+.choice-chip:has(input:focus-visible) {
+  outline: 2px solid #13865c;
+  outline-offset: 2px;
+}
 .field-error {
   color: #b91c1c;
   font-size: 12px;

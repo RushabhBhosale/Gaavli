@@ -292,7 +292,6 @@ export function ProductCatalogueManagement() {
             },
           ]}
         />
-        <Button onClick={() => setAdding(true)}>Add product</Button>
       </div>
     );
   }
@@ -347,7 +346,8 @@ export function ProductCatalogueManagement() {
           />
         }
         actions={
-          <div className="w-full sm:w-52">
+          <div className="flex w-full flex-wrap items-center gap-3 sm:w-auto">
+            <div className="w-full sm:w-52">
             <select
               aria-label="Filter by group"
               value={group}
@@ -363,6 +363,8 @@ export function ProductCatalogueManagement() {
                 </option>
               ))}
             </select>
+            </div>
+            <Button onClick={() => setAdding(true)}>Add product</Button>
           </div>
         }
       />
@@ -588,18 +590,14 @@ function ProductForm({
               <div
                 role="group"
                 aria-labelledby="product-tags-label"
-                className="mt-2 flex flex-wrap gap-2"
+                className="choice-group"
               >
                 {tagOptions.map((tag) => {
                   const on = input.tagIds.includes(tag.id);
                   return (
-                    <label
-                      key={tag.id}
-                      className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1 text-sm ${on ? "border-emerald-600 bg-emerald-50 text-emerald-800" : "border-slate-300"}`}
-                    >
+                    <label key={tag.id} className="choice-chip">
                       <input
                         type="checkbox"
-                        className="!w-auto"
                         checked={on}
                         onChange={() =>
                           setInput({
