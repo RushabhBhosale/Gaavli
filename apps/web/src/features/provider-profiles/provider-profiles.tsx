@@ -27,7 +27,7 @@ import { useSearchShortcut } from "@/lib/use-search-shortcut";
 
 type Profile = {
   id: string;
-  providerType: ProviderType;
+  providerType: string;
   name: string;
   status: "ACTIVE" | "INACTIVE";
   village: string;
@@ -45,7 +45,7 @@ type ProfilePage = {
 const label = (type: string) =>
   PROVIDER_TYPE_LABELS[type as ProviderType]?.en ?? type;
 
-function ProfileIdentity({ profile }: { profile: Profile }) {
+function ProfileIdentity({ profile, typeLabel = label(profile.providerType) }: { profile: Profile; typeLabel?: string }) {
   return (
     <div className="flex items-center gap-2.5">
       <span
@@ -59,7 +59,7 @@ function ProfileIdentity({ profile }: { profile: Profile }) {
           {profile.name}
         </p>
         <p className="mt-0.5 max-w-56 truncate text-xs text-slate-500">
-          {label(profile.providerType)}
+          {typeLabel}
         </p>
       </div>
     </div>
@@ -76,6 +76,12 @@ export function ProviderProfileManagement() {
   const client = useQueryClient();
   const searchRef = useRef<HTMLInputElement>(null);
   useSearchShortcut(searchRef);
+  const providerTypes = useQuery({
+    queryKey: ["admin-provider-types"],
+    queryFn: () => api<{ records: { code: string; name: { en: string }; isActive: boolean; sortOrder: number }[] }>("/v1/admin/provider-types"),
+  });
+  const providerTypeLabel = (type: string) =>
+    providerTypes.data?.records.find((row) => row.code === type)?.name.en ?? label(type);
   const params = new URLSearchParams({
     page: String(page),
     limit: String(pageSize),
@@ -114,14 +120,14 @@ export function ProviderProfileManagement() {
     {
       accessorKey: "name",
       header: "Name",
-      cell: ({ row }) => <ProfileIdentity profile={row.original} />,
+      cell: ({ row }) => <ProfileIdentity profile={row.original} typeLabel={providerTypeLabel(row.original.providerType)} />,
     },
     {
       accessorKey: "providerType",
       header: "Kind",
       cell: ({ row }) => (
         <span className="text-slate-600">
-          {label(row.original.providerType)}
+          {providerTypeLabel(row.original.providerType)}
         </span>
       ),
     },
@@ -206,7 +212,7 @@ export function ProviderProfileManagement() {
     ...(providerType
       ? [
           {
-            label: `Kind: ${label(providerType)}`,
+            label: `Kind: ${providerTypeLabel(providerType)}`,
             onRemove: () => {
               setProviderType("");
               setPage(1);
@@ -241,7 +247,7 @@ export function ProviderProfileManagement() {
     return (
       <div className="flex items-start gap-3 px-4 py-3">
         <div className="min-w-0 flex-1">
-          <ProfileIdentity profile={profile} />
+          <ProfileIdentity profile={profile} typeLabel={providerTypeLabel(profile.providerType)} />
           <p className="mt-2 truncate text-xs text-slate-500">
             {profile.village}
           </p>
@@ -297,9 +303,11 @@ export function ProviderProfileManagement() {
                 }}
               >
                 <option value="">All kinds</option>
-                {Object.values(ProviderType).map((type) => (
-                  <option key={type} value={type}>
-                    {label(type)}
+                {(providerTypes.data?.records ?? Object.values(ProviderType).map((code, index) => ({ code, name: { en: label(code) }, isActive: true, sortOrder: index })))
+                  .filter((type) => type.isActive)
+                  .map((type) => (
+                  <option key={type.code} value={type.code}>
+                    {type.name.en}
                   </option>
                 ))}
               </select>

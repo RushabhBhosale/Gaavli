@@ -64,9 +64,17 @@ const pageMeta: Record<string, { title: string; subtitle?: string }> = {
     title: "Product Tags",
     subtitle: "Organic, Desi and other tags sellers add to listings.",
   },
+  "/product-catalogue": {
+    title: "Product Catalogue",
+    subtitle: "Products sellers can pick when they add a listing.",
+  },
   "/provider-masters": {
     title: "Master Management",
     subtitle: "Service Providers",
+  },
+  "/provider-types": {
+    title: "Provider Type Management",
+    subtitle: "Manage provider type dropdown options in Admin",
   },
   "/provider-profiles": {
     title: "Provider Profiles",
@@ -136,6 +144,15 @@ export function AdminShell({
           <p className="px-4 pb-1 pt-5 text-[10px] font-semibold uppercase tracking-wider text-[#D6E2EC]">
             Service Providers
           </p>
+          <Link
+            href="/provider-types"
+            onClick={() => setOpen(false)}
+            aria-current={path === "/provider-types" ? "page" : undefined}
+            className={`flex items-center gap-3 rounded-md px-4 py-3 text-[13px] font-medium transition-colors ${path === "/provider-types" ? "bg-[#FEF3EA] text-[#A84E0D]" : "text-white/90 hover:bg-white/10 hover:text-white"}`}
+          >
+            <Store size={17} />
+            Provider Type Management
+          </Link>
           <Link
             href="/provider-masters"
             onClick={() => setOpen(false)}

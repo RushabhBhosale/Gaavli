@@ -14,6 +14,12 @@ code-owned constants, not a collection. Seed inserts missing identities only;
 existing records/references are preserved. No provider-profile/category collection
 or unrelated migration is introduced. See docs/03-api/PROVIDER_MASTERS.md.
 
+Admin provider-type labels and custom Admin-only dropdown options are stored in
+`providerTypeOptions` with code, translated name, sort order, active status and
+version. Built-in provider type codes and provider-to-master-group mappings stay
+code-owned; custom options do not add mobile registration behavior or master
+groups.
+
 # Notification unread badges - 2026-10-28 (user approved)
 
 Reuse the existing Notification collection, recipient userId and nullable readAt.

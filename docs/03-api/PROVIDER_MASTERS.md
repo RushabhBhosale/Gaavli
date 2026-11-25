@@ -6,7 +6,11 @@ collection. Existing ProductMaster and marketplace/service listings are unchange
 
 ## Fixed provider types and groups
 
-The shared `ProviderType` enum is code-owned; there is no provider-type CRUD.
+The codes and provider-to-master-group mapping remain code-owned. Admin
+`/provider-types` manages translated labels, order and active status for built-in
+types, and can add Admin-only type options. New Admin-only options do not create
+master groups or change mobile registration. Built-in types without an assigned
+master group and custom Admin-only options are excluded from Master Management.
 
 | Provider Type           | Master groups                               |
 | ----------------------- | ------------------------------------------- |
@@ -51,6 +55,19 @@ that selected group. New-format rows must include both group columns, and invali
 type/group combinations are reported against their row.
 
 ## REST contracts
+
+The Admin provider-type list uses:
+
+| Method | Path                                      | Purpose                                      |
+| ------ | ----------------------------------------- | -------------------------------------------- |
+| GET    | `/api/v1/admin/provider-types`            | List built-in types with saved overrides and Admin-only options |
+| POST   | `/api/v1/admin/provider-types`            | Add an Admin-only option                     |
+| PATCH  | `/api/v1/admin/provider-types/:code`      | Update translated names, order and status    |
+
+Writes require the existing Super Admin session and same-origin check, and are
+recorded in AuditLog. Built-in codes are fixed. New options are available in
+Admin provider profile filters; they do not create mobile registration types or
+provider-master groups.
 
 Uses the existing `/api/v1` convention rather than adding unversioned aliases.
 All responses use existing JSON envelopes and `Cache-Control: no-store`.

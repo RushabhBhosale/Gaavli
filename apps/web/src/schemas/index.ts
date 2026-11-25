@@ -109,6 +109,7 @@ export const villagesFilterSchema = z
   .object({
     search: z.string().trim().max(100).optional(),
     district: z.string().trim().min(1).max(100).optional(),
+    taluka: z.string().trim().min(1).max(100).optional(),
     status: z.enum(["active", "inactive"]).optional(),
   })
   .strict();
@@ -118,6 +119,40 @@ export const villagesQuerySchema = villagesFilterSchema
     direction: z.enum(["asc", "desc"]).default("asc"),
     page: z.coerce.number().int().min(1).max(100000).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(6),
+  })
+  .strict();
+export const providerTypeOptionSchema = z
+  .object({
+    code: z
+      .string()
+      .trim()
+      .toUpperCase()
+      .regex(/^[A-Z][A-Z0-9_]{1,79}$/, "Use uppercase letters, numbers and underscores"),
+    name: z.object({
+      en: z.string().trim().min(2).max(160),
+      mr: z.string().trim().min(2).max(160),
+      hi: z.string().trim().min(2).max(160),
+    }).strict(),
+    sortOrder: z.number().int().min(0).max(1000000).default(0),
+    isActive: z.boolean().default(true),
+  })
+  .strict();
+export const providerTypeOptionUpdateSchema = providerTypeOptionSchema
+  .omit({ code: true })
+  .extend({ version: z.number().int().nonnegative() })
+  .strict();
+export const providerTypeOptionsQuerySchema = z
+  .object({
+    search: z.string().trim().max(100).default(""),
+    status: z.enum(["all", "active", "inactive"]).default("all"),
+    page: z.coerce.number().int().min(1).max(10000).default(1),
+    // Dropdown consumers call this endpoint without paging parameters and need
+    // every active type, so an omitted limit returns the full vocabulary.
+    limit: z.coerce.number().int().min(1).max(100).default(100),
+    sort: z
+      .enum(["sortOrder", "name.en", "name.mr", "name.hi", "code", "isActive"])
+      .default("sortOrder"),
+    direction: z.enum(["asc", "desc"]).default("asc"),
   })
   .strict();
 export const villageSchema = z

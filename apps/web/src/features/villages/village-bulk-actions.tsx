@@ -12,7 +12,12 @@ import {
 } from "@/components/ui/dialog";
 import { villageSampleCsv } from "@/lib/village-csv";
 
-type Filters = { search: string; district: string; status: string };
+type Filters = {
+  search: string;
+  district: string;
+  taluka: string;
+  status: string;
+};
 type ImportResult = {
   created: number;
   failed: { line: number; message: string }[];
@@ -47,6 +52,7 @@ export function VillageBulkActions({
     const params = new URLSearchParams({
       ...(filters.search ? { search: filters.search } : {}),
       ...(filters.district ? { district: filters.district } : {}),
+      ...(filters.taluka ? { taluka: filters.taluka } : {}),
       ...(filters.status ? { status: filters.status } : {}),
     });
     try {

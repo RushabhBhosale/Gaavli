@@ -447,7 +447,6 @@ export function UsersManagement() {
                 <option value="">All Status</option>
                 <option value="active">Active</option>
                 <option value="blocked">Blocked</option>
-                <option value="pending">Pending</option>
               </select>
             </div>
           </>

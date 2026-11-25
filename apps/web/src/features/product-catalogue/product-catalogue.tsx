@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Search } from "lucide-react";
+import {
+  getCoreRowModel,
+  useReactTable,
+  type ColumnDef,
+} from "@tanstack/react-table";
 import { LISTING_PRODUCT_GROUPS } from "@gaavli/constants";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,8 +15,20 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { EmptyState, ErrorState, Skeleton } from "@/components/shared/states";
+import { Badge } from "@/components/shared/badge";
+import {
+  DataTable,
+  ListCard,
+  ListFilterBar,
+  ListPageToolbar,
+  ListSkeleton,
+  RowActions,
+  SearchField,
+} from "@/components/shared/list-page";
+import { ListPagination } from "@/components/shared/list-pagination";
+import { EmptyState, ErrorState } from "@/components/shared/states";
 import { api } from "@/lib/api";
+import { useSearchShortcut } from "@/lib/use-search-shortcut";
 import { adminProductCreateSchema, adminProductUpdateSchema } from "@/schemas";
 
 type Product = {
@@ -36,7 +52,11 @@ type ProductsPage = {
   limit: number;
   summary: { active: number; inactive: number };
 };
-const LIMIT = 20;
+const DEFAULT_PAGE_SIZE = 20;
+const STATUS_TABS = [
+  { key: "ACTIVE", label: "Active" },
+  { key: "INACTIVE", label: "Inactive" },
+] as const;
 const groupLabel = (group: string) =>
   group.replace(/_/g, " ").replace(/^./, (letter) => letter.toUpperCase());
 
@@ -47,11 +67,15 @@ export function ProductCatalogueManagement() {
   const client = useQueryClient();
   const [search, setSearch] = useState("");
   const [debounced, setDebounced] = useState("");
-  const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState<"ACTIVE" | "INACTIVE">("ACTIVE");
   const [group, setGroup] = useState("all");
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [editing, setEditing] = useState<Product | null>(null);
   const [adding, setAdding] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
+  useSearchShortcut(searchRef);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebounced(search.trim());
@@ -59,20 +83,28 @@ export function ProductCatalogueManagement() {
     }, 300);
     return () => clearTimeout(timer);
   }, [search]);
+
   const params = new URLSearchParams({
     search: debounced,
     status,
     group,
     page: String(page),
-    limit: String(LIMIT),
+    limit: String(pageSize),
   });
   const query = useQuery({
-    queryKey: ["admin-product-catalogue", debounced, status, group, page],
-    queryFn: () => api<ProductsPage>(`/v1/admin/product-catalogue?${params}`),
+    queryKey: [
+      "admin-product-catalogue",
+      debounced,
+      status,
+      group,
+      page,
+      pageSize,
+    ],
+    queryFn: () => api<ProductsPage>("/v1/admin/product-catalogue?" + params),
   });
   const toggle = useMutation({
     mutationFn: (product: Product) =>
-      api(`/v1/admin/product-catalogue/${product.id}`, {
+      api("/v1/admin/product-catalogue/" + product.id, {
         method: "PATCH",
         body: JSON.stringify({
           status: product.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
@@ -82,191 +114,322 @@ export function ProductCatalogueManagement() {
       client.invalidateQueries({ queryKey: ["admin-product-catalogue"] }),
   });
   const rows = query.data?.products ?? [];
-  const pages = Math.max(1, Math.ceil((query.data?.total ?? 0) / LIMIT));
-  const currentPage = query.data?.page ?? page;
-  return (
-    <section className="card min-h-[460px] p-4 sm:p-6">
-      <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-xl font-bold">Product Catalogue</h1>
-          <p className="mt-1 text-sm text-slate-500">
-            {query.data
-              ? `${query.data.summary.active.toLocaleString("en-IN")} active · ${query.data.summary.inactive.toLocaleString("en-IN")} inactive`
-              : "Products sellers can pick when they add a listing."}
+  const columns = useMemo<ColumnDef<Product>[]>(
+    () => [
+      {
+        accessorKey: "nameEn",
+        header: "Product",
+        cell: ({ row }) => (
+          <div className="min-w-0">
+            <p className="max-w-64 truncate font-semibold text-slate-800">
+              {row.original.nameEn}
+            </p>
+            <p className="mt-0.5 text-xs text-slate-500">{row.original.code}</p>
+          </div>
+        ),
+      },
+      {
+        id: "names",
+        header: "Marathi / Hindi",
+        cell: ({ row }) => (
+          <div className="min-w-0">
+            <p lang="mr" className="max-w-56 truncate text-slate-700">
+              {row.original.nameMr}
+            </p>
+            <p
+              lang="hi"
+              className="mt-0.5 max-w-56 truncate text-xs text-slate-500"
+            >
+              {row.original.nameHi || "—"}
+            </p>
+          </div>
+        ),
+      },
+      {
+        accessorKey: "productGroup",
+        header: "Group",
+        cell: ({ row }) => (
+          <span className="capitalize text-slate-600">
+            {groupLabel(row.original.productGroup)}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "defaultUnit",
+        header: "Unit",
+        cell: ({ row }) => (
+          <span className="text-slate-600">{row.original.defaultUnit}</span>
+        ),
+      },
+      {
+        accessorKey: "activeListings",
+        header: "Live listings",
+        cell: ({ row }) => (
+          <span className="tabular-nums font-medium text-slate-700">
+            {row.original.activeListings.toLocaleString("en-IN")}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => (
+          <Badge
+            tone={row.original.status === "ACTIVE" ? "success" : "neutral"}
+            dot
+          >
+            {row.original.status === "ACTIVE" ? "Active" : "Inactive"}
+          </Badge>
+        ),
+      },
+      {
+        id: "actions",
+        header: "Actions",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <div className="flex justify-end">
+            <RowActions
+              label={"Actions for " + row.original.nameEn}
+              items={[
+                { label: "Edit", onSelect: () => setEditing(row.original) },
+                {
+                  label:
+                    row.original.status === "ACTIVE"
+                      ? "Deactivate"
+                      : "Activate",
+                  disabled:
+                    toggle.isPending &&
+                    toggle.variables?.id === row.original.id,
+                  onSelect: () => toggle.mutate(row.original),
+                },
+              ]}
+            />
+          </div>
+        ),
+      },
+    ],
+    [toggle.isPending, toggle.mutate, toggle.variables?.id],
+  );
+  // TanStack Table v8 owns memoization; React Compiler is not enabled.
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const table = useReactTable({
+    data: rows,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getRowId: (row) => row.id,
+  });
+
+  const hasFilters = Boolean(debounced) || group !== "all";
+  function clearFilters() {
+    setSearch("");
+    setDebounced("");
+    setGroup("all");
+    setPage(1);
+  }
+  const filterChips: { label: string; onRemove: () => void }[] = [
+    ...(debounced
+      ? [
+          {
+            label: `Search: "${debounced}"`,
+            onRemove: () => {
+              setSearch("");
+              setDebounced("");
+              setPage(1);
+            },
+          },
+        ]
+      : []),
+    ...(group !== "all"
+      ? [
+          {
+            label: "Group: " + groupLabel(group),
+            onRemove: () => {
+              setGroup("all");
+              setPage(1);
+            },
+          },
+        ]
+      : []),
+  ];
+
+  function renderProductRow(product: Product) {
+    return (
+      <div className="flex items-start gap-3 px-4 py-3">
+        <div className="min-w-0 flex-1">
+          <p className="truncate font-semibold text-slate-800">
+            {product.nameEn}
           </p>
+          <p className="mt-0.5 text-xs text-slate-500">{product.code}</p>
+          <p lang="mr" className="mt-2 truncate text-sm text-slate-700">
+            {product.nameMr}
+          </p>
+          <p lang="hi" className="truncate text-xs text-slate-500">
+            {product.nameHi || "—"}
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-600">
+              {groupLabel(product.productGroup)} · {product.defaultUnit}
+            </span>
+            <Badge
+              tone={product.status === "ACTIVE" ? "success" : "neutral"}
+              dot
+            >
+              {product.status === "ACTIVE" ? "Active" : "Inactive"}
+            </Badge>
+            <span className="text-xs tabular-nums text-slate-500">
+              {product.activeListings.toLocaleString("en-IN")} live listings
+            </span>
+          </div>
         </div>
+        <RowActions
+          label={"Actions for " + product.nameEn}
+          items={[
+            { label: "Edit", onSelect: () => setEditing(product) },
+            {
+              label: product.status === "ACTIVE" ? "Deactivate" : "Activate",
+              disabled: toggle.isPending && toggle.variables?.id === product.id,
+              onSelect: () => toggle.mutate(product),
+            },
+          ]}
+        />
         <Button onClick={() => setAdding(true)}>Add product</Button>
       </div>
-      <div className="mb-5 grid gap-3 sm:grid-cols-[1fr_180px_200px]">
-        <div className="relative">
-          <Search
-            size={17}
-            aria-hidden="true"
-            className="absolute left-3 top-3 text-slate-400"
-          />
-          <input
-            aria-label="Search products"
-            placeholder="Search by name or code..."
-            maxLength={100}
-            style={{ paddingLeft: 38 }}
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-          />
-        </div>
-        <select
-          aria-label="Filter by status"
-          value={status}
-          onChange={(event) => {
-            setStatus(event.target.value);
-            setPage(1);
-          }}
-        >
-          <option value="all">All statuses</option>
-          <option value="ACTIVE">Active</option>
-          <option value="INACTIVE">Inactive</option>
-        </select>
-        <select
-          aria-label="Filter by group"
-          value={group}
-          onChange={(event) => {
-            setGroup(event.target.value);
-            setPage(1);
-          }}
-        >
-          <option value="all">All groups</option>
-          {LISTING_PRODUCT_GROUPS.map((value) => (
-            <option key={value} value={value}>
-              {groupLabel(value)}
-            </option>
-          ))}
-        </select>
-      </div>
-      {toggle.error && (
-        <p role="alert" className="field-error mb-3">
-          {toggle.error.message}
-        </p>
-      )}
-      {query.isPending ? (
-        <Skeleton className="h-56" />
-      ) : query.error ? (
-        <ErrorState error={query.error} retry={() => void query.refetch()} />
-      ) : !rows.length ? (
-        <EmptyState
-          title="No products found"
-          description="Try a different name, status or group."
-        />
-      ) : (
-        <>
-          <div className="overflow-x-auto">
-            <table
-              className="w-full min-w-[820px] text-left text-sm"
-              aria-label="Product catalogue"
-            >
-              <thead>
-                <tr className="border-b border-slate-300 text-xs font-semibold uppercase text-slate-500">
-                  <th scope="col" className="px-3 py-3">Product</th>
-                  <th scope="col" className="px-3 py-3">Marathi / Hindi</th>
-                  <th scope="col" className="px-3 py-3">Group</th>
-                  <th scope="col" className="px-3 py-3">Unit</th>
-                  <th scope="col" className="px-3 py-3">Live listings</th>
-                  <th scope="col" className="px-3 py-3">Status</th>
-                  <th scope="col" className="px-3 py-3">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((product) => (
-                  <tr
-                    key={product.id}
-                    className="border-b border-slate-200 hover:bg-slate-50"
-                  >
-                    <td className="px-3 py-3">
-                      <div className="font-medium">{product.nameEn}</div>
-                      <div className="text-xs text-slate-500">
-                        {product.code}
-                      </div>
-                    </td>
-                    <td className="px-3 py-3">
-                      <div lang="mr">{product.nameMr}</div>
-                      <div lang="hi" className="text-xs text-slate-500">
-                        {product.nameHi || "—"}
-                      </div>
-                    </td>
-                    <td className="px-3 py-3">
-                      {groupLabel(product.productGroup)}
-                    </td>
-                    <td className="px-3 py-3">{product.defaultUnit}</td>
-                    <td className="px-3 py-3">
-                      {product.activeListings.toLocaleString("en-IN")}
-                    </td>
-                    <td className="px-3 py-3">
-                      <span
-                        className={`rounded-full px-2.5 py-1 text-xs font-semibold ${product.status === "ACTIVE" ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-600"}`}
-                      >
-                        {product.status === "ACTIVE" ? "Active" : "Inactive"}
-                      </span>
-                    </td>
-                    <td className="px-3 py-3">
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setEditing(product)}
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          disabled={
-                            toggle.isPending &&
-                            toggle.variables?.id === product.id
-                          }
-                          onClick={() => toggle.mutate(product)}
-                        >
-                          {product.status === "ACTIVE"
-                            ? "Deactivate"
-                            : "Activate"}
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+    );
+  }
+
+  return (
+    <div className="space-y-5">
+      <ListPageToolbar
+        leading={
+          <div
+            role="tablist"
+            aria-label="Filter by status"
+            className="flex flex-wrap gap-1 rounded-lg bg-slate-100 p-1"
+          >
+            {STATUS_TABS.map((tab) => {
+              const active = status === tab.key;
+              const count =
+                tab.key === "ACTIVE"
+                  ? query.data?.summary.active
+                  : query.data?.summary.inactive;
+              return (
+                <button
+                  key={tab.key}
+                  role="tab"
+                  type="button"
+                  aria-selected={active}
+                  className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B9520A] ${
+                    active
+                      ? "bg-[#B9520A] text-white shadow-sm"
+                      : "text-slate-500 hover:text-slate-800"
+                  }`}
+                  onClick={() => {
+                    setStatus(tab.key);
+                    setPage(1);
+                  }}
+                >
+                  {tab.label}{" "}
+                  <span className={active ? "text-white/80" : "text-slate-400"}>
+                    {count === undefined ? "–" : count.toLocaleString("en-IN")}
+                  </span>
+                </button>
+              );
+            })}
           </div>
-          {pages > 1 && (
-            <div className="mt-5 flex items-center justify-end gap-3 text-xs text-slate-500">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage <= 1 || query.isFetching}
-                onClick={() => setPage(currentPage - 1)}
-              >
-                Previous
-              </Button>
-              <span>
-                Page {currentPage} of {pages}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage >= pages || query.isFetching}
-                onClick={() => setPage(currentPage + 1)}
-              >
-                Next
-              </Button>
-            </div>
-          )}
-        </>
-      )}
+        }
+        search={
+          <SearchField
+            inputRef={searchRef}
+            label="Search products"
+            placeholder="Search by name or code…"
+            value={search}
+            onChange={setSearch}
+          />
+        }
+        actions={
+          <div className="w-full sm:w-52">
+            <select
+              aria-label="Filter by group"
+              value={group}
+              onChange={(event) => {
+                setGroup(event.target.value);
+                setPage(1);
+              }}
+            >
+              <option value="all">All groups</option>
+              {LISTING_PRODUCT_GROUPS.map((value) => (
+                <option key={value} value={value}>
+                  {groupLabel(value)}
+                </option>
+              ))}
+            </select>
+          </div>
+        }
+      />
+      <ListCard
+        filters={
+          <ListFilterBar items={filterChips} onClearAll={clearFilters} />
+        }
+        footer={
+          <ListPagination
+            page={query.data?.page ?? page}
+            pageSize={query.data?.limit ?? pageSize}
+            pageSizeOptions={[10, 20, 50]}
+            total={query.data?.total ?? 0}
+            disabled={query.isFetching}
+            label="Product catalogue pagination"
+            onPageChange={setPage}
+            onPageSizeChange={(next) => {
+              setPageSize(next);
+              setPage(1);
+            }}
+          />
+        }
+      >
+        {toggle.error && (
+          <p role="alert" className="field-error px-4 pt-3">
+            {toggle.error.message}
+          </p>
+        )}
+        {query.error ? (
+          <ErrorState error={query.error} retry={() => void query.refetch()} />
+        ) : query.isPending ? (
+          <ListSkeleton rows={Math.min(pageSize, 8)} />
+        ) : !rows.length ? (
+          <EmptyState
+            title={
+              hasFilters
+                ? "No products match these filters"
+                : "No products found"
+            }
+            description={
+              hasFilters
+                ? "Try a different name, status or group, or clear the filters."
+                : "Products sellers can pick when they add a listing."
+            }
+            action={
+              hasFilters ? (
+                <Button variant="outline" size="sm" onClick={clearFilters}>
+                  Clear filters
+                </Button>
+              ) : undefined
+            }
+          />
+        ) : (
+          <DataTable
+            table={table}
+            caption="Product catalogue with names, groups, units, active listings and status"
+            mobileRow={renderProductRow}
+          />
+        )}
+      </ListCard>
       {editing && (
         <ProductForm product={editing} onClose={() => setEditing(null)} />
       )}
       {adding && <ProductForm product={null} onClose={() => setAdding(false)} />}
-    </section>
+    </div>
   );
 }
-
 // Adds a product (product = null) or edits one.
 function ProductForm({
   product,
@@ -349,15 +512,31 @@ function ProductForm({
           <fieldset disabled={save.isPending} className="space-y-4">
             <div className="field">
               <label htmlFor="product-name-en">Name (English)</label>
-              <input id="product-name-en" required maxLength={120} {...field("nameEn")} />
+              <input
+                id="product-name-en"
+                required
+                maxLength={120}
+                {...field("nameEn")}
+              />
             </div>
             <div className="field">
               <label htmlFor="product-name-mr">Name (Marathi)</label>
-              <input id="product-name-mr" lang="mr" required maxLength={120} {...field("nameMr")} />
+              <input
+                id="product-name-mr"
+                lang="mr"
+                required
+                maxLength={120}
+                {...field("nameMr")}
+              />
             </div>
             <div className="field">
               <label htmlFor="product-name-hi">Name (Hindi)</label>
-              <input id="product-name-hi" lang="hi" maxLength={120} {...field("nameHi")} />
+              <input
+                id="product-name-hi"
+                lang="hi"
+                maxLength={120}
+                {...field("nameHi")}
+              />
             </div>
             <div className="field">
               <label htmlFor="product-group">Group</label>
@@ -377,7 +556,12 @@ function ProductForm({
             </div>
             <div className="field">
               <label htmlFor="product-unit">Default unit</label>
-              <input id="product-unit" required maxLength={30} {...field("defaultUnit")} />
+              <input
+                id="product-unit"
+                required
+                maxLength={30}
+                {...field("defaultUnit")}
+              />
             </div>
             <div className="field">
               <label htmlFor="product-status">Status</label>

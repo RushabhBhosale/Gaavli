@@ -11,6 +11,7 @@ type ListPaginationProps = {
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
   label?: string;
+  pageSizeOptions?: readonly number[];
 };
 
 function visiblePages(page: number, pages: number) {
@@ -27,6 +28,7 @@ export function ListPagination({
   onPageChange,
   onPageSizeChange,
   label = "Pagination",
+  pageSizeOptions = PAGE_SIZE_OPTIONS,
 }: ListPaginationProps) {
   const pages = Math.max(1, Math.ceil(total / pageSize));
   const current = Math.min(Math.max(1, page), pages);
@@ -45,7 +47,7 @@ export function ListPagination({
             style={{ minHeight: 0, height: "2rem", padding: "0 0.4rem" }}
             onChange={(event) => onPageSizeChange(Number(event.target.value))}
           >
-            {PAGE_SIZE_OPTIONS.map((option) => (
+            {pageSizeOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
