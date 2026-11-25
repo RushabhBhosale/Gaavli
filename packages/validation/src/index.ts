@@ -98,12 +98,27 @@ export {
   coordinatorMutationSchema,
 } from "./coordinator";
 import {
-  LISTING_TAG_IDS,
+  LISTING_TAG_ID_PATTERN,
   MAX_LISTING_TAGS,
   MOBILE_LANGUAGES,
 } from "@gaavli/constants";
 
-export const listingTagsSchema = z.array(z.enum(LISTING_TAG_IDS));
+// Tag ids are admin-defined; the server checks them against the live list.
+export const listingTagIdSchema = z.string().regex(LISTING_TAG_ID_PATTERN);
+export const listingTagsSchema = z.array(listingTagIdSchema);
+export const listingTagDefinitionSchema = z
+  .object({
+    id: listingTagIdSchema,
+    en: z.string(),
+    mr: z.string(),
+    hi: z.string(),
+    groups: z.array(z.string()),
+    productIds: z.array(z.string()),
+  })
+  .strict();
+export const listingTagCatalogueSchema = z
+  .object({ tags: z.array(listingTagDefinitionSchema) })
+  .strict();
 export const mobileLanguageSchema = z.enum(MOBILE_LANGUAGES);
 export const pushDeviceInputSchema = z
   .object({

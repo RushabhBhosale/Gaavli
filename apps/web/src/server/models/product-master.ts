@@ -29,10 +29,13 @@ const schema = new Schema(
       default: "ACTIVE",
     },
     sortOrder: { type: Number, required: true, min: 0 },
+    // Listing tag ids an admin offers for this product on top of its group's.
+    tagIds: { type: [String], default: undefined },
   },
   { timestamps: true, collection: "productMasters" },
 );
 schema.index({ status: 1, sortOrder: 1, code: 1 });
+schema.index({ tagIds: 1 }, { sparse: true });
 export const ProductMaster =
   (mongoose.models.ProductMaster as mongoose.Model<
     InferSchemaType<typeof schema>

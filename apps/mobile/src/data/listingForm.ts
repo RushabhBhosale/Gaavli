@@ -278,6 +278,9 @@ export function selectMasterProduct(
   form: ListingForm,
   product: MasterProduct,
   language: MobileLanguage,
+  // Tags the product offers (group plus product-specific ones). Defaults to
+  // the built-in tags for its group.
+  allowedTags: readonly string[] = listingTagsForGroup(product.productGroup),
 ): ListingForm {
   return {
     ...form,
@@ -293,8 +296,6 @@ export function selectMasterProduct(
     group: product.productGroup,
     unit: product.defaultUnit,
     // Keep only the tags the new product's group still offers.
-    tags: form.tags.filter((tag) =>
-      listingTagsForGroup(product.productGroup).includes(tag),
-    ),
+    tags: form.tags.filter((tag) => allowedTags.includes(tag)),
   };
 }
