@@ -14,6 +14,7 @@ import { NotificationSync } from "./notifications";
 import { PushNotificationSync } from "./pushNotifications";
 import { persistQueryCache, restoreQueryCache } from "./storage/queryCache";
 import { queryCacheStorage } from "./storage/sqlite";
+import { prefetchVillages } from "./villageQuery";
 
 export function AppProviders({ children }: { children: ReactNode }) {
   const [client] = useState(
@@ -48,6 +49,8 @@ export function AppProviders({ children }: { children: ReactNode }) {
         if (!active) return;
         stop = persistQueryCache(client, queryCacheStorage);
         setRestored(true);
+        // Warm the village list so the first picker opens instantly.
+        void prefetchVillages(client);
       });
     return () => {
       active = false;
