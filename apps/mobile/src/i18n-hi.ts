@@ -453,6 +453,7 @@ export const hi: Messages = {
   voiceListeningShort: "सुन रहा है…",
   voiceProcessingShort: "रुकें…",
   voiceListening: "सुन रहे हैं… उत्पाद का नाम बोलें।",
+  voiceListeningVillage: "सुन रहे हैं… गाँव का नाम बोलें।",
   voiceRequesting: "आगे बढ़ने के लिए माइक्रोफ़ोन और वाणी पहचान की अनुमति दें।",
   voiceProcessing: "आवाज़ पहचानी जा रही है…",
   voiceCancel: "आवाज़ खोज रद्द करें",

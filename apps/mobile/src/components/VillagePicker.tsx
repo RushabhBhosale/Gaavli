@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -17,6 +17,70 @@ import { messages } from "../i18n";
 import { errorMessage } from "../errors";
 import { theme } from "../theme";
 import { Button, ErrorMessage, LoadingState, styles } from "./ui";
+import { useVoiceSearch } from "../hooks/useVoiceSearch";
+import {
+  VoiceMicButton,
+  voiceErrorText,
+  voiceStatusText,
+} from "./VoiceMicButton";
+
+// Say a village name instead of typing it. The words go into the search box.
+function VillageVoice({
+  open,
+  onText,
+  children,
+}: {
+  open: boolean;
+  onText: (text: string) => void;
+  children: (onManualText: (text: string) => void) => ReactNode;
+}) {
+  const language = useAppStore((state) => state.language);
+  const t = messages(language);
+  const voice = useVoiceSearch({
+    language,
+    scope: "village-select",
+    hints: [],
+    onResult: (transcript) => {
+      const text = transcript.trim().slice(0, 100);
+      if (text) onText(text);
+    },
+  });
+  const cancelVoice = useRef(voice.cancel);
+  useEffect(() => {
+    cancelVoice.current = voice.cancel;
+  }, [voice.cancel]);
+  useEffect(() => {
+    if (!open) cancelVoice.current();
+  }, [open]);
+  function onManualText(text: string) {
+    if (voice.status !== "idle") voice.cancel();
+    voice.clearError();
+    onText(text);
+  }
+  const note =
+    voice.status === "listening"
+      ? t.voiceListeningVillage
+      : voiceStatusText(t, voice.status) ?? voiceErrorText(t, voice.error);
+  return (
+    <View style={s.voice}>
+      <View style={s.searchRow}>
+        {children(onManualText)}
+        <VoiceMicButton
+          status={voice.status}
+          onStart={voice.start}
+          onFinish={voice.finish}
+          onCancel={voice.cancel}
+          t={t}
+        />
+      </View>
+      {!!note && (
+        <Text accessibilityLiveRegion="polite" style={s.voiceNote}>
+          {note}
+        </Text>
+      )}
+    </View>
+  );
+}
 
 export function useVillageSearch() {
   const [search, setSearch] = useState("");
@@ -141,19 +205,23 @@ export function VillagePicker({
               </Text>
             </Pressable>
           </View>
-          <TextInput
-            accessibilityLabel={t.searchVillage}
-            placeholder={t.searchVillage}
-            placeholderTextColor={theme.colors.placeholder}
-            value={search}
-            editable={!saving}
-            onChangeText={onSearch}
-            autoCorrect={false}
-            autoCapitalize="none"
-            returnKeyType="search"
-            maxLength={100}
-            style={styles.input}
-          />
+          <VillageVoice open={open} onText={onSearch}>
+            {(onManualText) => (
+              <TextInput
+                accessibilityLabel={t.searchVillage}
+                placeholder={t.searchVillage}
+                placeholderTextColor={theme.colors.placeholder}
+                value={search}
+                editable={!saving}
+                onChangeText={onManualText}
+                autoCorrect={false}
+                autoCapitalize="none"
+                returnKeyType="search"
+                maxLength={100}
+                style={[styles.input, s.searchInput]}
+              />
+            )}
+          </VillageVoice>
           {hint && <Text style={s.hint}>{hint}</Text>}
           {locationError && <ErrorMessage message={locationError} />}
           {selectionError && <ErrorMessage message={selectionError} />}
@@ -199,9 +267,7 @@ export function VillagePicker({
                   <View style={s.copy}>
                     <Text style={s.name}>{villageName(item)}</Text>
                     <Text style={s.detail}>
-                      {[item.taluka, item.district]
-                        .filter(Boolean)
-                        .join(" · ")}
+                      {[item.taluka, item.district].filter(Boolean).join(" · ")}
                     </Text>
                   </View>
                   {selected?.id === item.id && (
@@ -232,6 +298,10 @@ export function VillagePicker({
 }
 
 const s = StyleSheet.create({
+  searchRow: { flexDirection: "row", alignItems: "center", gap: 8 },
+  searchInput: { flex: 1, minWidth: 0 },
+  voice: { gap: 4 },
+  voiceNote: { ...theme.type.caption, color: theme.colors.saffronText },
   overlay: {
     flex: 1,
     backgroundColor: theme.colors.overlay,

@@ -1,8 +1,9 @@
-# Marketplace voice search
+# Mobile voice search
 
-Marketplace uses `expo-speech-recognition` 57.x with Expo SDK 57. The native
-module wraps the device's Android/iOS speech service. No paid AI API, new search
-endpoint, account role change or audio upload endpoint is introduced.
+Marketplace and the Village Selection picker use `expo-speech-recognition`
+57.x with Expo SDK 57. The native module wraps the device's Android/iOS speech
+service. No paid AI API, new search endpoint, account role change or audio
+upload endpoint is introduced.
 Native API and plugin setup follow the
 [package's installation and API documentation](https://github.com/jamsch/expo-speech-recognition).
 
@@ -14,6 +15,13 @@ transcript. While active, the search bar shows a stop icon and a localized
 listening/progress row with cancel. Interim results never issue listing queries.
 Manual typing or explicit text search cancels recognition. Existing manual
 debounce, search styles, empty/error states and village filtering remain.
+
+The Village Selection picker exposes the same microphone beside its village
+search input. A final transcript populates the existing village query, so the
+normal debounced, paginated village endpoint and location fallback remain the
+source of truth. The picker cancels recognition when it closes or when the user
+resumes typing; it does not persist audio or select a village without the usual
+result-row tap.
 
 The existing active Product Master endpoint and validated SQLite reference cache
 provide Marathi/English names and contextual hints. A small fallback covers

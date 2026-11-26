@@ -459,6 +459,7 @@ const en = {
   voiceListeningShort: "Listening…",
   voiceProcessingShort: "Wait…",
   voiceListening: "Listening… Say a product name.",
+  voiceListeningVillage: "Listening… Say a village name.",
   voiceRequesting:
     "Allow microphone and speech recognition access to continue.",
   voiceProcessing: "Recognizing speech…",
@@ -1313,6 +1314,7 @@ const mr: Messages = {
   voiceListeningShort: "ऐकत आहे…",
   voiceProcessingShort: "थांबा…",
   voiceListening: "ऐकत आहे… उत्पादनाचे नाव सांगा.",
+  voiceListeningVillage: "ऐकत आहे… गावाचे नाव सांगा.",
   voiceRequesting:
     "पुढे जाण्यासाठी मायक्रोफोन आणि आवाज ओळखण्याची परवानगी द्या.",
   voiceProcessing: "आवाज ओळखत आहे…",
