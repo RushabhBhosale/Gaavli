@@ -1,39 +1,102 @@
 import { redirect } from "next/navigation";
+import Image from "next/image";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import type { Metadata } from "next";
 import { currentAdmin } from "@/server/auth/session";
 import { LoginForm } from "@/features/auth/login-form";
-import { Brand } from "@/components/shared/brand";
+import { BRAND_TAGLINE_MR } from "@/components/shared/brand";
+import "./login.css";
+
+// The sign-in page borrows the public landing typography so the portal feels
+// like the same product. Only this route loads the display face.
+const display = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["600", "700"],
+});
+const body = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-body" });
+
+export const metadata: Metadata = {
+  title: "Admin sign in · Gaavli",
+  description: "Sign in to the Gaavli administration portal.",
+};
+
 export const dynamic = "force-dynamic";
+
 export default async function LoginPage() {
   if (await currentAdmin()) redirect("/admin");
   return (
-    <main className="flex min-h-dvh items-center justify-center p-4 sm:p-8">
-      <div className="card grid min-h-[620px] w-full max-w-5xl overflow-hidden md:grid-cols-[.9fr_1.1fr]">
-        <section className="relative isolate hidden overflow-hidden md:block">
-          <div aria-hidden="true" className="rural-scene">
-            <div className="hill back" />
-            <div className="hill" />
-            <div className="tree" style={{ left: "12%" }} />
-            <div className="tree" style={{ right: "8%", bottom: "26%" }} />
-            <div className="house" />
-            <div className="hill front" />
-            <div className="fields" />
-          </div>
-          <div className="relative z-10 px-8 pt-16">
-            <Brand large />
-            <p className="mx-auto mt-7 max-w-52 text-center text-xl font-semibold leading-snug text-emerald-950">
-              Manage Today
-              <br />
-              for a Stronger
-              <br />
-              Rural Tomorrow.
+    <main className={`auth ${display.variable} ${body.variable}`}>
+      <div className="auth-shell">
+        <aside className="auth-brand" aria-label="Gaavli admin portal">
+          <Image
+            className="auth-brand-art"
+            src="/landing-farm.webp"
+            alt=""
+            fill
+            sizes="(max-width: 900px) 100vw, 560px"
+            priority
+          />
+          <div className="auth-brand-veil" aria-hidden="true" />
+          <div className="auth-brand-content">
+            <div className="auth-logo">
+              <Image
+                src="/gaavli-logo.png"
+                alt=""
+                width={44}
+                height={44}
+                priority
+              />
+              <span>
+                Gaavli
+                <small>Admin portal</small>
+              </span>
+            </div>
+
+            <div>
+              <p className="auth-eyebrow">Connecting dots, connecting people</p>
+              <h1>
+                Manage today for a <em>stronger rural tomorrow.</em>
+              </h1>
+              <p className="auth-brand-lede">
+                One place for villages, sellers, services and the people who
+                keep them connected.
+              </p>
+              <ul className="auth-points">
+                <li>Village-first directory with mapped nearby villages</li>
+                <li>Verified coordinators, listings and provider records</li>
+                <li>Marathi, Hindi and English, held consistently</li>
+              </ul>
+            </div>
+
+            <p className="auth-brand-foot">
+              <span className="auth-dot" aria-hidden="true" />
+              <span lang="mr">{BRAND_TAGLINE_MR}</span>
             </p>
           </div>
-        </section>
-        <section className="flex flex-col items-center justify-center gap-6 bg-gradient-to-br from-white to-slate-50 p-5 sm:p-12">
-          <div className="md:hidden">
-            <Brand large />
+        </aside>
+
+        <section className="auth-form">
+          <div className="auth-form-inner">
+            <div className="auth-mobile-brand">
+              <Image
+                src="/gaavli-logo.png"
+                alt=""
+                width={36}
+                height={36}
+                priority
+              />
+              <span>
+                Gaavli
+                <small>Admin portal</small>
+              </span>
+            </div>
+            <LoginForm />
+            <p className="auth-foot">
+              Authorised access only. Admin actions are recorded in the audit
+              log.
+            </p>
           </div>
-          <LoginForm />
         </section>
       </div>
     </main>

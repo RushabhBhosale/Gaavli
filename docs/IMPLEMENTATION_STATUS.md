@@ -1,3 +1,18 @@
+## 2026-11-23 - Admin sign-in visual refresh
+
+- Reworked `/login` to match the public landing design language: cream ground,
+  a steel brand panel with saffron glow and farm imagery, Fraunces display type
+  with Plus Jakarta Sans body, a saffron pill sign-in action and the shared
+  field/error patterns. Email-or-mobile and password sign-in, remember me,
+  forgot-password link, show-password toggle and the link back to the public
+  site are unchanged.
+- Removed the disabled "Sign in with OTP — Coming soon" placeholder so the form
+  has no dead controls; OTP sign-in remains unimplemented.
+- Responsive: two-column shell on desktop, compact brand lockup and a full-width
+  form below 900px. Web typecheck and targeted ESLint passed; rendered layout,
+  fonts, colours and console were checked in the dev browser. Screenshot capture
+  was unavailable because the desktop window was not visible.
+
 ## 2026-11-20 - Admin provider type option management
 
 - Added Provider Type Management before Master Management in the Service
