@@ -2,6 +2,7 @@ import "server-only";
 import type { ClientSession } from "mongoose";
 import { Village } from "../models";
 import { VillageConnection } from "../models/coordinator";
+import { UserVillageMapping } from "../models/user-village-mapping";
 
 export const DEFAULT_DISCOVERY_RADIUS_KM = 50;
 const EARTH_RADIUS_KM = 6378.1;
@@ -38,6 +39,8 @@ export async function discoveryVillageIds(
   villageId: string,
   session: ClientSession | null = null,
   radiusKm: number = DEFAULT_DISCOVERY_RADIUS_KM,
+  // Villages this person added for themselves count for them alone.
+  viewerId: string | null = null,
 ) {
   if (
     !(await Village.exists({ _id: villageId, isActive: true }).session(session))
@@ -49,8 +52,17 @@ export async function discoveryVillageIds(
   })
     .session(session)
     .lean();
+  const personal = viewerId
+    ? await UserVillageMapping.find({
+        userId: viewerId,
+        sourceVillageId: villageId,
+      })
+        .session(session)
+        .lean()
+    : [];
   const ids = [
     villageId,
+    ...personal.map((row) => row.targetVillageId),
     ...rows.map((row) =>
       String(row.sourceVillageId) === villageId
         ? row.targetVillageId

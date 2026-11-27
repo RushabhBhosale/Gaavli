@@ -20,6 +20,7 @@ const PERSISTED_QUERIES = new Set([
   "browse-villages",
   "guest-villages",
   "listing-categories",
+  "listing-tags",
 ]);
 // Searched variants are throwaway; only the plain, unsearched lists are worth
 // keeping for the next start.

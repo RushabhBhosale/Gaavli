@@ -158,6 +158,32 @@
 - Category chips and list cards are Home quick-action size (48pt); rickshaw
   and tractor tiles use MaterialCommunityIcons glyphs.
 
+## 2026-11-25 - Admin-managed product tags and Add product (user requested)
+
+- Listing tags ("Organic", "Desi", ...) are no longer fixed in code. A new
+  `listingTags` collection (model `ListingTag`) holds each tag's permanent id,
+  English/Marathi/Hindi names, the product groups that offer it, status and
+  order. It is seeded from `LISTING_TAGS` / `LISTING_TAGS_BY_GROUP` in
+  `packages/constants` the first time it is read, so existing listings keep
+  working. Those constants stay as the offline/first-run fallback.
+- Admin: new Product Tags page (`/listing-tags`, API `/api/v1/admin/listing-tags`)
+  to add tags, rename them in each language, choose product groups and switch
+  them off. Product Catalogue gained Add product (`POST
+  /api/v1/admin/product-catalogue`; the code is made from the English name,
+  the product is indexed for seller search) and per-product extra tags
+  (`ProductMaster.tagIds`, added to the group's tags for that product only).
+  All changes are audit-logged.
+- Mobile reads the live list from `GET /api/v1/listing-tags` (public, cached
+  1-5 minutes, persisted in the offline query cache) in the listing form and
+  product details. Listings still store only the tag id.
+- Behaviour changes: the Listing model no longer limits `tags` to a fixed enum;
+  create/update reject tag ids that are not active in the live list (a listing
+  keeps tags it already has). The shared `listingTagsSchema` now checks id
+  format only. The built-in per-group display order is now the tag order, not a
+  per-group order. A switched-off tag still shows on listings that carry it.
+- Not verified: dependencies are not installed in this checkout, so no
+  typecheck, lint or tests were run for this change.
+
 ## 2026-11-18 - Services categories, optional product fields, product catalogue (user approved)
 
 - Services: the 15 categories (Shops & Businesses ... Political & Public

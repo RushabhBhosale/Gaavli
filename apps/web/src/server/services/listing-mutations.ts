@@ -26,6 +26,7 @@ import {
 import { AppError } from "../utils/errors";
 import { similarProductName } from "./listing-policy";
 import { masterListingFields } from "./product-master";
+import { assertListingTagsAllowed } from "./listing-tags";
 type ActiveUser = ActiveListingUser;
 
 async function lockVillage(
@@ -210,6 +211,7 @@ export function createOwnedListing(
     "POST /listings",
     input,
     async (session, user) => {
+      await assertListingTagsAllowed(input.tags);
       const selected = input.productId
         ? {
             ...input,
@@ -281,6 +283,7 @@ export function updateOwnedListing(
     async (session, user) => {
       const row = await ownedListing(userId, id, session);
       versionMatches(row, input.version);
+      await assertListingTagsAllowed(input.tags, row.tags ?? []);
       const selectedId =
         input.productId ||
         (row.productId &&

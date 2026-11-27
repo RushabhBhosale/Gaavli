@@ -39,7 +39,8 @@ import { useListingClock } from "../hooks/useListingClock";
 import { ApiError } from "../api/client";
 import { listingName } from "../types/home";
 import { theme } from "../theme";
-import { listingTagLabel } from "@gaavli/constants";
+import { liveTagLabel } from "@gaavli/constants";
+import { useListingTags } from "../hooks/useListingTags";
 import { Button, ErrorMessage, Input, SkeletonList } from "../components/ui";
 import { Badge, d } from "../components/dashboard/primitives";
 import { ProductPrice } from "../components/dashboard/ProductPrice";
@@ -67,6 +68,7 @@ function ProductDetailsContent({ id }: { id: string }) {
   const insets = useSafeAreaInsets();
   const client = useQueryClient();
   const { language, offline, session } = useAppStore();
+  const tagDefinitions = useListingTags();
   const mounted = useRef(true);
   const submitting = useRef(false);
   const [contactBusy, setContactBusy] = useState(false);
@@ -478,7 +480,7 @@ function ProductDetailsContent({ id }: { id: string }) {
                   {!!listing.tags?.length && (
                     <View style={s.tags}>
                       {listing.tags.map((tag) => {
-                        const label = listingTagLabel(tag, language);
+                        const label = liveTagLabel(tagDefinitions, tag, language);
                         return label ? (
                           <View key={tag} style={s.tag}>
                             <Ionicons

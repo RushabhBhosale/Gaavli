@@ -116,7 +116,9 @@ export default function GlobalSearchScreen() {
     !groupRows.length &&
     !serviceRows.length &&
     !transportRows.length;
-  const open = (route: "/marketplace" | "/services" | "/transport") =>
+  const open = (
+    route: "/marketplace" | "/search-services" | "/search-transport",
+  ) =>
     router.navigate({
       pathname: route,
       params: { q: search, v: String(Date.now()) },
@@ -186,7 +188,7 @@ export default function GlobalSearchScreen() {
             total={haveTotal}
             rows={haveRows}
             meta={formatMessage(t.shopHas, { product: productLabel })}
-            onAll={() => open("/services")}
+            onAll={() => open("/search-services")}
           />
         )}
         {!!search && !!groupRows.length && !!groupLabel && (
@@ -199,7 +201,7 @@ export default function GlobalSearchScreen() {
             meta={formatMessage(t.shopSells, { group: groupLabel })}
             onAll={() =>
               router.navigate({
-                pathname: "/services",
+                pathname: "/search-services",
                 params: { q: groupLabel, v: String(Date.now()) },
               })
             }
@@ -211,7 +213,7 @@ export default function GlobalSearchScreen() {
             icon="build-outline"
             total={serviceTotal}
             rows={serviceRows}
-            onAll={() => open("/services")}
+            onAll={() => open("/search-services")}
           />
         )}
         {!!search && !!transportRows.length && (
@@ -220,7 +222,7 @@ export default function GlobalSearchScreen() {
             icon="car-outline"
             total={transportTotal}
             rows={transportRows}
-            onAll={() => open("/transport")}
+            onAll={() => open("/search-transport")}
           />
         )}
       </Screen>

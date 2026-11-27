@@ -375,7 +375,7 @@ export function scopedSearchRoute(
       params: { q, v: String(Date.now()) },
     };
   return {
-    pathname: `/${scope}` as "/services" | "/transport",
+    pathname: `/search-${scope}` as "/search-services" | "/search-transport",
     params: { q, v: String(Date.now()) },
   };
 }

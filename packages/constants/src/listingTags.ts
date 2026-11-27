@@ -3,6 +3,11 @@ import type { MobileLanguage } from "@gaavli/types";
 // Short quality tags a seller can add to a listing ("Organic", "Desi", ...).
 // Listings store only the id; both apps show the label in the reader's
 // language. Ids are permanent: rename a label, never an id.
+//
+// These are the built-in defaults. Admins manage the live list (labels, which
+// product groups or products offer each tag, new tags) from the admin app;
+// the server seeds its collection from this list and the mobile app falls
+// back to it when it has not yet downloaded the live list.
 export const LISTING_TAGS = [
   { id: "organic", en: "Organic", mr: "सेंद्रिय", hi: "जैविक" },
   { id: "natural", en: "Natural", mr: "नैसर्गिक", hi: "प्राकृतिक" },
@@ -113,11 +118,27 @@ export const LISTING_TAGS = [
   { id: "bulk", en: "Bulk available", mr: "घाऊक मिळेल", hi: "थोक में उपलब्ध" },
 ] as const;
 
-export type ListingTag = (typeof LISTING_TAGS)[number]["id"];
+// Tag ids are admin-defined now, so any well-formed id is a ListingTag.
+export type ListingTag = string;
+export const LISTING_TAG_ID_PATTERN = /^[a-z][a-z0-9_]{1,39}$/;
 export const LISTING_TAG_IDS = LISTING_TAGS.map((tag) => tag.id) as [
   ListingTag,
   ...ListingTag[],
 ];
+
+export type ListingTagDefinition = {
+  id: string;
+  en: string;
+  mr: string;
+  hi: string;
+  // Product groups that offer the tag (see LISTING_TAGS_BY_GROUP).
+  groups: string[];
+  // Product Master ids that offer it in addition to their group's tags.
+  productIds: string[];
+};
+// What GET /api/v1/listing-tags returns.
+export type ListingTagCatalogue = { tags: ListingTagDefinition[] };
+
 export const MAX_LISTING_TAGS = 5;
 
 // The tags offered for each product group, most useful first. A tag shows
@@ -244,4 +265,44 @@ export function listingTagsForGroup(group: string | null | undefined) {
 export function listingTagLabel(id: string, language: MobileLanguage) {
   const tag = LISTING_TAGS.find((item) => item.id === id);
   return tag ? tag[language] : null;
+}
+
+// Built-in tags in the live shape, so offline and first-run behave exactly
+// like the server's seeded list.
+export const DEFAULT_LISTING_TAG_DEFINITIONS: ListingTagDefinition[] =
+  LISTING_TAGS.map((tag) => ({
+    id: tag.id,
+    en: tag.en,
+    mr: tag.mr,
+    hi: tag.hi,
+    groups: Object.entries(LISTING_TAGS_BY_GROUP)
+      .filter(([, ids]) => ids.includes(tag.id))
+      .map(([group]) => group),
+    productIds: [],
+  }));
+
+// Tags a seller may pick for one product: those offered to its group plus
+// those an admin attached to the product itself, in the list's own order.
+export function tagsForProduct(
+  definitions: readonly ListingTagDefinition[],
+  group: string | null | undefined,
+  productId?: string | null,
+) {
+  const key = group || "other";
+  return definitions.filter(
+    (tag) =>
+      tag.groups.includes(key) ||
+      (!!productId && tag.productIds.includes(productId)),
+  );
+}
+
+// Label in the reader's language from the live list, falling back to the
+// built-in names for ids the list does not know.
+export function liveTagLabel(
+  definitions: readonly ListingTagDefinition[],
+  id: string,
+  language: MobileLanguage,
+) {
+  const tag = definitions.find((item) => item.id === id);
+  return (tag ? tag[language] || tag.en : null) || listingTagLabel(id, language);
 }

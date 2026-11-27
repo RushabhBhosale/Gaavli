@@ -234,13 +234,6 @@ export default function ProviderManageScreen() {
             maxLength={120}
             editable={!busy}
           />
-          <Input
-            label={t.provAddress}
-            value={address}
-            onChangeText={setAddress}
-            maxLength={300}
-            editable={!busy}
-          />
           <Text style={s.section}>{t.provContactsTitle}</Text>
           <ContactNumbersField
             contacts={contacts}

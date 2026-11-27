@@ -102,6 +102,7 @@ export function ProviderFields({
         .filter(
           (field) =>
             !skip.includes(field.key) &&
+            !(field.kind === "text" && field.freeText) &&
             !(
               type === ProviderTypes.SHOP_BUSINESS &&
               ["homeDelivery", "items"].includes(field.key)

@@ -21,10 +21,13 @@ import {
 } from "../src/data/listingForm";
 import {
   LISTING_PRODUCT_GROUPS,
+  DEFAULT_LISTING_TAG_DEFINITIONS,
   LISTING_TAGS,
   LISTING_TAG_IDS,
+  liveTagLabel,
   listingTagLabel,
   listingTagsForGroup,
+  tagsForProduct,
 } from "@gaavli/constants";
 import assert from "node:assert/strict";
 import type { MobileUser, MobileListing, OwnedListing } from "@gaavli/types";
@@ -1225,10 +1228,51 @@ test("tags reach the listing payload, patch only when changed and are capped", (
       ),
     ListingFormError,
   );
+  // Ids are admin-defined, so only the format is checked here; the server
+  // rejects ids that are not in the live tag list.
   assert.equal(
-    createListingSchema.safeParse({ ...body, tags: ["made_up"] }).success,
+    createListingSchema.safeParse({ ...body, tags: ["Made Up!"] }).success,
     false,
   );
+});
+
+test("admin-defined tags reach products through their group or the product itself", () => {
+  const defs = [
+    ...DEFAULT_LISTING_TAG_DEFINITIONS,
+    {
+      id: "jaggery_made",
+      en: "Jaggery-made",
+      mr: "गूळ",
+      hi: "गुड़",
+      groups: ["groceries"],
+      productIds: ["a".repeat(24)],
+    },
+  ];
+  const forGroup = tagsForProduct(defs, "groceries").map((tag) => tag.id);
+  assert.ok(forGroup.includes("jaggery_made"));
+  const forProduct = tagsForProduct(defs, "vegetables", "a".repeat(24)).map(
+    (tag) => tag.id,
+  );
+  assert.ok(forProduct.includes("jaggery_made"));
+  assert.ok(forProduct.includes("organic"));
+  assert.ok(
+    !tagsForProduct(defs, "vegetables", "b".repeat(24))
+      .map((tag) => tag.id)
+      .includes("jaggery_made"),
+  );
+  assert.equal(liveTagLabel(defs, "jaggery_made", "en"), "Jaggery-made");
+  // Unknown ids fall back to the built-in names, or nothing.
+  assert.equal(liveTagLabel([], "organic", "en"), "Organic");
+  assert.equal(liveTagLabel([], "gone", "en"), null);
+  // The built-in list offers each group exactly the tags it did before.
+  for (const group of LISTING_PRODUCT_GROUPS)
+    assert.deepEqual(
+      tagsForProduct(DEFAULT_LISTING_TAG_DEFINITIONS, group)
+        .map((tag) => tag.id)
+        .sort(),
+      [...listingTagsForGroup(group)].sort(),
+      group,
+    );
 });
 
 test("choosing a product from another group drops tags that group does not offer", () => {

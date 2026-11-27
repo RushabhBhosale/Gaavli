@@ -9,6 +9,7 @@ import {
   Tags,
   Store,
   Package,
+  BadgeCheck,
   House,
   ChartNoAxesCombined,
   Bell,
@@ -34,6 +35,7 @@ const links = [
   { name: "Users", href: "/users", icon: Users },
   { name: "Categories", href: "/categories", icon: Tags },
   { name: "Product Catalogue", href: "/product-catalogue", icon: Package },
+  { name: "Product Tags", href: "/listing-tags", icon: BadgeCheck },
   { name: "Villages", href: "/villages", icon: House },
   { name: "Listings", href: "/listings", icon: ClipboardList },
   { name: "Reports", href: "/reports", icon: ChartNoAxesCombined },
@@ -57,6 +59,10 @@ const pageMeta: Record<string, { title: string; subtitle?: string }> = {
   },
   "/categories": {
     title: "Categories & notify rules",
+  },
+  "/listing-tags": {
+    title: "Product Tags",
+    subtitle: "Organic, Desi and other tags sellers add to listings.",
   },
   "/product-catalogue": {
     title: "Product Catalogue",

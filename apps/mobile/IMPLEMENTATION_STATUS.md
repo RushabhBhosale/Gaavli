@@ -8,9 +8,11 @@ background. Product details open instantly from the list they were tapped in.
 Marketplace loads 20 listings per request (was 5), keeps the previous results
 while a new search loads, searches 200 ms after typing stops, and shows one
 compact row per product. Home tiles, hero and coordinator card are smaller.
-Voice search maps village names ("kanda", "tamatar", "dudh") to products in the
-app language, tolerates one spelling slip and sends these words to the speech
-engine as hints. The server listing search now uses the catalog search for
+Marketplace voice search maps produce names ("kanda", "tamatar", "dudh") to
+products in the app language, tolerates one spelling slip and sends these words
+to the speech engine as hints. Village Selection also accepts spoken village
+names through the same device speech control and puts the transcript into its
+existing village search. The server listing search now uses the catalog search for
 anything that is not an exact product name (apps/web `masterSearchMappings`), so
 typed "kanda" also finds onion; this needs a web deploy to reach the hosted API.
 Mobile 90 tests and web 24 tests pass. Checked in the iOS simulator with the API

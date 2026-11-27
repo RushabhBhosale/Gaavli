@@ -48,6 +48,7 @@ export async function listMobileListings(
     sourceVillageId,
     null,
     user.discoveryRadiusKm ?? DEFAULT_DISCOVERY_RADIUS_KM,
+    String(user._id),
   );
   if (query.villageId && !allowedVillageIds.includes(query.villageId))
     throw new AppError(
@@ -108,7 +109,9 @@ export async function getMobileListing(
   browsingVillageId?: string,
 ) {
   const sourceVillageId = await activeBrowsingVillage(user, browsingVillageId);
-  return publishListing(await findMobileListing(sourceVillageId, id));
+  return publishListing(
+    await findMobileListing(sourceVillageId, id, String(user._id)),
+  );
 }
 function publishListing(
   listing: Awaited<ReturnType<typeof findMobileListing>>,

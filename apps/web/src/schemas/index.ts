@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { LISTING_PRODUCT_GROUPS } from "@gaavli/constants";
+import {
+  LISTING_PRODUCT_GROUPS,
+  LISTING_TAG_ID_PATTERN,
+} from "@gaavli/constants";
 export const objectId = z.string().regex(/^[a-f\d]{24}$/i, "Invalid ID");
 export const statusSchema = z.enum(["active", "blocked", "pending"]);
 export const loginSchema = z
@@ -257,16 +260,57 @@ const productNameField = z
   .min(1, "Name is required.")
   .max(120)
   .regex(/^[^\p{Cc}\p{Cf}]+$/u, "Remove hidden characters.");
-export const adminProductUpdateSchema = z
+const productTagIds = z
+  .array(z.string().regex(LISTING_TAG_ID_PATTERN))
+  .max(20)
+  .refine((ids) => new Set(ids).size === ids.length, "Duplicate tags.");
+const productFields = {
+  nameEn: productNameField,
+  nameMr: productNameField,
+  nameHi: productNameField.nullable().optional(),
+  productGroup: z.enum(LISTING_PRODUCT_GROUPS),
+  defaultUnit: z.string().trim().min(1, "Unit is required.").max(30),
+  status: z.enum(["ACTIVE", "INACTIVE"]),
+  // Tags offered for this product in addition to its group's tags.
+  tagIds: productTagIds.optional(),
+};
+export const adminProductUpdateSchema = z.object(productFields).strict();
+// A new Product Master entry. The code is made from the English name unless
+// one is given; it can never change afterwards.
+export const adminProductCreateSchema = z
   .object({
-    nameEn: productNameField,
-    nameMr: productNameField,
-    nameHi: productNameField.nullable().optional(),
-    productGroup: z.enum(LISTING_PRODUCT_GROUPS),
-    defaultUnit: z.string().trim().min(1, "Unit is required.").max(30),
-    status: z.enum(["ACTIVE", "INACTIVE"]),
+    ...productFields,
+    code: z
+      .string()
+      .trim()
+      .toUpperCase()
+      .regex(/^[A-Z][A-Z0-9_]{1,79}$/, "Use letters, numbers and _ only.")
+      .optional(),
   })
   .strict();
+const tagLabel = z
+  .string()
+  .trim()
+  .min(1, "Name is required.")
+  .max(40, "Keep tag names short.")
+  .regex(/^[^\p{Cc}\p{Cf}]+$/u, "Remove hidden characters.");
+const tagFields = {
+  en: tagLabel,
+  mr: tagLabel,
+  hi: tagLabel,
+  groups: z
+    .array(z.enum(LISTING_PRODUCT_GROUPS))
+    .refine((groups) => new Set(groups).size === groups.length),
+  status: z.enum(["ACTIVE", "INACTIVE"]).default("ACTIVE"),
+  sortOrder: z.number().int().min(0).max(100000).optional(),
+};
+export const adminListingTagCreateSchema = z
+  .object({
+    ...tagFields,
+    id: z.string().trim().regex(LISTING_TAG_ID_PATTERN).optional(),
+  })
+  .strict();
+export const adminListingTagUpdateSchema = z.object(tagFields).strict();
 export const adminProductStatusSchema = z
   .object({ status: z.enum(["ACTIVE", "INACTIVE"]) })
   .strict();

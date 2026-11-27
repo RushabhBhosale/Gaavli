@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import type { MobileVillage } from "@gaavli/types";
-import { villagePageSchema } from "@gaavli/validation";
-import { api } from "../api";
+import { villageListOptions } from "../villageQuery";
 import { useAppStore } from "../store";
 import { messages } from "../i18n";
 import { DropdownField } from "./ui";
@@ -29,16 +28,7 @@ export function VillageField({
   const { search, setSearch, debouncedSearch, searchPending } =
     useVillageSearch();
   const query = useInfiniteQuery({
-    queryKey: ["browse-villages", debouncedSearch],
-    initialPageParam: 1,
-    queryFn: ({ pageParam, signal }) =>
-      api(
-        `/villages?page=${pageParam}&limit=20&search=${encodeURIComponent(debouncedSearch)}`,
-        villagePageSchema,
-        { signal },
-      ),
-    getNextPageParam: (last) =>
-      last.page * last.limit < last.total ? last.page + 1 : undefined,
+    ...villageListOptions(debouncedSearch),
     enabled: open && !offline,
   });
   return (

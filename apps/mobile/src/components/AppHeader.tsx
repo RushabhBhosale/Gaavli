@@ -209,7 +209,56 @@ export function HeaderSearch({
     </View>
   );
 }
+// Looks like the search box but only opens the dedicated search page, so
+// there is exactly one place to type a search.
+export function HeaderSearchButton({
+  label,
+  placeholder,
+  value,
+  onPress,
+  right,
+}: {
+  label: string;
+  placeholder: string;
+  value?: string;
+  onPress: () => void;
+  right?: ReactNode;
+}) {
+  return (
+    <View style={f.field}>
+      <Pressable
+        accessibilityRole="search"
+        accessibilityLabel={label}
+        onPress={onPress}
+        style={f.button}
+      >
+        <Ionicons
+          accessible={false}
+          name="search"
+          size={20}
+          color={theme.colors.muted}
+        />
+        <Text
+          numberOfLines={1}
+          style={[f.buttonText, !value && { color: theme.colors.placeholder }]}
+        >
+          {value || placeholder}
+        </Text>
+      </Pressable>
+      {right}
+    </View>
+  );
+}
 const f = StyleSheet.create({
+  button: {
+    flex: 1,
+    minWidth: 0,
+    minHeight: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  buttonText: { flex: 1, fontSize: 16, color: theme.colors.text },
   field: {
     minHeight: 48,
     flexDirection: "row",

@@ -29,7 +29,7 @@ import { ListPagination } from "@/components/shared/list-pagination";
 import { EmptyState, ErrorState } from "@/components/shared/states";
 import { api } from "@/lib/api";
 import { useSearchShortcut } from "@/lib/use-search-shortcut";
-import { adminProductUpdateSchema } from "@/schemas";
+import { adminProductCreateSchema, adminProductUpdateSchema } from "@/schemas";
 
 type Product = {
   id: string;
@@ -39,10 +39,12 @@ type Product = {
   nameHi: string | null;
   productGroup: string;
   defaultUnit: string;
+  tagIds: string[];
   status: "ACTIVE" | "INACTIVE";
   activeListings: number;
   updatedAt: string;
 };
+type TagOption = { id: string; en: string; status: "ACTIVE" | "INACTIVE" };
 type ProductsPage = {
   products: Product[];
   total: number;
@@ -70,6 +72,7 @@ export function ProductCatalogueManagement() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [editing, setEditing] = useState<Product | null>(null);
+  const [adding, setAdding] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
   useSearchShortcut(searchRef);
 
@@ -343,7 +346,8 @@ export function ProductCatalogueManagement() {
           />
         }
         actions={
-          <div className="w-full sm:w-52">
+          <div className="flex w-full flex-wrap items-center gap-3 sm:w-auto">
+            <div className="w-full sm:w-52">
             <select
               aria-label="Filter by group"
               value={group}
@@ -359,6 +363,8 @@ export function ProductCatalogueManagement() {
                 </option>
               ))}
             </select>
+            </div>
+            <Button onClick={() => setAdding(true)}>Add product</Button>
           </div>
         }
       />
@@ -422,33 +428,49 @@ export function ProductCatalogueManagement() {
       {editing && (
         <ProductForm product={editing} onClose={() => setEditing(null)} />
       )}
+      {adding && <ProductForm product={null} onClose={() => setAdding(false)} />}
     </div>
   );
 }
+// Adds a product (product = null) or edits one.
 function ProductForm({
   product,
   onClose,
 }: {
-  product: Product;
+  product: Product | null;
   onClose: () => void;
 }) {
   const client = useQueryClient();
   const [input, setInput] = useState({
-    nameEn: product.nameEn,
-    nameMr: product.nameMr,
-    nameHi: product.nameHi ?? "",
-    productGroup: product.productGroup,
-    defaultUnit: product.defaultUnit,
-    status: product.status,
+    nameEn: product?.nameEn ?? "",
+    nameMr: product?.nameMr ?? "",
+    nameHi: product?.nameHi ?? "",
+    productGroup: product?.productGroup ?? LISTING_PRODUCT_GROUPS[0],
+    defaultUnit: product?.defaultUnit ?? "kg",
+    status: product?.status ?? ("ACTIVE" as Product["status"]),
+    tagIds: product?.tagIds ?? [],
   });
   const [validation, setValidation] = useState("");
+  const schema = product ? adminProductUpdateSchema : adminProductCreateSchema;
+  const tags = useQuery({
+    queryKey: ["admin-listing-tags"],
+    queryFn: () => api<{ tags: TagOption[] }>("/v1/admin/listing-tags"),
+  });
+  const tagOptions = (tags.data?.tags ?? []).filter(
+    (tag) => tag.status === "ACTIVE" || input.tagIds.includes(tag.id),
+  );
   const body = () => ({ ...input, nameHi: input.nameHi.trim() || null });
   const save = useMutation({
     mutationFn: () =>
-      api(`/v1/admin/product-catalogue/${product.id}`, {
-        method: "PUT",
-        body: JSON.stringify(adminProductUpdateSchema.parse(body())),
-      }),
+      api(
+        product
+          ? `/v1/admin/product-catalogue/${product.id}`
+          : "/v1/admin/product-catalogue",
+        {
+          method: product ? "PUT" : "POST",
+          body: JSON.stringify(schema.parse(body())),
+        },
+      ),
     onSuccess: async () => {
       await client.invalidateQueries({ queryKey: ["admin-product-catalogue"] });
       onClose();
@@ -467,16 +489,19 @@ function ProductForm({
       }}
     >
       <DialogContent>
-        <DialogTitle className="text-xl font-bold">Edit product</DialogTitle>
+        <DialogTitle className="text-xl font-bold">
+          {product ? "Edit product" : "Add product"}
+        </DialogTitle>
         <DialogDescription className="mt-2 text-sm text-slate-500">
-          Code {product.code} stays unchanged. Listings already made from this
-          product keep their own names.
+          {product
+            ? `Code ${product.code} stays unchanged. Listings already made from this product keep their own names.`
+            : "The product appears in sellers' product search as soon as it is active. A code is made from the English name."}
         </DialogDescription>
         <form
           className="mt-5 space-y-4"
           onSubmit={(event) => {
             event.preventDefault();
-            const result = adminProductUpdateSchema.safeParse(body());
+            const result = schema.safeParse(body());
             setValidation(
               result.success
                 ? ""
@@ -556,6 +581,44 @@ function ProductForm({
                 <option value="INACTIVE">Inactive</option>
               </select>
             </div>
+            <div className="field">
+              <span id="product-tags-label">Extra tags</span>
+              <p className="text-xs text-slate-500">
+                Sellers always see the tags set for the group. Tick more to
+                offer them for this product only.
+              </p>
+              <div
+                role="group"
+                aria-labelledby="product-tags-label"
+                className="choice-group"
+              >
+                {tagOptions.map((tag) => {
+                  const on = input.tagIds.includes(tag.id);
+                  return (
+                    <label key={tag.id} className="choice-chip">
+                      <input
+                        type="checkbox"
+                        checked={on}
+                        onChange={() =>
+                          setInput({
+                            ...input,
+                            tagIds: on
+                              ? input.tagIds.filter((id) => id !== tag.id)
+                              : [...input.tagIds, tag.id],
+                          })
+                        }
+                      />
+                      {tag.en}
+                    </label>
+                  );
+                })}
+                {!tagOptions.length && (
+                  <span className="text-xs text-slate-500">
+                    {tags.isPending ? "Loading tags…" : "No tags yet."}
+                  </span>
+                )}
+              </div>
+            </div>
           </fieldset>
           {(validation || save.error) && (
             <p role="alert" className="field-error">
@@ -572,7 +635,7 @@ function ProductForm({
               Cancel
             </Button>
             <Button disabled={save.isPending}>
-              {save.isPending ? "Saving…" : "Save changes"}
+              {save.isPending ? "Saving…" : product ? "Save changes" : "Add product"}
             </Button>
           </div>
         </form>

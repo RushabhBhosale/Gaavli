@@ -459,6 +459,7 @@ const en = {
   voiceListeningShort: "Listening…",
   voiceProcessingShort: "Wait…",
   voiceListening: "Listening… Say a product name.",
+  voiceListeningVillage: "Listening… Say a village name.",
   voiceRequesting:
     "Allow microphone and speech recognition access to continue.",
   voiceProcessing: "Recognizing speech…",
@@ -799,6 +800,13 @@ const en = {
   mappedGroupTitle: "Mapped by your village coordinator",
   mappedGroupHelp: "You always see listings from these villages.",
   nearbyGroupHelp: "Listings from villages within {km} km also appear for you.",
+  myMappedTitle: "Villages you added",
+  myMappedHelp:
+    "Add other villages to see their products and services.",
+  myMappedAdd: "Add a village",
+  myMappedRemove: "Remove",
+  myMappedEmpty: "You have not added any villages yet.",
+  myMappedTag: "Yours",
   mappedTag: "Mapped",
   manualSearch: "Use manual search",
   noVillages: "No villages are available right now. Please try again later.",
@@ -1306,6 +1314,7 @@ const mr: Messages = {
   voiceListeningShort: "ऐकत आहे…",
   voiceProcessingShort: "थांबा…",
   voiceListening: "ऐकत आहे… उत्पादनाचे नाव सांगा.",
+  voiceListeningVillage: "ऐकत आहे… गावाचे नाव सांगा.",
   voiceRequesting:
     "पुढे जाण्यासाठी मायक्रोफोन आणि आवाज ओळखण्याची परवानगी द्या.",
   voiceProcessing: "आवाज ओळखत आहे…",
@@ -1655,6 +1664,13 @@ const mr: Messages = {
   mappedGroupTitle: "तुमच्या गाव समन्वयकाने जोडलेली गावे",
   mappedGroupHelp: "या गावांतील विक्री तुम्हाला नेहमी दिसते.",
   nearbyGroupHelp: "{km} किमी अंतरातील गावांची विक्रीही तुम्हाला दिसते.",
+  myMappedTitle: "तुम्ही जोडलेली गावे",
+  myMappedHelp:
+    "इतर गावांची उत्पादने व सेवा पाहण्यासाठी ती जोडा.",
+  myMappedAdd: "गाव जोडा",
+  myMappedRemove: "काढा",
+  myMappedEmpty: "तुम्ही अजून कोणतेही गाव जोडलेले नाही.",
+  myMappedTag: "तुमचे",
   mappedTag: "जोडलेले",
   manualSearch: "नावाने किंवा पिन कोडने शोधा",
   noVillages: "सध्या गावे उपलब्ध नाहीत. कृपया नंतर पुन्हा प्रयत्न करा.",

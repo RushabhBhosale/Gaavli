@@ -19,12 +19,13 @@ import {
 import { Redirect, useRouter, useLocalSearchParams } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useListingTags } from "../hooks/useListingTags";
 import {
   DAILY_LISTING_LIMIT,
   LISTING_ASSET_PHOTOS,
   MAX_LISTING_TAGS,
-  listingTagLabel,
-  listingTagsForGroup,
+  liveTagLabel,
+  tagsForProduct,
   type ListingTag,
 } from "@gaavli/constants";
 import {
@@ -119,6 +120,7 @@ function ListingFormScreen({
 }) {
   const router = useRouter();
   const client = useQueryClient();
+  const tagDefinitions = useListingTags();
   const { language, offline, session } = useAppStore();
   const t = messages(language);
   const [draft, setDraft] = useState<ListingDraft>(emptyListingDraft);
@@ -601,11 +603,11 @@ function ListingFormScreen({
   ];
   const unitLabel = unitNames[form.unit] || form.unit;
   // The group's own tags, plus any older tag this listing already carries.
+  const offeredTags = tagsForProduct(tagDefinitions, form.group, form.productId)
+    .map((tag) => tag.id);
   const tagChoices = [
-    ...listingTagsForGroup(form.group),
-    ...form.tags.filter(
-      (tag) => !listingTagsForGroup(form.group).includes(tag),
-    ),
+    ...offeredTags,
+    ...form.tags.filter((tag) => !offeredTags.includes(tag)),
   ];
   const tagsFull = form.tags.length >= MAX_LISTING_TAGS;
   function toggleTag(tag: ListingTag) {
@@ -834,6 +836,11 @@ function ListingFormScreen({
                     latest.current.form,
                     product,
                     language,
+                    tagsForProduct(
+                      tagDefinitions,
+                      product.productGroup,
+                      product.productId,
+                    ).map((tag) => tag.id),
                   ),
                 };
                 latest.current = next;
@@ -1020,7 +1027,7 @@ function ListingFormScreen({
                         color={on ? theme.colors.primary : theme.colors.steel}
                       />
                       <Text style={[s.choiceText, on && s.choiceTextOn]}>
-                        {listingTagLabel(tag, language)}
+                        {liveTagLabel(tagDefinitions, tag, language)}
                       </Text>
                     </Pressable>
                   );

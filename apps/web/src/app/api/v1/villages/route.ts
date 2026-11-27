@@ -10,6 +10,14 @@ export async function GET(request: Request) {
     const query = villageSearchSchema.parse(
       Object.fromEntries(new URL(request.url).searchParams),
     );
-    return ok(await searchMobileVillages(query));
+    const response = ok(await searchMobileVillages(query));
+    // The plain list is public and rarely changes; let the CDN and device
+    // serve it. Location-sorted results are per-user, so stay uncached.
+    if (query.latitude === undefined && query.longitude === undefined)
+      response.headers.set(
+        "Cache-Control",
+        "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+      );
+    return response;
   });
 }
